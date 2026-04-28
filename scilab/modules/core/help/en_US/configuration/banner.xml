@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="banner">
+    <refnamediv>
+        <refname>banner</refname>
+        <refpurpose>shows Scilab banner
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>banner()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>banner</literal> shows Scilab's banner.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+clc, banner()
+     ]]></programlisting>
+        <screen><![CDATA[
+        ___________________________________________
+                     scilab-2026.1.0
+
+                  Dassault Systèmes S.E.
+     Copyright (c) 2022-2025 (Dassault Systèmes S.E.)
+           Copyright (c) 2017-2022 (ESI Group)
+       Copyright (c) 2011-2017 (Scilab Enterprises)
+             Copyright (c) 1989-2012 (INRIA)
+              Copyright (c) 1989-2007 (ENPC)
+        ___________________________________________
+]]></screen>
+    </refsection>
+</refentry>

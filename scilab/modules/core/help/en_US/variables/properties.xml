@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ * This file is distributed under the same license as the Scilab package.
+  -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="properties">
+    <refnamediv>
+        <refname>properties</refname>
+        <refpurpose>Get accessible properties of a classdef or an object</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            properties(classdef)
+            properties(object)
+            props = properties(classdef)
+            props = properties(object)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>classdef</term>
+                <listitem>
+                    <para>
+                        Classdef from which we want to retrieve the properties
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>object</term>
+                <listitem>
+                    <para>
+                        Object from which we want to retrieve the properties
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>props</term>
+                <listitem>
+                    <para>
+                        a string matrix of accessible properties
+                        <note>
+                            If <literal>properties</literal> is called without output argument, the function only print list of properties.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <programlisting role="example">
+<![CDATA[
+classdef props
+    properties (public)
+        pub
+    end
+
+    properties (protected)
+        prot
+    end
+
+    properties (private)
+        priv
+    end
+end
+
+properties(props)
+l = properties(props)
+p = props();
+properties(p)
+l = properties(p)
+]]>
+            </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="classdef">classdef</link>
+            </member>
+            <member>
+                <link linkend="methods">methods</link>
+            </member>
+            <member>
+                <link linkend="enumeration">enumeration</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>properties</literal> introduction.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2022 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="full" xml:lang="pt">
+    <refnamediv>
+        <refname>full</refname>
+        <refpurpose>conversão de matriz esparsa para cheia (completa)</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+            X = full(sp)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>sp</term>
+                <listitem>
+                    <para>
+                        vector ou matriz densa ou esparsa de booleanos ou números reais ou complexos,
+                        ou de strings.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>matriz cheia (completa)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>X=full(sp)</literal> converte a matriz esparsa
+            <literal>sp</literal> em sua representação cheia (completa). (Se
+            <literal>sp</literal> já é cheia, então <literal>X</literal> é igual a
+            <literal>sp</literal>).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+sp = sparse([1,2;5,4;3,1],[1,2,3])
+A = full(sp)
+     ]]></programlisting>
+        <screen>
+--> sp = sparse([1,2;5,4;3,1],[1,2,3])
+ sp  =
+(  5,  4) sparse matrix
+
+(  1,  2)     1.
+(  3,  1)     3.
+(  5,  4)     2.
+
+--> A = full(sp)
+ A  =
+   0.   1.   0.   0.
+   0.   0.   0.   0.
+   3.   0.   0.   0.
+   0.   0.   0.   0.
+   0.   0.   0.   2.
+</screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sparse">sparse</link>
+            </member>
+            <member>
+                <link linkend="sprand">sprand</link>
+            </member>
+            <member>
+                <link linkend="speye">speye</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    full() extended to dense booleans.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    full() returns as is any non-sparse input.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

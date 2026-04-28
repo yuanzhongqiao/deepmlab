@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2007-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="hypermatrices">
+    <refnamediv>
+        <refname>hypermatrices</refname>
+        <refpurpose>a Scilab object, N dimensional matrix in Scilab</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Hypermatrix type allows to manipulate multidimensional arrays.
+        </para>
+        <para>
+            They can be defined by extension of 2D matrices as follows
+            <code>a=[1 2;3 4];a(:,:,2)=rand(2,2)</code> or directly using <function>matrix</function> function.
+        </para>
+        <para>
+            Entries can be booleans, encoded integers of any inttype, real or complex numbers,
+            polynomials, rationals, strings, booleans.
+        </para>
+        <para>
+            <note>
+                The number of dimension of hypermatrices with right-most sizes equal to
+                1 are automatically reduced. An hypermatrix with only two dimensions is
+                automatically changed to a regular matrix (type 1).
+            </note>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a(1,1,1,1:2)=[1 2]
+a=[1 2;3 4];a(:,:,2)=rand(2,2)
+a(1,1,:)
+
+size(a)
+
+a(:,:,1) //dimensionality reduction
+type(a(:,:,1))
+
+[a a]
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="zeros">zeros</link>
+            </member>
+            <member>
+                <link linkend="ones">ones</link>
+            </member>
+            <member>
+                <link linkend="grand">grand</link>
+            </member>
+            <member>
+                <link linkend="matrix">matrix</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

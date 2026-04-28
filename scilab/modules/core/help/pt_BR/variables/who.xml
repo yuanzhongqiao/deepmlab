@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="who" xml:lang="pt">
+    <refnamediv>
+        <refname>who</refname>
+        <refpurpose>listagem de variáveis</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento </title>
+        <synopsis>who
+            who()
+            [names, mem] = who(mode)
+            [names, mem] = who(mode, sorted)
+            [names, mem] = who(sorted)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>
+                        <literal>local</literal>/<literal>get</literal>: list visible variables (not only in current function).
+                    </para>
+                    <para>
+                        <literal>scope</literal>/<literal>current</literal>: list variables in the current scope/function.
+                    </para>
+                    <para>
+                        <literal>global</literal>: list global variables.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sorted</term>
+                <listitem>
+                    <para>
+                        Boolean value to specify if output must be sort in alphabetical order.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>names</term>
+                <listitem>
+                    <para>String matrix with variable names.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mem</term>
+                <listitem>
+                    <para>Double matrix with variable used memory in bytes.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>who</literal> exibe os nome de variáveis correntes.
+        </para>
+        <para>
+            <literal>who('local')</literal> ou <literal>who('get')</literal>
+            retorna os nomes de variáveis correntes e a memória utilizada em palavras
+            de dupla precisão.
+        </para>
+        <para>
+            <literal>who('global')</literal> retorna os nomes de variáveis
+            globais e a memória utilizada em palavras de dupla precisão.
+        </para>
+        <para>
+            <literal>who('sorted')</literal> exibe todas as variáveis em ordem
+            alfabética.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a = 1;
+b = 2;
+[name, mem] = who("local");
+position = find(name=="a")
+mem(position) // Size used by a
+position = find(name=="d") // []
+
+function foo(a, b)
+    disp(who("scope", "sorted"))
+endfunction
+foo(1,2);
+     ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="whos">whos</link>
+            </member>
+            <member>
+                <link linkend="who_user">who_user</link>
+            </member>
+            <member>
+                <link linkend="macrovar">macrovar</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                    Add "scope" or "current" mode.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

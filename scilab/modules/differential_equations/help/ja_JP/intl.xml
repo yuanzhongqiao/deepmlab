@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Francois DELEBECQUE
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2022 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="intl" xml:lang="ja">
+    <refnamediv>
+        <refname>intl</refname>
+        <refpurpose>コーシー積分</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            y = intl(a, b, z0, r, f)
+            y = intl(a, b, z0, r, f, abserr)
+            y = intl(a, b, z0, r, f, abserr, relerr)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>z0</term>
+                <listitem>
+                     <para>
+                        複素数</para>
+                       </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a, b</term>
+                <listitem>
+                     <para>
+                        実数</para>
+                      </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                     <para>
+                        正の実数</para>
+                        </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                     <para>
+                        統合する機能のハンドル(タイプ 13 または 130).</para>
+                                                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>abserr, relerr</term>
+                <listitem>
+                     <para>
+                        実スカラー, 絶対および相対エラー.
+                        デフォルト値: <literal>1.d-13</literal> および <literal>1d-8</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>f</literal> が複素数を値とする関数の場合,
+            <literal>intl(a,b,z0,r,f)</literal> は
+            <literal>a&lt;=t&lt;=b</literal>のもとで
+            <literal>z0 + r.*exp(%i*t)</literal>で定義される複素平面における曲線
+            (中心<literal>z0</literal>,半径<literal>r</literal>の円における
+            位相が<literal>a</literal>と<literal>b</literal>の間となる部分)
+            に沿った
+            <literal>f(z)dz</literal>の積分を計算します.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+function y = f(z)
+  y = z^(3 + %pi * %i)
+endfunction
+
+intl(1, 2, 1+%i, 3, f)
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="intc">intc</link>
+            </member>
+            <member>
+                <link linkend="integrate">integrate</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+           <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    Default <varname>abserr</varname> and <literal>relerr</literal> values
+                    standardized: <literal>1d-13</literal> and <literal>1d-8</literal> instead of
+                    <literal>%eps</literal> and <literal>1d-12</literal>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

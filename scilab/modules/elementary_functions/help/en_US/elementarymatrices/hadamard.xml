@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="hadamard">
+    <refnamediv>
+        <refname>hadamard</refname>
+        <refpurpose>Hadamard matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            h = hadamard(n)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        real scalar. Must be 1, 2 or multiple of 4.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>
+                        n x n matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">h = hadamard(n)</emphasis> returns the Hadamard matrix of order <literal>n</literal>.
+        </para>
+        <para>
+            The Hadamard matrix is a matrix containing only 1's and -1's whose the columns are orthogonal. The matrix must verify <literal>H*H' = n*eye(n,n)</literal>.
+        </para>
+        <para>
+            The Hadamard matrix is based on several tools: Sylvester's construction (construction by iteration used Kronecker product) 
+            and Paley's construction I and II.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                h = hadamard(4)
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="toeplitz">toeplitz</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

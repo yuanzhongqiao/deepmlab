@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Le Mans Université - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="angle" xml:lang="en">
+    <refnamediv>
+        <refname>angle</refname>
+        <refpurpose>
+            argument of complex numbers, in radians
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            A = angle(Z)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>Z</term>
+                <listitem>
+                     <para>
+                        Array of real or complex numbers.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                     <para>
+                        Array of real numbers in (-π,π], of size(Z): the arguments (phases) of
+                        respective Z elements, in radians.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>angle(Z)</literal> computes and returns the arguments of given complex numbers.
+        </para>
+        <para>
+            <emphasis role="bold">Special cases</emphasis>:
+            <itemizedlist>
+                <listitem>
+                     <para><literal>angle(0)</literal> is <literal>0</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        For any <varname>Z</varname> element whose real or an imaginary of both parts
+                        is <literal>%nan</literal>, <literal>angle(Z)</literal> is <literal>%nan</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        For any <varname>Z</varname> element whose both real and imaginary parts are
+                        infinite (positive or negative),
+                        <literal>angle(Z)</literal> is <literal>%nan</literal>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Real axis
+angle([-%inf -2 -1 0 1 2 %inf])
+
+// Imaginary axis
+z = complex(zeros(1,7), [-%inf -2 -1 0 1 2 %inf])
+angle(z)
+
+// Real = Imag
+z = complex([-%inf -2 -1 0 1 2 %inf], [-%inf -2 -1 0 1 2 %inf])
+angle(z)
+
+// Real>0 = -Imag
+z = complex([0 1 2 %inf], [0 -1 -2 -%inf])
+angle(z)
+
+// Real<0 = -Imag
+z = complex(-[0 1 2 %inf], [0 1 2 %inf])
+angle(z)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> // Real axis
+--> angle([-%inf -2 -1 0 1 2 %inf])
+ ans  =
+   3.1415927   3.1415927   3.1415927   0.   0.   0.   0.
+
+--> // Imaginary axis
+--> z = complex(zeros(1,7),[-%inf -2 -1 0 1 2 %inf])
+ z  =
+   0. - Infi   0. - 2.i   0. - i     0. + 0.i   0. + i     0. + 2.i   0. + Infi
+--> angle(z)
+ ans  =
+  -1.5707963  -1.5707963  -1.5707963   0.   1.5707963   1.5707963   1.5707963
+
+
+--> // Real = Imag
+--> z = complex([-%inf -2 -1 0 1 2 %inf], [-%inf -2 -1 0 1 2 %inf])
+ z  =
+  -Inf - Infi  -2. - 2.i  -1. - i     0. + 0.i   1. + i     2. + 2.i   Inf + Infi
+--> angle(z)
+ ans  =
+   Nan  -2.3561945  -2.3561945   0.   0.7853982   0.7853982   Nan
+
+--> // Real>0 = -Imag
+--> z = complex([0 1 2 %inf], [0 -1 -2 -%inf])
+ z  =
+   0. + 0.i   1. - i     2. - 2.i   Inf - Infi
+--> angle(z)
+ ans  =
+   0.  -0.7853982  -0.7853982   Nan
+
+--> // Real<0 = -Imag
+--> z = complex(-[0 1 2 %inf], [0 1 2 %inf])
+ z  =
+   0. + 0.i  -1. + i    -2. + 2.i  -Inf + Infi
+--> angle(z)
+ ans  =
+   0.   2.3561945   2.3561945   Nan
+]]></screen>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="abs">abs</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>angle()</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

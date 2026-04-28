@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="matrix2table" xml:lang="en">
+    <refnamediv>
+        <refname>matrix2table</refname>
+        <refpurpose>convert a matrix into a table</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = matrix2table(m)
+            t = matrix2table(m, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>double, boolean, string, datetime or duration matrix</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>output argument - table object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"VariableNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        the variable name of each column of t. The variable names must be unique and their 
+                        number must be equal to size(m, 2). 
+                        Default value: ["Var1", ..., "VarN"].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"RowNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para>
+                        the row names for t. The names must be unique and their number must be equal to size(m, 1). 
+                        Default value: [].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">matrix2table</emphasis> converts a matrix into a table. The table has the same size of matrix.
+            Each column of m becomes a variable in t.
+        </para>
+        <para>
+            <literal>t = matrix2table(m, ...)</literal> is equivalent to <literal>t = table(m, ...)</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">t = matrix2table(m)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            m = [1 2 3; 4 5 6; 7 8 9]
+            t = matrix2table(m)
+            // or table(m)
+
+            m = ["a" "b"; "c" "d"]
+            t = matrix2table(m)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">t = matrix2table(m, "VariableNames", ["Var1", ..., "VarN"])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            m = [1 2 3; 4 5 6; 7 8 9]
+            t = matrix2table(m, "VariableNames", ["c1", "c2", "c3"])
+            // or table(m, "VariableNames", ["c1", "c2", "c3"])
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">t = matrix2table(m, "RowNames", val)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            m = [1 2 3; 4 5 6; 7 8 9]
+            x = ["a"; "b"; "c"]
+            t = matrix2table(m, "VariableNames", ["c1", "c2", "c3"], "RowNames", x)
+            // or table(m, "VariableNames", ["c1", "c2", "c3"], "RowNames", x)
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="table2matrix">table2matrix</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

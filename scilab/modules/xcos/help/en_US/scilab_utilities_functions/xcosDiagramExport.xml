@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Clément DAVID
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="xcosDiagramExport">
+    <refnamediv>
+        <refname>xcosDiagramExport</refname>
+        <refpurpose>Export an Xcos diagram to an image</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          xcosDiagramExport(scs_m, filename)
+          xcosDiagramExport(scs_m, "%s.png")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection id="Parameters_xcosDiagramExport">
+        <title>Arguments</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">scs_m</emphasis>: The <link linkend="scicos_diagram">scicos_diagram</link> data structure.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">filename</emphasis>: The image file to export (svg, png, etc..).
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_xcosDiagramExport">
+        <title>Description</title>
+        <para>The command export the diagram to an image as if the user selected the "File - Export" menu. By default the <link linkend="scicos_diagram">scicos_diagram</link> data structure is rendered as a single layer into the file. The file format is detected by the file extension.
+        </para>
+        <para>
+            To export multiple layers, use a format string with <code>"%s"</code> in the filename. Each diagram layer is exported using their name (or index if empty) in the formatted string.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            filename=SCI+"/modules/xcos/demos/demo_Datatype.zcos";
+            scs_m = xcosDiagramToScilab(filename);
+            xcosDiagramExport(scs_m, "TMPDIR/demo_Datatype.png");
+        </programlisting>
+        <programlisting role="example">
+            filename=SCI+"/modules/xcos/demos/demo_Datatype.zcos";
+            scs_m = xcosDiagramToScilab(filename);
+            xcosDiagramExport(scs_m, "TMPDIR/exported_%s.png");
+        </programlisting>
+    </refsection>
+    <refsection xml:id="SeeAlso_xcosDiagramExport" role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xcos">xcos</link>
+            </member>
+            <member>
+                <link linkend="scicos_diagram">scicos_diagram</link>
+            </member>
+            <member>
+                <link linkend="importXcosDiagram">importXcosDiagram</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

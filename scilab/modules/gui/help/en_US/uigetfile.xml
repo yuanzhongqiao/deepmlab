@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="uigetfile" xml:lang="en">
+    <refnamediv>
+        <refname>uigetfile</refname>
+        <refpurpose>dialog window to get a file(s) name(s), path and filter index
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          PathFileName = uigetfile()
+          PathFileName = uigetfile(file_mask)
+          PathFileName = uigetfile(file_mask, dir)
+          PathFileName = uigetfile(file_mask, dir, boxTitle)
+          PathFileName = uigetfile(file_mask, dir, boxTitle, multipleSelection)
+          [PathFileName, Path] = uigetfile(..)
+          [PathFileName, Path, FilterIndex] = uigetfile(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <refsect3>
+        <title>Input parameters</title>
+        <variablelist>
+            <varlistentry>
+                <term>file_mask</term>
+                <listitem>
+                    <para>a string matrix which gives the file masks to use for file
+                        selection. <literal>file_mask</literal> is written with Unix
+                        conventions. The default value is <literal>"*"</literal>.
+                    </para>
+                    <para>A description of each mask may be provided in column#2, for example
+                      <literal>["*.xcos|*.zcos", "Xcos files"; "*.bin","BIN files"]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dir</term>
+                <listitem>
+                    <para>a character string which gives the initial directory used for
+                        file search. By default uigetfile uses the previously selected
+                        directory.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>boxTitle</term>
+                <listitem>
+                    <para>a character string which gives the title of the uigetfile
+                        window. By default uigetfile's title is 'uigetfile'.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>multipleSelection</term>
+                <listitem>
+                    <para>a boolean which allows to load only one file if it is at '%f'
+                        (false) or multiple files if it is at '%t" (true). By default
+                        uigetfile's multiple file selection is not enable.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+      </refsect3>
+      <refsect3>
+        <title>Output parameters</title>
+        <variablelist>
+            <varlistentry>
+                <term>PathFileName</term>
+                <listitem>
+                    <para>matrix of strings which give the user selected file(s) (path +
+                      file(s) name(s)) if user answers <literal>"OK"</literal> or
+                      <literal>" "</literal> if the user answers <literal>"Cancel"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Path</term>
+                <listitem>
+                    <para>is the user selected file(s) path if the user answers <literal>"Ok"</literal>
+                      or <literal>" "</literal> if the user answers <literal>"Cancel"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>FilterIndex</term>
+                <listitem>
+                    <para>
+                      Selected filter index on the list box if the user answers
+                      <literal>"OK"</literal>, or <literal>"0"</literal> if the user answers
+                      <literal>"Cancel"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+      </refsect3>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Creates a dialog window for file(s) selection.</para>
+    </refsection>
+    <refsection>
+        <title>Comments</title>
+        <para>On Windows, Java component used by uigetfile browses also .zip archives then it is very slow with big .zip files.</para>
+        <para>To disable this feature: use <literal>regedit</literal> to rename <literal>HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\CLSID</literal> key to <literal>HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\CLSID.bak</literal>.</para>
+        <para>To re-enable it: use <literal>regedit</literal> to rename <literal>HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\CLSID.bak</literal> key to <literal>HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\CLSID</literal>.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            uigetfile(["*.bin"; "*.sce"; "*.cosf"])
+            uigetfile(["*.tst|*.dia.ref","Tests files"])
+            uigetfile(["*.sci"; "*.bin"], "SCI/modules/gui/macros/")
+            uigetfile(["*.sc*"; "*.bin"], "SCI/modules/gui/macros/")
+            uigetfile(["*.xcos|*.zcos","Xcos files"; "*.bin","BIN files"], "SCI/modules/gui/macros/")
+            uigetfile(["*.sce"; "*.bin"], "SCI/modules/gui/macros/", "Choose a file name", %t);
+            uigetfile(["*.sce"; "*.bin"], "SCI/modules/gui/macros/", "Choose a file name", %f);
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uiputfile">uiputfile</link>
+            </member>
+            <member>
+                <link linkend="uigetdir">uigetdir</link>
+            </member>
+            <member>
+                <link linkend="x_dialog">x_dialog</link>
+            </member>
+            <member>
+                <link linkend="file">file</link>
+            </member>
+            <member>
+                <link linkend="read">read</link>
+            </member>
+            <member>
+                <link linkend="write">write</link>
+            </member>
+            <member>
+                <link linkend="exec">exec</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

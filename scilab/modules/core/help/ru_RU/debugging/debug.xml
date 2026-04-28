@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="ru" xml:id="debug">
+    <refnamediv>
+        <refname>debug</refname>
+        <refpurpose>Среда отладки CLI в Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            debug
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <literal>debug</literal> входит в режим отладки для функций, написанных на языке Scilab.
+             Приглашение становится <literal> отладка> </literal>.
+        </para>
+        <para>
+             Этот режим позволяет вам управлять <literal> точками останова </literal>,
+             запускать выполнение с остановкой при ошибке, выполнять функцию шаг за шагом, ...
+        </para>
+        <warning>
+            <note>
+                For a GUI version, you can install <link xlink:href="https://marketplace.visualstudio.com/items?itemName=scilab.scilab">Scilab Language Support extension</link> for Visual Studio Code (VS Code) and then debug your Scilab scripts using Visual Studio Code integrated debugger.
+            </note>
+        </warning>
+        <refsect3>
+            <title>Команды in debug mode</title>
+            <para>
+                <term>h: </term>
+                Показать справку в командном окне.
+            </para>
+            <para>
+                <term>help: </term>
+                  Показать справку в справочном браузере, если это возможно. В противном
+                  случае отобразить справку в командном окне
+            </para>
+            <para>
+                <term>(q)uit: </term>
+                Покинуть режим отладки и вернуться в нормальный режим Scilab'а.
+            </para>
+            <para>
+                <term>(w)here или bt: </term>
+                Отобразить стек вызовов.
+            </para>
+            <para>
+                <term>(e)xec или (r)un: </term>
+                Выполнить команду.
+            </para>
+            <para>
+                <term>(d)isp var, или (p)rint var: </term>
+                Отобразить переменную <literal>var</literal>.
+            </para>
+            <para>
+                <term>(c)ontinue: </term>
+                Продолжить исполнение.
+            </para>
+            <para>
+                <term>(a)bort: </term>
+                Прервать исполнение.
+            </para>
+            <para>
+                <term>step(n)ext или next: </term>
+                Продолжить исполнение до следующего выражения.
+            </para>
+            <para>
+                <term>step(i)n или in: </term>
+                Продолжить исполнение до следующего выражения в подфункции.
+            </para>
+            <para>
+                <term>step(o)ut или out: </term>
+                Продолжить исполнение до следующего выражения в предыдущей функции.
+            </para>
+            <para>
+                <term>(b)reakpoint или break: </term>
+                <literal>breakpoint function [line [condition]]</literal> :
+                Добавить точку останова в функцию на строке <literal>line</literal>.
+                Если условие определено, то точка останова срабатывает только если условие равно
+                <constant>%t</constant>.
+            </para>
+            <para>
+                <term>(del)ete [n]: </term>
+                Удалить все точки останова.
+                Если <varname>n</varname> определена, то удаляется точка останова №<varname>n</varname>.
+            </para>
+            <para>
+                <term>enable [n]: </term>
+                Включить все точки останова. Если <varname>n</varname> определена,
+                то включается точка останова №<varname>n</varname>.
+            </para>
+            <para>
+                <term>disable [n]: </term>
+                Отключить все точки останова. Если <varname>n</varname> определена,
+                то отключается точка останова №<varname>n</varname>.
+            </para>
+            <para>
+                <term>(s)how [n]: </term>
+                Показать информацию обо всех точках останова. Если <varname>n</varname> определена,
+                то показывается точка останова №<varname>n</varname>.
+            </para>
+        </refsect3>
+        <refsect3>
+            <title>How to debug a script</title>
+            <para>
+                Debugging a series of Scilab instructions out of any function requires first to
+                embed them in a dummy function. Example: We want to debug the following instructions
+                <programlisting role="no-scilab-exe">
+                a = 1;
+                b = linspace(a, 3, 10);
+                c = exp(a + %i + c);
+                </programlisting>
+            </para>
+            <para>
+                Then we must first rewrite them as
+            </para>
+            <para>
+                <programlisting role="no-scilab-exe">
+                function script()
+                    a = 1;
+                    b = linspace(a, 3, 10);
+                    c = exp(a + %i + c);
+                endfunction
+                </programlisting>
+            </para>
+            <para>
+                and execute this code (in normal Scilab mode) in order to define script() in Scilab.
+                Then breakpoints can be defined and handled within the script() function as for
+                any other function.
+            </para>
+        </refsect3>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+//функция для перегрузки косинуса на строковом значении
+function v = %c_cos(val)
+    printf("val : %s\n", val);
+    v = cos(evstr(val));
+endfunction
+
+// функция-вызыватель
+function a = test_debug()
+    b = cos("%pi");
+    a = b * 3;
+endfunction
+
+debug
+break test_debug
+exec test_debug
+where
+stepin
+disp val
+continue
+quit
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+function v = compute(val)
+    v = 1;
+    for i=1:val
+        v = v * i;
+    end
+endfunction
+
+debug
+break compute 4 "i == 5"
+exec compute(10)
+disp val
+disp i
+disp v
+continue
+quit
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>Новая версия: интерфейс командной строки для отладчика Scilab 6.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

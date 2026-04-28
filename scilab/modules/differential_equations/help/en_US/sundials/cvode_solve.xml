@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2021 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="cvode" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>cvode</refname>
+        <refpurpose>SUNDIALS ordinary differential equation solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [t,y] = cvode(f,tspan,y0,options)
+            [t,y,info] = cvode(f,tspan,y0,options)
+            sol = cvode(...)
+            solext = cvode(sol,tfinal,options)
+            cvode(...)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>f</term>
+                <listitem>    
+                    <para>a function, a string or a list, the right hand side of the differential equation</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tspan</term>
+                <listitem>    
+                    <para>double vector, time interval or time points</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y0</term>
+                <listitem>    
+                    <para>a double array: initial state of the ode</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>
+                    <para>a sequence of optional named arguments, see the <link linkend="sundials_options">solvers options</link></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>vector of time points used by the solver</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>array of solution at time values in <term>t</term></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sol, solext</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type, see the <link linkend="sundials_solution">solution output</link> help page</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>info</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type with solver information, including the sensitivity of solution (if applicable),
+                    user events information (if applicable) and statistics</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tfinal</term>
+                <listitem>    
+                    <para>final time of extended solution</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>cvode</literal> computes the solution of real or complex ordinary different equations defined by 
+        </para>
+        <para>
+            <latex style="display">y' = f(t,y),\,y(t_0)=y_0</latex>
+        </para>
+        <para> 
+            It is an interface to the cvodes solver of SUNDIALS library with default ADAMS method (BDF method can be chosen in <term>options</term>). 
+            The solver has a specific feature which allows to compute the sensitivity with respect to a vector of parameters present in the
+            initial condition and/or the right hand side (see the <link linkend="cvodes">ODE Sensitivity</link> dedicated help page).
+        </para>
+        <para>
+            The solver can also keep the solution in a given constraint manifold by projection (see the <link linkend="cvode_proj">dedicated section</link> below).
+        </para>
+        <para>
+            In addition, unlike the native SUNDIALS implementation, the Scilab interface allows to solve an ODE when the solution 
+            is complex (see the  
+            <link linkend="sundials_complex">Complex ODE and DAE</link>). Note: the description below is also valid for the <literal>arkode</literal> solver (except
+            the projection feature and sensitivity computation).
+        </para>
+        <para>
+            In its simplest form, the solver call takes the form
+        </para>        
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[[t,y] = cvode(f,[t0 tf],y0)]]>
+            </programlisting>
+        </para>
+        <para>
+            where <literal>y0</literal> is the
+            initial condition, <literal>t0, tf</literal> are the initial and final time, <literal>y</literal> is the
+            array of solution values <literal>[y(t(1)),y(t(2)),...]</literal> at time values in t, where concatenation is done on
+            next dimension if <literal>y0</literal> is not a column vector (e.g. a matrix with at least 2 columns). The time values in <literal>t</literal>
+            are those used by the solver to meet default relative and absolute estimated local error (which can be changed in <term>options</term>). 
+            In the simplest case the right hand side is computed by a Scilab function with two arguments, for example for the ode <latex>y' = -y+t</latex>
+            the right hand side is coded as
+        </para>
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[
+                function yprime = f(t,y)
+                yprime = t+y
+                end]]>
+            </programlisting>
+        </para>
+        <para>
+            See the <link linkend="sundials_user_functions">User functions</link> help page to learn how to pass extra parameters and/or use DLL entrypoints. 
+            When <literal>t</literal> has more than two components:
+        </para>
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[[t,y] = cvode(f,[t0 t1 ... tf],y0)]]>
+            </programlisting>
+        </para>
+        <para>the solution is computed at prescribed points with the same precision as the two components syntax. However, the result may slightly differ
+            (within chosen tolerance) since <literal>t1-t0</literal> may give a different guess of the initial step used by the solver. Provided 
+            that the initial step is the same, further solver internal steps will be the same and solution at intermediate user points is computed by
+            continuous extension (native interpolation) formulas.
+        </para>
+        <para>
+            When searching for <latex>(t,y)</latex> where some functions defined in <literal>options</literal> vanish
+            (see the <link linkend="sundials_event">Events</link> help page) the syntax
+        </para>
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[[t,y,te,ye,ie] = cvode(f,tspan,y0,options)]]>
+            </programlisting>
+        </para>
+        <para>
+            allows to recover <latex>(t,y)</latex> values in <literal>info.te, info.ye, info.ype</literal> and in <literal>info.ie</literal> the number(s) of the vanishing function.
+        </para>
+        <para>
+            When solution has to be further evaluated at arbitrary points which are not known in advance, then the syntax
+        </para>
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[sol = cvode(f,[t0 tf],y0)]]>
+            </programlisting>
+        </para>
+        <para>
+            yields an MList of <literal>_odeSolution</literal> type, which can be used later as an interpolant, see the 
+            <link linkend="sundials_solution">Solution output</link> help page.
+        </para>
+        <para>
+            When no ouput argument is given, the only way to have access to the solution at solver or user time steps is to use a user callback
+            (see the  <link linkend="sundials_user_functions">User functions</link> help page). For example, when there could be memory issues (e.g. if the dimension
+            of the solution vector is very large) this allows to write the solution to disk. 
+        </para>
+    </refsection>
+
+    <refsection role="example">
+        <title>Example</title>
+        <para>
+            In the following example, we solve the Ordinary Differential Equation
+            <latex>y''-\mu(1-y^2)y'+y =0</latex> with the initial
+            condition <latex>y(0)=2,\,y'(0)=0</latex> and <latex>\mu=1</latex>. Since the original equation is of second order
+            we define the state of the equivalent first order equation as <latex>v=(y,y')</latex>. The right hand side is computed by the
+            function <literal>%SUN_vdp1</literal> (defined in the SUNDIALS module):
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                function vdot=%SUN_vdp1(t, v)
+                mu = 1;
+                vdot = [v(2); mu*(1-v(1)^2)*v(2)-v(1)]
+                end
+                [t,v] = cvode(%SUN_vdp1, [0 10], [0; 2]);
+                plot(t,v)
+                ]]></programlisting>
+                <scilab:image>
+                    function vdot=%SUN_vdp1(t, v)
+                    mu = 1;
+                    vdot = [v(2); mu*(1-v(1)^2)*v(2)-v(1)]
+                    end
+                    [t,v] = cvode(%SUN_vdp1, [0 10], [0; 2]);
+                    plot(t,v)
+                    gcf().axes_size(2)=300
+                </scilab:image>
+            </para>
+        </refsection>
+
+
+        <refsection role="description" xml:id="cvode_proj"> 
+            <title>Projection on a constraint manifold</title>
+            <para>cvode can solve initial value problems of the kind
+            </para>
+            <para>
+                <latex style="display">
+                    \begin{array}{rcl}y^\prime &amp; = &amp; f(t,y),\\
+                    g(t,y) &amp; = &amp;0,\\
+                    y(t_0) &amp; = &amp;y_0,
+                    \end{array}
+                </latex>
+            </para>
+            <para>
+                where the initial condition is supposed to verify the constraint. Instead of the contraint function g(t,y), 
+                the user has to provide a projection function given as a Scilab function or a SUNDIALS DLL to the
+                <code>projection</code> option. The call to cvode takes the form
+            </para>
+            <para><programlisting role="no-scilab-exec"><![CDATA[cvode(f, tspan, y0, projection = projFun, projectError = b)]]>
+            </programlisting></para>
+            <para>
+                When using a Scilab function, <literal>projFun</literal> has the prototype 
+                <literal>[corr, err] = projFun(t,y,err)</literal> and <code>b</code> is a boolean.
+                The function has to yield in <code>corr</code> the difference
+                between <literal>y</literal> and its projection (orthogonal or other) on the constraint manifold, i.e. 
+                <code>corr</code> is such that <literal>y+corr</literal>
+                satisfies the constraint equation. When <code>b</code> is true then the function should
+                also yield the projection of the error vector <code>err</code>. 
+                When the option <code>projectError</code> is not set, <code>err</code>
+                is passed as an empty matrix. Here is an example for a particle moving conterclockwise with velocity alpha
+                on the unit circle in the xy-plane, where the solution is computed without and with projection:
+            </para>
+            <para>
+                <programlisting><![CDATA[
+                    function Xd = f(t,X,alpha)
+                    Xd = alpha*[-X(2);X(1)];
+                    end
+                    function corr = proj(t,X,err)
+                    corr = X/norm(X) - X;
+                    end
+
+                    alpha = 1;
+                    X0 = [1;0];
+                    tspan = 0:5;
+
+                    [t,X]=cvode(list(f,alpha), tspan, X0,jacobian=[0 -alpha, alpha 0]);
+                    disp(X-[cos(t);sin(t)])
+                    disp(sum(X.^2,1))
+
+                    [t,X]=cvode(list(f,alpha), tspan, X0,jacobian=[0 -alpha, alpha 0],projection=proj);
+                    disp(X-[cos(t);sin(t)])
+                    disp(sum(X.^2,1))
+                    ]]>
+                </programlisting>
+            </para>
+            <para>
+                When the projection function is a DLL entry point, it must have the prototype
+            </para>
+            <para>
+                <programlisting role="no-scilab-exec"><![CDATA[
+                    int sunProj(sunrealtype t, N_Vector X, N_Vector Corr, sunrealtype epsProj, N_Vector Err, 
+                    void *user_data)
+                    ]]>
+                </programlisting>
+            </para>
+            <para>
+                When the <code>err</code> pointer is not NULL then projection of the error has to be done. The <literal>epsProj</literal>
+                input argument gives the actual value of the tolerance used in the nonlinear solver stopping test when solving the 
+                nonlinear constrainted least squares problem (it cannot be changed by the projection function). Here is an example:
+            </para>
+            <para>
+                <programlisting><![CDATA[
+                    code=[
+                    "#include <math.h>"
+                    "#include <nvector/nvector_serial.h>"
+                    "int sunRhs(sunrealtype t, N_Vector X, N_Vector Xd, void *user_data)"
+                    "{"
+                    "double *x = NV_DATA_S(X);"
+                    "double *xd = NV_DATA_S(Xd);"
+                    "double *alpha = (double *)user_data;"
+                    "xd[0] = -alpha[0]*x[1];"
+                    "xd[1] = alpha[0]*x[0];"
+                    "return 0;"
+                    "}"
+                    "int sunProj(sunrealtype t, N_Vector X, N_Vector Corr, sunrealtype epsProj, N_Vector Err, "
+                    "            void *user_data)"
+                    "{"
+                    "double *x = NV_DATA_S(X);"
+                    "double *corr = NV_DATA_S(Corr);"
+                    "double R = sqrt(x[0]*x[0]+x[1]*x[1]);"
+                    "corr[0] = x[0]/R-x[0];"
+                    "corr[1] = x[1]/R-x[1];"
+                    "return 0;"
+                    "}"]
+                    cd TMPDIR
+                    mputl(code,"code.c")
+                    SUN_Clink(["sunRhs","sunProj"],"code.c",load=%t);
+                    [t,x] = cvode(list("sunRhs",1),[0 10],[1 0],projection="sunProj");
+                    sum(x.^2,1)
+                    ]]>
+                </programlisting>
+            </para>   
+        </refsection>
+
+        <refsection role="description" xml:id="cvode_sens"> 
+            <title>Sensitivity computation</title>
+            <para>cvode can solve initial value problems of the kind
+            </para>
+            <para>
+                <latex style="display">
+                    \begin{array}{rcl}y^\prime &amp; = &amp; f(t,y,p), \quad y(t_0) =y_0(p),\\
+                    s^\prime &amp; = &amp; \frac{\partial f}{\partial y}s+\frac{\partial f}{\partial p},\quad s(t_0) = \frac{\partial y_0(p)}{\partial p}
+                    ,
+                    \end{array}
+                </latex>
+            </para>
+            <para>
+                where the sensitivity function is  <latex style="inline">s={\partial y}/{\partial p</latex>. The right hand side of the sensitivity equation can be provided
+                by the user (see the <code>sensRhs</code> option in the <link linkend="cvodes">ODE Sensitivtiy</link> help page) but by default the directional
+                derivatives are approximated by finite differences. The call to cvode takes the form
+            </para>
+            <para><programlisting role="no-scilab-exec"><![CDATA[cvode(fun, tspan, y0, sensPar = p)]]>
+            </programlisting>
+        </para>
+        <para>
+            When using a Scilab function, <literal>fun</literal> has the prototype <literal>dydt = fun(t,y,p,...)</literal>. Here is an example
+            where we compute the sensitivity of the solution of the Van Der Pol equation with respect to parameter mu:
+        </para>
+        <para>
+            <programlisting><![CDATA[
+                function vdot=vdp(t, y, μ)
+                vdot = [y(2); μ*(1-y(1)^2)*y(2)-y(1)]
+                end
+                [t,y,info] = cvode(vdp, 0:0.1:10, [2;1], sensPar = 1);
+                plot(t,info.s)
+                legend("$\Large\partial y_"+["1","2"]+"/\partial μ$");
+                ]]>
+            </programlisting>
+            <scilab:image>
+                function vdot=vdp(t, v, mu)
+                vdot = [v(2); mu*(1-v(1)^2)*v(2)-v(1)]
+                end
+                [t,y,info] = cvode(vdp, 0:0.1:10, [2;1], sensPar=1);
+                plot(t,info.s)
+                legend("$\Large\partial y_"+["1","2"]+"/\partial μ$");
+                gcf().axes_size(2)=300
+            </scilab:image>
+        </para>
+        <para>
+            Several options are available, see the <link linkend="cvodes">ODE Sensitivity</link> help page.
+        </para>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cvodes">ODE Sensitivity</link>
+            </member>
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+            A. C. Hindmarsh, P. N. Brown, K. E. Grant, S. L. Lee, R. Serban, D. E. Shumaker, and C. S. Woodward, "SUNDIALS: Suite of Nonlinear and Differential/Algebraic Equation Solvers," ACM Transactions on Mathematical Software, 31(3), pp. 363-396, 2005. Also available as LLNL technical report UCRL-JP-200037.
+        </para>
+        <para>Alan C. Hindmarsh, Radu Serban, Cody J. Balos, David J. Gardner, Daniel R. Reynolds, and Carol S. Woodward, "User Documentation for cvodeS", 2021, v6.1.1, available online at <ulink url="https://sundials.readthedocs.io/en/latest/cvodes/index.html">https://sundials.readthedocs.io/en/latest/cvodes</ulink>.
+        </para>
+    </refsection>
+</refentry>

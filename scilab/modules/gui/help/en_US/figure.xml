@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="figure">
+    <refnamediv>
+        <refname>figure</refname>
+        <refpurpose>create a figure</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            figure(num)
+            figure("PropertyName1", Propertyvalue1, ..., ..., "PropertyNameN", PropertyvalueN)
+            h = figure(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This routine creates a figure. If an ID is given, the figure corresponding to this ID is created.
+            Otherwise, the window is created with the first free ID, that is the lowest integer not already used by a window.
+        </para>
+    </refsection>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>num</term>
+                <listitem>
+                    <para>ID of the window to create. If not specified, the first free ID is used.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>PropertyName{1, ..., N}</term>
+                <listitem>
+                    <para>
+                        character string: Name of a property to set,
+                        among <link linkend="figure_properties">all existing ones</link>.
+                    </para>
+                    <warning>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>'dockable'</literal>, <literal>'toolbar'</literal> and
+                                    <literal>'menubar'</literal> properties can be set only at figure's
+                                    creation.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>'resizefcn'</literal>: when it is set at figure's creation,
+                                    the callback is first executed while building the initial figure.
+                                    Hence it must already be defined and callable.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>PropertyValue{1, ..., N}</term>
+                <listitem>
+                    <para>scilab object value to give to the corresponding property.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>handle of the newly created window.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Create figure having figure_id==3
+h=figure(3);
+// Add a text uicontrol in figure 3
+uicontrol(h, "style", "text", ...
+             "string", "This is a figure", ...
+             "position", [50 70 100 100], ...
+             "fontsize",15);
+
+// Create figure having figure_id==1
+figure();
+// Add a text uicontrol in figure 1
+uicontrol("style", "text", ...
+          "string", "Another figure", ...
+          "position", [50 70 100 100], ...
+          "fontsize", 15);
+
+// Close current figure (ie figure 1)
+close();
+// close figure 3
+close(h);
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scf">scf</link>
+            </member>
+            <member>
+                <link linkend="gcf">gcf</link>
+            </member>
+            <member>
+                <link linkend="createWindow">createWindow</link>
+            </member>
+            <member>
+                <link linkend="figure_properties">figure_properties</link>
+            </member>
+            <member>
+                <link linkend="close">close</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

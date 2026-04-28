@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+includedir=@includedir@
+libdir=@libdir@
+
+Name: scilab
+Description: Scilab engine as a library
+URL: https://www.scilab.org
+Version: @SCILAB_BINARY_VERSION@
+Cflags: -I${includedir}/scilab
+Libs: -L${libdir}/scilab -lscicall_scilab -lscilab -Wl,-rpath-link=${libdir}/scilab
+

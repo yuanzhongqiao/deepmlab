@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="xfpoly" xml:lang="pt">
+    <refnamediv>
+        <refname>xfpoly</refname>
+        <refpurpose>preenche um polígono</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>xfpoly(xv,yv,[close])
+            hdl = xfpoly(...)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>xv,yv</term>
+                <listitem>
+                    <para>dois vetores de mesmo tamanho (os pontos do polígono). </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>close</term>
+                <listitem>
+                    <para>inteiro. Se close= 1, a linha poligonal é fechada; o valor
+                        padrão é 0.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Polyline</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="polyline_properties">polyline_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>xfpoly</literal> preenche um polígono com a cor corrente.
+            Se <literal>close</literal> é igual a 1 um ponto é adicionado à poligonal
+            <literal>xv,yv</literal> para definir o polígono.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+x=sin(2*%pi*(0:4)/5);
+y=cos(2*%pi*(0:4)/5);
+plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
+gca().foreground = 5;
+e=xfpoly(x,y)
+
+// apenas para novo estilo de gráficos
+e.fill_mode='off';
+e.closed = 'off' // a poligonal está aberta agora
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xfpolys">xfpolys</link>
+            </member>
+            <member>
+                <link linkend="xpoly">xpoly</link>
+            </member>
+            <member>
+                <link linkend="xpolys">xpolys</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    Function returns the created handle(s).
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

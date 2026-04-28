@@ -1,0 +1,107 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Vladislav TRUBKIN
+//
+// This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- XCOS TEST -->
+//
+//<-- ENGLISH IMPOSED -->
+//
+// <-- Non-regression test for bug 13396 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/13396
+//
+// <-- Short Description -->
+// MBLOCK did not work with an external file containing the modelica class
+//
+global toggle;
+toggle = %T;
+assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_13396.zcos"));
+prot = funcprot();
+funcprot(0);
+level = ilib_verbose();
+ilib_verbose(0);
+// create external file
+fd = mopen(TMPDIR+"/bug_13396.mo", "wt");
+txt = ["class bug_13396"; ..
+"    parameter Real R = 1.000000e-01;"; ..
+"    Pin p,n;"; ..
+"    Real i,v;"; ..
+"equation"; ..
+"    i = p.i;"; ..
+"    n.i = -i;"; ..
+"    v = p.v - n.v;"; ..
+"    R * i = v;"; ..
+"end bug_13396;"];
+mputl(txt, fd);
+mclose(fd);
+// overload of scicos_getvalue and msg box
+function str = x_mdialog(desc, labels, ini)
+    global toggle;
+    if toggle then
+        ini($) = TMPDIR + "/bug_13396.mo";
+        str = ini;
+        toggle = ~toggle;
+    else
+        str = []; // cancelling
+    end
+endfunction
+// set the path for external file
+for i = 1:size(scs_m.objs)
+    if typeof(scs_m.objs(i)) == "Block" & scs_m.objs(i).gui == "MBLOCK" then
+        scs_m.objs(i).graphics.exprs(9) = TMPDIR + "/bug_13396.mo";
+        scs_m.objs(i).model.sim(1) = TMPDIR + "/bug_13396.mo";
+        MBLOCK("set", scs_m.objs(i));
+        break
+    end
+end
+// compile the diagram
+[cpr, ok] = xcos_compile(scs_m);
+--------------------------------------------\
+ Main Modelica : TMPDIR/bug_13396_im.mo
+ Flat Modelica : TMPDIR/bug_13396_imf.mo
+ Simulation C code :TMPDIR/bug_13396_im.c
+  "Modelica blocks are reduced to a block with:"           
+  "Number of differential states: 0"                       
+  "Number of algebraic states: 1"                          
+  "Number of discrete time states  : 0"                    
+  "Number of zero-crossing surfaces: 1"                    
+  "Number of modes  : 1"                                   
+  "Number of inputs : 0"                                   
+  "Number of outputs: 1"                                   
+  "Input/output dependency:[T]"                            
+  "Analytical Jacobian: enabled  (%Jacobian=%t)"           
+  "Parameter embedding mode: enabled (%Modelica_ParEmb=%t)"
+  ""                                                       
+  "Generated files path: TMPDIR/"     
+  ""                                                       
+WARNING: Diagram contains implicit blocks, compiling for implicit Solver.
+assert_checktrue(ok);
+// simulate the diagram
+xcos_simulate(scs_m, 4);
+--------------------------------------------\
+ Main Modelica : TMPDIR/bug_13396_im.mo
+ Flat Modelica : TMPDIR/bug_13396_imf.mo
+ Simulation C code :TMPDIR/bug_13396_im.c
+  "Modelica blocks are reduced to a block with:"           
+  "Number of differential states: 0"                       
+  "Number of algebraic states: 1"                          
+  "Number of discrete time states  : 0"                    
+  "Number of zero-crossing surfaces: 1"                    
+  "Number of modes  : 1"                                   
+  "Number of inputs : 0"                                   
+  "Number of outputs: 1"                                   
+  "Input/output dependency:[T]"                            
+  "Analytical Jacobian: enabled  (%Jacobian=%t)"           
+  "Parameter embedding mode: enabled (%Modelica_ParEmb=%t)"
+  ""                                                       
+  "Generated files path: TMPDIR/"     
+  ""                                                       
+WARNING: Diagram contains implicit blocks, compiling for implicit Solver.
+WARNING: Diagram has been compiled for implicit solver
+WARNING: switching to implicit Solver
+funcprot(prot);
+ilib_verbose(level);
+mdelete(TMPDIR+"/bug_13396.mo");

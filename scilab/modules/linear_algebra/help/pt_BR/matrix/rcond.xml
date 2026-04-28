@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="rcond" xml:lang="pt">
+    <refnamediv>
+        <refname>rcond</refname>
+        <refpurpose>número de condicionamento inverso</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>r = rcond(X)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>matriz quadrada de reais ou complexos</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>número real positivo</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>rcond(X)</literal> é uma estimativa para a recíproca da
+            condição de <literal>X</literal> na norma-1.
+        </para>
+        <para>
+            Se <literal>X</literal> é bem condicionada,
+            <literal>rcond(X)</literal> é próximo a 1. Senão,
+            <literal>rcond(X)</literal> é próximo a 0.
+        </para>
+        <para>
+          <note>
+            Estimar o número da condição inversa de 1-norma com <literal>rcond</literal> é
+            muito (mais de 200x) mais rápido do que calcular o número da condição de 2 normas com
+            <literal>cond</literal>.
+            Como um trade-off, <literal>rcond</literal> pode ser menos confiável.
+          </note>
+        </para>
+        <para>
+            Algoritmo: Calculamos a norma 1 de X com Lapack / DLANGE. Em seguida, sua decomposição
+            de LU é calculada com Lapack / DGETRF. Finalmente, a condição é avaliada com
+            Lapack / DGECON.
+        </para>
+        <para>
+          <literal>rcond([])</literal> produz <literal>%inf</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+A = diag([1:10]);
+rcond(A)
+A(1,1) = 0.000001;
+rcond(A)
+ ]]></programlisting>
+      <para>Benchmarks comparativos</para>
+        <programlisting role="example"><![CDATA[
+    A = ones(1000, 1000);
+    timer(); cond(A);    timer()
+    timer(); 1/rcond(A); timer()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="svd">svd</link>
+            </member>
+            <member>
+                <link linkend="cond">cond</link>
+            </member>
+            <member>
+                <link linkend="inv">inv</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    rcond([]) now yields %inf = 1/cond([]) instead of [].
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

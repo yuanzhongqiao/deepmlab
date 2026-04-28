@@ -1,0 +1,137 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Clément DAVID
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Cédric DELAMARRE
+#
+#
+# This YAML file describe the postbuild stage of the CI. This stage is mostly
+# optional and generate/build extra documentation from Scilab build.
+#
+
+# build javadoc
+build_javadoc:
+  stage: postbuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: docker.io/openjdk:8-jdk-alpine
+  dependencies: []
+  script:
+    - MASK="scilab/modules/*/src/java/";
+    - MODULES=`ls -d $MASK`;
+    - |
+      LISTPKG="";
+      for M in $MODULES; do
+        LISTMODULES="$M:$LISTMODULES";
+        MODULE=$(echo $M|cut -d/ -f3);
+        LISTPKG="$LISTPKG org.scilab.modules.$MODULE";
+      done;
+    - javadoc -d public/javadoc -sourcepath $LISTMODULES $LISTPKG
+  artifacts:
+    paths:
+      - public
+  when: manual
+
+# build Doxygen
+build_doxygen:
+  stage: postbuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: docker.io/tsgkadot/docker-doxygen
+  dependencies: []
+  script:
+    - cd scilab
+    - mkdir reports
+    - doxygen modules/development_tools/etc/doxyfile >/dev/null
+    - mv reports/html $CI_PROJECT_DIR/public/doxygen
+  artifacts:
+    when: always
+    paths:
+      - public
+  when: manual
+
+# build preview of help.scilab.org
+build_help_web:
+  stage: postbuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${SCI_REGISTRY_IMAGE}/linux-builder:${DOCKER_TAG}
+  dependencies: []
+  script:
+    - cd scilab
+    - make doc-web
+    - "[ ! -d public ] && mkdir public"
+    - mv modules/helptools/web $CI_PROJECT_DIR/public/docs
+  artifacts:
+    paths:
+      - public
+  when: manual
+
+# extract jar content to web
+publish_help_jar:
+  stage: postbuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${SCI_REGISTRY_IMAGE}/linux-builder:${DOCKER_TAG}
+  variables:
+    GIT_STRATEGY: none
+  needs:
+    - linux_build_mr
+    - linux_set_env
+  script:
+    - echo "help from ${SCI_VERSION_STRING} ${ARCH}"
+    - "[ ! -d public ] && mkdir public"
+    - "[ ! -d public/docs ] && mkdir public/docs"
+    - cd public/docs
+    - tar --wildcards --strip-components 6 -xJf ../../${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz ${SCI_VERSION_STRING}/share/scilab/modules/helptools/jar/scilab_*_help.jar
+    - for f in *.jar; do jar xf $f; done
+    - rm *.jar
+    - tar --strip-components 6 -xJf ../../${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz ${SCI_VERSION_STRING}/share/scilab/modules/helptools/jar/scilab_images.jar
+    - "[ ! -d images ] && mkdir images"
+    - jar xf scilab_images.jar -d images/
+    - rm scilab_images.jar
+    - sed -i -e "s#jarsci:./#../images/#g" */*.html
+  rules: &MR_RULES
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push"
+  artifacts:
+    paths:
+      - public
+
+# start scilab on multiple distro 
+.linux_startup:
+  stage: postbuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${SCI_REGISTRY_IMAGE}/$DISTRO:${DOCKER_TAG}
+  script:
+    - tar -xJf "${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" -C $HOME
+    - cd $HOME
+    - export SCIVERBOSE=1
+    - xvfb-run ${SCI_VERSION_STRING}/bin/scilab $MODE -e "disp(getscilabmode()); if getscilabmode() <> 'NWNI' then plot(); end" -quit
+  parallel:
+    matrix:
+      - DISTRO:
+          - "ubuntu-22.04"
+          - "ubuntu-24.04"
+          - "ubuntu-25.04"
+          - "fedora-42"
+          - "debian-13"
+        MODE: ["-nwni", "-nw"]
+
+linux_startup_mr:
+  extends: .linux_startup
+  needs:
+    - linux_build_mr
+    - linux_set_env
+  rules: *MR_RULES
+
+linux_startup_nightly:
+  extends: .linux_startup
+  needs:
+    - linux_build_nightly
+    - linux_set_env
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+
+linux_startup_release:
+  extends: .linux_startup
+  needs:
+    - linux_build_release
+    - linux_set_env
+  rules:
+    - if: $CI_COMMIT_TAG

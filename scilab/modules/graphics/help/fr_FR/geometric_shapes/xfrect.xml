@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="xfrect">
+    <refnamediv>
+        <refname>xfrect</refname>
+        <refpurpose>remplit un rectangle  </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>xfrect(x,y,w,h)
+            xfrect(rect) // rect =[x,y,w,h]
+            hdl = xfrect(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>x,y,w,h  </term>
+                <listitem>
+                    <para>4 valeurs réelles définissant le rectangle.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Rectangle</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="rectangle_properties">rectangle_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>xrect</literal> remplit un rectangle défini par <literal>[x,y,w,h]</literal>
+            (point en haut à gauche, largeur, hauteur) en coordonnées utilisateur et en utilisant la couleur courante.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
+e=xfrect(-1,1,2,2)
+e.background = color("green");
+ ]]></programlisting>
+        <scilab:image>
+            plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
+            e=xfrect(-1,1,2,2)
+            e.background = color("green");
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xrect">xrect</link>
+            </member>
+            <member>
+                <link linkend="xrects">xrects</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    La fonction renvoie le(s) handle(s) créé(s).
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

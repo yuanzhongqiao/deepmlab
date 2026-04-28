@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="findobj">
+    <refnamediv>
+        <refname>findobj</refname>
+        <refpurpose>find an object with specified property</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            h = findobj()
+            h = findobj(propertyName, propertyValue)
+            h = findobj(propertyName, propertyValue, operator, propertyName, propertyValue, ...)
+            h = findobj("-property", propertyName, ...)
+            h = findobj(searchHandles, ...)
+            h = findobj(..., '-depth', d, ...)
+            h = findobj(..., '-flat', ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>propertyName</term>
+                <listitem>
+                    <para>string character Name of the property to test (case unsensitive).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>propertyValue</term>
+                <listitem>
+                    <para>character string specify the value the tested property should be equal to (case sensitive).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>operator</term>
+                <listitem>
+                    <para>character string belonging to the set {"-and", "-or", "-not"}.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>searchHandles</term>
+                <listitem>
+                    <para>Vector of graphic handles where the search is restricted to.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>d</term>
+                <listitem>
+                    <para>positive integer, the depth of the search.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>handles of the found objects.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Without arguments <literal>findobj</literal> returns handles of all graphic objects and their descendants. If such an object does not exist, the
+            function returns an empty matrix.
+        </para>
+        <para>
+            In most cases, <literal>findobj(propertyName, propertyValue, ...)</literal> returns all graphic handles having the property <literal>propertyName</literal> set to <literal>propertyValue</literal>.
+            But, if <literal>propertyName</literal> is <literal>"tag"</literal>, then only one graphic handle will be returned considering tags are unique.
+            If successive property/value pairs are given the graphic handles verifing all conditions are returned, i.e. there is an implicit <literal>"-and"</literal> operator between pairs. 
+            Another operator can be explicitely given with <literal>findobj(propertyName, propertyValue, operator, propertyName, propertyValue, ...)</literal>.
+        </para>
+        <para>The priority of evaluations in a composite condition using operators can be controlled by using a cell argument, e.g. <literal>findobj({propertyName, propertyValue, ...}, operator, ...)</literal>
+        </para>
+        <para>
+            <literal>findobj("-property", propertyName, ...)</literal> returns the handles of objects having the property <literal>propertyName</literal>. Other conditions can be added.
+        </para>
+        <para>
+            By default the search is done within all figures and <literal>findobj(searchHandles, ...)</literal> restricts the search to the given handles. The depth of the search is by default infinite and can be restricted by <literal>findobj(searchHandles, '-depth', d, ...)</literal>. A value of 0 restricts the search to objects given in <literal>searchHandles</literal> and does not search within descendants, this is equivalent to the <literal>"flat"</literal> optional string.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Create a figure
+h=scf();
+// Put a text in the figure
+uicontrol(h, "style","text", ...
+             "string","This is a figure", ...
+             "position",[50 70 100 100], ...
+             "fontsize",15, ...
+             "tag","Alabel");
+// Find the object which "tag" value is "Alabel"
+lab=findobj("tag","Alabel");
+disp("The text of the label is """+lab.string+"""");
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+// Create a figure
+h=scf();
+// plot something
+plot()
+xlabel abscissae
+ylabel ordinate
+title "a plot"
+legend "c1" "c2" "c3"
+
+// Find the objects having a "font_size" property
+h1 = findobj("-property","font_size")
+// Change the font size of all text objects
+h1.font_size = 3
+
+// Find the objects having a "thickness" property
+h2 = findobj("-property","thickness")
+// Change the thickness of such objects
+h2.thickness = 2
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uicontrol">uicontrol</link>
+            </member>
+            <member>
+                <link linkend="uimenu">uimenu</link>
+            </member>
+            <member>
+                <link linkend="set">set</link>
+            </member>
+            <member>
+                <link linkend="get">get</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

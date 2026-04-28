@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) - INRIA
+* Copyright (C) 2018 - Samuel GOUGEON
+*
+* Copyright (C) 2012 - 2016 - Scilab Enterprises
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* pursuant to article 5.3.4 of the CeCILL v.2.1.
+* This file was originally licensed under the terms of the CeCILL v2.1,
+* and continues to be available under such terms.
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="poly">
+    <refnamediv>
+        <refname>poly</refname>
+        <refpurpose>définition d'un polynôme selon racines ou coefficients, ou caractéristique d'une matrice carrée</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            p = poly(vec, vname)
+            p = poly(vec, vname, "roots"|"coeff")
+            Pc = poly(matNN, vname)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>vname </term>
+                <listitem>
+                    <para>
+                        Mot : nom de la variable du polynôme. Les caractères autorisés sont les
+                        mêmes que ceux utilisables pour les noms de variables
+                        (voir les règles de <link linkend="names">nommage</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>vec</term>
+                <listitem>
+                    <para>
+                        scalaire, vecteur, ou matrice non carrée de nombres décimaux ou complexes.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"roots" ou "r" (par défaut), ou "coeff" ou "c"</term>
+                <listitem>
+                    <para>
+                        Indicateur précisant la nature des éléments de <literal>vec</literal>:
+                        racines ou coefficients du polynôme à construire.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>
+                        polynôme unique ayant les racines ou les coefficients donnés.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>matNN</term>
+                <listitem>
+                    <para>Matrice carrée de nombres décimaux ou complexes.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Pc</term>
+                <listitem>
+                    <para>
+                        Polynôme caractéristique de la matrice donnée,
+                        = <literal>det(x*eye() - matNN)</literal>, avec la variable symbolique
+                        <literal>x = poly(0,vname)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <variablelist>
+            <varlistentry>
+                <term>
+                    Lorsqu'un vecteur ou une matrice non carrée <literal>vec</literal> est fourni,
+                </term>
+                <listitem>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>poly(vec, "x")</literal> ou
+                                <literal>poly(vec, "x", "roots")</literal> construit le polynôme dont
+                                les racines sont les éléments de <varname>vec</varname>, et
+                                <literal>"x"</literal> est le nom de la variable indéterminée.
+                                <note>
+                                    <itemizedlist>
+                                        <listitem>
+                                            <literal>degree(p)==length(vec)</literal>
+                                        </listitem>
+                                        <listitem>
+                                             <para><literal>poly()</literal> et <literal>roots()</literal>
+                                              sont réciproques.
+                                            </para>
+                                        </listitem>
+                                        <listitem>
+                                             <para>
+                                              Toute racine infinie produit un coefficient de haut degré
+                                              nul. Dans ce cas, le degré effectif de <varname>p</varname>
+                                                est inférieur à <literal>length(vec)</literal>.
+                                                Par exemple,
+                                                <literal>poly([-%inf -1 2 %inf ], "x")</literal>
+                                                produit <literal>(x-2)(x+1)</literal> de degré 2.
+                                            </para>
+                                        </listitem>
+                                    </itemizedlist>
+                                </note>
+                            </para>
+                            <para>
+                                L'expression <literal>x = poly(0,"x")</literal> définit le monôme
+                                <literal>p(x)=x</literal>, lequel peut ensuite être utilisé avec
+                                les opérateurs usuels +, -, *, /  et les fonctions communes telles
+                                que <literal>sum()</literal>.
+                                <note>
+                                    3 monômes sont disponibles dans les variables prédéfinies
+                                    <literal>%s</literal>, <literal>%z</literal>, et
+                                    <literal>$</literal>. Ce dernier est principalement connu
+                                    et utilisé pour représenter le nombre d'éléments d'une ligne /
+                                    colonne... dans un tableau.
+                                </note>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>poly(vec, "x", "coeff")</literal> construit le polynôme
+                                de variable <literal>"x"</literal> dont les coefficients de degrés
+                                croissants sont les éléments de <varname>vec</varname>
+                                (<literal>vec(1)</literal> est le terme constant du polynôme).
+                                Les coefficients de plus hauts degrés nuls (en fin de
+                                <literal>vec</literal>) sont ignorés.
+                            </para>
+                            <note>
+                                Réciproquement, <literal>coeff(p)</literal> fournit les coefficients
+                                de polynômes donnés.
+                            </note>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    Une matrice carrée <literal>matNN</literal> est fournie,
+                </term>
+                <listitem>
+                    <para>
+                        <literal>pm = poly(matNN,vname)</literal> contruit et fournit le polynôme
+                        caractéristique de <varname>matNN</varname>, de variable indéterminée
+                        nommée par <literal>vname</literal> :
+                        <literal>p = det(x*eye() - matNN)</literal>, avec
+                        <literal>x = poly(0,vname)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <para>Polynôme défini par des coefficients choisis :</para>
+        <programlisting role="example"><![CDATA[
+// Construction directe :
+x = poly(0,"x");
+p = 1 - x + 2*x^3
+
+// Avec poly():
+p2 = poly([1 -1 0 2], "x", "coeff")
+
+// Avec des coefficients nuls aux plus hauts degrés :
+p3 = poly([2 0 -3 zeros(1,8)], "y", "coeff")
+ ]]></programlisting>
+    <screen><![CDATA[
+--> p = 1 - x + 2*x^3
+ p  =
+           3
+   1 -x +2x
+
+--> p2 = poly([1 -1 0 2], "x", "coeff")
+ p2  =
+           3
+   1 -x +2x
+
+--> p3 = poly([2 0 -3 zeros(1,8)], "y", "coeff")
+ p3  =
+        2
+   2 -3y
+]]></screen>
+        <para>Polynôme à racines choisies :</para>
+        <programlisting role="example"><![CDATA[
+// Construction directe :
+x = poly(0,"x");
+p = (1-x)^2 * (2+x)
+
+// Avec poly():
+p2 = poly([1 1 -2], "x")
+
+// Avec des racines infinies :
+p3 = poly([%inf -1 2 %inf -%inf], "x")
+ ]]></programlisting>
+    <screen><![CDATA[
+--> p = (1-x)^2 * (2+x)
+ p  =
+           3
+   2 -3x +x
+
+--> p2 = poly([1 1 -2], "x")
+ p2  =
+           3
+   2 -3x +x
+
+--> p3 = poly([%inf -1 2 %inf -%inf], "x")
+ p3  =
+          2
+  -2 -x +x
+]]></screen>
+        <para>Polynôme caractéristique d'une matrice carrée :</para>
+        <programlisting role="example"><![CDATA[
+A = [1 2 ; 3 -4]
+poly(A, "x")
+ ]]></programlisting>
+    <screen><![CDATA[
+--> A = [1 2 ; 3 -4]
+ A  =
+   1.   2.
+   3.  -4.
+
+--> poly(A, "x")
+ ans  =
+            2
+  -10 +3x +x
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="inv_coeff">inv_coeff</link>
+            </member>
+            <member>
+                <link linkend="coeff">coeff</link>
+            </member>
+            <member>
+                <link linkend="roots">roots</link>
+            </member>
+            <member>
+                <link linkend="varn">varn</link>
+            </member>
+            <member>
+                <link linkend="horner">horner</link>
+            </member>
+            <member>
+                <link linkend="percents">%s</link>
+            </member>
+            <member>
+                <link linkend="percentz">%z</link>
+            </member>
+            <member>
+                <link linkend="rational">rational</link>
+            </member>
+            <member>
+                <link linkend="rlist">rlist</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>
+                    Les seules valeurs autorisées pour le troisième argument sont "roots",
+                    "coeff", "c" et "r".
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    Le nom de la variable symbolique n'est plus limité à 4 caractères.
+                    Il peut inclure des caractères UTF-8 étendus.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revremark>
+                    Avec la méthode "coeff", les coefficients nuls de plus hauts degrés sont
+                    désormais ignorés.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2017-02-19 14:29+0000\n"
+"Last-Translator: TzuYuan Lin <Unknown>\n"
+"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"Revision-Date: 2011-04-04 22:09+0100\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A int32 expected.\n"
+msgstr "%s:輸入參數的資料型態錯誤 #%d: 必須是 int32 .\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr ""
+
+#
+# File: sci_gateway/c/sci_fftw_flags.c, line: 146
+#, c-format
+msgid "%s: Wrong values for input argument #%d: FFTW flag expected.\n"
+msgstr "%s: 第 %d 個輸入參數數值錯誤: 應為 FFTW 旗標.\n"
+
+#
+# File: sci_gateway/c/sci_fftw_flags.c, line: 158
+#, c-format
+msgid "%s: Wrong type for input argument #%d.\n"
+msgstr "%s: 第 %d 個輸入參數型態錯誤.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr "%s: 輸入參數的資料長度不正確 #%d: 必須是 %d 對 %d.\n"
+
+#
+# File: sci_gateway/c/sci_get_fftw_wisdom.c, line: 59
+# File: sci_gateway/c/sci_get_fftw_wisdom.c, line: 66
+# File: sci_gateway/c/sci_get_fftw_wisdom.c, line: 86
+# File: sci_gateway/c/sci_get_fftw_wisdom.c, line: 92
+# File: sci_gateway/c/sci_set_fftw_wisdom.c, line: 60
+# File: sci_gateway/c/sci_fftw_flags.c, line: 176
+# File: sci_gateway/c/sci_fftw_flags.c, line: 183
+# File: sci_gateway/c/sci_fftw_flags.c, line: 201
+# File: sci_gateway/c/sci_fftw_flags.c, line: 208
+# File: sci_gateway/c/sci_fftw.c, line: 235
+# File: sci_gateway/c/sci_fftw.c, line: 241
+# File: sci_gateway/c/sci_fftw.c, line: 415
+# File: sci_gateway/c/sci_fftw.c, line: 433
+# File: sci_gateway/c/sci_fftw.c, line: 461
+# File: sci_gateway/c/sci_fftw.c, line: 472
+# File: sci_gateway/c/sci_fftw.c, line: 495
+# File: sci_gateway/c/sci_fftw.c, line: 535
+# File: sci_gateway/c/sci_fftw.c, line: 561
+#, c-format
+msgid "%s: No more memory.\n"
+msgstr "%s: 記憶體耗盡.\n"
+
+#, c-format
+msgid "%s: Failed to generate the planner name.\n"
+msgstr "%s: 規劃器的名稱產生失敗.\n"
+
+#, c-format
+msgid "%s: MKL fftw library does not implement wisdom functions yet.\n"
+msgstr ""
+
+# File: sci_gateway/c/sci_loadfftwlibrary.c, line: 50
+# File: sci_gateway/c/sci_set_fftw_wisdom.c, line: 85
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為一字串.\n"
+
+#, c-format
+msgid "%s: Cannot allocate more memory.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: a valid wisdom expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Creation of requested fftw plan failed.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %d or %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Must be between %d and %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: Positive integers expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Elements must be less than %d.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Elements must be in increasing "
+"order.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Elements must be greater than %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: Must be less than %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: Must be a divisor of %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Elements must be divisors of %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d.\n"
+msgstr ""
+
+#, c-format
+msgid "Scilab '%s' module not installed.\n"
+msgstr ""
+
+msgid "You chose to install Scilab with the fftw module."
+msgstr ""
+
+msgid "This module requires: "
+msgstr ""
+
+msgid "Scilab will use standard fft by default until you install this library."
+msgstr ""
+
+msgid "See help fftw for more information."
+msgstr ""

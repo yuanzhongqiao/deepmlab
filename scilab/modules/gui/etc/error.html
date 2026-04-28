@@ -1,0 +1,105 @@
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Erreur 404 - Scilab</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 90%;
+      overflow: hidden;
+    }
+
+    .image-section {
+      flex: 1;
+      background-image: url("./puffin.png");
+      background-size: cover;
+      background-position: center;
+      min-height: 300px;
+      aspect-ratio: 1/1;
+      margin: 20px;
+    }
+
+    .text-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+      color: #c0392b;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 1.5em;
+    }
+
+    #error {
+      color: darkgrey;
+    }
+
+    @media (max-width: 768px) {
+      .image-section {
+        display: none;
+        height: 256px;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-section"></div>
+        <div class="text-section">
+        <h1>Error</h1>
+        <div id="error">(<!--TAG ERROR-->)</div>
+        <p id="error-message"></p>
+    </div>
+  </div>
+  <script>
+    const messages = [
+      `Page not found = equation with no solution.<br>Even <code>fsolve()</code> can't help us now.<br>You've officially stepped outside the domain.`,
+      `This page entered an infinite loop and never returned.<br>Try exiting the function before the stack overflows.`,
+      `Simulation crashed.<br>The model ran out of memory... and hope.`,
+      `We tried to divide by zero to find this page. It didn’t go well.`,
+      `Variable "page" is undefined in this context.<br>Did you mean "home"? Use <code>clear</code> and try again.`,
+      `You're outside the function's domain.<br>The real page exists… but not for these input parameters.`,
+      `The page you are looking for produced undefined behavior.<br>We ran it through <code>exec()</code>, and now the server is scared.`,
+      `Debugger started... breakpoint hit… no function found.<br>Looks like you're on your own now.`,
+      `This page exists in theory.<br>We calculated its location using imaginary numbers. Turns out it was complex.`
+    ];
+
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    document.getElementById("error-message").innerHTML = messages[randomIndex];
+  </script>
+</body>
+</html>

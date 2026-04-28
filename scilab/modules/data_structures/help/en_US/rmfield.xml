@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Vincent COUVERT 
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="rmfield">
+    <refnamediv>
+        <refname>rmfield</refname>
+        <refpurpose>Remove fields from a struct</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>stout = rmfield(stin, fields)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>stin</term>
+                <listitem>
+                    <para>A struct variable.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fields</term>
+                <listitem>
+                    <para>String matrix or cell of strings, the names of the fields to remove.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stout</term>
+                <listitem>
+                    <para>A struct variable having the same dimensions as <literal>stin</literal> from which some fields have be removed.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <function>rmfield</function> function removes fields from a struct but without modifying its dimensions.
+            If <literal>fields</literal> is an empty matrix or an empty cell, then <literal>stin</literal> and <literal>stout</literal> are the same.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            st = struct("a", 1, "b", 2, "c", 3, "d", 4)
+            s2 = rmfield(st, []) // No fields will be removed
+            s1 = rmfield(st, "a")
+            s3 = rmfield(st, {"b", "c"})
+            s4 = rmfield(st, {"b", "c"; "d", "a"}) // All fields will be removed
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="struct">struct</link>
+            </member>
+            <member>
+                <link linkend="fieldnames">fieldnames</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        Function <literal>rmfield</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

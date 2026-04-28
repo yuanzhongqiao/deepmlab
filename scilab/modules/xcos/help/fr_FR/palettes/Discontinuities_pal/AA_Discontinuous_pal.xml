@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="discontinuities_pal" xml:lang="fr">
+    <refnamediv>
+        <refname>discontinuities_pal</refname>
+        <refpurpose>Palette Fonctions discontinues</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <para>
+            <link linkend="BACKLASH">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="BACKLASH" fileref="../../../../images/palettes/BACKLASH.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DEADBAND">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DEADBAND" fileref="../../../../images/palettes/DEADBAND.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DELAYV_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DELAYV_f" fileref="../../../../images/palettes/DELAYV_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="HYSTHERESIS">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="HYSTHERESIS" fileref="../../../../images/palettes/HYSTHERESIS.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="RATELIMITER">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="RATELIMITER" fileref="../../../../images/palettes/RATELIMITER.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="QUANT_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="QUANT_f" fileref="../../../../images/palettes/QUANT_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SATURATION">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SATURATION" fileref="../../../../images/palettes/SATURATION.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+        </para>
+    </refsection>
+    <refsection id="Description_discontinuities_pal">
+        <title>Description</title>
+        <para>
+            La palette Fonctions discontinues contient les blocs dont les sorties sont des fonctions
+            discontinues de leurs entrées.
+        </para>
+    </refsection>
+    <refsection id="Blocks_discontinuities_pal" role="see also">
+        <title>Blocs</title>
+        <simplelist>
+            <member>
+                <link linkend="BACKLASH">BACKLASH</link>
+            </member>
+            <member>
+                <link linkend="DEADBAND">DEADBAND</link>
+            </member>
+            <member>
+                <link linkend="DELAYV_f">DELAYV_f</link>
+            </member>
+            <member>
+                <link linkend="HYSTHERESIS">HYSTHERESIS</link>
+            </member>
+            <member>
+                <link linkend="RATELIMITER">RATELIMITER</link>
+            </member>
+            <member>
+                <link linkend="QUANT_f">QUANT_f</link>
+            </member>
+            <member>
+                <link linkend="SATURATION">SATURATION</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

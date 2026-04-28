@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) INRIA -
+*
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xml:id="regexp" xml:lang="en">
+    <refnamediv>
+        <refname>regexp</refname>
+        <refpurpose>
+            in a string, locate (and extract) substrings matching a regular expression
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [start, final, match, foundString] = regexp(input, pattern)
+            [start, final, match, foundString] = regexp(input, pattern, "once")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>input</term>
+                <listitem>
+                    <para>a string.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pattern</term>
+                <listitem>
+                    <para>
+                        a character string (under the rules of regular expression).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>start</term>
+                <listitem>
+                    <para>
+                        the starting index of each substring of
+                        <varname>input</varname> that matches the regular
+                        expression string <varname>pattern</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>final</term>
+                <listitem>
+                    <para>
+                        the ending index of each substring of
+                        <varname>input</varname> that matches the regular
+                        expression string <varname>pattern</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>match</term>
+                <listitem>
+                    <para>
+                        the text of each substring of <varname>input</varname>
+                        that matches <varname>pattern</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>foundString</term>
+                <listitem>
+                    <para>
+                        the captured parenthesized <literal>subpatterns</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"once | "o" flag</term>
+                <listitem>
+                    <para>
+                        <literal>'o'</literal> for matching the pattern only once.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Regular expressions, often abbreviated as "regex" or "regexp" are powerful tools used in programming and text processing for pattern matching within strings. They provide a concise and flexible means for identifying and manipulating strings of text, such as particular characters, words, or patterns of characters.</para>
+        <para>
+        They are essentially a sequence of characters that form a search pattern. This pattern can be used to search, edit, or manipulate text. Others features can be encoded :
+            <variablelist>
+                <varlistentry>
+                    <term>Metacharacters</term>
+                    <listitem>
+                        <para>These are special characters that have a unique meaning within a regex :
+                        <literal>. (dot): Matches any single character except a newline.</literal>
+                        <literal>* (asterisk): Matches zero or more occurrences of the preceding element.</literal>
+                        <literal>+ (plus): Matches one or more occurrences of the preceding element.</literal>
+                        <literal>? (question mark): Matches zero or one occurrence of the preceding element.</literal>
+                        <literal>| (pipe): Acts as a logical OR operator.</literal>
+                        <literal>^ (caret): Matches the beginning of a line.</literal>
+                        <literal>$ (dollar sign): Matches the end of a line.</literal>
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Character Classes</term>
+                    <listitem>
+                        <para>These allow you to match any one of a set of characters. For example, <literal>[abc]</literal> will match any one of the characters <literal>a</literal>, <literal>b</literal>, or <literal>c</literal>.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Quantifiers</term>
+                    <listitem>
+                        <para>These specify how many instances of a character, group, or character class must be present in the input for a match to be found. Examples include <literal>{n}</literal>, <literal>{n,}</literal>, and <literal>{n,m}</literal>.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Groups and Capturing</term>
+                    <listitem>
+                        <para>Parentheses <literal>()</literal> are used to create groups within a regex. These groups can be used to capture the text matched by the group for further processing.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Escaping</term>
+                    <listitem>
+                        <para>If you need to match a character that is a metacharacter, you can escape it with a backslash <literal>\</literal>. For example, <literal>\.</literal> will match a literal dot.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Anchors</term>
+                    <listitem>
+                        <para>These are used to specify the position in the text where a match must occur. Common anchors include <literal>^</literal> for the start of a line and <literal>$</literal> for the end of a line.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Modifiers</term>
+                    <listitem>
+                        <para>These are options that change how the regex engine interprets the pattern. Common modifiers include case-insensitive matching and global matching.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </para>
+        <para>
+            For the full syntax specification, see the <ulink url="https://www.pcre.org/current/doc/html/pcre2pattern.html">regular expressions supported by PCRE2</ulink>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+regexp('xabyabbbz','/ab*/','o')
+regexp('a!','/((((((((((a))))))))))\041/')
+regexp('ABCC','/^abc$/i')
+regexp('ABC','/ab|cd/i')
+[a b c]=regexp('XABYABBBZ','/ab*/i')
+
+piString="3.14"
+[a,b,c,piStringSplit]=regexp(piString,"/(\d+)\.(\d+)/")
+disp(piStringSplit(1))
+disp(piStringSplit(2))
+
+[a,b,c,d]=regexp('xabyabbbz','/ab(.*)b(.*)/')
+size(d)
+
+// get host name from URL
+myURL="https://www.scilab.org/download/";
+[a,b,c,d]=regexp(myURL,'@^(?:http://)?([^/]+)@i')
+
+str='foobar: 2012';
+// Using named subpatterns
+[a,b,c,d]=regexp(str,'/(?P<name>\w+): (?P<digit>\d+)/')
+d(1)=="foobar"
+d(2)=="2012"
+
+    ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strindex"/>
+            </member>
+            <member>
+                <link linkend="strsubst"/>
+            </member>
+            <member>
+                <link linkend="strsplit"/>
+            </member>
+            <member>
+                <ulink url="https://www.pcre.org/current/doc/html/pcre2pattern.html">regular expressions supported by PCRE2</ulink>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    PCRE2 was used as engine.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    A new output argument, foundString, has been added to retrieve subpatterns matches.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

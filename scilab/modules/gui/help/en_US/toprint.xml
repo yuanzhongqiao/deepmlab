@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Allan CORNET
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="toprint">
+    <refnamediv>
+        <refname>toprint</refname>
+        <refpurpose>Send text or figure to the printer.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            toprint(filename)
+            toprint(linestoprint,pageheader)
+            toprint(figid)
+            toprint(figid,output)
+            status = toprint(filename)
+            status = toprint(linestoprint,pageheader)
+            status = toprint(figid)
+            status = toprint(figid,output)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>String: path of the text file to be printed.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>linestoprint</term>
+                <listitem>
+                    <para>String matrix: text to be printed, each entry is a line in printed pages.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pageheader</term>
+                <listitem>
+                    <para>String: header of printed pages.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>figid</term>
+                <listitem>
+                    <para>Real: the id of the figure to be printed.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>output</term>
+                <listitem>
+                    <para>
+                        String: printing output type, must be <emphasis>"pos"</emphasis> for PostScript or <emphasis>"gdi"</emphasis> for Bitmap format (<emphasis>"gdi"</emphasis> by default).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>
+                        Boolean: <emphasis>%T</emphasis> if the printing succeeds, <emphasis>%F</emphasis> otherwise.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Prints a text file, Scilab character strings or figure.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+toprint(SCI+"/etc/scilab.start");
+toprint(['Test','toprint primitive'],'Scilab page header');
+scf(4);
+plot();
+toprint(4);
+toprint(4,"pos");
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="printfigure">printfigure</link>
+            </member>
+            <member>
+                <link linkend="printsetupbox">printsetupbox</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

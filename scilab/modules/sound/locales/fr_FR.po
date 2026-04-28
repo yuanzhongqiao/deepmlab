@@ -1,0 +1,311 @@
+# French translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: CARNIS Adeline <Unknown>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s : Impossible de lire l'argument d'entrée n°%d.\n"
+
+msgid "Cannot play file."
+msgstr "Impossible de lire le fichier."
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s : Erreur d'allocation mémoire.\n"
+
+#, c-format
+msgid "%s: Wrong input argument #%d: '%s' or '%s' expected.\n"
+msgstr "%s : Argument d'entrée n°%d faux : '%s' ou '%s' attendu.\n"
+
+msgid "Scilab sound module not installed.\n"
+msgstr "Le module sound de Scilab n'est pas installé.\n"
+
+# File: modules/sound/demos/mapsound.dem.sce, line: 29
+msgid "<html><h4>Example #1: Standard</h4>"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 42
+msgid "Next example"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 78
+msgid "Next exampleStop"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 91
+msgid "<html><h4>Example #3: chimes.wav sound</h4>"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 97
+msgid "End"
+msgstr ""
+
+msgid "Sound file handling"
+msgstr "Gestion des fichiers audio"
+
+msgid "FFT on a wav file"
+msgstr "FFT sur un fichier wav"
+
+msgid "Fourier analysis of 0.5 seconds of sound parameters."
+msgstr "Analyse de Fourier de 0.5 secondes des paramètres de son"
+
+msgid "A complete picture of the sound."
+msgstr "Une image complète du son"
+
+msgid "see 'mapsound' function"
+msgstr "Voir la fonction 'mapsound'"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d à %d attendus.\n"
+
+#, c-format
+msgid "%s: Cannot open file %s.\n"
+msgstr "%s : Impossible d'ouvrir le fichier %s.\n"
+
+msgid "Index range must be specified as a scalar or a 2 elements vector."
+msgstr ""
+"La gamme des index doit être spécifiée comme un scalaire ou un vecteur à 2 "
+"éléments."
+
+#, c-format
+msgid "%s: File '%s': Unrecognized data format.\n"
+msgstr "%s : Fichier '%s' : Format de données non reconnu.\n"
+
+msgid "Sample limit vector must have 2 elements."
+msgstr "Le vecteur des limites de l'échantillon doit avoir 2 éléments."
+
+msgid "Sample limits out of range."
+msgstr "Limites d'échantillonnage en dehors de l'intervalle."
+
+msgid "Sample limits must be given in ascending order."
+msgstr "Les limites de l'échantillon doivent être données par ordre croissant."
+
+msgid "Error in file format."
+msgstr "Erreur de format de fichier."
+
+#, c-format
+msgid "%s: File '%s' is not a .au sound file.\n"
+msgstr "%s : Fichier '%s' n'est pas un fichier son .au\n"
+
+msgid "Error while reading sound file."
+msgstr "Erreur à la lecture du fichier son."
+
+msgid "Unrecognized data format."
+msgstr "Format de données non reconnu."
+
+msgid "Truncated data file."
+msgstr "Fichier de données tronqué."
+
+#, c-format
+msgid "%s: Wrong values for input argument: Filename must be a string.\n"
+msgstr ""
+"%s : Valeurs erronées de l'argument d'entrée : Le nom de fichier doit être "
+"une chaîne de caractères.\n"
+
+msgid "Data array must have 1- or 2-dimensions only."
+msgstr "Le tableau de données doit avoir 1 ou 2 dimensions seulement."
+
+msgid "Data clipped during write to file."
+msgstr "Les données ont été tronquées à l'écriture dans le fichier."
+
+msgid "Error while writing sound file."
+msgstr "Erreur pendant l'écriture du fichier son."
+
+msgid "Mu-law can only be used with 8 bit data. Use method='linear' instead."
+msgstr ""
+"Mu-law ne peut être utilisé qu'avec des données 8 bits. Utilisez "
+"method='linear' à la place."
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d attendus.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments.\n"
+msgstr "%s : Nombre erroné d'arguments de sortie.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s).\n"
+msgstr "%s : Nombre erroné d'argument(s) de sortie.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Function expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: A colormap function expected.\n"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 126
+msgid "Time [s]"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 127
+msgid "Frequency [Hz]"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 137
+msgid "Amplitude"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: %s expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Must be >= %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: '%s' is a directory. File expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: The file '%s' does not exist.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Decimal number expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Must be > %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Failed to play the sound with command: %s.\n"
+msgstr "%s : Impossible de lire le son avec la commande : %s.\n"
+
+#, c-format
+msgid "%s: Audio capabilities not available.\n"
+msgstr "%s : Les capacités audio ne sont pas disponibles.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s : Dimension erronée de l'argument d'entrée n°%d.\n"
+
+msgid "only 8/16/24/32 bits for the encoding."
+msgstr "8/16/24/32 bits seulement pour l'encodage."
+
+msgid "Unknown data format."
+msgstr "Format de données inconnu."
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) d'entrée : Au moins %d attendu(s).\n"
+
+msgid "Requires 2-D values only."
+msgstr "Requiert des valeurs 2D seulement."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Une matrice %dx%d "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real matrix expected.\n"
+msgstr "%s : Type erroné de l'argument n°%d : Une matrice réelle attendue.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be >= %d.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée n°%d : Doit être >= %d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be %s or %s, an integer or a "
+"vector of %d integers.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : Doit être %s ou %s, un "
+"entier ou un vecteur de %d entiers.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: Index range must be specified as a "
+"scalar or %d-element vector.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée : La plage d'index doit être "
+"spécifiée sous la forme d'un scalaire ou d'un vecteur de %d éléments.\n"
+
+#, c-format
+msgid "%s: The file '%s' does not exist.\n"
+msgstr ""
+
+msgid ".wav file does not contain the RIFF identifier."
+msgstr "Le ficher .wav ne contient pas l'identifieur RIFF."
+
+msgid ".wav file does not contain the wave identifier."
+msgstr "Le fichier .wav ne contient pas l'identifieur wave."
+
+msgid "Error reading .wav file."
+msgstr "Erreur pendant la lecture du fichier .wav."
+
+msgid "Error reading <fact-ck> chunk."
+msgstr "Erreur pendant la lecture du fragment <fact-ck>."
+
+#, c-format
+msgid "%s: An error occurred: %s is not supported.\n"
+msgstr "%s : Une erreur est survenue : %s n'est pas supporté.\n"
+
+#, c-format
+msgid "%s: An error occurred: invalid file format. Error reading <%s> chunk.\n"
+msgstr ""
+"%s : Une erreur est survenue : Format de fichier invalide. Erreur pendant la "
+"lecture du morceau <%s>.\n"
+
+msgid "Invalid .wav file: found data before format information."
+msgstr ""
+"Fichier .wav invalide : Des données ont été trouvées avant l'information sur "
+"le format."
+
+msgid "Incorrect chunk size information in RIFF file."
+msgstr "Information erronée de la taille des fragments dans le fichier RIFF."
+
+#, c-format
+msgid "%s: wav format #%d detected. Only wav formats #%s are supported.\n"
+msgstr ""
+
+msgid "Error reading wav file."
+msgstr "Erreur pendant la lecture du fichier .wav."
+
+#, c-format
+msgid "%s: An error occurred: Data compression format %s is not supported.\n"
+msgstr ""
+"%s : Une erreur est survenue : Le format de compression de données %s n'est "
+"pas supporté.\n"
+
+msgid "Cannot read .wav file  with more than 32 bits per sample."
+msgstr ""
+
+msgid "Sample limit vector must have 2 entries."
+msgstr "Le vecteur des limites d'échantillonnages doit avoir 2 entrées."
+
+msgid "Invalid sample limits (use ascending order)."
+msgstr "Limites d'échantillonnage invalides (utilisez un ordre croissant)."

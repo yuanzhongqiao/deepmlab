@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="x_mdialog">
+    <refnamediv>
+        <refname>x_mdialog</refname>
+        <refpurpose>Dialog for interactive vector/matrix input.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result=x_mdialog(title, labels, default_inputs_vector)
+            result=x_mdialog(title, labels, default_inputs_vector, ispassword)
+
+            result=x_mdialog(title, labelsv, labelsh, default_input_matrix)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>title</term>
+                <listitem>
+                    <para>column vector of strings, dialog general comment</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labels</term>
+                <listitem>
+                    <para>
+                        n column vector of strings, <literal>labels(i)</literal> is the
+                        label of the ith required value
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>default_inputs_vector</term>
+                <listitem>
+                    <para>n column vector of strings,
+                        <literal>default_inputs_vector(i)</literal> is the initial value of the ith
+                        required value
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ispassword</term>
+                <listitem>
+                    <para>n column vector of booleans: if <literal>ispassword(i)</literal> value is <literal>%T</literal>, the ith entry/input will be used to get a password, the characters typed by the user will be hidden and returned value will contains a single string. Default value is <literal>%F</literal>.</para>
+                    <note>This parameter is not managed for matrix case.</note>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labelsv</term>
+                <listitem>
+                    <para>
+                        n vector of strings, <literal>labelsv(i)</literal> is the label of
+                        the ith line of the required matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labelsh</term>
+                <listitem>
+                    <para>
+                        m vector of strings, <literal>labelsh(j)</literal> is the label of
+                        the jth column of the required matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>default_input_matrix</term>
+                <listitem>
+                    <para>n x m matrix of strings,
+                        <literal>default_input_matrix(i,j)</literal> is the initial value of the
+                        (i,j) element of then required matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>n x m matrix of string if returned with "Ok" button or [] if
+                        returned with "Cancel" button
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Opens a dialog for interactive vector/matrix input.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+txt = ['magnitude';'frequency';'phase    '];
+sig = x_mdialog('enter sine signal',txt,['1';'10';'0'])
+mag = evstr(sig(1))
+frq = evstr(sig(2))
+ph  = evstr(sig(3))
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+rep = x_mdialog(['System Simulation';'with PI regulator'],...
+                 ['P gain';'I gain '],[' ';' '])
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+sz = [4,3];
+default_input_matrix = string(int32(rand(sz(1), sz(2)) * 200 - 100));
+labelsv = 'row '+string(1:sz(1));
+labelsh = 'col '+string(1:sz(2));
+rep = x_mdialog('Enter a matrix',...
+                 labelsv, labelsh, default_input_matrix)
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+sz = [10,10];
+default_input_matrix = "%"+string(rand(sz(1), sz(2)) > 0.5);
+labelsv = string(1:sz(1));
+labelsh = string(1:sz(2));
+rep = x_mdialog('Enter a boolean matrix', labelsv, labelsh, default_input_matrix)
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+cred = x_mdialog("Enter your credentials", ["Usernane:"; "Password:"],["scilab"; "scilabpassword"],[%f; %t])
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="editvar">editvar</link>
+            </member>
+            <member>
+                <link linkend="x_dialog">x_dialog</link>
+            </member>
+            <member>
+                <link linkend="x_choose">x_choose</link>
+            </member>
+            <member>
+                <link linkend="messagebox">messagebox</link>
+            </member>
+            <member>
+                <link linkend="getvalue">getvalue</link>
+            </member>
+            <member>
+                <link linkend="evstr">evstr</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>ispassword</literal> parameter added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

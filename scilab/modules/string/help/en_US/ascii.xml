@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="ascii" xml:lang="en">
+    <refnamediv>
+        <refname>ascii</refname>
+        <refpurpose>string ASCII conversions</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>a = ascii(txt)
+            txt = ascii(a)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>txt</term>
+                <listitem>
+                    <para>a character string or a matrix of character strings.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>a vector of integer ASCII codes</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function converts Scilab string to a vector of ASCII code (the first 127
+            codes are ASCII) or vector of ASCII code to Scilab strings.
+        </para>
+        <para>
+            If <varname>txt</varname> is a matrix of string, <code>ascii(txt)</code> is
+            equivalent to <code>ascii(strcat(txt))</code>.
+        </para>
+        <para>
+            If the ASCII code is out of range (eg. 0 or greater than 127) a warning
+            is displayed except on <code>ascii([0 ...])</code> or <code>ascii([... 0])</code>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+ascii(["hello";"world"])
+ascii("scilab")
+ascii([115 99 105 108 97 98])
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="asciimat">asciimat</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revremark>A warning is printed to report ASCII NUL char</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

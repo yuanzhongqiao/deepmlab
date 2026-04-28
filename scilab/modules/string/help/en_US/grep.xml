@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="grep" xml:lang="en">
+    <refnamediv>
+        <refname>grep</refname>
+        <refpurpose>find matches of a string in a vector of strings</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [row, which] = grep(haystack, needle )
+            [row, which] = grep(haystack, needle, "regexp" )
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>haystack</term>
+                <listitem>
+                    <para>a row vector of character strings.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>needle</term>
+                <listitem>
+                    <para>
+                        a character string or a row vector of character strings. The
+                        string(s) to search in <varname>haystack</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>row</term>
+                <listitem>
+                    <para>
+                        a vector of indices: row where a match has been found or an
+                        empty matrix if no match found.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>which</term>
+                <listitem>
+                    <para>
+                        a vector of indices: index of <varname>needle</varname> string found
+                        or an empty matrix if no match found.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"regexp" | "r" flag</term>
+                <listitem>
+                    <para>
+                        single character: Then <varname>needle</varname> elements are used as
+                        <emphasis role="bold">r</emphasis>egular expressions.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            For each entry of <varname>haystack</varname>, <function>grep</function>
+            searches if at least a string in <varname>needle</varname> which matches a
+            substring. The <varname>haystack</varname> entries index where at least a
+            match has been found are returned in the <varname>row</varname> output
+            argument. The optional <varname>which</varname> output argument gives the
+            index of first string of <varname>needle</varname> found.
+        </para>
+        <para>
+            When using the third parameter <varname>flag</varname><literal>="r"</literal>, the
+            <varname>needle</varname> is expected to be a regular expression string.
+            In this case, <function>grep</function> uses the
+            <varname>needle</varname> as a regular expression and compares it
+            against <varname>haystack</varname> according to the regular expressions
+            rules. See the <link linkend="regexp">regexp</link> function for details about
+            regular expressions.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Example #1</emphasis></para>
+        <para>
+            In the following example, we search one or two strings in a text,
+            which is stored in the <varname>txt</varname> variable.
+        </para>
+        <programlisting role="example"><![CDATA[
+txt=['find matches of a string in a vector of strings'
+     'search position of a character string in another string'
+     'Compare Strings'];
+
+grep(txt,'strings')
+grep(txt,['strings' 'Strings'])
+
+[r,w]=grep(txt,['strings' 'Strings'])
+ ]]></programlisting>
+        <para/>
+
+        <para><emphasis role="bold">Example #2</emphasis></para>
+        <para>In the following example, we perform regexp searches.</para>
+        <programlisting role="example"><![CDATA[
+str = ["hat";"cat";"hhat";"chat";"hcat";"ccchat";"at";"dog"]
+
+grep(str,'/[hc]+at/','r')
+grep(str,'/[hc]?at/','r')
+grep(str,'/cat|dog/','r')
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strindex">strindex</link>
+            </member>
+            <member>
+                <link linkend="regexp">regexp</link>
+            </member>
+            <member>
+                <link linkend="find">find</link>
+            </member>
+            <member>
+                <link linkend="vectorfind">vectorfind</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

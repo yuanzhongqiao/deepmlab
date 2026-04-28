@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="amell">
+    <refnamediv>
+        <refname>amell</refname>
+        <refpurpose>Эллиптическая функция am Якоби</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>[sn]=amell(u,k)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>u</term>
+                <listitem>
+                    <para>вещественный скаляр или вектор</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>k</term>
+                <listitem>
+                    <para>скаляр</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sn</term>
+                <listitem>
+                    <para>вещественный скаляр или вектор</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Вычисляет эллиптическую функцию <literal>am(u,k)</literal> Якоби, где
+            <literal>k</literal> - параметр, а <literal>u</literal> - аргумент. Если
+            <literal>u</literal> является вектором, то <literal>sn</literal> является вектором
+            вычисленных (поэлементно) значений. Используется в функции <literal>ellipj()</literal>.
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="delip">delip</link>
+            </member>
+            <member>
+                <link linkend="ellipj">ellipj</link>
+            </member>
+            <member>
+                <link linkend="percentk">%k</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

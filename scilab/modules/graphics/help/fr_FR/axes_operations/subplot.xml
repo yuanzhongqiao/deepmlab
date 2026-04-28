@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - 2023 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="subplot">
+    <refnamediv>
+        <refname>subplot</refname>
+        <refpurpose>
+            quadrille la figure ou frame courante et fixe le repère graphique actif sur la case choisie
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            subplot(m,n,p)
+            subplot(mnp)
+            ax = subplot(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>m, n, p</term>
+                <listitem>
+                     <para>
+                        entiers &gt; 0 : (m,n) = nombres de rangées et de colonnes du quadrillage
+                        virtuel. p = n° de la case ciblée.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mnp</term>
+                <listitem>
+                     <para>
+                        un entier avec <literal>mnp</literal> comme notation décimale.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ax</term>
+                <listitem>
+                     <para>
+                        handle de l'entité de type Axes créée
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">subplot(m,n,p)</emphasis> ou <emphasis role="bold">subplot(mnp)</emphasis>
+            quadrille la fenêtre graphique ou la zone <literal>uicontrol("style","frame")</literal>
+            courante en un damier virtuel de m × n cases, et sélectionne la p-ième case
+            comme zone de dessin active.
+        </para>
+        <para>
+            Les cases du quadrillage sont numérotées par ordre croissant le long de chaque rangée,
+            puis selon les rangées suivantes vers le bas. Ainsi, la dernière case de la 1ère rangée
+            a le n° <literal>n</literal>. La case (i,j) sur la rangée n°i et la colonne n°j
+            a le numéro <literal>(i-1)*n+j</literal>.
+        </para>
+        <para>
+            Lorsque la zone sélectionnée correspond exactement à celle d'un repère graphique existant,
+            <literal>subplot(…)</literal> fixe celui-ci comme repère actif.
+        </para>
+        <para>
+            Sinon, <literal>subplot(…)</literal> crée un repère graphique vide couvrant la case
+            sélectionnée, prêt à recevoir les graphiques à venir.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+            clf
+            subplot(221)
+            plot2d()
+
+            subplot(222)
+            plot3d()
+
+            subplot(2,2,3)
+            param3d()
+
+            subplot(2,2,4)
+            bar3d()
+ ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+            subplot(221)
+            plot2d()
+            subplot(222)
+            plot3d()
+            subplot(2,2,3)
+            param3d()
+            subplot(2,2,4)
+            bar3d()
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Placements plus complexes</emphasis>, mais toujours quadrillables :
+        </para>
+        <programlisting role="example"><![CDATA[
+            clf
+            subplot(1,2,2)
+            Matplot1()
+            xtitle("Matplot1() example","","")
+
+            subplot(2,2,1)
+            histplot
+            delete(findobj("type","Legend"))
+
+            subplot(2,2,3)
+            title("Smaller plots:", "fontsize",3)
+
+            subplot(2,4,5)
+            polarplot()
+
+            subplot(2,4,6)
+            param3d()
+            xtitle("","","","")
+ ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+            clf
+            subplot(1,2,2)
+            Matplot1()
+            xtitle("Matplot1() example","","")
+
+            subplot(2,2,1)
+            histplot
+            delete(findobj("type","Legend"))
+
+            subplot(2,2,3)
+            title("Smaller plots:", "fontsize",3)
+
+            subplot(2,4,5)
+            polarplot()
+
+            subplot(2,4,6)
+            param3d()
+            xtitle("","","","")
+            gcf().axes_size = [670 400];
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Utilisation sur des uicontrol frames</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+x = -4:0.05:4;
+
+f = figure(...
+    "default_axes","off", ...
+    "toolbar","none", ...
+    "name","subplot in frames", ...
+    "backgroundColor",[1 1 1]*0.97);
+
+// Frame #1
+b = createBorder("titled", "Frame #1");
+uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.03 0.83 0.94 0.15]);
+
+// Frame #2
+b(2) = "Frame #2";
+fr2 = uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.03 0.03 0.60 0.8]);
+
+a2 = newaxes(fr2);
+subplot(1,2,1)
+plot(x, tanh(x)), title("tanh")
+
+subplot(2,2,2)
+plot(x, sinh(x)), title("sinh")
+
+// Frame #3
+b(2) = "Frame #3";
+fr3 = uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.65 0.03 0.32 0.8]);
+
+a3 = newaxes(fr3);
+subplot(2,1,1)
+plot(2*x, sinc(2*x)), title("sinc")
+
+subplot(2,1,2)
+plot(2*x, sin(2*x)), title("sin")
+
+// Back to Frame #2
+sca(a2);
+subplot(2,2,4)
+plot(x, cosh(x)), title("cosh")
+     ]]></programlisting>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../images/subplot_frame.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xsetech">xsetech</link>
+            </member>
+            <member>
+                <link linkend="newaxes">newaxes</link>
+            </member>
+            <member>
+                <link linkend="axes_properties">axes_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0</revnumber>
+                <revdescription>
+                    <literal>subplot(…)</literal> peut être utilisé sur des composants uicontrol
+                    de style frame.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.0</revnumber>
+                <revdescription>
+                    <literal>subplot(…)</literal> retourne maintenant le handle de l'axe créé/sélectionné.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

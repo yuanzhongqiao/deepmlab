@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+    * Copyright (C) 2002-2004 - INRIA - Vincent COUVERT
+    *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+    *
+    -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="mtlb_strrep">
+    <refnamediv>
+        <refname>mtlb_strrep</refname>
+        <refpurpose>Fonction d'émulation de la fonction Matlab strrep</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Dans plusieurs cas particuliers, la fonction Matlab <literal>strrep</literal> et la fonction Scilab
+            <literal>strsubst</literal> se comportent différemment :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Avec des paramètres d'entrée n'étant pas des chaînes de caractère : La fonction Matlab <literal>strrep</literal>
+                    peut être utilisée avec des entrées n'étant pas des chaînes de caractères mais pas la fonction
+                    Scilab <literal>strsubst</literal>.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            La fonction <literal>mtlb_strrep(A,B,C)</literal> est utilisée par
+            <literal>mfile2sci</literal> pour remplacer <literal>strrep(A,B,C)</literal> quand il n'était pas
+            possible de savoir ce qu'étaient les paramètres d'entrée pendant la conversion d'un code Matlab vers Scilab. Cette fonction va
+            déterminer la sémantique correcte pendant l'exécution. Pour obtenir un code plus performant
+            on peut remplacer les appels à <literal>mtlb_strrep</literal> :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Si <literal>A</literal>, <literal>B</literal> et <literal>C</literal> sont des chaînes de caractères
+                    <literal>y = mtlb_strrep(A,B,C)</literal> peut être remplacé par <literal>strsubst(A,B,C)</literal>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            <warning>
+                Attention : <literal>mtlb_strrep</literal> ne doit pas être utilisée pour une programmation manuelle.
+            </warning>
+        </para>
+    </refsection>
+</refentry>

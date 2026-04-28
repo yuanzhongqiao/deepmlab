@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="meanshift">
+    <refnamediv>
+        <refname>meanshift</refname>
+        <refpurpose>Mean Shift clustering algorithm</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [centers, labels] = meanshift(X)
+            [centers, labels] = meanshift(X, bandwidth)
+            [centers, labels] = meanshift(X, bandwidth, opts)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>
+                        is a N x D (N samples, D features) real
+                        matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>bandwidth</term>
+                <listitem>
+                    <para>
+                        a positive scalar. Radius parameter controlling the neighborhood window. 
+                        Small values produce many small clusters; large values produce fewer clusters. 
+                        If not provided or is equal to [], bandwidth is obtained by 
+                        <link linkend="estimate_bandwidth">estimate_bandwidth</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>opts</term>
+                <listitem>
+                    <para>
+                        structure with fields:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>max_iter</term>
+                            <listitem>
+                                <para>
+                                    positive integer (default=300). Maximum number of iterations per seed for convergence.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>kernel</term>
+                            <listitem>
+                                <para>
+                                    string (default="flat"). Kernel type for weighting points in the neighborhood. 
+                                    Supported values: "flat" (uniform kernel, all neighbors equally weighted) and 
+                                    "gaussian" (Gaussian kernel, weights decrease with distance.)
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>seeds</term>
+                            <listitem>
+                                <para>
+                                    real matrix (M x D) (default=X). Initial seed points for clustering. 
+                                    If not provided, seeds are initialized from the dataset.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>bin_seeding</term>
+                            <listitem>
+                                <para>
+                                    boolean (default=%f). If %t, seeds are initialized from a grid 
+                                    of binned points rather than all samples, which speeds up computation on large datasets.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>min_bin_freq</term>
+                            <listitem>
+                                <para>
+                                    positive integer (default=1). Minimum number of points required 
+                                    in a bin to be considered as a seed (used only when <literal>bin_seeding=%t</literal>).
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>centers</term>
+                <listitem>
+                    <para>
+                        real matrix (K x D). Final cluster centers. K is the number of clusters.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labels</term>
+                <listitem>
+                    <para>
+                        integers column vector (N x 1). Cluster assignment for each point (values from 1 to K). 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            The Mean Shift algorithm is a non-parametric clustering that draws a neighbordhood circle of 
+            radius <literal>bandwidth</literal> around each seed, calculates the barycenter of the points 
+            located in this circle, and moves the point towards this barycenter. 
+            The iterations continue until the algorithm converges, that is, until the barycenters 
+            no longer move. Two points are classified in the same class if they have converged towards 
+            the same barycenter.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                   With <literal>flat</literal> kernel, all neighbors inside the window are weighted equally.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    With <literal>gaussian</literal> kernel, weights decrease smoothly with distance.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            Options <literal>seeds</literal>, <literal>bin_seeding</literal>, and <literal>min_bin_freq</literal> 
+            allow control over initialization for performance on large datasets.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Two well-separated blobs</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                n = 20;
+                X1 = [rand(n, 2) + 1; rand(n, 2) + 5];
+                [centers1, labels1] = meanshift(X1, 1);
+                scf(); 
+                scatter(X1(:,1), X1(:,2), [], labels1, "fill");
+                plot(centers1(:,1), centers1(:,2), 'r*', "markersize", 10, "thickness", 3);
+            ]]></programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                n = 20;
+                X1 = [rand(n, 2) + 1; rand(n, 2) + 5];
+                [centers1, labels1] = meanshift(X1, 1);
+                scf(); 
+                scatter(X1(:,1), X1(:,2), [], labels1, "fill");
+                plot(centers1(:,1), centers1(:,2), 'r*', "markersize", 10, "thickness", 3);
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Three nearby clusters</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                n = 20;
+                X2 = [rand(n, 2) + 1; rand(n, 1) + 3, rand(n, 1) + 1; rand(n, 1) + 2, rand(n, 1) + 3];
+                [centers2, labels2] = meanshift(X2, 0.8);
+                scf(); 
+                scatter(X2(:,1), X2(:,2), [], labels2, "fill");
+                plot(centers2(:,1), centers2(:,2), 'r*', "markersize", 10, "thickness", 3);
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                n = 20;
+                X2 = [rand(n, 2) + 1; rand(n, 1) + 3, rand(n, 1) + 1; rand(n, 1) + 2, rand(n, 1) + 3];
+                [centers2, labels2] = meanshift(X2, 0.8);
+                scf(); 
+                scatter(X2(:,1), X2(:,2), [], labels2, "fill");
+                plot(centers2(:,1), centers2(:,2), 'r*', "markersize", 10, "thickness", 3);
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Unequal cluster sizes</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                X3 = [rand(50, 2)+2; rand(5,2)+8];
+                opts = struct("bin_seeding", %t, "min_bin_freq", 2);
+                [centers3, labels3] = meanshift(X3, 1.2, opts);
+                scf(); 
+                scatter(X3(:,1), X3(:,2), [], labels3, "fill");
+                plot(centers3(:,1), centers3(:,2), 'r*', "markersize", 10, "thickness", 3);
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                X3 = [rand(50, 2)+2; rand(5,2)+8];
+                opts = struct("bin_seeding", %t, "min_bin_freq", 2);
+                [centers3, labels3] = meanshift(X3, 1.2, opts);
+                scf(); 
+                scatter(X3(:,1), X3(:,2), [], labels3, "fill");
+                plot(centers3(:,1), centers3(:,2), 'r*', "markersize", 10, "thickness", 3);
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Gaussian kernel</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                n = 20;
+                X4 = [rand(n, 2) + 1; rand(n, 1) + 3 rand(n, 1) + 1];
+
+                // estimate bandwidth from data
+                bw = estimate_bandwidth(X4, 0.3);
+
+                opts = struct("kernel", "gaussian");
+                [centers4, labels4] = meanshift(X4, bw, opts);
+                scf(); 
+                scatter(X4(:,1), X4(:,2), [], labels4, "fill");
+                plot(centers4(:,1), centers4(:,2), 'r*', "markersize", 10, "thickness", 3);
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                n = 20;
+                X4 = [rand(n, 2) + 1; rand(n, 1) + 3 rand(n, 1) + 1];
+
+                // estimate bandwidth from data
+                bw = estimate_bandwidth(X4, 0.3);
+
+                opts = struct("kernel", "gaussian");
+                [centers4, labels4] = meanshift(X4, bw, opts);
+                scf(); 
+                scatter(X4(:,1), X4(:,2), [], labels4, "fill");
+                plot(centers4(:,1), centers4(:,2), 'r*', "markersize", 10, "thickness", 3);
+            </scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="kmeans">kmeans</link>
+            </member>
+            <member>
+                <link linkend="estimate_bandwidth">estimate_bandwidth</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+* Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="cotd" xml:lang="fr">
+    <refnamediv>
+        <refname>cotd</refname>
+        <refpurpose>cotangent des éléments de l'argument donné en
+            degrés.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>y = cotg(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>Tableau réel.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>Tableau réel de mêmes dimensions que
+                        <literal>x</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Les éléments de <literal>y</literal> sont les cotangentes
+            (<literal>y=cos(x)./sin(x)</literal>) des éléments correspondants de
+            <literal>x</literal> supposés donnés en degrés. Pour les éléments égaux à
+            <literal>n*180</literal> avec <literal>n</literal> entier le résultat et
+            infini (ou une erreur selon le mode ieee choisi) tandis que
+            <literal>cotg(n*%pi)</literal> est très grand mais fini car
+            <literal>%pi</literal> ne peut être représenté exactement. Pour les
+            éléments égaux à <literal>n*90</literal> avec <literal>n</literal> entier
+            et impair le résultat est exactement 0.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+cotd([30 45 60 90])
+cotd([-180 -90 0 90 180])
+ ]]></programlisting>
+    <screen><![CDATA[
+--> cotd([30 45 60 90])
+ ans  =
+   1.7320508   1.   0.5773503   0.
+
+--> cotd([-180 -90 0 90 180])
+ ans  =
+   Inf   0.   Inf   0.   Inf
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cotg">cotg</link>
+            </member>
+            <member>
+                <link linkend="coth">coth</link>
+            </member>
+            <member>
+                <link linkend="tan">tan</link>
+            </member>
+            <member>
+                <link linkend="tand">tand</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

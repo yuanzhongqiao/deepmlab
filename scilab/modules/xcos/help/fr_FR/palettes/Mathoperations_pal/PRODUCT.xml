@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="PRODUCT" xml:lang="fr_FR">
+    <refnamediv>
+        <refname>PRODUCT</refname>
+        <refpurpose>Multiplication/Division de vecteurs élément par élément</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/PRODUCT.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_PRODUCT">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_PRODUCT">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_PRODUCT">Paramètres</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_PRODUCT">Propriétés par défaut</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_PRODUCT">Fonction d'interfaçage</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_PRODUCT">Fonction de calcul</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_PRODUCT">
+        <title>Description</title>
+        <para>
+            Ce bloc effectue la multiplication ou la division élément par élément des vecteurs d'entrée. Le nombre des entrées
+            et l'opération sont spécifiés avec le paramètre <emphasis role="bold">Number of inputs or sign vector</emphasis>.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Pour multiplier toutes les entrées entre elles, mettre ce paramètre à la valeur du nombre d'entrées.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Pour multiplier/diviser l'entrée <emphasis>ui</emphasis>, mettre dans ce paramètre un vecteur k avec
+                    <emphasis>k[i]</emphasis> = +1 (multiplier) ou -1 (diviser) pour l'entrée <emphasis>ui</emphasis>.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Dialogbox_PRODUCT">
+        <title>Paramètres</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/PRODUCT_gui.png"
+                            align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Number of inputs or sign vector</emphasis>
+                </para>
+                <para>Le nombre d'entrées et l'opération associée</para>
+                <para>Propriétés : Type 'vec' de taille N</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Error on divide by zero (1: yes) (0:no)</emphasis>
+                </para>
+                <para>Arrête la simulation en cas de division par zéro.</para>
+                <para>Propriétés : Type 'vec' de taille 1</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_PRODUCT">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,1] / type 1</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 2 : size [-1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">product</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Interfacingfunction_PRODUCT">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/NonLinear/PRODUCT.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_PRODUCT">
+        <title>Fonction de calcul</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/src/c/product.c (Type 4)</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Seealso_PRODUCT" role="see also">
+        <title>Voir aussi</title>
+        <itemizedlist>
+            <listitem>
+                <link linkend="GAINBLK_f">GAINBLK_f</link>
+            </listitem>
+            <listitem>
+                <link linkend="INVBLK">INVBLK</link>
+            </listitem>
+            <listitem>
+                <link linkend="PROD_f">PROD_f</link>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

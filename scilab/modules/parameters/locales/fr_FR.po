@@ -1,0 +1,211 @@
+# French translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2016-06-29 16:17+0000\n"
+"Last-Translator: Mickael Albertus <Unknown>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %d.\n"
+msgstr ""
+"%s : Type de paramètre erroné. %s attendu. Valeur de retour par défaut %d.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %d.\n"
+msgstr ""
+"%s : Impossible de trouver le paramètre. Valeur de retour par défaut %d.\n"
+
+#, c-format
+msgid "%s: wrong min bound for parameter %s: min bound %d, value %d\n"
+msgstr ""
+"%s : Limite minimum erronée du paramètre %s : Limite minimum %d, valeur %d\n"
+
+#, c-format
+msgid "%s: wrong max bound for parameter %s: max bound %d, value %d\n"
+msgstr ""
+"%s : Limite maximum erronée du paramètre %s : Limite maximum %d, valeur %d\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %d\n"
+msgstr "%s : Valeur erronée du paramètre %s : Valeur %d\n"
+
+#, c-format
+msgid "%s: awaited parameters: "
+msgstr "%s : Paramètres attendus : "
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %f.\n"
+msgstr ""
+"%s : Type de paramètre erroné. %s attendu. Valeur de retour par défaut %f.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %f.\n"
+msgstr ""
+"%s : Impossible de trouver le paramètre. Valeur de retour par défaut %f.\n"
+
+#, c-format
+msgid "%s: wrong min bound for parameter %s: min bound %f, value %f\n"
+msgstr ""
+"%s : Limite minimum erronée du paramètre %s : Limite minimum %f, valeur %f\n"
+
+#, c-format
+msgid "%s: wrong max bound for parameter %s: max bound %f, value %f\n"
+msgstr ""
+"%s : Limite maximum erronée du paramètre %s : Limite maximum %f, valeur %f\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %f\n"
+msgstr "%s : Valeur erronée du paramètre %s : Valeur %f\n"
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %s.\n"
+msgstr ""
+"%s : Type de paramètre erroné. %s attendu. Valeur de retour par défaut %s.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %s.\n"
+msgstr ""
+"%s : Impossible de trouver le paramètre. Valeur de retour par défaut %s.\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %s\n"
+msgstr "%s : Valeur erronée du paramètre %s : Valeur %s\n"
+
+#, c-format
+msgid "%s: wrong size for parameter %s: %d requested, got %d\n"
+msgstr "%s : Dimension erronée du paramètre %s : %d attendu, %d obtenu\n"
+
+msgid "Parameters"
+msgstr "Paramètres"
+
+msgid "plist handling"
+msgstr "manipulation de plist"
+
+msgid ""
+"This demo shows examples of plist utilizations: creation, insertion, "
+"removal, ..."
+msgstr ""
+"Cette démo montre des exemples des utilisation de plist : création, "
+"insertion, suppression, ..."
+
+#, c-format
+msgid ""
+"\n"
+"Create a plist '%s' containing two fields 'min' = [0 0 0] and 'max' = [1 1 "
+"1].\n"
+msgstr ""
+"\n"
+"Crée une plist \"%s\" contenant deux champs 'min' = [0 0 0] et 'max' = [1 1 "
+"1].\n"
+
+#, c-format
+msgid ""
+"\n"
+"Check fields: \n"
+msgstr ""
+"\n"
+"Vérifie les champs : \n"
+
+#, c-format
+msgid "Set 'min' = [0 0 0] and 'max' = [1 1 1]:\n"
+msgstr "Modifie 'min' = [0 0 0] et 'max' = [1 1 1] :\n"
+
+#, c-format
+msgid "Check values: \n"
+msgstr "Vérifie les valeurs : \n"
+
+#, c-format
+msgid ""
+"\n"
+"Remove the parameter 'min' from %s.\n"
+msgstr ""
+"\n"
+"Supprime le paramètre 'min' de %s.\n"
+
+#, c-format
+msgid ""
+"\n"
+"Before remove_param: \n"
+msgstr ""
+"\n"
+"Avant remove_param : \n"
+
+#, c-format
+msgid ""
+"\n"
+"After remove_param: \n"
+msgstr ""
+"\n"
+"Après remove_param : \n"
+
+#, c-format
+msgid ""
+"\n"
+"Check removal: \n"
+msgstr ""
+"\n"
+"Vérifie le retrait : \n"
+
+#, c-format
+msgid ""
+"\n"
+"Check type: \n"
+msgstr ""
+"\n"
+"Vérifie le type : \n"
+
+#, c-format
+msgid "Second output argument of %s is obsolete.\n"
+msgstr "Le deuxième argument de sortie de %s est obsolète.\n"
+
+#, c-format
+msgid "This argument will be permanently removed in Scilab %s"
+msgstr "Cet argument sera définitivement supprimé dans Scilab %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d à %d attendus.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: key %s already defined.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : La clé %s a déjà été "
+"définie.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : %s attendu.\n"
+
+#, c-format
+msgid "%s: parameter %s not defined"
+msgstr "%s : Le paramètre %s n'est pas défini"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): An even number expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) d'entrée : Un nombre pair attendu.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une chaîne de caractères "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d attendus.\n"
+
+#, c-format
+msgid "%s: parameter doesn't exist"
+msgstr "%s : Ce paramètre n'existe pas"

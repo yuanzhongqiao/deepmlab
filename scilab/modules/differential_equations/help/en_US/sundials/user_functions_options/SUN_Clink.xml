@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="SUN_Clink" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>SUN_Clink</refname>
+        <refpurpose>Compiling and linking a C user function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            lib = SUN_Clink(names, files, options)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>names</term>
+                <listitem>
+                    <para>a string matrix giving the entry point names which are to be linked
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>files</term>
+                <listitem>
+                    <para>string matrix giving source files needed for shared library creation
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>
+                    <para>a sequence of optional named arguments
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>lib</term>
+                <listitem>
+                    <para>the full path of the generated library
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="example">
+        <title>Description</title>
+        <para>
+            This function aims to simplify the compilation and dynamic link of SUNDIALS entrypoints. It is a wrapper to
+            <link linkend="ilib_for_link">ilib_for_link</link> with the adequate compiler flags and allows to immediately
+            do the dynamic link or copy the DLL and the loading script in the current directory. In that case the default name
+            of the library is defined with the following Scilab code: <code>"lib" + names(1) + getdynlibext()</code>
+        </para>
+        <para>
+            The options are the following:
+        </para>
+        <para>
+            <informaltable border='1'>
+              <tbody>
+                <tr>
+                  <td>loadername,libname,ldflags,cflags,cc</td>
+                  <td>
+                      <para>These options have the same meaning as the corresponding formal parameters of <link linkend="ilib_for_link">ilib_for_link</link>. 
+                      For example to change the loader name, and the compiler, add the options like this
+                  </para>
+                  <para>
+                      <literal>
+                          SUN_Clink(names, files, loader="loader.sce", cc="clang")
+                      </literal>
+                  </para>
+                    </td>
+                </tr>
+                <tr>
+                   <td>load</td>
+                    <td>
+                        <para>A boolean value. Set this option to %t if you want to load the library just after compilation. In that 
+                            case the library and the loading script remain in TMPDIR. If set to %f (the default) the library is not
+                            loaded but moved in the current directory with the loading script.</para>
+                    </td>
+                </tr>
+            </tbody>
+        </informaltable>
+        </para>        
+    </refsection>
+    
+    <refsection role="example">
+        <title>Example</title>
+        <programlisting role="example"><![CDATA[
+            mputl([
+            "#include <nvector/nvector_serial.h>"
+            "int sunRhs(sunrealtype t, N_Vector N_VectorY, N_Vector N_VectorYd, void *user_data)"
+            "{"
+            "double *y = NV_DATA_S(N_VectorY);"
+            "double *ydot = NV_DATA_S(N_VectorYd);"
+            "ydot[0] = y[1];"
+            "ydot[1] = (1-y[0]*y[0])*y[1]-y[0];"
+            "return 0;"
+            "}"
+            ],"code.c");
+            SUN_Clink("sunRhs", "code.c",load = %t);
+            [t,y] = cvode("sunRhs",[0 1],[0;2])
+            ]]></programlisting>
+        </refsection>
+
+<refsection role="see also">
+    <title>See also</title>
+    <simplelist type="inline">
+        <member>
+            <link linkend="arkode">arkode</link>
+        </member>
+        <member>
+            <link linkend="cvode">cvode</link>
+        </member>
+        <member>
+            <link linkend="ida">ida</link>
+        </member>
+        <member>
+            <link linkend="kinsol">kinsol</link>
+        </member>
+        <member>
+            <link linkend="sundials_user_functions">User functions</link>
+        </member>
+        <member>
+            <link linkend="ilib_for_link">ilib_for_link</link>
+        </member>
+    </simplelist>
+</refsection>
+
+</refentry>

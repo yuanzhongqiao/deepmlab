@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="atomsIsLoaded">
+    <refnamediv>
+        <refname>atomsIsLoaded</refname>
+        <refpurpose>determines whether a module is loaded or not</refpurpose>
+    </refnamediv>
+    <!-- ===================================================================== -->
+    <!-- Syntax -->
+    <!-- ===================================================================== -->
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = atomsIsLoaded(modules)
+        </synopsis>
+    </refsynopsisdiv>
+    <!-- ===================================================================== -->
+    <!-- Parameters -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <!-- 1st input parameter -->
+            <varlistentry>
+                <term>modules</term>
+                <listitem>
+                    <para>
+                        m x 1, m x 2 matrix of strings
+                    </para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col. (Mandatory)</th>
+                            <th>2nd Col. (Optional)</th>
+                            <th>3rd Col. (Optional)</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version: if this field is empty or is not present,
+                                module's version is ignored.</td>
+                            <td>Section: if this field is empty or is not present,
+                                module's section is ignored.</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+            <!-- Output parameter -->
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>
+                        m x 1 boolean matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Description -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsIsLoaded</literal> determines whether a module is loaded or not.
+        </para>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Examples -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Display some additional information
+atomsSetConfig("Verbose","True");
+
+// Load the test repository
+exec("SCI/modules/atoms/tests/unit_tests/atomsTestUtils.sce", -1);
+repository = atomsCreateTestRepository("scene10");
+
+// Install toolbox_4, both 1.0 and 1.1 version
+atomsInstall(["toolbox_4V6" "1.0"],"user");
+
+// Load the version 1.0
+atomsLoad(["toolbox_4V6" "1.0"]);
+
+// Ignore the module's version
+atomsIsLoaded("toolbox_4V6")
+
+// With a specific version
+atomsIsLoaded(["toolbox_4V6" "1.0"])
+
+// Check several modules
+atomsIsLoaded( ["toolbox_4V6" "1.0" ; "toolbox_4V6" "1.1" ; "toolbox_1V6" "1.0" ] )
+
+
+// Cleaning
+atomsRemove(["toolbox_1V6"; ..
+             "toolbox_4V6"]);
+atomsRepositoryDel(repository);
+atomsSystemUpdate();
+
+// Please restart Scilab to remove installed module
+        ]]></programlisting>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- See also -->
+    <!-- ===================================================================== -->
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsLoad">atomsLoad</link>
+            </member>
+            <member>
+                <link linkend="atomsGetLoaded">atomsGetLoaded</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Authors -->
+    <!-- ===================================================================== -->
+</refentry>

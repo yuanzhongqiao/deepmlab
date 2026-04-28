@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="xchange">
+    <refnamediv>
+        <refname>xchange</refname>
+        <refpurpose>transform real to pixel coordinates</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[x1, y1, rect] = xchange(x, y, dir)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, y</term>
+                <listitem>
+                    <para>
+                        two matrices of size <literal>(n1, n2)</literal>
+                        (coordinates of a set of points).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dir</term>
+                <listitem>
+                    <para>
+                        a string, parameter used to specify the conversion type
+                        (See "Description" for details).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x1, y1</term>
+                <listitem>
+                    <para>
+                        two matrices of size <literal>(n1, n2)</literal>
+                        (coordinates of the set of points).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rect</term>
+                <listitem>
+                    <para>a vector of size 4.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            After having used a graphics function, <function>xchange</function>
+            computes pixel coordinates from real coordinates and conversely,
+            according to the value of the parameter <varname>dir</varname>:
+            <literal>"f2i"</literal> (float to int) means real to pixel and
+            <literal>"i2f"</literal> (int to float) means pixel to real.
+        </para>
+        <para>
+            <varname>x1</varname> and <varname>y1</varname> are the new
+            coordinates of the set of points defined by the old coordinates
+            <varname>x</varname> and <varname>y</varname>.
+        </para>
+        <para>
+            <varname>rect</varname> is the coordinates in pixel of the rectangle
+            in which the plot was done: <literal>[upper-left point, width, height]</literal>.
+        </para>
+        <para>
+            <warning>
+                Coordinates in pixels are relative to the top-left point of graphical area in figure
+                (see <literal>axes_size</literal> in <link linkend="figure_properties">figure properties</link>)
+                unlike <link linkend="uicontrol">uicontrols</link> positions which are relative to the bottom-left
+                point of the graphical area (see examples below).
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Data conversions</emphasis></para>
+        <programlisting role="example"><![CDATA[
+t=[0:0.1:2*%pi]';
+plot2d(t,sin(t))
+[x,y,rect]=xchange(1,1,"f2i")
+[x,y,rect]=xchange(0,0,"i2f")
+ ]]></programlisting>
+        <para><emphasis role="bold">With uicontrols</emphasis></para>
+        <programlisting role="example"><![CDATA[
+plot(-10:10, -10:10);
+
+sz = gcf().axes_size; // Used to change reference for positions
+xpos = [-10 -10 0 10 10];
+ypos = [-10 10 0 -10 10];
+
+for i = 1:size(xpos, "*")
+    [xp, yp] = xchange(xpos(i), ypos(i), "f2i");
+    uicontrol("Style", "pushbutton", "Position", [xp, sz(2)-yp, 70, 20], "String", string(xpos(i)) + "/" + string(ypos(i)));
+end
+ ]]></programlisting>
+    </refsection>
+</refentry>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) INRIA -
+* Copyright (C) 2012 - 2016 - Scilab Enterprises
+* Copyright (C) 2022 - Samuel GOUGEON
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* pursuant to article 5.3.4 of the CeCILL v.2.1.
+* This file was originally licensed under the terms of the CeCILL v2.1,
+* and continues to be available under such terms.
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xml:lang="en" xml:id="justify">
+    <refnamediv>
+        <refname>justify</refname>
+        <refpurpose>
+            Aligns the strings completed with spaces within each column, to the left, center or right
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>TJ = justify(T, position)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>T, TJ</term>
+                <listitem>
+                    <para>vectors, matrices or hypermatrices of strings, of same sizes.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>position</term>
+                <listitem>
+                    <para>Optional parameter, with one of the following values:
+                        <table cellspacing="0" cellpadding="0">
+                          <tr><th>'l' or 'left'</th>  <td>: left justification (default mode)</td></tr>
+                          <tr><th>'c' or 'center'</th><td>: centering</td></tr>
+                          <tr><th>'r' or 'right'</th> <td>: right justification</td></tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+            <para>
+                All heading and trailing spaces of <varname>T</varname> elements are removed
+                before processing.
+            </para>
+            <para>
+                In each given column of <varname>TJ</varname>, all strings have the same length.
+                Shorter strings are padded with spaces before, after, or on both sides.
+            </para>
+            <para>
+                The width may differ from a column to other ones. Please see the examples
+            </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+m = ["a" "bcdef" "ghi" ; "jklm" "" "n" ; "opq" "rs" "tuvwxy"]
+justify(m)
+justify(m, "r")
+justify(m, "c")
+    ]]></programlisting>
+    <screen><![CDATA[
+--> m = ["a" "bcdef" "ghi" ; "jklm" "" "n" ; "opq" "rs" "tuvwxy"]
+ m  =
+  "a"     "bcdef"  "ghi"
+  "jklm"  ""       "n"
+  "opq"   "rs"     "tuvwxy"
+
+--> justify(m)
+ ans  =
+  "a   "  "bcdef"  "ghi   "
+  "jklm"  "     "  "n     "
+  "opq "  "rs   "  "tuvwxy"
+
+--> justify(m, "r")
+ ans  =
+  "   a"  "bcdef"  "   ghi"
+  "jklm"  "     "  "     n"
+  " opq"  "   rs"  "tuvwxy"
+
+--> justify(m, "c")
+ ans  =
+  " a  "  "bcdef"  " ghi  "
+  "jklm"  "     "  "  n   "
+  "opq "  " rs  "  "tuvwxy"
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="stripblanks">stripblanks</link>
+            </member>
+            <member>
+                <link linkend="blanks">blanks</link>
+            </member>
+            <member>
+                <link linkend="length">length</link>
+            </member>
+            <member>
+                <link linkend="part">part</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revdescription>
+                    <para>
+                        Hypermatrix accepted. The <literal>position</literal> becomes optional,
+                        with default = <literal>"left"</literal>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

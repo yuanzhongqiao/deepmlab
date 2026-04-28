@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Allan CORNET
+ * ...
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="copyfile" xml:lang="en">
+    <refnamediv>
+        <refname>copyfile</refname>
+        <refpurpose>copies a file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>copyfile(source, destination)
+            copyfile(source, destination, mode)
+            [status, errmsg] = copyfile(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>source</term>
+                <listitem>
+                    <para>
+                        a character string: a filename or a directory name.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>destination</term>
+                <listitem>
+                    <para>a character string: a directory name.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>character string: option to modify the way to copy.</para>
+                    <para>
+                        <code>"osdefault"</code> (default) copy the file using default OS functions.
+                        <code>"preserve"</code> preserve symbolic links instead of copying the file content.
+                        <code>"resolve"</code> copy the file content.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>double: 1 if the copy operation succeeded, 0 otherwise.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>errmsg</term>
+                <listitem>
+                    <para>a character string: the error message if any, or an empty string if no error occurred.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <code>copyfile(source,destination)</code> copies the file or
+            directory <varname>source</varname> (and subdirectories) to the file or
+            directory <varname>destination</varname>.
+        </para>
+        <para>
+            If <varname>source</varname> is a directory, <varname>destination</varname> can not be a file.
+            <warning>
+                <code>copyfile</code> replaces existing files without warning.
+            </warning>
+        </para>
+        <para>
+            <code>[status, errmsg] = copyfile(source, destination)</code>
+            copies <varname>source</varname> to <varname>destination</varname>, returning the <varname>status</varname> and a <varname>errmsg</varname>.
+        </para>
+        <para>
+            Whatever the operating system, if the copy succeeds, the <varname>status</varname> is 1
+            and the <varname>errmsg</varname> is empty; if the copy fails, the <varname>status</varname> is 0 and the
+            <varname>errmsg</varname> is not empty.
+        </para>
+        <para>
+            Timestamps and symbolic links are preserved when using the <code>"preserve"</code> option.
+            <warning>On Windows, symbolic links might require special privilege.</warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            copyfile(SCI+"/etc/scilab.start",TMPDIR+"/scilab.start")
+            [status, msg] = copyfile(SCI+"/etc/scilab.start",TMPDIR);
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="movefile">movefile</link>
+            </member>
+            <member>
+                <link linkend="mdelete">mdelete</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

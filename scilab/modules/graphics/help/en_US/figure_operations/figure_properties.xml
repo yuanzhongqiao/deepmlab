@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Djalel Abdemouche
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="figure_properties">
+    <refnamediv>
+        <refname>figure properties</refname>
+        <refpurpose>description of the graphics
+            figure entity properties
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>The figure entity is the top level of the graphics entities hierarchy.
+            This entity contain a number of properties designed to control many
+            aspects of displaying Scilab graphics objects. These properties fall into
+            two categories. Properties that contain information about figure itself
+            and others related to set default values for the children creation.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>Figure properties: </term>
+                <listitem>
+                    <variablelist>
+                        <varlistentry>
+                            <term>children: </term>
+                            <listitem>
+                                <para>This handles represent the vector of the figure's children .
+                                    Note that all figure children are of type <literal>"Axes"</literal>.
+                                    Also keep in mind that, when creating a figure entity (using
+                                    <link linkend="scf">scf</link> command), an <literal>Axes</literal> entity is
+                                    simultaneously built too.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>figure_position: </term>
+                            <listitem>
+                                <para>This field contains the position in pixel of the graphic
+                                    window on the screen. This is a vector <literal>[x,y]</literal>
+                                    defining the position of the upper-left corner of the window.
+                                    The position <literal>[0,0]</literal> is the upper-left corner of the
+                                    screen.
+                                </para>
+                                <para>The initial position of graphic windows is taken from the default figure entity (see
+                                    <link linkend="gdf">gdf</link>). The only exception is when default figure <literal>figure_position</literal>
+                                    value is <literal>[-1,-1]</literal>. In this case, the initial position of graphic windows is automatically set
+                                    by the windowing system.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>figure_size: </term>
+                            <listitem>
+                                <para>
+                                    Vector <literal>[width, height]</literal>, providing the
+                                    external size of the graphic window, in screen pixels.
+                                </para>
+                                <para>
+                                <warning>
+                                    When the figure is docked (to the Scilab desktop, etc),
+                                    .figure_size holds for the whole docked block and should not
+                                    be set.
+                                </warning>
+                                <warning>
+                                    The OS window manager defines some minimal sizes. If sizes
+                                    smaller than minimal ones are provided, the minimal ones are
+                                    actually set.
+                                    <para>
+                                        On Windows, minimal sizes can be retrieved with
+                                        <screen><![CDATA[
+--> [getsystemmetrics("SM_CXMIN") getsystemmetrics("SM_CYMIN")]
+ ans  =
+   158.   45.
+]]></screen>
+                                    </para>
+                                </warning>
+                                <warning>
+                                    When a figure is created in .auto_resize="on" mode,
+                                    the .axes_size value is set as specified, and .figure_size
+                                    is set accordingly, not the reverse.
+                                </warning>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>axes_size: </term>
+                            <listitem>
+                                <para>
+                                    Vector <literal>[width, height]</literal> of sizes of the whole
+                                    graphical area in the window, in pixels.
+                                </para>
+                                <warning>
+                                    This property should not be modified if the figure is docked
+                                    to the Scilab desktop.
+                                </warning>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>position: </term>
+                            <listitem>
+                                <para>
+                                    <literal>.position = [x, y, graphics_width, graphics_height]</literal>
+                                    or <literal>.position = 'x|y|graphics_width|graphics_height'</literal>
+                                    (like '100|150|500|300')
+                                    is a pseudo-property allowing to set or querry both
+                                    <literal>.figure_position</literal> and <literal>.axes_size</literal>
+                                    properties in a once.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>auto_resize: </term>
+                            <listitem>
+                                <para>
+                                    Auto-resizing of children axes when the figure is resized.
+                                </para>
+                                <para>
+                                    When the figure is resized by hand or by setting the
+                                    .figure_size property, and .auto_resize is
+                                    <table>
+                                        <tr>
+                                            <th>"on"</th>
+                                            <td>Then the .axes_size is updated and axes contents
+                                                are zoomed accordingly, without displaying scroll
+                                                bars.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>"off"</th>
+                                            <td>Then the .axes_size is kept unchanged. The display
+                                                scale of children axes is unchanged. If the window
+                                                gets smaller than axes sizes, some scroll bars are
+                                                displayed.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>viewport: </term>
+                            <listitem>
+                                <para>
+                                    Position of the visible part of graphics in the panner.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>figure_name or name:</term>
+                            <listitem>
+                                <para>This field contains the name of the figure. This name is a
+                                    character string displayed at the top of the graphics_window. The
+                                    name can contain a single substring <literal>%d</literal> which will be
+                                    replaced by the <literal>figure_id</literal>. No other instance of the
+                                    <literal>%</literal> character is allowed inside the name.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>figure_id: </term>
+                            <listitem>
+                                <para>This field contains the identifier of the figure. This is an
+                                    integer number which is set at figure creation and cannot be
+                                    changed after.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>color_map: </term>
+                            <listitem>
+                                <para>Property which defines the colormap used by this figure. The
+                                    colormap is a <literal>m</literal> by <literal>3</literal> matrix.
+                                    <literal>m</literal> is the number of colors. Color number i is given as
+                                    a 3-uple <literal>R</literal>, <literal>G</literal>, <literal>B</literal>
+                                    corresponding respectively to red, green and blue intensity
+                                    between 0 and 1.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>pixel_drawing_mode: </term>
+                            <listitem>
+                                <para>This field specifies the bitwise operation used for pixel rendering.
+                                    The default mode is <literal>copy</literal>.
+                                    For more details see the <link linkend="pixel_drawing_mode">pixel drawing mode reference page</link>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>immediate_drawing: </term>
+                            <listitem>
+                                <para>This property controls the figure display. Its value can be
+                                    <literal>"on"</literal> (default mode) or <literal>"off"</literal>. It is used
+                                    to delay a huge succession of graphics commands (implying several
+                                    drawings or redrawings). Note that, when using
+                                    <literal>drawlater</literal> or <literal>drawnow</literal> commands, it
+                                    affects the property value of the current figure (which is
+                                    respectively turned to <literal>'off'</literal> or
+                                    <literal>'on'</literal>).
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>background: </term>
+                            <listitem>
+                                <para>This property controls the figure window background color. It
+                                    takes as value an index relative to the current colormap.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                       <varlistentry>
+                            <term>BackgroundColor</term>
+                            <listitem>
+                                <para>
+                                    This pseudo-property is a set-only one. It is the same as
+                                    <literal>background</literal>, but allows to specify the color
+                                    as a [r g b] vector of real values of Red Green and Blue
+                                    intensities in [0,1] like <literal>[0.1, 0.5, 0.3]</literal>,
+                                    or as a unique equivalent 'r|g|b' string like
+                                    <literal>'0.1|0.5|0.3'</literal>, using "|" as a separator.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>event_handler</term>
+                            <listitem>
+                                <para>A character string. The name of the Scilab function which is intended
+                                    to handle the events. Note that setting an empty string will disable
+                                    the event handler. For more information about event handler functions see the
+                                    <link linkend="eventhandlerfunctions">event handler functions</link> help.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>event_handler_enable</term>
+                            <listitem>
+                                <para>Enable or disable the event handler. Its value must be either
+                                    "on" or "off".
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>user_data: </term>
+                            <listitem>
+                                <para>This field can be use to store any scilab variable in the
+                                    figure data structure, and to retrieve it.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>tag: </term>
+                            <listitem>
+                                <para>This field can be use to store a character string generally used to identify the control. It allows to give it a "name". Mainly used in conjunction with findobj().</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>resizefcn: </term>
+                            <listitem>
+                                <para>This field can be used to store the name of a Scilab function or a Scilab expression as a character string. This character string will be evaluated whenever the user resizes the figure and when the figure is created. </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>closerequestfcn: </term>
+                            <listitem>
+                                <para>This field can be used to store the name of a Scilab function or a Scilab expression as a character string. This character string will be evaluated whenever the user tries to close the figure using the top-right cross.</para>
+                                <para>When this property is set, the "figure closed" event (-1000) will no more be trapped by the event handler function.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>resize: </term>
+                            <listitem>
+                                <para>
+                                    <literal>"on"</literal> (default value) allows the user to interactively resize the figure with the mouse.
+                                    <literal>"off"</literal> forbids to do it, but still allows using efficiently the <literal>.figure_size</literal> property.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>menubar_visible: </term>
+                            <listitem>
+                                <para>
+                                    This property controls the figure menubar visibility. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>toolbar_visible: </term>
+                            <listitem>
+                                <para>
+                                    This property controls the figure toolbar visibility. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>infobar_visible: </term>
+                            <listitem>
+                                <para>
+                                    This property controls the figure status bar visibility. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>info_message: </term>
+                            <listitem>
+                                <para>
+                                    Single character string: text displayed in the info bar
+                                    of the graphic window.
+                                </para>
+                                <note>
+                                    A multi-line message is possible, using ascii(10) as lines
+                                    separator, as with "Line #1"+ascii(10)+"Line #2".
+                                    Styling the text is not possible (HTML styles not supported).
+                                </note>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>visible: </term>
+                            <listitem>
+                                <para>
+                                    When the figure <literal>"dockable"</literal> property is <literal>"off"</literal>, setting the <literal>"Visible"</literal> property affects the whole figure including its window decorations.
+                                </para>
+                                <para>
+                                    When the figure <literal>"dockable"</literal> property is <literal>"on"</literal> and the figure is docked with another one inside the same parent window, this field concerns only the figure children (See dedicated part below). If the figure is not docked with another one, then the <literal>"Visible"</literal> property behaves as if the figure <literal>"dockable"</literal> property was set to <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>layout: </term>
+                            <listitem>
+                                <para>
+                                    This property sets the layout used to dispose the figure children. See <link linkend="layout">layout</link> page for more information about available layouts.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>layout_options: </term>
+                            <listitem>
+                                <para>
+                                    This property sets the options of the layout used to dispose the figure children. See <link linkend="layout">layout</link> page for more information about available options.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>icon: </term>
+                            <listitem>
+                                <para>This field can be used to customize the icon of a Scilab figure.</para>
+                                <para>
+                                    Its value is a character string containing the (absolute or relative to Scilab <link linkend="pwd">current working directory.</link> path of the image file containing the icon.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>default_axes: </term>
+                            <listitem>
+                                <para>
+                                    <literal>"on"</literal> (default value) means that the figure has always
+                                    a default axes: it is automatically set at the figure creation,
+                                    or automatically reset when the last axes of the figure is
+                                    intentionally deleted.
+                                </para>
+                                <para>
+                                    <literal>"off"</literal> means that
+                                    <itemizedlist>
+                                        <listitem>
+                                             <para>
+                                                the newly created figure has no default axes.
+                                            </para>
+                                        </listitem>
+                                        <listitem>
+                                             <para>
+                                                for an existing figure, it is possible to actually delete
+                                                all its existing axes.
+                                            </para>
+                                        </listitem>
+                                    </itemizedlist>
+                                    In both cases,
+                                    <itemizedlist>
+                                        <listitem>
+                                             <para>
+                                                without any axes, the figure can't be the default
+                                                target of any plotting instruction. This feature
+                                                can be used to protect an interactive interface built in
+                                                a figure (like the demos and the ATOMS ones) from being the default
+                                                plotting target when there is no other proper opened
+                                                graphical figures.
+                                            </para>
+                                        </listitem>
+                                        <listitem>
+                                             <para>
+                                                It is still possible to force creating an axes using the
+                                                <link linkend="newaxes">newaxes</link> function.
+                                            </para>
+                                        </listitem>
+                                    </itemizedlist>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <variablelist>
+            <varlistentry>
+                <term>Children's default values: </term>
+                <listitem>
+                    <variablelist>
+                        <varlistentry>
+                            <term>visible: </term>
+                            <para>{"on"} | "off"</para>
+                            <listitem>
+                                <para>This field sets if the contents of the figure (axes and uicontrols) has to be
+                                    redrawn. Its value should be <literal>"on"</literal> or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>rotation_style: </term>
+                            <para>{"unary"} | "multiple"</para>
+                            <listitem>
+                                <para>This field is related to the "3D Rot" button. It takes
+                                    <literal>unary</literal> as value (default) in the aim to rotate only
+                                    selected 3D plot. In the other case its value can be
+                                    <literal>multiple</literal> : all 3D plots are rotated.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <variablelist>
+            <varlistentry>
+                <term>Creation related properties: </term>
+                <para>
+                    Some properties can only be set at creation time when using the <link linkend="figure">figure</link> function (and will then be read-only).
+                    When a new figure is created using <link linkend="gcf">gcf</link> or <link linkend="scf">scf</link>, these properties will be set according to <link linkend="gdf">gdf</link>.
+                </para>
+                <listitem>
+                    <variablelist>
+                        <varlistentry>
+                            <term>dockable</term>
+                            <listitem>
+                                <para>
+                                    This property determines if created window can be docked inside Scilab environment. If its value is <literal>"on"</literal> then the window will have a bar enabling the user to dock/undock it. Else the window will look like a standard OS window. This value can only be set at creation.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>menubar</term>
+                            <listitem>
+                                <para>{"figure"} | "none"</para>
+                                <para>
+                                    This property determines the type of the menubar of the figure. If its value is <literal>"none"</literal> then the window will not have any menubar until a menu is added using <link linkend="uimenu">uimenu function</link>. Else the window will be created with default figure menus. This value can only be set at creation.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>toolbar</term>
+                            <listitem>
+                                <para>{"figure"} | "none"</para>
+                                <para>
+                                    This property determines the type of the toolbar of the figure. If its value is <literal>"none"</literal> then the window will not have any menubar. Else the window will be created with a default figure toolbar. This value can only be set at creation.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>anti_aliasing</term>
+                            <listitem>
+                                <para>"off" | "2x" | "4x" | {"8x"} | "16x"</para>
+                                <para>
+                                  This property controls the anti-aliasing level used to improve graphic quality.
+                                  If the property is set to "off", anti-aliasing is disable.
+                                  To enable anti-aliasing, the property must set to either "2x", "4x", "8x" or "16x". In this case, it stands for the
+                                  anti-aliasing level. For example, "16x" is a higher quality level than "2x".
+                                  Specifying a higher anti-aliasing level improves image quality but also decreases graphic performances.
+                                  Please visit the <link linkend="anti_aliasing">dedicated page</link> to see specific examples.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Note on default values: </term>
+                <listitem>
+                    <variablelist>
+                        <varlistentry>
+                            <term/>
+                            <listitem>
+                                <para>All these listed properties and fields inherit from default
+                                    values stored in a figure model. These default values can be seen
+                                    and changed. To do so, use the <literal>get("default_figure")</literal>
+                                    command : it returns a graphic handle on the figure model. Note
+                                    that no graphic window is created by this command. The next
+                                    created figures will inherit from this model (see example 2
+                                    below).
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            
+lines(0) // disables vertical paging
+
+//Example 1
+f=get("current_figure") //get the handle of the current figure :
+                        //if none exists, create a figure and return the corresponding handle
+f.figure_position
+f.figure_size=[200,200]
+f.background=2
+f.children  // man can see that an Axes entity already exists
+delete(f);
+f=gcf(); // macro shortcut <=> f=get("current_figure")
+f.immediate_drawing = "off";
+plot2d() // nothing happens on the screen...
+f.immediate_drawing = "on";
+
+//Example 2 : default_figure settings
+df=get("default_figure") // get the default values (shortcut is gdf() )
+// Let's change the defaults...
+df.color_map=hot(128)
+df.background= 110 // set background to a kind of yellow (Note that we
+                   // are using a color index inside the color_map previously redefined)
+scf(122); // creates new figure number 122 with the new default
+plot2d()
+scf(214);
+t=-%pi:0.3:%pi;
+plot3d(t,t,sin(t)'*cos(t),35,45,'X@Y@Z',[15,2,4]);
+ 
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="eventhandlerfunctions">event handler functions</link>
+            </member>
+            <member>
+                <link linkend="pixel_drawing_mode">pixel_drawing_mode</link>
+            </member>
+            <member>
+                <link linkend="anti_aliasing">anti_aliasing</link>
+            </member>
+            <member>
+                <link linkend="colormap">colormap</link>
+            </member>
+            <member>
+                <link linkend="scf">scf</link>
+            </member>
+            <member>
+                <link linkend="gcf">gcf</link>
+            </member>
+            <member>
+                <link linkend="gdf">gdf</link>
+            </member>
+            <member>
+                <link linkend="get">get</link>
+            </member>
+            <member>
+                <link linkend="set">set</link>
+            </member>
+            <member>
+                <link linkend="axes_properties">axes_properties</link>
+            </member>
+            <member>
+                <link linkend="getsystemmetrics">getsystemmetrics</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>New resizefcn &amp; closerequestfcn properties introduced.</revremark>
+            </revision>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>"visible" property meaning changed (uicontrols managed and the whole figure can be made invisible in some cases.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"icon" property added to allow figure icon change.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"menubar_visible" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"toolbar_visible" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"infobar_visible" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"resize" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"dockable" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"menubar" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"toolbar" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"default_axes" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"layout" property added.</para>
+                            </listitem>
+                            <listitem>
+                                <para>"layout_options" property added.</para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        "anti_aliasing" property default value is now "8x" and can now only be changed (specifically) at figure creation time using <link linkend="figure">figure</link> or (globally) by setting default its value using <link linkend="gdf">gdf</link>.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

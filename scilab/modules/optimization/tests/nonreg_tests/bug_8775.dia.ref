@@ -1,0 +1,26 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 8775 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/8775
+//
+// <-- Short Description -->
+// The karmarkar function might diverge toward a non-optimal point.
+//
+// An unbounded problem.
+Aeq = [
+ 2 -2 -1 1 0
+-1 -4  1 0 1
+];
+beq = [-1;-1];
+c = [2;9;3;0;0];
+x0 = [0.2;0.7;1;1;1];
+[xopt,fopt,exitflag]=karmarkar(Aeq,beq,c,x0,0,0.999);
+assert_checkequal ( exitflag , -2 );

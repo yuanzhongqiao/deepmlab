@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xmlns:m="http://www.w3.org/1998/Math/MathML" xml:id="sundials_user_functions" xml:lang="en">
+    <refnamediv>
+        <refname>User functions</refname>
+        <refpurpose>Coding user functions used by SUNDIALS solvers</refpurpose>
+    </refnamediv>
+    <refsection role="description">
+        <title>Introduction</title>
+        <para>
+            To solve nonlinear equations, ODEs (Ordinary Differential Equations) or DAEs (Differential Algebraic Equations)
+            different functions have to be provided to the solver. The right hand side (which denotes a different function depending on the kind
+            of equations) has to be computed by the user and is the only mandatory function.
+            In addition, all solvers allow to give a user <link linkend="sundials_jacobian">Jacobian</link> to help the solver and 
+            a user <link linkend="sundials_callback">Callback</link> function can also be called at each internal or user time step.
+        </para>
+        <para>For ODEs and DAEs only, the roots of a set of user <link linkend="sundials_event">Events</link>
+            functions can be determined during the iterations, 
+            <!--><link linkend="cvode_proj">projection</link> on a constraint manifold can be performed during the integration (cvode only)-->
+            sensitivity with respect to a parameter can be computed during the integration (cvode and ida only) 
+            and a <link linkend="arkode_mass">Mass</link> matrix can be provided (arkode only).            
+        </para>
+        <para>
+            The usual way is to write these user functions in the Scilab language but if speed is a concern, entrypoints of dynamically 
+            linked shared libraries (DLL) should be used instead, as at least one order of magnitude in speed is typically achieved. 
+            All entrypoints have to follow the SUNDIALS API and for the moment the supported modules are NVECTOR_SERIAL 
+            (for vector data structures), SUNMATRIX_DENSE, SUNMATRIX_BAND and SUNMATRIX_SPARSE
+            (for matrix data structures). A very rich library of utility functions and accessor macros can be used and are documented
+            in the online SUNDIALS documentation at the following adresses:
+        </para>
+        <para>
+            <itemizedlist>
+              <listitem>
+                   <para>NVector API: <ulink url="https://sundials.readthedocs.io/en/latest/nvectors/NVector_API_link.html">https://sundials.readthedocs.io/en/latest/nvectors/NVector_API_link.html</ulink></para></listitem>
+                  <listitem>
+                       <para>NVECTOR_SERIAL module: <ulink url="https://sundials.readthedocs.io/en/latest/nvectors/NVector_links.html">https://sundials.readthedocs.io/en/latest/nvectors/NVector_links.html</ulink></para></listitem>
+                      <listitem>
+                           <para>SUNMatrix API: <ulink url="https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_API_link.html">https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_API_link.html</ulink></para></listitem>
+                          <listitem>
+                               <para>SUNMATRIX_DENSE module: <ulink url="https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_links.html#">https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_links.html#</ulink></para></listitem>
+                              <listitem>
+                                   <para>SUNMATRIX_BAND module: <ulink url="https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_links.html#the-sunmatrix-band-module">https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_links.html#the-sunmatrix-band-module</ulink></para></listitem>
+                                  <listitem>
+                                       <para>SUNMATRIX_SPARSE module: <ulink url="https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_links.html#the-sunmatrix-sparse-module">https://sundials.readthedocs.io/en/latest/sunmatrix/SUNMatrix_links.html#the-sunmatrix-sparse-module</ulink></para></listitem>
+                                  </itemizedlist>
+                                </para>
+                            </refsection>
+                        
+                            <refsection>
+                                <title>Passing extra parameters</title>
+                                <para>
+                                    Extra parameters can be passed to user Scilab functions or entrypoints by replacing the corresponding argument or option 
+                                    by a list, where the first element is the usual argument (a function identifier or a string with the entrypoint name) and the
+                                    subsequent elements are the parameters to be passed after the mandatory arguments. 
+                                </para>
+                                <para>
+                                    Note that SUNDIALS DLL entrypoints accept only one extra
+                                    parameter as a Scilab double array, which is passed as a <literal>void *</literal> pointer in the <literal>user_data</literal> argument. 
+                                    When no extra parameter has been passed to the solver this pointer is <literal>NULL</literal>. We give below two examples where we solve
+                                    the same ODE using user parameters with a Scilab function then a SUNDIALS DLL:
+                                </para>
+                                <para>
+                                    <programlisting><![CDATA[
+                                        function yd = f(t,y,a,b)
+                                          yd = a*y+b;
+                                        end
+                                        [t,y] = cvode(list(f,-1,1),[0 10],0);
+                                 ]]></programlisting>
+                               </para>
+                               <para>
+                                   <programlisting><![CDATA[
+                                       code=[
+                                           "#include <nvector/nvector_serial.h>"
+                                           "int sunRhs(sunrealtype t, N_Vector Y, N_Vector Yd, void *user_data)"
+                                           "{"
+                                           "double *y = NV_DATA_S(Y);"
+                                           "double *yd = NV_DATA_S(Yd);"
+                                           "double *par = (double *)user_data;"
+                                           "yd[0] = par[0]*y[0]+par[1];"
+                                           "return 0;"
+                                           "}"];
+                                           mputl(code,"code.c");
+                                       SUN_Clink("sunRhs","code.c",load=%t);
+                                       [t,y] = cvode(list("sunRhs",[-1,1]),[0 10],0);
+                                ]]></programlisting>
+                              </para>     
+                            </refsection>
+                        
+                            <refsection role="see also">
+                                <title>See also</title>
+                                <simplelist type="inline">
+                                    <member>
+                                        <link linkend="arkode">arkode</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="cvode">cvode</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="ida">ida</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="kinsol">kinsol</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="sundials_jacobian">User Jacobian</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="sundials_event">User Events</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="sundials_callback">User Callback</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="SUN_Clink">SUN_Clink</link>
+                                    </member>
+                                </simplelist>
+                            </refsection>
+                        </refentry>

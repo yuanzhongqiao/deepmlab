@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xml:id="CLR" xml:lang="en_US">
+    <refnamediv>
+        <refname>CLR</refname>
+        <refpurpose>Continuous transfer function</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/CLR.png" align="center" valign="middle"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_CLR">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_CLR">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_CLR">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_CLR">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_CLR">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_CLR">Computational function</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_CLR">
+        <title>Description</title>
+        <para>
+            This block realizes a SISO linear system represented by its rational transfer function
+            <emphasis role="bold">Numerator/Denominator</emphasis>. The rational function must be
+            proper (denominator degree must be less or equal to numerator degree).
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_CLR">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/CLR_gui.gif" align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Numerator</emphasis>
+                </para>
+                <para> This parameter sets the numerator of the transfer function.</para>
+                <para> This must be a polynomial in s.</para>
+                <para> Properties : Type 'pol' of size 1. </para>
+                <warning>
+                    In the provided expression, any subexpression being an exponent given either by
+                    a variable (of the context) whose name is more than 1-character long, or by an
+                    expression (not a literal integer) must end with a space to be correctly
+                    displayed on the block's icon.
+                    <para/>
+                    This constrain has no consequence on the computational validity of the expression.
+                    <para/>
+                    Examples: "s^12+1", "s^ +12+1", "s^+ 12+1" are all displayed as "s^{12}+1",
+                    while "1+s^ab+s^2" will be displayed as "1+s^{ab+s^2}"
+                    (but will be well computed as <literal>1 + s^ab + s^2</literal>).
+                    To make it well displayed, "1+s^ab +s^2" will have to be entered (for instance).
+                </warning>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Denominator</emphasis>
+                </para>
+                <para> This parameter sets the denominator of the transfer function.</para>
+                <para> This must be a polynomial in s.</para>
+                <para> Properties : Type 'pol' of size 1. </para>
+                <para> Take care about multichar exponents (see <literal>Numerator</literal>).</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_CLR">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">csslti4</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Interfacingfunction_CLR">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Linear/CLR.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_CLR">
+        <title>Computational function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/src/c/csslti4.c (Type 4)</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

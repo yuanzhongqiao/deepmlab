@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="readtable" xml:lang="en">
+    <refnamediv>
+        <refname>readtable</refname>
+        <refpurpose>create a table from a file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = readtable(filename)
+            t = readtable(filename, opts)
+
+            t = readtable(filename, OptionName, Value, ...)
+            t = readtable(filename, opts, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>path or name of file to read</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>opts</term>
+                <listitem>
+                    <para>file import options obtained by detectImportOptions</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"VariableNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        extracts from the file only the data corresponding to the entered variable names.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"ReadRowNames"</emphasis>, boolean</term>
+                <listitem>
+                    <para>
+                        the first column of the file will be stored in the RowNames property of the table t.
+                        Default value: %f.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>output argument - table object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <emphasis role="bold">readtable</emphasis> function creates a table from a file. Each column of file is stored in variables. 
+            If however the columns have no name, then the default variable names are used (["Var1", ..., "VarN"]). 
+            Accepted file formats are .txt, .dat or .csv.
+        </para>
+        <para>
+            readtable detects the format file thanks to <link linkend="detectImportOptions">detectImportOptions</link> function. opts contains all information on the file.
+        </para>
+        <para>
+            To extract only the necessary variables (columns), use <emphasis role="bold">t = readtable(filename, "VariableNames", value)</emphasis>.
+        </para>
+        <para>
+            <emphasis role="bold">t = readtable(filename, ..., "ReadRowNames", val)</emphasis> creates a table with row names, i.e, the first 
+            column of file is stored in RowNames property of t.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">t = readtable(filename)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+            
+            // Write the table in CSV file
+            writetable(t, fullfile(TMPDIR, "data.csv"))
+
+            // Read the CSV file with readtable
+            r = readtable(fullfile(TMPDIR, "data.csv"))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">t = readtable(filename, "VariableNames", value)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+            
+            // Write the table in CSV file
+            writetable(t, fullfile(TMPDIR, "data.csv"))
+
+            // Read the CSV file with readtable
+            r = readtable(fullfile(TMPDIR, "data.csv"), "VariableNames", ["NameContinent", "NumberCountry", "Area"])
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">t = readtable(filename, "ReadRowNames", value)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+            
+            // Write the table in CSV file
+            writetable(t, fullfile(TMPDIR, "data.csv"))
+
+            // Read the CSV file with readtable
+            r = readtable(fullfile(TMPDIR, "data.csv"), "ReadRowNames", %t)
+            r.Properties.RowNames
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="writetable">writetable</link>
+            </member>
+            <member>
+                <link linkend="table">table</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revdescription>
+                    Empty columns are now preserved. 
+                    Previously, columns with missing or undefined names were not returned. 
+                    Similarly, columns with a defined name but containing no data were ignored. 
+                    As a result, the returned <literal>table</literal> accurately reflects the original data.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

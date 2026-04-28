@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+ * ...
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="ode_root" xml:lang="en">
+    <refnamediv>
+        <refname>ode_root</refname>
+        <refpurpose>ordinary differential equation solver with roots
+            finding
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[y, rd, w, iw] = ode("root", y0, t0, t [,rtol [,atol]], f [,jac], ng, g [,w,iw])</synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>y0</term>
+                <listitem>
+                    <para>a real vector or matrix (initial conditions).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t0</term>
+                <listitem>
+                    <para>a real scalar (initial time).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>a real vector (times at which the solution is computed).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>
+                        an <link linkend="external">external</link> function (Scilab function, list or string), computes the value of 
+                        <literal>f(t, y)</literal>. It is the right hand side of the differential equation. 
+                        See <link linkend="ode">ode</link> help for more details.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rtol, atol</term>
+                <listitem>
+                    <para>a real constants or real vectors of the same size as
+                        <literal>y</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>jac</term>
+                <listitem>
+                    <para>
+                        an <link linkend="external">external</link> function (a Scilab fuction, list or string), 
+                        computes the Jacobian of the function <literal>f(t, y)</literal>. 
+                        See <link linkend="ode">ode</link> help for more details.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ng</term>
+                <listitem>
+                    <para>
+                        an integer, number of components of <varname>g</varname> function
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>g</term>
+                <listitem>
+                    <para>
+                        an <link linkend="external">external</link> function (a Scilab fuction, list or string) with the syntax 
+                        <literal>g(t, y)</literal>, returns a vector of size <varname>ng</varname>.
+                        Each component defines a surface.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>a real vector or matrix. The solution.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rd</term>
+                <listitem>
+                    <para>a real vector.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>w, iw</term>
+                <listitem>
+                    <para>vectors of real numbers.
+                        See <link linkend="ode_optional_output">ode() optional output</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            With this syntax (first argument equal to <literal>"root"</literal>)
+            <literal>ode</literal> computes the solution of the differential equation
+            <literal>dy/dt=f(t,y)</literal> until the state <literal>y(t)</literal>
+            crosses the surface <literal>g(t,y)=0</literal>.
+        </para>
+        <para>
+            <literal>g</literal> should give the equation of the surface. It is
+            an <link linkend="external">external</link> i.e. a function with specified syntax, or the name of a
+            Fortran subroutine or a C function (character string) with specified
+            syntax or a list:
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>a Scilab function</term>
+                <listitem>
+                    <para>
+                        Its syntax must be
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r = g(t,y)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        this function must return a vector with <varname>ng</varname> elements.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a list</term>
+                <listitem>
+                    <para>
+                        This form of external is used to pass parameters to the
+                        function. It must be as follows:
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(g, p1, p2,...)]]>
+                        </programlisting>
+                    </para>
+                    <para>where the syntax of the function
+                        <literal>g</literal> is now
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r = g(t, y, p1, p2,...)]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a character string</term>
+                <listitem>
+                    <para>it must refer to the name of a C or Fortran routine.
+                        Assuming that &lt;g_name&gt; is the given name,
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                The Fortran calling sequence must be
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <g_name>(n, t, y, ng, gout)
+                                    double precision t, y(*), gout(*)
+                                    integer n, ng]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                The C syntax must be
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <g_name>(int *n, double *t, double *y, int *ng, double *gout)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        where
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>t</literal> is a real scalar (time)
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>y</literal> is a real vector (the state)
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>ng</literal> is the number of constraints
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>n</literal> the dimension of the state
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>gout</literal> is the results array.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>See the <link linkend="ode_root">ode_root</link> help for more details.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            Output <literal>rd</literal> is a <literal>1 x k</literal> vector.
+            The first entry contains the stopping time. Other entries indicate which
+            components of <literal>g</literal> have changed sign. <literal>k</literal>
+            larger than 2 indicates that more than one surface
+            (<literal>(k-1)</literal> surfaces) have been simultaneously
+            traversed.
+        </para>
+        <para>Other arguments and other options are the same as for
+            <literal>ode</literal>, see the <link linkend="ode">ode</link> help.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Integration of the differential equation
+// dy/dt=y , y(0)=1, and finds the minimum time t such that y(t)=2
+deff("ydot = f(t,y)", "ydot=y")
+deff("z = g(t,y)", "z=y-2")
+y0 = 1; ng = 1;
+[y,rd] = ode("root", y0, 0, 2, f, ng, g)
+
+g = #(t, y) -> (y - [2;2;33]);
+[y,rd] = ode("root", 1, 0, 2, f, 3, g)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ode">ode</link>
+            </member>
+            <member>
+                <link linkend="ode_optional_output">ode_optional_output</link>
+            </member>
+            <member>
+                <link linkend="ode_discrete">ode_discrete</link>
+            </member>
+            <member>
+                <link linkend="dae">dae</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

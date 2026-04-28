@@ -1,0 +1,107 @@
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
+//
+// Copyright (C) 2012 - 2016 - Scilab Enterprises
+//
+// This file is hereby licensed under the terms of the GNU GPL v2.0,
+// pursuant to article 5.3.4 of the CeCILL v.2.1.
+// This file was originally licensed under the terms of the CeCILL v2.1,
+// and continues to be available under such terms.
+// For more information, see the COPYING file which you should have received
+// along with this program.
+
+// <-- CLI SHELL MODE -->
+
+function y = rosenbrock (x)
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+endfunction
+
+//
+// Test with x0 only
+//
+s1 = optimsimplex_new ( "axes" , [-1.2 1.0] );
+computed = optimsimplex_getall ( s1 );
+expected = [
+0.  -1.2    1.
+0.  -0.2    1.
+0.  -1.2    2.
+];
+assert_checkalmostequal ( computed , expected , 10*%eps );
+s1 = optimsimplex_destroy ( s1 );
+
+//
+// Test with function only
+//
+s1 = optimsimplex_new ( "axes" , [-1.2 1.0] , rosenbrock );
+computed = optimsimplex_getall ( s1 );
+expected = [
+24.2  -1.2    1.
+93.6  -0.2    1.
+36.2  -1.2    2.
+];
+assert_checkalmostequal ( computed , expected , 10*%eps );
+s1 = optimsimplex_destroy ( s1 );
+
+//
+// Test with a scalar length
+//
+s1 = optimsimplex_new ( "axes" , [-1.2 1.0] , rosenbrock , 2.0 );
+computed = optimsimplex_getall ( s1 );
+expected = [
+24.2   -1.2    1.
+13.      0.8    1.
+248.2  -1.2    3.
+];
+assert_checkalmostequal ( computed , expected , 10*%eps );
+s1 = optimsimplex_destroy ( s1 );
+
+//
+// Test with a vector length
+//
+s1 = optimsimplex_new ( "axes" , [-1.2 1.0] , rosenbrock , [1.0 2.0] );
+computed = optimsimplex_getall ( s1 );
+expected = [
+24.2 -1.2 1.
+93.6 -0.2 1.
+248.2 -1.2 3.
+];
+assert_checkalmostequal ( computed , expected , 10*%eps );
+s1 = optimsimplex_destroy ( s1 );
+
+//
+// Test with a scalar length and an additional object
+//
+myobj = tlist(["T_MYSTUFF","nb"]);
+myobj.nb = 0;
+function [ y , myobj ] = mycostf ( x , myobj )
+    y = rosenbrock(x);
+    myobj.nb = myobj.nb + 1
+endfunction
+[ s1 , myobj ] = optimsimplex_new ( "axes" , [-1.2 1.0] , mycostf , 1.0, myobj );
+computed = optimsimplex_getall ( s1 );
+expected = [
+24.2 -1.2 1.0
+93.6 -0.2 1.0
+36.2 -1.2 2.0
+];
+assert_checkalmostequal ( computed , expected , 10*%eps );
+assert_checkequal ( myobj.nb , 3 );
+nbve = optimsimplex_getnbve ( s1 );
+assert_checkequal ( nbve , 3 );
+s1 = optimsimplex_destroy ( s1 );
+
+// Test with a unconsistent x0 and len
+cmd = "newobj = optimsimplex_new ( ""axes"" , [1 2] , rosenbrock , [1 2 3] )";
+instr = "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n";
+assert_checkerror(cmd, instr, [],"optimsimplex_new", 4, 1, 2);
+
+// Test with a unconsistent x0
+cmd = "newobj = optimsimplex_new ( ""axes"" , [1 2;3 4] , rosenbrock )";
+instr = "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n";
+assert_checkerror(cmd,instr,[],"optimsimplex_new",2,1,2);
+
+// Test with a unconsistent len
+cmd = "newobj = optimsimplex_new ( ""axes"" , [1 2] , rosenbrock , ""foo"" )";
+instr = "%s: Expected real variable for variable %s at input #%d, but got %s instead.";
+assert_checkerror(cmd,instr,[],"assert_typereal", "len" , 1 , "string" );

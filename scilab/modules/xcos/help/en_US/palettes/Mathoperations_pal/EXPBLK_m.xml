@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="EXPBLK_m" xml:lang="en">
+    <refnamediv>
+        <refname>EXPBLK_m</refname>
+        <refpurpose>Exponential of a scalar</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/EXPBLK_m.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_EXPBLK_m">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_EXPBLK_m">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_EXPBLK_m">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_EXPBLK_m">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_EXPBLK_m">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_EXPBLK_m">Computational function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_EXPBLK_m">See also</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_EXPBLK_m">
+        <title>Description</title>
+        <para>
+            The output of this block is a vector y with y[i]=a^u[i], where the parameter <emphasis role="bold">a</emphasis>
+            is a positive scalar and u the input vector. The input and output port sizes are determined by the compiler.
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_EXPBLK_m">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/gui/EXPBLK_m_gui.gif" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">a</emphasis>
+                </para>
+                <para>A real positive scalar.</para>
+                <para>Properties : Type 'vec' of size 1.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_EXPBLK_m">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,-2] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,-2] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs: </emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">expblk_m</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Interfacingfunction_EXPBLK_m">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/NonLinear/EXPBLK_m.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_EXPBLK_m">
+        <title>Computational function</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/expblk_m.c (Type 4)</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection xml:id="Seealso_EXPBLK_m" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="POWBLK_f">POWBLK_f</link>
+            </member>
+            <member>
+                <link linkend="LOGBLK_f">LOGBLK_f</link>
+            </member>
+            <member>
+                <link linkend="SQRT">SQRT</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

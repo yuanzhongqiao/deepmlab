@@ -1,0 +1,143 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Clément DAVID
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Cédric DELAMARRE
+#
+#
+# This YAML file describe the build stage of the CI. This stage delegates the
+# build action to shell scripts, it creates job per platform and handle Merge
+# Request as well as nightly/release build.
+#
+
+# build scilab using a windows runner
+.windows_build:
+  stage: build
+  tags: [x64_windows, scilab, shell, build]
+  before_script:
+    # The first time create base folders
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\scihome\"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\log\"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\test\"
+  script:
+    - cmd /C "call .gitlab-ci\build.bat"
+  artifacts:
+    paths:
+      - $SCI_VERSION_STRING
+      - $SCI_VERSION_STRING.bin.$ARCH.exe
+    when: always
+# build an MR version
+windows_build_mr:
+  extends: .windows_build
+  needs:
+    - windows_set_env
+    - job: windows_build_prereq
+      optional: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push"
+# build a nightly version
+windows_build_nightly:
+  extends: .windows_build
+  needs:
+    - windows_set_env
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+# build a release version
+windows_build_release:
+  extends: .windows_build
+  needs:
+    - windows_set_env
+  rules:
+    - if: $CI_COMMIT_TAG
+
+# build scilab using a linux runner
+.linux_build:
+  stage: build
+  image: ${SCI_REGISTRY_IMAGE}/linux-builder:${DOCKER_TAG}
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  before_script:
+    - echo -e "\e[0Ksection_start:$(date +%s):cleanup\r\e[0KCleaning $CI_PROJECT_DIR"
+    # Remove logs older than 3 days
+    - find logs_*  -mtime +3 -delete || true
+    # Remove installer older than 3 days
+    - find ../../scilab-* -mtime +3 -delete || true
+    - echo -e "\e[0Ksection_end:$(date +%s):cleanup\r\e[0K"
+  script: bash -x -e .gitlab-ci/build.sh
+  artifacts:
+    paths:
+      - $SCI_VERSION_STRING
+      - $SCI_VERSION_STRING.bin.$ARCH.tar.xz
+    when: always
+# build an MR version
+linux_build_mr:
+  extends: .linux_build
+  needs:
+    - linux_set_env
+    - job: linux_build_prereq
+      optional: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push"
+# build a nightly
+linux_build_nightly:
+  extends: .linux_build
+  needs:
+    - linux_set_env
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+# build a release
+linux_build_release:
+  extends: .linux_build
+  needs:
+    - linux_set_env
+  rules:
+    - if: $CI_COMMIT_TAG
+
+# pass the configure and make on regular distro without prerequirements
+linux:
+  stage: build
+  image: ${DISTRO}
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  variables:
+    GIT_CLEAN_FLAGS: "-fxd"
+  script:
+    - >
+      [ -x /usr/bin/apt ] &&
+      export DEBIAN_FRONTEND=noninteractive &&
+      apt update &&
+      apt upgrade -y &&
+      apt install -y gcc g++ gfortran libxml2-dev libhdf5-dev libmatio-dev libfftw3-dev libncurses-dev libeigen3-dev gettext libblas-dev liblapack-dev libarpack2-dev libsuitesparse-dev libpcre2-dev tcl-dev tk-dev libcurl3-dev libarchive-dev rapidjson-dev >/dev/null
+    - >
+      [ -x /usr/bin/dnf ] &&
+      dnf update -y &&
+      dnf install -y util-linux &&
+      dnf install -y gcc gcc-c++ gcc-fortran libxml2-devel hdf5-devel matio-devel fftw-devel ncurses-devel eigen3-devel gettext blas-devel lapack-devel arpack-devel suitesparse-devel pcre2-devel tcl-devel tk-devel libcurl-devel libarchive-devel rapidjson-devel >/dev/null
+    - useradd scilab
+    - cd scilab
+    - su -c './configure --without-jdk --without-modelica' scilab
+    - su -c 'make --jobs="$(nproc)" >/dev/null' scilab
+  parallel:
+    matrix:
+      - DISTRO:
+          - ubuntu:22.04
+          - ubuntu:24.04
+          - ubuntu:25.04
+          - fedora:42
+          - debian:12
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /Building Scilab/
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/configure
+          - scilab/Makefile.in
+          - scilab/modules/Makefile.in
+          - scilab/modules/*/Makefile.in
+        compare_to: $CI_DEFAULT_BRANCH
+      allow_failure: true
+    - when: manual
+      allow_failure: true

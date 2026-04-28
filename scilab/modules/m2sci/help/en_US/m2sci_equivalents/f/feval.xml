@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="m2sci_feval">
+    <refnamediv>
+        <refname>feval (Matlab function)</refname>
+        <refpurpose>Function evaluation</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Matlab/Scilab equivalent</title>
+        <informaltable border="1" width="100%">
+            <tr>
+                <td align="center">
+                    <emphasis role="bold">Matlab</emphasis>
+                </td>
+                <td align="center">
+                    <emphasis role="bold">Scilab</emphasis>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+feval
+]]></programlisting>
+                </td>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+evstr
+execstr
+]]></programlisting>
+                </td>
+            </tr>
+        </informaltable>
+    </refsection>
+    <refsection>
+        <title>Particular cases</title>
+        <variablelist>
+            <varlistentry>
+                <term>One output:</term>
+                <listitem>
+                    <para>
+                        In this case Scilab <emphasis role="bold">evstr</emphasis> is an equivalent to <emphasis role="bold">feval</emphasis>, after modifying inputs such as in examples below.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>More than one output:</term>
+                <listitem>
+                    <para>
+                        In this case Scilab <emphasis role="bold">execstr</emphasis> is an equivalent to <emphasis role="bold">feval</emphasis>, after modifying inputs such as in examples below.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <informaltable border="1" width="100%">
+            <tr>
+                <td align="center">
+                    <emphasis role="bold">Matlab</emphasis>
+                </td>
+                <td align="center">
+                    <emphasis role="bold">Scilab</emphasis>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+y1 = feval(@cos, [0 1])   % function input is real
+y1 = feval(@abs, 1+%i)    % function input is not real
+[y1,y2] = feval(@size,1)
+]]></programlisting>
+                </td>
+                <td>
+                    <programlisting role="example"><![CDATA[
+y1 = feval([0 1], cos)   // function input is real
+y1 = evstr("abs(1+%i)")
+execstr("[y1,y2] = size(1)");
+]]></programlisting>
+                </td>
+            </tr>
+        </informaltable>
+    </refsection>
+</refentry>

@@ -1,0 +1,26 @@
+/ =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- INTERACTIVE TEST -->
+// <-- XCOS TEST -->
+//
+// <-- Non-regression test for bug 5267 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/5267
+//
+// <-- Short Description -->
+// Xcos diagram causes Scilab to quit if Simulation/Setup is selected, then cancelled using the "x" on the upper right.
+
+
+// Start xcos
+
+// Simulation >> Setup
+
+// Close the setup window using the upper right cross
+
+// Check that Scilab does not exit

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="bezier" xml:lang="en">
+    <refnamediv>
+        <refname>bezier</refname>
+        <refpurpose>compute the points for the bezier curve
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>z = bezier(p, t [,w])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>a 2 or 3 columns matrix containing the control points (P0, P1, ..., Pn). 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>a scalar or row vector. </para>
+                    <para>
+                        If <literal>t</literal> is scalar, <literal>t</literal> contains the number of points of Bezier curves. In this case, 
+                        the <literal>bezier</literal> function create <literal>linspace(0, 1, t)</literal>vector. If <literal>t</literal> 
+                        is vector, this values must be in [0; 1]
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>w</term>
+                <listitem>
+                    <para>a column vector. It contains the weight to apply on each point. This vector must have the same number of rows as p </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>a 2 or 3 columns matrix</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function computes a matrix of points on the Bezier curve 
+            defined by the n+1 control points <literal>P</literal>.
+        </para>
+        <para>
+            P must be defined as: <literal>[xp0 yp0; xp1 yp1; ...; xpn ypn]</literal> to create the 2-D Bezier curve or 
+        <literal>[xp0 yp0 zp0; xp1 yp1 zp1; ...; xpn ypn zpn].</literal> for 3-D Bezier curve.
+
+        </para>
+        <para>
+            From [P0, P1, ..., Pn] control points, the bezier curve is the set of points defined by the parametric representation 
+            <latex>Z(t) = \sum \limits_{i = 0}^{n} B_i^n(t) \cdot P_i</latex> for <latex>t \in [0;1]</latex> and 
+            <latex>B_i^n</latex> are the Bernstein polynoms.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">2d Bezier curve</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+            P = [0 0; 1 2; 2 0; -1 0];
+            t = linspace(0, 1, 100);
+
+            z = bezier(P, t);
+            plot(z(:,1), z(:, 2), "b", "thickness", 3);
+            plot(P(:,1), P(:,2), "r.", "thickness", 3);
+            gca().data_bounds = [-2 -1; 3 3];
+            ]]>
+        </programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+            P = [0 0; 0 1; 1 1; 1 0];
+            nb = 50;
+
+            z = bezier(P, nb);
+            plot(z(:,1), z(:, 2), "b", "thickness", 3);
+            plot(P(:,1), P(:,2), "r.", "thickness", 3);
+            gca().data_bounds = [-0.2 -0.2; 1.2 1.2];
+            xgrid();
+            ]]>
+        </programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                P = [0 0; 1 1; 3 0; 5 -1; 1 -1];
+                t = linspace(0, 1, 100);
+                
+                z = bezier(P, t);
+                plot(z(:,1), z(:, 2), "b", "thickness", 3);
+                plot(P(:,1), P(:,2), "r.", "thickness", 3);
+                gca().data_bounds = [-2 -1; 4 2];
+                ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">3d Bezier curve</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+            P = [0 0 0; 1 2 1; 2 0 2; -1 0 1];
+            t = linspace(0, 1, 100);
+
+            z = bezier(P, t);
+            
+            drawlater();
+            param3d(P(:,1), P(:,2), P(:, 3));
+            a = gca();
+            a.data_bounds = [-1.3 -0.3 -0.3;2.3 2.3 2.3];
+            e = gce();
+            e.mark_mode = "on";
+            e.mark_style = 10;
+            e.line_mode = "off";
+            e.mark_foreground = color("red");
+
+            param3d(z(:,1), z(:,2), z(:,3));
+            e = gce();
+            e.foreground = color("blue");
+            e.thickness = 3;
+            drawnow();
+            a.rotation_angles = [74.5 21.25];
+            ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="bernstein">bernstein</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

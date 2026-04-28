@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package name="org.scilab.modules.xcos">
+    <object name="Xcos">
+        <method name="xcos" returnType="void" modifier="static">
+            <parameter name="file" type="String"/>
+            <parameter name="diagramId" type="long"/>
+        </method>
+        <method name="xcosDiagramToScilab" returnType="void" modifier="static">
+            <parameter name="file" type="String"/>
+            <parameter name="diagramId" type="long"/>
+            <parameter name="exported" type="boolean"/>
+        </method>
+        <method name="xcosDiagramExport" returnType="void" modifier="static">
+            <parameter name="diagramId" type="long"/>
+            <parameter name="file" type="String"/>
+        </method>
+        <method name="warnCellByUID" returnType="void" modifier="static">
+            <parameter name="uids" type="String[]"/>
+            <parameter name="message" type="String"/>
+        </method>
+        <method name="closeXcosFromScilab" returnType="void" modifier="static"/>
+        <method name="addToolsMenu" returnType="void" modifier="static">
+            <parameter name="label" type="String"/>
+            <parameter name="command" type="String"/>
+        </method>
+        <method name="xcosSimulationStarted" returnType="void" modifier="static">
+        </method>
+    </object>
+</package>

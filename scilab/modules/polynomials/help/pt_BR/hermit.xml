@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="hermit" xml:lang="pt">
+    <refnamediv>
+        <refname>hermit</refname>
+        <refpurpose>forma hermitiana</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title> Seqüência de Chamamento </title>
+        <synopsis>[Ar, U] = hermit(A)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                    <para>matriz de polinômios </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Ar</term>
+                <listitem>
+                    <para>matriz de polinômios triangular </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>U</term>
+                <listitem>
+                    <para>matriz de polinômios unimodular</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Forma hermitiana: <literal>U</literal> é uma matriz unimodular tal
+            que <literal>A*U</literal> está na forma triangular de Hermite:
+        </para>
+        <para>
+            A variável de saída é <literal>Ar=A*U</literal>.
+        </para>
+        <para>Aviso: versão experimental</para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+s = %s;
+p = [s, s*(s+1)^2, 2*s^2+s^3];
+[Ar,U] = hermit(p'*p);
+clean(p'*p*U)
+det(U)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> clean(p'*p*U)
+ ans  =
+  0  0  s²         
+
+  0  0  s² +2s³ +s⁴
+
+  0  0  2s³ +s⁴    
+
+--> det(U)
+ ans  =
+  1
+]]></screen>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="hrmt">hrmt</link>
+            </member>
+            <member>
+                <link linkend="htrianr">htrianr</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="getfield">
+    <refnamediv>
+        <refname>getfield</refname>
+        <refpurpose>list field extraction</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[x,...] = getfield(i,l)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>matrix of any possible types.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>l</term>
+                <listitem>
+                    <para>
+                        <literal>list</literal>, <literal>tlist</literal>, <literal>mlist</literal> or <literal>object</literal> variable.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>
+                        field index, see <link linkend="extraction">extraction</link> for more details.
+                        or name of the field to extract when l is an object.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function is an equivalent of <literal>[x,...]=l(i)</literal> syntax for field
+            extraction with the only difference that it also applies to
+            <literal>mlist</literal> objects.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+l = list(1,'qwerw',%s)
+[a,b] = getfield([3 2],l)
+
+// Rationals are encoded as t-lists:
+r = [%z/(1-%z) %z^2/(1+%z)]
+type(r)
+[num, den] = getfield([2 3],r)
+
+// Structures arrays are encoded as M-lists:
+s.r = %pi
+s.b = %t
+s.t = "Scilab"
+s(2).t = "Basile"
+getfield(2,s)==size(s)
+getfield(1,s)(3:5)==fieldnames(s)'
+[r,b,t] = getfield([3 4 5],s)
+
+classdef foo
+    properties
+        a = 1
+        b = 2
+    end
+end
+
+getfield("a",foo()) // returns 1
+getfield("b",foo()) // returns 2
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="extraction">extraction</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    Add management of object.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="fr" xml:id="demo_begin">
+    <refnamediv>
+        <refname>demo_begin</refname>
+        <refpurpose>
+            initialise une démonstration. <emphasis role="bold">Cette fonction est obsolète. Merci d'utiliser <literal>exec</literal> à la place.</emphasis>
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>demo_begin()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            La fonction demo_begin() initialise une démonstration.
+            Elle place le script et les valeurs en mode de non affichage à la console,
+            enregistre les variables de l'environnement dans un fichier temporaire et
+            sauvegarde la largeur de la console.
+            Elle doit être utilisée avec la function demo_end.
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="demo_end">demo_end</link>
+            </member>
+            <member>
+                <link linkend="exec">exec</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    Déclarée obsolète et sera supprimée de Scilab 2026.1.0.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

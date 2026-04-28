@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Simon GARESTE <simon.gareste@scilab-enterprises.com>
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="atomsGetInstalledPath" xml:lang="en">
+    <refnamediv>
+        <refname>atomsGetInstalledPath</refname>
+        <refpurpose>Gets the install path of some installed external modules</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            paths = atomsGetInstalledPath(modules)
+            paths = atomsGetInstalledPath(modules, section)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>modules</term>
+                <listitem>
+                    <para>m x 1, m x 2, or m x 3 matrix of strings</para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col. (Mandatory)</th>
+                            <th>2nd Col. (Optional)</th>
+                            <th>3rd Col. (Optional)</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version: If this value is missing or "", the first
+                                (and possibly only installed) version found is considered.</td>
+                            <td>Section: If this value is missing or "", the "all" section is
+                                used. Possible values are "user", "allusers", and "all".</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>section</term>
+                <listitem>
+                    <para>single string among "user", "allusers", "all". It is used ony if
+                    <varname>modules</varname> has less than 3 columns. It is equivalent to
+                    <literal>modules(:,3)=section</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>paths</term>
+                <listitem>
+                    <para>
+                        the paths of the given modules (starting with SCI or SCIHOME),
+                        or "" for any unfound module, such that always size(paths,1)==size(modules,1).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsGetInstalledPath</literal> returns the installation path of given
+            external modules, or "" for any unfound module.
+        </para>
+        <para>
+            If no module with the given exact case-sensitive technical name is found among installed
+            modules, the search is rerun in a case-insensitive way. If still no match is found, the
+            search is rerun in a case-insensitive way considering the provided technical name
+            as a fragment of the true name. In case of
+        </para>
+        <para>
+            If for a <literal>modules(i,:)</literal> several matches are found, only the first one
+            is considered.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+atomsInstall SCI/modules/atoms/tests/unit_tests/toolbox_7V6_1.0-1.bin.zip user
+
+atomsGetInstalledPath toolbox_7V6       // exact name,                  no version
+atomsGetInstalledPath ToolBox_7v6       // else: case-insensitive name, no version
+atomsGetInstalledPath TOOLBOX_7         // else: fragment of name,      no version
+atomsGetInstalledPath toolbox_7 allusers  // + wrong section => "" (not found)
+atomsGetInstalledPath toolbox_7 all
+atomsGetInstalledPath(["toolbox_7", "2"])   // not this version => "" (not found)
+atomsGetInstalledPath(["toolbox_7", "1"])   // not this version => "" (not found)
+atomsGetInstalledPath(["toolbox_7", "1.0"]) // version found
+
+atomsRemove("toolbox_7V6");
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsGetLoadedPath">atomsGetLoadedPath</link>
+            </member>
+            <member>
+                <link linkend="atomsGetLoaded">atomsGetLoaded</link>
+            </member>
+            <member>
+                <link linkend="atomsGetInstalled">atomsGetInstalled</link>
+            </member>
+            <member>
+                <link linkend="atomsAutoloadList">atomsAutoloadList</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    The technical name can now be case-insensitive, or a case-insensitive
+                                    fragment of the full true technical name of each searched module.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    The version is now optional (use "" to accept any version).
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

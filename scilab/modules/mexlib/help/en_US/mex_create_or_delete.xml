@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2017-2017 - Siddhartha Gairola
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* pursuant to article 5.3.4 of the CeCILL v.2.1.
+* This file was originally licensed under the terms of the CeCILL v2.1,
+* and continues to be available under such terms.
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xml:id="mex_create_or_delete" xml:lang="en">
+
+    <refnamediv>
+        <refname>Create or Delete Array</refname>
+        <refpurpose>Create arrays of a specified type, allocate and free memory.</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <variablelist>
+            <varlistentry>
+                <term>These are the different functions present in the mexlib module of Scilab</term>
+                <itemizedlist>
+                    <listitem>
+                         <para>mxCreateDoubleMatrix</para></listitem>
+                        <listitem>
+                             <para>mxCreateDoubleScalar</para></listitem>
+                            <listitem>
+                                 <para>mxCreateNumericMatrix</para></listitem>
+                                <listitem>
+                                     <para>mxCreateNumericArray</para></listitem>
+                                    <listitem>
+                                         <para>mxCreateUninitNumericMatrix</para></listitem>
+                                        <listitem>
+                                             <para>mxCreateUninitNumericArray</para></listitem>
+                                            <listitem>
+                                                 <para>mxCreateString</para></listitem>
+                                                <listitem>
+                                                     <para>mxCreateCharMatrixFromStrings</para></listitem>
+                                                    <listitem>
+                                                         <para>mxCreateCharArray</para></listitem>
+                                                        <listitem>
+                                                             <para>mxCreateLogicalScalar</para></listitem>
+                                                            <listitem>
+                                                                 <para>mxCreateLogicalMatrix</para></listitem>
+                                                                <listitem>
+                                                                     <para>mxCreateLogicalArray</para></listitem>
+                                                                    <listitem>
+                                                                         <para>mxCreateSparse</para></listitem>
+                                                                        <listitem>
+                                                                             <para>mxCreateSparseLogicalMatrix</para></listitem>
+                                                                            <listitem>
+                                                                                 <para>mxCreateStructMatrix</para></listitem>
+                                                                                <listitem>
+                                                                                     <para>mxCreateStructArray</para></listitem>
+                                                                                    <listitem>
+                                                                                         <para>mxCreateCellMatrix</para></listitem>
+                                                                                        <listitem>
+                                                                                             <para>mxCreateCellArray</para></listitem>
+                                                                                            <listitem>
+                                                                                                 <para>mxDestroyArray</para></listitem>
+                                                                                                <listitem>
+                                                                                                     <para>mxDuplicateArray</para></listitem>
+                                                                                                    <listitem>
+                                                                                                         <para>mxCalloc</para></listitem>
+                                                                                                        <listitem>
+                                                                                                             <para>mxMalloc</para></listitem>
+                                                                                                            <listitem>
+                                                                                                                 <para>mxRealloc</para></listitem>
+                                                                                                                <listitem>
+                                                                                                                     <para>mxFree</para></listitem>
+                                                                                                                </itemizedlist>
+                                                                                                            </varlistentry>
+                                                                                                        </variablelist>
+                                                                                                    </refsection>
+                                                                                                
+                                                                                                    <refsection role="see also">
+                                                                                                        <title>See also</title>
+                                                                                                
+                                                                                                        <simplelist type="inline">
+                                                                                                            <member>
+                                                                                                                <link linkend="mex_data_types"/>
+                                                                                                            </member>
+                                                                                                            <member>
+                                                                                                                <link linkend="mex_validate_data"/>
+                                                                                                            </member>
+                                                                                                            <member>
+                                                                                                                <link linkend="mex_access_data"/>
+                                                                                                            </member>
+                                                                                                            <member>
+                                                                                                                <link linkend="mex_convert_data"/>
+                                                                                                            </member>
+                                                                                                            <member>
+                                                                                                                <link xlink:href="https://www.mathworks.com/help/matlab/cc-matrix-library-api.html">Matlab C Matrix Library API</link>
+                                                                                                            </member>
+                                                                                                        </simplelist>
+                                                                                                    </refsection>
+                                                                                                </refentry>

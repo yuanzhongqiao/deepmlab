@@ -1,0 +1,19 @@
+//<-- CLI SHELL MODE -->
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- Non-regression test for bug 5367 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/5367
+//
+// <-- Short Description -->
+// Incorrect %nan multiplication returned with vectors on 64-bit Vista using Scilab 5.1.1.
+// bug with MKL 10.1
+R1 = [1 2] * %nan;
+if ~and(isnan(R1)) then bugmes();quit;end
+R2 = %nan * [1 2];
+if ~and(isnan(R2)) then bugmes();quit;end

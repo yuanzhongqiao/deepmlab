@@ -1,0 +1,301 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA
+// Copyright (C) 2012 - Scilab Enterprises - Vincent COUVERT
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK REF -->
+//
+
+funcprot(0);
+
+function r = Check(a,b,c,d)
+    [lhs,rhs] = argn();
+    r = %t
+    filename = TMPDIR + "/saveloadtst_mysave";
+    select rhs
+    case 1 then
+        a1 = a;
+        save(filename,"a1");
+        a1 = null();
+        load(filename);
+        if or(a1<>a) then
+            r = %f;
+        end
+    case 2 then
+        a1 = a;
+        b1 = b;
+        save(filename,"a1","b1");
+        a1 = null();
+        b1 = null();
+        load(filename);
+        if or(a1<>a)|or(b1<>b) then
+            r = %f;
+        end
+    case 3 then
+        a1 = a;
+        b1 = b;
+        c1 = c;
+        save(filename,"a1","b1","c1");
+        a1 = null();
+        b1 = null();
+        c1 = null();
+        load(filename);
+        if or(a1<>a)|or(b1<>b)|or(c1<>c) then
+            r = %f;
+        end
+    case 4 then
+        a1 = a;
+        b1 = b;
+        c1 = c;
+        d1 = d;
+        save(filename,"a1","b1","c1","d1");
+        a1 = null();
+        b1 = null();
+        c1 = null();
+        d1 = null();
+        load(filename);
+        if or(a1<>a)|or(b1<>b)|or(c1<>c)|or(d1<>d) then
+            r = %f;
+        end
+    end
+endfunction
+
+a=[];assert_checktrue(Check(a));
+a=1;assert_checktrue(Check(a));
+a=[1 2 3];assert_checktrue(Check(a));
+a=[1 2 3;4 5 6];assert_checktrue(Check(a));
+a=1:100000;assert_checktrue(Check(a));
+
+a=1+%i;assert_checktrue(Check(a));
+a=[1 2+%i 3];assert_checktrue(Check(a));
+a=[1 2 3;4 5+%i 6];assert_checktrue(Check(a));
+a=1:100000;a(35)=%i;assert_checktrue(Check(a));
+
+a="";assert_checktrue(Check(a));
+a="123";assert_checktrue(Check(a));
+a=["1","abcdefgs";"" "ABDCEFGHIJKLMN"];assert_checktrue(Check(a));
+a=string(1:10000);assert_checktrue(Check(a));
+
+
+a=1+%s;assert_checktrue(Check(a));
+a=[1 2+%s 3];assert_checktrue(Check(a));
+a=[1 2 3;4 5 6+%s];assert_checktrue(Check(a));
+a=1:10000;a(4)=%s;assert_checktrue(Check(a));
+
+a=1+%i+%s;assert_checktrue(Check(a));
+a=[1 2+%i 3+%s];assert_checktrue(Check(a));
+a=[1 2+%s 3;4 5+%i 6];assert_checktrue(Check(a));
+a=1:100;a(35)=%i;a(1)=%s;assert_checktrue(Check(a));
+
+
+a=%t;assert_checktrue(Check(a));
+a=rand(100,100)>0.5;assert_checktrue(Check(a));
+
+a=sparse(1)==1;assert_checktrue(Check(a));
+a=sprand(100,100,0.1)<0.5;assert_checktrue(Check(a));
+a=sparse(zeros(100,100))==1;assert_checktrue(Check(a));
+
+//a=1:$;assert_checktrue(Check(a)); // Deactivated: See bug #11796
+//a=1:3:$;assert_checktrue(Check(a)); // Deactivated: See bug #11796
+
+a=int8(1);assert_checktrue(Check(a));
+a=int8(1:9);assert_checktrue(Check(a));
+a=int8(1:10000);assert_checktrue(Check(a));
+a=uint8(1);assert_checktrue(Check(a));
+a=uint8(1:9);assert_checktrue(Check(a));
+a=uint8(1:10000);assert_checktrue(Check(a));
+
+a=int16(1);assert_checktrue(Check(a));
+a=int16(1:9);assert_checktrue(Check(a));
+a=int16(1:10000);assert_checktrue(Check(a));
+a=uint16(1);assert_checktrue(Check(a));
+a=uint16(1:9);assert_checktrue(Check(a));
+a=uint16(1:10000);assert_checktrue(Check(a));
+
+a=int32(1);assert_checktrue(Check(a));
+a=int32(1:9);assert_checktrue(Check(a));
+a=int32(1:10000);assert_checktrue(Check(a));
+a=uint32(1);assert_checktrue(Check(a));
+a=uint32(1:9);assert_checktrue(Check(a));
+a=uint32(1:10000);assert_checktrue(Check(a));
+
+a=list();assert_checktrue(Check(a));
+a=list(1);assert_checktrue(Check(a));
+a=list(1,rand(10,10),"asdfsf");assert_checktrue(Check(a));
+a=list(1,rand(10,10),"asdfsf",poly(rand(10,10),"s"));assert_checktrue(Check(a));
+a=list(1);a(4)="as";assert_checktrue(Check(a));
+a=list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c"));assert_checktrue(Check(a));
+
+a=list(list());assert_checktrue(Check(a));
+a=list(list(1));assert_checktrue(Check(a));
+a=list(list(1,rand(10,10),"asdfsf"));assert_checktrue(Check(a));
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(10,10),"s")));assert_checktrue(Check(a));
+a=list(1);a(4)="as";a=list(a);assert_checktrue(Check(a));
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c")));assert_checktrue(Check(a));
+
+
+a=list(list(),2);assert_checktrue(Check(a));
+a=list(list(1),rand(3,3));assert_checktrue(Check(a));
+a=list(list(1,rand(10,10),"asdfsf"),"sdfs");assert_checktrue(Check(a));
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(10,10),"s")),$);assert_checktrue(Check(a));
+a=list(1);a(4)="as";a=list(a,[]);assert_checktrue(Check(a));
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c")),list());assert_checktrue(Check(a));
+
+a = list();
+a(3) = 3;
+assert_checktrue(Check(a));
+
+a=[];b=1;c=[1 2 3];d=[1 2 3;4 5 6];
+assert_checktrue(Check(a,b));
+assert_checktrue(Check(a,b,c));
+assert_checktrue(Check(a,b,c,d));
+
+a=1+%i;b=[1 2+%i 3];c=[1 2 3;4 5+%i 6];d=1:100000;d(35)=%i;
+assert_checktrue(Check(a,b));
+assert_checktrue(Check(a,b,c));
+assert_checktrue(Check(a,b,c,d));
+
+a=sprand(100,100,0.1);
+b=sparse(zeros(100,100))==1;
+c=list(list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c")),list());
+assert_checktrue(Check(a,b));
+assert_checktrue(Check(a,b,c));
+
+//test save/load macro
+function a = toto(x,y)
+    a = x + y;
+endfunction
+l = list(toto);
+
+ref = toto(3*5, 9*3);
+save(TMPDIR + "/savemacro.sod", "toto");
+clear toto;
+load(TMPDIR + "/savemacro.sod");
+assert_checkequal(toto(3*5, 9*3), ref);
+assert_checkequal(type(toto), 13);
+
+save(TMPDIR + "/savemacro.sod", "l");
+clear l;
+load(TMPDIR + "/savemacro.sod");
+assert_checkequal(l(1)(3*5, 9*3), ref);
+assert_checkequal(type(l(1)), 13);
+
+clear toto;
+deff("a = toto(x,y)", "a = x + y;");
+save(TMPDIR + "/savemacro.sod", "toto");
+clear toto;
+load(TMPDIR + "/savemacro.sod");
+assert_checkequal(toto(3*5, 9*3), ref);
+assert_checkequal(type(toto), 13);
+
+
+//create plot3d with light
+plot3d();
+l = light();
+f = gcf();
+l.position = [-1, -2, 1];
+
+//save image in a file
+xs2png(f, TMPDIR + "/saveplot.png");
+//compute md5 of saved image
+md5_1 = getmd5(TMPDIR + "/saveplot.png");
+//save figure handle in sod format
+save(TMPDIR + "/saveplot.sod", "f");
+
+//clear env
+close();
+clear f l;
+
+load(TMPDIR + "/saveplot.sod");
+l = f.children(1).children(1);
+assert_checkequal(l.position, [-1, -2, 1]);
+xs2png(f, TMPDIR + "/saveplot2.png");
+md5_2 = getmd5(TMPDIR + "/saveplot2.png");
+assert_checkequal(md5_1, md5_2);
+
+
+// Scicos objects
+clear;
+loadXcosLibs();
+
+d = scicos_diagram();
+save(TMPDIR + "/diagram.sod", "d");
+refD = d;
+clear d;
+load(TMPDIR + "/diagram.sod");
+assert_checktrue(and(d==refD));
+
+b = scicos_block();
+save(TMPDIR + "/Block.sod", "b");
+refB = b;
+clear b;
+load(TMPDIR + "/Block.sod");
+assert_checktrue(and(b==refB));
+
+t = TEXT_f("define");
+save(TMPDIR + "/Text.sod", "t");
+refT = t;
+clear t;
+load(TMPDIR + "/Text.sod");
+assert_checktrue(and(t==refT));
+
+l = scicos_link();
+save(TMPDIR + "/Link.sod", "l");
+refL = l;
+clear l;
+load(TMPDIR + "/Link.sod");
+assert_checktrue(and(l==refL));
+
+d = scicos_diagram();
+S = scicos_block();
+subD = scicos_diagram(objs = list(scicos_link()));
+S.model.rpar = subD;
+d.objs(1) = S;
+save(TMPDIR + "/SuperBlock.sod", "d");
+refD = d;
+clear d;
+load(TMPDIR + "/SuperBlock.sod");
+assert_checktrue(and(d==refD));
+
+
+//objects
+classdef saveload
+    properties(private)
+        pri = 0;
+    end
+    properties(protected)
+        pro = 1;
+    end
+    properties(public)
+        pub = 2;
+    end
+    methods
+        function a = getPrivate(), a = this.pri;end
+        function a = getProtected(), a = this.pro;end
+        function a = getPublic(), a = this.pub;end
+
+        function data = saveobj()
+            data.pri = this.pri;
+            data.pro = this.pro;
+            data.pub = this.pub;
+        end
+
+        function loadobj(data)
+            this.pri = data.pri;
+            this.pro = data.pro;
+            this.pub = data.pub;
+        end
+    end
+end
+
+obj = saveload();
+save("TMPDIR/object.sod", "obj");
+clear obj;
+load("TMPDIR/object.sod");
+assert_checkequal(obj.getPrivate(), 0);
+assert_checkequal(obj.getProtected(), 1);
+assert_checkequal(obj.getPublic(), 2);

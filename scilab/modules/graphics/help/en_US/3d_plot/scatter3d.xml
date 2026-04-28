@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) Scilab Enterprises - 2015 - 2012 - Juergen Koch
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="scatter3d">
+    <refnamediv>
+        <refname>scatter3d</refname>
+        <refpurpose>3D scatter plot</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            scatter3d()      // Example
+            scatter3d(x, y, z)
+            scatter3d(x, y, z, msizes)
+            scatter3d(x, y, z, msizes, mcolors)
+            scatter3d(.., "fill")
+            scatter3d(.., "fill", marker)
+            scatter3d(..., &lt;marker_property, value&gt;)
+            scatter3d(axes, ..)
+            polyline = scatter3d(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, y, z</term>
+                <listitem>
+                    <para>
+                        columns or rows vectors of n real numbers specifying the
+                        <varname>x</varname>, <varname>y</varname> and <varname>z</varname>
+                        coordinates of the centers of markers.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>axes</term>
+                <listitem>
+                     <para>
+                        Handle of the graphical axes in which the scatter plot must be drawn.
+                        By default, the current axes is targeted.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>polyline</term>
+                <listitem>
+                     <para>
+                        Handle of the created polyline.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>msizes</term>
+                <listitem>
+                    <para>
+                        Sizes of the markers, as of the area of the circle surrounding the marker,
+                        in point-square. Default value = 36. If it is scalar,
+                        the same size is used for all markers. Otherwise <varname>msizes</varname>
+                        and <varname>x</varname> must have the same number of elements.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mcolors</term>
+                <listitem>
+                    <para>
+                        Colors of markers. If it is scalar, the same color is used for all markers.
+                        Otherwise, <varname>mcolors</varname> and <varname>x</varname> must have
+                        the same number of elements.
+                    </para>
+                    <para>
+                        The same color is used for filling the body and drawing the edge of markers.
+                    </para>
+                    <para>
+                        The values of <varname>mcolors</varname> are linearly mapped to the colors
+                        in the current colormap.
+                    </para>
+                    <para>
+                        A color can be specified by one of the following:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    Its name, among the predefined names colors
+                                    (see the <link linkend="color_list">color_list</link>).
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    Its standard hexadecimal RGB code as a string, like "#A532FB".
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    A matrix of RGB values with 3 columns and n rows, with Red Green and
+                                    Blue intensities in [0,1].
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    Its index in the current color map
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                        The default color is "blue".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"fill"</term>
+                <listitem>
+                    <para>
+                        By default, only the edge of markers is drawn, unless this keyword or the
+                        <varname>"markerFaceColor"</varname> or
+                        <varname>"markerBackgroundColor"</varname> properties are set.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>marker</term>
+                <listitem>
+                    <para>
+                        Selects the shape of the markers. The same shape is used for all
+                        specified points. The figure below shows the different marker shapes.
+                    </para>
+                    <para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../../images/marks.svg"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </para>
+                    <para>
+                        Each marker shape is specified either by its index (list above) or by
+                        its string symbol (table below).
+                    </para>
+                    <para>
+                        <informaltable border="1">
+                            <tr><td>Index</td>
+                                <td>String</td>
+                                <td>Marker type</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td><literal>"."</literal></td>
+                                <td>Point</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><literal>"+"</literal></td>
+                                <td>Plus sign</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><literal>"x"</literal></td>
+                                <td>Cross</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><literal>"circle plus"</literal></td>
+                                <td>Circle with plus</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><literal>"filled diamond"</literal></td>
+                                <td>Filled diamond</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><literal>"d"</literal> or <literal>"diamond"</literal></td>
+                                <td>Diamond</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><literal>"^"</literal></td>
+                                <td>Upward-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><literal>"v"</literal></td>
+                                <td>Downward-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><literal>"diamond plus"</literal></td>
+                                <td>Diamond with plus</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><literal>"o"</literal></td>
+                                <td>Circle (default)</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><literal>"*"</literal></td>
+                                <td>Asterisk</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td><literal>"s"</literal> or <literal>"square"</literal></td>
+                                <td>Square</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td><literal>"&gt;"</literal></td>
+                                <td>Right-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td><literal>"&lt;"</literal></td>
+                                <td>Left-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td><literal>"pentagram"</literal> or <literal>"p"</literal></td>
+                                <td>Five-pointed star</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td><literal>"^."</literal></td>
+                                <td>Upward-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td><literal>"v."</literal></td>
+                                <td>Downward-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td><literal>"&gt;."</literal></td>
+                                <td>Right-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td><literal>"&lt;."</literal></td>
+                                <td>Left-pointing triangle</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td><literal>"minus" or "m"</literal></td>
+                                <td>Horizontal line (Minus sign)</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td><literal>"|"</literal></td>
+                                <td>Vertical line</td>
+                            </tr>
+                        </informaltable>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <refsect3>
+            <title>Property &lt;Name, Value&gt; pairs</title>
+            <para>
+                A series of property value pairs can be used to specify type, color and
+                line width of the markers.
+            </para>
+        </refsect3>
+        <variablelist>
+            <varlistentry>
+                <term>"marker", value  or  "markerStyle", value</term>
+                <listitem>
+                    <para>
+                        Shape of the marker (index or string keyword). See the table above.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"markerEdgeColor", value  or  "markerForeground", value</term>
+                <listitem>
+                    <para>
+                        Color of the edge of markers. Colors can be specified as for
+                        <varname>mcolors</varname>.
+                        This option supersedes <varname>mcolors</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"markerFaceColor",value  or  "markerBackground",value</term>
+                <listitem>
+                    <para>
+                        Color filling the body of markers. Colors can be specified as for
+                        <varname>mcolors</varname>.
+                        This option supersedes <varname>mcolors</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"linewidth",value  or  "thickness",value</term>
+                <listitem>
+                    <para>
+                        Specify the thickness of the edge for all markers.
+                        The unit for the value is one point.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>scatter3d(x,y,z)</literal> creates a scatter plot with markers at the locations
+            specified by <varname>x</varname>, <varname>y</varname>, and <varname>z</varname>.
+            The default type of the marker is a circle, the default color is "blue" and the default
+            marker size is 36.
+            This means the circle surrounding the marker has an area of 36 points squared.
+        </para>
+        <para>
+            Using <literal>scatter3d(x,y,z,s,c)</literal> different sizes and colors for each marker
+            can be specified.
+            There are many different ways to specify marker types, marker colors and marker sizes.
+            For more details see the description of the arguments and the examples.
+        </para>
+        <note>
+            <itemizedlist>
+              <listitem>
+                   <para>
+                      To skip an argument, just .. skip it, or replace it with <literal>[]</literal>,
+                      like in <literal>scatter3d(x,y,z, , mcolors)</literal> or in
+                      <literal>scatter3d(x,y,z,[], mcolors)</literal>.
+                  </para>
+              </listitem>
+              <listitem>
+                   <para>
+                     When the axes is rotated, the markers are automatically rotated as well in order
+                     to show always the same face to the observer.
+                  </para>
+              </listitem>
+            </itemizedlist>
+        </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            Create 3D scatter plot
+        </para>
+        <programlisting role="example"><![CDATA[
+// Data: points on an hemisphere
+azimuth = 0:12:359;
+latitude = 3:12:89;
+[az, lat] = ndgrid(azimuth, latitude);
+r = cosd(lat);
+x = 1.1*cosd(az+lat/3) .* r;
+y = 1.1*sind(az+lat/3) .* r;
+z = sind(lat);
+
+clf
+gcf().color_map = parula(50);
+
+subplot(1,2,1)    // Plot on the left
+// Markers size according to r
+scatter3d(x, y, z, r.^2*80);
+
+subplot(1,2,2)    // Plot on the right
+options = list("fill", "markerEdgeColor","red","thickness",0.5);
+mcolors = az;     // + colors according to the azimuth
+scatter3d(x, y, z, r.^2*80, mcolors, options(:));
+
+// Tuning axes rendering
+gcf().children.grid = [1 1 1]*color("grey50");
+gcf().children.rotation_angles = [83 -20];
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            // Data: points on an hemisphere
+            azimuth = 0:12:359;
+            latitude = 3:12:89;
+            [az, lat] = ndgrid(azimuth, latitude);
+            r = cosd(lat);
+            x = 1.1*cosd(az+lat/3) .* r;
+            y = 1.1*sind(az+lat/3) .* r;
+            z = sind(lat);
+
+            clf
+            gcf().color_map = parula(50);
+
+            subplot(1,2,1)    // Plot on the left
+            // Markers size according to r
+            scatter3d(x, y, z, r.^2*80);
+
+            subplot(1,2,2)    // Plot on the right
+            options = list("fill", "markerEdgeColor","red","thickness",0.5);
+            mcolors = az;     // + colors according to the azimuth
+            scatter3d(x, y, z, r.^2*80, mcolors, options(:));
+
+            // Tuning axes rendering
+            gcf().children.grid = [1 1 1]*color("grey50");
+            gcf().children.rotation_angles = [83 -20];
+            gcf().axes_size = [750 400];
+        ]]></scilab:image>
+        <para>
+            Styling the markers:
+        </para>
+        <programlisting role="example"><![CDATA[
+// Data
+z = linspace(0, 25, 150);
+x = z .* cos(z);
+y = z .* sin(z);
+
+subplot(2,2,1)
+scatter3d(x, y, z)
+
+// Fill the markers
+subplot(2,2,2)
+scatter3d(x, y, z, , "turquoise", "fill")
+
+// Choose another marker shape
+subplot(2,2,3)
+scatter3d(x, y, z, "*");
+
+// Customize the markers colors
+subplot(2,2,4)
+scatter3d(x, y, z,...
+        "markerEdgeColor", [1 0 0],...
+        "markerFaceColor", "yellow");
+
+// Tune the 3D orientation of all axes
+gcf().children.rotation_angles = [65 35];
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            // Data
+            z = linspace(0, 25, 150);
+            x = z .* cos(z);
+            y = z .* sin(z);
+
+            subplot(2,2,1)
+            scatter3d(x, y, z)
+
+            // Fill the markers
+            subplot(2,2,2)
+            scatter3d(x, y, z, , "turquoise", "fill")
+
+            // Choose another marker shape
+            subplot(2,2,3)
+            scatter3d(x, y, z, "*");
+
+            // Customize the markers colors
+            subplot(2,2,4)
+            scatter3d(x, y, z,...
+                    "markerEdgeColor", [1 0 0],...
+                    "markerFaceColor", "yellow");
+
+            // Tune the 3D orientation of all axes
+            gcf().children.rotation_angles = [65 35];
+
+            gcf().axes_size = [750 450];
+        ]]></scilab:image>
+        <para>
+            Specify subplot for scatter plot
+        </para>
+        <programlisting role="example"><![CDATA[
+// Data
+n = 20;
+[x, y] = meshgrid(linspace(-2, 2, n));
+z = exp(-x.^2 - y.^2);
+
+subplot(2,1,2)
+axes2 = gca();
+subplot(2,1,1)
+
+scatter3d(x, y, z);
+scatter3d(axes2, x(:), y(:), z(:), "markerFaceColor", [0 .8 .8]);
+
+// Tune axes view
+Axes = gcf().children;
+Axes.rotation_angles = [60,45];
+Axes.grid = [1 1 1]*color("grey50");
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            // Data
+            n = 20;
+            [x, y] = meshgrid(linspace(-2, 2, n));
+            z = exp(-x.^2 - y.^2);
+
+            subplot(2,1,2)
+            axes2 = gca();
+            subplot(2,1,1)
+
+            scatter3d(x, y, z);
+            scatter3d(axes2, x(:), y(:), z(:), "markerFaceColor", [0 .8 .8]);
+
+            // Tune axes view
+            Axes = gcf().children;
+            Axes.rotation_angles = [60,45];
+            Axes.grid = [1 1 1]*color("grey50");
+
+            gcf().axes_size = [500 350];
+        ]]></scilab:image>
+        <para>
+            <emphasis role="bold">Use the handle to post-process the scatter plot</emphasis>:
+        </para>
+        <programlisting role="example"><![CDATA[
+// Data: points on an hemisphere
+azimuth = 0:12:359;
+latitude = 3:12:89;
+[az, lat] = ndgrid(azimuth, latitude);
+r = cosd(lat);
+x = 1.1*cosd(az+lat/3) .* r;
+y = 1.1*sind(az+lat/3) .* r;
+z = sind(lat);
+
+clf
+
+subplot(1,2,1)
+scatter3d(x, y, z, r.^2*80);
+title("Initial plot", "fontsize",3)
+
+subplot(1,2,2)
+p = scatter3d(x, y, z, r.^2*80); // The same
+title("Final plot", "fontsize",3)
+
+// Let's post-process it through the handle:
+
+// 1) Let's set all markers at y < 0 in yellow, and others in orange
+np = size(p.data,1);  // number of points
+tmp = ones(1,np) * color("orange");
+tmp(p.data(:,2)<0) = color("yellow");
+p.mark_background = tmp;
+
+// 2) and markers at x > 0  1.4 smaller than other
+tmp = p.data(:,1) > 0;
+p.mark_size(tmp) = p.mark_size(tmp)/1.4;
+
+// 3) Changing the edge color and thickness for all markers
+p.mark_foreground = color("red");
+p.thickness = 0.5;
+
+// Tuning axes
+Axes = gcf().children;
+Axes.rotation_angles = [82, -40];
+Axes.grid = [1 1 1]*color("grey60");
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            // Data: points on an hemisphere
+            azimuth = 0:12:359;
+            latitude = 3:12:89;
+            [az, lat] = ndgrid(azimuth, latitude);
+            r = cosd(lat);
+            x = 1.1*cosd(az+lat/3) .* r;
+            y = 1.1*sind(az+lat/3) .* r;
+            z = sind(lat);
+
+            clf
+
+            subplot(1,2,1)
+            scatter3d(x, y, z, r.^2*80);
+            title("Initial plot", "fontsize",3)
+
+            subplot(1,2,2)
+            p = scatter3d(x, y, z, r.^2*80); // The same
+            title("Final plot", "fontsize",3)
+
+            // Let's post-process it through the handle:
+
+            // 1) Let's set all markers at y < 0 in yellow, and others in orange
+            np = size(p.data,1);  // number of points
+            tmp = ones(1,np) * color("orange");
+            tmp(p.data(:,2)<0) = color("yellow");
+            p.mark_background = tmp;
+
+            // 2) and markers at x > 0  1.4 smaller than other
+            tmp = p.data(:,1) > 0;
+            p.mark_size(tmp) = p.mark_size(tmp)/1.4;
+
+            // 3) Changing the edge color and thickness for all markers
+            p.mark_foreground = color("red");
+            p.thickness = 0.5;
+
+            // Tuning axes
+            Axes = gcf().children;
+            Axes.rotation_angles = [82, -40];
+            Axes.grid = [1 1 1]*color("grey60");
+
+            gcf().axes_size = [700 350];
+        ]]></scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scatter">scatter</link>
+            </member>
+            <member>
+                <link linkend="param3d">param3d</link>
+            </member>
+            <member>
+                <link linkend="gca">gca</link>
+            </member>
+            <member>
+                <link linkend="gcf">gcf</link>
+            </member>
+            <member>
+                <link linkend="color_list">color_list</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">polyline_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    Function scatter3() introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revremark>
+                    Function scatter3() set obsolete. scatter3d() is introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revremark>
+                    Colors can be specified as well with their "#RRGGBB" hexadecimal
+                    standard code or their index in the color map.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>CHANGES</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar" align="left">
+      <a href="https://www.scilab.org/">Scilab Website</a> |
+      <a href="https://gitlab.com/scilab/scilab">Contribute with GitLab</a> |
+      <a href="https://www.scilab.org/about/community/mailing-lists">Mailing list archives</a> |
+      <a href="https://atoms.scilab.org/">ATOMS toolboxes</a>
+      <hr/>
+    </div>
+    <span class="path"><a href="index.html">Scilab help</a> &gt;&gt; CHANGES</span>
+    <br/>
+    <br/>
+    <div class="refsection">
+<!-- Copy the html rendered CHANGES.md file below -->
+<h1>Welcome to Scilab 2026.0.0</h1>
+<p>This file details the changes between Scilab 2026.0.0 (this version) and the previous 2025.1.0 stable release.</p>
+<p>For changelogs of earlier releases, please see <a href="https://help.scilab.org/docs/2025.1.0/en_US/CHANGES.html">Scilab 2025.1.0</a>.</p>
+<p>Summary:</p>
+<ul>
+<li>New features</li>
+<li>Obsolete functions &amp; features</li>
+<li>Removed functions &amp; features</li>
+<li>Known incompatibilities</li>
+<li>Compilation &amp; Packaging</li>
+<li>Fixed issues</li>
+</ul>
+<p>Please report anything we may have missed on <a href="https://scilab.discourse.group/">Discourse</a> or <a href="https://gitlab.com/scilab/scilab/-/issues">GitLab</a>.</p>
+<h2>New features</h2>
+<p>For a high-level description of the main new features in this release, please consult the homepage of the embedded documentation, available by simply typing <code>doc</code> in the Scilab console.</p>
+<h3>New functions</h3>
+<ul>
+<li><code>cdftnc()</code>: Cumulative distribution function of the non-central student's T distribution.</li>
+<li><code>dbscan()</code>: Density-based clustering.</li>
+<li><code>enumeration()</code>: Get the enumeration of a classdef or an object.</li>
+<li><code>estimate_bandwidth()</code>: Estimate an appropriate bandwidth for mean shift clustering.</li>
+<li><code>gallery()</code>: Generate test matrices.</li>
+<li><code>gradient()</code>: Compute numerical gradient.</li>
+<li><code>isa()</code>: Check variable type.</li>
+<li><code>meanshift()</code>: Mean shift clustering algorithm.</li>
+<li><code>methods()</code>: Get accessible methods of a classdef or an object.</li>
+<li><code>properties()</code>: Get accessible properties of a classdef or an object.</li>
+<li><code>sortrows()</code> : Sort rows of a vector, matrix, table, or timeseries.</li>
+<li><code>spset()</code>: Set non-zero entries of a sparse matrix.</li>
+</ul>
+<h3>Features improvements</h3>
+<ul>
+<li><code>host()</code> has been rewritten and is now used as backend for all other functions that perform system calls (<code>dos()</code>, <code>unix()</code>, <code>unix_g()</code>, <code>unix_s()</code>, <code>unix_w()</code>, and <code>unix_x()</code>) which are now obsolete.</li>
+<li><code>intersect()</code> now manages <code>duration</code>, <code>datetime</code>, <code>table</code>, and <code>timeseries</code> types.</li>
+<li><code>lib()</code> can now load a library without exposing its symbols (default behavior remains unchanged).</li>
+<li><code>setdiff()</code> now manages <code>duration</code>, <code>datetime</code>, <code>table</code>, and <code>timeseries</code> types.</li>
+<li><code>table()</code> and <code>timeseries()</code> now manage integers.</li>
+<li><code>union()</code> now manages <code>duration</code>, <code>datetime</code>, <code>table</code>, and <code>timeseries</code> types.</li>
+<li>Options names are now case-insensitive for <code>duration()</code>, <code>calendarDuration()</code>, <code>datetime()</code>, <code>timeseries()</code>, and <code>table()</code> functions.</li>
+</ul>
+<h3>Language</h3>
+<ul>
+<li>Classes/Objects can now be defined and used in Scilab based on the new <code>classdef</code>, <code>enumeration</code>, <code>properties</code> &amp; <code>methods</code> keywords.</li>
+<li><code>end</code> keyword can now be used to specify the last row/column index of an array, similarly to <code>$</code>.</li>
+</ul>
+<h3>Graphics</h3>
+<ul>
+<li>Axes handles can now have their own colormap. If not provided, then the parent figure colormap is used (as in previous versions).</li>
+</ul>
+<h3>Xcos</h3>
+<ul>
+<li>Diagrams are saved as <a href="https://ssp-standard.org/">SSP</a> (System Structure and Parametrization) files by default. This setting can be edited in user preferences.</li>
+<li>Users are now enabled to save their diagrams as COSF files.</li>
+<li>COS format is no more associated with Xcos under Windows.</li>
+<li>SSP files are associated with Scilab during installation under Windows.</li>
+</ul>
+<h2>Obsolete functions or features</h2>
+<p>All these functions and features will be removed in Scilab 2026.1.0 (May 2026):</p>
+<ul>
+<li><code>demo_begin()</code>: Please use <code>exec()</code> instead.</li>
+<li><code>demo_choose()</code>: Please use <code>x_choose()</code> instead.</li>
+<li><code>demo_compiler()</code>: Please use <code>haveacompiler()</code> instead.</li>
+<li><code>demo_end()</code>: Please use <code>exec()</code> instead.</li>
+<li><code>demo_file_choice()</code>: Please use <code>x_choose()</code> instead.</li>
+<li><code>demo_function_choice()</code>: Please use <code>x_choose()</code> instead.</li>
+<li><code>demo_run()</code>: Please use <code>exec()</code> instead.</li>
+</ul>
+<p>All these functions and features will be removed in Scilab 2027.0.0 (October 2026):</p>
+<ul>
+<li><code>dos()</code>: Please use <code>host()</code> instead.</li>
+<li><code>unix()</code>: Please use <code>host()</code> instead.</li>
+<li><code>unix_g()</code>: Please use <code>host()</code> instead.</li>
+<li><code>unix_s()</code>: Please use <code>host()</code> instead.</li>
+<li><code>unix_w()</code>: Please use <code>host()</code> instead.</li>
+<li><code>unix_x()</code>: Please use <code>host()</code> instead.</li>
+</ul>
+<h2>Removed Functions</h2>
+<p>The following functions have been removed:</p>
+<ul>
+<li><code>demo_folder_choice()</code>: undocumented and not used, replaced by <code>x_choose()</code>.</li>
+<li><code>lft(P, p, R, r)</code>: obsolete since 2025.0.0, no more supported.</li>
+<li><code>h2norm(Sl [,tol])</code> (with <code>Sl</code> a matrix of doubles): obsolete since 2025.0.0, no more supported.</li>
+<li><code>linf(g [,eps, tol])</code> (with <code>g</code> a matrix of doubles): obsolete since 2025.0.0, no more supported.</li>
+<li><code>nicholschart(modules,, colors)</code> (syntax with skipped arguments): obsolete since 2025.0.0, no more supported.</li>
+<li><code>st_ility(Sl [,tol])</code> (with <code>Sl</code> a matrix of doubles): obsolete since 2025.0.0, no more supported.</li>
+<li><code>syssize(Sl)</code> (with <code>Sl</code> a matrix of doubles): obsolete since 2025.0.0, no more supported.</li>
+<li><code>help()</code>: obsolete since 2025.0.0, please use <code>doc()</code> instead.</li>
+<li><code>daskr()</code>: obsolete since 2024.1.0, please use <code>dae()</code> instead.</li>
+<li><code>dasrt()</code>: obsolete since 2024.1.0, please use <code>dae()</code> instead.</li>
+<li><code>dassl()</code>: obsolete since 2024.1.0, please use <code>dae()</code> instead.</li>
+<li><code>impl()</code>: obsolete since 2025.0.0, please use <code>dae()</code> instead.</li>
+<li><code>testmatrix()</code>: obsolete since 2025.0.0, please use <code>magic()</code>, <code>invhilb()</code> or <code>frank()</code> instead.</li>
+<li><code>captions()</code>: obsolete since 2025.0.0, please use <code>legend()</code> instead.</li>
+<li><code>figure_style</code> property: obsolete since 2025.1.0, no more supported.</li>
+<li><code>princomp()</code>: obsolete since 2025.0.0, please use <code>pca()</code> instead.</li>
+</ul>
+<h2>Known incompatibilities</h2>
+<ul>
+<li><code>genlib()</code> no more loads generated library (see <a href="https://gitlab.com/scilab/scilab/-/issues/15918">#15918</a>). <code>lib()</code> function must be called to load the generated library.</li>
+<li><code>host()</code> function now returns <code>0</code> (success) instead of <code>1</code> (error) when called with an empty character string as input.</li>
+</ul>
+<h2>Compilation</h2>
+<ul>
+<li>Windows: Migration to Intel® oneAPI HPC Toolkit 2025.2.</li>
+<li>Linux: GCC 15 is now supported.</li>
+</ul>
+<p>If you are familiar with building Scilab from sources, the following dependencies have been updated.</p>
+<ul>
+<li>Required API version of JCEF updated to 130.1.9 (Scilab is packaged with version 135.0.20).</li>
+<li>PCRE2 10.43 (or more recent) is now required (instead of PCRE1).</li>
+<li>Scilab now uses SUNDIALS 7.4.</li>
+<li>Under Windows, Scilab now uses HDF5 1.14.3 instead of 1.14.4 (see <a href="https://gitlab.com/scilab/scilab/-/issues/17441">#17441</a>).</li>
+</ul>
+<h2>Packaging &amp; Supported Operating Systems</h2>
+<ul>
+<li>To run or compile Scilab, you might need:
+<ul>
+<li>Windows (amd64):
+<ul>
+<li>Windows 11 (Desktop)</li>
+<li>Windows 10 (Desktop)</li>
+</ul>
+</li>
+<li>macOS:
+<ul>
+<li>M1-based Mac running macOS 11+ (compile and run)</li>
+<li>Intel-based Mac running macOS 11+ (compile and run)</li>
+</ul>
+</li>
+<li>Linux (amd64):
+<ul>
+<li>debian: 13</li>
+<li>ubuntu: 22.04, 24.04, 25.04</li>
+<li>fedora: 42</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Issue Fixes</h2>
+<h3>Scilab 2026.0.0</h3>
+<ul>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/7113">#7113</a>: <code>demo_compiler()</code> was a useless wrapper for <code>haveacompiler()</code> and has been removed.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/7258">#7258</a>: There were 8 functions to run an operating-system command, all have been merged in new <code>host()</code> function.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/8212">#8212</a>: Some deprecated functions such as <code>demo_begin()</code> and <code>demo_end)</code> were no longer maintained; they are now tagged as obsolete.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/12955">#12955</a>: <code>Matplot()</code> extension to (#,#,3) true colors ND-arrays was not documented.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/13260">#13260</a>: There was no CDF for the non central student distribution.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/13875">#13875</a>: <code>spset(A, v)</code>, dual of <code>[ij, v]=spget(A)</code> was missing.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/14713">#14713</a>: <code>demo_run(file)</code> was useless and no longer maintained; it is now tagged as obsolete.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/14790">#14790</a>: The &quot;Axes&quot; <code>ticks_format</code> and <code>ticks_st properties</code> were no more taken into account.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/15214">#15214</a>: Colormaps can now be assigned to &quot;Axes&quot; handles.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/15442">#15442</a>: <code>printf()</code> did not handle &quot;uint64&quot; integers greater than 2^32-1.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/15918">#15918</a>: <code>mylib = lib(libdir)</code> registered functions in the default library instead of in the one given as output argument.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/16074">#16074</a>: <code>msprintf(&quot;%ld\n&quot;, i)</code> and <code>mprintf(&quot;%ld\n&quot;, i)</code> appended some &quot;d&quot; for &quot;int64&quot; or &quot;uint64&quot; inputs.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/16546">#16546</a>: <code>cdft()</code>, T-distribution, returned wrong values when used with a low degree of freedom.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17089">#17089</a>: Scilab now uses PCRE2 for regular expression support (instead of deprecated PCRE 1.3 version).</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17240">#17240</a>: <code>unix_g()</code> did not read standard error output when exit code was 0 or 1 and did not read stdout when exit code was 2 or more.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17242">#17242</a>: SciPowerlab toolbox did not work with Scilab 2024.0.0.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17243">#17243</a>: Xcos sometimes displayed an error about port size or type.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17357">#17357</a>: <code>demo_file_choice()</code> was no longer maintained; it is now tagged as obsolete.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17378">#17378</a>: Variables returned by <code>jarray()</code> could not be used/initialized.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17391">#17391</a>: <code>csvRead()</code> was extremely slow to detect errors in column structure.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17410">#17410</a>: Most recent version of FORTRAN OneAPI can now be detected and used by Scilab.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17432">#17432</a>: Simple <code>table()</code> Matlab example did not work in Scilab.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17435">#17435</a>: <code>table()</code> creation did not support empty matrices.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17436">#17436</a>: Context was empty in &quot;Water tank&quot; demonstration and now contains variables needed for simulation.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17437">#17437</a>: If the &quot;Find/Replace&quot; window of SciNotes was opened when Scilab was closed, it could not be closed.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17438">#17438</a>: Scilab could not be compiled using GCC 15.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17439">#17439</a>: Annotations were not supported for Xcos links.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17441">#17441</a>: <code>xsave()</code> and <code>save()</code> no more worked with accented letters in the filename since Scilab 2025.0.0 on Windows.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17442">#17442</a>: Documentation example for installing an ATOMS module from a file did not work.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17443">#17443</a>: Changing the input/output format of duration object failed when forcing 'HH' to 24h format.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17445">#17445</a>: <code>copyfile()</code> (used by <code>tbx_package()</code>) ddid not preserve symbolic links.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17446">#17446</a>: <code>isvector()</code> documentation was wrong for scalar case.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17447">#17447</a>: Some <code>java.nio.file.AccessDeniedException</code> errors were displayed by FileBrowser.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17452">#17452</a>: <code>genlib()</code> made Scilab crash when macro code contained extra parentheses.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17458">#17458</a>: Scilab could not be built against recent versions of JCEF.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17459">#17459</a>: <code>std::from_chars</code> is now replaced by <code>fast_float::from_chars</code> for FreeBSD &amp; macOS.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17460">#17460</a>: Reading JSON files with empty objects made Scilab crash.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17462">#17462</a>: <code>call_scilab</code> examples could not be built on recent GCC versions.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17464">#17464</a>: <code>demo_function_choice()</code> was no longer maintained; it is now tagged as obsolete.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17466">#17466</a>: An empty figure was drawn by <code>plot()</code> for data with a varying <code>X</code> and a close-to-constant <code>Y</code>.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17468">#17468</a>: Scilab could not be built against recent versions libXML2 (&gt;=2.14).</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17473">#17473</a>: Under Windows, background launch of Scilab created zombies.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17477">#17477</a>: Since Scilab 2024.1.0, error reporting was broken when no <code>DISPLAY</code> variable was set.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17478">#17478</a>: Compilation failed after SUNDIALS update.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17479">#17479</a>: Inline documentation failed for non existing language documentation.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17482">#17482</a>: Legend processing was broken if not all curves were given a string.</li>
+</ul>
+<!-- End of the html rendered CHANGES.md file -->
+    </div>
+  </body>
+</html>

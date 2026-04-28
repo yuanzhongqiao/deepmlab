@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isdef" xml:lang="en">
+    <refnamediv>
+        <refname>isdef</refname>
+        <refpurpose>checks variable existence</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ve = isdef(name)
+            ve = isdef(name, where)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>matrix of strings: names of queried variables.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>where</term>
+                <listitem>
+                    <para>
+                        character string, can be <literal>'l'</literal> (for <literal>"local"</literal>),
+                        <literal>'n'</literal> (for <literal>"nolocal"</literal>) or
+                        <literal>'a'</literal> (for <literal>"all"</literal>). Default value is
+                        <literal>'a'</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ve</term>
+                <listitem>
+                    <para>
+                        a matrix with the same size as <varname>name</varname> with boolean values
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <code>isdef(name)</code> returns <constant>%T</constant> if the
+            variable named <varname>name</varname> exists and <constant>%F</constant>
+            otherwise.
+        </para>
+        <para>
+            <caution>
+                Caveats: a function which uses <function>isdef</function> may return a
+                result which depends on the environment!
+            </caution>
+        </para>
+        <para>
+            <code>isdef(name, 'l')</code> returns <constant>%T</constant>
+            if the variable named <varname>name</varname> exists in the local
+            environment of the current function and <constant>%F</constant>
+            otherwise.
+        </para>
+        <para>
+            <code>isdef(name, 'n')</code> returns
+            <constant>%T</constant> if the variable named <varname>name</varname> exists
+            in the full calling environment (including the global level) of the
+            current function and <constant>%F</constant> otherwise.
+        </para>
+        <note>
+            Note: only the first letter of option <varname>where</varname> is taken into account.
+        </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+A = 1; B = 2; C = 3; D = 4;
+isdef(['A', 'B'; 'C', 'D'])
+clear A B C D;
+isdef(['A', 'B'; 'C', 'D'])
+
+function level1()
+  function level2()
+    disp(isdef(["a", "b"], "a"));
+    disp(isdef(["a", "b"], "l"));
+    disp(isdef(["a", "b"], "n"));
+  endfunction
+  level2()
+endfunction
+function go()
+  a = 1;
+  level1()
+endfunction
+go()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="exists">exists</link>
+            </member>
+            <member>
+                <link linkend="isglobal">isglobal</link>
+            </member>
+            <member>
+                <link linkend="whereis">whereis</link>
+            </member>
+            <member>
+                <link linkend="type">type</link>
+            </member>
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+            <member>
+                <link linkend="clear">clear</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

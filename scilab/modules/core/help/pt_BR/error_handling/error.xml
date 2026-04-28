@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="error" xml:lang="pt">
+    <refnamediv>
+        <refname>error</refname>
+        <refpurpose>relata um erro de tempo de execução</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+            error(message)
+            error(message, n)
+            error(n, message)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>message</term>
+                <listitem>
+                    <para>
+                        Vetor de strings: A mensagem de erro a ser exibida. Cada componente é
+                        exibido em uma linha separada. Fornecer uma mensagem de erro traduzida com
+                        <literal>gettext(…)</literal> é uma boa prática.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        integer&gt; 0: identificador numérico atribuído ao erro. Padrão = 10000.
+                        Embora a mensagem seja geralmente traduzida no idioma da sessão atual,
+                        <varname>n</varname> permite testar o erro de maneira independente do idioma.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>error</literal> permite escrever uma mensagem de erro e manipular o erro.
+            Por padrão, <literal>error</literal>
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        interrompe a execução corrente,
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        exibe no console a árvore de chamada recursiva que leva ao erro,
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        exibe o a mensagem de error <varname>message</varname>,
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        e retorna ao nível de prompt.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            Para lidar com o erro sem interromper a execução, é possível capturá-lo usando
+            <literal>try … catch</literal> ou <literal>execstr(…,'errcatch')</literal>,
+            e para testá-lo com <literal>lasterror(…)</literal>.
+        </para>
+        <para>
+            <literal>error(message)</literal> exibe o número 10000 e string contido em
+            <literal>message</literal>.
+        </para>
+        <para>
+            <literal>error(message,n)</literal> imprime o string contido em
+            <literal>message</literal>. O número associado à erro é dado por n.
+        </para>
+        <para>
+            Ver <link linkend="error_table">error_table</link> para uma lista das mensagens padrão
+            de erro.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+function test(a)
+    if argn(2)~=1
+        msg = gettext("%s: Wrong number of input arguments: %d expected.\n")
+        error(msprintf(msg, "test", 1))
+    end
+endfunction
+function myfun()
+    a = 1;
+    test()
+endfunction
+
+// ----------
+
+error(['A multi line' 'error message'])
+error(500, 'Error: my error message')
+[m, n] = lasterror()
+
+test()
+myfun()
+    ]]></programlisting>
+    <screen><![CDATA[
+--> error(['A multi line' 'error message'])
+
+A multi line
+error message
+
+--> error(500, 'Error: my error message')
+
+Error: my error message
+
+--> [m, n] = lasterror()
+ n  =
+   500.
+ m  =
+ Error: my error message
+
+
+--> test()
+at line     4 of function test
+
+test: Quantidade incorreta de argumentos de entrada: esperava-se 1.
+
+--> myfun()
+at line     4 of function test
+at line     3 of function myfun
+
+test: Quantidade incorreta de argumentos de entrada: esperava-se 1.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="lasterror">lasterror</link>
+            </member>
+            <member>
+                <link linkend="error_table">error_table</link>
+            </member>
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+            <member>
+                <link linkend="warning">warning</link>
+            </member>
+            <member>
+                <link linkend="try">try</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="where">where</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.0.0</revnumber>
+                <revremark>
+                    <literal>error(n, message)</literal> syntax introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    The <literal>error</literal> function can take vector of strings as input argument.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    The <literal>error(n)</literal> and <literal>error(n, pos)</literal> syntaxes
+                    are no longer supported: Providing an explicit error message is now mandatory.
+                    There is no longer any absolute error identifier.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - DIGITEO - Allan CORNET
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="percenti" xml:lang="ja">
+    <refnamediv>
+        <refname>%i, 1i, 1j</refname>
+        <refpurpose>虚数単位</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+        %i
+        1i
+        1j
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>%i</literal> は虚数単位で, 複素数を入力する際に
+            使用されます.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example">
+        1 + %i == complex(1, 1)
+        2 + 3 * %i == complex(2, 3)
+
+        1 + 1i == complex(1, 1)
+        2 + 3j == complex(2, 3)
+
+        1 + 1.23i == complex(1, 1.23)
+        1 + 3.46i == complex(1, 3.46)
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="complex">complex</link>
+            </member>
+            <member>
+                <link linkend="imult">imult</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>New simplified syntax introduced to enter complex numbers: <literal>1i</literal>, <literal>1j</literal></revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

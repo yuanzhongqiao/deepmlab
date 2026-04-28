@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="isascii">
+    <refnamediv>
+        <refname>isascii</refname>
+        <refpurpose>
+            Проверяет - является ли каждый символ данной строки 7-битным US-ASCII
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>res = isascii(str)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>str</term>
+                <listitem>
+                    <para>символьная строка или массив целых чисел.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>res</term>
+                <listitem>
+                    <para>матрица логических значений.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <code>res = isascii(str)</code> возвращает <constant>%t</constant>
+            (ИСТИНА), если элементы <varname>str</varname> соответствуют 7-битному
+            коду US-ASCII-символов между 0 и восьмеричным 0177
+            включительно (или являются US-ASCII-символами).
+            В противном случае возвращает <constant>%f</constant> (ЛОЖЬ).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+isascii("Señor")
+
+nt = ascii("Señor")
+isascii(nt)
+
+t = "We know that γ² = 1/(1-β²)";
+isascii(t)
+part(t, find(~isascii(t)))
+     ]]></programlisting>
+        <screen><![CDATA[
+--> isascii("Señor")
+ ans  =
+  T T F T T
+
+--> nt = ascii("Señor")
+ nt  =
+   83.   101.   195.   177.   111.   114.
+
+--> isascii(nt)
+ ans  =
+  T T F F T T
+
+
+--> t = "We know that γ² = 1/(1-β²)";
+--> isascii(t)
+ ans  =
+  T T T T T T T T T T T T T F F T T T T T T T T F F T
+
+--> part(t, find(~isascii(t)))
+ ans  =
+  "γ²β²"
+]]></screen>
+        <para>
+            Табуляция, новые строки и т.д. являются специальными, но, в любом случае, US-ascii символами.
+            Неразрывные пробелы char(160) не являются US-ascii:
+        </para>
+        <programlisting role="example"><![CDATA[
+t = "a" + char(160) + "b" + ascii(9) + " EOL:" + ascii(10) + "Next"
+isascii(t)
+ascii(t)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> t = "a" + char(160) + "b" + ascii(9) + " EOL:" + ascii(10) + "Next"
+ t  =
+  "a b	 EOL:
+Next"
+
+--> isascii(t)
+ ans  =
+  T F T T T T T T T T T T T T
+
+--> ascii(t)
+ ans  =
+   97.  194.  160.  98.  9.  32.  69.  79.  76.  58.  10.  78.  101.  120.  116.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ascii">ascii</link>
+            </member>
+            <member>
+                <link linkend="isalphanum">isalphanum</link>
+            </member>
+            <member>
+                <link linkend="isdigit">isdigit</link>
+            </member>
+            <member>
+                <link linkend="isletter">isletter</link>
+            </member>
+            <member>
+                <link linkend="isnum">isnum</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

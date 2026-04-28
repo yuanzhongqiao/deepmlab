@@ -1,0 +1,34 @@
+//
+//  Copyright (C) 2011 - DIGITEO - Allan CORNET
+//  Copyright (C) 2013 - S/E - Sylvestre Ledru
+//
+// Copyright (C) 2012 - 2016 - Scilab Enterprises
+//
+// This file is hereby licensed under the terms of the GNU GPL v2.0,
+// pursuant to article 5.3.4 of the CeCILL v.2.1.
+// This file was originally licensed under the terms of the CeCILL v2.1,
+// and continues to be available under such terms.
+// For more information, see the COPYING file which you should have received
+// along with this program.
+//
+// to ignore java exceptions in last test
+//<-- NO CHECK ERROR OUTPUT -->
+//
+// <-- JVM MANDATORY -->
+//
+
+s = jwrap("Hello World !");
+assert_checkequal(jgetclassname(s), "java.lang.String");
+jremove s;
+
+assert_checkequal(jgetclassname("toto"), "java.lang.String");
+assert_checkequal(jgetclassname(1), "double");
+assert_checkequal(jgetclassname(%t), "boolean");
+assert_checkequal(jgetclassname(int8(2)), "byte");
+assert_checkequal(jgetclassname(int16(2)), "short");
+assert_checkequal(jgetclassname(int32(2)), "int");
+
+s = scf();
+assert_checkequal(execstr("jgetclassname(s)", "errcatch"), 999);
+
+

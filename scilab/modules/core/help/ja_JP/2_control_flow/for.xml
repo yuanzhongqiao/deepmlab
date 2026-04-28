@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - 2023 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="for">
+    <refnamediv>
+        <refname>for</refname>
+        <refpurpose>ループ用の言語キーワード </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼出し手順</title>
+        <synopsis>
+            for element = expression, instruction ; .. ; instruction; end
+
+            for element = expression
+                instruction
+                ..
+                instruction
+            end
+
+            for element = expression do
+                instruction,
+                ..
+                instruction
+            end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>expression</literal>が配列（同質か否かを問わない）の場合、<literal>element</literal>とする はその各列に設定される（超行列の場合、as <literal>matrix(expression, size(expression,1), -1))</literal>）を1つずつ.
+        </para>
+        <para>
+            具体例として,一定間隔の行ベクトルを作成するために
+            <link linkend="colon">コロン</link>演算子を使用し,
+            典型的な for ループを作成します :
+            <literal>for element = n1:step:n2, ...,end</literal>
+        </para>
+        <para>
+            <literal>expression</literal> が リストの場合,
+            <literal>element</literal>はこのリストの連続するエントリを
+            値とします.
+        </para>
+        <para>
+            Scilabプログラミング言語のコード規約に基づき, 以下が推奨されます:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    各命令を新しい行で開始する.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    1行に複数の命令を記述しない.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    複合命令は,複数行に分割する.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            例えば, 以下のようにします:
+        </para>
+        <programlisting><![CDATA[
+for i = 1:5
+    disp(i);
+end
+]]></programlisting>
+        <para>以下は推奨されません</para>
+        <programlisting><![CDATA[
+for i = 1:5, disp(i); end
+]]></programlisting>
+        <warning>
+            警告: 条件文(if while for または select/case)の本体を定義するために
+            使用できる文字の数は,16k に制限されています.
+        </warning>
+    </refsection>
+
+    <refsection>
+        <title>例</title>
+        <para>Trivial iterations (over columns of a row vector):</para>
+        <programlisting role="example"><![CDATA[
+for i = [2 4 5]
+    factorial(i)
+end
+
+// By decreasing values:
+for j = 4:-1:1
+    j
+end
+ ]]></programlisting>
+        <para>Iterate on the columns of a matrix:</para>
+        <programlisting role="example"><![CDATA[
+M = [1 2 ; 3 4 ; 5 6]'
+for  c = M, c, end
+ ]]></programlisting>
+    <screen><![CDATA[
+-> M = [1 2 ; 3 4 ; 5 6]'
+ M  =
+   1.   3.   5.
+   2.   4.   6.
+
+--> for  c = M, c, end
+ c  =
+   1.
+   2.
+
+ c  =
+   3.
+   4.
+
+ c  =
+   5.
+   6.
+]]></screen>
+        <para>Iterate on the columns of a cells array:</para>
+        <programlisting role="example"><![CDATA[
+C = {%pi, "This is πι" ; %z^2, %t}
+for  c = C, c, end
+ ]]></programlisting>
+    <screen><![CDATA[
+--> C = {%pi, "This is πι" ; %z^2, %t}
+ C  =
+  [1x1 constant  ]  [1x1 string ]
+  [1x1 polynomial]  [1x1 boolean]
+
+
+--> for  c = C, c, end
+ c  =
+  [1x1 constant  ]
+  [1x1 polynomial]
+
+ c  =
+  [1x1 string ]
+  [1x1 boolean]
+]]></screen>
+        <para>Loop on the elements of a list:</para>
+        <programlisting role="example"><![CDATA[
+for l = list([1 2;3 4], (1+%z)^3, 'example', [%F %T]); l, end
+ ]]></programlisting>
+    <screen><![CDATA[
+--> for l = list([1 2;3 4], (1+%z)^3, 'example', [%F %T]); l, end
+ l  =
+   1.   2.
+   3.   4.
+
+ l  =
+            2   3
+   1 +3z +3z  +z
+
+ l  =
+ example
+
+ l  =
+  F T
+]]></screen>
+        <para>Common and nested loops:</para>
+        <programlisting role="example"><![CDATA[
+n=5;
+for i = 1:n
+    for j = 1:n
+        a(i,j) = 1/(i+j-1);
+    end;
+end
+for j = 2:n-1
+    a(j,j) = j;
+end;
+a
+
+for v = a, write(%io(2),v), end
+for j = 1:n, v = a(:,j), write(%io(2),v), end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="while">while</link>
+            </member>
+            <member>
+                <link linkend="end">end</link>
+            </member>
+            <member>
+                <link linkend="do">do</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                The for <literal>expression</literal> can now be a vector of graphic handles.
+                                <literal>for</literal> is now protected:
+                                Assignments like <literal>for=1</literal> are no longer possible.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                The number of characters used to define the body of any conditional instruction (<literal>if</literal>, <literal>while</literal>, <literal>for</literal>, or <literal>select/case</literal>) is no more limited to 16k.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    The <literal>expression</literal> can be a hypermatrix. It is then processed
+                    by column as <literal>matrix(expression, size(expression,1), -1)</literal>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

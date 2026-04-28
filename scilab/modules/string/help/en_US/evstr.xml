@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2017 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="evstr" xml:lang="en">
+    <refnamediv>
+        <refname>evstr</refname>
+        <refpurpose>evaluates Scilab expressions and concatenates their results</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            H = evstr(M)
+            H = evstr(list(M, subExpr))
+            [H, ierr] = evstr(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>M</term>
+                <listitem>
+                    <para>
+                        single or vector or matrix of character strings: Scilab expressions to be
+                        evaluated and results to be concatenated.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>subExpr</term>
+                <listitem>
+                    <para>
+                    vector of character strings: sub-expressions to be pre-evaluated, defining
+                    quantities used in <literal>M</literal> expressions.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>H</term>
+                <listitem>
+                    <para>
+                        single element, vector, or matrix of concatenated results.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ierr</term>
+                <listitem>
+                    <para>an integer, error indicator.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Evaluates expressions set in <varname>M</varname>. Then, concatenates their results
+            to build <varname>H</varname>.
+        </para>
+        <para>
+            All expressions are assumed to yield results of compatible types and sizes with respect
+            to their concatenation.
+        </para>
+        <para>
+            If the evaluation of <varname>M</varname> expressions or the concatenation of their
+            results leads to an error, <literal>H = evstr(M)</literal> yields the error as usual.
+            To avoid stopping to run next Scilab instructions,
+            <literal>[H, ierr] = evstr(M)</literal> can be used to catch the error.
+            <varname>H</varname> is then set to <literal>[]</literal> and <varname>ierr</varname>
+            returns <literal>999</literal> or another non-null positive code.
+        </para>
+        <para>
+            If <varname>M</varname> is provided through a list, Scilab expressions set in
+            <varname>subExpr</varname> are evaluated before evaluating <varname>M</varname>.
+            The results of these subexpressions must be referred to as <literal>%(k)</literal>
+            in <varname>M</varname>, where <literal>k</literal> is the subexpression's index in
+            <varname>subExpr</varname>.
+        </para>
+        <warning>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                    Assignments like <literal>"a = 1"</literal> are not accepted as expressions,
+                    neither in <varname>M</varname> nor in <varname>subExpr</varname>.
+                    <function>execstr</function> must be used instead to evaluate such expressions.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                    Continuation marks <literal>".."</literal> are forbidden in expressions
+                    in <varname>M</varname> as well as in <varname>subExpr</varname>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </warning>
+        <note>Special aliases:
+            <itemizedlist>
+                <listitem>
+                     <para><literal>"Nan"</literal> and <literal>"NaN"</literal> are parsed as
+                            <constant>%nan</constant>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>"Inf"</literal> and <literal>"INF"</literal> are parsed as
+                            <constant>%inf</constant>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a = 1; b = 2;
+Z = ['a', 'b'] ;
+evstr(Z)
+
+Z = list(['%(1)','%(1)-%(2)'],['a+1','b+1']);
+evstr(Z)
+
+evstr('NaN'), evstr('Inf')
+
+//The two return values version
+[H, ierr] = evstr(Z) // no error
+Z = ['a', 'b', 'c'] ;// the variable c is undefined
+[H, ierr] = evstr(Z) // error 4: Undefined variable: c
+    ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="sci2exp">sci2exp</link>
+            </member>
+            <member>
+                <link linkend="strtod">strtod</link>
+            </member>
+            <member>
+                <link linkend="brackets">concatenation</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.3.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>"Nan"</literal> and <literal>"NaN"</literal> are now parsed as <literal>%nan</literal>.
+                        <literal>"Inf"</literal> and <literal>"INF"</literal> are now parsed as <literal>%inf</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                    <para>
+                        Simple comments are now supported in almost all possible input expressions,
+                        whatever is the shape of <literal>M</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

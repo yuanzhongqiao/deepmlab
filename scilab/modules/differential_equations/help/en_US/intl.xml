@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Francois DELEBECQUE
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="intl" xml:lang="en">
+    <refnamediv>
+        <refname>intl</refname>
+        <refpurpose>Cauchy integral along a circular arc</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            y = intl(a, b, z0, r, f)
+            y = intl(a, b, z0, r, f, abserr)
+            y = intl(a, b, z0, r, f, abserr, relerr)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>z0</term>
+                <listitem>
+                     <para>
+                        a complex number</para>
+                                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a, b</term>
+                <listitem>
+                     <para>
+                        two real numbers</para>
+                                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                     <para>
+                        positive real number</para>
+                                        </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                     <para>
+                        identifier of the function to be integrated (type 13 or 130).</para>
+                                                                                 </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>abserr, relerr</term>
+                <listitem>
+                     <para>
+                        real scalars: absolute and relative numerical tolerances.
+                        Default values are <literal>1.d-13</literal> and <literal>1d-8</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            If <literal>f</literal> is a complex-valued function,
+            <literal>intl(a,b,z0,r,f)</literal> computes the integral of
+            <literal>f(z)dz</literal> along the curve in the complex plane defined by
+            <literal>z0 + r.*exp(%i*t)</literal> for <literal>a&lt;=t&lt;=b</literal>
+            .(part of the circle with center <literal>z0</literal> and radius
+            <literal>r</literal> with phase between <literal>a</literal> and
+            <literal>b</literal>).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+function y = f(z)
+  y = z^(3 + %pi * %i)
+endfunction
+
+intl(1, 2, 1+%i, 3, f)
+     ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="intc">intc</link>
+            </member>
+            <member>
+                <link linkend="integrate">integrate</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+           <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        Default <varname>abserr</varname> and <literal>relerr</literal> values
+                        standardized: <literal>1d-13</literal> and <literal>1d-8</literal> instead of
+                        <literal>%eps</literal> and <literal>1d-12</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

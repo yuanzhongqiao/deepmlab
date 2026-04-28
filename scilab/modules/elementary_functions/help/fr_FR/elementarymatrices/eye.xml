@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="eye" xml:lang="fr">
+    <refnamediv>
+        <refname>eye</refname>
+        <refpurpose>matrice identité</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>X = eye(m,n)
+            X = eye(A)
+            X = eye()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>A,X</term>
+                <listitem>
+                    <para>
+                        matrices, hypermatrices ou listes de type <literal>syslin</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m,n</term>
+                <listitem>
+                    <para>
+                        valeurs entières : nombre de lignes et nombre de colonnes souhaitées pour <varname>X</varname>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Renvoie, suivant les arguments, une matrice de dimensions
+            <literal>m</literal>x<literal>n</literal> avec des 1 sur la diagonale
+            principale ou une matrice identité de même taille que <literal>A</literal>.
+            Dans le cas où <varname>A</varname> est une hypermatrice,
+            <varname>X</varname> sera de la forme:
+            <literal>X(i,i,...,i) = 1</literal> avec <literal>i</literal> de 1 à <literal>min(size(A))</literal>.
+        </para>
+        <warning>
+            <literal>eye(10)</literal> est équivalent à
+            <literal>eye(A)</literal> avec <literal>A=10</literal> c'est à dire
+            <literal>1</literal>. Ce n'est pas une matrice identité 10 x 10 !.
+        </warning>
+        <para>
+            Si <literal>A</literal> est un système linéaire représenté par une
+            liste de type <literal>syslin</literal>, <literal>eye(A)</literal> renvoie
+            une <literal>eye</literal> matrice de dimension appropriées : (nombre de
+            sorties x nombre d'entrées).
+        </para>
+        <para>
+            <literal>eye()</literal> renvoie une matrice identité de dimension
+            non définie. Ses dimensions sont définies quand cette matrice est ajoutée
+            à une matrice de dimensions fixées.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+eye(2,3)
+A=rand(2,3);eye(A)
+s=poly(0,'s');A=[s,1;s,s+1];eye(A)
+A=[1/s,1;s,2];eye(A);
+A=ssrand(2,2,3);eye(A)
+[1 2;3 4]+2*eye()
+eye(zeros(4,4,4,4))
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ones">ones</link>
+            </member>
+            <member>
+                <link linkend="zeros">zeros</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    <para>Généralisation à toute hypermatrice à N>2 dimensions</para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Le Mans Université - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="sample">
+    <refnamediv>
+        <refname>sample</refname>
+        <refpurpose>置換を有する標本化</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>s = sample(n, X, orient)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>正の整数 (標本の大きさ)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>任意のデータ型の配列、またはセル配列. この配列からサンプルが抽出されます.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orient</term>
+                <listitem>
+                    <para>
+                        The shape of samples:
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>'*'</literal> (default): elements of <varname>X</varname>
+                                    are sampled.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>1</literal> or <literal>'r'</literal>: rows of
+                                    <varname>X</varname> are sampled.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>2</literal> or <literal>'c'</literal>: rolumns of
+                                    <varname>X</varname> are sampled.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>s</term>
+                <listitem>
+                    <para>同じタイプのサンプルを含むベクトル、行列、またはセル配列
+                         <varname>X</varname> として.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <emphasis role="bold">s = sample(n, X)</emphasis>
+            (or <literal>s = sample(n, X, '*')</literal>)
+            returns a vector <literal>s</literal> of <varname>n</varname> elements randomly chosen
+            among <literal>X</literal> elements, with replacement.
+        </para>
+        <para>
+            <emphasis role="bold">s = sample(n, X, 'r')</emphasis>
+            (or <emphasis role="bold">s = sample(n, X, 1)</emphasis>)
+            returns a matrix of size <literal>n x size(X,'c')</literal> of randomly chosen Rows
+            of <literal>X</literal>, with replacement.
+        </para>
+        <para>
+            <emphasis role="bold">s = sample(n, X, 'c')</emphasis>
+            (or <emphasis role="bold">s = sample(n, X, 2)</emphasis>)
+            returns a matrix of size <literal>size(X,'r') x n</literal> of randomly chosen Columns
+            of <literal>X</literal>, with replacement.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <para>
+            Sampling some numbers:
+        </para>
+        <programlisting role="example"><![CDATA[
+data = (1:9)' * 10.^(-3:3)
+sample(8, data)
+sample(5, data, "r")
+sample(5, data, "c")
+     ]]></programlisting>
+        <screen><![CDATA[
+--> data = (1:9)' * 10.^(-3:3)
+ data  =
+   0.001   0.01   0.1   1.   10.   100.   1000.
+   0.002   0.02   0.2   2.   20.   200.   2000.
+   0.003   0.03   0.3   3.   30.   300.   3000.
+   0.004   0.04   0.4   4.   40.   400.   4000.
+   0.005   0.05   0.5   5.   50.   500.   5000.
+   0.006   0.06   0.6   6.   60.   600.   6000.
+   0.007   0.07   0.7   7.   70.   700.   7000.
+   0.008   0.08   0.8   8.   80.   800.   8000.
+   0.009   0.09   0.9   9.   90.   900.   9000.
+
+--> sample(8, data)
+ ans  =
+   0.02   0.06   10.   0.009   0.007   70.   6000.   60.
+
+--> sample(5, data, "r")
+ ans  =
+   0.002   0.02   0.2   2.   20.   200.   2000.
+   0.009   0.09   0.9   9.   90.   900.   9000.
+   0.005   0.05   0.5   5.   50.   500.   5000.
+   0.002   0.02   0.2   2.   20.   200.   2000.
+   0.004   0.04   0.4   4.   40.   400.   4000.
+
+--> sample(5, data, "c")
+ ans  =
+   10.   0.1   100.   0.1   0.001
+   20.   0.2   200.   0.2   0.002
+   30.   0.3   300.   0.3   0.003
+   40.   0.4   400.   0.4   0.004
+   50.   0.5   500.   0.5   0.005
+   60.   0.6   600.   0.6   0.006
+   70.   0.7   700.   0.7   0.007
+   80.   0.8   800.   0.8   0.008
+   90.   0.9   900.   0.9   0.009
+]]></screen>
+        <para>
+            Sampling some texts:
+        </para>
+        <programlisting role="example"><![CDATA[
+data = [
+  "a"  "aa"  "aaa"  "aaaa"  "aaaaa"  "aaaaaa"
+  "b"  "bb"  "bbb"  "bbbb"  "bbbbb"  "bbbbbb"
+  "c"  "cc"  "ccc"  "cccc"  "ccccc"  "cccccc"
+  "d"  "dd"  "ddd"  "dddd"  "ddddd"  "dddddd"
+  "e"  "ee"  "eee"  "eeee"  "eeeee"  "eeeeee"
+  "f"  "ff"  "fff"  "ffff"  "fffff"  "ffffff" ];
+
+sample(5, data)
+sample(4, data, "r")
+sample(4, data, "c")
+     ]]></programlisting>
+        <screen><![CDATA[
+--> sample(5, data)
+ ans  =
+  "ffff"  "bb"  "aaaa"  "d"  "c"
+
+--> sample(4, data, "r")
+ ans  =
+  "d"  "dd"  "ddd"  "dddd"  "ddddd"  "dddddd"
+  "f"  "ff"  "fff"  "ffff"  "fffff"  "ffffff"
+  "d"  "dd"  "ddd"  "dddd"  "ddddd"  "dddddd"
+  "b"  "bb"  "bbb"  "bbbb"  "bbbbb"  "bbbbbb"
+
+--> sample(4, data, "c")
+ ans  =
+  "aaaaaa"  "a"  "aaa"  "a"
+  "bbbbbb"  "b"  "bbb"  "b"
+  "cccccc"  "c"  "ccc"  "c"
+  "dddddd"  "d"  "ddd"  "d"
+  "eeeeee"  "e"  "eee"  "e"
+  "ffffff"  "f"  "fff"  "f"
+]]></screen>
+        <para>
+            Sampling some cells:
+        </para>
+        <programlisting role="example"><![CDATA[
+data = {%f, %pi, "abc", 1-%z ; 1+%z, "ABC", %e, %f}
+sample(5, data)
+sample(3, data, "r")
+sample(3, data, "c")
+ ]]></programlisting>
+        <screen><![CDATA[
+--> data = {%f, %pi, "abc", 1-%z ; 1+%z, "ABC", %e, %f}
+ data  =
+  [1x1 boolean   ]  [1x1 constant]  [1x1 string  ]  [1x1 polynomial]
+  [1x1 polynomial]  [1x1 string  ]  [1x1 constant]  [1x1 boolean   ]
+
+--> sample(5, data)
+ ans  =
+  [1x1 constant]  [1x1 polynomial]  [1x1 string]  [1x1 string]  [1x1 boolean]
+
+--> sample(3, data, "r")
+ ans  =
+  [1x1 boolean   ]  [1x1 constant]  [1x1 string  ]  [1x1 polynomial]
+  [1x1 polynomial]  [1x1 string  ]  [1x1 constant]  [1x1 boolean   ]
+  [1x1 polynomial]  [1x1 string  ]  [1x1 constant]  [1x1 boolean   ]
+
+--> sample(3, data, "c")
+ ans  =
+  [1x1 polynomial]  [1x1 boolean   ]  [1x1 string  ]
+  [1x1 boolean   ]  [1x1 polynomial]  [1x1 constant]
+
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="samplef">samplef</link>
+            </member>
+            <member>
+                <link linkend="samwr">samwr</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

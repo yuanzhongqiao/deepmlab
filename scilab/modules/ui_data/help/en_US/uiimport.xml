@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="uiimport">
+    <refnamediv>
+        <refname>uiimport</refname>
+        <refpurpose>Import data from csv/txt file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            uiimport()
+            uiimport(filename)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>
+                        a string: name or path of file
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>uiimport</literal> opens a Scilab application which asks you to select the CSV or TXT file to load data. 
+        </para>
+        <para>
+            <literal>uiimport(filename)</literal> directly imports data in the application from filename.
+        </para>
+        <para>
+            From this function, the user will be able to import data either in a <link linkend="table">table</link> or in a <link linkend="timeseries">timeseries</link>
+        </para>
+        <para>
+            This application is also available in Scilab console menu: Applications > Import Data.
+        </para>
+        <para>It is divided into two parts: preview (center panel) and options management (left panel). 
+            Changes made in the left panel update the preview.
+        </para>
+        <para>
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../images/uiimport.png"/>
+                </imageobject>
+            </inlinemediaobject>
+        </para>
+        <para>
+            The preview panel displays a part of data if the number of lines exceeds 29 (the first 14 lines (excluding header and column names) and 
+            the last 14 lines of the file). In this case, "..." is added for each column.
+        </para>
+        <para>
+            <literal>uiimport</literal> has several features:
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        Four buttons to select a file, import as variable, create a function and open help page.
+                    </para>
+                    <para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/uiimport_btn.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </para>
+                    <para/>
+                    <para>
+                        <emphasis role="bold">Select a file</emphasis> loads data from CSV/TXT file.
+                    </para>
+                    <para/>
+                    <para>
+                        <emphasis role="bold">Import as variable</emphasis> generates a table or timeseries (from data and selected 
+                        options) stored in the <literal>ans</literal> variable. The result is displayed in Scilab console.
+                    </para>
+                    <para/>
+                    <para>
+                        <emphasis role="bold">Create a function</emphasis> generates a Scilab file with the name "import_" + filename + ".sce" 
+                        saved in the same location as the loaded file. This function contains all commands to create a table or timeseries. This file 
+                        will automatically appear in Scinotes. 
+                    </para>
+                    <para/>
+                    <para>
+                        <emphasis role="bold">Help page</emphasis> button opens this page
+                    </para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">File information as number of rows and columns. </emphasis>
+                    </para>
+                    <para>
+                        <literal>uiimport</literal> automatically detects the delimiter and decimal separator of the file. 
+                        But the user can change them using the popupmenus.
+                    </para>
+                    <para>The number of header lines can be set by the user.</para>
+                    <para/>
+                    <para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/uiimport_info.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </para>
+                    <para/>
+                    <para>
+                        The delimiter popupmenu contains the value "Custom". It allows the user to specify another delimiter.
+                    </para>
+                    <para/>
+                    <para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/uiimport_info2.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Select the columns to import</emphasis>
+                    <para/>
+                    <para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/uiimport_columns.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </para>
+                    <para/>
+                    <para>
+                        Each column can be selected/deselected and renamed. Each change update the preview panel. The empty column in file will not be taken into account.
+                    </para>
+                    <para/>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Time reference and columns format. </emphasis>
+                    </para>
+                    <para>
+                        The drop-down list contains all column names of double, datetime and duration type. By default, no column is selected. 
+                        Depending on the column type, the user will be able to
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    change the input and output format for the datetime and duration types
+                                </para>
+                                <para/>
+                                <para>
+                                    <inlinemediaobject>
+                                        <imageobject>
+                                            <imagedata fileref="../images/uiimport_format1.png"/>
+                                        </imageobject>
+                                    </inlinemediaobject>
+                                </para>
+                                <para/>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    convert the double into duration using the drop-down list
+                                </para>
+                                <para/>
+                                <para>
+                                    <inlinemediaobject>
+                                        <imageobject>
+                                            <imagedata fileref="../images/uiimport_format2.png"/>
+                                        </imageobject>
+                                    </inlinemediaobject>
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                        <para/>
+                        <para>
+                            There is also a checkbox to select the reference time column needed to create a timeseries.
+                        </para>
+                        <para/>
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+uiimport(fullfile(SCI, "modules", "spreadsheet", "tests", "unit_tests","meteo_data_bordeaux.csv"));
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+            <member>
+                <link linkend="readtable">readtable</link>
+            </member>
+            <member>
+                <link linkend="readtimeseries">readtimeseries</link>
+            </member>
+            <member>
+                <link linkend="detectImportOptions">detectImportOptions</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="tree2code" xml:lang="pt">
+    <refnamediv>
+        <refname>tree2code</refname>
+        <refpurpose>gera a definição ASCII de uma função Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>txt = tree2code(tree, prettyprint)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>tree</term>
+                <listitem>
+                    <para>
+                        uma árvore macro (vinda de <function>macr2tree</function>)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>prettyprint</term>
+                <listitem>
+                    <para>valor opcional booleano :</para>
+                    <table>
+                      <tr>
+                        <td>%T : </td>
+                        <td>o código gerado é identado e embelezado. The indentation length
+                            is the Scinotes one. It can be tuned through Scinotes preferences.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>%F : </td>
+                        <td>o código gerado não é embelezado (padrão)</td>
+                      </tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>txt</term>
+                <listitem>
+                    <para>coluna de strings, o texto fornecendo as instruções
+                        Scilab
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Dada uma função Scilab carregada "tree" (retornada por <function>macr2tree</function>),
+            <function>tree2code</function> permite gerar novamente o código.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+tree = macr2tree(log2);   // note that the input is log2 (the function handle), not "log2"
+txt = tree2code(tree, %T);
+printf("%s\n", txt);
+    ]]></programlisting>
+    <screen><![CDATA[--> printf("%s\n",c)
+function [f,e] = log2(x)
+  // x may be positive, negative, or complex
+  [lhs,rhs] = argn(0)
+  if rhs&lt;>1 then
+    msg = gettext("%s: Wrong number of input argument(s): %d expected.\n")
+    error(msprintf(msg, "log2", 1))
+  end;
+  if argn(1)==1 then
+    f = log(x)/log(2)
+  else
+    [f,e] = frexp(x)
+  end
+endfunction
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="macr2tree">macr2tree</link>
+            </member>
+            <member>
+                <link linkend="macrovar">macrovar</link>
+            </member>
+            <member>
+                <link linkend="string">string</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

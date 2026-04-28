@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="csgn">
+    <refnamediv>
+        <refname>csgn</refname>
+        <refpurpose>returns the sign of a vector of real of complex values </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>s = csgn(z)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>
+                        a vector of values on which we want to compute the sign
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>s</term>
+                <listitem>
+                    <para>if the real part is not equal to zero:</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>+1</literal> if the real part of an element is positive
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>-1</literal> if the real part of an element is negative
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>If the real part is equal to zero:</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>+1</literal> if the imaginary part of an element is positive
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>-1</literal> if the imaginary part of an element is negative
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        if the element is equal to zero, then returns <constant>%nan</constant>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <function>csgn</function> function returns the sign of a vector of real of complex values <varname>z</varname>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+A = [1 1+%i 0 -1 1-%i -1-%i];
+csgn(A)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sign">sign</link>
+            </member>
+            <member>
+                <link linkend="signm">signm</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

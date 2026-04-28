@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2013 - Scilab Enterprises - Antoine ELIAS
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2016, 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="https://www.scilab.org" xml:id="tbx_build_localization" xml:lang="en">
+    <refnamediv>
+        <refname>tbx_build_localization</refname>
+        <refpurpose>Builds or updates localization .po and .mo files of a toolbox</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tbx_build_localization()
+            tbx_build_localization(tbx_path)
+            tbx_build_localization(tbx_name)               // obsolete
+            tbx_build_localization(tbx_name, tbx_path)     // obsolete
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tbx_path</term>
+                <listitem>
+                    <para>path of the toolbox, use to locate files to compile.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tbx_name (deprecated)</term>
+                <listitem>
+                    <para>Name of the toolbox, use to name localization files and domain.</para>
+                    <para>The name of the toolbox is now retrieved as the basename of the file
+                        <literal>tbx_path/etc/*.start</literal>. This file must be available, even
+                        if it is empty.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>tbx_build_localization(…)</literal> calls <literal>tbx_generate_pofile(…)</literal>
+            to create the <literal>~/locales/en_US.po</literal> reference file, or to updated
+            all existing <literal>~/locales/*.po</literal> files.
+        </para>
+        <para>
+            *.po files -- one for each language -- are text editable files where reference english
+            messages used when calling <literal>gettext(domain, "The message")</literal> are listed.
+            Below each reference message (msgid), the translated version is provided. As an example,
+            here is a sample of a fr_FR.po file (with extra comments):
+            <screen>
+#: ~\macros\scilab_add.sci:13       &lt;&lt; file:line_number places where gettext() is called for the msgid.
+#: ~\macros\scilab_error.sci:22     &lt;&lt; The same message is used in another file. etc.
+msgid "New message #2.\n"           &lt;&lt; gettext() argument = reference message (english)
+msgstr "Nouveau message n° 2.\n"    &lt;&lt; translated message (entered by a translator).
+
+#: ~\macros\scilab_add.sci:16
+msgid "New message #3.\n"
+msgstr ""                            &lt;&lt; Missing translation, to complete.
+</screen>
+        </para>
+        <para>
+            For more details about how .po files are built, please refer to the
+            <link linkend="tbx_generate_pofile">tbx_generate_pofile</link> page.
+        </para>
+        <para>
+            Then, for each language * defined for the toolbox,
+            <literal>~/locales/*/LC_MESSAGES/*.mo</literal> files are built from translated messages.
+            *.mo files are binary files used by gettext(msgid) at call time to quickly get the
+            translation.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            tbx_make  SCI/contrib/toolbox_skeleton  localization
+     ]]></programlisting>
+        <para>
+            is equivalent to
+        </para>
+        <programlisting role="example"><![CDATA[
+            tbx_build_localization  SCI/contrib/toolbox_skeleton
+     ]]></programlisting>
+        <screen><![CDATA[
+--> tbx_build_localization  SCI/contrib/toolbox_skeleton
+WARNING: tbx_build_localization (toolbox_skeleton\locales\):
+WARNING:    - The msgid have been updated in *.po files.
+WARNING:    - fr_FR.po : 0 untranslated messages.
+
+Generating localization
+-- Building for "en_US" --
+-- Building for "fr_FR" --
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tbx_make">tbx_make . localization</link>
+            </member>
+            <member>
+                <link linkend="tbx_generate_pofile">tbx_generate_pofile</link>
+            </member>
+            <member>
+                <link linkend="addlocalizationdomain">addlocalizationdomain</link>
+            </member>
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Function tbx_build_localization added.</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>tbx_name is no longer required.</revremark>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>Existing .po files are now automatically updated for every newly detected msgid.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="fr" xml:id="sylm">
+    <refnamediv>
+        <refname>sylm</refname>
+        <refpurpose>Matrice de Sylvester de deux polynômes</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>S = sylm(a, b)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>a,b  </term>
+                <listitem>
+                    <para>deux polynômes à coefficients réels ou complexes.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>S  </term>
+                <listitem>
+                    <para>
+                        Matrice carrée de nombres réels ou complexes, de taille
+                        <literal>degree(a*b)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>sylm(a,b)</literal> renvoie la matrice de Sylvester associée aux polynômes
+            <literal>a</literal> et <literal>b</literal>, i.e. la matrice <literal>S</literal> telle que :
+        </para>
+        <para>
+            <literal>coeff( a*x + b*y )' = S * [coeff(x)';coeff(y)']</literal>.
+        </para>
+        <para>
+            Si <literal>a</literal> et <literal>b</literal> sont premiers entre eux alors
+        </para>
+        <para>
+            <literal>rank(sylm(a,b))=degree(a)+degree(b))</literal> et les instructions
+            <screen><![CDATA[
+u = sylm(a,b) \ eye(na+nb,1)
+x = poly(u(1:nb),'z','coeff')
+y = poly(u(nb+1:na+nb),'z','coeff')
+]]></screen>
+        </para>
+        <para>
+            calculent les facteurs de Bezout <literal>x</literal> ainsi que <literal>y</literal>
+            de degré minimum tels que <literal>a*x+b*y = 1</literal>
+        </para>
+        </refsection>
+        <refsection>
+            <title>Exemples</title>
+            <programlisting role="example"><![CDATA[
+x = poly(0,"x");
+y = poly([1, 2, 3], "x","coeff")
+sylm(x, y)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> x = poly(0, "x");
+--> y = poly([1, 2, 3], "x","coeff")
+ y  =
+  1 +2x +3x²
+
+--> sylm(x, y)
+ ans  =
+   0.   0.   1.
+   1.   0.   2.
+   0.   1.   3.
+]]></screen>
+    <para>
+        <emphasis role="bold">Résultant de deux polynômes</emphasis>: il peut être défini comme le
+        déterminant de la matrice de Sylvester de ceux-ci. Il est nul si et seulement si les
+        deux polynômes ont au moins une racine en commun.
+    </para>
+        <programlisting role="example"><![CDATA[
+a = poly([1 2 3 4], "x", "roots")
+b = poly([-2 -1 5], "x", "roots")
+det(sylm(a, b))
+
+// Cas plus simple
+det(sylm((%s+1)^5, (%s+3)^3))
+(-3 -(-1))^(5*3)     // valeur attendue
+]]></programlisting>
+    <screen><![CDATA[
+--> a = poly([1 2 3 4],"x","roots")
+ a  =
+  24 -50x +35x² -10x³ +x⁴
+
+--> b = poly([-2 -1 5],"x","roots")
+ b  =
+  -10 -13x -2x² +x³
+
+--> det(sylm(a,b))
+ ans  =
+   1036800.0
+
+--> // Cas plus simple
+--> det(sylm((%s+1)^5,(%s+3)^3))
+ ans  =
+  -32768.000
+
+--> (-3 -(-1))^(5*3)     // valeur attendue
+ ans  =
+  -32768.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="bezout">bezout</link>
+            </member>
+            <member>
+                <link linkend="diophant">diophant</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

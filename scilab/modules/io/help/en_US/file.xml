@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="file" xml:lang="en">
+    <refnamediv>
+        <refname>file</refname>
+        <refpurpose>file management</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [unit, err] = file("open", file-name [,status] [,access [,recl]] [,format])
+            file("close", unit)
+            file("rewind", unit)
+            file("backspace", unit)
+            file("last", unit)
+            [units, typ, nams, mod, swap] = file()
+            [units, typ, nams, mod, swap] = file(unit)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>file-name</term>
+                <listitem>
+                    <para>string, file name of the file to be opened</para>
+                    <warning>
+                        This function can not open files whose path has non-ascii
+                        UTF characters (accented, etc). In this case, mopen() must be used.
+                    </warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>string, The status of the file to be opened</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"new"</term>
+                            <listitem>
+                                <para>file must not exist new file (default)</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"old"</term>
+                            <listitem>
+                                <para>file must already exists.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"unknown"</term>
+                            <listitem>
+                                <para>unknown status</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"scratch"</term>
+                            <listitem>
+                                <para>file is to be deleted at end of session</para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>access</term>
+                <listitem>
+                    <para>string, The type of access to the file</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"sequential"</term>
+                            <listitem>
+                                <para>sequential access (default)</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"direct"</term>
+                            <listitem>
+                                <para>
+                                   direct access. The next input argument <varname>recl</varname>
+                                   is then mandatory.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>format</term>
+                <listitem>
+                    <para>string,</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"formatted"</term>
+                            <listitem>
+                                <para>for a formatted file (default)</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"unformatted"</term>
+                            <listitem>
+                                <para>binary record.</para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>recl</term>
+                <listitem>
+                    <para>integer,is the size of records in bytes when
+                        <literal>access="direct"</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>unit</term>
+                <listitem>
+                    <para>integer, logical unit descriptor of the opened file</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>units</term>
+                <listitem>
+                    <para>integer vector, logical unit descriptor of the opened files.
+                        Units 5 and 6 (%io) are reserved by the system for input and output
+                        devices.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>typs</term>
+                <listitem>
+                    <para>Character string vector, type (C or Fortran) of opened
+                        files.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nams</term>
+                <listitem>
+                    <para>Character string vector, pathnames of opened files.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mod</term>
+                <listitem>
+                    <para>file opening mode. Formed by three digits abc:</para>
+                    <table border="0">
+                        <tr valign="top">
+                            <td colspan="2">><emphasis role="bold">Fortran files</emphasis></td>
+                        </tr>
+                        <tr valign="top">
+                            <th>a</th>
+                            <td>0 stands for formatted and 1 for unformatted (binary)</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>b</th>
+                            <td>0 stands for sequential access and 1 for direct access</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>c</th>
+                            <td>0 stands for "new", 1 for "old", 2 for "scratch" and 3 for "unknown"</td>
+                        </tr>
+                        <tr valign="top">
+                            <td colspan="2"><emphasis role="bold">C files</emphasis></td>
+                        </tr>
+                        <tr valign="top">
+                            <th>a</th>
+                            <td>1 stands for "r" (read), 2 stands for "w" (write)  and 3 for "a" (append)</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>b</th>
+                            <td>is 1 if file has been opened with a "+" (updating) mode</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>c</th>
+                            <td>is 1 if file has been opened with a "b" (binary) mode</td>
+                        </tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>swap</term>
+                <listitem>
+                    <para>automatic swap switch. swap=1 if automatic swap is on. swap is
+                        always 0 for Fortran files.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>err</term>
+                <listitem>
+                    <para>integer code returned if opening the file fails. If <varname>err</varname>
+                    is omitted, an error message is issued.
+                    </para>
+                    <table>
+                        <tr valign="top"><th>65</th><td>File already used</td></tr>
+                        <tr valign="top"><th>66</th><td>Too many files opened!</td></tr>
+                        <tr valign="top"><th>67</th><td>Unknown file format</td></tr>
+                        <tr valign="top"><th>240</th>
+                                         <td>The file already exists or directory write
+                                             access denied.</td></tr>
+                        <tr valign="top"><th>241</th><td>The file does not exist or read access denied.</td></tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>file(…)</literal> selects a logical unit <varname>unit</varname> and manages
+            the file <varname>file-name</varname>.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>[unit [,err]]=file("open", file-name [,status] [,access [,recl]][,format])
+                </term>
+                <listitem>
+                    <para>
+                        allows to open a file with specified
+                        properties and to get the associated unit number <varname>unit</varname>.
+                        This unit number may be used for further actions on this file or as file
+                        descriptor in <function>read</function>, <function>write</function>,
+                        <function>save</function>, <function>load</function>
+                        function calls.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("close", unit)
+                </term>
+                <listitem>
+                    <para>
+                        allows to close the file, or move the current file pointer.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("rewind", unit)
+                </term>
+                <listitem>
+                    <para>
+                        puts the pointer at the beginning of the file.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("backspace", unit)
+                </term>
+                <listitem>
+                    <para>
+                        puts the pointer at the beginning of last record.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("last", unit)
+                </term>
+                <listitem>
+                    <para>
+                        puts the pointer after last record.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file()
+                </term>
+                <listitem>
+                    <para>
+                        returns the descriptors of the opened files.
+                    </para>
+                    <para>To test whether a file whose unit is <literal>id</literal> is opened,
+                        <literal>file(id)~=[]</literal> may be used.
+                    </para>
+                    <para>To close all user opened files (C or Fortran type),
+                        <literal>file("close",file())</literal> may be used.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+u=file("open",TMPDIR+"/foo","unknown")
+for k=1:4
+  a=rand(1,4)
+  write(u,a)
+end
+file("rewind",u)
+x=read(u,2,4)
+file("close",u)
+//
+u1=file("open",TMPDIR+"/foo","unknown")
+u2=mopen(TMPDIR+"/foo1","wb")
+[units,typs,nams]=file()
+file("close",u1);
+mclose(u2);
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="isfile">isfile</link>
+            </member>
+            <member>
+                <link linkend="read">read</link>
+            </member>
+            <member>
+                <link linkend="write">write</link>
+            </member>
+            <member>
+                <link linkend="mopen">mopen</link>
+            </member>
+            <member>
+                <link linkend="save">save</link>
+            </member>
+            <member>
+                <link linkend="load">load</link>
+            </member>
+            <member>
+                <link linkend="uigetfile">uigetfile</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    stderr is inserted in the output of file() as units(1)=0, typ(1)="STD" and
+                    nams(1)="stderr".
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

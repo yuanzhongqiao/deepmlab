@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="sortrows" xml:lang="en">
+    <refnamediv>
+        <refname>sortrows</refname>
+        <refpurpose>Sort rows of a vector, matrix, table, or timeseries</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            out = sortrows(t [, vars, order])
+            [out, idx] = sortrows(t [, vars, order])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>Input argument, one of:</para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                vector, matrix of doubles, booleans, integers, strings, duration or datetime
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><link linkend="table">table</link> object
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><link linkend="timeseries">timeseries</link> object
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>vars</term>
+                <listitem>
+                     <para><itemizedlist>
+                            <listitem>
+                                 <para>
+                                    vector of integers if <literal>t</literal> is vector or matrix.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    vector of integers, booleans or strings or cell if <literal>t</literal> is a table or timeseries. 
+                                    <literal>"RowNames"</literal> can be used to sort the rows of the table.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                                Specifies the columns used for sorting. <literal>vars</literal> can contain  
+                                negative integers to sort in descending order and will be account only 
+                                if <literal>order</literal> is not set.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>order</term>
+                <listitem>
+                    <para>string or cell array of strings. Possible values: </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para><literal>"i"</literal> (default value) or "ascend": sort in ascending order
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>"d"</literal> or "descend": sort in descending order
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>["i", "d"]</literal> or <literal>{"i", "d"}</literal>: specify order individually for each column
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>out</term>
+                <listitem>
+                    <para>vector, matrix, table or timeseries, same type as 
+                        <literal>t</literal>, with rows reordered according to the sorting rules.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>idx</term>
+                <listitem>
+                    <para>column vector of integer indices such that <literal>out = t(idx, :)</literal>. 
+                    <literal>idx</literal> provides the permutation of the original rows that produces the sorted result.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>sortrows</literal> sorts the rows of the input data <literal>t</literal> 
+            according to the values in one or several columns.
+        </para>
+        <para>
+            The argument <literal>vars</literal> can be specified by indices, variable names or boolean vector, or a cell containing 
+            the variable names. When <literal>vars</literal> is a vector, sorting is applied lexicographically.
+        </para>
+        <para>
+            The optional argument <literal>order</literal> allows specifying ascending or descending order globally, or individually for each column 
+            specified in <literal>vars</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Sort rows of matrix of doubles</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            A = [3 7 2; 1 9 4; 2 5 6]
+            [B, idx] = sortrows(A)
+            C = sortrows(A, 2, "d")
+            D = sortrows(A, -2)
+            C == D
+            E = sortrows(A, [1 3], ["i", "d"]) // or sortrows(A, [1 -3])
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+-> [B, idx] = sortrows(A)
+
+ B = [3x3 double]
+
+   1.   9.   4.
+   2.   5.   6.
+   3.   7.   2.
+
+ idx = [3x1 double]
+
+   2.
+   3.
+   1.
+
+--> C = sortrows(A, 2, "d")
+
+ C = [3x3 double]
+
+   1.   9.   4.
+   3.   7.   2.
+   2.   5.   6.
+
+--> D = sortrows(A, -2)
+
+ D = [3x3 double]
+
+   1.   9.   4.
+   3.   7.   2.
+   2.   5.   6.
+
+--> C == D
+
+ ans = [3x3 boolean]
+
+  T T T
+  T T T
+  T T T
+
+--> E = sortrows(A, [1 3], ["i", "d"]) // or sortrows(A, [1 -3])
+
+ E = [3x3 double]
+
+   1.   9.   4.
+   2.   5.   6.
+   3.   7.   2.
+]]></screen>
+        <para><emphasis role="bold">Sort rows of matrix of strings</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            A = ["b" "b"; "a" "y"; "c" "r"]
+            [B, idx] = sortrows(A, 2, "d")
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> [B, idx] = sortrows(A, 2, "d")
+
+ B = [3x2 string]
+
+  "a"  "y"
+  "c"  "r"
+  "b"  "b"
+
+ idx = [3x1 double]
+
+   2.
+   3.
+   1.
+]]></screen>
+        <para><emphasis role="bold">Sort rows of table</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            t = table(["a"; "b"; "c"; "b"], [1; 2; 1; 1], [1; 2; 3; 4])
+            [t2, idx] = sortrows(t)
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> t = table(["a"; "b"; "c"; "b"], [1; 2; 1; 1], [1; 2; 3; 4])
+
+ t = [4x3 table]
+
+   Var1   Var2   Var3
+   ____   ____   ____
+                     
+   a      1      1   
+   b      2      2   
+   c      1      3   
+   b      1      4   
+
+--> [t2, idx] = sortrows(t)
+
+ t2 = [4x3 table]
+
+   Var1   Var2   Var3
+   ____   ____   ____
+                     
+   a      1      1   
+   b      1      4   
+   b      2      2   
+   c      1      3   
+
+ idx = [4x1 double]
+
+   1.
+   4.
+   2.
+   3.
+]]></screen>
+        <programlisting role="example"><![CDATA[
+            A = table(["Oak"; "Pine"; "Maple"; "Apple"; "Pear"], [15; 30; 25; 3; 2], ["Tree"; "Tree"; "Tree"; "FruitTree"; "FruitTree"], ..
+            'VariableNames', ["Name","Height","Type"])
+            [B, idx] = sortrows(A, 2)
+            [C, idxC] = sortrows(A, "Height", "d") // sortrows(A, -2) 
+            [D, idxD] = sortrows(A, [%f %t %f], "i")
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> A = table(["Oak"; "Pine"; "Maple"; "Apple"; "Pear"], [15; 30; 25; 3; 2], ["Tree"; "Tree"; "Tree"; "FruitTree"; "FruitTree"], ..
+  >             'VariableNames', ["Name","Height","Type"])
+
+ A = [5x3 table]
+
+   Name    Height     Type   
+   _____   ______   _________
+                             
+   Oak     15       Tree     
+   Pine    30       Tree     
+   Maple   25       Tree     
+   Apple   3        FruitTree
+   Pear    2        FruitTree
+
+--> [B, idx] = sortrows(A, 2)
+
+ B = [5x3 table]
+
+   Name    Height     Type   
+   _____   ______   _________
+                             
+   Pear    2        FruitTree
+   Apple   3        FruitTree
+   Oak     15       Tree     
+   Maple   25       Tree     
+   Pine    30       Tree     
+
+ idx = [5x1 double]
+
+   5.
+   4.
+   1.
+   3.
+   2.
+
+--> [C, idxC] = sortrows(A, "Height", "d") // sortrows(A, -2) 
+
+ C = [5x3 table]
+
+   Name    Height     Type   
+   _____   ______   _________
+                             
+   Pine    30       Tree     
+   Maple   25       Tree     
+   Oak     15       Tree     
+   Apple   3        FruitTree
+   Pear    2        FruitTree
+
+ idxC = [5x1 double]
+
+   2.
+   3.
+   1.
+   4.
+   5.
+
+--> [D, idxD] = sortrows(A, [%f %t %f], "i")
+
+ D = [5x3 table]
+
+   Name    Height     Type   
+   _____   ______   _________
+                             
+   Pear    2        FruitTree
+   Apple   3        FruitTree
+   Oak     15       Tree     
+   Maple   25       Tree     
+   Pine    30       Tree     
+
+ idxD = [5x1 double]
+
+   5.
+   4.
+   1.
+   3.
+   2.
+]]></screen>
+        <programlisting role="example"><![CDATA[
+            Planet = ["Mercury"; "Venus"; "Earth"; "Mars"; "Jupiter"; ...
+            "Saturn"; "Uranus"; "Neptune"; "Pluto"];
+
+            // Type (Pluto included as "Dwarf")
+            Category = ["Terrestrial"; "Terrestrial"; "Terrestrial"; "Terrestrial"; ...
+            "GasGiant"; "GasGiant"; "IceGiant"; "IceGiant"; "Dwarf"];
+
+            // Distance from the Sun in millions of km
+            Distance_Mkm = [57.9; 108.2; 149.6; 227.9; 778.5; 1434; 2871; 4495; 5906];
+
+            // Equatorial diameter in km
+            Diameter_km = [4879; 12104; 12742; 6779; 139820; 116460; 50724; 49244; 2376];
+
+            // Number of known sattelites
+            Moons = [0; 0; 1; 2; 79; 82; 27; 14; 5];
+
+            T = table(Category, Distance_Mkm, Diameter_km, Moons, ...
+            'RowNames', Planet, "VariableNames", ....
+            ["Category", "Distance_Mkm", "Diameter_km", "Moons"])
+
+            // With RowNames
+            TT = sortrows(T, "RowNames")
+
+            // Sort by distance from the Sun (ascend)
+            [T1, idx] = sortrows(T, 'Distance_Mkm')
+
+            // Sort by decreasing diameter
+            [T2, idx] = sortrows(T, 'Diameter_km', 'd')
+            
+        ]]></programlisting>
+        <screen><![CDATA[
+-->  T = table(Category, Distance_Mkm, Diameter_km, Moons, ...
+  >  'RowNames', Planet, "VariableNames", ....
+  >  ["Category", "Distance_Mkm", "Diameter_km", "Moons"])
+
+ T = [9x4 table]
+
+              Category     Distance_Mkm   Diameter_km   Moons
+             ___________   ____________   ___________   _____
+                                                             
+   Mercury   Terrestrial   57.9           4879          0    
+     Venus   Terrestrial   108.2          12104         0    
+     Earth   Terrestrial   149.6          12742         1    
+      Mars   Terrestrial   227.9          6779          2    
+   Jupiter   GasGiant      778.5          139820        79   
+    Saturn   GasGiant      1434           116460        82   
+    Uranus   IceGiant      2871           50724         27   
+   Neptune   IceGiant      4495           49244         14   
+     Pluto   Dwarf         5906           2376          5    
+
+--> TT = sortrows(T, "RowNames")
+
+ TT = [9x4 table]
+
+              Category     Distance_Mkm   Diameter_km   Moons
+             ___________   ____________   ___________   _____
+                                                             
+     Earth   Terrestrial   149.6          12742         1    
+   Jupiter   GasGiant      778.5          139820        79   
+      Mars   Terrestrial   227.9          6779          2    
+   Mercury   Terrestrial   57.9           4879          0    
+   Neptune   IceGiant      4495           49244         14   
+     Pluto   Dwarf         5906           2376          5    
+    Saturn   GasGiant      1434           116460        82   
+    Uranus   IceGiant      2871           50724         27   
+     Venus   Terrestrial   108.2          12104         0    
+
+
+--> [T1, idx] = sortrows(T, 'Distance_Mkm')
+
+ T1 = [9x4 table]
+
+              Category     Distance_Mkm   Diameter_km   Moons
+             ___________   ____________   ___________   _____
+                                                             
+   Mercury   Terrestrial   57.9           4879          0    
+     Venus   Terrestrial   108.2          12104         0    
+     Earth   Terrestrial   149.6          12742         1    
+      Mars   Terrestrial   227.9          6779          2    
+   Jupiter   GasGiant      778.5          139820        79   
+    Saturn   GasGiant      1434           116460        82   
+    Uranus   IceGiant      2871           50724         27   
+   Neptune   IceGiant      4495           49244         14   
+     Pluto   Dwarf         5906           2376          5    
+
+ idx = [9x1 double]
+
+   1.
+   2.
+   3.
+   4.
+   5.
+   6.
+   7.
+   8.
+   9.
+
+--> [T2, idx] = sortrows(T, 'Diameter_km', 'd')
+
+ T2 = [9x4 table]
+
+              Category     Distance_Mkm   Diameter_km   Moons
+             ___________   ____________   ___________   _____
+                                                             
+   Jupiter   GasGiant      778.5          139820        79   
+    Saturn   GasGiant      1434           116460        82   
+    Uranus   IceGiant      2871           50724         27   
+   Neptune   IceGiant      4495           49244         14   
+     Earth   Terrestrial   149.6          12742         1    
+     Venus   Terrestrial   108.2          12104         0    
+      Mars   Terrestrial   227.9          6779          2    
+   Mercury   Terrestrial   57.9           4879          0    
+     Pluto   Dwarf         5906           2376          5    
+
+ idx = [9x1 double]
+
+   5.
+   6.
+   7.
+   8.
+   3.
+   2.
+   4.
+   1.
+   9.
+]]></screen>
+        <para><emphasis role="bold">Sort rows of timeseries</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            ts = timeseries(hours([10; 5; 8; 12]), (1:4)')
+            [tss, idx] = sortrows(ts, 1)
+            ts2 = timeseries(datetime() + seconds([100; 200; 150]), [3; 1; 2])
+            [tss, idx] = sortrows(ts2, 2, "d")
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> ts = timeseries(hours([10; 5; 8; 12]), (1:4)')
+
+ ts = [4x1 timeseries]
+
+     Time     Var1
+   ________   ____
+                  
+   10:00:00   1   
+   05:00:00   2   
+   08:00:00   3   
+   12:00:00   4   
+
+--> [tss, idx] = sortrows(ts, 1)
+
+ tss = [4x1 timeseries]
+
+     Time     Var1
+   ________   ____
+                  
+   05:00:00   2   
+   08:00:00   3   
+   10:00:00   1   
+   12:00:00   4   
+
+ idx = [4x1 double]
+
+   2.
+   3.
+   1.
+   4.
+
+--> ts2 = timeseries(datetime() + seconds([100; 200; 150]), [3; 1; 2])
+
+ ts2 = [3x1 timeseries]
+
+          Time           Var1
+   ___________________   ____
+                             
+   2025-09-30 11:39:39   3   
+   2025-09-30 11:41:19   1   
+   2025-09-30 11:40:29   2   
+
+--> [tss, idx] = sortrows(ts2, 2, "d")
+
+ tss = [3x1 timeseries]
+
+          Time           Var1
+   ___________________   ____
+                             
+   2025-09-30 11:39:39   3   
+   2025-09-30 11:40:29   2   
+   2025-09-30 11:41:19   1   
+
+ idx = [3x1 double]
+
+   1.
+   3.
+   2.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="gsort">gsort</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    Function added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

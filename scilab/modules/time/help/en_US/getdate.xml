@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2020 - Samuel GOUGEON 
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="getdate">
+    <refnamediv>
+        <refname>getdate</refname>
+        <refpurpose>
+            Current datetime or POSIX timestamp from computer's clock. Datetimes from given timestamps
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+           curDatetime = getdate()
+           timeStamp = getdate("s")
+           dateTimes = getdate(timeStamps)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>curDatetime</term>
+                <listitem>
+                     <para>
+                        vector of integers with
+                        <table>
+                            <tr><td>Index</td>
+                                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                                <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                            </tr>
+                            <tr><td>Content</td>
+                                <th>year</th><th>month</th><th>week</th><th>yearday</th><th>weekday</th>
+                                <th>monthday</th><th>hour</th><th>minute</th><th>second</th><th>millisecond</th>
+                            </tr>
+                            <tr><td>Range</td>
+                                <td>≥ 1970</td><td>[1,12]</td><td>[1,53]</td><td>[1,366]</td><td>[1,7] 1=sunday</td>
+                                <td>[1,31]</td><td>[0,23]</td><td>[0,59]</td><td>[0,59]</td><td>[0,999]</td>
+                            </tr>
+                        </table></para>
+                            </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeStamp</term>
+                <listitem>
+                     <para>
+                        integer number of seconds elapsed since 1970-01-01 00:00:00 UTC,
+                        excluding leap seconds, as defined by the POSIX standard (see description).
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeStamps</term>
+                <listitem>
+                     <para>
+                        Array of positive decimal numbers representing POSIX timestamps.
+                        Negative timestamps are not accepted.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dateTimes</term>
+                <listitem>
+                     <para>
+                        length(timeStamps)-by-10 Matrix: The row #i elements are datetime data
+                        corresponding to timeStamps(i), as documented for <varname>curDatetime</varname>,
+                        except that <literal>dateTimes(:,10)</literal> are fractions of second in [0,1)
+                        instead of milliseconds. dateTimes are expressed in the current computer's time
+                        zone.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">getdate()</emphasis> returns the current datetime of the
+            computer's clock, expressed in the Gregorian calendar, and for the computer's
+            time zone + possible daylight saving offset.
+        </para>
+        <para>
+            Nowadays, most of computers are automatically synchronized with the legal time
+            for the considered time zone, through time servers. Legal datetimes are
+            synchronized on the Coordinated Universal Time (UTC), by a known time zone
+            (and daylight saving) offset.
+        </para>
+        <para>
+            <emphasis role="bold">getdate("s")</emphasis> reads the computer's clock
+            and returns the corresponding POSIX timestamp. This corresponds to the number
+            of seconds elapsed since 1970-01-01 00:00:00 UTC, except that leap seconds
+            are not counted. Hence, if <literal>n = getdate("s")</literal> is run at an
+            exact round hour, <literal>modulo(n, 3600)</literal> will return 0 instead
+            of <ulink url="http://en.wikipedia.org/wiki/Leap_second">cumulated leap seconds</ulink>
+            added since 1972 (27s, up to 2020).
+        </para>
+        <para>
+            <emphasis role="bold">getdate(timeStamps)</emphasis> returns the status of the
+            local computer's clock for the given POSIX time stamps, that may include fractional
+            seconds. If any, the computer's current Daylight Saving offset is never considered.
+            <literal>getdate(0)</literal> will return 1970-01-01 00:00:00
+            only if the clock is set for the time zone = 0. Otherwise, for instance for
+            Scilab users living in Bélem, Brazil, UTC-3, <literal>getdate(0)</literal> returns
+            1969-12-31 21:00:00, actually corresponding to 1970-01-01 00:00:00 POSIX.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+D = getdate()
+mprintf("%d-%02d-%02d %02d:%02d:%06.3f\n", D(1), D(2), D(6:8), D(9)+D(10)/1000);
+
+x = getdate("s");
+mprintf("%.2f\n", x)
+
+D = getdate(0)
+mprintf("%d-%02d-%02d %02d:%02d:%06.3f\n", D(1), D(2), D(6:8), D(9)+D(10)/1000);
+     ]]></programlisting>
+        <screen><![CDATA[
+--> D = getdate()
+ D  = 
+   2020.   7.   30.   208.   1.   26.   23.   8.   28.   474.
+
+--> mprintf("%d-%02d-%02d %02d:%02d:%06.3f\n", D(1), D(2), D(6:8), D(9)+D(10)/1000);
+2020-07-26 23:08:28.474
+
+--> x = getdate("s");
+--> mprintf("%.2f\n", x)
+1595797708.00
+
+--> D = getdate(0)
+ D  = 
+   1970.   1.   1.   1.   5.   1.   1.   0.   0.   0.
+
+--> mprintf("%d-%02d-%02d %02d:%02d:%06.3f\n", D(1), D(2), D(6:8), D(9)+D(10)/1000);
+1970-01-01 01:00:00.000
+]]></screen>
+        <para>
+            <literal>getdate("s") ignores leap seconds:</literal>
+        </para>
+        <programlisting role="example"><![CDATA[
+s = 1;
+// Expecting the next round minute @ your clock. Please be patient..
+while s <> 0
+    D = getdate();
+    x = getdate("s");
+    s = D(9);
+    sleep(300) // ms. To not use 100% of your processor
+end
+// If leap seconds are taken into account, they would appear here (27, in 2020):
+modulo(x, 60) 
+ ]]></programlisting>
+        <screen><![CDATA[
+--> modulo(x, 60)
+ ans  =
+   0.
+]]></screen>
+    <para/>
+        <programlisting role="example"><![CDATA[
+getdate([1e9, 2e9, 3e9] + 0.21) // Note the fractional seconds
+ ]]></programlisting>
+        <screen><![CDATA[
+--> getdate([1e9, 2e9, 3e9] + 0.21)
+ ans  =
+   2001.   9.   36.   252.   1.   9.    3.   46.   40.   0.21
+   2033.   5.   20.   138.   4.   18.   5.   33.   20.   0.21
+   2065.   1.   4.    24.    7.   24.   6.   20.   0.    0.21
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="calendar">calendar</link>
+            </member>
+            <member>
+                <link linkend="date">date</link>
+            </member>
+            <member>
+                <link linkend="clock">clock</link>
+            </member>
+            <member>
+                <link linkend="timer">timer</link>
+            </member>
+            <member>
+                <link linkend="datenum">datenum</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

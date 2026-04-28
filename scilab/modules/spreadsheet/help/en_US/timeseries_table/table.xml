@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="table" xml:lang="en">
+    <refnamediv>
+        <refname>table</refname>
+        <refpurpose>create a table from variables</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = table(var1, ..., varN)
+            t = table(m)
+            t = table(st)
+
+            t = table(..., OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>var1, ..., varN</term>
+                <listitem>
+                    <para>vector or matrix with the same number of rows.</para>
+                    <para>Each var can be different type: double, boolean, string, integers, 
+                        <link linkend="datetime">datetime</link>, <link linkend="duration">duration</link>,
+                         <link linkend="calendarDuration">calendarDuration</link> and cell.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>double, boolean, string, integers, datetime, duration or calendarDuration matrix</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>st</term>
+                <listitem>
+                    <para>structure</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"VariableNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        contains the name of each column of <literal>t</literal>. Default value: ["Var1", ..., "VarN"]
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"RowNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para>
+                        the row names for t. The names must be unique and their number must be equal to size(m, 1). 
+                        Default value: [].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>output argument - table object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            table is a data type used to store heterogeneous data. Each column of the table represents a variable, named VarN 
+            (N: column number) by default. Each variable in a table can have different data type. They must all have the 
+            same number of rows. Variable names are unique.
+        </para>
+        <para>
+            Regarding the extraction and insertion of data, a table is like a matrix: t(i,j) where i and j are indices.
+            In addition to indices, it is possible to use the names of variables and rows to access the data: t.Var1 or t("Var1") where 
+            "Var1" is a variable name; t("Row1", "Var1") where "Row1" is a row name and "Var1" is a variable name. It is also possible to 
+            mix indices and variable name or row name: t(1,["Var1", "Var3"]) or t("Row1", [1 3]). The data being generally heterogeneous, it will be
+            neccesary to use {} or table to insert data. If they are of the same type, the [] will preferred.
+        </para>
+        <para>
+            Use the <link linkend="readtable"/> function to create a table from a file. If data contains a timestamp, use the <link linkend="timeseries">timeseries</link> function instead.
+        </para>
+        <para>
+            <emphasis role="bold">t = table(var1, ..., varN)</emphasis> creates a table from the data variables <emphasis role="bold">var1, ..., varN</emphasis>.
+            The variables can be column vector or matrix with the same number of rows. Each var1, ..., varN can be different type.
+        </para>
+        <para>
+            <emphasis role="bold">t = table(m)</emphasis> creates a table from a matrix <emphasis role="bold">m</emphasis>.
+            This syntaxe corresponds to <emphasis role="bold">t = <link linkend="matrix2table"/>(st)</emphasis>.
+        </para>
+        <para>
+            <emphasis role="bold">t = table(st)</emphasis> creates a table from a structure <emphasis role="bold">st</emphasis>.
+            This syntaxe corresponds to <emphasis role="bold">t = <link linkend="struct2table"/>(st)</emphasis>.
+        </para>
+        <para>
+            <emphasis role="bold">t = table(..., OptionName, Value)</emphasis> can be used to specify the variable names or the row names.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">'VariableNames'</emphasis>: specify the name of variables. It is a row vector and the number of names 
+                must be equal the number of table variables. This data is stored in the properties of the table <emphasis role="bold">t</emphasis> in the 'VariableNames' field. 
+                For more information, see the Properties section below.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">'RowNames'</emphasis>: specify the name of rows. The number of names 
+                must be equal the number of table rows. This data is stored in the properties of the table <emphasis role="bold">t</emphasis> in the 'RowNames' field.
+                For more information, see the Properties section below.</para>
+                <para/>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Table Properties</title>
+        <para><emphasis role="bold">t</emphasis> contains several properties used to describe the index and the variables.</para>
+        <para>These properties can be accessed/modified by using <emphasis role="bold">Properties</emphasis> field of t. </para>
+        <para>Here is the list of available fields in <emphasis role="bold">t.Properties</emphasis>:</para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">Description</emphasis>: contains the description of the table. Default value: "".</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableNames</emphasis>: contains the variable names of the table. Default value: ["Var1", ..., "VarN"].</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableDescriptions</emphasis>: contains the variable descriptions of the table. One description by variable. Default value: "".</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableUnits</emphasis>: contains the variable units of the table. Default value: "".</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">RowNames</emphasis>: contains the row names of the table. Default value: ""</para>
+                <para/>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">t = table(var1, ..., varN) with var1, ..., varN are column vectors</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy)
+        
+        ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">t = table(var1, ..., varN, "VariableNames", Value)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+
+            t.Properties
+
+            // Add a description to the table
+            t.Properties.Description = "table of the 7 continents"
+
+            // Add variableunits to the table
+            t.Properties.VariableUnits(3) = "km2"
+            t.Properties.VariableUnits($) = "years"
+
+            t.Properties
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+  >     "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+
+ t = [7x5 table]
+
+   Code   NameContinent     Area     NumberCountry   LifeExpectancy
+   ____   _____________   ________   _____________   ______________
+                                                                   
+   AF     Africa          30065000   54              60            
+   NA     North America   24256000   23              78            
+   OC     Oceania         7687000    14              75            
+   AN     Antarctica      13209000   Nan             Nan           
+   AS     Asia            44579000   47              72            
+   EU     Europe          9938000    45              75            
+   SA     South America   17819000   12              74            
+
+--> t.Properties
+
+ ans = (props mlist) with fields:
+
+            Description: []
+          VariableNames: ['Code'  'NameContinent'  'Area'  'NumberCountry'  'LifeExpectancy']
+   VariableDescriptions: []
+          VariableUnits: []
+               RowNames: []
+
+--> t.Properties.Description = "table of the 7 continents"
+
+    // Add variableunits to the table
+--> t.Properties.VariableUnits(3) = "km2"
+--> t.Properties.VariableUnits($) = "years"
+
+--> t.Properties
+
+
+ ans = (props mlist) with fields:
+
+            Description: ['table of the 7 continents']
+          VariableNames: ['Code'  'NameContinent'  'Area'  'NumberCountry'  'LifeExpectancy']
+   VariableDescriptions: []
+          VariableUnits: [''  ''  'km2'  ''  'years']
+               RowNames: []
+
+            ]]></screen>
+        </para>
+        <para><emphasis role="bold">t = table(var1, ..., varN, "VariableNames", Value, "RowNames", Value)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+
+            t.Row
+            t.Row = Code
+            t.Code = [];
+            t(["NA", "SA"], :)
+
+            t = table(NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["NameContinent", "Area", "NumberCountry", "LifeExpectancy"], "RowNames", Code)
+            
+            t.Properties.RowNames
+            t("NA", ["NameContinent", "NumberCountry"])
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+  >     "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+
+ t = [7x5 table]
+
+   Code   NameContinent     Area     NumberCountry   LifeExpectancy
+   ____   _____________   ________   _____________   ______________
+                                                                   
+   AF     Africa          30065000   54              60            
+   NA     North America   24256000   23              78            
+   OC     Oceania         7687000    14              75            
+   AN     Antarctica      13209000   Nan             Nan           
+   AS     Asia            44579000   47              72            
+   EU     Europe          9938000    45              75            
+   SA     South America   17819000   12              74            
+
+--> t.Row
+
+ ans = 
+
+    []
+
+--> t.Row = Code
+
+ t = [7x5 table]
+
+         Code   NameContinent     Area     NumberCountry   LifeExpectancy
+         ____   _____________   ________   _____________   ______________
+                                                                         
+    AF   AF     Africa          30065000   54              60            
+    NA   NA     North America   24256000   23              78            
+    OC   OC     Oceania         7687000    14              75            
+    AN   AN     Antarctica      13209000   Nan             Nan           
+    AS   AS     Asia            44579000   47              72            
+    EU   EU     Europe          9938000    45              75            
+    SA   SA     South America   17819000   12              74            
+
+--> t.Code = [];
+
+--> t(["NA", "SA"], :)
+
+ ans = [2x4 table]
+
+         NameContinent     Area     NumberCountry   LifeExpectancy
+         _____________   ________   _____________   ______________
+                                                                  
+    NA   North America   24256000   23              78            
+    SA   South America   17819000   12              74            
+
+--> t = table(NameContinent, Area, NumberCountry, LifeExpectancy, ...
+  >     "VariableNames", ["NameContinent", "Area", "NumberCountry", "LifeExpectancy"], "RowNames", Code)
+
+ t = [7x4 table]
+
+         NameContinent     Area     NumberCountry   LifeExpectancy
+         _____________   ________   _____________   ______________
+                                                                  
+    AF   Africa          30065000   54              60            
+    NA   North America   24256000   23              78            
+    OC   Oceania         7687000    14              75            
+    AN   Antarctica      13209000   Nan             Nan           
+    AS   Asia            44579000   47              72            
+    EU   Europe          9938000    45              75            
+    SA   South America   17819000   12              74            
+
+--> t.Properties.RowNames
+
+ ans = [7x1 string]
+
+  "AF"
+  "NA"
+  "OC"
+  "AN"
+  "AS"
+  "EU"
+  "SA"
+
+--> t("NA", ["NameContinent", "NumberCountry"])
+
+ ans = [1x2 table]
+
+         NameContinent   NumberCountry
+         _____________   _____________
+                                      
+    NA   North America   23   
+            ]]></screen>
+        <programlisting role="example"><![CDATA[
+            names = {"a"; "b"; "c"}
+            id = [1;2;3]
+            scores = [50; 89; 65];
+            t = table(names, id, scores, "VariableNames", ["names", "id", "scores"])
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> t = table(names, id, scores, "VariableNames", ["names", "id", "scores"])
+
+ t = [3x3 table]
+
+   names   id    scores
+   _____   ___   ______
+                       
+   "a"     1     50    
+   "b"     2     89    
+   "c"     3     65    
+            ]]></screen>
+        </para>
+        <para><emphasis role="bold">Access to data in the table</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+            t.x1
+            t(["x1", "x2"])
+
+            t([1 3 5], 2)
+            t(6,:) = {"d", 2, -2}
+            t.x4 = (1:6)'
+        
+        ]]></programlisting>
+        <screen><![CDATA[
+--> t = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+
+ t = [5x3 table]
+
+    x     x1     x2 
+   ___   ____   ____
+                    
+   a     -0.5   -2.5
+   b     1.5    -3.5
+   b     -1.5   -2.5
+   c     -0.5   -3.5
+   a     1.5    0.5 
+
+--> t.x1
+
+ ans = [5x1 double]
+
+  -0.5
+   1.5
+  -1.5
+  -0.5
+   1.5
+
+--> t(["x1", "x2"])
+
+ ans = [5x2 double]
+
+  -0.5  -2.5
+   1.5  -3.5
+  -1.5  -2.5
+  -0.5  -3.5
+   1.5   0.5
+
+--> t([1 3 5], 2)
+
+ ans = [3x1 table]
+
+    x1 
+   ____
+       
+   -0.5
+   -1.5
+   1.5 
+
+--> t(6,:) = {"d", 2, -2}
+
+ t = [6x3 table]
+
+    x     x1     x2 
+   ___   ____   ____
+                    
+   a     -0.5   -2.5
+   b     1.5    -3.5
+   b     -1.5   -2.5
+   c     -0.5   -3.5
+   a     1.5    0.5 
+   d     2      -2  
+
+--> t.x4 = (1:6)'
+
+ t = [6x4 table]
+
+    x     x1     x2    x4 
+   ___   ____   ____   ___
+                          
+   a     -0.5   -2.5   1  
+   b     1.5    -3.5   2  
+   b     -1.5   -2.5   3  
+   c     -0.5   -3.5   4  
+   a     1.5    0.5    5  
+   d     2      -2     6  
+            ]]></screen>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="readtable">readtable</link>
+            </member>
+            <member>
+                <link linkend="writetable">writetable</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    Support for integers types added.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para><literal>table</literal> now accepts cells for variables.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org"  xml:id="cotd" xml:lang="en">
+    <refnamediv>
+        <refname>cotd</refname>
+        <refpurpose>element-wise cotangent function, argument in degree</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>y = cotd(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>a real array.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>a real array with same dimensions as
+                        <varname>x</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The entries of <varname>y</varname> are the cotangents of the
+            corresponding entries of <varname>x</varname> supposed to be given in
+            degree. <code>t=cos(x)./sin(x)</code>. For entries equal to
+            <literal>n*180</literal> with <literal>n</literal> integer, the results
+            are infinite, whereas <code>cotg(n*%pi)</code> is large but finite
+            because <constant>%pi</constant> cannot be represented exactly. For entries
+            equal to <literal>n*90</literal> with <literal>n</literal> integers and
+            odd the results are exactly <literal>0</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+cotd([30 45 60 90])
+cotd([-180 -90 0 90 180])
+ ]]></programlisting>
+    <screen><![CDATA[
+--> cotd([30 45 60 90])
+ ans  =
+   1.7320508   1.   0.5773503   0.
+
+--> cotd([-180 -90 0 90 180])
+ ans  =
+   Inf   0.   Inf   0.   Inf
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cotg">cotg</link>
+            </member>
+            <member>
+                <link linkend="coth">coth</link>
+            </member>
+            <member>
+                <link linkend="tan">tan</link>
+            </member>
+            <member>
+                <link linkend="tand">tand</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

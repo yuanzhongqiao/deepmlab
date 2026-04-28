@@ -1,0 +1,132 @@
+SEP #000: SEP template
+SEP #001: SEP definition
+SEP #002: Rewriting of the Scilab function dassl to match ODE profile
+SEP #003: Add of a build documentation function
+SEP #004: Making scilab function genlib returns information
+SEP #005: Add a function to convert old documentation XML to the current format
+SEP #006: An interface to CLP
+SEP #007: Object Oriented Programming under Scilab
+SEP #008: Writing Scilab function uigetfile
+SEP #009: Scipad / New function "Create help from files"
+SEP #010: montecarlo
+SEP #011: quasirandom
+SEP #012: Scipad / Add support for text encodings
+SEP #013: Add missing trigonometric functions
+SEP #014: OS Tag added in the JVM options configuration file
+SEP #015: Scilab Tree component
+SEP #016: anti aliasing
+SEP #017: add verbose option for dynamic link
+SEP #018: scilab new binaries (linux, mac)
+SEP #019: extend exit
+SEP #020: Sparse Matrices Algorithms
+SEP #021: Nelder-Mead Optimization Algorithm
+SEP #022: Sorting Algorithms
+SEP #023: Extend «diary()»
+SEP #024: Introduce an easy way to manage sub chapters in the documentation
+SEP #025: Extend "fileinfo" to manage a column vector as input argument
+SEP #026: Extend "strsplit" to manage a column vector as input argument
+SEP #027: Writing Scilab function uigetfile
+SEP #028: Creating a function returning the tlist and mlist field names
+SEP #029: Datatips
+SEP #030: Change of header files directory in the Scilab distribution (linux)
+SEP #031: Unit tests and submodules
+SEP #032: Dynamic Link includes
+SEP #033: POO
+SEP #034: Call Scilab Header renamed
+SEP #035: Selection of installed header
+SEP #036: Pretty Print
+SEP #037: Scilab Syntax
+SEP #038: Editvar & Browsevar
+SEP #039: MSDOS variable replaced by getos()
+SEP #040: Cell Arrays
+SEP #041: Select statement
+SEP #042: JavaSci V2
+SEP #043: parallel_run
+SEP #044: History Browser
+SEP #045: Xcos palette management
+SEP #046: sum/cumsum/prod/cumprod revision
+SEP #047: Scilab Desktop
+SEP #048: Scilab Preferences
+SEP #049: repmat function
+SEP #050: Xcos Help Folders
+SEP #051: Linear Programming
+SEP #053: tbx_build_block function
+SEP #054: Quality argument added to 'xs2jpg'
+SEP #055: ilib_include flag
+SEP #056: Add symetry option to 'nyquist' function
+SEP #057: comet/comet3d
+SEP #059: nyquistfrequencybounds
+SEP #060: CACSD frequency tools
+SEP #061: CSV read/write
+SEP #062: Add timeout option to 'host' function
+SEP #063: User block wizard
+SEP #064: HDF5 Scilab specification
+SEP #065: load and save based on HDF5
+SEP #066: Xcos compilation hooks
+SEP #067: lines() default value
+SEP #068: Tempname
+SEP #069: Extend predef to get protected variable names
+SEP #070: Xcos validation functions
+SEP #071: Modify atomsRemove to delete tarball
+SEP #072: Extend fullpath to manage matrix of string as input argument
+SEP #073: New convolution functions
+SEP #074: Atoms configuration files management
+SEP #075: New dec2base function
+SEP #076: atomsCheckModule function
+SEP #077: atomsQuit function
+SEP #078: nthroot function
+SEP #079: arma2ss function
+SEP #080: xcorr & xcov functions
+SEP #081: new argument for test_run to generate a xunit report
+SEP #082: eigs function
+SEP #083: example_run function
+SEP #084: fft improvements
+SEP #085: cond improvements
+SEP #086: Improvement of the regexp function
+SEP #087: New binaries: xcos scinotes
+SEP #088: Remote file access functions
+SEP #089: New argument added at routh_t function (normalized)
+SEP #090: New function to access to numerical data in HDF5 files
+SEP #091: New function daskr
+SEP #092: New special functions
+SEP #093: New function cov
+SEP #095: New functions: ismatrix, isrow, iscolumn and issquare
+SEP #096: cross function
+SEP #097: New argument added at strtod function (decimalseparator)
+SEP #098: New output argument for qp_solve function
+SEP #099: Matrices of strings as input argument for clear
+SEP #100: Extends history size
+SEP #101: File browser
+SEP #102: members function.
+SEP #103: Localization : allow multiple domains and add addlocalizationdomain function.
+SEP #104: New optional output argument for routh_t (num)
+SEP #105: Three new optional output arguments to optim().
+SEP #106: Error control in function intc.
+SEP #107: Add an xcosAddToolsMenu and xcosUpdateBlock to ease external tools integration.
+SEP #108: 3-D arrows with xarrows
+SEP #109: New input argument for neldermead_search(), to control warnings.
+SEP #110: New function histc and new output to histplot.
+SEP #111: New input argument to stdev. st_deviation and msd tagged as obsolete.
+SEP #112: variance and variancef can now return the mean of the input in a new output argument and take the a priori mean as input.
+SEP #113: resize_matrix hypermatrices support.
+SEP #114: New function jcreatejar.
+SEP #115: New function bode_asymp.
+SEP #116: conjgrad function, to regroup the Conjugate Gradient solvers. pcg obsolete as it is.
+SEP #117: New function ilib_build_jar
+SEP #118: New function ifftshift
+SEP #119: Management of encoding in xmlRead
+SEP #120: New function tbx_build_pal_loader
+SEP #121: New rect property for matplot handle
+SEP #122: Customized mark draw
+SEP #123: Grid improvements
+SEP #124: New input argument for csvRead(), to ignore header comments.
+SEP #125: New input argument to matfile_open to open Matlab 7.3 files.
+SEP #126: New function unwrap
+SEP #127: jmat tagged as obsolete. New input argument to flipdim to replace jmat.
+SEP #128: nanreglin.
+SEP #129: HTLM parsing functions.
+SEP #130: Replace obsolete numdiff and derivative with new function numderivative.
+SEP #131: Modified matfile2sci to have an new input argument overwrite to overwrite the output file
+SEP #132: Remove useless output argument err of add_param function.
+SEP #133: Implement profiling functions to output Scilab values
+SEP #134: Add `%foo_clear` overloading and implement it for External Objects Java

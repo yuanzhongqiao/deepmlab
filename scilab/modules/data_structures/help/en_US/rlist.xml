@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="rlist">
+    <refnamediv>
+        <refname>rlist</refname>
+        <refpurpose>Scilab rational fraction function definition</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [r] = rlist(N, D [,dom])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>N,D</term>
+                <listitem>
+                    <para>polynomial martices.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dom</term>
+                <listitem>
+                    <para>
+                        character string, or <literal>[]</literal> or a scalar.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>
+                        tlist ("r" list) representing the rational fraction.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>rlist(N, D, dom)</literal> is a shortcut  to
+            <literal>tlist(['r','num','den','dt'], N, D, dom)</literal>.
+        </para>
+        <para>
+            To correspond to the domain time of a linear system, <varname>dom</varname>
+            must be equal to <literal>'c'</literal>,<literal>'d'</literal>, <literal>[]</literal> or a scalar.
+            One the one hand, to be similar to functions as <link linkend="syslin">syslin</link>,
+            and on the other, to use some functions as <link linkend="tf2ss">tf2ss</link>, it
+            is necessary that <varname>dom</varname> is equal to these values.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+s=poly(0,'s');
+W=[1/s,1/(s+1)]
+W'*W
+Num=[s,s+2;1,s];
+Den=[s*s,s;s,s*s];
+rlist(Num,Den,[])
+
+H1=(1+2*s)/s^2;
+S1bis=syslin('c',H1)
+r=rlist(H1.num, H1.den, 'c')
+r == S1bis
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tlist">tlist</link>
+            </member>
+            <member>
+                <link linkend="syslin">syslin</link>
+            </member>
+            <member>
+                <link linkend="rational">rational</link>
+            </member>
+            <member>
+                <link linkend="tf2ss">tf2ss</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+            <title>History</title>
+            <revhistory>
+                <revision>
+                    <revnumber>6.1</revnumber>
+                    <revremark>rlist() removed.</revremark>
+                </revision>
+            </revhistory>
+    </refsection>
+</refentry>

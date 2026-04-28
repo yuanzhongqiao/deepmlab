@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * ...
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="pathconvert">
+    <refnamediv>
+        <refname>pathconvert</refname>
+        <refpurpose>converts a path to an OS path format.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          paths = pathconvert(paths)
+          paths = pathconvert(paths, flagtrail)
+          paths = pathconvert(paths, flagtrail, flagexpand)
+          paths = pathconvert(paths, flagtrail, flagexpand, type)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>paths</term>
+                <listitem>
+                    <para>a string matrix giving a set of file paths</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>flagtrail</term>
+                <listitem>
+                    <para>
+                        optional boolean, used to add a trailing file separator to the
+                        paths (<literal>\</literal> or <literal>/</literal>,
+                        depending on the target path format). Default value is true
+                        (<constant>%t</constant>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>flagexpand</term>
+                <listitem>
+                    <para>
+                        optional boolean, used to expand leading variables in paths.
+                        Default value is true (<constant>%t</constant>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>type</term>
+                <listitem>
+                    <para>
+                        optional string, used to specify the target path format: <literal>'u'</literal>
+                        for POSIX path format (GNU/Linux,...), and <literal>'w'</literal> for
+                        Windows path format.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <function>pathconvert</function> is used to convert a set of paths,
+            to be compatible with an OS (Operating System) path format.
+            For example Windows path style uses <literal>/</literal> for file separator,
+            while it is <literal>\</literal> on other OS.
+        </para>
+        <para>
+            By default, the paths are converted to the current OS path format (but another path
+            format can be specified with argument <varname>type</varname>).
+        </para>
+        <note>
+            When some Windows-like paths starting with a drive letter like "C:" are converted
+            to a non-Windows format, the drive letter is then converted using the
+            cygwin convention,  with the <literal>/cygdrive/</literal> header.
+            For example, <literal>C:\tmp</literal> will be converted to <literal>/cygdrive/C/tmp</literal>.
+        </note>
+        <para>
+            <varname>flagtrail</varname> is used to add or remove a file
+            separator (depending on the target path format) to the end
+            of paths. When the parameter is set to true, a trailing file
+            separator is added if missing. Otherwise, the trailing file
+            separators are removed.
+        </para>
+        <para>
+            <varname>flagexpand</varname> is used to expand the leading
+            Scilab environment variables in paths. The following
+            variables are accepted:
+            <itemizedlist>
+                <listitem>
+                    <constant>SCI</constant>
+                </listitem>
+                <listitem>
+                    <constant>WSCI</constant>
+                </listitem>
+                <listitem>
+                    <constant>SCIHOME</constant>
+                </listitem>
+                <listitem>
+                    <constant>TMPDIR</constant>
+                </listitem>
+                <listitem>
+                     <para><literal>home</literal> (or <literal>~</literal>)
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <caution>
+                <constant>WSCI</constant> is unknown on GNU/Linux and
+                <literal>~</literal> in term "path" is unknown on Windows.
+            </caution>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+pathconvert("SCI/modules/foo", %f, %t, "w")
+pathconvert("SCI\modules\foo", %f, %t, "u")
+pathconvert("SCI\modules\foo", %t, %t, "u")
+pathconvert("SCI/modules/foo", %f, %f, "w")
+pathconvert("SCI/modules/foo", %t, %f, "w")
+pathconvert("C:/tmp", %f, %f, "u")
+pathconvert("/cygdrive/c/tmp", %f, %f, "w")
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="basename">basename</link>
+            </member>
+            <member>
+                <link linkend="fileparts">fileparts</link>
+            </member>
+            <member>
+                <link linkend="listfiles">listfiles</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.2.0</revnumber>
+                <revremark>
+                    flagtrail=%f now removes existing trailing "/" or "\" separators.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

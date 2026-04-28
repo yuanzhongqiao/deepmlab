@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="pdist">
+    <refnamediv>
+        <refname>pdist</refname>
+        <refpurpose>Pairwise distances between observations</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            d = pdist(X)
+            d = pdist(X, metric)
+            d = pdist(X, metric, param)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>
+                        n x p real matrix containing n observations stored line-wise (rows) and p features stored column-wise.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>metric</term>
+                <listitem>
+                    <para>
+                        optional string selecting the distance metric to use. If omitted, the Euclidean distance is applied.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>param</term>
+                <listitem>
+                    <para>
+                        optional real argument that is only used with the <literal>"seuclidean"</literal>, <literal>"mahalanobis"</literal> and <literal>"minkowski"</literal> metrics (see Description).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>d</term>
+                <listitem>
+                    <para>
+                        a row vector containing the pairwise distances between all rows of <literal>X</literal>. The vector has length <literal>n * (n - 1) / 2</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>pdist</literal> computes the distance between every pair of observations (rows) of <literal>X</literal> and returns the result as a
+            condensed row vector. This format is convenient for linkage algorithms and any workflow that manipulates
+            inter-point distances without building the full symmetric matrix.
+        </para>
+        <para>
+            Possible values for metric names are (aliases are listed in parentheses):
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <literal>"euclidean"</literal> (<literal>"euclid"</literal>, <literal>"eu"</literal>, <literal>"e"</literal>): Euclidean (L2) distance.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"squaredeuclidean"</literal> (<literal>"sqeuclidean"</literal>, <literal>"sqe"</literal>, <literal>"sqeuclid"</literal>): squared L2 distance (no square root).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"seuclidean"</literal> (<literal>"se"</literal>, <literal>"s"</literal>): standardized Euclidean distance (each column is scaled).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"mahalanobis"</literal> (<literal>"mahal"</literal>, <literal>"mah"</literal>): Mahalanobis distance that accounts for covariance.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"cityblock"</literal> (<literal>"city"</literal>, <literal>"city block"</literal>, <literal>"cblock"</literal>, <literal>"cb"</literal>, <literal>"c"</literal>): city-block or Manhattan distance.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"minkowski"</literal> (<literal>"mi"</literal>, <literal>"m"</literal>): Minkowski distance of order <literal>param</literal>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"chebychev"</literal> (<literal>"chebyshev"</literal>, <literal>"cheby"</literal>, <literal>"cheb"</literal>, <literal>"ch"</literal>): Chebyshev (L∞) distance.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"cosine"</literal> (<literal>"cos"</literal>): cosine distance, defined as 1 minus the cosine similarity.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"correlation"</literal> (<literal>"co"</literal>): correlation distance, defined as 1 minus the sample correlation between the rows.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"hamming"</literal> (<literal>"hamm"</literal>, <literal>"ha"</literal>, <literal>"h"</literal>): Hamming distance, i.e. the fraction of positions with different values.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"jaccard"</literal> (<literal>"jacc"</literal>, <literal>"ja"</literal>, <literal>"j"</literal>): Jaccard distance for binary/bool-like data.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"canberra"</literal>: Canberra distance, sensitive to differences near zero.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"braycurtis"</literal>: Bray-Curtis dissimilarity.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            When <literal>metric</literal> is <literal>"seuclidean"</literal>, the <literal>param</literal> argument must be a 1 x p row vector that contains the scaling factors
+            (typically column-wise standard deviations). If it is omitted, <literal>stdev(X, "r")</literal> is computed automatically and zero entries are replaced by 1.
+        </para>
+        <para>
+            For <literal>"mahalanobis"</literal>, <literal>param</literal> must be a p x p covariance matrix. When it is omitted, <literal>pdist</literal> computes <literal>cov(X)</literal> 
+            and uses its inverse.
+        </para>
+        <para>
+            For <literal>"minkowski"</literal>, <literal>param</literal> must be a positive scalar that specifies the order of the Minkowski norm (defaults to 2).
+        </para>
+        <para>
+            Any value supplied in <literal>param</literal> for the other metrics is ignored (a warning is emitted).
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Euclidean distances between four 2-D points</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [0 0;
+                     1 0;
+                     0 2;
+                     1 2];
+
+                d = pdist(X)
+                // 1.000000 2.000000 2.236068 2.236068 2.000000 1.000000 
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Standardized Euclidean distance with custom scales</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [1 0 2;
+                     2 4 6;
+                     3 7 1];
+
+                scale = [0.5 2 1.5]; // one weight per column
+                d = pdist(X, "seuclidean", scale)
+                // 3.8873013 5.3567196 4.1666667
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="pdist2">pdist2</link>
+            </member>
+            <member>
+                <link linkend="dbscan">dbscan</link>
+            </member>
+            <member>
+                <link linkend="kmeans">kmeans</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

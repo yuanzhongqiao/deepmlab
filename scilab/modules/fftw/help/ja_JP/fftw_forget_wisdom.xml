@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2007 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="fftw_forget_wisdom">
+    <refnamediv>
+        <refname>fftw_forget_wisdom</refname>
+        <refpurpose>fftw wisdomをリセット</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>fftw_forget_wisdom()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            この関数は, カレントの fftw wisdom をリセットします.
+        </para>
+    </refsection>
+    <refsection>
+        <title>注意</title>
+        <para>
+            この関数は,
+            MKL intelライブラリを使用する
+            Scilabバージョンではなにもしません
+            (特にWindows用のScilab公式版).
+        </para>
+    </refsection>
+
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+//fftw wisdomを返す
+txt=get_fftw_wisdom();
+//fftw wisdomを設定
+set_fftw_wisdom(txt);
+//fftw wisdomをリセット
+fftw_forget_wisdom();
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="get_fftw_wisdom">get_fftw_wisdom</link>
+            </member>
+            <member>
+                <link linkend="set_fftw_wisdom">set_fftw_wisdom</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

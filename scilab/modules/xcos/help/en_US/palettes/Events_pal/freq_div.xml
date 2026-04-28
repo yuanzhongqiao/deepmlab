@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xml:id="freq_div" xml:lang="en_US">
+    <refnamediv>
+        <refname>freq_div</refname>
+        <refpurpose>Frequency division</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/freq_div.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_freq_div">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_freq_div">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_freq_div">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_freq_div">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_freq_div">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_freq_div">Example</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_freq_div">
+        <title>Description</title>
+        <para>
+            This block is a Super Block. The input event is directed once every n
+            times to output. The input is  driven by an event clock.
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_freq_div">
+        <title>Parameters</title>
+        <para>
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/gui/freq_div_gui.gif" align="center" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+                </imageobject>
+            </inlinemediaobject>
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Phase </emphasis>
+                </para>
+                <para> positive scalar.</para>
+                <para> Properties : Type 'vec' of size 1 </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Division factor</emphasis>
+                </para>
+                <para> an integer greater than 1.</para>
+                <para> Properties : Type 'vec' of size 1</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_freq_div">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 1
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 1
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">csuper</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Interfacingfunction_freq_div">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Events/freq_div.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Example_freq_div">
+        <title>Example</title>
+        <para>
+            The following example divides a frequency per three.
+        </para>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/events_pal/en_US/freq_div_en_US.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata fileref="../../../../examples/events_pal/en_US/freq_div_en_US.zcos" align="center"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+          <scilab:image><![CDATA[
+  importXcosDiagram(SCI + "/modules/xcos/examples/events_pal/en_US/freq_div_en_US.zcos");
+  xcos_simulate(scs_m, 4);
+]]></scilab:image>
+        </para>
+    </refsection>
+</refentry>

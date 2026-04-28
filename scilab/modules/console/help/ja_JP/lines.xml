@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2002 - INRIA
+ * Copyright (C) 2012 - DIGITEO - Allan CORNET
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+    *
+    -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="lines">
+    <refnamediv>
+        <refname>lines</refname>
+        <refpurpose>表示に使用される行および列</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            lines(nl)
+            lines(nl, nc)
+            lines(ncl)
+            ncl = lines()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>nl</term>
+                <listitem>
+                    <para>整数, 垂直方向のページ切替制御の行数.</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>0の場合,垂直方向のページ切替制御は行われません.</para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                -1の場合: 垂直ページング制御をウインドウの現在
+                                の大きさにリセット.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nc</term>
+                <listitem>
+                    <para>整数, 出力の列の数. 整形出力で使用されます</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ncl</term>
+                <listitem>
+                    <para>1x2 ベクトル [nc,nl]</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>lines</literal> はScilab表示ページ制御を処理します.
+        </para>
+        <para>
+            <literal>lines()</literal> は結果の表示用にScilabにより現在使用されている
+            ベクトル <literal>[# columns, # rows]</literal>を返します.
+        </para>
+        <para>
+            <literal>lines(nl)</literal> は,(moreとユーザに聞くまでの)表示行の数を
+            <literal>nl</literal>に設定します.
+        </para>
+        <para>
+            <literal>lines(0)</literal> は垂直ページ制御を無効にします
+        </para>
+        <para>
+            <literal>lines(nl,nc)</literal> は
+            出力の大きさを<literal>nc</literal>列にも変更します.
+        </para>
+        <para>
+            Scilabが-nwオプションを指定せずに起動された場合,
+            <literal>lines</literal>パラメータは出力ウインドウの大きさに
+            基づき自動的に設定されます.
+            これらのパラメータはウインドウの大きさが変更された場合にも
+            自動的に修正されます.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+lines(0,100)
+rand(2,8)
+
+lines(0,65)
+rand(2,8)
+   ]]></programlisting>
+      <screen><![CDATA[
+--> lines(0,100)
+--> rand(2,8)
+ ans  =
+   0.2113249   0.0002211   0.6653811   0.8497452   0.8782165   0.5608486   0.7263507   0.5442573
+   0.7560439   0.3303271   0.6283918   0.685731    0.068374    0.6623569   0.1985144   0.2320748
+
+--> lines(0,65)
+--> rand(2,8)
+ ans  =
+         column 1 to 5
+   0.2312237   0.8833888   0.3076091   0.2146008   0.3616361
+   0.2164633   0.6525135   0.9329616   0.312642    0.2922267
+
+         column 6 to 8
+   0.5664249   0.3321719   0.5015342
+   0.4826472   0.5935095   0.4368588
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="mode">mode</link>
+            </member>
+            <member>
+                <link linkend="format">format</link>
+            </member>
+            <member>
+                <link linkend="disp">disp</link>
+            </member>
+            <member>
+                <link linkend="print">print</link>
+            </member>
+            <member>
+                <link linkend="clc">clc</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>lines はデフォルトで 0に設定されます.
+                                引数 -1 が追加されます.
+                                詳細については, SEP #67 を参照ください.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                lines は,
+                                入力引数として 1x2 ベクトル [nc, nl] を管理します.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

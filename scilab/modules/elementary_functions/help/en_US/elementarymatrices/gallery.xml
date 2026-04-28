@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="gallery">
+    <refnamediv>
+        <refname>gallery</refname>
+        <refpurpose>generate test matrices</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            g = gallery(name, n1, ..., nn)
+
+            g = gallery(3)
+            g = gallery(5)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>
+                        matrix name available in the following list: <literal>"cauchy"</literal>, <literal>"circul"</literal>, 
+                        <literal>"minij"</literal>, <literal>moler</literal> and <literal>"ris</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n1, ..., nn</term>
+                <listitem>
+                    <para>
+                        double, scalars or vectors depend on the <literal>name</literal> of matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>g</term>
+                <listitem>
+                    <para>
+                        generated matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">g = gallery(name, n1, ..., nn)</emphasis> generates a <literal>name</literal> matrix. <literal>n1, ..., nn</literal> arguments 
+            depend on the generated matrix (see *name* matrix sections below for more details).
+        </para>
+        <para>
+            <emphasis role="bold">g = gallery(3)</emphasis> is a badly conditioned 3-by-3 matrix.
+        </para>
+        <para>
+            <emphasis role="bold">g = gallery(5)</emphasis> creates a 5-by-5 matrix with an interesting eigenvalue problem.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Cauchy matrix</title>
+            <para>
+                <emphasis role="bold">g = gallery("cauchy", x [, y])</emphasis> creates a n-by-n Cauchy matrix. <literal>x</literal> and <literal>y</literal> are vectors of length n. If <literal>x</literal> is scalar, then it 
+                will be interpreted as <literal>1:x</literal> (same behavior for <literal>y</literal>).
+            </para>
+            <para>
+                The Cauchy matrix is defined by g(i,j) = 1/(x(i) + y(j)).
+            </para>
+            <para>
+                <literal>g = gallery("cauchy", x)</literal> computes g(i,j) = 1/(x(i) + x(j)).
+            </para> 
+    </refsection>
+    <refsection>
+        <title>Circulant matrix</title>
+        <para>
+            <emphasis role="bold">g = gallery("circul", x)</emphasis> creates a n-by-n Circulant matrix whose first row is given by x. <literal>x</literal> is vector of length n. If <literal>x</literal> is scalar, then it 
+            will be interpreted as <literal>1:x</literal>.
+        </para>
+        <para>
+            A circulant matrix is a square matrix whose each row is obtained from the previous one by circular permutation (right shift): 
+        </para>
+        <para>
+            <latex>g = \begin{bmatrix} x_1 \ \ x_2 \ \ x_3 \ \ ... \ \ x_{n-1} \ \ x_n 
+                \\ x_n \ \ x_1 \ \ x_2 \ \ ... \ \ x_{n-2} \ \ x_{n-1}
+                \\ x_{n-1} \ \ x_n \ \ x_1 \ \ ... \ \ x_{n-3} \ \ x_{n-2} 
+                \\ ... \ \ ... \ \ ... \ \ ... \ \ ... \ \ ...
+                \\ x_2 \ \ x_3  \ \ ... \ \ x_{n-1} \ \ x_n \ \ x_1 \end{bmatrix}
+            </latex>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Minij matrix</title>
+            <para>
+                <emphasis role="bold">g = gallery("minij", n)</emphasis> creates a n-by-n Minij matrix. This matrix is symmetric positive definite matrix with 
+                <literal>g(i,j) = min(i,j)</literal>.
+            </para> 
+    </refsection> 
+    <refsection>
+        <title>Moler matrix</title>
+            <para>
+                <emphasis role="bold">g = gallery("moler", n)</emphasis> creates a n-by-n Moler matrix. This matrix is symmetric positive definite matrix with 
+                <literal>g(i,j) = min(i,j)- 2</literal> and <literal>g(i,i) = i</literal>.
+            </para> 
+    </refsection>  
+    <refsection>
+        <title>Ris matrix</title>
+            <para>
+                <emphasis role="bold">g = gallery("ris", n)</emphasis> creates a n-by-n Ris matrix. This matrix is symmetric n-by-n Hankel matrix with 
+                <literal>g(i,j) = 0.5/(n - i - j + 1.5)</literal>. Its eigenvalues have the property of clustering near +/- pi/2.
+            </para> 
+    </refsection>   
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <emphasis role="bold">Cauchy matrix</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                g = gallery("cauchy", 3)
+                g = gallery("cauchy", 1:3, 2:4)
+            ]]></programlisting>
+            <screen><![CDATA[
+--> g = gallery("cauchy", 3)
+
+ g = [3x3 double]
+
+   0.5         0.3333333   0.25     
+   0.3333333   0.25        0.2      
+   0.25        0.2         0.1666667
+
+--> g = gallery("cauchy", 1:3, 2:4)
+
+ g = [3x3 double]
+
+   0.3333333   0.25        0.2      
+   0.25        0.2         0.1666667
+   0.2         0.1666667   0.1428571
+   ]]></screen>
+        </para>
+        <para>
+            <emphasis role="bold">Circulant matrix</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                g = gallery("circul", 5)
+                g = gallery("circul", [4 8 -1])
+            ]]></programlisting>
+            <screen><![CDATA[
+--> g = gallery("circul", 5)
+
+ g = [5x5 double]
+
+   1.   2.   3.   4.   5.
+   5.   1.   2.   3.   4.
+   4.   5.   1.   2.   3.
+   3.   4.   5.   1.   2.
+   2.   3.   4.   5.   1.
+
+--> g = gallery("circul", [4 8 -1])
+
+ g = [3x3 double]
+
+   4.   8.  -1.
+  -1.   4.   8.
+   8.  -1.   4.
+              ]]></screen>  
+        </para>
+        <para>
+            <emphasis role="bold">Minij matrix</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                g = gallery("minij", 5)
+            ]]></programlisting>
+            <screen><![CDATA[
+--> g = gallery("minij", 5)
+
+ g = [5x5 double]
+
+   1.   1.   1.   1.   1.
+   1.   2.   2.   2.   2.
+   1.   2.   3.   3.   3.
+   1.   2.   3.   4.   4.
+   1.   2.   3.   4.   5.
+              ]]></screen>  
+        </para>
+        <para>
+            <emphasis role="bold">Moler matrix</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                g = gallery("moler", 5)
+            ]]></programlisting>
+            <screen><![CDATA[
+--> gallery("moler", 5)
+
+ ans = [5x5 double]
+
+   1.  -1.  -1.  -1.  -1.
+  -1.   2.   0.   0.   0.
+  -1.   0.   3.   1.   1.
+  -1.   0.   1.   4.   2.
+  -1.   0.   1.   2.   5.
+              ]]></screen>  
+        </para>
+        <para>
+            <emphasis role="bold">Ris matrix</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                g = gallery("ris", 3)
+            ]]></programlisting>
+            <screen><![CDATA[
+--> g = gallery("ris", 3)
+
+ g = [3x3 double]
+
+   0.2         0.3333333   1.       
+   0.3333333   1.         -1.       
+   1.         -1.         -0.3333333
+              ]]></screen>  
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="toeplitz">toeplitz</link>
+            </member>
+            <member>
+                <link linkend="hilbm">hilbm</link>
+            </member>
+            <member>
+                <link linkend="invhilb">invhilb</link>
+            </member>
+            <member>
+                <link linkend="magic">magic</link>
+            </member>
+            <member>
+                <link linkend="vander">vander</link>
+            </member>
+            <member>
+                <link linkend="frank">frank</link>
+            </member>
+            <member>
+                <link linkend="pascal">pascal</link>
+            </member>
+            <member>
+                <link linkend="hankel">hankel</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revdescription>
+                    <para>Minij and Moler matrices added.</para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

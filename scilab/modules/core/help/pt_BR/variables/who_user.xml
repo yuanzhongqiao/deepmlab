@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="who_user" xml:lang="pt">
+    <refnamediv>
+        <refname>who_user</refname>
+        <refpurpose>listagem das variáveis do usuário</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title> Seqüência de Chamamento </title>
+        <synopsis>who_user()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>who_user</literal> exibe os nomes das variáveis do usuário.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="code_scilab"><![CDATA[
+clear
+who_user()
+who_user(%t)
+who_user(%f)
+a = 1;
+b = 2;
+who_user()
+who_user(%t)
+who_user(%f)
+      ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="whos">whos</link>
+            </member>
+            <member>
+                <link linkend="who">who</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    <function>who_user</function> can now return user's
+                    variable names in a column vector of character strings.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

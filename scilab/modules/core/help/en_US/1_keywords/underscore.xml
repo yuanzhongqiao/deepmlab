@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="underscore">
+    <refnamediv xml:id="_">
+        <refname>underscore _</refname>
+        <refpurpose>ignored output argument. <literal>gettext()</literal> alias</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The symbol named <literal>_</literal> is treated as a special variable used to assign to nothing.
+        </para>
+        <para>
+            When calling a function or extracting some values, it is sometimes necessary to skip an output argument. If a variable is named <literal>_</literal> the output value will not be assigned.
+        </para>
+        <warning>
+            <para>
+                By default and for compatibility, <literal>_()</literal> is also an alias to <link linkend="gettext">gettext()</link>.
+            </para>
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// only output commands, the 2nd output argument
+[_, commands] = what()
+
+// multiple list assignment is also supported
+[a, _, _, d] = list(1,2,3,4)(:)
+
+// this is also available to user-defined functions
+function [a, b, c, d] = myFunc()
+  a = 1
+  b = 2
+  c = 3
+  d = 4
+endfunction
+
+[a, b, _, d] = myFunc()
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="functions">functions</link>
+            </member>
+            <member>
+                <link linkend="names">names</link>
+            </member>
+            <member>
+                <link linkend="symbols">symbols</link>
+            </member>
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

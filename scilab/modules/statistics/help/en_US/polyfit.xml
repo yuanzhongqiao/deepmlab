@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="polyfit">
+    <refnamediv>
+        <refname>polyfit</refname>
+        <refpurpose>Polynomial curve fitting</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            p = polyfit(x, y, n [,w])
+            [p, S] = polyfit(x, y, n [,w])
+            [p, S, mu] = polyfit(x, y, n [,w])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        real or complex vector/matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        real or complex vector/matrix. <literal>y</literal> must have the same size as <literal>x</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        an integer, n>=0. It is a degree of the fitting polynomial. Or a polynom. 
+                        In the case, <literal>polyfit</literal> extracts the degree of polynom and returns a polynom containing the coefficients.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>w</term>
+                <listitem>
+                    <para>
+                        real vector/matrix, the weights to apply to each <literal>y</literal> value. Default value: ones(x).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>
+                        a <varname>1</varname> x <varname>n+1</varname> real or complex vector or polynom, the polynomial coefficients
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>S</term>
+                <listitem>
+                    <para>
+                        a structure containing the following fields:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>R</term>
+                            <listitem>
+                                <para>
+                                    a matrix of doubles, the triangular factor R form the <link linkend="qr">qr</link> decomposition
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>df</term>
+                            <listitem>
+                                <para>
+                                    a real, the degrees of freedom
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>normr</term>
+                            <listitem>
+                                <para>
+                                    a real, the norm of the residuals
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mu</term>
+                <listitem>
+                    <para>
+                        a <varname>1</varname> x <varname>2</varname> vector. <literal>mu(1)</literal> is 
+                        <literal>mean(x)</literal> and <literal>mu(2)</literal> is <literal>stdev(x)</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">p = polyfit(x, y, n)</emphasis> returns a vector of coefficients of a polynomial <literal>p(x)</literal> 
+            of degree <literal>n</literal>: 
+        </para>
+        <para>
+            <latex>
+            p(x) = p_1 x^n + p_2 x^{n-1} + ... + p_n x + p_{n+1}.
+            </latex>
+        </para>
+        <para>Depending on the type of <literal>n</literal>, <literal>p</literal> will be a real or complex vector or a polynom.</para>
+        <para><literal>p</literal> can be used with <link linkend="polyval">polyval</link> function to evaluate the polynomial at the data points.</para>
+        <para>
+            <emphasis role="bold">[p, S] = polyfit(x, y, n)</emphasis> returns a vector of coefficients of a polynomial and a structure 
+            <literal>S</literal> that can be used with <link linkend="polyval">polyval</link> to compute the estimated error of the predicted values.
+        </para>
+        <para>
+            <emphasis role="bold">[p, S, mu] = polyfit(x, y, n)</emphasis> returns a third output argument <literal>mu</literal> 
+            containing [mean(x), stdev(x)]. <literal>x</literal> is centered at zero and scaled to have unit standard deviation.
+        </para>
+        <para><emphasis role="bold">p = polyfit(x, y, n, w)</emphasis> specifies weights to apply to each <literal>y</literal> value.</para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>Some examples use <link linkend="lambda">lambda</link> functions.</para>
+        <para>
+            <emphasis role="bold">example 1 - p = polyfit(x, y, n)</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                x = 1:5;
+                // Use lambda function
+                y = #(x) -> (-2*x.^4 + x.^3 - 5 * x.^2 + 6 *x -2);
+                p = polyfit(x, y(x), 3)
+                
+                xx = linspace(1, 5, 100);
+                yy = polyval(p, xx);
+
+                plot(x, y(x), "b.", "thickness", 2);
+                plot(xx, yy, "r");
+            ]]></programlisting>
+            <scilab:image>
+                x = 1:5;
+                // Use lambda function
+                y = #(x) -> (-2*x.^4 + x.^3 - 5 * x.^2 + 6 *x -2);
+                p = polyfit(x, y(x), 3)
+                
+                xx = linspace(1, 5, 100);
+                yy = polyval(p, xx);
+
+                plot(x, y(x), "b.", "thickness", 2);
+                plot(xx, yy, "r");
+            </scilab:image>
+        </para>
+        <para>
+            <emphasis role="bold">example 2 - p = polyfit(x, y, n) with n a polynom</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                function r = y(x)
+                    r = -2*x.^4 + x.^3 - 5 * x.^2 + 6 *x -2;
+                endfunction
+
+                x = 1:5;
+                p = polyfit(x, y(x), %s^3)
+                
+                xx = linspace(1, 5, 100);
+                yy = polyval(p, xx);
+
+                plot(x, y(x), "b.", "thickness", 2);
+                plot(xx, yy, "r");
+            ]]></programlisting>
+            <scilab:image>
+                function r = y(x)
+                    r = -2*x.^4 + x.^3 - 5 * x.^2 + 6 *x -2;
+                endfunction
+
+                x = 1:5;
+                p = polyfit(x, y(x), %s^3)
+                
+                xx = linspace(1, 5, 100);
+                yy = polyval(p, xx);
+
+                plot(x, y(x), "b.", "thickness", 2);
+                plot(xx, yy, "r");
+            </scilab:image>
+        </para>
+        <para>
+            <emphasis role="bold">example 3 - [p, S, mu] = polyfit(x, y, n)</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                x = 0:10;
+                // Use lambda function
+                y = #(x) -> (x.^3 - 3*x + 2);
+
+                [p, S, mu] = polyfit(x, y(x), 2)
+                
+                xx = linspace(0, 10, 100);
+                yy = polyval(p, xx, S, mu);
+
+                plot(x, y(x), "b.", "thickness", 2);
+                plot(xx, y(xx), "g");
+                plot(xx, yy, "r");
+
+            ]]></programlisting>
+            <scilab:image>
+                x = 0:10;
+                // Use lambda function
+                y = #(x) -> (x.^3 - 3*x + 2);
+
+                [p, S, mu] = polyfit(x, y(x), 2)
+                
+                xx = linspace(0, 10, 100);
+                yy = polyval(p, xx, S, mu);
+
+                plot(x, y(x), "b.", "thickness", 2);
+                plot(xx, y(xx), "g");
+                plot(xx, yy, "r");
+            </scilab:image>
+        </para>
+        <para>
+            <emphasis role="bold">example 4 - p = polyfit(x, y, n, w)</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                x = [1 1.5 2.1 3.3 4 6];
+                y = 39 *x - [22 28 12 20 -2 22];
+                w = [1 0.25 0.11 0.8 0.2 1]
+
+                p = polyfit(x,y,1)
+                pw = polyfit(x,y,1,w)
+
+                xx = 1:6;
+                yy = polyval(p, xx); // unweighted
+                yyw = polyval(pw, xx); // weighted
+
+                plot(x, y, ".")
+                plot(xx, yy, "k")
+                plot(xx, yyw, "r")
+
+                legend(["data"; "unweighted"; "weight"], "in_upper_left")
+
+            ]]></programlisting>
+            <scilab:image>
+                x = [1 1.5 2.1 3.3 4 6];
+                y = 39 *x - [22 28 12 20 -2 22];
+                w = [1 0.25 0.11 0.8 0.2 1]
+
+                p = polyfit(x,y,1)
+                pw = polyfit(x,y,1,w)
+
+                xx = 1:6;
+                yy = polyval(p, xx); // unweighted
+                yyw = polyval(pw, xx); // weighted
+
+                plot(x, y, ".")
+                plot(xx, yy, "k")
+                plot(xx, yyw, "r")
+
+                legend(["data"; "unweighted"; "weight"], "in_upper_left")
+            </scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="vander">vander</link>
+            </member>
+            <member>
+                <link linkend="polyval">polyval</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        Weights (<literal>w</literal>) for <literal>y</literal> values are now managed.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

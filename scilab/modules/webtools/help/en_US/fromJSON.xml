@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2017 - ESI-Group
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="fromJSON">
+    <refnamediv>
+        <refname>fromJSON</refname>
+        <refpurpose>
+            Convert JSON to a Scilab variable.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = fromJSON(jsonData)
+            result = fromJSON(jsonFilename, "file")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>jsonData</term>
+                <listitem>
+                     <para>
+                        A string containing JSON data.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>jsonFilename</term>
+                <listitem>
+                     <para>
+                        A JSON file path.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                     <para>
+                        If the string is a correct JSON, the result contains the Scilab variable.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function converts a string or a JSON file into a Scilab variable.
+            <literal>NaN</literal>, <literal>Infinity</literal> and <literal>-Infinity</literal> are converted to <literal>%nan</literal>, <literal>%inf</literal> and <literal>-%inf</literal>.
+            JSON <literal>null</literal> is converted to an empty matrix <literal>[]</literal> while it is converted to <literal>%nan</literal> in number arrays.
+            Non-homogeneous data types or size arrays are converted into a list of elements.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// JSON object
+fromJSON("{""status"": ""OK"", ""value"":12}")
+// JSON array
+fromJSON("[1, 2, 3]")
+// JSON null values
+fromJSON("[1, 2, null]")
+fromJSON("[1, true, null]")
+// non-finite values
+fromJSON("[NaN, Infinity, -Infinity]")
+ ]]></programlisting>
+ <screen><![CDATA[
+--> // JSON object
+--> fromJSON("{""status"": ""OK"", ""value"":12}")
+
+ ans = [struct] with fields:
+
+  status = "OK"
+  value = 12
+
+--> // JSON array
+--> fromJSON("[1, 2, 3]")
+
+ ans = [1x3 double]
+
+   1.   2.   3.
+
+--> // JSON null values
+--> fromJSON("[1, 2, null]")
+
+ ans = [1x3 double]
+
+   1.   2.   Nan
+
+--> fromJSON("[1, true, null]")
+
+ ans = (3-elements list)
+
+  (1) = 1
+  (2) = %t
+  (3) = []
+
+--> // non-finite values
+--> fromJSON("[NaN, Infinity, -Infinity]")
+
+ ans = [1x3 double]
+
+   Nan   Inf  -Inf   
+    ]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="http_post">http_post</link>
+            </member>
+            <member>
+                <link linkend="http_put">http_put</link>
+            </member>
+            <member>
+                <link linkend="http_patch">http_patch</link>
+            </member>
+            <member>
+                <link linkend="http_delete">http_delete</link>
+            </member>
+            <member>
+                <link linkend="http_upload">http_upload</link>
+            </member>
+            <member>
+                <link linkend="toJSON">toJSON</link>
+            </member>
+            <member>
+                <link linkend="http_get">http_get</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revremark>
+                    Function introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>
+                    Handling of tabs (ascii(9)) changed.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>NaN</literal>, <literal>-Infinity</literal> and <literal>Infinity</literal> values are now managed.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,23 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Vincent COUVERT
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- Non-regression test for bug 140 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/140
+//
+// <-- Short Description -->
+//     4th input is invalid (waiting for real or complex matrix) seems to be a bug
+
+
+zaehler=poly([0,0,1],"z","coeff");
+nenner=poly([1.3435,0.855],"z","coeff");
+sys=syslin("d",zaehler./nenner);
+execstr("plzr(sys);", "errcatch");
+
+[msg, num, x, y] = lasterror();
+if (msg<>msprintf(gettext("%s: Wrong type for input argument #%d: Array of floating point numbers expected.\n"),"plzr",4)) | (num<>10000) then pause, end

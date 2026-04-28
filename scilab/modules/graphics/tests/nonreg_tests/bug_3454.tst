@@ -1,0 +1,101 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// <-- Non-regression test for bug 3454 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/3454
+//
+// <-- Short Description -->
+// figure.axes_size and figure.figure_size might not be updated immediately.
+//
+
+// Test 1 : axes_size, auto_resize = "on"
+// ===========================
+
+// Create a default figure
+my_figure = scf();
+clf(my_figure,"reset");
+
+// Get default values
+my_default_figure_size = my_figure.figure_size;
+my_default_axes_size   = my_figure.axes_size;
+
+// auto_resize = "on"
+my_figure.auto_resize = "on";
+my_figure.axes_size = my_default_axes_size + 200;
+if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then pause; end
+if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then pause; end
+
+// Delete
+delete(my_figure);
+
+
+// Test 2 : axes_size, auto_resize = "off"
+// ============================
+
+// Create a default figure
+my_figure = scf();
+clf(my_figure,"reset");
+
+// Get default values
+my_default_figure_size = my_figure.figure_size;
+my_default_axes_size   = my_figure.axes_size;
+
+// auto_resize = "on"
+my_figure.auto_resize = "off";
+my_figure.axes_size = my_default_axes_size + 200;
+if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then pause; end
+if or( my_figure.figure_size <> my_default_figure_size) then pause; end
+
+// Delete
+delete(my_figure);
+
+
+// Test 3 : figure_size, auto_resize = "on"
+// ===========================
+
+// Create a default figure
+my_figure = scf();
+clf(my_figure,"reset");
+
+// Get default values
+my_default_figure_size = my_figure.figure_size;
+my_default_axes_size   = my_figure.axes_size;
+
+// auto_resize = "on"
+my_figure.auto_resize = "on";
+my_figure.figure_size = my_default_figure_size + 200;
+sleep(200);//Wait for MVC update
+if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then pause; end
+if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then pause; end
+
+// Delete
+delete(my_figure);
+
+
+// Test 4 : figure_size, auto_resize = "off"
+// ============================
+
+// Create a default figure
+my_figure = scf();
+clf(my_figure,"reset");
+
+// Get default values
+my_default_figure_size = my_figure.figure_size;
+my_default_axes_size   = my_figure.axes_size;
+
+// auto_resize = "on"
+my_figure.auto_resize = "off";
+my_figure.figure_size = my_default_figure_size + 200;
+if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then pause; end
+if or( my_figure.axes_size   <> my_default_axes_size ) then pause; end
+
+// Delete
+delete(my_figure);

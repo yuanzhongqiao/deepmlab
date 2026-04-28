@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) DIGITEO - 2012 - Allan CORNET
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="string" xml:lang="en">
+    <refnamediv>
+        <refname>string</refname>
+        <refpurpose>conversion to character string</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            text = string(x)
+            [out, in, text] = string(SciFun)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        Any Scilab variable type.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>SciFun</term>
+                <listitem>
+                    <para>
+                        a function in Scilab language (type 13, not its name as a string).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <function>string</function> function converts a matrix <varname>x</varname> into a matrix of strings (eg. text).
+        </para>
+        <para>
+            If <varname>SciFun</varname> is a function, <literal>[out,in,text] = string(SciFun)</literal>
+            returns three vectors of strings:
+            <itemizedlist>
+                <listitem>
+                     <para><varname>out</varname> is the row vector of names of its output variables,
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><varname>in</varname> is the row vector of names of its input variables, and
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><varname>text</varname> is the column vector of the source code of the function.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            If <varname>x</varname> is a <literal>lib</literal> variable
+            (library), <varname>text</varname> is a character string column vector. The first element
+            contains the path of library file and the other the name of functions it defines.
+        </para>
+        <warning>
+            For any complex, real, integer, polynomial or rational input, the format of literal
+            numbers output from <function>string(..)</function> is managed by the
+            <link linkend="format">format</link> function (see examples).
+        </warning>
+        <para>
+            Note that string([]) returns [] (unchanged).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            string(rand(2, 2))
+
+            deff("y = mymacro(x)", "y = x + 1")
+            [out, in, text] = string(mymacro)
+            x = 123.356;
+            disp("Result is " + string(x));
+
+            disp("/" + string(~%t) + "/");
+            disp("/" + string(%i+1) + "/");
+            disp("/" + string(int16(-123)) + "/");
+            disp("/" + string(1 + %s + %s^3) + "/");
+
+            string(corelib)
+
+            v = format();
+            disp(string(%pi))
+            format(24);
+            disp(string(%pi))
+            format(v(2))
+
+            string(1:4:$)
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strings"/>
+            </member>
+            <member>
+                <link linkend="format">format</link>
+            </member>
+            <member>
+                <link linkend="sci2exp">sci2exp</link>
+            </member>
+            <member>
+                <link linkend="msprintf">msprintf</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="strtod">strtod</link>
+            </member>
+            <member>
+                <link linkend="csvTextScan">csvTextScan</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    Input of implicitlist typeof accepted.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    list, cell and struct accepted.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

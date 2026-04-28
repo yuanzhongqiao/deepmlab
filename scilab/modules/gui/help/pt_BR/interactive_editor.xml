@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="pt" xml:id="ieditor">
+    <refnamediv>
+        <refname>Editor Interativo</refname>
+        <refpurpose>Interactive plot editor</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            O editor interativo adiciona novas funcionalidades ao scilab, agora o usuário pode
+            interagir com a janela de plot e os objetos graficos sem usar uma única linha de código.
+        </para>
+        <para>
+            O editor interativo de plot fornece as seguintes funcionalidades:
+        </para>
+        <para>
+            Menu de Edição:
+        </para>
+        <para>
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../images/editor_menu.png"/>
+                </imageobject>
+            </inlinemediaobject>
+        </para>
+        <itemizedlist>
+            <listitem>
+                 <para>
+                    O usuírio pode selecionar curvas, superfícies e legendas na janela de plot.
+                    </para>
+                </listitem>
+            <listitem>
+                 <para>
+                    Entidades selecionadas podem ser copiadas ou recortadas e coladas
+                    em outras figuras (exceto legendas).
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    As propriedades dos eixos podem ser copiadas e coladas de uma figura para outra
+                    para facilitar a formatação.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    A figura pode ser copiada par a área de transferência do sistema, e colada em
+                    outros programas (como editores de texto e imagens que suportem).
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    Deleta a entidade selecionada.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    Permite ao usuários ocultar a entidade selecionada e reexibir todas as entidades ocultas.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    Quase todas as ações feitas com o editor podem ser desfeitas/refeitas.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                        Rotulos
+                    </para>
+                    <para>
+                        Com o simples click do botão direito o usuário pode inserir rotulos nos eixos,
+                        e com um click duplo sobre o texto de um rotulo abrir uma caixa de diálogo
+                        para editar o texto do mesmo.
+                    </para>
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="../images/editor_edit_label.png"/>
+                        </imageobject>
+                    </inlinemediaobject>
+                </listitem>
+    
+                <listitem>
+                     <para>
+                            Legendas
+                        </para>
+                        <para>
+                            Com o simples click do botão direito o usuário pode inserir uma legenda para
+                            a curva selecionada ou remover uma legenda existente dessa curva,
+                            e com um click duplo sobre uma legenda abrir uma caixa de dialogo
+                            para edita o texto do mesmo.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_edit_legend.png"/>
+                            </imageobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_remove_legend.png"/>
+                            </imageobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_removed_legend.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </listitem>
+        
+                    <listitem>
+                         <para>
+                            Limpa o eixo.
+                            </para>
+                        </listitem>
+        
+                    <listitem>
+                         <para>
+                            Com o simples click do botão direito o usuario pode abrir a ged com as
+                            propriedades da entidade selecionada.
+                        </para>
+                    </listitem>
+        
+                </itemizedlist>
+        
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            Mover Objetos
+                        </para>
+                        <para>
+                            Para mover objetos: Habilite o modo de edição de dados, selecione e arraste um objeto.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_enable_edit.png"/>
+                            </imageobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_move_curve.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_move_legend.png"/>
+                            </imageobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_moved_legend.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </listitem>
+        
+                    <listitem>
+                        <para>
+                            Editor gráfico de curvas
+                        </para>
+                        <para>
+                            Para editar os dados de uma curva: Habilite o modo de edição de dados,
+                           selecione um objeto, click com o botão direito, "editar dados da curva"
+                          ou dê um click duplo sobre a curva.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_enable_curve_edit.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                        <para>
+                            Para adicionar um ponto a curva: com a curva selecionada e o modo de edição
+                           de dados habilitado, click com o botão direito, inserir ou dê um click duplo
+                          sobre a curva na posição onde deseja adicionar o ponto.
+                        </para>
+                        <para>
+                            Para remover um ponto: com a curva selecionada e o modo de edição de dados
+                           habilitado, click com o botao direito sobre o ponto, "remover".
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_add_point.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                        <para>
+                            Para mover um ponto: com a curva selecionada e o modo de edição de dados
+                            habilitado, click e arraste o ponto.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_move_point.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </listitem>
+                </itemizedlist>
+            </refsection>
+            <refsection role="see also">
+                <title>Ver também</title>
+                <simplelist type="inline">
+                    <member>
+                        <link linkend="object_editor">Properties editor</link>
+                    </member>
+                    <member>
+                        <link linkend="ged">ged</link>
+                    </member>
+                    <member>
+                        <link linkend="graphics_entities">graphics_entities</link>
+                    </member>
+                    <member>
+                        <link linkend="set">set</link>
+                    </member>
+                    <member>
+                        <link linkend="get">get</link>
+                    </member>
+                </simplelist>
+            </refsection>
+        </refentry>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="simp_mode">
+    <refnamediv>
+        <refname>simp_mode</refname>
+        <refpurpose>有理数の簡単化のオン/オフを切り替える</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            mod = simp_mode()
+            simp_mode(mod)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>mod</term>
+                <listitem>
+                    <para>a boolean</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            有理数に関する処理の後にほぼ毎回,有理数の簡単化が行われます.
+            <literal>simp_mode</literal> によりこの簡単化のオン/オフを切り替えることが
+            できます.
+        </para>
+        <para>
+            <literal>simp_mode(%t)</literal> は,有理数の簡単化をオンにします.
+        </para>
+        <para>
+            <literal>simp_mode(%f)</literal> は,有理数の簡単化をオフにします.
+        </para>
+        <para>
+            <literal>mod=simp_mode()</literal> は,カレントの
+            有理数の簡単化モードをmodに返します.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+s = %s;
+mod = simp_mode()
+simp_mode(%f); [0/s, s/s, s^2/s, (s*(1-s))^2/(s-s^2), (s-s^2)/(s*(1-s))^2]
+simp_mode(%t); [0/s, s/s, s^2/s, (s*(1-s))^2/(s-s^2), (s-s^2)/(s*(1-s))^2]
+simp_mode(mod);
+     ]]></programlisting>
+        <screen><![CDATA[
+--> mod = simp_mode()
+ mod  =
+  T
+
+--> simp_mode(%f); [0/s, s/s, s^2/s, (s*(1-s))^2/(s-s^2), (s-s^2)/(s*(1-s))^2]
+ ans  =
+   0  s  s²  s² -2s³ +s⁴     s -s²
+   -  -  --  -----------  -----------
+   s  s  s      s -s²     s² -2s³ +s⁴
+
+--> simp_mode(%t); [0/s, s/s, s^2/s, (s*(1-s))^2/(s-s^2), (s-s^2)/(s*(1-s))^2]
+ ans  =
+   0  1  s  s -s²    -1
+   -  -  -  -----  ------
+   1  1  1    1    -s +s²
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="simp">simp</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

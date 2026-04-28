@@ -1,0 +1,58 @@
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * This file is released under the 3-clause BSD license. See COPYING-BSD.
+ *
+ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="css/astar.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="main">
+        <div class="left">
+            <button id="help"><img src="images/help.png"></button>
+            <p style="text-align: center;"><u>Grid Size</u></p>
+            <div class="grid-size">
+                <input id="gridx" type="number" class="cost" value="5" min="5" max="20" step="1"/>
+                <span style="text-align: center;">x</span>
+                <input id="gridy" type="number" class="cost" value="5" min="5" max="20" step="1"/>
+            </div>
+            <p style="text-align: center;"><u>Start & Finish</u></p>
+            <div class="grid-size">
+                <input id="startx" type="number" class="cost" value="1" min="1" max="5"/>
+                <input id="starty" type="number" class="cost" value="1" min="1" max="5"/>
+                <button id="startrandom"><img src="images/random.png"></button>
+            </div>
+            <div class="grid-size">
+                <input id="finishx" type="number" class="cost" value="5" min="1" max="5"/>
+                <input id="finishy" type="number" class="cost" value="5" min="1" max="6"/>
+                <button id="finishrandom"><img src="images/random.png"></button>
+            </div>
+            <p style="text-align: center;"><u>Cost of cells</u><button id="cellrandom"><img src="images/random.png"></button></p>
+            <ul class="colors">
+                <!--i class="color-frame">
+                    <div class="color"></div><span class="cost">&infin;</span>
+                </li-->
+            </ul>
+            <div class="grid-size">
+                <button id="compute"><img src="images/path.png">Find Best Path</button>
+                <button id="clear"><img src="images/clear.png"></button>
+            </div>
+        </div>
+        <div class="center">
+            <canvas class="canvas" width="600" height="600"></canvas>
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/astar.js"></script>
+</body>
+
+</html>

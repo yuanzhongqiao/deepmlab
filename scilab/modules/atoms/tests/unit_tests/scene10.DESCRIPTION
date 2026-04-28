@@ -1,0 +1,120 @@
+// =============================================================================
+Toolbox: toolbox_1V6
+Title: Toolbox Test 1 for Scilab
+Summary: I'm Toolbox 1 1.0 for Scilab
+Version: 1.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: 
+Date: 2023-02-14 23:42:00
+windows64Name: toolbox_1V6_1.0-1.bin.x64.windows.zip
+windows64Md5: 038776b96b17b79b1fa37bb742f09b7b
+windows64Url: file://TMPDIR/scene10/toolbox_1V6_1.0-1.bin.x64.windows.zip
+linux64Name: toolbox_1V6_1.0-1.bin.x86_64.linux.zip
+linux64Md5: 038776b96b17b79b1fa37bb742f09b7b
+linux64Url: file://TMPDIR/scene10/toolbox_1V6_1.0-1.bin.x64.windows.zip
+// =============================================================================
+Toolbox: toolbox_2V6
+Title: Toolbox Test 2 for Scilab
+Summary: I'm Toolbox 2 1.0 for Scilab
+Version: 1.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: ~ toolbox_1V6 any
+Date: 2023-02-14 23:42:00
+binary64Name: toolbox_2V6_1.0-1.bin.zip
+binary64Md5: 1a93663dbabbf714a725f9d03c077607
+binary64Url: file://TMPDIR/scene10/toolbox_2V6_1.0-1.bin.zip
+// =============================================================================
+Toolbox: toolbox_2V6
+Title: Toolbox Test 2 for Scilab
+Summary: I'm Toolbox 2 2.0 for Scilab
+Version: 2.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: ~ toolbox_1V6 any
+Date: 2023-02-14 23:42:00
+binary64Name: toolbox_2V6_2.0-1.bin.zip
+binary64Md5: 85c245f18c78b77af82ce37b6892222a
+binary64Url: file://TMPDIR/scene10/toolbox_2V6_2.0-1.bin.zip
+// =============================================================================
+Toolbox: toolbox_3V6
+Title: Toolbox Test 3 for Scilab
+Summary: I'm Toolbox 3 1.0 for Scilab
+Version: 1.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: >= toolbox_2V6 2.0
+Date: 2023-02-14 23:42:00
+binary64Name: toolbox_3V6_1.0-1.bin.zip
+binary64Md5: ebbde25c5d4265f1f6f84d9ef3e00319
+binary64Url: file://TMPDIR/scene10/toolbox_3V6_1.0-1.bin.zip
+// =============================================================================
+Toolbox: toolbox_4V6
+Title: Toolbox Test 4 for Scilab
+Summary: I'm Toolbox 4 1.0 for Scilab
+Version: 1.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: < toolbox_2V6 2.0
+Date: 2023-02-14 23:42:00
+binary64Name: toolbox_4V6_1.0-1.bin.zip
+binary64Md5: 4b8f32b4697a910992552c04463e1f5e
+binary64Url: file://TMPDIR/scene10/toolbox_4V6_1.0-1.bin.zip
+// =============================================================================
+Toolbox: toolbox_5V6
+Title: Toolbox Test 5 for Scilab
+Summary: I'm Toolbox 5 1.0-1 for Scilab
+Version: 1.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: ~ toolbox_4V6 any
+Date: 2023-02-14 23:42:00
+windows64Name: toolbox_5V6_1.0-1.bin.x64.windows.zip
+windows64Md5: 697139c32a2690b5080769e6325bd4ac
+windows64Url: file://TMPDIR/scene10/toolbox_5V6_1.0-1.bin.x64.windows.zip
+linux64Name: toolbox_5V6_1.0-1.bin.x64.windows.zip
+linux64Md5: 697139c32a2690b5080769e6325bd4ac
+linux64Url: file://TMPDIR/scene10/toolbox_5V6_1.0-1.bin.x64.windows.zip
+// =============================================================================
+Toolbox: toolbox_6V6
+Title: Toolbox Test 6 for Scilab
+Summary: I'm Toolbox 6 1.0-1 for Scilab
+Version: 1.0-1
+Author: Me
+Maintainer: You
+Category: AtomsTest
+Entity: MyMajorCompany
+License: Test
+ScilabVersion: >= 5.0
+Depends: ~ toolbox_1V6 any
+ >= toolbox_2V6 2.0
+Date: 2023-02-14 23:42:00
+binary64Name: toolbox_6V6_1.0-1.bin.zip
+binary64Md5: a075c076ff4efb67de6955812090b37e
+binary64Url: file://TMPDIR/scene10/toolbox_6V6_1.0-1.bin.zip
+// =============================================================================

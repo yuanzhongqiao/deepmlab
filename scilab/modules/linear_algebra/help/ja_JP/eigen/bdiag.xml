@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="bdiag">
+    <refnamediv>
+        <refname>bdiag</refname>
+        <refpurpose>ブロック対角化, 一般化固有ベクトル</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            [Ab, X, bs] = bdiag(A)
+            [Ab, X, bs] = bdiag(A, rmax)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                    <para>実数または複素数の正方行列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rmax</term>
+                <listitem>
+                    <para>実数</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Ab</term>
+                <listitem>
+                    <para>実数または複素数の正方行列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>実数または複素数の正則行列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>bs</term>
+                <listitem>
+                    <para>整数ベクトル</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <emphasis role="bold">[Ab, X, bs] = bdiag(A, rmax)</emphasis>
+            は,行列<varname>A</varname>のブロック対角化を行ないます.
+            bs はブロックの構造(個々のブロックの大きさ)を出力します.
+            <varname>X</varname> は基底変換です.
+            すなわち, <literal>Ab = inv(X)*A*X</literal> はブロック対角です.
+        </para>
+        <para>
+            <varname>rmax</varname> は<varname>X</varname>の
+            条件数を制御します;
+            デフォルト値は <varname>A</varname> の l1ノルムです.
+        </para>
+        <para>
+            (存在する場合,)対角形式を得るには<varname>rmax</varname>に
+            大きな値を指定します(例えば,<literal>rmax=1/%eps</literal>).
+            一般に(ランダムな実数の Aの場合) ブロックは (1x1) および (2x2) で,
+            <varname>X</varname> は固有値の行列です.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+// 実数の場合: 1x1 および 2x2 ブロック
+a = rand(5,5);
+[ab, x, bs] = bdiag(a);ab
+     ]]></programlisting>
+        <screen><![CDATA[
+--> [ab, x, bs] = bdiag(a);ab
+ ab  =
+   2.4777836   0.          0.          0.         0.
+   0.          0.0757087   0.4869251   0.         0.
+   0.         -0.5777956  -0.1248605   0.         0.
+   0.          0.          0.          0.069654   0.
+   0.          0.          0.          0.         0.5341598
+]]></screen>
+        <programlisting role="example"><![CDATA[
+// 複素数の場合: 複素数 1x1 ブロック
+a = rand(5,5);
+[ab, x, bs] = bdiag(a+%i*0); ab
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="schur">schur</link>
+            </member>
+            <member>
+                <link linkend="sylv">sylv</link>
+            </member>
+            <member>
+                <link linkend="spec">spec</link>
+            </member>
+            <member>
+                <link linkend="blockdiag">blockdiag</link>
+            </member>
+            <member>
+                <link linkend="lcmdiag">lcmdiag</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

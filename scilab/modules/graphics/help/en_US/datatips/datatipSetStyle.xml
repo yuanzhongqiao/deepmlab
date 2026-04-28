@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) INRIA -  Serge Steer Serge.Steer@inria.fr
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en_US" xml:id="datatipSetStyle">
+    <refnamediv>
+        <refname>datatipSetStyle</refname>
+        <refpurpose>Set the datatip style.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            datatipSetStyle(polyline_handle)
+            datatipSetStyle(polyline_handle,t [,boxed [,labeled]])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>polyline_handle</term>
+                <listitem>
+                    <para>
+                        The handle of the polyline where the tip is.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>
+                        A number with possible value 1 or 2. If omitted a choose popup will open.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>boxed</term>
+                <listitem>
+                    <para>
+                        A a boolean, default value is %t.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labeled</term>
+                <listitem>
+                    <para>
+                        A a boolean, default value is %t.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            There are two different styles for the datatip polyline marker:
+        </para>
+        <para>
+            - Square mark, centered on the tip point.
+        </para>
+        <para>
+            - Directional arrows drawn along the tangent at the tip point. The arrowhead is on the  tip point.
+        </para>
+        <para>
+            If the boxed option is selected the text associated with the datatip is written in a boxed area.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+    x=linspace(-20,20,1000);
+    clf();e=plot(x,sinc(x),x,sinc(x.^2));
+    d1=datatipCreate(e(1),540);
+    function str=mydisplay(h)
+		pt = h.data;
+		str=msprintf('%0.2g \n %0.2g', pt(1), pt(2))
+	endfunction
+    datatipSetDisplay(d1,"mydisplay")
+    datatipSetStyle(e(1),2,%f)
+    datatipSetOrientation(d1,"upper left");
+
+    d2=datatipCreate(e(2),200);
+    datatipSetStyle(e(2),1,%t)
+    datatipSetOrientation(d2,"lower left");
+
+    ]]></programlisting>
+        <scilab:image>
+            x=linspace(-20,20,1000);
+            clf();e = plot(x,sinc(x),x,sinc(x.^2));
+            d1=datatipCreate(e(1),540);
+            function str=mydisplay(h)
+            pt = h.data;
+            str=msprintf('%0.2g \n %0.2g', pt(1), pt(2))
+            endfunction
+            datatipSetDisplay(d1,"mydisplay")
+            datatipSetStyle(e(1),2,%f)
+            datatipSetOrientation(d1,"upper left");
+
+            d2=datatipCreate(e(2),200);
+            datatipSetStyle(e(2),1,%t)
+            datatipSetOrientation(d2,"lower left");
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datatips">datatips</link>
+            </member>
+            <member>
+                <link linkend="datatipCreate">datatipCreate</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>Function datatipSetStyle introduced.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

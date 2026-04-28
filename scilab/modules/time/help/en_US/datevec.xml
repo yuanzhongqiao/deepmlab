@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="datevec">
+    <refnamediv>
+        <refname>datevec</refname>
+        <refpurpose>Date components</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>V=datevec(DT)
+            [Y,M,D,H,MI,S]=datevec(DT)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>DT</term>
+                <listitem>
+                    <para>
+                        a serial date number or <link linkend="datetime">datetime</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Y, M, D, H, MI, S</term>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">year, month, day, hour, minute, second</emphasis>
+                    </para>
+                    <para>
+                        those arguments can be real scalars or matrices of the same size.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            V = datevec(DT) converts a serial date number (defined by datenum) or a <link linkend="datetime">datetime</link> to a
+            date vector V having elements [year, month, day, hour, minute, second].
+            The first five vector elements are integers. DT can be an array.
+        </para>
+        <para>
+            [Y, M, D, H, MI, S] = datevec(DT) returns the components of the date
+            vector as individual variables. DT can be an array.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// First example
+datevec(720840)
+
+// Second example
+datevec(datenum())
+
+// Third example (With integers values)
+A = grand(10,12,'uin',1,1000000)
+datevec(A)
+
+// Fourth example (With real values)
+A = grand(10,12,'unf',1,1000000)
+datevec(A)
+ ]]></programlisting>
+ <para><emphasis role="bold">datevec with datetime</emphasis></para>
+<para>
+<programlisting role="example"><![CDATA[
+dt = datetime(["10/2/2024"; "12/25/2024"], "InputFormat", "MM/dd/yyyy");
+datevec(dt)
+]]></programlisting>
+</para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datenum">datenum</link>
+            </member>
+            <member>
+                <link linkend="calendar">calendar</link>
+            </member>
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>datevec</literal> allows a datetime as input argument.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

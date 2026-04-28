@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="INTEGRAL_m" xml:lang="fr">
+    <refnamediv>
+        <refname>INTEGRAL_m</refname>
+        <refpurpose>Intégration</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/INTEGRAL_m.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_INTEGRAL_m">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_INTEGRAL_m">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_INTEGRAL_m">Paramètres</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_INTEGRAL_m">Propriétés par défaut</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_INTEGRAL_m">Fonction d'interfaçage</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_INTEGRAL_m">Fonction de calcul</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Examples_INTEGRAL_m">Exemples</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_INTEGRAL_m">
+        <title>Description</title>
+        <para>
+            Ce bloc est un intégrateur. La sortie y est l'intégrale de l'entrée u à l'instant courant t.
+        </para>
+        <para>
+            <latex style="display" alt="y(t)= y0 + ∫_t0→t u(τ)dτ">
+                y(t)=y_0 + \int_{t_0}^t\! u(\tau)\,d\tau
+            </latex>
+        </para>
+        où y<subscript>0</subscript> est une condition initiale et t<subscript>0</subscript> est
+        le temps correspondant à cette condition.
+    </refsection>
+    <refsection id="Dialogbox_INTEGRAL_m">
+        <title>Paramètres</title>
+        <para>La boîte de dialogue des paramètres vous permet de définir :</para>
+        <itemizedlist>
+            <listitem>
+                <para>La condition initiale avec ou sans limite de saturation.</para>
+            </listitem>
+        </itemizedlist>
+        <itemizedlist>
+            <listitem>
+                <para>Les limites haute et basse sur l'intégrale.</para>
+            </listitem>
+        </itemizedlist>
+        <para>Elle vous permet aussi d'ajouter une port d'événement au bloc dans le but de réinitialiser
+            son état aux conditions initiales spécifiées.
+        </para>
+        <para>Dans ce cas, la valeur du signal de réinitialisation dépend d'un signal extèrieur.</para>
+        <para/>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/INTEGRAL_m_gui.gif"
+                           align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Condition initiale</emphasis>
+                </para>
+                <para>Un vecteur/scalaire : les conditions  initiales .</para>
+                <para>Avec ce paramètre, on peut définir le type de données des entrées/sorties.
+                    Elles peuvent être de type réel ou complexe.
+                </para>
+                <para>Propriétés Type 'mat' de taille [-1,-1].</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">With re-initialization</emphasis>
+                </para>
+                <para>Pour réinitialiser l'état aux conditions initiales spécifiées en fonction de la sélection
+                    par un signal extèrieur.<emphasis role="bold">1</emphasis> .
+                </para>
+                <para>Propriétés Type 'vec' de taille 1.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">With saturation</emphasis>
+                </para>
+                <para>S'il est sélectionné, il limite les états aux valeurs entre les limites de saturation définies
+                    par les paramètres Lower limit and Upper limit.
+                </para>
+                <para>Propriétés Type 'vec' de taille 1.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Upper limit</emphasis>
+                </para>
+                <para>La limite haute pour l'intégrale.</para>
+                <para>Propriétés Type 'mat' de taille [-1,-1].</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Lower limit</emphasis>
+                </para>
+                <para>La limite basse pour l'intégrale.</para>
+                <para>Propriétés Type 'mat' de taille [-1,-1].</para>
+                <para/>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_INTEGRAL_m">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis>oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> nonn
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis>non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">integral_func</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Interfacingfunction_INTEGRAL_m">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/Linear/INTEGRAL_m.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_INTEGRAL_m">
+        <title>Fonctions de calcul</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/integral_func.c</para>
+            </listitem>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/integralz_func.c</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Examples_INTEGRAL_m">
+        <title>Exemples</title>
+        <refsect3 id="Example_INTEGRAL_m_1">
+            <title>Exemple 1</title>
+            <para>Cet exemple de modèle montre comment utiliser le port d'état de l'intégrateur.</para>
+            <para>Le paramètre de ré-initialisation est mis à 1, La limite haute à 1 et la limite basse à -1.</para>
+            <para>
+                <link type="scilab" linkend="scilab.xcos/xcos/examples/continuous_pal/INTEGRAL_m_1_Example.zcos">
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata align="center" fileref="../../../../examples/continuous_pal/INTEGRAL_m_1_Example.zcos" valign="middle"/>
+                        </imageobject>
+                    </inlinemediaobject>
+                </link>
+            </para>
+            <scilab:image><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/continuous_pal/INTEGRAL_m_1_Example.zcos");
+xcos_simulate(scs_m, 4);
+]]></scilab:image>
+        </refsect3>
+        <refsect3 id="Example_INTEGRAL_m_2">
+            <title>Exemple 2</title>
+            <para>
+                <link type="scilab" linkend="scilab.xcos/xcos/examples/continuous_pal/INTEGRAL_m_2_Example.zcos">
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata align="center" fileref="../../../../examples/continuous_pal/INTEGRAL_m_2_Example.zcos" valign="middle"/>
+                        </imageobject>
+                    </inlinemediaobject>
+                </link>
+            </para>
+            <scilab:image><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/continuous_pal/INTEGRAL_m_2_Example.zcos");
+xcos_simulate(scs_m, 4);
+]]></scilab:image>
+        </refsect3>
+    </refsection>
+</refentry>

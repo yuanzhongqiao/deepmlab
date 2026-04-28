@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+ * Copyright (C) DIGITEO - 2012 - Allan CORNET
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="atomsLoad" xml:lang="en">
+    <refnamediv>
+        <refname>atomsLoad</refname>
+        <refpurpose>Load one or several external modules</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = atomsLoad(name)
+            result = atomsLoad(name, version)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>Matrix of strings: External module name</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>version</term>
+                <listitem>
+                    <para>Matrix of strings: External module version. This is an
+                        optional parameter. If it's not defined, the most recent version of
+                        the module is used.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>m x 4 matrix of strings</para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col.</th>
+                            <th>2nd Col.</th>
+                            <th>3rd Col.</th>
+                            <th>4th Col.</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version</td>
+                            <td>Installation section: this parameter determines 
+                                whether the module has been
+                                installed for all users or only for the current user.</td>
+                            <td>Installation path</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsLoad</literal> load one or more external
+            modules.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Get the list of installed BUT unloaded external modules:
+p = setdiff(atomsGetInstalled(), atomsGetLoaded());
+
+if p~=[] then
+    // There is at least one installed BUT unloaded module
+    // Let's load it
+    atomsLoad(p(1))
+    // Now, you may have a look to its help pages (in a fresh help browser session),
+    // use its functions, use its demos (if any), etc.
+
+else
+    // There is no installed external module, or they are all already loaded.
+    // Let's install a new module, and then load it in the session:
+
+    // Get the list of available modules names
+    load(SCI+"/modules/atoms/macros/atoms_internals/lib");
+    P = atomsDESCRIPTIONget();
+    clear atomsinternalslib
+    available = fieldnames(P);
+
+    notInstalled = setdiff(available, atomsGetInstalled()(:,1));
+    module = notInstalled(1)
+    versions = fieldnames(P(module))
+
+    // Install the module: This requires an INTERNET CONNEXION
+    atomsInstall([module, versions(1)])
+
+    // Installing a module does not load it in the session:
+    atomsIsLoaded(module)   // %F
+
+    // Let's load it
+    atomsLoad(module)       //
+    atomsIsLoaded(module)   // %T
+
+    // Now, you may have a look to its help pages (in a fresh help browser session),
+    // use its functions, use its demos (if any), etc.
+
+    // Now, uninstall it (cleaning):
+    atomsRemove(module)
+end
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsIsLoaded">atomsIsLoaded</link>
+            </member>
+            <member>
+                <link linkend="atomsGetLoaded">atomsGetLoaded</link>
+            </member>
+            <member>
+                <link linkend="atomsGetLoaded">atomsInstall</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

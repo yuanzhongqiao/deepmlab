@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="scicos_log">
+    <refnamediv>
+        <refname>scicos_log</refname>
+        <refpurpose>Logger utility for scicos</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            log = scicos_log(log);
+            log = scicos_log(log, msg);
+            refCounters = scicos_log("refCounters");
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>log</term>
+                <listitem>
+                    <para>String, logger value. The supported log modifiers are : "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>msg</term>
+                <listitem>
+                    <para>
+                        String, the message to log.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>refCounters</term>
+                <listitem>
+                    <para>a double vector, with a [uid, kind, reference counter] line per object.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function implements a logger for <literal>scicos</literal> operation. This function lets the user choose the right level of information to print while loading a model, compiling and simulating it.
+        </para>
+        <para>
+            It is also used to produce statistics or global analysis for specific flags. For exemple, passing <literal>"refCounters"</literal> will return uid, kind and reference count of all objects.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+scicos_log("TRACE"),
+scicos_log("TRACE", "this is a trace message");
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+loadXcosLibs();
+scicos_log("refCounters")
+b = scicos_block();
+scicos_log("refCounters")
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="DEBUG">DEBUG block</link>
+            </member>
+            <member>
+                <link linkend="xcos_debug_gui">xcos_debug_gui</link>
+            </member>
+            <member>
+                <link linkend="scicos_debug">scicos_debug</link>
+            </member>
+            <member>
+                <link linkend="scicos_block">scicos_block</link>
+            </member>
+            <member>
+                <link linkend="loadXcosLibs">loadXcosLibs</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
+

@@ -1,0 +1,25 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- Non-regression test for bug 4278 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/4278
+//
+// <-- Short Description -->
+// typename() called with a wrong number of input arguments  returns incoherent errors.
+
+
+ierr = execstr("typename(''hgh'')","errcatch");
+if ierr <> 77 then pause,end
+
+ierr = execstr("typename([17])","errcatch");
+if ierr <> 77 then pause,end
+
+ierr = execstr("typename(''my type'',110)","errcatch");
+if ierr <> 77 then pause,end
+

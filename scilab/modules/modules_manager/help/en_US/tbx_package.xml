@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Clément DAVID
+ *
+ * This file is distributed under the same license as the Scilab package.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="tbx_package" xml:lang="en">
+
+    <refnamediv>
+        <refname>tbx_package</refname>
+        <refpurpose>
+            Package a toolbox source tree with binaries into a single file
+        </refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [package_file, listing, desc] = tbx_package()
+            [package_file, listing, desc] = tbx_package(tbx_path, build_id)
+            [package_file, listing, desc] = tbx_package(tbx_path, build_id, customize)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tbx_path</term>
+                <listitem>
+                    <para>
+                        a single string: absolute or relative path to the toolbox root directory.
+                    </para>
+                    <para>Default path is the current working directory.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>build_id</term>
+                <listitem>
+                    <para>
+                        a single string: identifier of a specific build.
+                    </para>
+                    <para>Default id is not set.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>customize(workdir)</term>
+                <listitem>
+                    <para>
+                        function: do some actions before the packing. <code>workdir</code> is a path to the toolbox root directory.
+                    </para>
+                    <para>If unspecified, source files will be removed and everything else included.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>package_file</term>
+                <listitem>
+                    <para>
+                        a single string: the generated file name.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>listing</term>
+                <listitem>
+                    <para>
+                        string vector: files that have been compressed into the package file.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>desc</term>
+                <listitem>
+                    <para>
+                        a struct containing updated information (based on <literal>DESCRIPTION</literal> file) about the toolbox contents and the generated archive (MD5, size, ...).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">tbx_package(…)</emphasis> create a single compressed file of a toolbox hierarchy. The toolbox hierarchy should contains binary artifacts produced by <link linkend="tbx_make"/>.  
+            The resulting file can be installed locally using <link linkend="atomsInstall"/> or uploaded to <ulink url="https://atoms.scilab.org">ATOMS web portal</ulink> for sharing it.
+        </para>
+        <important>
+            The toolbox name (id) and version are read from the <literal>DESCRIPTION</literal> file. This file is mandatory in the toolbox.
+        </important>
+        <para>
+            <emphasis role="bold">tbx_package(tbx_path)</emphasis> create the toolbox whose root's
+            directory is <varname>tbx_path</varname>.
+            <emphasis role="bold">tbx_package()</emphasis> is equivalent to
+            <literal>tbx_package(".")</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">tbx_package(tbx_path, build_id)</emphasis> create the toolbox and flag it with a specific <literal>build_id</literal>.
+        </para>
+        <para>
+            The resulting <literal>package_file</literal> is a file in the current directory named after the toolbox name (id), version and <literal>build_id</literal> if provided. It has also a platform specific flag if a native file is detected.
+        </para>
+        <para>
+            The <literal>package_file</literal> is a binary toolbox; it contains all files needed for the toolbox to be loaded in Scilab. It does not contains sources files nor auxiliary scripts used to build the toolbox.
+        </para>
+        <para>
+            The <literal>customize(workdir)</literal> can be used to remove extra files that you don't want to include. <link linkend="lambda">Lambda functions</link> can be used to filter directories, add or remove files with specific patterns or extensions, copy extra files, etc...
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+cd SCI/contrib/toolbox_skeleton
+tbx_make
+tbx_package
+     ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tbx_make"/>
+            </member>
+            <member>
+                <link linkend="tbx_builder_macros">tbx_builder_macros</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_src">tbx_builder_src</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_gateway">tbx_builder_gateway</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>desc</literal> output parameters added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

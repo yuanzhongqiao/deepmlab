@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2013 - Scilab Enterprises - Clément DAVID <clement.david@scilab-enterprises.com> -->
+<!--  Copyright (C) 2025 - Dassault Systèmes S.E. - Clément DAVID -->
+<component type="desktop-application">
+    <id>org.scilab.Scilab</id>
+    <name>Scilab</name>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>CECILL-2.1 or GPL-2.0+</project_license>
+    <summary>Scientific software package for numerical computations</summary>
+    <description>
+        <p>Scilab is free and open source software for numerical computation providing a powerful computing environment for engineering and scientific applications. Scilab includes hundreds of mathematical functions. It has a high level programming language allowing access to advanced data structures, 2-D and 3-D graphical functions. A large number of functionalities is included in Scilab:
+        </p>
+        <ul>
+            <li>Maths &amp; Simulation: For usual engineering and science applications</li>
+            <li>2-D &amp; 3-D Visualization: Graphics functions to visualize, annotate and export data</li>
+            <li>Optimization: Algorithms to solve constrained and unconstrained continuous and discrete problems</li>
+            <li>Statistics: Tools to perform data analysis and modeling</li>
+            <li>Control System Design &amp; Analysis: Standard algorithms and tools for control system study</li>
+            <li>Signal Processing: Visualize, analyze and filter signals in time and frequency domains</li>
+            <li>Application Development: Increase Scilab native functionalities and manage data exchanges</li>
+            <li>Xcos - Hybrid dynamic systems modeler and simulator: Modeling physical systems, control systems</li>
+        </ul>
+        <p>Thanks to its ability to interconnect with third-party technologies and applications, Scilab can also act as a unique platform to bring together codes written in different programming languages in a single, unified language, thus facilitating their distribution, their back-up and use.
+        </p>
+    </description>
+    <screenshots>
+      <screenshot type="default">
+        <caption>Scilab main window</caption>
+        <image width="1200" height="675">https://gitlab.com/scilab/scilab/-/raw/2025.1.0/scilab/desktop/images/scilab-desktop.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Scilab plot</caption>
+        <image width="1200" height="675">https://gitlab.com/scilab/scilab/-/raw/2025.1.0/scilab/desktop/images/scilab-plot.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Scilab Xcos</caption>
+        <image width="1200" height="675">https://gitlab.com/scilab/scilab/-/raw/2025.1.0/scilab/desktop/images/scilab-xcos.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Scilab text editor</caption>
+        <image width="1200" height="675">https://gitlab.com/scilab/scilab/-/raw/2025.1.0/scilab/desktop/images/scilab-scinotes.png</image>
+      </screenshot>
+    </screenshots>
+    <releases>
+      <release version="2025.1.0" date="2025-05-22">
+        <url>https://help.scilab.org/docs/2025.1.0/en_US/CHANGES.html</url>
+      </release>
+      <release version="2024.1.0" date="2024-05-23">
+        <url>https://help.scilab.org/docs/2024.1.0/en_US/CHANGES.html</url>
+      </release>
+      <release version="2023.1.0" date="2023-05-23">
+        <url>https://help.scilab.org/docs/2023.1.0/en_US/CHANGES.html</url>
+      </release>
+    </releases>
+    <url type="homepage">https://www.scilab.org</url>
+    <url type="bugtracker">https://gitlab.com/scilab/scilab/-/issues</url>
+    <url type="help">https://help.scilab.org/</url>
+    <url type="translate">https://scilab.gitlab.io/legacy_wiki/Localization</url>
+    <url type="vcs-browser">https://gitlab.com/scilab/scilab</url>
+    <url type="contribute">https://www.scilab.org/about/scilab-open-source-software</url>
+    <translation type="gettext">scilab</translation>
+    <content_rating type="oars-1.1"/>
+    <provides>
+      <id>org.scilab.www</id>
+    </provides>
+    <developer_name>Scilab developers</developer_name>
+    <update_contact>dev@lists.scilab.org</update_contact>
+</component>

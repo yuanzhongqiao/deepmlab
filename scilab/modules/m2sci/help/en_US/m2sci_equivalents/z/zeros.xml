@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="m2sci_zeros">
+    <refnamediv>
+        <refname>zeros (Matlab function)</refname>
+        <refpurpose>Create an array of all zeros</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Matlab/Scilab equivalent</title>
+        <informaltable border="1" width="100%">
+            <tr>
+                <td align="center">
+                    <emphasis role="bold">Matlab</emphasis>
+                </td>
+                <td align="center">
+                    <emphasis role="bold">Scilab</emphasis>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+zeros
+zeros(n)
+zeros(sz1, .., szN)
+zeros(Sizes)
+zeros(.., typename)
+zeros(.., 'like', p)
+
+% No equivalent
+                 ]]></programlisting>
+                </td>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+zeros()
+zeros(n, n)
+zeros(sz1, .., szN)
+repmat(0, Sizes)
+zeros(.., typename)
+// No equivalent
+
+zeros(A)  // only size(A) is considered
+                 ]]></programlisting>
+                </td>
+            </tr>
+        </informaltable>
+        <warning>
+            With Matlab, <literal>Sizes, sz1, sz2, ..</literal> can be complex. Then, only their
+            real parts are used as actual sizes. Scilab would yield an error.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <informaltable border="1" width="100%">
+            <tr>
+                <td align="center">
+                    <emphasis role="bold">Matlab</emphasis>
+                </td>
+                <td align="center">
+                    <emphasis role="bold">Scilab</emphasis>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+B = zeros(2)
+B = [0,;0,0]
+B = zeros(2,2)
+B = [0,0;0,0]
+B = zeros([3,3])
+B = [0,0,0;0,0,0;0,0,0]
+                  ]]></programlisting>
+                </td>
+                <td>
+                    <programlisting role="example"><![CDATA[
+B = zeros(2)
+B = 0
+B = zeros(2,2)
+B = [0,0;0,0]
+B = zeros([3,3])
+B = [0,0]
+                  ]]></programlisting>
+                </td>
+            </tr>
+        </informaltable>
+    </refsection>
+</refentry>

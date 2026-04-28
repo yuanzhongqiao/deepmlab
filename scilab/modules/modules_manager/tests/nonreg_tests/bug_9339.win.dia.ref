@@ -1,0 +1,68 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- ENGLISH IMPOSED -->
+//
+// <-- NO CHECK ERROR OUTPUT -->
+//
+// <-- Non-regression test for bug 9339 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/9339
+//
+// <-- Short Description -->
+// 'tbx_build_help' function did not manage languages correctly.
+SRC = SCI + '/contrib/toolbox_skeleton';
+DST = TMPDIR + '/toolbox_skeleton';
+mkdir(DST);
+assert_checkequal(isdir(DST), %T);
+copyfile(SRC, DST);
+cd(DST);
+ilib_verbose(0);
+exec('builder.sce');
+Building macros...
+-- Creation of [toolbox_skeletonlib] (Macros) --
+genlib: Processing file: scilab_error.sci
+genlib: Processing file: scilab_sum.sci
+Building sources...
+Generating cleaner_src.sce...
+Building gateway...
+Generating loader_gateway.sce...
+Generating cleaner_gateway.sce...
+WARNING: tbx_build_localization (toolbox_skeleton\locales\): 
+WARNING:    - The msgid have been updated in '*.po' files.
+WARNING:    - fr_FR.po : 0 untranslated messages.
+Generating localization
+-- Building for "en_US" --
+-- Building for "fr_FR" --
+Building help...
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
+Building the links file [inline] in TMPDIR/toolbox_skeleton/inline/en_US.
+Building the manual file [javaHelp] in TMPDIR\toolbox_skeleton\help\en_US.
+Generate image ./c_multiplybypi_en_US_1.png from Scilab code from file c_multiplybypi.xml
+Generate image ./c_sub_1.png from Scilab code from file c_sub.xml
+Generate image ./c_sub_en_US_2.png from Scilab code from file c_sub.xml
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
+Building the links file [inline] in TMPDIR/toolbox_skeleton/inline/fr_FR.
+Building the manual file [javaHelp] in TMPDIR\toolbox_skeleton\help\fr_FR.
+Generate image ./c_sub_1.png from Scilab code from file c_sub.xml
+Generate image ./c_sub_fr_FR_2.png from Scilab code from file c_sub.xml
+Generating loader.sce...
+Generating unloader.sce...
+Generating cleaner.sce...
+assert_checkequal(isdir(DST + '/help/fr_FR/scilab_fr_FR_help'), %T);
+assert_checkequal(isdir(DST + '/help/en_US/scilab_en_US_help'), %T);

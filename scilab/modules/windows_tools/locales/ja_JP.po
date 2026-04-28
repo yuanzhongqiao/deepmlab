@@ -1,0 +1,145 @@
+# Japanese translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2017-05-01 15:41+0000\n"
+"Last-Translator: Rui Hirokawa <Unknown>\n"
+"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-Language: Japanese\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d or %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d または %d 個の引数を指定してください.\n"
+
+#
+# File: sci_gateway/c/sci_consolebox.c, line: 45
+# File: sci_gateway/c/sci_consolebox.c, line: 82
+msgid "Only on Windows Mode, not in Console Mode.\n"
+msgstr "ウインドウズモードに限定されます、コンソールモードではありません。\n"
+
+# File: sci_gateway/c/sci_chartooem.c, line: 48
+# File: sci_gateway/c/sci_dos.c, line: 50
+# File: sci_gateway/c/sci_dos.c, line: 62
+# File: sci_gateway/c/sci_findfileassociation.c, line: 38
+# File: sci_gateway/c/sci_getsystemmetrics.c, line: 31
+# File: sci_gateway/c/sci_mcisendstring.c, line: 106
+# File: sci_gateway/c/sci_oemtochar.c, line: 48
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d で不正なサイズ: 文字列を想定します。\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d expected.\n"
+msgstr "%s: 出力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A scalar integer value expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: スカラー整数値を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Scalar positive integer expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: 正のスカラー整数を指定してください.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: 入力引数 #%d を読み込めません.\n"
+
+# File: sci_gateway/c/sci_chartooem.c, line: 48
+# File: sci_gateway/c/sci_dos.c, line: 50
+# File: sci_gateway/c/sci_dos.c, line: 62
+# File: sci_gateway/c/sci_findfileassociation.c, line: 38
+# File: sci_gateway/c/sci_getsystemmetrics.c, line: 31
+# File: sci_gateway/c/sci_mcisendstring.c, line: 106
+# File: sci_gateway/c/sci_oemtochar.c, line: 48
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d で不正な型: 文字列を想定します。\n"
+
+#
+# File: sci_gateway/c/sci_dos.c, line: 70
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
+msgstr "%s: 入力引数 #%d で不正な値: '%s' を想定します。\n"
+
+#, c-format
+msgid "%s: No more memory.\n"
+msgstr "%s: これ以上のメモリはありません。\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: メモリ確保エラー.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: String expected.\n"
+msgstr ""
+"%s: 入力引数  #%d の大きさが間違っています: 文字列を指定してください.\n"
+
+#
+# File: sci_gateway/c/sci_getsystemmetrics.c, line: 50
+#, c-format
+msgid "%s: Wrong value for input argument: %s.\n"
+msgstr "%s: 不正な値の入力引数: %s\n"
+
+#
+# File: sci_gateway/c/sci_getsystemmetrics.c, line: 50
+msgid "see help"
+msgstr "ヘルプを見てください。"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d to %d expected.\n"
+msgstr ""
+"%s: 出力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Cannot open file %ls.\n"
+msgstr "%s: ファイル %ls をオープンできません.\n"
+
+#
+# File: sci_gateway/c/sci_winqueryreg.c, line: 89
+#, c-format
+msgid "%s: Cannot open Windows registry.\n"
+msgstr "%s: ウインドウズのレジストリを開けません。\n"
+
+#
+# File: sci_gateway/c/sci_winqueryreg.c, line: 137
+#, c-format
+msgid "%s: Cannot query value of this type.\n"
+msgstr "%s: この型の値を得ることができません。\n"
+
+#, c-format
+msgid "Scilab %s Console"
+msgstr "Scilab %s コンソール"
+
+msgid "Error(s) : see help powershell"
+msgstr "エラー(s): パワーシェル・ヘルプを見てください"
+
+msgid "Please verify your powershell command without Scilab."
+msgstr "powershell コマンドを Scilab なしの環境で確認してください."
+
+msgid "Only for Microsoft Windows."
+msgstr "Microsoft Windows のみです。"
+
+msgid "Powershell 1.0 not found."
+msgstr "Powershell 1.0 が見つかりません."

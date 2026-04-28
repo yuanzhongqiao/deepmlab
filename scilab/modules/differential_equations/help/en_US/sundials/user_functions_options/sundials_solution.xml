@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_solution" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Solution output (ODE and DAE solvers)</refname>
+        <refpurpose>Specialized output of solvers</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            sol = solver(..., options)
+            solext = solver(sol, tfinal, options)
+            y = sol(t)
+            [y,yd] = sol(t)
+            ... = sol(t,i)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>sol, solext</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tfinal</term>
+                <listitem>    
+                     <para>final time of extended solution</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>    
+                    <para>a sequence of optional named arguments (see <link linkend="sundials_options">sundials options</link>)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>a vector of time values</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y,yd</term>
+                <listitem>
+                    <para>The arrays of interpolated solution and its derivative at times values given in <term>t</term></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>the component of the solution to interpolate. If the state of the equation is not a 
+                        vector then <term>i</term> indexes the state as a flatened vector.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+    <para>
+        When a solution has to be further evaluated at arbitrary points which are not known in advance, then the syntax
+    </para>
+    <para><programlisting role="no-scilab-exec"><![CDATA[sol = solver(..., options)]]>
+        </programlisting></para>
+     <para>
+         yields a MList with fields:
+     </para>
+     <para>
+         <informaltable border='1'>
+           <tbody>
+               <tr>
+                   <td>solver</td>
+                   <td>
+                       <para>the solver name, "arkode", "cvode" or "ida"</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>method</td>
+                   <td>
+                       <para>the name of the method used by the solver. For example cvode can use "ADAMS" or "BDF", ida 
+                           uses only "BDF" and the list of arkode methods is given in its dedicated help page.</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>interpolation</td>
+                   <td>
+                       <para>a string giving the interpolation method used by the solver to compute the solution
+                           between solver steps. The solvers arkode and cvode interpolation is based on the basis
+                           vectors used by the solver and thus the interpolation method is denoted "native". arkode
+                           can use Hermite or Lagrange interpolation and the polynomial degree can be chosen when calling the
+                           solver, hence the string is "Hermite(p)" or "Lagrange(p)" where p is the actual
+                           degree.
+                       </para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>linearSolver</td>
+                   <td>
+                       <para>the linear solver used by the method, if applicable. Can be "none" when using the Adams
+                           method with cvode or an explicit method with arkode. When using an implicit method 
+                           relying on Newton method for the iterations, and when the linear solver is matrix based, 
+                           i.e. implements a direct method, this string can be "dense", "band" or "sparse" depending
+                           on the format of the Jacobian provided by the user.</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>nonLinearSolver</td>
+                   <td>
+                       <para>the nonlinear solver used by the method, which can be "none" for explicit methods, "fixedPoint"
+                           when functional iterations are used or "Newton", when the Newton method is used, both when using
+                           an implicit method (e.g. BDF or any DIRK method).</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>rtol,atol</td>
+                   <td>
+                       <para>the relative and absolute tolerance used by the solver to achieve adaptive time stepping.</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>t,y,yp</td>
+                   <td>
+                       <para>vector of time points used by the solver and solution at time points (yp is defined when using ida)</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>te,ye,ype,ie</td>
+                   <td>
+                       <para>time of event, solution and index of event</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>manager</td>
+                   <td>
+                       <para>pointer to the internal OdeManager object</para>
+                   </td>
+               </tr>
+               <tr>
+                   <td>stats</td>
+                   <td>
+                       <para>a structure gathering the solver statistics:</para>
+                       <informaltable border='1'>
+                           <tbody>
+                               <tr>
+                                   <td>nSteps</td><td>the number of internal solver steps</td>
+                               </tr>
+                               <tr>
+                                   <td>nRhsEvals</td><td>the number of right hand side evaluations</td>
+                               </tr>
+                               <tr>
+                                   <td>nRhsEvalsFD</td><td>the number of right hand side evaluations that have been used to approximate the Jacobian</td>
+                               </tr>
+                               <tr>
+                                   <td>nJacEvals</td><td>the number of Jacobian evaluations, when this one has been given by the user</td>
+                               </tr>
+                               <tr>
+                                   <td>nEventEvals</td><td>the number event function evaluations</td>
+                               </tr>
+                               <tr>
+                                   <td>nLinSolve</td><td>the number of linear systems that have been solved</td>
+                               </tr>
+                               <tr>
+                                   <td>nRejSteps</td><td>the number of solver steps that have been rejected</td>
+                               </tr>
+                               <tr>
+                                   <td>nNonLiniters</td><td>the number of iterations of the nonlinear method used by the solver</td>
+                               </tr>
+                               <tr>
+                                   <td>nNonLinCVFails</td><td>the number of times that the nonlinear method failed to converge</td>
+                               </tr>
+                               <tr>
+                                   <td>order</td><td>the order of the method for arkode or the vector of successive orders for cvode and ida</td>
+                               </tr>
+                               <tr>
+                                   <td>hIni</td><td>the initial step used by the solver. Can match the initial step suggested by the "h0" option</td>
+                               </tr>
+                               <tr>
+                                   <td>hLast</td><td>the step used at the previous solver time point</td>
+                               </tr>
+                               <tr>
+                                   <td>hCur</td><td>the step that will be tried for the next solver iteration</td>
+                               </tr>
+                               <tr>
+                                   <td>etime</td><td>elapsed time by the solver</td>
+                               </tr>
+                           </tbody>
+                       </informaltable>
+                   </td>
+               </tr>
+         </tbody>
+     </informaltable>
+     </para>
+ </refsection>
+ 
+ <refsection role="description">
+     <title>Solution interpolation and extension</title>
+        <para>
+         For an arbitrary time vector <literal>t</literal>, with values in the interval <literal>[t0,tf]</literal> the following syntax
+     </para>
+     <para><programlisting role="no-scilab-exec"><![CDATA[
+         y = sol(t)
+         [y,yd] = sol(t)
+         ... = sol(t,i)
+         ]]></programlisting>
+     </para>
+     <para>
+        yields by costless interpolation in <term>y</term> and  <term>yd</term>  the same approximation as if components of <term>t</term> where used in the
+        <literal>tspan</literal> argument in the solver call.
+         The derivative of solution can also be obtained with <literal>[y,yd]=sol(t)</literal> and a particular component
+         <literal>i</literal> of the solution is obtained with <literal>y=sol(t,i)</literal>. For example, the solution of the Van Der Pol 
+         equation can be refined in [3,5] with the following code:
+     </para>
+     <para>
+     <programlisting role="example"><![CDATA[
+         sol = cvode(%SUN_vdp1, [0 10], [0; 2]);
+         t = linspace(3,5,1000);
+         plot(t,sol(t))
+         ]]></programlisting>
+         <scilab:image>
+             sol = cvode(%SUN_vdp1, [0 10], [0; 2]);
+             t = linspace(3,5,500);
+             plot(t,sol(t))
+             gcf().axes_size(2)=300  
+         </scilab:image>
+     </para>
+        <para>
+            The syntax 
+        </para>
+        <para><programlisting role="no-scilab-exec"><![CDATA[
+            solext = solver(sol, tfinal, options)
+            ]]>
+                </programlisting>
+            </para>    
+            <para>
+             extends the solution by restarting the solver from
+            initial time <literal>sol.t($)</literal> and initial condition <literal>sol.y(:,$)</literal> (you cannot
+            use a different solver or the same solver with a different method).
+            This extension can be typically used when you know in advance that the solution is not differentiable at some
+            time point. By stopping then restarting the solver at time of discontinuity you optimize solver effort by
+            avoiding very small time steps.
+        </para> 
+        <para>
+            In the <term>options</term> sequence you can change almost all (but not the solver method) previously used options used in the call
+             of the solver which yielded <term>sol</term>. The right hand side or the residual function and the initial conditions can be overriden
+             by using the specific <literal>rhs</literal>, <literal>res</literal>, <literal>y0</literal> or  <literal>yp0</literal> options, respectively. 
+             Here is an example where we extend the solution of the Van Der Pol equation:
+        </para>
+        <para>
+     <programlisting role="example"><![CDATA[
+         sol = arkode(%SUN_vdp1, [0 5], [0; 2]);
+         solext = arkode(sol, 10);
+         t = linspace(0,5,500);
+         plot(t,sol(t,1))
+         t = linspace(5,10,500);
+         plot(t,solext(t,1),'r')
+         ]]></programlisting>
+         <scilab:image>
+             sol = cvode(%SUN_vdp1, [0 5], [0; 2]);
+             solext = cvode(sol, 10);
+             t = linspace(0,5,500);
+             plot(t,sol(t,1))
+             t = linspace(5,10,500);
+             plot(t,solext(t,1),'r')
+             gcf().axes_size(2)=300  
+         </scilab:image>
+     </para>
+    </refsection>
+  
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

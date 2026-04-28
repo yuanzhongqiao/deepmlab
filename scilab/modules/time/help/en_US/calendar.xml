@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="calendar">
+    <refnamediv>
+        <refname>calendar</refname>
+        <refpurpose>Calendar of a given month and year (Gregorian dates)</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            calendar
+            calendar(y, m)
+            c = calendar()
+            c = calendar(y,m)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>integer in [1800 3000]: The Gregorian year.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>integer in [1, 12]: The month.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>list, with
+                        <table>
+                            <tr><th>c(1):</th><td>single string: The calendar title</td></tr>
+                            <tr><th>c(2):</th><td>single string: Days names.</td></tr>
+                            <tr><th>c(3):</th><td>6x7 matrix of days indices in the month
+                                                    (0 for days out of the month)</td>
+                            </tr>
+                        </table>
+                    </para>
+                    <para>
+                        The title and days names are translated according to the current language.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">calendar</emphasis> displays in the console the
+            calendar of the current month.
+        </para>
+        <para>
+            <emphasis role="bold">calendar(y, m)</emphasis> displays in the console the
+            calendar of the month <varname>m</varname> for the year <varname>y</varname>.
+        </para>
+        <para>
+            <emphasis role="bold">c = calendar()</emphasis> returns a list containing the
+                calendar for the current month. Weeks start on Monday and end on Sunday.
+        </para>
+        <para>
+            <emphasis role="bold">c = calendar(y, m)</emphasis> returns a list containing the
+                calendar for the given month and year.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+c = calendar()
+ ]]></programlisting>
+      <screen><![CDATA[
+--> c = calendar()
+ c  =
+       c(1)
+ Dec 2019
+
+       c(2)
+ Mon  Tue  Wed  Thu  Fri  Sat  Sun
+
+       c(3)
+   0.    0.    0.    0.    0.    0.    1.
+   2.    3.    4.    5.    6.    7.    8.
+   9.    10.   11.   12.   13.   14.   15.
+   16.   17.   18.   19.   20.   21.   22.
+   23.   24.   25.   26.   27.   28.   29.
+   30.   31.   0.    0.    0.    0.    0.
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+calendar
+ ]]></programlisting>
+      <screen><![CDATA[
+--> calendar
+
+             Dec 2019
+ Mon  Tue  Wed  Thu  Fri  Sat  Sun
+                                1
+  2    3    4    5    6    7    8
+  9   10   11   12   13   14   15
+ 16   17   18   19   20   21   22
+ 23   24   25   26   27   28   29
+ 30   31                         
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+calendar(1973, 8)
+ ]]></programlisting>
+      <screen><![CDATA[
+--> calendar(1973, 8)
+ 
+             Aug 1973
+ Mon  Tue  Wed  Thu  Fri  Sat  Sun
+            1    2    3    4    5
+  6    7    8    9   10   11   12
+ 13   14   15   16   17   18   19
+ 20   21   22   23   24   25   26
+ 27   28   29   30   31          
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="weekday">weekday</link>
+            </member>
+            <member>
+                <link linkend="datevec">datevec</link>
+            </member>
+            <member>
+                <link linkend="datenum">datenum</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revremark>
+                    Formated display in the console added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2008 - Allan CORNET
+ * Copyright (C) 2008 - Serge STEERS
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="fileinfo" xml:lang="pt">
+    <refnamediv>
+        <refname>fileinfo</refname>
+        <refpurpose>Fornece informações sobre um arquivo</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+             x = fileinfo(filesPaths)
+            [x,ierr] = fileinfo(filesPaths)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>filesPaths</term>
+                    <para>
+                        vector of paths (as text). Files of any type can be targeted: regular files,
+                        directories (in their own), shortcuts, symbolic links, etc.
+                    </para>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        matrix of decimal integers, of sizes (m,13) with m: number of provided
+                        files paths. The row #i returns informations about the file
+                        <literal>filesPaths(i)</literal>.
+                    </para>
+                   <para>
+                     If only one path is queried and the file does not exist, <varname>x</varname>
+                     returns [].
+                    </para>
+                    <para>
+                        If several files are queried: when a file among them does not exist, its
+                        <varname>x</varname> row is filled with <constant>Nan</constant> values.
+                    </para>
+                    <para>
+                        <table>
+                            <tr><th>x column</th><th align="left">Description</th></tr>
+                            <tr><td align="center" valign="top">1 : </td>
+                                <td >tamanho do arquivo</td>
+                            </tr>
+                            <tr><td align="center" valign="top">2 : </td>
+                                <td>file permissions (see the description)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">3 : </td>
+                                <td>id of the file's owner (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">4 : </td>
+                                <td>id of the file's group (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">5 : </td>
+                                <td>número do dispositivo</td>
+                            </tr>
+                            <tr><td align="center" valign="top">6 : </td>
+                                <td valign="top">
+                                    UNIX timestamp of last data modification.
+                                    <literal>getdate(x(:,6))(:,[1 2 6 7 8 9])</literal> returns the
+                                    corresponding date as a matrix of [year month day hour mn ss]
+                                    numerical rows.
+                                </td>
+                            </tr>
+                            <tr><td align="center" valign="top">7 : </td>
+                                <td>data da última mudança.</td>
+                            </tr>
+                            <tr><td align="center" valign="top">8 : </td>
+                                <td>data do último acesso.</td>
+                            </tr>
+                            <tr><td align="center" valign="top">9 : </td>
+                                <td valign="top">tipo de dispositivo (se o dispositivo for inode).</td>
+                            </tr>
+                            <tr><td align="center" valign="top">10 : </td>
+                                <td>tamanho de bloco para a entrada/saída do sismtema
+                                                 de arquivos (sempre 0 no Windows).
+                                </td>
+                            </tr>
+                            <tr><td align="center" valign="top">11 : </td>
+                                <td>número de blocos alocados (sempre 0 no Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">12 : </td>
+                                <td>File's inode (unique id) (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">13 : </td>
+                                <td>Number of hard links pointing to this file
+                                                (always 1 on Windows).
+                                </td>
+                            </tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ierr</term>
+                <listitem>
+                    <para>indicador de erro : 0, se não for encontrado nenhum erro.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Esta função é uma interface para a função C stat.
+        </para>
+        <para>Permissões são tipicamente especificadas como números
+            octais : <literal>dec2oct(x(2))</literal> para conversão.
+        </para>
+        <para>O modo numérico possui de um a quatro dígitos octais
+            (0-7), derivados através da soma de bits com os valores 4, 2, e 1.
+            Quaisquer dígitos omitidos são supostos como zeros à
+            esquerda. O primeiro dígito seleciona o ID de usuário (4) e
+            ajusta o ID do grupo (2) e atributos "sticky" (1). O segundo dígito
+            seleciona permissões para o usuário que possui o arquivo:
+            leitura (4), escrita (2), e execução (1); o terceiro dígito
+            seleciona permissões para os outros usuários no grupo do
+            arquivo, com os mesmos valores; e o quarto seleciona permissões para
+            outros usuários que não estão no grupo do arquivo, com os
+            mesmos valores.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+w = fileinfo(SCI+'/etc/scilab.start')
+// permissão do arquivo
+dec2oct(w(2))
+// data do arquivo : [year month day hh mn ss .ss]
+getdate(w(6))(:,[1 2 6:10])
+
+// Verificando a permissão de escrita em um arquivo
+w = fileinfo(SCI+'/etc/scilab.start')
+
+S_IWRITE = 128; // mascarando a permissão de escrita
+S_IEXEC = 64; // mascarando a permissão de execução
+S_IREAD = 256; // mascarando a permissão de leitura
+S_IFCHR = 8192; // mascarando a permissão de diretório
+
+if ( bitand( w(2), S_IWRITE ) <> 0) then
+ disp('PERIMISSÃO DE ESCRITA neste arquivo.');
+else
+ disp('NÃO HÁ PERIMISSÃO DE ESCRITA neste arquivo.');
+end ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="getdate">getdate</link>
+            </member>
+            <member>
+                <link linkend="file">file</link>
+            </member>
+            <member>
+                <link linkend="dispfiles">dispfiles</link>
+            </member>
+            <member>
+                <link linkend="newest">newest</link>
+            </member>
+            <member>
+                <link linkend="isfile">isfile</link>
+            </member>
+            <member>
+                <link linkend="isdir">isdir</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    Several files paths can now be processed.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

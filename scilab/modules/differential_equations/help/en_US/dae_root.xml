@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="dae_root" xml:lang="en">
+    <refnamediv>
+        <refname>dae_root</refname>
+        <refpurpose>
+            differential algebraic equation solver with roots finding
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [y, nn, [,hd]] = dae("root", y0, t0, t, f, ng, g)
+            [y, nn, [,hd]] = dae("root", y0, t0, t [,rtol [,atol]], f [,jac], ng, g [,hd])
+
+            [y, nn, [,hd]] = dae("root2", y0, t0, t, f, ng, g)
+            [y, nn, [,hd]] = dae("root2", y0, t0, t [,rtol [,atol]], f [,jac], ng, g [,psol, pjac] [,hd])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>y0</term>
+                <listitem>
+                    <para>a real vector or matrix (initial conditions).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t0</term>
+                <listitem>
+                    <para>a real scalar (initial time).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>a real vector (times at which the solution is computed).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>an external i.e. function or character string or list, computes the value of 
+                        <literal>f(t, y, ydot)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rtol, atol</term>
+                <listitem>
+                    <para>a real scalar or a column vector of the same size as
+                        <literal>y0</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>jac</term>
+                <listitem>
+                    <para>an external i.e. function or character string or list, 
+                        computes the value of dg/dx+cj*dg/dxdot for a given value of parameter cj.</para>
+                        <para>Syntax of jac: <literal>r = jac(t, y, ydot, cj)</literal></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ng</term>
+                <listitem>
+                    <para>an integer.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>g</term>
+                <listitem>
+                    <para>an external i.e. function or character string or list, 
+                        computes the value of the column vector g(t, x) with ng components. Each component defines a surface.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>psol</term>
+                <listitem>
+                    <para>an external i.e. function or character string or list, 
+                        solves a linear system P*x = b, with P being the factored preconditioner that routine pjac computed beforehand and stored in wp and iwp.</para>
+                        <para>Syntax of psol: <literal>[r, ier] = psol(wp, iwp, b)</literal></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pjac</term>
+                <listitem>
+                    <para>an external i.e. function or character string or list, 
+                        computes the value of dg/dy + cj*dg/dydot for a given value of parameter cj and LU-factorizes it in two arrays, real and integer.</para>
+                        <para>Syntax of pjac: <literal>[wp, iwp, ires] = pjac(neq, t, y, ydot, h, cj, rewt, savr)</literal></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hd</term>
+                <listitem>
+                    <para>
+                        real vector which allows to store the <literal>dae</literal>
+                        context and to resume integration.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>a real vector or matrix. The solution.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nn</term>
+                <listitem>
+                    <para>a real vector with two entries [times num], times is the value of the time 
+                        at which the surface is crossed, num is the number of the crossed surface.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            With this syntax (first argument equal to "root" or "root2") dae solves the implicit differential equation: 
+        </para>
+        <screen><![CDATA[
+            g(t,y,ydot) = 0
+            y(t0) = y0  and   ydot(t0) = ydot0
+            ]]></screen>
+        <para>Returns the surface crossing instants and the number of the surface
+            reached in <literal>nn</literal>.
+        </para>
+        <para>Other arguments and other options are the same as for
+            <literal>dae</literal>, see the <link linkend="dae">dae</link> help.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <para>
+            Example #1: use "root"
+        </para>
+        <programlisting role="example"><![CDATA[
+            // dy/dt = ((2*log(y)+8)/t -5)*y,  y(1) = 1,  1<=t<=6
+            // g1 = ((2*log(y)+8)/t - 5)*y
+            // g2 = log(y) - 2.2491
+            y0 = 1; t = 2:6; t0 = 1; y0d = 3;
+            atol = 1.d-6; rtol = 0; ng = 2;
+
+            deff('[delta,ires] = res1(t,y,ydot)', 'ires=0; delta=ydot-((2*log(y)+8)/t-5)*y')
+            deff('rts = gr1(t,y)', 'rts=[((2*log(y)+8)/t-5)*y;log(y)-2.2491]')
+
+            [yy,nn] = dae("root", [y0,y0d],t0,t,rtol,atol,res1,ng,gr1);
+            //(Should return nn=[2.4698972 2])
+        ]]></programlisting>
+        <para>
+            Example #2: use "root2"
+        </para>
+        <programlisting role="example"><![CDATA[
+            // dy1/dt = y2
+            // dy2/dt = 100 * (1 - y1^2) * y2 - y1
+            // g = y1
+            t0 = 0;
+            y0 = [2;0];
+            y0d = [0; -2];
+            t = [20:20:200];
+            ng = 1;
+            rtol = [1.d-6; 1.d-6];
+            atol = [1.d-6; 1.d-4];
+
+            deff("[delta,ires]=res2(t,y,ydot)",...
+            "ires=0;y1=y(1),y2=y(2),delta=[ydot-[y2;100*(1-y1*y1)*y2-y1]]")
+
+            deff("s=gr2(t,y,yd)","s=y(1)")
+
+            [yy, nn]=dae("root2", [y0, y0d], t0, t, rtol, atol, res2, ng, gr2);
+            nn
+
+            // Should return nn = [81.163512 1]
+            ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="dae">dae</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

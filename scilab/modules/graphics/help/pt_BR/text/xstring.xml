@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="xstring" xml:lang="pt">
+    <refnamediv>
+        <refname>xstring</refname>
+        <refpurpose>imprime strings</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+          xstring(x, y, str)
+          xstring(x, y, str, angle)
+          xstring(x, y, str, angle, box)
+          hdl = xstring(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>x,y</term>
+                <listitem>
+                    <para>escalares reais, coordenadas do ponto inferior esquerdo dos
+                        strings.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>str</term>
+                <listitem>
+                    <para>matriz de strings </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>angle</term>
+                <listitem>
+                    <para>real, ângulo horário em graus; O valor padrão é 0.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>box</term>
+                <listitem>
+                    <para>inteio, o valor padrão é 0</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Text</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="text_properties">text_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>xstring</literal> imprime a matriz de strings
+            <literal>str</literal> na localização <literal>x,y</literal> (ponto
+            inferior esquerdo) na escala de gráficos corrente: cada linha da matriz
+            significa uma linha de texto e os elementos das linhas são palavras
+            separadas por espaços em branco. Se <literal>angle</literal> for dado,
+            fornece a inclinação em graus para escrever os strings. Se
+            <literal>box</literal> for 1 e <literal>angle</literal> for 0, uma caixa é
+            desenhada ao redor dos strings.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+plot2d([0;1],[0;1],0)
+xstring(0.5,0.5,["Scilab" "não"; "é" "esilaB"])
+//outro exemplo
+alphabet=["a" "b" "c" "d" "e" "f" "g" ..
+          "h" "i" "j" "k" "l" "m" "n" ..
+          "o" "p" "q" "r" "s" "t" "u" ..
+          "v" "w" "x" "y" "z"];
+clf()
+plot2d([0;1],[0;2],0)
+xstring(0.1,1.8,alphabet)     // alfabeto
+xstring(0.1,1.6,alphabet,0,1) // alfabeto em uma caixa
+xstring(0.1,1.4,alphabet,20)  // ângulo
+set(gca(),"font_style",1,"font_size",1); // usando fontes symbol
+xstring(0.1,0.1,alphabet)
+h=xstring(0.1,0.3,alphabet)
+h.font_size = 3;          // mudando tamanho da fonte
+h=xstring(0.1,0.6,"a") //alfa grande
+h.font_size = 24;
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="text_properties">text_properties</link>
+            </member>
+            <member>
+                <link linkend="math_rendering_features_in_graphic">Math mode in strings</link>
+            </member>
+          <member>
+                <link linkend="xnumb">xnumb</link>
+            </member>
+            <member>
+                <link linkend="xtitle">xtitle</link>
+            </member>
+            <member>
+                <link linkend="titlepage">titlepage</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    Function returns the created handle(s).
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

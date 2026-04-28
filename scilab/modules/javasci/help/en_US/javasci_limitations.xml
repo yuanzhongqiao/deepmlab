@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Allan CORNET
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<!-- This document was created with Syntext Serna Free. -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="javasci_v1_limitations" scilab:needs-examples="no" xml:lang="en">
+    <refnamediv>
+        <refname>javasci v1 limitations</refname>
+        <refpurpose>Why javasci v1 is now deprecated ?</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>The version V1 of javasci has some important limitations:</para>
+        <itemizedlist>
+            <listitem>
+                 <para>To retrieve any variable from the Scilab language, knowing the type of the variable is mandatory a priori.</para></listitem>
+                <listitem>
+                     <para>Only a few types are managed by the interface (boolean, double, complex and string).</para></listitem>
+                    <listitem>
+                         <para>Lack of consistency between Scilab and Java. For example, in Scilab, a scalar (matrix of [1,1]) is a matrix. In the Java interface, there are two different datatypes (example: SciDouble and SciDoubleArray).</para></listitem>
+                        <listitem>
+                             <para>There is no serialization possible on most of the datatype.</para></listitem>
+                            <listitem>
+                                 <para>Calling a Scilab function can be done only with the Exec method and increases the complexity of the retrieval of multiple output arguments.</para></listitem>
+                                <listitem>
+                                     <para>The package name does not follow the package naming rules of Scilab and the Scilab Java checkstyle.</para></listitem>
+                                    <listitem>
+                                         <para>Hard to manage graphics windows (this problem is not addressed yet in Javasci v2)</para></listitem>
+                                        <listitem>
+                                             <para>No interaction with the event loop (this problem is not addressed yet in Javasci v2)</para></listitem>
+                                            <listitem>
+                                                 <para>Cannot manage several instances of Scilab (this problem is not addressed yet in Javasci v2)</para></listitem>
+                                            </itemizedlist>
+                                        </refsection>
+                                        <refsection role="see also">
+                                            <title>See also</title>
+                                            <simplelist type="inline">
+                                                <member>
+                                                    <link xlink:href="javasci/javadoc/index.html">Documentation of Javasci v2</link>
+                                                </member>
+                                                <member>
+                                                    <link linkend="compile_and_run_javasci_v2">Compile and run with Javasci</link>
+                                                </member>
+                                                <member>
+                                                    <link linkend="javasci_faq_v2">Javasci FAQ</link>
+                                                </member>
+                                            </simplelist>
+                                        </refsection>
+                                        <refsection role="history">
+                                            <title>History</title>
+                                            <revhistory>
+                                                <revision>
+                                                    <revnumber>5.4.0</revnumber>
+                                                    <revremark>
+                                                        Javasci v1 is removed.
+                                                    </revremark>
+                                                </revision>
+                                            </revhistory>
+                                        </refsection>
+                                    </refentry>

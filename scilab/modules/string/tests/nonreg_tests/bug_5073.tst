@@ -1,0 +1,23 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 5073 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/5073
+//
+// <-- Short Description -->
+// Optional argument added for decimal separator
+
+assert_checkequal(strtod("1,3",","),1.3);
+str_ref=",3";
+d_ref=1;
+[d, str]=strtod("1,3",".");
+assert_checkequal(d, 1);
+assert_checkequal(str, ",3");

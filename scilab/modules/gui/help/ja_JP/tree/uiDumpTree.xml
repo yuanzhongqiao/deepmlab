@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="uiDumpTree">
+    <refnamediv>
+        <refname>uiDumpTree</refname>
+        <refpurpose>コンソールでツリーを印刷 (テキストモード)</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>uiDumpTree(tree[,b])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>入力パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>tree</term>
+                <listitem>
+                    <para>ツリー.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>b(optional)</term>
+                <listitem>
+                    <para>ツリーの各ノードの機能を表示します. bのデフォルト値は'%F'.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>ツリーをコンソール(テキストモード)に表示.</para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+// ツリー作成前にノード(サブツリー)を作成する必要があります.
+node1 = uiCreateNode('Node 1');
+leaf11 = uiCreateNode('leaf 1.1');
+leaf12 = uiCreateNode('leaf 1.2');
+treeNode1 = uiCreateTree(node1, leaf11, leaf12);
+
+node2 = uiCreateNode('Node 2');
+
+node3 = uiCreateNode('Node 3');
+leaf31 = uiCreateNode('leaf 3.1');
+leaf32 = uiCreateNode('leaf 3.2');
+treeNode3 = uiCreateTree(node3, leaf31, leaf32);
+
+root = uiCreateNode('Root');
+treeRoot = uiCreateTree(root, treeNode1, node2, treeNode3);
+
+// Display in the console:
+uiDumpTree(treeRoot)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> uiDumpTree(treeRoot)
+  |_./ Root
+  | |_./ Node 1
+  | | |_./ leaf 1.1
+  | | |_./ leaf 1.2
+  | |_./ Node 2
+  | |_./ Node 3
+  | | |_./ leaf 3.1
+  | | |_./ leaf 3.2
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uiDisplayTree">uiDisplayTree</link>
+            </member>
+            <member>
+                <link linkend="tree_show">tree_show</link>
+            </member>
+            <member>
+                <link linkend="xmlDump">xmlDump</link>
+            </member>
+            <member>
+                <link linkend="prettyprint">prettyprint</link>
+            </member>
+            <member>
+                <link linkend="editvar">editvar</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

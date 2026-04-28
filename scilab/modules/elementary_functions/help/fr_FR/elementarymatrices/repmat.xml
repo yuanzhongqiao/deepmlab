@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - INRIA - Serge Steer
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="repmat" xml:lang="fr">
+    <refnamediv>
+        <refname>repmat</refname>
+        <refpurpose>Définit un grand tableau par pavage avec un tableau 2D.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Sequence d'appel</title>
+        <synopsis>
+          B = repmat(A, siz)
+          B = repmat(A, m)
+          B = repmat(A, m, n,...)
+      </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                     <para>
+                        Tableau de tout type natif quelconque (booléen, numérique, texte, ..., cellules,
+                        structures), de toute dimensionnalité, et de toutes tailles. Les matrices creuses
+                        booléennes ou numériques peuvent être répliquées.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m, n, ...</term>
+                <listitem>
+                     <para>
+                        entiers positifs : nombres de fois que <varname>A</varname> doit être répliqué,
+                        selon chaque dimension respective de <varname>B</varname>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>siz</term>
+                <listitem>
+                     <para>
+                        Vecteur des nombres de replications : <literal>siz=[m,n,..]</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>B</term>
+                <listitem>
+                     <para>
+                        Le tableau résultant du pavage.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">repmat(A, m)</emphasis> crée un pavage de
+            <literal>m</literal> × <literal>m</literal> copies concaténées
+            de <varname>A</varname>.
+        </para>
+        <para>
+            <emphasis role="bold">repmat(A, m, n)</emphasis> ou
+            <emphasis role="bold">repmat(A, [m, n])</emphasis> crée un pavage de
+            <literal>m</literal> × <literal>n</literal> copies concaténées de <varname>A</varname>.
+        </para>
+        <para>
+            <emphasis role="bold">repmat(A, m, n, p, ..)</emphasis> est une généralisation de
+            <emphasis role="bold">repmat(A, m, n)</emphasis>.
+        </para>
+        <para>
+            <literal>repmat(…)</literal> étend <literal>ones(m,n,..) .*. A</literal>
+            aux tableaux <varname>A</varname> non numériques.
+        </para>
+        <para>
+             repmat(…) peut être définie pour d'autres types <varname>A</varname>
+             via le mécanisme de surcharge habituel.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+repmat([-1 3 7], 2, 4)
+
+repmat(int8([1 -2 3; 0 -1  1]), 2, 4, 2)
+
+b = cat(3, [%f %t %t], [%t %t %f])
+repmat(b, [2 3])
+
+t = "Scilab"; t(ones(2,4))
+repmat(["Scilab" "Xcos"], 2, 3)
+
+repmat([1/%s ; 2/(%s+1)], 1, 3)
+    ]]></programlisting>
+    <screen><![CDATA[
+--> repmat([-1 3 7], 2, 4)
+ ans  =
+  -1.   3.   7.  -1.   3.   7.  -1.   3.   7.  -1.   3.   7.
+  -1.   3.   7.  -1.   3.   7.  -1.   3.   7.  -1.   3.   7.
+
+
+--> repmat(int8([1 -2 3; 0 -1  1]), 2, 4, 2)
+ ans  =
+(:,:,1)
+  1 -2  3  1 -2  3  1 -2  3  1 -2  3
+  0 -1  1  0 -1  1  0 -1  1  0 -1  1
+  1 -2  3  1 -2  3  1 -2  3  1 -2  3
+  0 -1  1  0 -1  1  0 -1  1  0 -1  1
+(:,:,2)
+  1 -2  3  1 -2  3  1 -2  3  1 -2  3
+  0 -1  1  0 -1  1  0 -1  1  0 -1  1
+  1 -2  3  1 -2  3  1 -2  3  1 -2  3
+  0 -1  1  0 -1  1  0 -1  1  0 -1  1
+
+
+--> b = cat(3, [%f %t %t], [%t %t %f])
+ b  =
+(:,:,1)
+  F T T
+(:,:,2)
+  T T F
+
+--> repmat(b, [2 3])
+ ans  =
+(:,:,1)
+  F T T F T T F T T
+  F T T F T T F T T
+ (:,:,2)
+  T T F T T F T T F
+  T T F T T F T T F
+
+
+--> t = "Scilab"; t(ones(2,4))
+ ans  =
+  "Scilab"  "Scilab"  "Scilab"  "Scilab"
+  "Scilab"  "Scilab"  "Scilab"  "Scilab"
+
+--> repmat(["Scilab" "Xcos"], 2, 3)
+ ans  =
+  "Scilab"  "Xcos"  "Scilab"  "Xcos"  "Scilab"  "Xcos"
+  "Scilab"  "Xcos"  "Scilab"  "Xcos"  "Scilab"  "Xcos"
+
+
+--> repmat([1/%s ; 2/(%s+1)], 1, 3)
+ ans  =
+    1     1     1
+    -     -     -
+    s     s     s
+
+    2     2     2
+   ----  ----  ----
+   1 +s  1 +s  1 +s
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="kron">kron</link>
+            </member>
+            <member>
+                <link linkend="ndgrid">ndgrid</link>
+            </member>
+            <member>
+                <link linkend="insertion">insertion</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.3.1</revnumber>
+                <revremark>Fonction repmat introduite.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

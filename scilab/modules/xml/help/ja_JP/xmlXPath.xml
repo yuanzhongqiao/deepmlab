@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="xmlXPath" xml:lang="ja">
+    <refnamediv>
+        <refname>xmlXPath</refname>
+        <refpurpose>XML文書にXPathクエリを作成する</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            result = xmlXPath(xmlObj, queryStr)
+            result = xmlXPath(xmlObj, queryStr, namespaces)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>xmlObj</term>
+                <listitem>
+                    <para>XMLDocまたはXMLElem型のXML mlist</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>queryStr</term>
+                <listitem>
+                    <para>Xpathクエリ</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>namespaces</term>
+                <listitem>
+                    <para>オプションの文字列の n x 2行列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>
+                        XMLElementsの集合または数値または文字列または論理値
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            特定の文書中またはある要素で始まるXPathクエリを作成します.
+            名前空間を使用する必要がある場合,オプション引数によりこれらを
+            定義する必要があります.
+            XML名前空間は最初のタグにキーワード "xmlns" で定義します.
+        </para>
+        <para>
+            XPathに関する詳細については, <ulink url="http://www.w3.org/TR/1999/REC-xpath-19991116/">W3C recommendation</ulink>を参照ください.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+    xdoc = xmlRead("http://www.w3.org/TR/2009/REC-xml-names-20091208/xml-names-10-3e.xml");
+
+    // "note"に名前が等しいノードを取得
+    xp = xmlXPath(xdoc, "//note");
+    s = size(xp);
+    for i=1:s(2)
+        xmlDump(xp(i))
+    end
+
+    // 名前が"note"に等しいノードの数を数える
+    xp = xmlXPath(xdoc, "count(//note)")
+
+    // id="Philosophy"のノードを取得
+    xp = xmlXPath(xdoc, "//*[@id=""Philosophy""]");
+    s = size(xp);
+    if (s(2) <> 0) then
+        xmlDump(xp(1))
+    end
+
+    // 属性番号が5に等しいノードを取得
+    xp = xmlXPath(xdoc, "//*[number(@num)=5]");
+    s = size(xp);
+    if (s(2) <> 0) then
+        xmlDump(xp(1))
+    end
+
+    // 'emph'という名前のノードの全ての属性の名前と内容を取得
+    xp = xmlXPath(xdoc, "//emph/@*");
+    xp.name
+    xp.content
+    xmlDelete(xdoc);
+
+    // 名前空間を検索
+    t = "<root xmlns:scilab=""http://www.scilab.org"">"+..
+        "<scilab:a att=""foo"" rib=""bar""><b>Hello</b></scilab:a></root>"
+    xdoc = xmlReadStr(t);
+
+    // aという名前の要素を探します
+    xmlXPath(xdoc, "//a") // => nothing
+    xmlXPath(xdoc, "//scilab:a", ["scilab" "https://www.scilab.org"]) // => OK
+
+    // このコードは失敗します:
+    // xmlXPath(xdoc, "//scilab:a") // => エラー
+    xmlDelete(xdoc);
+
+    // 要素で始まるクエリ
+    t = "<root att=""attribute""><a a1=""A1"" a2=""A2"" a3=""A3"">"+..
+        "<b>Hello</b><c>Scilab</c><b>World</b></a><b>Nothing</b></root>"
+    xdoc = xmlReadStr(t);
+    e = xdoc.root.children(1);
+
+    // eの属性を取得
+    xp = xmlXPath(e, "@*");
+    xmlAsText(xp)
+
+    // eから'b'を取得
+    xp = xmlXPath(e, "b");
+    xmlAsText(xp)
+    xmlDelete(xdoc);
+    ]]></programlisting>
+    <para>
+        <emphasis role="bold">XMLコメントの取得:</emphasis>
+    </para>
+    <programlisting ole="example"><![CDATA[
+    xdoc = xmlRead(SCI+"/modules/ui_data/etc/newsfeed.xml");
+    c = xmlXPath(xdoc, "//comment()");   // do not forget the trailing ()
+    c.content'
+
+    xmlDelete(xdoc);
+    ]]></programlisting>
+    <screen><![CDATA[
+--> c.content'
+ ans =
+! RSS Feed URL                                                        !
+! automatic news change interval time (in ms), set to -1 to disable   !
+! periodic feed update interval time (in ms), set to -1 to disable    !
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <ulink url="http://www.w3.org/TR/1999/REC-xpath-19991116/">W3C XPath recommendation</ulink>
+            </member>
+            <member>
+                <ulink url="https://www.w3schools.com/xml/xpath_intro.asp">XPathチュートリアル</ulink>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>XML文字列が導入されました.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

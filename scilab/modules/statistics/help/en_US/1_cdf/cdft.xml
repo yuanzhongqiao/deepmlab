@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="cdft">
+    <refnamediv>
+        <refname>cdft</refname>
+        <refpurpose>cumulative distribution function Student's T distribution</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[P,Q]=cdft("PQ",T,Df)
+            [T]=cdft("T",Df,P,Q)
+            [Df]=cdft("Df",P,Q,T)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>P,Q,T,Df</term>
+                <listitem>
+                    <para>six real vectors of the same size.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>P,Q (Q=1-P)  </term>
+                <listitem>
+                    <para>The integral from -infinity to t of the t-density. Input range: (0,1].</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>T</term>
+                <listitem>
+                    <para>Upper limit of integration of the t-density. Input range: ( -infinity, +infinity). Search range: [ -1E150, 1E150 ]</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Df</term>
+                <listitem>
+                    <para>Degrees of freedom of the t-distribution. Input range: (0 , +infinity). Search range: [1e-300, 1E10]</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Calculates any one parameter of the T distribution given
+            values for the others.
+        </para>
+        <para>
+            Formula  26.5.27  of   Abramowitz   and  Stegun,   Handbook   of
+            Mathematical Functions  (1966) is used to reduce the computation
+            of the cumulative distribution function to that of an incomplete
+            beta.
+        </para>
+        <para>
+            In certain cases, the degrees of freedom are not integers. Scilab then issues a warning.
+        </para>
+        <para>
+            Computation of other parameters involve a search for a value that
+            produces  the desired  value  of P.   The search relies  on  the
+            monotonicity of P with the other parameter.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            In the following example, we compute the probability of the event <literal>T=5</literal>
+            for the Student's T distribution function with <literal>Df=2</literal>.
+        </para>
+        <programlisting role="example"><![CDATA[
+    T = 5;
+    Df = 2;
+    // Expected : P = 0.9811252 and Q = 1-P
+    [P, Q] = cdft("PQ", T, Df)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cdfbet">cdfbet</link>
+            </member>
+            <member>
+                <link linkend="cdfbin">cdfbin</link>
+            </member>
+            <member>
+                <link linkend="cdfchi">cdfchi</link>
+            </member>
+            <member>
+                <link linkend="cdfchn">cdfchn</link>
+            </member>
+            <member>
+                <link linkend="cdff">cdff</link>
+            </member>
+            <member>
+                <link linkend="cdffnc">cdffnc</link>
+            </member>
+            <member>
+                <link linkend="cdfgam">cdfgam</link>
+            </member>
+            <member>
+                <link linkend="cdfnbn">cdfnbn</link>
+            </member>
+            <member>
+                <link linkend="cdfnor">cdfnor</link>
+            </member>
+            <member>
+                <link linkend="cdfpoi">cdfpoi</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

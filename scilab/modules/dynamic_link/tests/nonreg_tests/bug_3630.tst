@@ -1,0 +1,69 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- ENGLISH IMPOSED -->
+
+// <-- Non-regression test for bug 3630 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/3630
+//
+// <-- Short Description -->
+// functions added by addinter are not visible by 'what'
+
+ilib_verbose(0);
+
+test_path = get_absolute_file_path('bug_3630.tst');
+
+currentpath = pwd();
+
+cd TMPDIR;
+OS_TMP_DIR = pwd();
+
+
+mkdir(OS_TMP_DIR,'bug_3630');
+TEST_DIR = OS_TMP_DIR + filesep() + 'bug_3630';
+
+copyfile(SCI+'/modules/dynamic_link/tests/nonreg_tests/bug_3630.c' , TEST_DIR + filesep() + 'bug_3630.c');
+
+chdir(TEST_DIR);
+
+files=['bug_3630.c'];
+ilib_build('libc_fun',['c_interface1','c_interface1';'c_interface2','c_interface2'],files,[]);
+
+[primitives1,commandes] = what();
+nbprimitives1 = size(primitives1,'*');
+
+// load the shared library 
+exec loader.sce;
+
+chdir(currentpath);
+
+[primitives2,commandes] = what();
+nbprimitives2 = size(primitives2,'*');
+
+if (nbprimitives2 - nbprimitives1) <> 2 then pause,end
+
+if ~or(primitives2 == 'c_interface1') then pause,end
+if ~or(primitives2 == 'c_interface2') then pause,end
+
+// ulink() all libraries
+ulink();
+clearfun('c_interface1');
+clearfun('c_interface2');
+
+[primitives3,commandes] = what();
+nbprimitives3 = size(primitives3,'*');
+
+if or(primitives3 == 'c_interface1') then pause,end
+if or(primitives3 == 'c_interface2') then pause,end
+
+if (nbprimitives3 - nbprimitives1) <> 0 then pause,end
+
+//remove TMP_DIR
+rmdir(TEST_DIR,'s');
+// =============================================================================

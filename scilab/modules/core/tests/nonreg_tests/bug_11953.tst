@@ -1,0 +1,27 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 11953 -->
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/11953
+//
+// <-- Short Description -->
+// Scilab crashes when global("") is entered.
+
+errmsg = msprintf(gettext("%s : Wrong value for argument #%d: %s\n"), "global", 1, "");
+assert_checkerror("global("""")",errmsg);
+errmsg = msprintf(gettext("%s : Wrong value for argument #%d: %s\n"), "global", 2, "");
+assert_checkerror("global(""a"","""")",errmsg);
+errmsg = msprintf(gettext("%s : Wrong value for argument #%d: %s\n"), "global", 3, "");
+assert_checkerror("global(""a"",""b"","""")",errmsg);
+
+l=list("a", "b","c", "");
+errmsg = msprintf(gettext("%s : Wrong value for argument #%d: %s\n"), "global", 4, "");
+assert_checkerror("global(l(:))",errmsg);

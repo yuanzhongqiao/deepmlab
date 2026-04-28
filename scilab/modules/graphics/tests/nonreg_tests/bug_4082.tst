@@ -1,0 +1,29 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009-2009 - Digiteo - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// <-- Non-regression test for bug 4082 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/4082
+//
+// <-- Short Description -->
+//
+// After save ( xsave ) a figure, the load command ( save/xsave ) modify the name of the figure.
+
+t=0:0.01:10;
+subplot(211),plot2d(t,sin(t))
+subplot(212),plot2d(t,sin(3*t))
+f = gcf();
+save(TMPDIR+"/foo.scg","f"); //or xsave
+clf()
+load(TMPDIR+"/foo.scg"); //or xload
+
+f = gcf();
+
+if f.figure_name <> _("Graphic window number %d") then pause,end

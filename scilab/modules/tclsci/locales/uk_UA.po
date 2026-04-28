@@ -1,0 +1,272 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Yuri Chornoivan <yurchor@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2018-02-19 19:38+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+msgid "Warning: Problem(s) with TCL/TK interface. Interface not enabled.\n"
+msgstr "Попередження: проблеми з інтерфейсом TCL/TK. Інтерфейс не увімкнено.\n"
+
+msgid "Tcl/TK interface disabled in -nogui mode.\n"
+msgstr "У режимі -nogui інтерфейс Tcl/TK вимкнено.\n"
+
+#, c-format
+msgid "%s: Error main TCL interpreter not initialized.\n"
+msgstr "%s: помилка, основний інтерпретатор TCL не ініціалізовано.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgstr "%s: помилковий тип параметра №%d: мало бути використано рядок.\n"
+
+#, c-format
+msgid "%s: No such slave interpreter.\n"
+msgstr "%s: немає такого підлеглого інтерпретатора.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: File %s not found.\n"
+msgstr "%s: не знайдено файла %s.\n"
+
+#, c-format
+msgid ""
+"%s, at line %i of file %s\n"
+"\t%s.\n"
+msgstr ""
+"%s, рядок %i файла %s\n"
+"\t%s.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgstr "%s: помилковий тип параметра №%d: мала бути матриця з рядків.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: помилка під час спроби виділення пам’яті.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: String or vector of strings "
+"expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мав бути рядок або вектор з "
+"рядків.\n"
+
+#, c-format
+msgid "%s: No more memory.\n"
+msgstr "%s: доступну пам’ять вичерпано.\n"
+
+#, c-format
+msgid "%s: Could not read Tcl Variable.\n"
+msgstr "%s: не вдалося прочитати змінну Tcl.\n"
+
+msgid "Alpha Release"
+msgstr "Alpha-випуск"
+
+msgid "Beta Release"
+msgstr "Тестовий випуск"
+
+msgid "Final Release"
+msgstr "Остаточний випуск"
+
+msgid "Unknown Release"
+msgstr "Невідомий випуск"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати «%s».\n"
+
+msgid "This function doesn't work with Complex.\n"
+msgstr "Ця функція не працює з Complex.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: A real expected.\n"
+msgstr "%s: помилковий тип аргументу %d: мало бути використано ціле число.\n"
+
+msgid "[] doesn't work with Tcl/Tk.\n"
+msgstr "[] не працює з Tcl/Tk.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d or #%d: String expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d або №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: An error occurred: %s\n"
+msgstr "%s: сталася помилка: %s\n"
+
+msgid "Impossible to set environment variable."
+msgstr "Не вдалося встановити змінну середовища."
+
+msgid "Impossible to set system encoding."
+msgstr "Не вдалося встановити системне кодування."
+
+msgid ""
+"The SCI environment variable is not set.\n"
+"TCL initialisation failed !\n"
+msgstr ""
+"Не встановлено змінної середовища SCI.\n"
+"Спроба ініціалізації TCL зазнала невдачі!\n"
+
+msgid ""
+"Unable to find Tcl initialisation scripts.\n"
+"Check your SCI environment variable.\n"
+"Tcl initialisation failed !"
+msgstr ""
+"Не вдалося виявити скрипти ініціалізації Tcl.\n"
+"Перевірте, чи правильно вказано змінну середовища SCI.\n"
+"Помилка ініціалізації Tcl!"
+
+msgid ""
+"The SCI environment variable is not set.\n"
+"Tcl initialisation failed !\n"
+msgstr ""
+"Не встановлено змінної середовища SCI.\n"
+"Спроба ініціалізації Tcl зазнала невдачі!\n"
+
+msgid "Tcl Error: Unable to create Tcl interpreter (Tcl_CreateInterp).\n"
+msgstr ""
+"Помилка Tcl: не вдалося створити процес інтерпретатора Tcl "
+"(Tcl_CreateInterp).\n"
+
+#, c-format
+msgid "Tcl Error: Error during the Tcl initialization (Tcl_Init): %s\n"
+msgstr "Помилка Tcl: помилка під час спроби ініціалізації Tcl (Tcl_Init): %s\n"
+
+#, c-format
+msgid "Tcl Error: Error during the TK initialization (Tk_Init): %s\n"
+msgstr "Помилка Tcl: помилка під час ініціалізації TK (Tk_Init): %s\n"
+
+#, c-format
+msgid ""
+"Tcl Error: Error during the Scilab/Tcl init process. Could not set SciPath: "
+"%s\n"
+msgstr ""
+"Помилка Tcl під час спроби ініціалізації процесу Scilab/Tcl. Не вдалося "
+"встановити змінну середовища SciPath: %s\n"
+
+#, c-format
+msgid ""
+"Tcl Error: Error during the Scilab/TK init process. Error while loading %s: "
+"%s\n"
+msgstr ""
+"Помилка Tcl під час ініціалізації процесу Scilab/TK. Помилка виникла під час "
+"спроби завантажити %s: %s\n"
+
+#, c-format
+msgid "Tcl Error : %s\n"
+msgstr "Помилка Tcl: %s\n"
+
+#, c-format
+msgid "Tcl Error: %s\n"
+msgstr "Помилка Tcl: %s\n"
+
+msgid "Variable too long.\n"
+msgstr "Занадто довга змінна.\n"
+
+#, c-format
+msgid "%s: Error TCL interpreter not initialized.\n"
+msgstr "%s: помилка: інтерпретатор TCL не ініціалізовано.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): at least one expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: мав бути принаймні один.\n"
+
+msgid "Scilab TCL/TK module not installed.\n"
+msgstr "Модуль TCL/TK Scilab не встановлено.\n"
+
+msgid "Color"
+msgstr "Колір"
+
+msgid "Puzzle"
+msgstr "Складанка"
+
+msgid "Scroll"
+msgstr "Гортання"
+
+msgid "Scale"
+msgstr "Масштаб"
+
+#, c-format
+msgid "%s: Argument #%d: Text(s) expected.\n"
+msgstr "%s: параметр №%d: мало бути вказано текстові дані.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Variable undefined.\n"
+msgstr "%s: параметр %d: невизначена змінна.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Name of a variable of type 1, 4 or 10 expected.\n"
+msgstr "%s: параметр №%d: мало бути вказано назву змінної типу 1, 4 або 10.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d параметрів.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: помилкова кількість вихідних параметрів: мало бути %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A String expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A Boolean expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«boolean».\n"
+
+#, c-format
+msgid "%s: Slave interpreter already exists.\n"
+msgstr "%s: допоміжний інтерпретатор вже запущено.\n"
+
+#
+# File: modules/tclsci/macros/ged_move_entity.sci, line: 38
+msgid "Mouse moving picker ON => Console LOCKED"
+msgstr ""
+
+#
+# File: modules/tclsci/macros/ged_move_entity.sci, line: 39
+msgid "On a figure: Click left to get and set. Click middle to QUIT...\n"
+msgstr ""
+
+#
+# File: modules/tclsci/macros/ged_move_entity.sci, line: 192
+msgid ""
+"\n"
+"--> // Moving picker OFF => Back to the console.\n"
+msgstr ""
+
+#, c-format
+msgid "Error %s while loading library %s"
+msgstr "Помилка %s під час спроби завантаження бібліотеки %s"

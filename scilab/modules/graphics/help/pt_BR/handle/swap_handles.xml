@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Jean-Baptiste Silvy
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="swap_handles" xml:lang="pt">
+    <refnamediv>
+        <refname>swap_handles</refname>
+        <refpurpose>Permuta dois manipuladores em uma hierarquia
+            gráfica
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>swap_handle( handle1, handle2 )</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>handle1</term>
+                <listitem>
+                    <para>primeiro manipulador da permutação</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>handle2</term>
+                <listitem>
+                    <para>segundo manipulador da permutação</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            A função <emphasis role="bold">swap_handles</emphasis> permite
+            permutar dois manipuladores em uma hierarquia gráfica. O primeiro
+            manipulador tomará a posição do segundo e vice-versa.
+        </para>
+        <para>Desde que nem todos os manipuladores são compatíveis com cada um dos
+            outros, existem algumas restrições ao se trocar manipuladores. Por
+            exemplo, não é permitido trocar um manipulador Polyline com um manipulador
+            Axes, já que não seriam compatíveis com suas novas raízes. Mais informação
+            sobre compatibilidade pode ser encontrada na página <link linkend="graphics_entities">graphics_entities</link>.
+        </para>
+        <para>Esta rotina pode ser utilizada em galhos com uma mesma raiz para se
+            trocar os seus índices.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+//-----------------//
+// Primeiro Exemplo//
+//-----------------//
+
+// criando um retângulo
+rect = xrect( 0.5, 0.5,0.5,0.5) ;
+
+// criando um círculo
+circle = xarc( 0.5, 0.5, 0.5, 0.5, 0, 64 * 360 ) ;
+
+// criando uma seta
+arrow = xpoly([0,1],[0,1]) ;
+arrow.polyline_style = 4 ;
+arrow.arrow_size_factor = 4 ;
+
+// obtendo a lista de galhos
+axes = gca()  ;
+axes.children
+
+// mudando a ordem
+swap_handles( rect, arrow ) ;
+swap_handles( arrow, circle ) ;
+
+// obtendo a nova ordem
+axes.children
+
+//-----------------//
+//  Segundo Exemplo//
+//-----------------//
+
+// criando duas janelas
+plot2d ;
+axes1 = gca() ;
+
+scf() ;
+fec ;
+axes2 = gca() ;
+
+// trocando os seus eixos
+// note que o mapa de cores não muda.
+swap_handles( axes1, axes2 ) ;
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="graphics_entities">graphics_entities</link>
+            </member>
+            <member>
+                <link linkend="copy">copy</link>
+            </member>
+            <member>
+                <link linkend="delete">delete</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A824EA62-AF07-4F43-9036-0E63990556BD}</ProjectGuid>
+    <RootNamespace>hdf5</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>sci$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>sci$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>sci$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <TargetName>sci$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>sci$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <TargetName>sci$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PreLinkEvent>
+      <Message>Make dependencies</Message>
+      <Command>lib /DEF:"$(ProjectDir)core_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)core.lib" 1&gt;NUL 2&gt;NUL
+</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)bin\sci$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(SolutionDir)bin\sci$(ProjectName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PreLinkEvent>
+      <Message>Make dependencies</Message>
+      <Command>lib /DEF:"$(ProjectDir)core_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)core.lib" 1&gt;NUL 2&gt;NUL
+</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)bin\sci$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(SolutionDir)bin\sci$(ProjectName).lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Midl>
+      <TargetEnvironment>ARM64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PreLinkEvent>
+      <Message>Make dependencies</Message>
+      <Command>lib /DEF:"$(ProjectDir)core_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)core.lib" 1&gt;NUL 2&gt;NUL
+</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)bin\sci$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(SolutionDir)bin\sci$(ProjectName).lib</ImportLibrary>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <TargetMachine>MachineARM64</TargetMachine>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PreLinkEvent>
+      <Message>Make dependencies</Message>
+      <Command>lib /DEF:"$(ProjectDir)core_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)core.lib" 1&gt;NUL 2&gt;NUL
+</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)bin\sci$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>$(SolutionDir)bin\sci$(ProjectName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PreLinkEvent>
+      <Message>Make dependencies</Message>
+      <Command>lib /DEF:"$(ProjectDir)core_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)core.lib" 1&gt;NUL 2&gt;NUL
+</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)bin\sci$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>$(SolutionDir)bin\sci$(ProjectName).lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <Midl>
+      <TargetEnvironment>ARM64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PreLinkEvent>
+      <Message>Make dependencies</Message>
+      <Command>lib /DEF:"$(ProjectDir)core_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)core.lib" 1&gt;NUL 2&gt;NUL
+</Command>
+    </PreLinkEvent>
+    <Link>
+      <AdditionalDependencies>core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)bin\sci$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>$(SolutionDir)bin\sci$(ProjectName).lib</ImportLibrary>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <TargetMachine>MachineARM64</TargetMachine>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sci_gateway\cpp\hdf5_gw.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_load_v4.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_save.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5attr.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5close.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5cp.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5dataset.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5dump.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5exists.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5flush.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5get.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5group.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5isfoo.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5label.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5ln.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5ls.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5mount.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5mv.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5open.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5read.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5readattr.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5rm.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5umount.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5write.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_file_version.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_load.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_load_v1.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_load_v3.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_is_file.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_listvar.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_listvar_v2.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_listvar_v3.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_percent_H5Object_e.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_percent_H5Object_fieldnames.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_percent_H5Object_p.cpp" />
+    <ClCompile Include="..\cpp\H5ArrayData.cpp" />
+    <ClCompile Include="..\cpp\H5Attribute.cpp" />
+    <ClCompile Include="..\cpp\H5AttributesList.cpp" />
+    <ClCompile Include="..\cpp\H5CompoundData.cpp" />
+    <ClCompile Include="..\cpp\H5DataConverter.cpp" />
+    <ClCompile Include="..\cpp\H5DataFactory.cpp" />
+    <ClCompile Include="..\cpp\H5Dataset.cpp" />
+    <ClCompile Include="..\cpp\H5Dataspace.cpp" />
+    <ClCompile Include="..\cpp\H5ExternalLink.cpp" />
+    <ClCompile Include="..\cpp\H5File.cpp" />
+    <ClCompile Include="..\cpp\H5Group.cpp" />
+    <ClCompile Include="..\cpp\H5HardLink.cpp" />
+    <ClCompile Include="..\cpp\H5Link.cpp" />
+    <ClCompile Include="..\cpp\H5Object.cpp" />
+    <ClCompile Include="..\cpp\H5Options.cpp" />
+    <ClCompile Include="..\cpp\H5ReferenceData.cpp" />
+    <ClCompile Include="..\cpp\H5SoftLink.cpp" />
+    <ClCompile Include="..\cpp\H5StringData.cpp" />
+    <ClCompile Include="..\cpp\H5Type.cpp" />
+    <ClCompile Include="..\cpp\H5VariableScope.cpp" />
+    <ClCompile Include="..\cpp\H5VlenData.cpp" />
+    <ClCompile Include="..\cpp\handle_properties.cpp" />
+    <ClCompile Include="..\cpp\HDF5Scilab.cpp" />
+    <ClCompile Include="..\cpp\listvar_in_hdf5_v1.cpp" />
+    <ClCompile Include="DllmainHdf5.c" />
+    <ClCompile Include="h5_fileManagement.c" />
+    <ClCompile Include="h5_readDataFromFile.c" />
+    <ClCompile Include="h5_readDataFromFile_v1.c" />
+    <ClCompile Include="h5_writeDataToFile.c" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_hdf5_load_v2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\includes\dynlib_hdf5_scilab.h" />
+    <ClInclude Include="..\..\includes\h5_readDataFromFile_v1.h" />
+    <ClInclude Include="..\..\includes\HDF5Objects.h" />
+    <ClInclude Include="..\..\includes\hdf5_gw.hxx" />
+    <ClInclude Include="..\..\includes\gw_hdf5.h" />
+    <ClInclude Include="..\..\includes\h5_attributeConstants.h" />
+    <ClInclude Include="..\..\includes\h5_fileManagement.h" />
+    <ClInclude Include="..\..\includes\h5_readDataFromFile.h" />
+    <ClInclude Include="..\..\includes\h5_writeDataToFile.h" />
+    <ClInclude Include="..\..\includes\hdf5_load_v1.hxx" />
+    <ClInclude Include="..\..\includes\listvar_in_hdf5_v1.hxx" />
+    <ClInclude Include="..\cpp\H5ArrayData.hxx" />
+    <ClInclude Include="..\cpp\H5Attribute.hxx" />
+    <ClInclude Include="..\cpp\H5AttributesList.hxx" />
+    <ClInclude Include="..\cpp\H5BasicData.hxx" />
+    <ClInclude Include="..\cpp\H5BitfieldData.hxx" />
+    <ClInclude Include="..\cpp\H5CharData.hxx" />
+    <ClInclude Include="..\cpp\H5CompoundData.hxx" />
+    <ClInclude Include="..\cpp\h5create.hpp" />
+    <ClInclude Include="..\cpp\H5Data.hxx" />
+    <ClInclude Include="..\cpp\H5DataConverter.hxx" />
+    <ClInclude Include="..\cpp\H5DataFactory.hxx" />
+    <ClInclude Include="..\cpp\H5Dataset.hxx" />
+    <ClInclude Include="..\cpp\H5DatasetsList.hxx" />
+    <ClInclude Include="..\cpp\H5Dataspace.hxx" />
+    <ClInclude Include="..\cpp\H5EnumData.hxx" />
+    <ClInclude Include="..\cpp\H5Exception.hxx" />
+    <ClInclude Include="..\cpp\H5ExternalLink.hxx" />
+    <ClInclude Include="..\cpp\H5File.hxx" />
+    <ClInclude Include="..\cpp\H5FloatData.hxx" />
+    <ClInclude Include="..\cpp\H5Group.hxx" />
+    <ClInclude Include="..\cpp\H5GroupsList.hxx" />
+    <ClInclude Include="..\cpp\H5HardLink.hxx" />
+    <ClInclude Include="..\cpp\H5Link.hxx" />
+    <ClInclude Include="..\cpp\H5LinksList.hxx" />
+    <ClInclude Include="..\cpp\H5ListObject.hxx" />
+    <ClInclude Include="..\cpp\H5NamedObjectsList.hxx" />
+    <ClInclude Include="..\cpp\H5Object.hxx" />
+    <ClInclude Include="..\cpp\H5OpaqueData.hxx" />
+    <ClInclude Include="..\cpp\H5Options.hxx" />
+    <ClInclude Include="..\cpp\H5ReferenceData.hxx" />
+    <ClInclude Include="..\cpp\H5SoftLink.hxx" />
+    <ClInclude Include="..\cpp\H5SoftLinksList.hxx" />
+    <ClInclude Include="..\cpp\H5StringData.hxx" />
+    <ClInclude Include="..\cpp\H5TimeData.hxx" />
+    <ClInclude Include="..\cpp\H5TransformedData.hxx" />
+    <ClInclude Include="..\cpp\H5Type.hxx" />
+    <ClInclude Include="..\cpp\H5TypesList.hxx" />
+    <ClInclude Include="..\cpp\H5UnsignedCharData.hxx" />
+    <ClInclude Include="..\cpp\H5VariableScope.hxx" />
+    <ClInclude Include="..\cpp\H5VlenData.hxx" />
+    <ClInclude Include="..\cpp\handle_properties.hxx" />
+    <ClInclude Include="..\cpp\HDF5Scilab.hxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\locales\hdf5.pot" />
+    <None Include="core_import.def" />
+    <None Include="..\..\hdf5.iss" />
+    <None Include="..\..\sci_gateway\hdf5_gateway.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\..\Makefile.am" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hdf5.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\tools\Dumpexts\Dumpexts.vcxproj">
+      <Project>{3170e4c2-1173-4264-a222-7ee8ccb3ddf7}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\api_scilab\api_scilab.vcxproj">
+      <Project>{43c5bab1-1dca-4743-a183-77e0d42fe7d0}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ast\ast.vcxproj">
+      <Project>{0d3fa25b-8116-44ec-a45e-260789daa3d9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\commons\src\c\commons.vcxproj">
+      <Project>{eca09a1e-6d12-4a47-92e1-a671c181df77}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\fileio\fileio.vcxproj">
+      <Project>{4fc72d4a-80ee-4b1a-8724-0201c1a35621}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\graphics\graphics.vcxproj">
+      <Project>{8ccdd3c2-b025-4a12-a986-1aa28d7c0c33}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\graphic_objects\src\c\graphic_objects.vcxproj">
+      <Project>{30f9ee41-587b-4618-8de7-698d3fba4985}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\io\src\c\io.vcxproj">
+      <Project>{80c0f142-184b-4e08-a8ee-5e71437cf904}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\jvm\libjvm.vcxproj">
+      <Project>{8ba2dda8-bd04-4d4d-8ee6-6caa955f7470}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\localization\src\localization.vcxproj">
+      <Project>{ecffeb0c-1eda-45ee-9a10-b18143852e17}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\output_stream\src\c\output_stream.vcxproj">
+      <Project>{a5911cd7-f8e8-440c-a23e-4843a0636f3a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\windows_tools\src\c\scilab_windows\scilab_windows.vcxproj">
+      <Project>{8028f371-6a94-4a26-8804-6e7f05f1d1aa}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

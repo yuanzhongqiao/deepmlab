@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2016 - Scilab Enterprises - Pierre-Aimé AGNEL
+ * Copyright (C) 2019 - 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="tbx_make" xml:lang="en">
+
+    <refnamediv>
+        <refname>tbx_make</refname>
+        <refpurpose>
+            Builds fully or some given sections of a toolbox having a standard structure
+        </refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tbx_make()
+            tbx_make(tbx_path)
+            tbx_make(tbx_path, sections)
+            tbx_make(tbx_path, "help", languages)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tbx_path</term>
+                <listitem>
+                    <para>
+                        a single string: absolute or relative path to the toolbox root directory.
+                    </para>
+                    <para>Default path is the current working directory.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sections</term>
+                <listitem>
+                     <para>
+                        vector of strings: Names of the toolbox sections to build, among
+                        <literal>["macros", "help", "src", "sci_gateway", "localization"]</literal>.
+                        <literal>"*"</literal> can be used to force building all available sections,
+                        without running the builder script when it exists (see the description section).
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>languages</term>
+                <listitem>
+                     <para>
+                        Vector of strings like <literal>"en_US"</literal>, specifying the subset of the
+                        languages for which help pages must be built.
+                        
+                        This is useful during the module's development, in order to  avoid rebuilding
+                        pages for ALL languages when this is not yet required, that can be very time
+                        consuming.
+                        
+                        The shortcuts <literal>"en", "fr", "pt", "ja", "ru"</literal>
+                        are automatically expanded respectively into
+                        <literal>"en_US", "fr_FR", "pt_BR", "ja_JP", "ru_RU"</literal>.
+                        
+                        If there is no help section or if its build is not requested,
+                        this option is ignored.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">tbx_make(…)</emphasis> allows to build partly or completely
+            an external toolbox. Partial builds are very useful during the module's development.
+            This allows focusing on each toolbox section, to tune and work out about each of them,
+            without each time recompiling the whole toolbox.
+        </para>
+        <important>
+            The technical name (id) <emphasis role="bold">tbx_name</emphasis>
+            of the toolbox is the basename of the
+            <literal>~/etc/*.start</literal> file, where ~ is the toolbox root.
+            This file is mandatory in the toolbox, even if it is empty.
+        </important>
+        <para>
+            <emphasis role="bold">tbx_make()</emphasis> is equivalent to
+            <literal>tbx_make(".")</literal> ou <literal>tbx_make .</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">tbx_make(tbx_path)</emphasis> builds the toolbox whose root's
+            directory is <varname>tbx_path</varname>. <literal>tbx_path</literal> is scanned for
+            a script named like <literal>build*.sce</literal>:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        If such a file is found, <literal>tbx_make(…)</literal> executes it,
+                        and then returns.
+                        
+                        An example of such a <literal>builder.sce</literal> script is provided in the
+                        template module available in <literal>SCI/contrib/toolbox_skeleton</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                    Otherwise, the <varname>sections</varname> parameter is set by default
+                    to all existing toolbox sections. These ones are then built one by one,
+                    as described below.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            <emphasis role="bold">tbx_make(tbx_path, sections)</emphasis> builds one by one
+            all given <varname>sections</varname> of the toolbox, provided that they exist.
+            The sections are processed according to the following conventions:
+        </para>
+        <para>
+            <orderedlist>
+                <listitem>
+                     <para><emphasis role="bold">macros</emphasis> :
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    If there is a custom macros builder script <literal>~/macros/*.sce</literal>,
+                                    it is executed, and then returns to <literal>tbx_make(…)</literal>
+                                    to go on building the remaining sections.
+                                    
+                                    Writing and using such a builder script is mandatory if macros are
+                                    sorted in <literal>~/macros/*</literal> subdirectories corresponding
+                                    to some toolbox sublibraries.
+                                    </para>
+                                </listitem>
+                            <listitem>
+                                 <para>
+                                    Otherwise: All macros files <literal>~/macros/*.sci</literal> are
+                                    compiled and gathered into a library named
+                                    <literal><emphasis role="bold">tbx_name</emphasis>lib</literal> and
+                                    recorded in the file
+                                    <literal><emphasis role="bold">~/macros/lib</emphasis></literal>.
+                                    Please see <link linkend="tbx_builder_macros">tbx_builder_macros</link>.
+                                    <warning>
+                                        No automatical recursive processing aiming to build sublibraries in
+                                        subdirectories is performed.
+                                    </warning></para>
+                                          </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+                <listitem>
+                     <para><emphasis role="bold">help</emphasis> : Help pages are generated from XML
+                        source files stored in <literal>~/help/*</literal> available languages
+                        subdirectories (en_US, fr_FR, etc).
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    If <literal>~/help/builder.sce*</literal> is found and the
+                                    <varname>languages</varname> option is not used, the builder
+                                    is executed, and then returns to <literal>tbx_make(…)</literal>.
+                                    </para>
+                                </listitem>
+                            <listitem>
+                                 <para>
+                                    Otherwise: Help pages are built with the default builder for
+                                    each requested language <literal>la_LA</literal>.
+                                    A file <literal>~/jar/scilab_la_LA_help.jar</literal> gathering
+                                    all compiled pages and summaries is created for each processed
+                                    language.
+                                    </para>
+                                </listitem>
+                        </itemizedlist><warning>
+                            Help pages may contain Scilab code samples using functions defined in the
+                            toolbox, and executed when building pages (&lt;scilab:image&gt; tags,
+                            Xcos diagrams). When it is the case, the related functions must have been
+                            compiled <emphasis>before</emphasis> building the help pages.
+                        </warning></para>
+                              </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">localization</emphasis> :  Localization files are built
+                        and/or postprocessed. Please see
+                        <link linkend="tbx_build_localization">tbx_build_localization</link>.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">src</emphasis> : Functional external code in src is
+                        compiled. Please see <link linkend="tbx_builder_src">tbx_builder_src</link>.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">sci_gateway</emphasis> :  gateway functions in
+                        sci_gateway are compiled.
+                        Please see <link linkend="tbx_builder_gateway">tbx_builder_gateway</link>.
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>
+            Finally, <literal>tbx_make(…)</literal> always creates the script files
+            <literal>loader.sce</literal>, <literal>unloader.sce</literal> and
+            <literal>cleaner.sce</literal> at the toolbox's root.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="no-scilab-exec"><![CDATA[
+// The working directory is set at the toolbox root:
+tbx_make()          // builds the toolbox with the toolbox builder (if any),
+                    //  or for all sections with default builders otherwise.
+tbx_make .  macros  // builds only its macros section from files in ./macros/
+tbx_make .  *       // builds all available sections, without using the toolbox builder
+
+// Builds the toolbox located in path/to/mytoolbox directory
+tbx_make("path/to/mytoolbox")
+
+// Compiles macros help and src for the toolbox located in path/to/mytoolbox
+tbx_make("path/to/mytoolbox", ["macros", "help", "src"])
+     ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="man">man</link>
+            </member>
+            <member>
+                <link linkend="xmltojar">xmltojar</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_help">tbx_builder_help</link>
+            </member>
+            <member>
+                <link linkend="genlib">genlib</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_macros">tbx_builder_macros</link>
+            </member>
+            <member>
+                <link linkend="tbx_build_localization">tbx_build_localization</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_src">tbx_builder_src</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_gateway">tbx_builder_gateway</link>
+            </member>
+            <member>
+                <link linkend="tbx_build_blocks">tbx_build_blocks</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>tbx_make()</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revremark>
+                    The existing builder is run only if no specific sections are requested.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>tbx_make(".", "localization")</literal> automatically updates existing .po
+                        files for every newly detected msgid.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>languages</literal> input option added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

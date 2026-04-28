@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="strange">
+    <refnamediv>
+        <refname>strange</refname>
+        <refpurpose>range</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>r = strange(x)
+            r = strange(x, orientation)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real or complex vector or matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                    <para>
+                        index of the dimension along which the strange is computed. It can be either
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                a character <literal>"*"</literal> (default), <literal>"r"</literal> or
+                              <literal>"c"</literal>
+                          </para>
+                      </listitem>
+                        <listitem>
+                             <para>
+                                a positive integer: 1 or 2. 1 is equivalent to "r" and 2 is equivalent to "c".
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>real or complex scalar or vector</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The  range  is the  distance   between  the largest  and
+            smallest value,  r = strange(x) or r = strange(x, "*") computes   the  range of
+            vector or matrix x.
+        </para>
+        <para>
+            r = strange(x,'r')  (or   equivalently r = strange(x,1))
+            give a row vector with the range of each column.
+        </para>
+        <para>
+            r = strange(x,'c') (or  equivalently   r = strange(x,2))
+            give a column vector with the range of each row.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x  = [22    63    57    24    31
+      76    85    67    24    94
+      1     69    73    22    22
+      34    88    20    89    32
+      67    7     55    66    37 ];
+
+strange(x)       // 94-1 = 93
+strange(x, 'r')  // [ 76-1=75   88-7=81   73-20=53   89-22=67   94-22=72 ]
+strange(x, 'c')  // [ 63-22=41 ;  94-24=70 ;  73-1=72 ;  89-20=69 ;  67-7=60 ]
+   ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>References</title>
+        <para>
+            Wonacott, T.H. &amp; Wonacott, R.J.; Introductory Statistics, J.Wiley &amp; Sons, 1990.
+        </para>
+    </refsection>
+</refentry>

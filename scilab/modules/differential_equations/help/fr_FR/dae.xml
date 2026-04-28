@@ -1,0 +1,1355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier : added "roots2" (daskr)
+ * Copyright (C) 2008 - INRIA
+ * ...
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="dae" xml:lang="fr">
+    <refnamediv>
+        <refname>dae</refname>
+        <refpurpose>Solveur de système d'Equations Différentielles Algébriques</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis> y = dae(y0, t0, t, res)
+            [y [,hd]] = dae(y0, t0, t [[,rtol], atol], res [,jac] [,hd])
+
+            [y, rd] = dae("root", y0, t0, t, res, ng, surface)
+            [y, rd [,hd]] = dae("root", y0, t0, t [[,rtol], atol], res [,jac], ng, surface [,hd])
+
+            [y, rd] = dae("root2", y0, t0, t, res, ng, surface)
+            [y, rd [,hd]] = dae("root2", y0, t0, t [[,rtol], atol], res [,jac], ng, surface [, psol, pjac] [, hd])
+
+            y = dae("stiff"|"adams", y0, t0, t, res, adda)
+            [y [,hd]] = dae("stiff"|"adams", y0, t0, t [[,rtol], atol], res [,jac], adda [,hd])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>y0</term>
+                <listitem>
+                    <para>
+                        vecteur colonne ou matrix. Peut valoir <literal>x0</literal> ou
+                        <literal>[x0, xdot0]</literal>, où <literal>x0</literal> est la
+                        valeur de l'état au temps initial <literal>t0</literal> et
+                        <literal>xdot0</literal> est la valeur (ou une estimation)
+                        de l'état dérivé au temps initial (voir ci-après).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t0</term>
+                <listitem>
+                    <para>réel, le temps initial.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>scalaire ou vecteur réel. Les instants auxquels la solution est voulue.
+                        La solution peut s'obtenir à chaque étape de dae en initialisant
+                        <literal>
+                            <link linkend="daeoptions">%DAEOPTIONS</link>(2)=1
+                        </literal>
+                        .
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rtol</term>
+                <listitem>
+                    <para>
+                        un scalaire ou vecteur colonne réel de même taille que
+                        <literal>x0</literal>, la tolérance relative de la solution.
+                        Si <literal>atol</literal> est un vecteur, les tolérances
+                        sont spécifiées pour chaque composante de l'état.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>atol</term>
+                <listitem>
+                    <para>
+                        un scalaire ou vecteur colonne réel de même taille que
+                        <literal>x0</literal>, la tolérance absolue de la solution.
+                        Si <literal>atol</literal> est un vecteur, les tolérances
+                        sont spécifiées pour chaque composante de l'état.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>res</term>
+                <listitem>
+                    <para>
+                        une fonction <link linkend="external">external</link>, calcule la valeur de
+                        <literal>g(t, y, ydot)</literal>. Peut être une fonction, liste ou chaîne de caractères. 
+                        La syntaxe diffère en fonction du solveur utilisé. Pour plus d'informations, voir la section 
+                        description "résidu".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>jac</term>
+                <listitem>
+                    <para>
+                        une fonction <link linkend="external">external</link>, calcule la valeur Jacobien de la fonction
+                        <literal>g(t, y, ydot)</literal>. Elle peut être une fonction, liste ou chaîne de caractères. La 
+                        syntaxe diffère en fonction du solveur utlisé. Pour plus de détails, voir la section ci-dessous 
+                        "decription jacobien"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>surface</term>
+                <listitem>
+                    <para>
+                        une fonction <link linkend="external">external</link> (fonction, liste ou chaîne de caratères), 
+                        calcule a valeur du vecteur colonne <literal>surface(t,x)</literal> à <literal>ng</literal> éléments.
+                        Chaque élément définit une surface. Utilisée uniquement avec les solveurs <emphasis role="bold">dasrt ("root") </emphasis> and 
+                        <emphasis role="bold">daskr ("root2")</emphasis>. Pour plus d'informations, voir la section "description surface"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>adda</term>
+                <listitem>
+                    <para>
+                        une fonction <link linkend="external">external</link> (fonction, liste ou chaîne de caratères), 
+                        calcule <literal>p = p + a</literal> avec <literal>a = a(t,y)</literal>.
+                        Utilisée uniquement avec les solveurs <emphasis role="bold">stiff</emphasis> and 
+                        <emphasis role="bold">adams</emphasis>. Pour plus d'informations, voir la section "description adda".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>psol</term>
+                <listitem>
+                    <para>
+                        external (fonction, liste ou chaîne de caractères). Utilisée uniquement avec le solveur 
+                        <emphasis role="bold">"root2" (daskr)</emphasis>. Résout le système linéaire 
+                        <literal>P*x=b</literal>, avec P le préconditionneur factorisé que la routine 
+                        <literal>pjac</literal> a calculé et stocké dans <literal>wp</literal> et <literal>iwp</literal>.
+                        Voir la section de description de psol pour plus de détails.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pjac</term>
+                <listitem>
+                    <para>
+                        external (fonction, liste ou chaîne de caractères). Utilisée uniquement avec le solveur 
+                        <emphasis role="bold">"root2" (daskr)</emphasis>. Calcule la valeur de <literal>dg/dy + cj*dg/dydot</literal> 
+                        pour une valeur donnée du paramètre <literal>cj</literal> et la factorise en LU dans deux tableaux, réel et entier. 
+                        Voir la section de description de pjac pour plus de détails.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        matrice réelle. Si
+                        <literal>
+                            <link linkend="daeoptions">%DAEOPTIONS</link>(2)=1
+                        </literal>
+                        ,
+                        chaque colonne est le vecteur <literal>[t;x(t);xdot(t)]</literal> où
+                        <literal>t</literal> est le temps auquel la solution à été calculée.
+                        Sinon <literal>y</literal> est le vecteur
+                        <literal>[x(t);xdot(t)]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rd</term>
+                <listitem>
+                    <para>
+                        un vecteur à deux entrées <literal>[times num]</literal> où
+                        <literal>times</literal> est la valeur des temps auquel les surfaces sont traversées,
+                        <literal>num</literal> est le nombre de surfaces traversées.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hd</term>
+                <listitem>
+                    <para>vecteur réel, stocke en sortie le contexte de
+                        <literal>dae</literal>. Peut être utilisé comme paramètre d'entrée
+                        pour reprendre l'intégration (reprise à chaud).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            La fonction <literal>dae</literal> résout l'équation différentielle algébrique et renvoie l'évolution 
+            de y à des moments donnés
+        </para>
+        <screen><![CDATA[
+g(t, x, xdot) = 0
+x(t0) = x0 and xdot(t0) = xdot0
+]]></screen>
+        <para>
+            Si <literal>xdot0</literal> n'est pas donné en paramètre initial,
+            <literal>dae</literal> tente de la calculer en résolvant
+            <literal>g(t,x0,xdot0)=0</literal>.
+        </para>
+        <para>
+            Si <literal>xdot0</literal> est donné en paramètre initial, il peut soit
+            satifaire <literal>g(t,x0,xdot0)=0</literal>, soit en être une approximation.
+            Dans le dernier cas,
+            <link linkend="daeoptions">%DAEOPTIONS</link>(7) doit être initialisé à 1.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Les solveurs</title>
+        <para>
+            Le type de problème résolu et la méthode utilisée dépendent de la valeur du 
+            premier argument optionnel <varname>type</varname> qui peut être l'une des 
+            chaînes suivantes :
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>&lt;non donné&gt;:</term>
+                <listitem>
+                    <para>
+                        le solveur dassl.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"root":</term>
+                <listitem>
+                    <para>
+                        le solveur dasrt. Voir l'aide <link linkend="dae_root">dae_root</link> 
+                        pour plus de détails.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"root2":</term>
+                <listitem>
+                    <para>
+                        le solveur daskr. Voir l'aide <link linkend="dae_root">dae_root</link> 
+                        pour plus de détails.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"adams":</term>
+                <listitem>
+                    <para>
+                        Pour les problèmes non rigides. Le solveur <literal>lsodi</literal> du package 
+                        ODEPACK est appelé et utilise la méthode Adams.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"stiff":</term>
+                <listitem>
+                    <para>
+                        Pour les problèmes rigides. Le solveur <literal>lsodi</literal> du package 
+                        ODEPACK est appelé et utilise la méthode BDF.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Fonction résidu</title>
+        <para>
+            L'argument d'entrée <literal>res</literal> retourne le résidu du DAE. C'est un 
+            <link linkend="external">external</link> c'est-à-dire soit une fonction avec une syntaxe 
+            spécifique, soit un nom de la fonction Fortran ou C, soit une liste. La séquence d'appel de la fonction 
+            diffère selon le solveur utilisé quand <literal>res</literal> est une chaîne de caractère.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Dans ce cas, la séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            [r, ires] = res(t, y, ydot)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        où <literal>res</literal> doit retourner le résidu et le drapeau d'erreur <literal>ires</literal>.
+                    </para>
+                    <para>
+                        <literal>ires = 0</literal> si
+                        <literal>res</literal> est bien parvenu à calculer 
+                        <literal>r</literal>.
+                    </para>
+                    <para>
+                        <literal>ires = -1</literal> so le résidu est 
+                        localement non-défini pour <literal>g(t, x, xdot)</literal>.
+                    </para>
+                    <para>
+                        <literal>ires =-2</literal> si les paramètres sont hors de la plage admissible.
+                    </para>
+                    <para>
+                        Si le solveur <emphasis role="bold">adams</emphasis> ou 
+                        <emphasis role="bold">stiff</emphasis> est utilisé, cette fonction doit retourner 
+                        <literal>r = g(t,y)-A(t,y)*ydot</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>Cette forme permet de passer des paramètres à la fonction.
+                        Elle doit se présenter comme suit:
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(res, p1, p2, ...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction 
+                        <literal>res</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r = res(t, y, ydot, p1, p2, ...)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        <literal>res</literal> retourne toujours le résidu comme fonction de
+                        <literal>(t, x, xdot, x1, x2, ...)</literal>, et
+                        <literal>p1, p2,...</literal> sont des paramètres de la fonction.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractère</term>
+                <listitem>
+                    <para>
+                        Elle doit se référer au nom d'une routine C ou Fortran.
+                        En fonction du solveur, la séquence d'appel est différente. 
+                        Supposant que &lt;<literal>r_name</literal>&gt; est le nom donné,
+                    </para>
+                    <para>
+                        Si le solveur <emphasis role="bold">dassl</emphasis>, <emphasis role="bold">dasrt ("root")</emphasis> ou 
+                        <emphasis role="bold">daskr ("root2")</emphasis> est utilisé, <literal>res</literal> peut être
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être 
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <r_name>(t, x, xdot, res, ires, rpar, ipar)
+                                    double precision t, x(*), xdot(*), res(*), rpar(*)
+                                    integer ires, ipar(*)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <r_name>(double *t, double *x, double *xdot, double *res, int *ires, double *rpar, int *ipar)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>où</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>t</literal> est la valeur actuelle du temps
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>x</literal> est la valeur de l'état
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>xdot</literal> est la valeur de l'état dérivé
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>res</literal> la valeur du résidu
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>ires</literal> indicateur de complétion
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>rpar</literal> est un vecteur de paramètres nécéssaires
+                                mais non initialisables par <literal>dae</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>ipar</literal> est un vecteur de paramètres entiers
+                                nécéssaires mais non initialisables par <literal>dae</literal>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        Si le solveur <emphasis role="bold">adams</emphasis> ou <emphasis role="bold">stiff</emphasis>  
+                        est utilisé, <literal>res</literal> peut être
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <r_name>(neq, t, x, xdot, res, ires)
+                                    double precision t, x(*), xdot(*), res(*)
+                                    integer neq, ipar(*)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <r_name>(int *neq, double *t, double *x, double *xdot, double *res, int *ires)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>où</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>neq</literal> est le nombre d'équation du système
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>t</literal> est la valeur actuelle du temps
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>x</literal> est la valeur de l'état
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>xdot</literal> est la valeur de l'état dérivé
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>res</literal> la valeur du résidu
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>ires</literal> indicateur de complétion
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>La fonction jacobienne</title>
+        <para>
+            L'arugment d'entrée <literal>jac</literal> calcule le jacobien. Comme <literal>res</literal>, <literal>jac</literal>
+            est un <link linkend="external">external</link> c'est-à-dire soit une fonction avec une syntaxe 
+            spécifique, soit un nom de la fonction Fortran ou C, soit une liste. La séquence d'appel de la fonction 
+            diffère selon le solveur utilisé.
+        </para>
+        <para>
+            Si le solveur <emphasis role="bold">dassl</emphasis>, <emphasis role="bold">dasrt ("root")</emphasis> ou 
+            <emphasis role="bold">daskr ("root2")</emphasis> est utilisé, <literal>jac</literal> calcule la valeur de  
+            <literal>dg/dx + cj * dg/dxdot</literal> pour une valeur donnée du paramètre <literal>cj</literal>. Elle 
+            peut être
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Dans ce cas, sa séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            j = jac(t, y, ydot, cj)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        où la fonction <literal>jac</literal> doit retourner
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            j = dg(t, x, xdot)/dy + cj * dg(t, x, xdot)/dxdot]]>
+                        </programlisting>
+                    </para>
+                    <para> où <literal>cj</literal> est une réel scalaire.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>Cette forme d'<link linkend="external">external</link> sert à p
+                        asser des paramètres à la fonction.
+                        Elle doit se présenter comme suit::
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(jac, p1, p2, ...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction
+                        <literal>jac</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r = jac(t, x, xdot, cj, p1, p2, ...)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        <literal>jac</literal> retourne toujours
+                        <literal>dg/dx+cj*dg/dxdot</literal> comme fonction de
+                        <literal>(t,x,xdot,cj,p1,p2,...)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractères</term>
+                <listitem>
+                    <para>
+                        Elle doit se référer au nom d'une routine C ou Fortran.
+                        Supposant que &lt;<literal>j_name</literal>&gt; est le nom donné,
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <j_name>(t, x, xdot, r, cj, ires, rpar, ipar)
+                                    double precision t, x(*), xdot(*), r(*), cj, rpar(*)
+                                    integer ires, ipar(*)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <j_name>(double *t, double *x, double
+                                    *xdot, double *r, double *cj, int *ires, double *rpar, int *ipar)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        où <literal>t, x, xdot, ires, rpar, ipar</literal>
+                        ont une définition similaire à celle ci-dessus, <literal>r</literal> est 
+                        le tableau de résultats.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            Pour les solveurs <emphasis role="bold">adams</emphasis> et 
+            <emphasis role="bold">stiff</emphasis>, <literal>jac</literal> peut être
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Dans ce cas, sa séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            j = jac(t, y, ydot)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        où la fonction <literal>jac</literal> doit retourner le Jacobien de 
+                        <literal>r = g(t,y)-A(t,y)*ydot</literal> par rapport à y.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>Cette forme d'<link linkend="external">external</link> sert à 
+                        passer des paramètres à la fonction.
+                        Elle doit se présenter comme suit::
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(jac, p1, p2, ...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction
+                        <literal>jac</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r = jac(t, y, ydot, p1, p2, ...)]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractères</term>
+                <listitem>
+                    <para>
+                        Elle doit se référer au nom d'une routine C ou Fortran.
+                        Supposant que &lt;<literal>j_name</literal>&gt; est le nom donné,
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <j_name>(neq, t, x, xdot, ml, mu, j, nrpd)
+                                    double precision t, x(*), xdot(*), j(*)
+                                    integer neq, ml, mu, nrpd]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <j_name>(int *neq, double *t, double *x, double *xdot, int *ml, int *mu, double *j, int *nrpd)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>la fonction surface</title>
+        <para>
+            L'argument d'entrée <literal>surface</literal>, utilisé seulement avec les solveurs 
+            <emphasis role="bold">dassl</emphasis>, 
+            <emphasis role="bold">dasrt ("root")</emphasis> et
+            <emphasis role="bold">daskr ("root2")</emphasis>, calcule la valeur du vecteur colonne
+            <literal>surface(t,x)</literal> avec <literal>ng</literal>
+            éléments. Chaque élément définit une surface. Comme <literal>res</literal>,
+            <literal>surface</literal> est une fonction <link linkend="external">external</link> qui peut être 
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Sa séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r=surface(t,x)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        cette fonction doit retourner un vecteur colonne à <literal>ng</literal> éléments.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>
+                        Cette forme d'<link linkend="external">external</link> est utilisée pour passer des paramètres à la fonction.
+                        Elle doit se présenter comme suit:
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(surface,p1,p2,...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction
+                        <literal>surface</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r = surface(t,x,p1,p2,...)]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractères</term>
+                <listitem>
+                    <para>Elle doit se référer au nom d'une routine C ou Fortran.
+                        Supposant que &lt;s_name&gt; est le nom donné,
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <s_name>(nx, t, x, ng, r, rpar, ipar)
+                                    double precision t, x(*), r(*), rpar(*)
+                                    integer nx, ng,ipar(*)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <s_name>(int *nx, double *t, double *x, int *ng, double *r, double *rpar, int *ipar)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        où <literal>t, x, rpar, ipar</literal> ont les mêmes définitions qu'au-dessus, 
+                        <literal>ng</literal> est le nombre de surfaces, 
+                        <literal>nx</literal> est la dimension de l'état et
+                        <literal>r</literal> est le vecteur résultat.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>la fonction adda</title>
+        <para>
+            l'argument d'entrée <literal>adda</literal>, utilisé uniquement avec les solveurs 
+            <emphasis role="bold">adams</emphasis> et 
+            <emphasis role="bold">stiff</emphasis>, calcule r = A(t,y) + p où p est une matrice à ajouter à A(t,y).
+            Comme <literal>res</literal>, <literal>adda</literal>
+            est une fonction <link linkend="external">external</link>. Elle peut être 
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Sa séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            r=adda(t, y, p)]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>
+                        Cette forme d'<link linkend="external">external</link> sert à passer des paramètres 
+                        à la fonction.
+                        Elle doit se présenter comme suit:
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(adda,p1,p2,...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction
+                        <literal>adda</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            adda(t,x,p1,p2,...)]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractères</term>
+                <listitem>
+                    <para>Elle doit se référer au nom d'une routine C ou Fortran.
+                        Supposant que  &lt;a_name&gt; est le nom donné,
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine <a_name>(nx, t, x, ml, mu, p, nrpd)
+                                    double precision t, x(*), p(*)
+                                    integer nx, ml, mu, nrpd]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void <a_name>(int *nx, double *t, double *x, int *ml, int *mu, double *p, int *nrpd)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        Dans la plupart des cas, vous n'êtes pas obligé de référer ml, mu and nrpd.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>la function psol</title>
+        <para>
+            L'argument d'entrée <literal>psol</literal>, utilisé uniquement avec le solveur
+            <emphasis role="bold">daskr</emphasis>, résout le système linéaire 
+            <literal>P*x = b</literal>
+            Comme <literal>res</literal>, <literal>psol</literal>
+            est une fonction <link linkend="external">external</link>. Elle peut être 
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Sa séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            [r, ier] = psol(wp, iwp, b)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        et doit renvoyer la solution du système dans
+                        <literal>r</literal> et l'indicateur d'erreur <literal>ier</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>
+                        Cette forme d'<link linkend="external">external</link> sert à passer des paramètres 
+                        à la fonction.
+                        Elle doit se présenter comme suit:
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(psol,p1,p2,...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction
+                        <literal>psol</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            psol(wp, iwp, b, x1, x2, ...)]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractères</term>
+                <listitem>
+                    <para>
+                        Elle doit se référer au nom d'une routine C ou Fortran 
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine psol (neq, t, y, ydot, savr, wk, cj, wght, wp, iwp, b, eplin, ier, rpar, ipar)
+                                    double precision t,y(*), ydot(*), savr(*), wk(*), cj, wght(*), wp(*), b(*), eplin, rpar(*)
+                                    integer neq, iwp(*), ier, ipar(*)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void psol (int*neq, double*t, double*y, double*ydot, double*savr, double*wk, double*cj, double*wght, double*wp, int*iwp, double*b, double*eplin, int*ier, double*rpar, int*ipar)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>la fonction pjac</title>
+        <para>
+            L'arugment d'entrée <literal>pjac</literal>, utilisé uniquement avec le solveur 
+            <emphasis role="bold">daskr</emphasis>, calcule la valeur de
+            <literal>dg/dy + cj*dg/dydot</literal> pour une valeur donnée du paramètre
+            <literal>cj</literal> et le factorise(LU) en deux vecteurs, réel et entier.
+            Comme <literal>res</literal>, <literal>psol</literal>
+            est une fonction <link linkend="external">external</link>. Elle peut être 
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>une fonction Scilab</term>
+                <listitem>
+                    <para>
+                        Sa séquence d'appel doit être
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            [wp, iwp, ires] = pjac(neq, t, y, ydot, h, cj, rewt, savr)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        les vecteurs 
+                        <literal>wp</literal> et <literal>iwp</literal> 
+                        doivent contenir toutes les informations pondérées sur le préconditionneur.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une liste</term>
+                <listitem>
+                    <para>
+                        Elle doit se présenter comme suit:
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            list(pjac, x1, x2,...)]]>
+                        </programlisting>
+                    </para>
+                    <para>où la séquence d'appel de la fonction
+                        <literal>pjac</literal> est
+                    </para>
+                    <para>
+                        <programlisting role="no-scilab-exec"><![CDATA[
+                            pjac(neq, t, y, ydot, h, cj, rewt, savr, x1, x2,...)]]>
+                        </programlisting>
+                    </para>
+                    <para>
+                        <literal>pjac</literal> retourne toujours 
+                        <literal>dg/dy + cj*dg/dydot</literal> comme fonction de
+                        <literal>(neq, t, y, ydot, h, cj, rewt, savr, x1, x2, ...)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>une chaîne de caractères</term>
+                <listitem>
+                    <para>Elle doit se référer au nom d'une routine C ou Fortran 
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en Fortran doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    subroutine pjac (res, ires, neq, t, y, ydot, rewt, savr, wk, h, cj, wp, iwp, ier, rpar, ipar)
+                                    double precision res(*), t, y(*), ydot(*), rewt(*), savr(*),  wk(*), h, cj, wp(*), rpar(*)
+                                    integer ires, neq, iwp(*), ier, ipar(*)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                La séquence d'appel en C doit être
+                            </para>
+                            <para>
+                                <programlisting role="no-scilab-exec"><![CDATA[
+                                    void pjac (double*res, int*ires, int*neq, double*t, double*y, double*ydot, double*rewt, double*savr, double*wk, double*h, double*cj, double*wp, int*iwp, int*ier, double*rpar, int*ipar)]]>
+                                </programlisting>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <para>
+            <emphasis role="bold">Exemple #1: dassl (pas de traversée de surface)</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+// Exemple avec du code Scilab
+//--------------------------------------------------
+function [r, ires] = chemres(t, y, yd)
+    r(1) = -0.04*y(1) + 1d4*y(2)*y(3) - yd(1);
+    r(2) =  0.04*y(1) - 1d4*y(2)*y(3) - 3d7*y(2)*y(2) - yd(2);
+    r(3) =       y(1) +     y(2)      + y(3)-1;
+    ires =  0;
+endfunction
+
+function pd = chemjac(x, y, yd, cj)
+    pd = [-0.04-cj , 1d4*y(3)               , 1d4*y(2);
+           0.04    ,-1d4*y(3)-2*3d7*y(2)-cj ,-1d4*y(2);
+           1       , 1                      , 1       ]
+endfunction
+
+x0 = [1; 0; 0];
+xd0 = [-0.04; 0.04; 0];
+t = [1.d-5:0.02:.4, 0.41:.1:4, 40, 400, 4000, 40000, 4d5, 4d6, 4d7, 4d8, 4d9, 4d10];
+
+y = dae([x0, xd0], 0, t, chemres); // Retourne les points d'observation demandés
+
+%DAEOPTIONS = list([], 1, [], [], [], 0, 0); // Demande à dae les points à retourner
+y = dae([x0, xd0], 0, 4d10, chemres); // Sans jacobian
+y = dae([x0, xd0], 0, 4d10, chemres, chemjac); // Avec jacobien
+     ]]></programlisting>
+        <para>
+            <emphasis role="bold">Exemple #2: utilise le solveur dasrt avec "root"</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+// Exemple avec du code C (compilateur C requis)
+//--------------------------------------------------
+bOK = haveacompiler();
+if bOK <> %t
+    [btn] = messagebox(["Vous avez besoin d''un compilateur C pour cet exemple."; "Arrêt de l''exécution."], "Problème de Software", "info");
+    return
+end
+
+//-1- Crée les codes C dans TMPDIR - équation de Vanderpol, forme implicite
+code = ['#include <math.h>'
+      'void res22(double *t, double *y, double *yd, double *res, int *ires, double *rpar, int *ipar)'
+      '{res[0] = yd[0] - y[1];'
+      ' res[1] = yd[1] - (100.0*(1.0 - y[0]*y[0])*y[1] - y[0]);}'
+      ' '
+      'void jac22(double *t, double *y, double *yd, double *pd, double *cj, double *rpar, int *ipar)'
+      '{pd[0] = *cj - 0.0;'
+      ' pd[1] =     - (-200.0*y[0]*y[1] - 1.0);'
+      ' pd[2] =     - 1.0;'
+      ' pd[3] = *cj - (100.0*(1.0 - y[0]*y[0]));}'
+      ' '
+      'void gr22(int *neq, double *t, double *y, int *ng, double *groot, double *rpar, int *ipar)'
+      '{ groot[0] = y[0];}']
+previous_dir = pwd();
+cd TMPDIR;
+mputl(code, 't22.c')
+
+//-2- Compile et charge
+ilib_for_link(['res22' 'jac22' 'gr22'], 't22.c', [], 'c', [], 't22loader.sce');
+exec('t22loader.sce')
+
+//-3- Exécute
+rtol = [1.d-6; 1.d-6];
+atol = [1.d-6; 1.d-4];
+t0 = 0; t = [20:20:200];
+y0 = [2; 0]; y0d = [0; -2];
+ng = 1;
+
+// Simulation simple
+t = 0:0.003:300;
+yy = dae([y0, y0d], t0, t, atol, rtol, 'res22', 'jac22');
+clf(); plot(yy(1, :), yy(2, :))
+// Trouve le premier point où yy(1) = 0
+[yy, nn, hotd] = dae("root", [y0, y0d], t0, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22');
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+
+// Reprise à chaud pour le point suivant
+t01 = nn(1);
+[pp, qq] = size(yy);
+y01 = yy(2:3, qq); y0d1 = yy(3:4, qq);
+[yy, nn, hotd] = dae("root", [y01, y0d1], t01, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22', hotd);
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+cd(previous_dir);
+     ]]></programlisting>
+        <scilab:image localized="false"><![CDATA[
+code = ['#include <math.h>'
+      'void res22(double *t, double *y, double *yd, double *res, int *ires, double *rpar, int *ipar)'
+      '{res[0] = yd[0] - y[1];'
+      ' res[1] = yd[1] - (100.0*(1.0 - y[0]*y[0])*y[1] - y[0]);}'
+      ' '
+      'void jac22(double *t, double *y, double *yd, double *pd, double *cj, double *rpar, int *ipar)'
+      '{pd[0] = *cj - 0.0;'
+      ' pd[1] =     - (-200.0*y[0]*y[1] - 1.0);'
+      ' pd[2] =     - 1.0;'
+      ' pd[3] = *cj - (100.0*(1.0 - y[0]*y[0]));}'
+      ' '
+      'void gr22(int *neq, double *t, double *y, int *ng, double *groot, double *rpar, int *ipar)'
+      '{ groot[0] = y[0];}']
+previous_dir = pwd();
+cd TMPDIR;
+mputl(code, 't22.c')
+ilib_for_link(['res22' 'jac22' 'gr22'], 't22.c', [], 'c', [], 't22loader.sce');
+exec('t22loader.sce')
+rtol = [1.d-6; 1.d-6];
+atol = [1.d-6; 1.d-4];
+t0 = 0; t = [20:20:200];
+y0 = [2; 0]; y0d = [0; -2];
+ng = 1;
+t = 0:0.003:300;
+yy = dae([y0, y0d], t0, t, atol, rtol, 'res22', 'jac22');
+clf(); plot(yy(1, :), yy(2, :))
+[yy, nn, hotd] = dae("root", [y0, y0d], t0, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22');
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+t01 = nn(1);
+[pp, qq] = size(yy);
+y01 = yy(2:3, qq);
+y0d1 = yy(3:4, qq);
+[yy, nn, hotd] = dae("root", [y01, y0d1], t01, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22', hotd);
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+cd(previous_dir);
+ ]]></scilab:image>
+        <para>
+            <emphasis role="bold">Exemple #3: utilise le solveur daskr avec le mot-clé "root2", avec les routines 'psol' et 'pjac' par défaut</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+// Exemple avec du code C (compilateur C requis)
+//--------------------------------------------------
+bOK = haveacompiler();
+if bOK <> %t
+    [btn] = messagebox(["Vous avez besoin d''un compilateur C pour cet exemple."; "Arrêt de l''exécution."], "Problème de Software", "info");
+    return
+end
+
+//-1- Crée les codes C dans TMPDIR - équation de Vanderpol, forme implicite
+code = ['#include <math.h>'
+      'void res22(double *t, double *y, double *yd, double *res, int *ires, double *rpar, int *ipar)'
+      '{res[0] = yd[0] - y[1];'
+      ' res[1] = yd[1] - (100.0*(1.0 - y[0]*y[0])*y[1] - y[0]);}'
+      ' '
+      'void jac22(double *t, double *y, double *yd, double *pd, double *cj, double *rpar, int *ipar)'
+      '{pd[0] = *cj - 0.0;'
+      ' pd[1] =     - (-200.0*y[0]*y[1] - 1.0);'
+      ' pd[2] =     - 1.0;'
+      ' pd[3] = *cj - (100.0*(1.0 - y[0]*y[0]));}'
+      ' '
+      'void gr22(int *neq, double *t, double *y, double *yd, int *ng, double *groot, double *rpar, int *ipar)'
+      '{ groot[0] = y[0];}']
+previous_dir = pwd();
+cd TMPDIR;
+mputl(code, 't22.c')
+
+//-2- Compile et charge
+ilib_for_link(['res22' 'jac22' 'gr22'], 't22.c', [], 'c', [], 't22loader.sce');
+exec('t22loader.sce')
+
+//-3- Exécute
+rtol = [1.d-6; 1.d-6];
+atol = [1.d-6; 1.d-4];
+t0 = 0; t = [20:20:200];
+y0 = [2; 0]; y0d = [0; -2];
+ng = 1;
+
+// Simulation simple
+t = 0:0.003:300;
+yy = dae([y0, y0d], t0, t, atol, rtol, 'res22', 'jac22');
+clf(); plot(yy(1, :), yy(2, :))
+// Trouve le premier point où yy(1) = 0
+%DAEOPTIONS = list([] , 0, [], [], [], 0, [], 1, [], 0, 1, [], [], 1);
+[yy, nn, hotd] = dae("root2", [y0, y0d], t0, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22', 'psol1', 'pjac1');
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+
+// Reprise à chaud pour le point suivant
+t01 = nn(1);
+[pp, qq] = size(yy);
+y01 = yy(2:3, qq); y0d1 = yy(3:4, qq);
+[yy, nn, hotd] = dae("root2", [y01, y0d1], t01, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22', 'psol1', 'pjac1', hotd);
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+cd(previous_dir);
+     ]]></programlisting>
+        <scilab:image><![CDATA[
+code = ['#include <math.h>'
+      'void res22(double *t, double *y, double *yd, double *res, int *ires, double *rpar, int *ipar)'
+      '{res[0] = yd[0] - y[1];'
+      ' res[1] = yd[1] - (100.0*(1.0 - y[0]*y[0])*y[1] - y[0]);}'
+      ' '
+      'void jac22(double *t, double *y, double *yd, double *pd, double *cj, double *rpar, int *ipar)'
+      '{pd[0] = *cj - 0.0;'
+      ' pd[1] =     - (-200.0*y[0]*y[1] - 1.0);'
+      ' pd[2] =     - 1.0;'
+      ' pd[3] = *cj - (100.0*(1.0 - y[0]*y[0]));}'
+      ' '
+      'void gr22(int *neq, double *t, double *y, double *yd, int *ng, double *groot, double *rpar, int *ipar)'
+      '{ groot[0] = y[0];}']
+previous_dir = pwd();
+cd TMPDIR;
+mputl(code, 't22.c')
+ilib_for_link(['res22' 'jac22' 'gr22'], 't22.c', [], 'c', [], 't22loader.sce');
+exec('t22loader.sce')
+rtol = [1.d-6; 1.d-6];
+atol = [1.d-6; 1.d-4];
+t0 = 0; t = [20:20:200];
+y0 = [2; 0]; y0d = [0; -2];
+ng = 1;
+t = 0:0.003:300;
+yy = dae([y0, y0d], t0, t, atol, rtol, 'res22', 'jac22');
+clf(); plot(yy(1, :), yy(2, :))
+%DAEOPTIONS = list([], 0, [], [], [], 0, [], 1, [], 0, 1, [], [], 1);
+[yy, nn, hotd] = dae("root2", [y0, y0d], t0, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22', 'psol1', 'pjac1');
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+t01 = nn(1);
+[pp, qq] = size(yy);
+y01 = yy(2:3, qq);
+y0d1 = yy(3:4, qq);
+[yy, nn, hotd] = dae("root2", [y01, y0d1], t01, 300, atol, rtol, 'res22', 'jac22', ng, 'gr22', 'psol1', 'pjac1', hotd);
+plot(yy(1, 1), yy(2, 1), 'r+')
+xstring(yy(1, 1)+0.1, yy(2, 1), string(nn(1)));
+cd(previous_dir);
+ ]]></scilab:image>
+ <para>
+    <emphasis role="bold">Exemple #4: utilise le solveur stiff</emphasis>
+</para>
+<programlisting role="example"><![CDATA[
+// Exemple avec le code Scilab
+//--------------------------------------------------
+function [r, ires] = chemres(t, y, yd)
+r(1) = -0.04*y(1) + 1d4*y(2)*y(3) - yd(1);
+r(2) =  0.04*y(1) - 1d4*y(2)*y(3) - 3d7*y(2)*y(2) - yd(2);
+r(3) =       y(1) +     y(2)      + y(3)-1;
+ires =  0;
+endfunction
+
+function j = chemjac(t, y, yd)
+j = [-0.04 , 1d4*y(3)               , 1d4*y(2);
+0.04    ,-1d4*y(3)-2*3d7*y(2) ,-1d4*y(2);
+1       , 1                      , 1       ]
+endfunction
+
+function p = addap(t, y, p)
+    p(1,1) = p(1,1) + 1;
+    p(2,2) = p(2,2) + 1;
+endfunction
+
+x0 = [1; 0; 0];
+xd0 = [-0.04; 0.04; 0];
+t = [1.d-5:0.02:.4, 0.41:.1:4, 40, 400];
+
+y = dae("stiff", [x0, xd0], 0, 300, chemres, addap);
+y = dae("stiff", [x0, xd0], 0, 300, chemres, chemjac, addap); // avec le jacobien
+]]></programlisting>
+<para>
+    <emphasis role="bold">Exemple #5: utilise le solveur stiff solver avec du code compilé</emphasis>
+</para>
+<programlisting role="example"><![CDATA[
+//-1- Crée les codes C dans TMPDIR
+code = ['#include <math.h>'
+  'void chemres(int *neq, double *t, double *y, double *s, double *res, int *ires, double *rpar, int *ipar)'
+  '{res[0] = -0.040*y[0] + 1.0e4*y[1]*y[2] - s[0];'
+  ' res[1] = 0.040*y[0] - 1.0e4*y[1]*y[2] - 3.0e7*y[1]*y[1] - s[1];'
+  'res[2] = y[0] + y[1] + y[2] - 1.0;}'
+  ' '
+  'void chemjac(double *t, double *y, double *s, double *ml, double *mu, double *p, int *nrowp)'
+  '{p[0] = -0.04;'
+  ' p[1] = 0.040;'
+  ' p[2] = 1.0;'
+  'p[3] = 1.0e4*y[2];'
+  ' p[4] = -1.0e4*y[2] - 6.0e7*y[1];'
+  ' p[5] = 1.0;'
+  'p[6] = 1.0e4*y[1];'
+ ' p[7] = -1.0e4*y[1];'
+ ' p[8] = 1.0;}'
+  ' '
+  'void addap(int *neq, double *t, double *y, double *ml, double *mu, double *p, int *nrowp)'
+  '{ p[0] = p[0] + 1.0;'
+  'p[4] = p[4] + 1.0;'
+  '}']
+
+mputl(code, fullfile(TMPDIR, 'mydae.c'))
+
+//-2- Compile et charge
+cd TMPDIR
+ilib_for_link(['chemres' 'chemjac' 'addap'], 'mydae.c', [], 'c', [], 'loader.sce');
+exec('loader.sce')
+
+//-3- Simulation simple
+rtol = [1d-6; 1d-6; 1d-6];
+    atol = [1d-6; 1d-6; 1d-4];
+    t0 = 0;
+    x0 = [1; 0; 0];
+    xd0 = [-0.04; 0.04; 0];
+    t = [1.d-5:0.02:.4, 0.41:.1:4, 40, 400];
+    y = dae("stiff", [x0, xd0], 0, t, rtol, atol, 'chemres', 'addap');
+    y = dae("stiff", [x0, xd0], 0, t, rtol, atol, 'chemres', 'chemjac', 'addap'); // With jacobian
+]]></programlisting>
+</refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="dae_root">dae_root</link>
+            </member>
+            <member>
+                <link linkend="ode">ode</link>
+            </member>
+            <member>
+                <link linkend="daeoptions">daeoptions</link>
+            </member>
+            <member>
+                <link linkend="call">call</link>
+            </member>
+            <member>
+                <link linkend="link">link</link>
+            </member>
+            <member>
+                <link linkend="external">external</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revremark>
+                    dassl, dasrt and daskr deviennent des fonctions internes.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>
+                    impl devient une fonction interne.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

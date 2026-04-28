@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Vincent COUVERT
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:id="cart2pol" xml:lang="en">
+    <refnamediv>
+        <refname>cart2pol</refname>
+        <refpurpose>Convert cartesian coordinates to polar/cylindrical</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [theta, rho] = cart2pol(x, y)
+            [theta, rho, ZZ] = cart2pol(x, y, z)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>Cartesian X-coordinate. Must have the same size as <literal>y</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>Cartesian Y-coordinates. Must have the same size as <literal>x</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>Cartesian Z-coordinates. Must be a scalar or have the same size as <literal>x</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>theta</term>
+                <listitem>
+                    <para>Angular coordinate relative to the X-axis.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rho</term>
+                <listitem>
+                    <para>Radial coordinate (distance to pole).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ZZ</term>
+                <listitem>
+                    <para>Elevation coordinate.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            For real scalars, vectors or matrices <literal>x</literal> and <literal>y</literal> (Cartesian coordinates), <literal>cart2pol(x, y)</literal> returns polar <literal>theta</literal> and <literal>rho</literal> coordinates.
+            For real scalars, vectors or matrices <literal>x</literal>, <literal>y</literal> and <literal>z</literal> (Cartesian coordinates), <literal>cart2pol(x, y, z)</literal> returns cylindrical <literal>theta</literal>, <literal>rho</literal> and <literal>ZZ</literal> coordinates. If <literal>z</literal> is a scalar then <literal>ZZ</literal> is expanded to the same size as <literal>x</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x = 1:5;
+y = [1 5 3 6 8];
+[theta, rho] = cart2pol(x, y)
+
+z = 5:9;
+[theta, rho, ZZ] = cart2pol(x, y, z)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="pol2cart">pol2cart</link>
+            </member>
+            <member>
+                <link linkend="polarplot">polarplot</link>
+            </member>
+            <member>
+                <link linkend="graypolarplot">graypolarplot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

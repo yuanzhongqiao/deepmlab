@@ -1,0 +1,44 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA - Vincent COUVERT <vincent.couvert@inria.fr>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
+// <-- Non-regression test for bug 681 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/681
+//
+// <-- Short Description -->
+//    m2sci doesn't translate "error" function.
+MFILECONTENTS="error(''This is an error message'')";
+MFILE=TMPDIR+"/bug681.m";
+SCIFILE=TMPDIR+"/bug681.sci";
+fd=mopen(MFILE,"w");
+mputl(MFILECONTENTS,fd);
+mclose(fd);
+mfile2sci(MFILE,TMPDIR);
+  ****** Beginning of mfile2sci() session ******
+  File to convert: TMPDIR/bug681.m
+  Result file path: TMPDIR/
+  Recursive mode: OFF
+  Only double values used in M-file: NO
+  Verbose mode: 3
+  Generate formatted code: NO
+  M-file reading...
+  M-file reading: Done
+  Syntax modification...
+  Syntax modification: Done
+  Macro to tree conversion...
+  Conversion of M-tree...
+  Conversion of M-tree: Done
+  Macro to tree conversion: Done
+  ****** End of mfile2sci() session ******
+fd=mopen(SCIFILE,"r");
+SCIFILECONTENTS=mgetl(fd,-1);
+mclose(fd);
+SCIFILECONTENTSREF=[""; "error(""This is an error message"")"];
+correct=%T;
+if or(SCIFILECONTENTSREF<>SCIFILECONTENTS) then bugmes();quit;end

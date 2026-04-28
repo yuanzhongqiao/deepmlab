@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="combinations">
+    <refnamediv>
+        <refname>combinations</refname>
+        <refpurpose>Create a table containing all element combinations</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = combinations(v1, ..., vn)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>v1, ..., vn</term>
+                <listitem>
+                    <para>
+                        double, string, boolean, 
+                        <link linkend="datetime">datetime</link> or <link linkend="duration">duration</link> matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>
+                        A <link linkend="table">table</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">t = combinations(v1, .., vn)</emphasis> creates a table containing all element combinations 
+            of inputs <literal>v1, .., vn</literal>, where <literal>v1, ..., vn</literal> can be of different type and size. 
+        </para>
+        <para>
+            The properties of t are as follows:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Its number of rows is equal to number of combinations (product of the number of elements of each input). 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Its number of columns/variables corresponds to number of input arguments (<literal>v1, ..., vn</literal>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The data type of each column/variable matches to the data type of each input.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Combinations of two vectors of doubles</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+                v1 = [1; 2; 3];
+                v2 = [4; 5];
+                c = combinations(v1, v2)
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Combinations of vectors/matrix</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+                v1 = [1; 2; 3];
+                v2 = [4 5];
+                c = combinations(v1, v2)
+
+                v3 = [1; 7; 4];
+                v4 = [8 5; 2 6];
+                v5 = [0 1];
+                c = combinations(v3, v4, v5)
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Combinations of vectors of different types</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+                a = ["A"; "B"; "C"];
+                d = 0:2;
+                b = [%t; %f];
+
+                cc = combinations(a, d, b)
+
+                dt = [datetime("yesterday"); datetime("today"); datetime("tomorrow")];
+                dura = hours(0:10:24);
+                cc2 = combinations(dt, dura)
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="ndgrid">ndgrid</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

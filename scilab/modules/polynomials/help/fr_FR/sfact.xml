@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="sfact">
+    <refnamediv>
+        <refname>sfact</refname>
+        <refpurpose>factorisation spectrale en temps discret</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>F = sfact(P)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>P  </term>
+                <listitem>
+                    <para>matrice carrée de polynômes réels</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Si <literal>P</literal> est une matrice de polynômes vérifiant
+           <literal>P(z) / z^m = P(1/z)' * z^m</literal> où <literal>n=2*m</literal> est le degré maximal (nécessairement pair) de 
+           <literal>P(z)</literal> et si <literal>P(z)/z^n</literal> est définie positive sur le cercle unité alors
+           <literal>sfact(P)</literal> renvoie une matrice de polynômes <literal>F</literal> telle que
+        </para>
+        <para>
+            <literal>P(z) = F(z) * F(1/z)' * z^n</literal>
+        </para>
+        <para>Par cette factorisation les racines de <literal>det(P)</literal> sont séparées en deux ensembles strictement à 
+            l'extérieur ou à l'intérieur du cercle unité, les racines (antistables) de <literal>det(F)</literal>
+            et les racines (stables) de <literal>det(F(1/z)'*z^n)</literal>, respectivement.
+        </para>
+        <para>
+            Dans le cas scalaire la condition s'exprime plus simplement : <literal>P</literal> doit être palindromique (ou réciproque),
+           c'est à dire que les coefficients des monômes de degrés <literal>k</literal> et <literal>n-k</literal> doivent être égaux.
+        </para>
+        <para>
+            En temps continu (voir le troisième exemple ci-dessous), la factorisation peut être appliquée à une matrice 
+             <literal>P(s)</literal> verifiant
+            <literal>P(s) = P(-s)</literal> et <literal>P(s)</literal> définie positive sur l'axe imaginaire en utilisant 
+            la transformation bilinéaire temps discret/temps continu.
+        </para>
+        <para>
+            La factorisation spectrale a des applications en  
+            théorie des systèmes, contrôle optimal, théorie des reseaux et en automatique. Les détails de l'agorithme se trouvent dans
+            l'article cité dans la bibliographie.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+// Polynôme unique
+z = %z;
+p = (z -1/2) * (2 - z) // p est palindromique
+w = sfact(p);
+w * horner(w, 1/z) * z
+ ]]></programlisting>
+        <para/>
+        <programlisting role="example"><![CDATA[
+// Exemple matriciel
+z = %z;
+// on définit P vérifiant les conditions
+// gtild(F1,'d') est égal à horner(F1, 1/z)'*z^3
+F1 = [z-1/2, z+1/2, z^2+2; 1, z, -z; z^3+2*z, z, 1/2-z];
+P = F1*gtild(F1,'d'); 
+F = sfact(P)
+roots(det(P))             // racines de det(P)
+roots(det(gtild(F,'d')))  // racines stables
+roots(det(F))             // racines anti-stables
+clean(P-F*gtild(F,'d'))
+ ]]></programlisting>
+        <para/>
+        <programlisting role="example"><![CDATA[
+// Utilisation en temps continu
+s = %s;
+z = %z;
+p = -3*(s+(1+%i))*(s+(1-%i))*(s+0.5)*(s-0.5)*(s-(1+%i))*(s-(1-%i));
+p = real(p);
+
+// p(s) = polynôme dans s^2, cherche un f stable tel que p=f(s)*f(-s)
+w = horner(p,(1-z)/(1+z));  // transformation bilinéaire w=p((1-z)/(1+z))
+wn = w.num;                 // prend le numérateur
+fn = sfact(wn);             // Factorisation
+f = horner(fn,(1-s)/(s+1)).num; // et transformation inverse
+f = f/sqrt(horner(f*horner(f,-s),0));
+f = f*sqrt(horner(p,0));        // normalisation
+roots(f)    // f est stable
+clean(f*horner(f,-s)-p)    // f(s)*f(-s) est égal à p(s)
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="gtild">gtild</link>
+            </member>
+            <member>
+                <link linkend="fspecg">fspecg</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="bibliography">
+        <title>Bibliographie</title>
+        <para>
+            J. Ježek, V. Kučera, Efficient Algorithm for Spectral Factorization, IFAC Proceedings Volumes, Volume 17, Issue 2, 1984, Pages 257-262, ISSN 1474-6670, https://doi.org/10.1016/S1474-6670(17)60979-0
+ </para>
+    </refsection>
+</refentry>

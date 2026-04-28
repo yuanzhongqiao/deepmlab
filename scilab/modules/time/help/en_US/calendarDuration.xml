@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="calendarDuration" xml:lang="en">
+    <refnamediv>
+        <refname>calendarDuration</refname>
+        <refpurpose>create a calendarDuration - duration in days, months and years</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            c = calendarDuration(Y, M, D)
+            c = calendarDuration(Y, M, D, T)
+
+            c = calendarDuration(x)
+
+            c = calendarDuration(..., "OutputFormat", outputFormat)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>Y, M, D</term>
+                <listitem>
+                    <para><emphasis role="bold">year, month, day</emphasis></para>
+                    <para>real scalar or matrix</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>T</term>
+                <listitem>
+                    <para>scalar or matrix of <link linkend="duration"/></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>m-by-3 matrix [Y, M, D] or m-by-6 matrix [Y, M, D, H, MI, S]</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>outputFormat</term>
+                <listitem>
+                    <para>display format, string: <emphasis role="bold">"ymdt"</emphasis> (default format) 
+                    or <emphasis role="bold">"mdt"</emphasis></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>calendarDuration object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>The calendarDuration function represents a duration in calendar units as days, months, and years. 
+        The months with 28, 30 or 31 days and the leap years are taken into account to compute the duration. 
+        For shorter durations like hours or minutes, see the <link linkend="duration"/> function.</para>
+        <para><emphasis role="bold">c = calendarDuration(Y, M, D [, T])</emphasis> creates a calendarDuration 
+        object based on Y, M, D and T if specified. </para>
+        <para><emphasis role="bold">c = calendarDuration(x)</emphasis> creates a column calendarDuration object. 
+        x contains the years, months and days, one time unit per column.</para>
+        <para>For each call of calendarDuration, we can specify the display format. This option changes only 
+        the display in Scilab console. The available formats are <emphasis role="bold">"ymdt"</emphasis> (default format) 
+        or <emphasis role="bold">"mdt"</emphasis></para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">calendarDuration(Y, M, D)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        // calendarDuration(Y, M, D) == calyears(Y) + calmonths(M) + caldays(D)
+        c = calendarDuration(1, 1, 1)
+        c = calendarDuration(1:10, 0, 0)
+        c'
+        c = calendarDuration(0, 1:12, 0)'
+        c = calendarDuration(0, 0, (1:31)')
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">calendarDuration(Y, M, D, time)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        // calendarDuration(Y, M, D, time) == calyears(Y) + calmonths(M) + caldays(D) + duration(time)
+        c = calendarDuration(1, 1, 1, hours(0))
+        c = calendarDuration(0, 0, 1, duration(12, 12, 12))
+        c'
+        c = calendarDuration(1, 1:12, 1, duration(15, 30, 0))'
+        c = calendarDuration(0, 0, (1:31)', duration(23, 59, 59))
+        c = calendarDuration(0, 0, 0, hours(0:23)')
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">calendarDuration(x)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        c = calendarDuration([1, 1, 1])
+        c = calendarDuration([1, 1, 1, 23, 59, 59])
+        c = calendarDuration([1, 1, 1, 12, 0, 0; 2, 1, 1, 23, 0, 0])
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">with OutputFormat</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        c = calendarDuration(1, 0, 0, "OutputFormat", "mdt")
+        c = calendarDuration(1, 1, 0, "OutputFormat", "ymdt")
+        c = calendarDuration(1, 1, 0, "OutputFormat", "mdt")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Extraction - insertion - computation</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        c = calendarDuration(1, (8:11)', 10, duration(10, 30, 00))
+        c(1)
+        c($)
+        c(2:$-1)
+
+        c = matrix(c, 2, 2)
+        c(1, 1)
+        c($, 2)
+        c(2, :)
+
+        c(1, 2) = c(1, 2) + minutes(30)
+        c(2, 1) = c(2, 1) + hours(2)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With datetime</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime(1999, 10, 31)
+        c = calmonths(0:6)
+        dt + c
+
+        datetime(2022, 1, 1):caldays(15):datetime(2022, 1, 31)
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="caldays">caldays</link>
+            </member>
+            <member>
+                <link linkend="calmonths">calmonths</link> — create a calendarDuration in months
+            </member>
+            <member>
+                <link linkend="calyears">calyears</link> — create a calendarDuration in years
+            </member>
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

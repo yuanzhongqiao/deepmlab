@@ -1,0 +1,1449 @@
+# Czech translation for scilab
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string or %s expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
+
+#, c-format
+msgid "%s: Argument #%d: %s expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Scalar (1 element) expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: Nelze přečíst vstupní argument #%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván boolean.\n"
+
+msgid "Preview"
+msgstr "Náhled"
+
+msgid "Error on export"
+msgstr "Chyba při exportu"
+
+msgid "Please specify a valid file format"
+msgstr "Zadejte prosím platný formát souboru"
+
+msgid "Incompatibility detected"
+msgstr "Zjištěna nekompatibilita"
+
+msgid "Please check the diagram, before trying to simulate it."
+msgstr "Zkontrolujte, prosím, graf předtím, než se pokusíte o jeho simulaci."
+
+msgid "Some blocks have been removed to ensure compatibility."
+msgstr "Některé bloky byly odstraněny pro zajištění kompatibility"
+
+#, c-format
+msgid "Unable to decode \"%s\" : invalid data."
+msgstr "Nelze dekódovat \"%s\" : neplatná data,"
+
+#, c-format
+msgid "Unable to decode \"%s.%s\" : invalid field."
+msgstr "Nelze dekódovat \"%s.%s\" : neplatná data,"
+
+msgid "Modelica settings"
+msgstr "Nastavení Modelicy"
+
+msgid "name"
+msgstr "název"
+
+msgid "id"
+msgstr "id"
+
+msgid "kind"
+msgstr "třída"
+
+msgid "fixed"
+msgstr "pevné"
+
+msgid "initial"
+msgstr "počáteční"
+
+msgid "weight"
+msgstr "váha"
+
+msgid "max"
+msgstr "max"
+
+msgid "min"
+msgstr "min"
+
+msgid "nominal"
+msgstr "nominální"
+
+msgid "comment"
+msgstr "komentovat"
+
+msgid "selected"
+msgstr "vybraný"
+
+msgid "Fix derivatives"
+msgstr "Spravit deriváty"
+
+msgid "Fix states"
+msgstr "Opravit stavy"
+
+msgid "Solve"
+msgstr "Vyřešit"
+
+msgid "model is not valid"
+msgstr "model není platný"
+
+msgid "Compiling"
+msgstr "Kompiluji"
+
+msgid "Computing"
+msgstr "Vypočítávám"
+
+msgid "Global"
+msgstr "Globální"
+
+msgid "Equations"
+msgstr "Rovnice"
+
+msgid "Discretes"
+msgstr "Diskrétnosti"
+
+msgid "Inputs"
+msgstr "Vstupy"
+
+msgid "Outputs"
+msgstr "Výstupy"
+
+msgid "Solver"
+msgstr "Řešitel"
+
+msgid "Initial computing method"
+msgstr "Počáteční metoda výpočtu"
+
+msgid "Parameter embedding"
+msgstr "Vnoření parametrů"
+
+msgid ""
+"lets the user change the parameters and call the solver without regenerating "
+"code."
+msgstr ""
+"umožňuje uživateli změnit parametry a zavolat řešitele bez znovuvytváření "
+"kódu."
+
+msgid "Generate Jacobian"
+msgstr "Vytvořit Jacobiho matici"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Unknowns not equal to Equations"
+msgstr ""
+
+msgid "Unknowns"
+msgstr "Neznámé"
+
+msgid "Reduced"
+msgstr "Zmenšený"
+
+msgid "Extended"
+msgstr "Rozšířené"
+
+msgid "Diff. States"
+msgstr "Porovnat Stavy"
+
+msgid "Fixed parameters"
+msgstr "Opravené parametry"
+
+msgid "Relaxed parameters"
+msgstr "Uvolněné parametry"
+
+msgid "Fixed variables"
+msgstr "Opravené proměnné"
+
+msgid "Relaxed variables"
+msgstr "Uvolněné proměnné"
+
+msgid "Please take a look into the Scilab console"
+msgstr "Podívejte se prosím do konzole Scilab"
+
+#, c-format
+msgid "Wrong input argument \"%s\": invalid tree path.\n"
+msgstr "Špatný vstupní argument \"%s\": neplatná cesta stromu.\n"
+
+#, c-format
+msgid ""
+"Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n"
+msgstr ""
+"Špatný vstupní argument \"%s\": neplatný uzel, místo toho použijte "
+"'xcosPalDisable'.\n"
+
+#, c-format
+msgid "Unable to import %s .\n"
+msgstr "Nelze importovat %s .\n"
+
+#, c-format
+msgid "Unable to load block from %s ."
+msgstr "Nelze načíst blok z %s ."
+
+msgid "Loading the block"
+msgstr "Načítám blok"
+
+msgid "Untitled"
+msgstr "Bez názvu"
+
+msgid "File"
+msgstr "Soubor"
+
+msgid "New"
+msgstr "Nový"
+
+msgid "New diagram"
+msgstr "Nový graf"
+
+msgid "New palette"
+msgstr "Nová paleta"
+
+msgid "Open"
+msgstr "Otevřít"
+
+msgid "Open file in Scilab current directory"
+msgstr "Otevřít soubor v současném adresáři Scilab"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Save as"
+msgstr "Uložit jako"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Export all diagrams"
+msgstr "Exportovat všechny grafy"
+
+msgid "Save as interface function"
+msgstr "Uložit jako funkci rozhraní"
+
+msgid "Print"
+msgstr "Tisk"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "Quit Xcos"
+msgstr "Ukončit Xcos"
+
+msgid "Recent files"
+msgstr "Nedávné soubory"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Block Parameters"
+msgstr "Parametry bloku"
+
+msgid "Selection to superblock"
+msgstr ""
+
+msgid "Superblock mask"
+msgstr "Maska superbloku"
+
+msgid "Create"
+msgstr "Vytvořit"
+
+msgid "Rename"
+msgstr ""
+
+msgid "Remove"
+msgstr "Odstranit"
+
+msgid "Customize"
+msgstr "Přizpůsobit"
+
+msgid "Save block GUI"
+msgstr "Uložit blok GUI"
+
+msgid "matches"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Searching..."
+msgstr ""
+
+msgid "Zoom In"
+msgstr ""
+
+msgid "Zoom Out"
+msgstr ""
+
+msgid "Unable to load the selected blocks."
+msgstr ""
+
+msgid "Loading blocks"
+msgstr ""
+
+msgid "Load as palette"
+msgstr "Načíst jako paletu"
+
+msgid "User-Defined"
+msgstr "Uživatelem Určeno"
+
+msgid "Create a category"
+msgstr "Vytvořit kategorii"
+
+msgid "Add to a new category"
+msgstr "Přidat do nové kategorie"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Enter a name"
+msgstr ""
+
+msgid "Dump"
+msgstr "Vypsat"
+
+msgid "View in Scicos"
+msgstr "Zobrazit v Scicos"
+
+msgid "View"
+msgstr "Zobrazení"
+
+msgid "Fit diagram or blocks to view"
+msgstr "Přizpůsobit graf nebo bloky zobrazení"
+
+msgid "Normal 100%"
+msgstr "Normální 100%"
+
+msgid "Palette browser"
+msgstr "Průzkumník palet"
+
+msgid "tree_show(scs_m)"
+msgstr ""
+
+msgid "Diagram browser"
+msgstr "Prohlížeč grafu"
+
+msgid "Viewport"
+msgstr "Výřez"
+
+msgid "Get infos"
+msgstr "Získat Info"
+
+msgid "Details"
+msgstr "Podrobnosti"
+
+msgid "Show parent diagram"
+msgstr "Zobrazit nadřazený graf"
+
+msgid "Simulation"
+msgstr "Simulace"
+
+msgid "Setup"
+msgstr "Nastavení"
+
+msgid "Compile"
+msgstr "Kompilovat"
+
+msgid "Start"
+msgstr "Spustit"
+
+msgid "Stop"
+msgstr "Zastavit"
+
+msgid "Set Context"
+msgstr "Nastavit kontext"
+
+msgid "Format"
+msgstr "Formát"
+
+msgid "Resize"
+msgstr "Změnit velikost"
+
+msgid "Rotate"
+msgstr "Otočit"
+
+msgid "Flip"
+msgstr "Převrátit"
+
+msgid "Mirror"
+msgstr "Zrcadlit"
+
+msgid "Show/Hide shadow"
+msgstr "Zobrazit/Skrýt stín"
+
+msgid "Grid"
+msgstr "Síť"
+
+msgid "Diagram background"
+msgstr "Pozadí grafu"
+
+msgid "Bold"
+msgstr "Tučné"
+
+msgid "Italic"
+msgstr "Kurzíva"
+
+msgid "Font size"
+msgstr "Velikost písma"
+
+msgid "Font name"
+msgstr "Název písma"
+
+msgid "Font style"
+msgstr "Styl písma"
+
+msgid "Block legend"
+msgstr ""
+
+msgid "Image path"
+msgstr "Cesta k obrázku"
+
+msgid "Tools"
+msgstr "Nástroje"
+
+msgid "Code generation"
+msgstr "Vytváření kódu"
+
+msgid "?"
+msgstr "?"
+
+msgid "Xcos Help"
+msgstr "Nápověda Xcos"
+
+msgid "Block Help"
+msgstr "Nápověda bloku"
+
+msgid "Xcos Demonstrations"
+msgstr ""
+
+msgid "About Scilab"
+msgstr ""
+
+msgid "Palettes"
+msgstr "Palety"
+
+msgid "Sources"
+msgstr "Zdroje"
+
+msgid "Continuous time systems"
+msgstr "Spojité časové systémy"
+
+msgid "Implicit"
+msgstr "Implicitní"
+
+msgid "Discontinuities"
+msgstr "Nesouvislosti"
+
+msgid "Lookup Tables"
+msgstr "Vyhledávací Tabulky"
+
+msgid "Signal Processing"
+msgstr "Zpracování Signálů"
+
+msgid "Zero crossing detection"
+msgstr "Zjištění průchodu nulou"
+
+msgid "Mathematical Operations"
+msgstr "Matematické Operace"
+
+msgid "Integer"
+msgstr "Celé číslo"
+
+msgid "Matrix"
+msgstr "Matice"
+
+msgid "Sinks"
+msgstr "Spotřebiče"
+
+msgid "Port & Subsystem"
+msgstr "Porty a Podsystém"
+
+msgid "Annotations"
+msgstr "Poznámky"
+
+msgid "Discrete time systems"
+msgstr "Přerušované časové systémy"
+
+msgid "Event handling"
+msgstr "Obslužné rutiny událostí"
+
+msgid "Signal Routing"
+msgstr "Přesměrování Signálů"
+
+msgid "Recently Used Blocks"
+msgstr ""
+
+msgid "User-Defined Functions"
+msgstr "Uživatelem Určené Funkce"
+
+msgid "Demonstrations Blocks"
+msgstr "Ukázkové bloky"
+
+msgid "Electrical"
+msgstr "Elektrické"
+
+msgid "Thermo-Hydraulics"
+msgstr "Termohydraulika"
+
+msgid "Enable"
+msgstr "Povolit"
+
+msgid "Palette name"
+msgstr "Jméno palety"
+
+msgid "Diagram has been modified since last save.<br/> Do you want to save it?"
+msgstr "Graf byl od posledního uložení změněn.<br/> Chcete ho uložit?"
+
+#, c-format
+msgid ""
+"The file %s doesn't exist\n"
+" Do you want to create it?"
+msgstr ""
+"Soubor %s neexistuje\n"
+" Chcete ho vytvořit?"
+
+#, c-format
+msgid "Unable to decode the URI : %s ."
+msgstr "Nelze dekódovat URI: %s."
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Reset to default"
+msgstr "Obnovit výchozí"
+
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK), and every time the diagram "
+"is run."
+msgstr ""
+
+msgid "Failed to load Diagram"
+msgstr "Nelze načíst graf"
+
+msgid "Could not save diagram."
+msgstr "Nelze uložit graf"
+
+msgid "Do you want to overwrite existing file?"
+msgstr "Chcete přepsat existující soubor?"
+
+msgid "Do you want a transparent background image?"
+msgstr "Chcete průhledné pozadí?"
+
+msgid "Image contains no data."
+msgstr "Obrázek neobsahuje žádná data."
+
+msgid "Unknown Diagram Version : "
+msgstr "Neznámá Verze Grafu : "
+
+msgid "Will try to continue..."
+msgstr "Pokusím se pokračovat..."
+
+msgid "Xcos error"
+msgstr "Chyba Xcos"
+
+msgid "Unable to delete "
+msgstr "Nelze smazat "
+
+msgid "No block selected"
+msgstr "Není vybrán žádný blok"
+
+msgid "Export to XML"
+msgstr "Exportovat do XML"
+
+msgid "Export in progress"
+msgstr ""
+
+msgid "Import from XML"
+msgstr "Importovat do XML"
+
+msgid "Add to"
+msgstr "Přidat do"
+
+msgid "Add to new diagram"
+msgstr "Přidat do nového grafu"
+
+msgid "Explicit data input port must be connected to explicit data output port"
+msgstr ""
+"Explicitní port pro vstup dat musí být připojen k explicitnímu portu pro "
+"výstup dat"
+
+msgid "Implicit data input port must be connected to implicit data output port"
+msgstr ""
+"Vstupní port implicitních dat musí být připojen k výstupnímu portu "
+"implicitních dat"
+
+msgid "Explicit data output port must be connected to explicit data input port"
+msgstr ""
+"Explicitní port pro výstup dat musí být připojen k explicitnímu portu pro "
+"vstup dat"
+
+msgid "Implicit data output port must be connected to implicit data input port"
+msgstr ""
+"Výstupní port implicitních dat musí být připojen ke vstupnímu portu "
+"implicitních dat"
+
+msgid "Command port must be connected to control port"
+msgstr "Příkazový port musí být spojen s kotrolním portem"
+
+msgid "control port must be connected to command port"
+msgstr "kontrolní port musí být připojen ke příkazovému portu"
+
+msgid ""
+"Port is already connected, please select an unconnected port or a valid link."
+msgstr ""
+"Port je již připojen, zvolte prosím nepřipojený port s platným propojením."
+
+msgid "Align Blocks"
+msgstr "Zarovnat bloky"
+
+msgid "Left"
+msgstr "Vlevo"
+
+msgid "Right"
+msgstr "Vpravo"
+
+msgid "Center"
+msgstr "Na střed"
+
+msgid "Top"
+msgstr "Nahoře"
+
+msgid "Bottom"
+msgstr "Dolů"
+
+msgid "Middle"
+msgstr "Uprostřed"
+
+msgid "Block edge"
+msgstr ""
+
+msgid "Block background"
+msgstr ""
+
+msgid "Legend color"
+msgstr ""
+
+msgid "Link Style"
+msgstr "Styl propojení"
+
+msgid "Straight"
+msgstr "Přímé"
+
+msgid "Horizontal"
+msgstr "Vodorovně"
+
+msgid "Vertical"
+msgstr "Vertikální"
+
+msgid "Set debugging level (0,1,2,3) <br/> it performs scicos_debug(n)"
+msgstr "Nastavit úroveň ladění (0,1,2,3) <br/> provádí scicos_debug(n)"
+
+msgid "Execution trace and Debug"
+msgstr "Trasování spuštění a Ladění"
+
+msgid "Final integration time"
+msgstr "Čas konečného začlenění"
+
+msgid "Real time scaling"
+msgstr "Škálování v reálném čase"
+
+msgid "Integrator absolute tolerance"
+msgstr "Absolutní tolerance integrátoru"
+
+msgid "Integrator relative tolerance"
+msgstr "Relativní tolerance integrátoru"
+
+msgid "Tolerance on time"
+msgstr "Tolerance na čas"
+
+msgid "Max integration time interval"
+msgstr "Max časový interval začlenění"
+
+msgid "Solver kind"
+msgstr "Druh řešitele"
+
+msgid "Maximum step size (0 means no limit)"
+msgstr "Maximální velikost kroku (0 znamená bez limitu)"
+
+msgid "Default"
+msgstr "Výchozí"
+
+msgid "Set Parameters"
+msgstr "Nastavit parametry"
+
+msgid "Based on Scicos"
+msgstr "Založeno na Scicos"
+
+msgid "Saving diagram"
+msgstr "Ukládám graf"
+
+msgid "Loading diagram"
+msgstr "Načítam graf"
+
+msgid "Loading palettes"
+msgstr "Načítam palety"
+
+msgid "Loading user defined palettes"
+msgstr "Načítám uživatelem určené palety"
+
+msgid "Generating C Code for SuperBlock"
+msgstr "Vytvářím C Kód pro SuperBlok"
+
+msgid "A SuperBlock must be selected to generate code"
+msgstr "SuberBlok musí být pro vytvoření kódu zvolen"
+
+msgid "Simulation in progress"
+msgstr "Probíhá simulace"
+
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
+msgstr ""
+
+msgid "Generate SuperBlock, please wait"
+msgstr "Vytvářím SuperBlok, čekejte prosím"
+
+msgid "Click on diagram to add link point or on a compatible target to finish"
+msgstr ""
+"Klikněte na graf pro přidání bod propojení nebo kompatibilní cíl pro "
+"dokončení"
+
+msgid "No trace nor debug printing"
+msgstr "Žádné trasování nebo výpis ladění"
+
+msgid "Light Simulation trace (Discrete and Continuous part switches)"
+msgstr "Křivka Simulace Světla (Přepínání Diskrétních a Průběžných částí)"
+
+msgid "Per block execution trace and Debug block calls"
+msgstr "Trasování spuštění pro blok a volání bloku Ladění"
+
+msgid "Debug block calls without trace"
+msgstr "Blok Ladění volá bez trasování"
+
+msgid "All supported formats"
+msgstr "Všechny podporované formáty"
+
+msgid "Scicos file"
+msgstr "Soubor Scicos"
+
+msgid "Xcos file"
+msgstr "Soubor Xcos"
+
+msgid "Xcos (zip) file"
+msgstr "Soubor Xcos (zip)"
+
+msgid "XMI (Eclipse EMF) file"
+msgstr ""
+
+msgid "Scilab Open Data file"
+msgstr "Otevřený datový soubor Scilab"
+
+msgid "Masked SuperBlock editor"
+msgstr "Maskovaný editor SuperBloku"
+
+msgid "Insert"
+msgstr "Vložit"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Move Up"
+msgstr "Posunout nahoru"
+
+msgid "Move Down"
+msgstr "Posunout dolů"
+
+msgid "Rows"
+msgstr "Řádky"
+
+msgid "Variable settings"
+msgstr "Nastavení proměnných"
+
+msgid "Default values"
+msgstr "Výchozí hodnoty"
+
+msgid "WinTitle"
+msgstr "NázOkna"
+
+msgid "Window title"
+msgstr "Název okna"
+
+msgid "Variable names"
+msgstr "Jmény proměnných"
+
+msgid "Variable descriptions"
+msgstr "Popisy proměnných"
+
+msgid "Editable"
+msgstr "Upravitelné"
+
+msgid "Values"
+msgstr "Hodnoty"
+
+msgid "Set block parameters"
+msgstr "Nastavit parametry bloku"
+
+msgid ""
+"The user palette configuration file (palettes.xml) is invalid.<BR> Switching "
+"to the default one."
+msgstr ""
+"Soubor nastavení uživatelské palety (palettes.xml) je neplatný.<BR> "
+"Přecházím na výchozí."
+
+msgid ""
+"The user configuration file (xcos.xml) is invalid.<BR> Switching to the "
+"default one."
+msgstr ""
+"Soubor uživatelského nastavení (xcos.xml) je neplatný.<BR> Přecházím na "
+"výchozí."
+
+msgid "Setting up Modelica Compiler."
+msgstr "Nastavuji Kompilátor Modelica"
+
+msgid "Modelica initialize"
+msgstr "Zavedení Modelicy"
+
+msgid "Error: unable to compile this SuperBlock"
+msgstr "Chyba: nelze zkompilovat tento SuperBlok"
+
+msgid "Evaluation problem: wrong port number."
+msgstr "Problémy vyhodnocení: špatné číslo portu."
+
+#, c-format
+msgid "Expecting <code>%d</code> but got <code>%d</code>."
+msgstr ""
+
+msgid ""
+"<html><body>Compilation error: link ignored because it is not connected. <br/"
+">Please reconnect it.</body></html>"
+msgstr ""
+"<html><body>Chyba sestavení: propojení ignorováno protože není spojené. <br/"
+">Prosím, znovu ho spojte.</body></html>"
+
+msgid "Block name: "
+msgstr ""
+
+msgid "Simulation: "
+msgstr ""
+
+msgid "UID: "
+msgstr ""
+
+msgid "Style: "
+msgstr ""
+
+msgid "Rpar: "
+msgstr ""
+
+msgid "Ipar: "
+msgstr ""
+
+msgid "Opar: "
+msgstr ""
+
+msgid "Datatype: "
+msgstr ""
+
+msgid "Implicit: "
+msgstr ""
+
+msgid "Source datatype: "
+msgstr ""
+
+msgid "Target datatype: "
+msgstr ""
+
+msgid "Label: "
+msgstr ""
+
+msgid "Optimal"
+msgstr ""
+
+msgid "Auto-Position Block"
+msgstr ""
+
+msgid "Split Block"
+msgstr ""
+
+msgid "Auto-Position Split Block"
+msgstr ""
+
+msgid "A one-line description of the block"
+msgstr ""
+
+msgid "Annotation (or comment) attached to the object"
+msgstr ""
+
+#, c-format
+msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
+msgstr "Modul Scilabu '%s' je v režimu -nogui or -nwni zakázán.\n"
+
+#, c-format
+msgid "Scilab '%s' module not installed.\n"
+msgstr "Modul Scilabu '%s' není nainstalován.\n"
+
+msgid "Number of recently opened files to display: "
+msgstr "Počet nedávno otevřených souborů k zobrazení: "
+
+msgid "Default file format"
+msgstr "Výchozí formát souboru"
+
+msgid "Default simulation settings"
+msgstr "Výchozí nastavení simulace"
+
+msgid "Default trace settings"
+msgstr "Výchozí nastavení sledování"
+
+msgid "Basic controller"
+msgstr ""
+
+msgid "Water tank"
+msgstr ""
+
+msgid "Discrete Controller"
+msgstr ""
+
+msgid "Kalman Filter"
+msgstr ""
+
+msgid "Discrete Kalman Filter"
+msgstr ""
+
+msgid "Cont.Plant-Hybrid Observer"
+msgstr ""
+
+msgid "Temperature Controller"
+msgstr ""
+
+msgid "Inverted pendulum"
+msgstr ""
+
+msgid "Lorenz butterfly"
+msgstr ""
+
+msgid "RLC Circuit"
+msgstr ""
+
+msgid "Bridge Rectifer"
+msgstr ""
+
+msgid "Transformer"
+msgstr ""
+
+msgid "Differential amplifier"
+msgstr ""
+
+msgid "OpAmp amplifier"
+msgstr ""
+
+msgid "Switched capacitor integrator"
+msgstr ""
+
+msgid "DC/DC Buck Converter"
+msgstr ""
+
+msgid "DC/DC Boost Converter"
+msgstr ""
+
+msgid "Colpitts oscillator"
+msgstr ""
+
+msgid "Logic AND gate"
+msgstr ""
+
+msgid "Logic NOR gate"
+msgstr ""
+
+msgid "If Then Else"
+msgstr ""
+
+msgid "And"
+msgstr ""
+
+msgid "Automotive Suspension"
+msgstr ""
+
+msgid "Ball on a Platform"
+msgstr ""
+
+msgid "Bouncing Ball"
+msgstr ""
+
+msgid "Chaos Modelica"
+msgstr ""
+
+msgid "Hydraulics blocks"
+msgstr ""
+
+msgid "RLC circuit"
+msgstr ""
+
+msgid "Heat conduction in a rod"
+msgstr ""
+
+msgid "Second order rotational system"
+msgstr ""
+
+msgid "Old Gain Block"
+msgstr ""
+
+msgid "Optimal link route"
+msgstr ""
+
+msgid "Optimal split block position"
+msgstr ""
+
+msgid "Standard demos"
+msgstr ""
+
+msgid "Control Systems"
+msgstr ""
+
+msgid "Electrical Systems"
+msgstr ""
+
+msgid "Mechanical Systems"
+msgstr ""
+
+msgid "Modelica demos"
+msgstr ""
+
+msgid "Old demos"
+msgstr ""
+
+msgid "Simple Demo"
+msgstr ""
+
+msgid "Bouncing Balls"
+msgstr ""
+
+msgid "Simple Thermostat"
+msgstr ""
+
+msgid "Table Lookup"
+msgstr ""
+
+msgid "Signal Builder"
+msgstr ""
+
+msgid "Fibonacci Numbers"
+msgstr ""
+
+msgid "Scilab block"
+msgstr ""
+
+msgid "Xcos data types"
+msgstr ""
+
+msgid "Zero Crossing"
+msgstr ""
+
+msgid "_IF_ Xcos block"
+msgstr ""
+
+msgid "Goto/From blocks"
+msgstr ""
+
+msgid "Event demos"
+msgstr ""
+
+msgid "Optimal positions"
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to export %s to %s.\n"
+msgstr "%s: Nelze exportovat %s do %s.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d až %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: Block type expected.\n"
+msgstr "%s: Špatný typ argumentu %s: Očekáván typ bloku.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: directory path string expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván řetězec cesty adresáře.\n"
+
+#, c-format
+msgid "%s: Wrong input argument %s: svg, gif or jpg expected.\n"
+msgstr "%s: Špatný vstupní argument %s: očekáván svg, gif, nebo jpg.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván řetězec.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: boolean expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván boolean.\n"
+
+#, c-format
+msgid "%s: File '%s' does not exist.\n"
+msgstr "%s: Soubor '%s' neexistuje.\n"
+
+#, c-format
+msgid "%s: File '%s' is not a valid palette file.\n"
+msgstr "%s: Soubor '%s' není platný soubor palety.\n"
+
+#, c-format
+msgid "%s: Found '%s' instead of a block.\n"
+msgstr "%s: Nalezeno '%s' místo bloku.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: diagram structure expected"
+msgstr "%s: Špatný typ argumentu %d: očekávána struktura grafu"
+
+#, c-format
+msgid "%s: Wrong type for %s variable: A string array expected.\n"
+msgstr "%s: Špatný typ proměnné %s: Očekáváno pole řetězců.\n"
+
+#, c-format
+msgid "%s: All paths defined by %s variable must exist.\n"
+msgstr "%s: Všechny cesty určené proměnnou %s musí existovat.\n"
+
+#, c-format
+msgid ""
+"%s: The directory %s cannot been created, please check if you have write "
+"access on this directory.\n"
+msgstr ""
+"%s: Adresář %s nelze vytvořit, zkontrolujte, prosím, jestli máte do této "
+"složky přístup k zápisu.\n"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "Nelze otevřít %s"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected."
+msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d."
+
+#, c-format
+msgid "%s: Not supported format %s.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: the block %s is no more available, please update the diagram with a "
+"compatible one."
+msgstr ""
+"%s: blok %s již není dostupný, aktualizujte, prosím, svůj graf pomocí "
+"kompatibilního."
+
+#, c-format
+msgid "%s is not a valid name, please change the title of the diagram."
+msgstr "%s není platné jméno, změňte, prosím, název grafu."
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string type expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván typ řetězce.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: diagram type expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván typ grafu.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d to %d expected.\n"
+msgstr "%s: Špatný počet výstupních argumentů: očekáváno %d až %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: palette type or path expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván typ palety nebo cesta.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: File not found.\n"
+msgstr "%s: Špatný typ argumentu %s: soubor nenalezen.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string vector expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván vektor řetězce.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: palette type expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván typ palety.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: hdf5 file expected.\n"
+msgstr "%s: Nelze načíst blok z %s: očekáván soubor hdf5.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: no `scs_m' variable found.\n"
+msgstr "%s: Nelze načíst blok z %s: nebyla nalezena proměnná 'scs_m'.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: Missing file.\n"
+msgstr "%s: Nelze načíst blok z %s: očekáván soubor hdf5.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument %s: function as string or Block type or "
+"full path string expected.\n"
+msgstr ""
+"%s: Špatný typ argumentu %s: očekávána funkce jako řetězec nebo typ Bloku, "
+"či řetězec úplné cesty.\n"
+
+#, c-format
+msgid "%s: Unable to generate the palette icon : %s already exists.\n"
+msgstr "%s: Nelze vytvořit ikonu palety : %s již existuje.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: path string expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván řetězec cesty.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument %s: An existing file expected.\n"
+msgstr ""
+"%s: Špatná hodnota vstupního argumentu %s: Očekáván existující soubor.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument %s: A valid file format (png, jpg, gif) "
+"expected.\n"
+msgstr ""
+"%s: Špatná hodnota vstupního argumentu %s: Očekáván platný formát souboru "
+"(png, jpg, gif).\n"
+
+#, c-format
+msgid "%s: Unable to generate the image %s.\n"
+msgstr "%s: Nelze vytvořit obrázek %s.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván řetězec nebo struktura.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: full path string expected.\n"
+msgstr "%s: Špatný typ argumentu %s: očekáván řetězec úplné cesty.\n"
+
+#, c-format
+msgid "%s: Unable to export the palette to hdf5.\n"
+msgstr "%s: Nelze exportovat paletu do hdf5.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Matrix of strings expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Vector expected.\n"
+msgstr "%s: Špatná velikost vstupního argumentu #%d: Očekáván vektor.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: No block found.\n"
+msgstr "%s: Špatná hodnota vstupního argumentu #%d: Nenalezen žádný blok.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A String expected."
+msgstr "%s: Špatný typ argumentu %d: Očekáván řetězec."
+
+msgid "Interface function does not exist or can not be called."
+msgstr "Funkce rozhraní neexistuje, neb nemůže být zavolána."
+
+#, c-format
+msgid "%s is not a valid block descriptor."
+msgstr "%s není platný popisovač bloku."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: Špatná velikost vstupního argumentu #%d: Očekávána matice %d-krát-%d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr "%s: Špatný počet vstupních argumentů: Očekávány %d nebo %d.\n"
+
+#, c-format
+msgid "Block definition with function [%s] failed."
+msgstr "Určení bloku pomocí funkce [%s] selhalo."
+
+#, c-format
+msgid "Block configuration with function [%s] failed."
+msgstr "Nastavení bloku pomocí funkce [%s] selhalo."
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A Block expected."
+msgstr "%s: Špatný typ argumentu #%d: Očekáván blok"
+
+#, c-format
+msgid "Field %s has different values."
+msgstr "Pole %s má různé hodnoty."
+
+msgid "Stopped before block:"
+msgstr ""
+
+msgid "Stopped after block:"
+msgstr ""
+
+msgid "State derivative computation"
+msgstr ""
+
+msgid "Regular outputs update"
+msgstr ""
+
+msgid "States update on discrete event"
+msgstr ""
+
+msgid "Output activation dates"
+msgstr ""
+
+msgid "Initialization"
+msgstr ""
+
+msgid "Ending"
+msgstr ""
+
+msgid "ReInitialization"
+msgstr ""
+
+msgid "Continuous states properties update"
+msgstr ""
+
+msgid "Zero crossing surfaces computation"
+msgstr ""
+
+msgid "Residual computation"
+msgstr ""
+
+msgid "&File"
+msgstr ""
+
+msgid "&Tools"
+msgstr ""
+
+msgid "&Edit"
+msgstr ""
+
+msgid "&?"
+msgstr ""
+
+msgid "Xcos debug"
+msgstr ""
+
+msgid "Break point conditions"
+msgstr ""
+
+msgid "Break on selected flags"
+msgstr ""
+
+msgid "After call"
+msgstr ""
+
+msgid "Before call"
+msgstr ""
+
+msgid "After date"
+msgstr ""
+
+msgid "On the Scilab condition above"
+msgstr ""
+
+msgid "Current simulation state"
+msgstr ""
+
+msgid "scs_m block path:"
+msgstr ""
+
+msgid "Time:"
+msgstr ""
+
+msgid "Flag:"
+msgstr ""
+
+msgid "End debug"
+msgstr ""
+
+msgid "Pause"
+msgstr ""
+
+#, c-format
+msgid "Use the %s button to end the debugging"
+msgstr ""
+
+#, c-format
+msgid "Unable to simulate %s"
+msgstr "Nelze simulovat %s"
+
+msgid "Error occurred in pre_xcos_simulate: Cancelling simulation."
+msgstr "V pre_xcos_simulate se objevila chyba: Ruším simulaci."
+
+#, c-format
+msgid "%s: Error during block parameters evaluation.\n"
+msgstr "%s: Chyba při vyhodnocování parametrů bloku.\n"
+
+#, c-format
+msgid "%s: Error during block parameters update.\n"
+msgstr "%s: Chyba při aktualizaci parametrů bloku.\n"
+
+msgid "Initialisation problem"
+msgstr "Problém zavedení"
+
+msgid "End problem"
+msgstr "Problém ukončení"
+
+msgid "Simulation problem"
+msgstr "Problém simulace"
+
+msgid "Error in post_xcos_simulate: ending simulation."
+msgstr "V post_xcos_simulate se objevila chyba: Ukončuji simulaci."
+
+#, c-format
+msgid "%s: Cannot open file '%s' for reading.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Error while trying to read file contents from '%s'.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Syntax error while trying to set up context from"
+msgstr ""

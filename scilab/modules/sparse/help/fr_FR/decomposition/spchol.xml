@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="spchol">
+    <refnamediv>
+        <refname>spchol</refname>
+        <refpurpose>Factorisation de Cholesky creuse</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>[R,P] = spchol(X)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>matrice creuse réelle symétrique et définie positive.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>P</term>
+                <listitem>
+                    <para> matrice de permutation
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>R</term>
+                <listitem>
+                    <para> facteur de Cholesky
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>[R,P] = spchol(X)</literal> produit une matrice triangulaire inférieure <literal>R</literal> telle que <literal>P*R*R'*P' = X</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+// Factorisation:
+Xfull = [
+3.,  0.,  0.,  2.,  0.,  0.,  2.,  0.,  2.,  0.,  0.
+0.,  5.,  4.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.
+0.,  4.,  5.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.
+2.,  0.,  0.,  3.,  0.,  0.,  2.,  0.,  2.,  0.,  0.
+0.,  0.,  0.,  0. , 5.,  0.,  0.,  0.,  0.,  0.,  4.
+0.,  0.,  0.,  0.,  0.,  4.,  0.,  3.,  0.,  3.,  0.
+2.,  0.,  0.,  2.,  0.,  0.,  3.,  0.,  2.,  0.,  0.
+0.,  0.,  0.,  0.,  0.,  3.,  0.,  4.,  0.,  3.,  0.
+2.,  0.,  0.,  2.,  0.,  0.,  2.,  0.,  3.,  0.,  0.
+0.,  0.,  0.,  0.,  0.,  3.,  0.,  3.,  0.,  4.,  0.
+0.,  0.,  0.,  0.,  4.,  0.,  0.,  0.,  0.,  0.,  5.];
+X = sparse(Xfull);
+
+[R, P] = spchol(X);
+max(P*R*R'*P'-X)
+
+// Factorisation puis résolution avec l'opérateur '\':
+Afull = [
+2 -1  0  0  0;
+-1  2 -1  0  0;
+0 -1  2 -1  0;
+0  0 -1  2 -1;
+0  0  0 -1  2
+];
+A = sparse(Afull);
+
+[L, P] = spchol(A);
+max(P*L*L'*P'-A)
+
+n = size(A, "r"); e = (1:n)'; b = A * e;
+x = P*(L'\(L\(P'*b)));
+A*x-b
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sparse">sparse</link>
+            </member>
+            <member>
+                <link linkend="lusolve">lusolve</link>
+            </member>
+            <member>
+                <link linkend="luget">luget</link>
+            </member>
+            <member>
+                <link linkend="chol">chol</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

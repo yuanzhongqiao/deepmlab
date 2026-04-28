@@ -1,0 +1,33 @@
+//<-- CLI SHELL MODE -->
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+x = linspace(0,1,11)';
+y = cosh(x-0.5);
+d = splin(x,y);
+xx = linspace(-0.5,1.5,401)';
+yy0 = interp(xx,x,y,d,"C0");
+assert_checkequal(size(yy0), [401 1]);
+assert_checkfalse(yy0 > 2);
+assert_checkfalse(yy0 < 0);
+
+
+yy1 = interp(xx,x,y,d,"linear");
+assert_checkequal(size(yy1), [401 1]);
+assert_checkfalse(yy1 > 2);
+assert_checkfalse(yy1 < 0);
+
+
+yy2 = interp(xx,x,y,d,"natural");
+assert_checkequal(size(yy2), [401 1]);
+assert_checkfalse(yy2 > 2);
+assert_checkfalse(yy2 < 0);
+
+yy3 = interp(xx,x,y,d,"periodic");
+assert_checkequal(size(yy3), [401 1]);
+assert_checkfalse(yy3 > 2);
+assert_checkfalse(yy3 < 0);

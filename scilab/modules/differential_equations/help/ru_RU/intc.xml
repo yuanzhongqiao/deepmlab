@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Farid BELAHCENE
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: added error control
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="intc">
+    <refnamediv>
+        <refname>intc</refname>
+        <refpurpose>интеграл вдоль прямой на комплексной плоскости</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+          [y, err] = intc(a, b, f)
+          [y, err] = intc(a, b, f, abserr)
+          [y, err] = intc(a, b, f, abserr, relerr)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>a, b</term>
+                <listitem>
+                     <para>
+                        два комплексных числа: начальная и конечная точки интеграла
+                        на комплексной плоскости.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                     <para>
+                        "внешняя" функция.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>abserr, relerr</term>
+                <listitem>
+                     <para>
+                        вещественные скаляры, абсолютная и относительная ошибки.
+                        Значения по умолчанию: <literal>1.d-13</literal> и <literal>1d-8</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>err</term>
+                <listitem>
+                     <para>
+                        вещественное число, оценённая абсолютная ошибка результата.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Если <literal>f</literal> - это комплекснозначная функция,
+            <literal>intc(a, b, f)</literal>
+            вычисляет интеграл <literal>f(z)dz</literal> от <literal>a</literal> до
+            <literal>b</literal> вдоль прямой линии <literal>[a b]</literal>
+            на комплексной плоскости.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+function y = f(z)
+  y = z^(3 + %pi * %i);
+endfunction
+
+intc(1+%i, 4-%i, f)
+
+[r, err] = intc(1+%i, 4-%i, f, 1d-10, 1d-6)
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="intg">intg</link>
+            </member>
+            <member>
+                <link linkend="intl">intl</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>
+                    Добавлено управление абсолютной и относительной (на входе) и
+                    абсолютной (на выходе) ошибками.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revremark>
+                    По умолчанию значение abserr увеличена от
+                    10<superscript>-14</superscript> до 10<superscript>-13</superscript>.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

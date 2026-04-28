@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="errbar" xml:lang="pt">
+    <refnamediv>
+        <refname>errbar</refname>
+        <refpurpose>adiciona barras de erro veriticais a um esboço 2d</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>errbar(x,y,em,ep)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>x,y,em,ep</term>
+                <listitem>
+                    <para>quatro matrizes de mesmo tamanho.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>errbar</literal> adiciona barras de erro verticais a um
+            esboço 2d. <literal>x</literal> e <literal>y</literal> têm o mesmo
+            significado que em <literal>plot2d</literal>. <literal>em(i,j)</literal> e
+            <literal>ep(i,j)</literal> são os intervalos de erro sobre os valores
+            <literal>y(i,j)</literal>:
+            <literal>[y(i,j)-em(i,j),y(i,j)+ep(i,j)]</literal>.
+        </para>
+        <para>
+            Entre com o comando <literal>errbar()</literal> para visualizar uma
+            demonstração.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+        // low resolution sinus
+        x1 = linspace(0, 2*%pi, 10);
+        y1 = sin(x1);
+        plot(x1, y1, 'b');
+        
+        // high resolution sinus
+        x2 = linspace(0, 2*%pi, 100);
+        y2 = sin(x2);
+        plot(x2, y2, 'g');
+        
+        // display the error between a linear interpolation and x2
+        x_err = x1(2:$-1);
+        y_err = y1(2:$-1);
+        err = y2 - linear_interpn(x2, x1, y1, "periodic");
+        err_m = zeros(y_err);
+        err_p = zeros(y_err);
+        for i = 2:size(x1,'c')-1
+            err_m(i-1) = sum(abs(err(x1(i-1) <= x2 & x2 < x1(i)  )));
+            err_p(i-1) = sum(abs(err(x1(i)   <= x2 & x2 < x1(i+1))));
+        end
+        errbar(x_err, y_err, err_m, err_p);
+        ]]></programlisting>
+        <scilab:image><![CDATA[
+        // low resolution sinus
+        x1 = linspace(0, 2*%pi, 10);
+        y1 = sin(x1);
+        plot(x1, y1, 'b');
+        
+        // high resolution sinus
+        x2 = linspace(0, 2*%pi, 100);
+        y2 = sin(x2);
+        plot(x2, y2, 'g');
+        
+        // display the error between a linear interpolation and x2
+        x_err = x1(2:$-1);
+        y_err = y1(2:$-1);
+        err = y2 - linear_interpn(x2, x1, y1, "periodic");
+        err_m = zeros(y_err);
+        err_p = zeros(y_err);
+        for i = 2:size(x1,'c')-1
+            err_m(i-1) = sum(abs(err(x1(i-1) <= x2 & x2 < x1(i)  )));
+            err_p(i-1) = sum(abs(err(x1(i)   <= x2 & x2 < x1(i+1))));
+        end
+        errbar(x_err, y_err, err_m, err_p);
+        ]]></scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="plot2d">plot2d</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

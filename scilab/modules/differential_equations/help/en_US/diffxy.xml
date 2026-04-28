@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="diffxy">
+    <refnamediv>
+        <refname>diffxy</refname>
+        <refpurpose>derivative of y with respect to x</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            dydx = diffxy(x, y)
+            dydx = diffxy(x, y [, N, dim])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        scalar, vector or matrix of doubles
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        vector or matrix of doubles
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>N</term>
+                <listitem>
+                    <para>
+                        integer, the order of differentiation. Default value: 1.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dim</term>
+                <listitem>
+                    <para>
+                        integer or string, Available values: 1, 2, "r" and "c". Default value: find(size(y) &gt; 1, 1)
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>dydx=diffxy(x, y)</literal> compute the derivative of y with respect to x. 
+            <literal>dydx</literal> will be the same size as <literal>y</literal>. 
+            <literal>diffxy</literal> also handles unequally spaced data and treats the edges using the higher accuracy.
+        </para>
+        <para>
+            <literal>dydx = diff(x, y, N, dim)</literal> is the <literal>N</literal>th
+            difference function along dimension <literal>dim</literal>.
+        </para>
+        
+        <para>
+            Default value for <literal>N</literal> is 1. Default value for
+            <literal>dim</literal> is <literal>find(size(y) &gt; 1, 1)</literal>.
+        </para>
+        <para>
+            <literal>dim='r'</literal> is equivalent to <literal>dim=1</literal>
+            and <literal>dim='c'</literal> is equivalent to
+            <literal>dim=2</literal>.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Equally spaced data</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                clf();
+                x = linspace(0, %pi, 1e3);
+                y = cos(x);
+                dy = diffxy(x, y);
+                plot(x, -sin(x), "ro", x, dy, "k*");
+                legend(["-sin(x)", "diffxy(x, y)"]);
+            ]]></programlisting>
+            <scilab:image><![CDATA[
+            clf();
+            x = linspace(0, %pi, 1e3);
+            y = cos(x);
+            dy = diffxy(x, y);
+            plot(x, -sin(x), "ro", x, dy, "k*");
+            legend(["-sin(x)", "diffxy(x, y)"]);
+        ]]></scilab:image>
+        </para>
+        <para><emphasis role="bold">Unequally spaced data</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                clf();
+                x = linspace(0, %pi, 1e3) + rand(1, 1e3, "normal") * 0.1;
+                y = cos(x);
+                dy = diffxy(x, y);
+                plot(x, -sin(x), "ro", x, dy, "k*");
+                legend(["-sin(x)", "diffxy(x, y)"])
+            ]]></programlisting>
+            <scilab:image><![CDATA[
+            clf();
+            x = linspace(0, %pi, 1e3) + rand(1, 1e3, "normal") * 0.1;
+            y = cos(x);
+            dy = diffxy(x, y);
+            plot(x, -sin(x), "ro", x, dy, "k*");
+            legend(["-sin(x)", "diffxy(x, y)"]);
+        ]]></scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="diff">diff</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

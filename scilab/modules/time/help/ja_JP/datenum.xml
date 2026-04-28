@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="datenum">
+    <refnamediv>
+        <refname>datenum</refname>
+        <refpurpose>シリアル日付番号に変換する</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>N = datenum()
+            N = datenum(DT)
+            N = datenum(Y, M, D)
+            N = datenum(Y, M, D, H, MI, S)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            datenum 関数は(datevecにより定義された)日付ベクトルをシリアル日付番号に変換します.
+            日付番号は、ある基準日から経過した日数です.
+            デフォルトで,このシリアル日付の１は 1-Jan-0000 に対応します.
+        </para>
+        <para>
+            N = datenum() は現在の日付に対応するシリアル日付番号を返します.
+        </para>
+        <para>
+            N = datenum(DT) は,一つまたは複数のベクトルをシリアル日付番号Nに変換します.
+            DTは,m個の完全な日付ベクトルからなるm行x6列，または部分的な日付ベクトルからなるm行x3列の行列
+            です.
+        </para>
+        <para>
+            N = datenum(Y, M, D) はY,M,D(年,月,日)配列に対応するシリアル日付番号を返します.
+            Y,M,Dは同じ大きさの配列(またはスカラー)とする必要があります.
+        </para>
+        <para>
+            N = datenum(Y, M, D, H, MI, S) は配列 Y, M, D, H, MI, および S (年,月,日,時間,分,
+            および秒)に対応するシリアル日付番号を返します.
+            Y, M, D, H, MI, および Sは同じ大きさの配列(またはスカラー)とする必要があります.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+// N = datenum()
+datenum()
+// N = datenum(DT)
+A = [ 0 1 1 0 0 0 ; 2005 2 8 21 37 30 ]
+datenum(A)
+// N = datenum(Y, M, D)
+Years = [0; 1973; 2006]
+Months = [1; 8; 2]
+Days = [1; 4; 8]
+datenum(Years,Months,Days)
+Years = [0 0 0 ; 0 0 0]
+Months = [1 1 1 ; 1 1 1]
+Days = [1 2 3 ; 4 5 6]
+datenum(Years,Months,Days)
+// N = datenum(Y, M, D, H, MI, S)
+Years = grand(5,10,'uin',0,2006)
+Months = grand(5,10,'uin',1,12)
+Days = grand(5,10,'uin',1,28)
+Hours = grand(5,10,'uin',0,23)
+Minutes = grand(5,10,'uin',0,59)
+Seconds = grand(5,10,'uin',0,59)
+datenum(Years,Months,Days,Hours,Minutes,Seconds)
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>参考</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datevec">datevec</link>
+            </member>
+            <member>
+                <link linkend="calendar">calendar</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                Values out of <literal>1:12</literal> for <literal>M</literal> (month) and out of <literal>1:31</literal> for <literal>D</literal> (day) are now managed.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>datenum()</literal> contains milliseconds information.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

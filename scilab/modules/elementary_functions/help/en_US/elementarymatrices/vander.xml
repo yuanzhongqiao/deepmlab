@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="vander">
+    <refnamediv>
+        <refname>vander</refname>
+        <refpurpose>Vandermonde matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            v = vander(x)
+            v = vander(x, n)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        real or complex vector
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        integer value, the number of columns of <literal>y</literal>. 
+                        By default, n is equal to <literal>size(x, "*")</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>v</term>
+                <listitem>
+                    <para>
+                        <varname>number of rows of <literal>x</literal></varname> x <varname>n</varname> matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">v = vander(x [,n])</emphasis> returns the Vandermonde matrix. The columns of <literal>y</literal> 
+            are powers of the <literal>x</literal> vector.
+        </para>
+        <para>
+            The Vandermonde matrix is a matrix defined by <latex>v(i,j) = x(i)^{(j-1)}</latex>, i.e 
+        </para>
+        <para>
+            <latex>v = \begin{bmatrix} x_1^0 \ \ x_1^1 \ \ x_1^2 \ \ ... \ \ x_1^{n-1} 
+                \\ x_2^0 \ \ x_2^1 \ \ x_2^2 \ \ ... \ \ x_2^{n-1}
+                \\ ... \ \ ... \ \ ... \ \ ... \ \ ...
+                \\ x_m^0 \ \ x_m^1 \ \ x_m^2 \ \ ... \ \ x_m^{n-1}  \end{bmatrix}
+            </latex>.
+        </para>
+        <para>
+            If <literal>n</literal> is specified, the Vandermonde matrix will have <literal>n</literal> columns. By default, the 
+            Vandermonde matrix is a square matrix.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <emphasis role="bold">Vandermonde matrix with vector</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                x = 1:5
+                v = vander(x)
+            ]]></programlisting>
+        </para>
+        <para>
+            <emphasis role="bold">Vandermonde matrix with n columns</emphasis>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                x = 2:2:10
+                n = 3;
+                v = vander(x, n)
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="toeplitz">toeplitz</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

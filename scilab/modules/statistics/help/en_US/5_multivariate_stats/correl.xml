@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="correl">
+    <refnamediv>
+        <refname>correl</refname>
+        <refpurpose>correlation of two variables</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>rho=correl(x, y [, fre])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real or complex vector.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>real or complex vector.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fre</term>
+                <listitem>
+                    <para>matrix of type length(x) x length(y). (Optional)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>correl(x,y)</literal> or <literal>correl(x,y, fre)</literal> computes the
+            correlation of two variables <literal>x</literal> and <literal>y</literal>.
+        </para>
+        <para>
+            If you use correl(x,y), <literal>x</literal> and <literal>y</literal> must be the same
+            size (size(x, "*") must be equal to size(y, "*")).
+        </para>
+        <para>
+            <literal>fre</literal> is a matrix of dimensions  length(x) x length(y). In
+            <literal>fre</literal>, the element of indices (i,j) corresponds to the value or
+            number or frequencies of x_i&amp;y_j.
+        </para>
+    </refsection>
+    <refsection>
+        <title>References</title>
+        <para>
+            Wonacott, T.H. &amp; Wonacott, R.J.; Introductory Statistics, J.Wiley &amp; Sons, 1990.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+        // correl(x, y)
+        x = [2.5 7.5 12.5 17.5];
+        y = [6.3 7.1 8.2 9.4];
+        r = correl(x, y)
+
+        // correl(x, y, fre)
+        h=[0 1 2]
+        fre=[.03 .12 .07;.02 .13 .11;.01 .13 .14;.01 .09 .14]
+        rho=correl(x,h,fre)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="covar">covar</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>
+                    Third input argument is now optional.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

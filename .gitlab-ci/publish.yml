@@ -1,0 +1,120 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Clément DAVID
+#
+#
+# This YAML file describe the publish stage of the CI. This stage is used to
+# extract artifacts and publish them to other websites.
+#
+
+# generate index.html files for each directory in public/
+index_gitlab_pages:
+  stage: publish
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${SCI_REGISTRY_IMAGE}/linux-builder:${DOCKER_TAG}
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - mkdir public ||true
+    - |
+      find public -type d -print0 | while IFS= read -r -d '' d; do
+        cd $CI_PROJECT_DIR/$d;
+        echo '<html><body>' >index.html;
+        find . -name '*.html' -printf '<a href="%p">%p</a><br/>\n' >>index.html;
+        echo '</body></html>' >>index.html;
+      done;
+  artifacts:
+    paths:
+      - public
+  when: always
+
+# Create a new linux_runner:${CI_COMMIT_TAG} (eg. X.Y.Z) from a downloaded binary
+create_linux_runner:
+  stage: publish
+  image: docker:20.10.16
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  needs: []
+  variables:
+    GIT_CLEAN_FLAGS: "none"
+    DISTRO: "ubuntu-22.04"
+  script:
+    - |
+      if echo "$CI_COMMIT_TAG" | grep -vqEo '[0-9]{1,}.[0-9]{1,}.[0-9]{1,}'; then
+        echo "invalid CI_COMMIT_TAG variable: expecting a Scilab X.Y.Z version"
+        exit 1
+      fi
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    - |
+      docker build -t ${SCI_REGISTRY_IMAGE}/linux-runner:${CI_COMMIT_TAG} - <<EOF
+      FROM ${SCI_REGISTRY_IMAGE}/${DISTRO}:${CI_COMMIT_TAG}
+      USER root
+      RUN curl -L https://www.scilab.org/download/${CI_COMMIT_TAG}/scilab-${CI_COMMIT_TAG}.bin.x86_64-linux-gnu.tar.xz | tar xJf - -C /opt/
+      USER scilab
+      ENV PATH="${PATH}:/opt/scilab-${CI_COMMIT_TAG}/bin"
+      EOF
+    - docker image tag ${SCI_REGISTRY_IMAGE}/linux-runner:${CI_COMMIT_TAG} ${SCI_REGISTRY_IMAGE}/linux-runner:latest
+    - docker push ${SCI_REGISTRY_IMAGE}/linux-runner:${CI_COMMIT_TAG}
+    - docker push ${SCI_REGISTRY_IMAGE}/linux-runner:latest
+    - docker logout "${CI_REGISTRY}"
+  when: manual
+
+# generate an archive of all tests files and logs
+archive_test_results:
+  stage: publish
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: registry.gitlab.com/scilab/scilab/linux-runner:latest
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - |
+      scilab -nwni <<EOF
+      dirs = ls(getenv("SCI_VERSION_STRING") + "/*");
+      results = ls(dirs + "/*.xml");
+
+      csv = emptystr(size(results, 1), 4);
+      names = basename(results);
+      for i=1:size(results, 1)
+          doc = xmlRead(results(i));
+          xp = xmlXPath(doc, "//testsuites/testsuite");
+          if size(xp) <> [1 1] then
+              csv(i, 1) = "unable to read report"
+              continue
+          end
+          testsuite = xp(1);
+          names(i) = testsuite.attributes.name;
+
+          csv(i, 1) = xmlXPath(testsuite, "./@tests").content;
+          csv(i, 2) = xmlXPath(testsuite, "./@errors").content;
+          csv(i, 3) = xmlXPath(testsuite, "./@failures").content;
+          res = xmlXPath(testsuite, "./testcase[./failure|./error]/@name");
+          buggy = [""];
+          for j = 1:length(res)
+              buggy = [buggy res(j).content];
+          end
+          csv(i, 4) = strcat(gsort(buggy, "lr", "i"), " ");
+          xmlDelete(doc)
+      end
+      [names, k_names] = gsort(names, "lr", "i");
+      csv = csv(k_names, :);
+
+      t = matrix2table(csv, "VariableNames", ["tests", "errors", "failures", "test names"], "RowNames", names);
+      t.Properties.Description = strcat([getenv("SCI_VERSION_STRING") getenv("CI_COMMIT_TIMESTAMP", "") getenv("CI_COMMIT_SHORT_SHA", "")], " ");
+      writetable(t, fullfile(getenv("SCI_VERSION_STRING", "."), "archive_test_results.csv"), "WriteVariableNames", %t, "WriteRowNames", %t);
+      
+      lines(0, 320)
+      disp(t)
+
+      exit(0)
+      EOF
+  allow_failure: true
+  when: always
+  artifacts:
+    when: always
+    paths:
+      - "${SCI_VERSION_STRING}/archive_test_results.csv"
+      - "${SCI_VERSION_STRING}/*/*.xml"
+      - "${SCI_VERSION_STRING}/*/*/*.tst"
+      - "${SCI_VERSION_STRING}/*/*/*.res"
+      - "${SCI_VERSION_STRING}/*/*/*.err"
+      - "${SCI_VERSION_STRING}/*/*/*.dia.tmp"
+      - "${SCI_VERSION_STRING}/*/*/*.dia"
+  

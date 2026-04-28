@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ * This file is distributed under the same license as the Scilab package.
+  -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="enumeration">
+    <refnamediv>
+        <refname>enumeration</refname>
+        <refpurpose>Get enumeration of a classdef or an object</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            enumeration(classdef)
+            enumeration(object)
+            enums = enumeration(classdef)
+            enums = enumeration(object)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>classdef</term>
+                <listitem>
+                    <para>
+                        Classdef from which we want to retrieve the enumeration
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>object</term>
+                <listitem>
+                    <para>
+                        Object from which we want to retrieve the enumeration
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>enums</term>
+                <listitem>
+                    <para>
+                        a string matrix of enumeration
+                        <note>
+                            If <literal>enumeration</literal> is called without output argument, the function only print list of enumeration.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <programlisting role="example">
+<![CDATA[
+classdef enum
+    properties
+        value = 0
+    end
+
+    methods
+        function enum(val)
+            arguments
+                val = 0;
+            end
+
+            this.value = val;
+        end
+    end
+
+    enumeration
+        ONE(1)
+        TWO(2)
+        THREE(3)
+        FOUR(4)
+    end
+end
+
+enumeration(enum)
+l = enumeration(enum)
+e = enum();
+enumeration(e)
+l = enumeration(e)
+]]>
+            </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="classdef">classdef</link>
+            </member>
+            <member>
+                <link linkend="methods">methods</link>
+            </member>
+            <member>
+                <link linkend="properties">properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>enumeration</literal> introduction.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

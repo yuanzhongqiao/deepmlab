@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ????-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="getd">
+    <refnamediv>
+        <refname>getd</refname>
+        <refpurpose>Charge toutes les fonctions contenues dans un répertoire.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>getd(path)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Argument</title>
+        <variablelist>
+            <varlistentry>
+                <term>path</term>
+                <listitem>
+                    <para>chaîne de caractères, chemin du répertoire
+                    </para>
+                    <para>
+                        "." si <function>getd</function> est appelée sans argument ou si <varname>path</varname> est une chaîne de caractères vide.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Charge tous les fichiers <literal>.sci</literal> (contenant des fonctions Scilab) présents dans le répertoire <varname>path</varname>.
+        </para>
+        <para>
+            Si le fichier ne contient pas de fonction, le script sera executé.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Remarques</title>
+        <warning>
+            <para>Les fonctions sont chargées dans le scope courant, veuillez utiliser <link linkend="resume">resume</link> pour les rendre disponibles dans le scope appelant.</para>
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+getd('SCI/modules/cacsd/macros')
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="exec">exec</link>
+            </member>
+            <member>
+                <link linkend="lib">lib</link>
+            </member>
+            <member>
+                <link linkend="pwd">pwd</link>
+            </member>
+            <member>
+                <link linkend="chdir">chdir</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

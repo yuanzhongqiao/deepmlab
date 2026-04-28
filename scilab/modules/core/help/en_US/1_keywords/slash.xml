@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="slash">
+    <refnamediv>
+        <refname>slash</refname>
+        <refpurpose>(/) right divisions. System's feed back. Comments</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            X = A / B        // while A = X * B
+            X = A ./ B       // while A = X .* B
+            X = A ./. B      // while A = X .*. B
+            S = G /. K
+            // on-row comment
+            /* block of multilines comments */
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Right division: <literal>X=A/B</literal> is the solution of <literal>X*B=A</literal>.
+        </para>
+        <para>
+            The slash (right division) and backslash (left division) operators are linked by the following equation:
+            <literal>B/A=(A'\B')'</literal>.
+        </para>
+        <para>
+            In the case where <literal>A</literal> is square, the
+            solution <literal>X</literal> can be computed either from LU
+            factorization or from a linear least squares solver. If the
+            condition number of <literal>A</literal> is smaller than
+            <literal>1/(10*%eps)</literal> (i.e. if <literal>A</literal> is
+            well conditioned), the LU factorization with row pivoting is
+            used. If not (i.e. if <literal>A</literal> is poorly
+            conditioned), then <literal>X</literal> is the minimum-norm
+            solution which minimizes <literal>||A*X-B||</literal> using
+            a complete orthogonal factorization of <literal>A</literal>
+            (i.e. <literal>X</literal> is the solution of a linear least
+            squares problem).
+        </para>
+        <para>
+            <literal>A./B</literal> is the element-wise right division, i.e.
+            the matrix with entries <literal>A(i,j)/B(i,j)</literal>.
+            If <literal>B</literal> is scalar (1x1 matrix) this
+            operation is the same as <literal>A./B*ones(A)</literal>. Same
+            convention if <literal>A</literal> is a scalar.
+        </para>
+        <para>
+            System feed back.  <literal>S = G/.K</literal> evaluates
+            <literal>S = G*(eye() + K*G)^(-1)</literal> this operator avoid
+            simplification problem.
+        </para>
+        <note>
+          Note that <literal>123./B</literal> is interpreted as <literal>(123)./B</literal>.
+          In this case, the dot is part of the operator, not of the decimal number.
+          <para/>
+          In the opposite, <literal>G/.5</literal> is interpreted as <literal>G/(.5)</literal> :
+          The dot here is part of the number, while it is not the case in
+          <literal>G/. 5</literal>
+        </note>
+        <para>
+            Comment <literal>//</literal> comments a line i.e. lines which begin by
+            <literal>//</literal> are ignored by the interpreter.
+        </para>
+        <para>
+            It is the same with <literal>/*</literal> which start to comment a block of code
+            and with <literal>*/</literal> which end to comment this block.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a = [3.,-24.,30.];
+B = [
+   9.   -36.    30.
+  -36.   192.  -180.
+   30.  -180.   180.
+];
+x = a / B
+x*B-a // close to zero
+
+a = 4 / 2;        // Should be 2
+a = 2 ./ [2,4];   //  [1. 0.5]
+     ]]></programlisting>
+        <para>
+            Kronecker right division :
+        </para>
+        <programlisting role="example"><![CDATA[
+A = [1 100 ; 10 1000], B = [1 2 4],
+P = A .*. B
+P ./. B
+ ]]></programlisting>
+    <screen><![CDATA[
+--> A = [1 100 ; 10 1000], B = [1 2 4],
+ A  =
+   1.    100.
+   10.   1000.
+
+ B  =
+   1.   2.   4.
+
+--> P = A .*. B
+ P  =
+   1.    2.    4.    100.    200.    400.
+   10.   20.   40.   1000.   2000.   4000.
+
+--> P ./. B
+ ans  =
+   1.   100.
+   10.  1000.
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+// Comments are good. They help to understand code
+a = 1;  // Comment after some heading instructions
+/* Even long, that is to say on many lines,
+comments are useful */
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="inv">inv</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+            <member>
+                <link linkend="krondivide">kron ./.</link>
+            </member>
+            <member>
+                <link linkend="comments">comments</link>
+            </member>
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revremark>
+                  The threshold level which switches between Gaussian Elimination with row pivoting
+                  and linear least squares when computing B/A is decreased from sqrt(eps) to eps.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                  1./B  means now 1 ./ B, no longer 1. / B
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

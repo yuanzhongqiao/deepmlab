@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2016, 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="https://www.scilab.org" xml:id="tbx_generate_pofile" xml:lang="en">
+    <refnamediv>
+        <refname>tbx_generate_pofile</refname>
+        <refpurpose>
+            Extracts gettext msgid strings from the toolbox source files. Creates/updates .po files
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            pofile = tbx_generate_pofile()
+            pofile = tbx_generate_pofile(tbx_path)
+            pofile = tbx_generate_pofile(tbx_name)             // obsolete
+            pofile = tbx_generate_pofile(tbx_name, tbx_path)   // obsolete
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tbx_path</term>
+                <listitem>
+                    <para>path of the toolbox, use to locate files to compile.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tbx_name (obsolete)</term>
+                <listitem>
+                    <para>name of the toolbox, use to name localization files and domain.</para>
+                    <warning>
+                       <varname>tbx_name</varname> is now retrieved as the basename of the file
+                       <literal>tbx_path/etc/*.start</literal>. This file must exist, even if it is empty.
+                    </warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pofile</term>
+                <listitem>
+                    <para>return the generated po file path.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>tbx_generate_pofile(…)</literal> scans all toolbox source files for
+            every call to <literal>gettext(domain,msgid)</literal>, <literal>_(domain,msgid)</literal>,
+            (or <literal>_d(domain,msgid)</literal> in XML files like the preferences file, if any).
+            Then, ~ being the toolbox root directory:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        If the <literal>~/locales/en_US.po</literal> reference file does not exist yet,
+                        it is created.
+                        </para>
+                    </listitem>
+                <listitem>
+                     <para>
+                        Otherwise, all existing <literal>~/locales/*.po</literal> files are updated with
+                        gettext msgid strings newly detected in all source files of the toolbox.
+                        Note: presently, obsolete msgids (no longer present in any source file) are kept.
+                        </para>
+                    </listitem>
+            </itemizedlist>
+            For each processed .po file (but en_US.po), the number of messages whose translation
+            is still missing is displayed.
+        </para>
+        <para>
+            <note>
+                <para>
+                Translators are expected to edit <literal>~/locales/*.po</literal> files for their
+                language, and write in
+                msgstr strings the translation of the related msgid given in english as appearing
+                as gettext() argument in source files. Here is a sample of a fr_FR.po file:
+                </para>
+                <screen><![CDATA[
+#: ~\macros\scilab_add.sci:13       << file:line_number places where gettext() is called for the msgid.
+#: ~\macros\scilab_error.sci:22     << The same message is used in another file. etc.
+msgid "New message #2.\n"           << gettext() argument = reference message (english)
+msgstr "Nouveau message n° 2.\n"    << translated message (entered by a translator).
+
+#: ~\macros\scilab_add.sci:16
+msgid "New message #3.\n"
+msgstr ""                            << Missing translation, to complete.
+]]></screen>
+            </note>
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+path = TMPDIR + "/example";
+copyfile(SCI+"/contrib/toolbox_skeleton", path);
+mdelete(path+"/locales/*");
+
+tbx_generate_pofile(path);
+edit(path+"/locales/en_US.po")
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+            <member>
+                <link linkend="addlocalizationdomain">addlocalizationdomain</link>
+            </member>
+            <member>
+                <link linkend="tbx_make">tbx_make . localization</link>
+            </member>
+            <member>
+                <link linkend="tbx_build_localization">tbx_build_localization</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Function tbx_generate_pofile added.</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>tbx_name declared obsolete. It is no longer required.</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    _() and gettext() references are now detected.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Literal double '' are now simplified in the msgid.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Files paths in comments are no longer absolute and refer to the toolbox
+                                    root.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>Existing .po files are now automatically updated for every newly detected msgid.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

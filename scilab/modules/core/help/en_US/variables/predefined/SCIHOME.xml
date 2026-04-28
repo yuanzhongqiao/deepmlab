@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Allan CORNET
+ * Copyright (C) 2013 - Scilab Enterprises - Vincent COUVERT
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="SCIHOME" xml:lang="en">
+    <refnamediv>
+        <refname>SCIHOME</refname>
+        <refpurpose>contains the path to preferences, history files of your Scilab
+            session.
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <literal>SCIHOME</literal> contains the path to preferences, history files
+            of your Scilab session.
+        </para>
+        <para>
+            <literal>SCIHOME</literal> definition:
+        </para>
+        <para>
+            On Windows XP: "%USERPROFILE%\Application Data\Scilab\&lt;Scilab-Version&gt;" with %USERPROFILE% similar to "C:\Documents and Settings\&lt;User&gt;".
+        </para>
+        <para>
+            On Windows Vista, 7 and 8: "%USERPROFILE%\AppData\Roaming\Scilab\&lt;Scilab-Version&gt;" with %USERPROFILE% similar to "C:\Users\&lt;User&gt;".
+        </para>
+        <para>
+            On GNU/Linux or Unix: /home/&lt;User&gt;/.Scilab/&lt;Scilab-Version&gt;
+        </para>
+        <para>
+            On Mac OS X: /Users/&lt;User&gt;/.Scilab/&lt;Scilab-Version&gt;
+        </para>
+        <para>
+            &lt;User&gt; is your current login name
+        </para>
+        <para>
+            &lt;Scilab-Version&gt; is current version of Scilab used.
+        </para>
+        <note>
+           The default path assigned to <literal>SCIHOME</literal> may be replaced with a given path
+           specified with the <literal>-scihome</literal> option when launching Scilab.
+        </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+disp(SCIHOME);
+isdir(SCIHOME)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+            <member>
+                <link linkend="TMPDIR">TMPDIR</link>
+            </member>
+            <member>
+                <link linkend="scilab">Scilab startup</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

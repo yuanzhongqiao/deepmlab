@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="kmeans">
+    <refnamediv>
+        <refname>kmeans</refname>
+        <refpurpose>K-means clustering</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            idx = kmeans(X, k)
+            [idx, c] = kmeans(X, k)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>
+                        is a nxp (n observations, p variables) real
+                        matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>k</term>
+                <listitem>
+                    <para>
+                        a positive integer. It corresponds to number of clusters.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>idx</term>
+                <listitem>
+                    <para>
+                        an integer column vector. It corresponds to clusters indices.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>
+                        a k x p real matrix containing to cluster centroid locations.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            kmeans is an unsupervised learning method for clustering data points. The algorithm iteratively aims to divide the points of X
+            into k clusters, by minimizing the sum of the distances between the data points and the cluster centroid.
+        </para>
+        <para>
+            kmeans uses the squared Euclidean distance metric.
+        </para>
+        <para>
+            <emphasis role="bold">idx = kmeans(X, k)</emphasis> returns the column vector containing cluster indices of each point.
+        </para>
+        <para>
+            <emphasis role="bold">[idx, c] = kmeans(X, k)</emphasis> returns the k-by-p matrix containing the k cluster centroid locations.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                n = 200;
+                x1 = rand(n, 2, "normal") + 3 * ones(n, 2);
+                x2 = rand(n, 2, "normal") - 3 * ones(n, 2);
+                x3 = rand(n, 2, "normal") + [3 -3].*.ones(n, 1);
+                x4 = rand(n, 2, "normal") + [-3 3].*.ones(n, 1);
+                x5 = rand(n, 2, "normal") + [1 -1].*.ones(n, 1);
+                x6 = rand(n, 2, "normal") + [-1 1].*.ones(n, 1);
+                x = [x1; x2; x3; x4; x5; x6];
+
+                nbcluster = 6;
+                [index, c] = kmeans(x, nbcluster); 
+                
+                colors = round(linspace(1, 32, nbcluster));
+                for i = 1:nbcluster
+                    mask = index == i;
+                    cc = colors(i);
+                    p = plot(x(mask, 1), x(mask, 2), ".", "marksize", 10);
+                    p.mark_foreground = cc;
+                    p.mark_background = cc;
+                end
+                plot(c(:,1), c(:,2), "*r", "markersize", 10) // centroid of each cluster
+                gca().box = "off";
+
+                l = legend(["cluster " + string(1:6), "centroids"])
+                l.marks_count =1;
+                l.line_width = 0.02;
+            ]]></programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                n = 200;
+                x1 = rand(n, 2, "normal") + 3 * ones(n, 2);
+                x2 = rand(n, 2, "normal") - 3 * ones(n, 2);
+                x3 = rand(n, 2, "normal") + [3 -3].*.ones(n, 1);
+                x4 = rand(n, 2, "normal") + [-3 3].*.ones(n, 1);
+                x5 = rand(n, 2, "normal") + [1 -1].*.ones(n, 1);
+                x6 = rand(n, 2, "normal") + [-1 1].*.ones(n, 1);
+                x = [x1; x2; x3; x4; x5; x6];
+                nbcluster = 6;
+                [index, c] = kmeans(x, nbcluster);  
+                colors = round(linspace(1, 32, nbcluster));
+                for i = 1:nbcluster
+                    mask = index == i;
+                    cc = colors(i);
+                    p = plot(x(mask, 1), x(mask, 2), ".", "marksize", 10);
+                    p.mark_foreground = cc;
+                    p.mark_background = cc;
+                end
+                plot(c(:,1), c(:,2), "*r", "markersize", 10) // centroid of each cluster
+                gca().box = "off";
+
+                l = legend(["cluster " + string(1:6), "centroids"])
+                l.marks_count =1;
+                l.line_width = 0.02;
+            </scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="pca">pca</link>
+            </member>
+            <member>
+                <link linkend="dbscan">dbscan</link>
+            </member>
+            <member>
+                <link linkend="meanshift">meanshift</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

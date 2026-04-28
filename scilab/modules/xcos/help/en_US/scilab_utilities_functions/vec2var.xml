@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="vec2var">
+    <refnamediv>
+        <refname>vec2var</refname>
+        <refpurpose>Transform a vector of double into a scilab variable</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>var = vec2var(vec)</synopsis>
+    </refsynopsisdiv>
+    <refsection id="Parameters_vec2var">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>vec</term>
+                <listitem>
+                     <para>
+                        A vector of real numbers.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>var</term>
+                <listitem>
+                     <para>
+                        Can be a Double, Integer, Boolean, String or List <link linkend="typeof">Scilab object</link>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection id="Description_vec2var">
+        <title>Description</title>
+        <para>
+            var2vec / vec2var functions are used inside the interfacing functions of Scilab blocks
+            to give the possibility to the user to handle Scilab objects with the register of real
+            parameters (rpar) and with the discrete state register (z).
+        </para>
+    </refsection>
+    <refsection id="Example_vec2var">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a = list("cos", [1.1 2])
+b = var2vec(a); b'
+c = vec2var(b)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> a = list("cos", [1.1 2])
+ a  =
+  (1) = "cos"
+  (2) = [1.1,2]
+
+--> b = var2vec(a); b'
+ ans  =
+   15.   2.   10.   2.   1.   1.   1.   0.   1.   2.   1.   2.   0.   1.1   2.
+
+--> c = vec2var(b)
+ c  =
+  (1) = "cos"
+  (2) = [1.1,2]
+ ]]></screen>
+    </refsection>
+    <refsection xml:id="SeeAlso_vec2var" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+          <member>
+            <link linkend="var2vec">var2vec</link>
+          </member>
+        </simplelist>
+    </refsection>
+</refentry>

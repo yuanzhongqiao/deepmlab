@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="CUMSUM" xml:lang="en_US">
+    <refnamediv>
+        <refname>CUMSUM</refname>
+        <refpurpose>Cumulative Sum</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/CUMSUM.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_CUMSUM">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_CUMSUM">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_CUMSUM">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_CUMSUM">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_CUMSUM">Example</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_CUMSUM">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_CUMSUM">Computational function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_CUMSUM">See also</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_CUMSUM">
+        <title>Description</title>
+        <para>
+            The CUMSUM block cumulatively sums the element of an input MxN matrix U along either
+            the rows, the columns or the first non singleton dimension.
+            The size of the output is also MxN.
+        </para>
+        <para>
+            When the <emphasis role="bold">Sum along</emphasis> parameter is set to:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">1</emphasis>: the block progressively sums across the elements of each row.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">2</emphasis>: the block progressively sums across the elements of each column.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">0</emphasis>: the block progressively sums across the first non singleton dimension.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            The equivalent function in Scilab is <link linkend="cumsum">cumsum</link>.
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_CUMSUM">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/gui/CUMSUM_gui.gif" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Datatype(1=real double 2=Complex)</emphasis>
+                </para>
+                <para>
+                    It indicates the type of the output. It support only the two types double (1) and complex (2).
+                    If we input another entry in this label Scicos will print the message "Datatype is not supported".
+                </para>
+                <para>Properties : Type 'vec' of size 1.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Sum along (0=the first non singleton dimension 1=Rows 2=Columns)</emphasis>
+                </para>
+                <para>
+                    Indicate whether to cumulatively sum across the rows, the columns or the first non singleton dimension.
+                </para>
+                <para>Properties : Type 'vec' of size 1.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Defaultproperties_CUMSUM">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1: size [-1,-2] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1: size [-1,-2] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">cumsum_m</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Example_CUMSUM">
+        <title>Example</title>
+        <programlisting role="example"><![CDATA[
+            A = [1 2 3 ; 4 5 6 ; 7 8 9]
+            If the sum is along the row the result will be:
+            B = [1 2 3 ; 5 7 9 ; 12 15 18]
+        ]]></programlisting>
+        <para>
+            <emphasis role="bold">Cumulative Sum example</emphasis>
+        </para>
+        <link type="scilab" linkend="scilab.xcos/xcos/examples/matrix_pal/CUMSUM_Example.zcos">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata align="center" fileref="../../../../examples/matrix_pal/CUMSUM_Example.zcos"/>
+                </imageobject>
+            </inlinemediaobject>
+        </link>
+    </refsection>
+    <refsection id="Interfacingfunction_CUMSUM">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/MatrixOp/CUMSUM.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_CUMSUM">
+        <title>Computational function</title>
+        <itemizedlist>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/cumsum_m.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/cumsum_r.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/cumsum_c.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/cumsumz_m.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/cumsumz_r.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/cumsumz_c.c
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection xml:id="Seealso_CUMSUM" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="MATSUM">MATSUM</link>
+            </member>
+            <member>
+                <link linkend="cumsum">cumsum</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

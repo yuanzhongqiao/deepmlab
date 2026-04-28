@@ -1,0 +1,26 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - Digiteo - Jean-Baptiste Silvy
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// <-- Non-regression test for bug 4236 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/4236
+//
+// <-- Short Description -->
+// move called with an already deleted handle crashes Scilab.
+// 
+
+xpoly(1,1);
+point = gce();
+delete(point); // the handle is no longer valid
+
+err = execstr("move(point, [1,1])","errcatch");
+// should not crash Scilab but provide an error.
+if (err == 0) then pause; end
+

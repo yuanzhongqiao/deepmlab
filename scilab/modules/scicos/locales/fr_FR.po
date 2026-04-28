@@ -1,0 +1,1560 @@
+# French translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2020-02-18 22:05+0000\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) d'entrée : %d attendu(s).\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) de sortie : %d attendu(s).\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d : A real or integer matrix expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : une matrice réelle ou entière "
+"attendue.\n"
+
+#, c-format
+msgid "%s : inconsistent dimensions between arguments.\n"
+msgstr "%s : dimensions incohérentes entre les arguments.\n"
+
+#, c-format
+msgid "%s : bad dimension for argument #%d.\n"
+msgstr "%s : Taille erronée de l'argument d'entrée #%d.\n"
+
+#, c-format
+msgid "%s : arguments must have the same length.\n"
+msgstr "%s : les arguments doivent avoir la même taille.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument: %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d attendu(s).\n"
+
+#, c-format
+msgid "%s : First argument must be a scicos_block typed list.\n"
+msgstr "%s : Le premier argument doit être une liste typée scicos_block.\n"
+
+#, c-format
+msgid "%s : First argument must be a valid scicos_block typed list.\n"
+msgstr ""
+"%s : Le premier argument doit être une liste typée scicos_block valide.\n"
+
+#, c-format
+msgid "%s : Second argument must be scalar.\n"
+msgstr "%s : Le second argument doit être un scalaire.\n"
+
+#, c-format
+msgid "%s : Third argument must be scalar.\n"
+msgstr "%s : Le troisième argument doit être scalaire.\n"
+
+#, c-format
+msgid "%s: scicosim is not running.\n"
+msgstr "%s : scicosim n'est pas lancé.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : string expected.\n"
+msgstr ""
+"%s : Type erroné pour l'argument d'entrée n°%d : une chaîne de caractères "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A real matrix expected.\n"
+msgstr ""
+"%s : Type erroné pour l'argument d'entrée n°%d : Une matrice réelle "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments de sortie : %d attendu(s).\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) d'entrée : %d à %d attendu(s).\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d : A real, complex or integer matrix "
+"expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : une matrice réelle, complexe "
+"ou entière attendue.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: Only hypermatrices with 3 dimensions "
+"are allowed.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée #%d : hypermatrice à 3 dimensions "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A real expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : une matrice réelle ou entière "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A scalar expected.\n"
+msgstr ""
+"%s : Taille erronée pour l'argument d'entrée n°%d : Un scalaire attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : A real value expected.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée #%d : une valeur réelle "
+"attendue.\n"
+
+#, c-format
+msgid "%s: 1st and 2nd argument must have equal size\n"
+msgstr ""
+"%s : Les premier et deuxième arguments doivent avoir une dimension "
+"identique\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d or %d expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) d'entrée : %d ou %d attendu(s).\n"
+
+msgid ""
+"\n"
+"getscicosvars: utility function to retrieve\n"
+msgstr ""
+"\n"
+"getscicosvars : fonction utilitaire pour retrouver\n"
+
+msgid ""
+"                scicos arrays during simulation.\n"
+"\n"
+msgstr ""
+"                tableaux scicos pendant la simulation\n"
+"\n"
+
+msgid ""
+"Usage: [myvar]=getscicosvars([\"str1\";\"str2\";...]);\n"
+"\n"
+msgstr ""
+"Utilisation : myvar=getscicosvars([\"str1\";\"str2\";...]);\n"
+"\n"
+
+msgid "- myvar: an int32 or double matrix or a Tlist.\n"
+msgstr "- myvar : une matrice d'int32 ou réels ou une Tlist.\n"
+
+msgid "- [\"str1\";\"str2\",...] is a string matrix\n"
+msgstr "- [\"str1\";\"str2\",...] est une matrice de chaînes de caractères\n"
+
+msgid "  that must be informed with the following values:\n"
+msgstr "  qui doit être renseignée avec les valeurs suivantes :\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A string matrix expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une matrice de chaîne de "
+"caractères attendue.\n"
+
+#, c-format
+msgid "%s: Undefined field in string matrix position: %d.\n"
+msgstr "%s : champ indéfini à l'élément %d de la matrice de textes.\n"
+
+#, c-format
+msgid "%s: Error with parameter \"%s\".\n"
+msgstr "%s : Erreur avec le paramètre \"%s\".\n"
+
+#, c-format
+msgid "%s : First argument must be a Typed list.\n"
+msgstr "%s : Le premier argument doit être une liste typée.\n"
+
+#, c-format
+msgid "%s : unknown block : %s\n"
+msgstr "%s : Bloc inconnu : %s\n"
+
+#, c-format
+msgid "%s : type 1 function not allowed for scilab blocks\n"
+msgstr ""
+"%s : Les fonctions de type 1 ne sont pas autorisées pour les blocs Scilab\n"
+
+#, c-format
+msgid "%s : type 2 function not allowed for scilab blocks\n"
+msgstr ""
+"%s : Les fonctions de type 2 ne sont pas autorisées pour les blocs Scilab\n"
+
+#, c-format
+msgid "%s : Undefined Function type\n"
+msgstr "%s : Type de fonction non définie\n"
+
+#, c-format
+msgid "%s : Undetermined Size. in(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s : Dimension non déterminée. in(%d)=%d. Veuillez ajuster votre modèle.\n"
+
+#, c-format
+msgid "%s : Allocation error.\n"
+msgstr "%s : Erreur d'allocation.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. in2(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s : Dimension non déterminée. in2(%d)=%d. Veuillez ajuster votre modèle.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. intyp(%d)=%d. Please adjust your model.\n"
+msgstr "%s : Taille indéterminée. intyp(%d)=%d. Prière d'ajuster le modèle.\n"
+
+#, c-format
+msgid "%s : Unknown Data type\n"
+msgstr "%s : Type de donnée inconnu\n"
+
+#, c-format
+msgid "%s : Undetermined Size. out(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s : Dimension non déterminée. out(%d)=%d. Veuillez ajuster votre modèle.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. out2(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s : Dimension non déterminée. out2(%d)=%d. Veuillez ajuster votre modèle.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. outtyp(%d)=%d. Please adjust your model.\n"
+msgstr "%s : Taille indéterminée. outtyp(%d)=%d. Prière d'ajuster le modèle.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d au moins attendu(s).\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : une chaîne de caractères "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : %s attendu.\n"
+
+#, c-format
+msgid "%s: Unable to load \"%s\" .\n"
+msgstr "%s : Impossible de charger \"%s\".\n"
+
+#, c-format
+msgid "%s: Unable to save \"%s\" .\n"
+msgstr "%s : Impossible de sauver \"%s\".\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d ou %d attendu(s).\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A real scalar expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée #%d : un scalaire réel attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : An integer value expected.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée #%d : une valeur entière "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : une chaîne de caractères "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: String expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée n°%d : Une chaîne de caractères "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be one of %ls.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: unable to set \"%ls\".\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée #%d : valeur \"%ls\" impossible.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Row vector expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée n°%d : Un vecteur ligne attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d:  \"%ls\" type is not managed.\n"
+msgstr ""
+"%s : Valeur erronéee de l'argument d'entrée #%d : type \"%ls\" non prévu.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %dx%d expected.\n"
+msgstr "%s : Taille erronée de l'argument d'entrée n°%d : %dx%d attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: invalid UID.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée #%d : UID invalide.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: not handled kind.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée #%d : type non prévu.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: At least %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : au moins %d attendus.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String or ID expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : chaîne de caractères ou ID "
+"attendu.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
+msgstr "%s : Nombre erroné d'argument(s) de sortie : %d à %d attendu(s).\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A tlist expected.\n"
+msgstr "%s : Type erroné de l'argument d'entrée #%d : une tlist attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : %d elements expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée #%d : %d éléments attendus.\n"
+
+#, c-format
+msgid "%s: Wrong type for element #%d of argument #%d : A matrix expected.\n"
+msgstr ""
+"%s : Type erroné pour l'élément %d de l'argument #%d : une matrice "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for element #%d of argument #%d : A list expected.\n"
+msgstr ""
+"%s : Type erroné pour l'élément %d de l'argument d'entrée n°%d : une liste "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A matrix expected.\n"
+msgstr ""
+"%s : Type erroné pour l'argument d'entrée n°%d : Une matrice attendue.\n"
+
+#, c-format
+msgid "%s : Incompatible sim.nb RHS parameter.\n"
+msgstr "%s : Paramètre RHS sim.nb incompatible.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element #%d of argument #%d : A string matrix expected.\n"
+msgstr ""
+"%s : Type erroné pour l'élément %d de l'argument d'entrée n°%d : une matrice "
+"de chaînes de caractères attendue.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s : Erreur d'allocation mémoire.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : %s, %s %s %s or %s expected.\n"
+msgstr ""
+"%s : Valeur erronée pour l'argument d'entrée n°%d : %s, %s, %s, %s ou %s "
+"attendu.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : %d to %d elements expected.\n"
+msgstr ""
+"%s : Taille erronée pour l'argument d'entrée n°%d : %d à %d éléments "
+"attendus.\n"
+
+#, c-format
+msgid "%s : error in cross variable size checking : %d\n"
+msgstr ""
+"%s : Erreur dans la vérification croisée des dimensions des variables : %d\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for element #%d of input argument #%d : A scalar expected.\n"
+msgstr ""
+"%s : Taille erronée pour l'élément %d de l'argument d'entrée n°%d : un "
+"scalaire attendu.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element #%d of input argument #%d : string or macro "
+"expected.\n"
+msgstr ""
+"%s : Type erroné pour l'élément %d de l'argument d'entrée n°%d : chaîne de "
+"caractères ou macro attendue.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element #%d of element #%d of argument #%d : A matrix "
+"expected.\n"
+msgstr ""
+"%s : Type erroné pour l'élément %d de l'élément %d de l'argument d'entrée n°"
+"%d : une matrice attendue.\n"
+
+#, c-format
+msgid "%s : No more free memory.\n"
+msgstr "%s : Plus de mémoire disponible.\n"
+
+msgid "scheduling problem"
+msgstr "problème d'ordonnancement"
+
+msgid "input to zero-crossing stuck on zero"
+msgstr "entrée au passage à zéro coincée sur zéro"
+
+msgid "event conflict"
+msgstr "conflit d'événement"
+
+msgid "algebraic loop detected"
+msgstr "Boucle algébrique détectée"
+
+msgid "cannot allocate memory"
+msgstr "impossible d'allouer la mémoire"
+
+#, c-format
+msgid "the block %d has been called with input out of its domain"
+msgstr "le bloc %d a été appelé avec des entrées hors de son domaine"
+
+msgid "singularity in a block"
+msgstr "singularité dans un bloc"
+
+msgid "block produces an internal error"
+msgstr "le bloc produit une erreur interne"
+
+msgid "initial conditions not converging"
+msgstr "les conditions initiales ne convergent pas"
+
+#, c-format
+msgid "cannot allocate memory in block=%d"
+msgstr "impossible d'allouer la mémoire dans le bloc=%d"
+
+msgid "sliding mode condition, cannot integrate"
+msgstr "condition de mode glissant, ne peut pas intégrer"
+
+msgid "Cannot find the initial mode, maybe there is a sliding mode condition"
+msgstr ""
+"Impossible de trouver le mode initial, peut-être y a-t-il une condition de "
+"mode glissant"
+
+msgid ""
+"You have changed a parameter in your model, but the model has been compiled "
+"to use an XML file containing initial values and parameters. So you should "
+"either recompile your Scicos diagram or [re]launch the initialization "
+"interface to regenerate the XML file  with new parameters."
+msgstr ""
+"Vous avez changé un paramètre dans votre modèle, mais le modèle a été "
+"compilé pour employer un fichier XML contenant des valeurs initiales et des "
+"paramètres. Ainsi vous devriez soit recompiler votre diagramme Scicos soit "
+"[re]lancer l'interface d'initialisation pour régénérer le fichier XML avec "
+"de nouveaux paramètres."
+
+msgid "Undefined data type."
+msgstr "Type de données non défini."
+
+msgid ""
+"The number of parameter provided by Scicos blocks is different from what "
+"expected by the code generated by the Modelica compiler. You might have "
+"relaxed a parameter using FIXED property (i.e., fixed=false) in a Modelica "
+"model. This will be corrected in the next version"
+msgstr ""
+"Le nombre de paramètres fournis par les blocs Scicos est différent de ce qui "
+"est attendu par le code généré par le compilateur Modelica. Vous avez peut "
+"être relaché un paramètre en utilisant la propriété FIXED (i.e., "
+"fixed=false) dans un modèle Modelica. Ceci sera corrigée dans une prochaine "
+"version"
+
+msgid "unknown or erroneous block"
+msgstr "bloc inconnu ou incorrect"
+
+#, c-format
+msgid "integration problem istate=%d"
+msgstr "Problème d'intégration istate=%d"
+
+msgid "scicos unexpected error, please report..."
+msgstr "Erreur inattendue de Scicos, veuillez rapportez le bug..."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A vector expected.\n"
+msgstr ""
+"%s : Taille erronée pour l'argument d'entrée n°%d : un vecteur attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : %d or %d expected.\n"
+msgstr ""
+"%s : Valeur erronée pour l'argument d'entrée n°%d : %d ou %d attendu.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A struct expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : une structure attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A single struct expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée #%d : une seule structure "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"
+msgstr ""
+"%s : Champs erronés pour l'argument d'entrée #%d : \"%s\" et \"%s\" "
+"attendus.\n"
+
+#, c-format
+msgid "%s: Wrong size for argument #%d: string expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument n°%d : Une chaîne de caractères attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real row vector expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : un vecteur ligne réel "
+"attendu.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A row vector expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée n°%d : Un vecteur ligne attendu.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: At least %dx%d expected.\n"
+msgstr ""
+"%s : Taille erronée de l'argument d'entrée #%d : au moins %dx%d attendue.\n"
+
+msgid "type 1 function not allowed for scilab blocks\n"
+msgstr "fonction de type 1 non autorisée pour des blocs de Scilab\n"
+
+msgid "type 2 function not allowed for scilab blocks\n"
+msgstr "fonction de type 2 non autorisée pour des blocs de Scilab\n"
+
+msgid "Undefined Function type\n"
+msgstr "Type de fonction non défini\n"
+
+#, c-format
+msgid ""
+"\n"
+"SUNDIALS_ERROR: %s() failed - returned NULL pointer\n"
+"\n"
+msgstr ""
+"\n"
+"SUNDIALS_ERROR : %s () a échoué -  le pointeur NULL a été retourné\n"
+"\n"
+
+#, c-format
+msgid ""
+"\n"
+"SUNDIALS_ERROR: %s() failed with flag = %d\n"
+"\n"
+msgstr ""
+"\n"
+"SUNDIALS_ERROR : %s () a échoué avec le drapeau = %d\n"
+"\n"
+
+#, c-format
+msgid ""
+"\n"
+"MEMORY_ERROR: %s() failed - returned NULL pointer\n"
+"\n"
+msgstr ""
+"\n"
+"MEMORY_ERROR : %s () a échoué - le pointeur NULL a été retourné\n"
+"\n"
+
+#, c-format
+msgid "****SUNDIALS.Cvode from: %f to %f hot= %d  \n"
+msgstr "****SUNDIALS.Cvode de : %f à %f hot= %d  \n"
+
+#, c-format
+msgid "****SUNDIALS.Cvode reached: %f\n"
+msgstr "****SUNDIALS.Cvode atteint : %f\n"
+
+#, c-format
+msgid ""
+"****SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and "
+"ATOL)\n"
+msgstr ""
+"****SUNDIALS.Cvode : trop de travail à l'instant=%g (zone ferme, changer "
+"RTOL et ATOL)\n"
+
+#, c-format
+msgid "root found at t=: %f\n"
+msgstr "racine trouvée à t=: %f\n"
+
+#, c-format
+msgid "Event: %d activated at t=%f\n"
+msgstr "Événement : %d activé à t=%f\n"
+
+#, c-format
+msgid "mode of block %d=%d, "
+msgstr "mode du bloc %d=%d, "
+
+msgid "**mod**\n"
+msgstr "**mod**\n"
+
+msgid "End of activation\n"
+msgstr "Fin d'activation\n"
+
+msgid "**** SUNDIALS.IDA successfully initialized *****\n"
+msgstr "**** SUNDIALS.IDA initialisé avec succès *****\n"
+
+msgid "**** SUNDIALS.IDA failed to initialize ->try again *****\n"
+msgstr ""
+"**** SUNDIALS.IDA échec de l'initialisation -> Veuillez réessayer *****\n"
+
+#, c-format
+msgid "****daskr from: %f to %f hot= %d  \n"
+msgstr "****daskr de : %f à %f hot= %d  \n"
+
+#, c-format
+msgid "****SUNDIALS.Ida reached: %f\n"
+msgstr "****SUNDIALS.Ida atteint : %f\n"
+
+#, c-format
+msgid ""
+"**** SUNDIALS.Ida: too much work at time=%g (stiff region, change RTOL and "
+"ATOL)\n"
+msgstr ""
+"**** SUNDIALS.Ida : trop de travail à l'instant=%g (zone ferme, changer RTOL "
+"et ATOL)\n"
+
+#, c-format
+msgid "block %d [%s] is called "
+msgstr "le bloc %d [%s] est appelé "
+
+#, c-format
+msgid "with flag %d "
+msgstr "avec le drapeau %d "
+
+#, c-format
+msgid "at time %f \n"
+msgstr "au temps %f \n"
+
+msgid "Entering the block \n"
+msgstr "Entre dans le bloc \n"
+
+#, c-format
+msgid "Leaving block %d \n"
+msgstr "Laisser le bloc %d \n"
+
+msgid "Error in the Debug block \n"
+msgstr "Erreur dans le bloc de débogage \n"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The computing function #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Attention : La fonction de calcul n°%d retourne NaN/Inf"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The zero_crossing function #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Attention : La fonction passant par zéro n°%d retourne NaN/Inf"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The zero-crossing function #%d returns a NaN"
+msgstr ""
+"\n"
+"Attention : La fonction passant par zéro n°%d retourne un NaN"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The residual function #%d returns a NaN"
+msgstr ""
+"\n"
+"Attention : La fonction résiduelle n°%d retourne un NaN"
+
+msgid ""
+"\n"
+"Error: Problem in the evaluation of a root function"
+msgstr ""
+"\n"
+"Erreur : Problème à l'évalutation d'une fonction de traversée de surfaces"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The preconditioner evaluation function returns a NaN at index #%d."
+msgstr ""
+"\n"
+"Attention : La fonction d'évaluation du préconditionneur retourne Nan à "
+"l'index n°%d."
+
+msgid ""
+"\n"
+"Error: The preconditioner evaluation function failed."
+msgstr ""
+"\n"
+"Erreur : La fonction d'évaluation du préconditionneur a échoué."
+
+msgid ""
+"\n"
+"Error: Failed to factor the preconditioner."
+msgstr ""
+"\n"
+"Erreur : Echec de factorisation du préconditionneur."
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The preconditioner application function returns a NaN at index #%d."
+msgstr ""
+"\n"
+"Attention : La fonction d'application du préconditionneur retourne NaN à "
+"l'index n°%d."
+
+#, c-format
+msgid ""
+"\n"
+" Warning: an event is reprogrammed at t=%g by removing another"
+msgstr ""
+"\n"
+" Attention : un événement est reprogrammé à t=%g par la suppression d'un "
+"autre"
+
+msgid ""
+"\n"
+"         (already programmed) event. There may be an error in"
+msgstr ""
+"\n"
+"         événement (déjà programmé). Une erreur est peut-être survenue dans"
+
+msgid ""
+"\n"
+"         your model. Please check your model\n"
+msgstr ""
+"\n"
+"         votre modèle. Veuillez vérifier votre modèle\n"
+
+msgid ""
+"\n"
+" error in Jacobian"
+msgstr ""
+"\n"
+" erreur dans le Jacobien"
+
+#, c-format
+msgid "Error: Cannot find file '%s'.\n"
+msgstr "Erreur : Impossible de trouver le fichier '%s'.\n"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The initialization system #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Attention : Le système d'initialisation n°%d retourne NaN/Inf"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The residual function #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Attention : La fonction résidu n°%d retourne NaN/Inf"
+
+msgid ""
+"\n"
+" The residual function returns NAN/Inf. \n"
+" Please verify your model:\n"
+" some functions might be called with illegal inputs."
+msgstr ""
+"\n"
+" La fonction résiduelle retourne NaN/Inf. \n"
+" Veuillez vérifier votre modèle :\n"
+" quelques fonctions pourraient être appelées avec des valeurs d'entrée "
+"illégales."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: unknown integer type.\n"
+msgstr "%s : Type erroné de l'argument d'entrée #%d : type d'entier inconnu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Could not read its content.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée #%d : impossible de lire son "
+"contenu.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s, %s, %s, %s or %s type.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée #%d : type %s, %s, %s, %s ou %s.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for element #%d of input argument #%d: Integer matrix cannot "
+"be empty.\n"
+msgstr ""
+"%s : Valeur erronée pour l'élément %d de l'argument d'entrée #%d : une "
+"matrice d'entiers ne peut pas être vide.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for element #%d of input argument #%d: String matrix cannot "
+"be empty.\n"
+msgstr ""
+"%s : Valeur erronée pour l'élément %d de l'argument d'entrée #%d : une "
+"matrice de textes ne peut pas être vide.\n"
+
+#, c-format
+msgid "%s: Wrong value for element #%d of input argument #%d: Unknown type.\n"
+msgstr ""
+"%s : Valeur erronée pour l'élément %d de l'argument d'entrée #%d : type "
+"inconnu.\n"
+
+#, c-format
+msgid "Wrong type for field %ls: Tlist or Mlist expected.\n"
+msgstr "Type erroné pour le champ %ls : Tlist ou Mlist attendue.\n"
+
+#, c-format
+msgid "Wrong length for field %ls: at least %d element expected.\n"
+msgstr "Taille erronée pour le champ %ls : au moins %d éléments attendus.\n"
+
+#, c-format
+msgid ""
+"Wrong length for header of field \"%ls\": at least %d element expected.\n"
+msgstr ""
+"Taille erronée pour l'en-tête du champ \"%ls\" : au moins %d éléments "
+"attendus.\n"
+
+#, c-format
+msgid "Wrong value for header of field \"%ls\": \"%ls\" expected.\n"
+msgstr "Valeur erronée pour l'en-tête du champ \"%ls\" : \"%ls\" attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s: list expected.\n"
+msgstr "Type erroné pour le champ %s : une liste attendue.\n"
+
+#, c-format
+msgid "Wrong type for element %d of field %s: unknown Scicos object.\n"
+msgstr ""
+"Type erroné pour l'lélément %d du champ \"%s\" : objet Scicos inconnu.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s: %d-by-%d expected.\n"
+msgstr "Taille erronée du champ %s : %dx%d attendue.\n"
+
+#, c-format
+msgid "Wrong size for field %s: at least %d-by-%d expected.\n"
+msgstr "Taille erronée du champ %s : %dx%d attendue.\n"
+
+#, c-format
+msgid "\"%s\" is a read-only field.\n"
+msgstr "\"%s\" est un champ en lecture seule.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: Real matrix expected.\n"
+msgstr "Type erroné du champ %s.%s : matrice réelle attendue.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: %d-by-%d expected.\n"
+msgstr "Taille erronée du champ %s.%s : %dx%d attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: string expected.\n"
+msgstr "Type erroné du champ %s.%s : une chaîne de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s: Real matrix object.\n"
+msgstr "Type erroné du champ %s : matrice réelle.\n"
+
+#, c-format
+msgid "Wrong type for field %s: String matrix expected.\n"
+msgstr ""
+"Type erroné du champ %s : une matrice de chaînes de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s: Real matrix expected.\n"
+msgstr "Type erroné du champ %s : une matrice réelle attendue.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : %d-by-%d expected.\n"
+msgstr "Taille erronée du champ %s.%s : %dx%d attendue.\n"
+
+#, c-format
+msgid "Wrong length for field %s.%s : %d expected.\n"
+msgstr "Taille erronée du champ %s.%s : %d attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : String matrix expected.\n"
+msgstr ""
+"Type erroné du champ %s.%s : une matrice de chaînes de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : Round number expected.\n"
+msgstr "Valeur erronée du champ %s.%s : valeur entière attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Real vector expected.\n"
+msgstr ""
+
+#, c-format
+msgid "Wrong size for field %s.%s : Real vector expected.\n"
+msgstr ""
+
+#, c-format
+msgid "Wrong type for field %s.%s : Real matrix expected.\n"
+msgstr "Type erroné du champ %s.%s : une matrice réelle attendue.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : m-by-1 expected.\n"
+msgstr "Taille erronée du champ %s.%s : m-par-1 attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : List expected.\n"
+msgstr "Type erroné du champ %s.%s : une liste attendue.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : %s (%s) has an invalid port number.\n"
+msgstr ""
+"Valeur erronée du champ %s.%s : %s (%s) a un numéro de port invalide.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : %s (%s) has an invalid implicit port.\n"
+msgstr ""
+"Valeur erronée du champ %s.%s : %s (%s) a un numéro de port implicite "
+"invalide.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : %s (%s) has an invalid explicit port.\n"
+msgstr ""
+"Valeur erronée du champ %s.%s : %s (%s) a un numéro de port explicite "
+"invalide.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Diagram expected.\n"
+msgstr "Type erroné du champ %s.%s : diagramme attendu.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : List clear previous value.\n"
+msgstr ""
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : m-by-1 matrix expected.\n"
+msgstr "Taille erronée du champ %s.%s : m-par-1 attendue.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : Integer values expected.\n"
+msgstr "Valeur erronée du champ %s.%s : valeurs entières attendues.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : String expected.\n"
+msgstr "Type erroné du champ %s.%s : chaîne de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : String expected.\n"
+msgstr "Taille erronée du champ %s.%s : chaîne de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Boolean matrix expected.\n"
+msgstr "Type erroné du champ %s.%s : matrice de booléens attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: String expected.\n"
+msgstr "Type erroné du champ %s.%s : chaînes de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: String expected.\n"
+msgstr "Taille erronée du champ %s.%s : chaîne de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: Real expected.\n"
+msgstr "Type erroné du champ %s.%s : réel attendu.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: Real expected.\n"
+msgstr "Taille erronée du champ %s.%s : scalaire réel attendu.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: m-by-1 expected.\n"
+msgstr "Taille erronée du champ %s.%s : m-par-1 attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : string expected.\n"
+msgstr "Type erroné du champ %s.%s : chaîne de caractères attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s: Mlist expected.\n"
+msgstr "Type erroné du champ %s : Mlist attendue.\n"
+
+#, c-format
+msgid "Wrong size for field %s: at least %d elements expected.\n"
+msgstr "Taille erronée du champ %s : au moins %d éléments attendu(s).\n"
+
+#, c-format
+msgid "Wrong value for header of field %s: field %s expected.\n"
+msgstr "Valeur erronée de l'en-tête du champ %s : champ %s attendu.\n"
+
+#, c-format
+msgid "Wrong dimensions for field %s.%s: %d-by-%d expected.\n"
+msgstr "Taille erronée du champ %s.%s : %dx%d attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: String matrix expected.\n"
+msgstr ""
+"Type erroné du champ %s.%s : matrice de chaînes de caractères attendue.\n"
+
+#, c-format
+msgid ""
+"Wrong value for field %s.%s: '%s' unrecognized, only expected '%s' or '%s' "
+"vector. Switching to '%s'.\n"
+msgstr ""
+"Valeur erronée du champ %s.%s : \"%s\" non reconnue, seuls \"%s\" et \"%s\" "
+"attendues. Changement vers \"%s\".\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s.\n"
+msgstr "Type erroné du champ %s.%s.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s: Round number expected.\n"
+msgstr "Valeur erronée du champ %s.%s : valeur entière attendue.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s .\n"
+msgstr "Type erroné du champ %s.%s.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
+msgstr "%s : Nombre d'argument(s) d'entrée erroné : Au moins %d attendus.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A diagram expected.\n"
+msgstr ""
+"%s : L'argument d'entrée numéro %d est de mauvais type : Un diagramme est "
+"attendu.\n"
+
+#, c-format
+msgid "%s: Error during block parameters evaluation.\n"
+msgstr "%s : Erreur à l'évaluation des paramètres de bloc.\n"
+
+#, c-format
+msgid "%s: Unable to find diagram inputs\n"
+msgstr "%s : Impossible de trouver les entrées du diagramme\n"
+
+#, c-format
+msgid "%s: Unable to find diagram outputs\n"
+msgstr "%s : Impossible de trouver les sorties du diagramme\n"
+
+#, c-format
+msgid "%s: Input ports are not numbered properly.\n"
+msgstr "%s : Les ports d'entrée ne sont pas numérotés correctement.\n"
+
+#, c-format
+msgid "%s: Output ports are not numbered properly.\n"
+msgstr "%s : Les ports de sortie ne sont pas numérotés correctement.\n"
+
+#, c-format
+msgid "%s: Diagram does not compile in pass %d.\n"
+msgstr "%s : Le diagramme ne compile pas à l'étape %d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Empty matrix expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Une matrice vide "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Une matrice %d-by-%d "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments. Must be between %d and %d.\n"
+msgstr "%s : Nombre d'arguments d'entrée erroné. Doit être entre %d et %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s data structure expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une structure de données de "
+"type %s attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A list expected.\n"
+msgstr ""
+"%s : L'argument d'entrée numéro %d est de mauvais type : Une liste est "
+"attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée n°%d : '%s' attendu.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String array expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une table de chaîne de "
+"caractères attendue.\n"
+
+msgid "Can't convert old diagram (problem in version)"
+msgstr "Impossible de convertir l'ancien diagramme (problème dans la version)"
+
+#, c-format
+msgid ""
+"Warning the variable %s does not match any context variable name\n"
+"ignored"
+msgstr ""
+"Attention, la variable %s ne correspond à aucun nom de variable  du "
+"contexte\n"
+"ignorée"
+
+#, c-format
+msgid "%s: Error during block parameters update.\n"
+msgstr "%s : Erreur à la mise à jour des paramètres de bloc.\n"
+
+msgid ""
+"Diagram has been compiled for implicit solver\n"
+"switching to implicit solver.\n"
+msgstr ""
+"Le diagramme a été compilé pour un solveur implicite\n"
+"Passage au solveur implicite.\n"
+
+msgid ""
+"Diagram has been compiled for explicit solver\n"
+"switching to explicit solver.\n"
+msgstr ""
+"Le diagramme a été compilé pour un solveur explicite\n"
+"Passage au solveur explicite.\n"
+
+msgid "Simulation parameters not set:"
+msgstr "Les paramètres de simulation ne sont pas configurés :"
+
+msgid "Initialization problem:"
+msgstr "Problème d'initialisation :"
+
+msgid "Simulation problem: "
+msgstr "Problème de simulation : "
+
+msgid "End problem: "
+msgstr "Sortie du problème : "
+
+#, c-format
+msgid "%s: property %s obsolete, please use %s instead.\n"
+msgstr "%s : propriété %s obsolète, veuillez utiliser %s à la place.\n"
+
+#, c-format
+msgid "Wrong type for diagram element #%d: %s, %s or %s expected.\n"
+msgstr "Type erroné de l'élément #%d du diagramme : %s, %s ou %s attendu.\n"
+
+msgid ""
+"Your model contains states defined in standard Scicos blocks.\n"
+"Current initialization interface does not support mixed models."
+msgstr ""
+
+#, c-format
+msgid "Initialisation problem in %s "
+msgstr "Problème d'initialisation dans %s "
+
+#, c-format
+msgid "Initialisation problem in the %s method"
+msgstr "Problème d'initialisation dans la méthode %s"
+
+msgid "Initialisation problem in the finish phase"
+msgstr "Problème d'initialisation en phase finale"
+
+msgid "Problem with the block generated from modelica blocks."
+msgstr "Problème avec le bloc généré à partir des blocs Modelica"
+
+msgid "Block has connected output port<br />with incompatible size:"
+msgstr ""
+"Le bloc a un port de sortie connecté<br />avec une dimension incompatible :"
+
+#, c-format
+msgid "Output port %s size is: %s"
+msgstr "La dimension du port de sortie %s est : %s"
+
+#, c-format
+msgid "Input port %s size is: %s"
+msgstr "La dimension du port d'entrée %s est : %s"
+
+msgid "Block has connected output port<br />with incompatible type."
+msgstr "Le bloc a un port de sortie connecté<br />avec un type incompatible :"
+
+#, c-format
+msgid "Output port %s type is: %s"
+msgstr "Le type du port de sortie %s est : %s"
+
+#, c-format
+msgid "Input port %s type is: %s"
+msgstr "Le type du port d'entrée %s est : %s"
+
+msgid "Block has connected input port<br />with incompatible size:"
+msgstr ""
+"Le bloc a un port d'entrée connecté<br />avec une dimension incompatible :"
+
+msgid "Block has connected input port<br />with incompatible type:"
+msgstr "Le bloc a un port d'entrée connecté<br />avec un type incompatible :"
+
+#, c-format
+msgid "%s: Error: A scifunc block has not been defined."
+msgstr "%s : Erreur : Un bloc scifunc n'a pas été défini."
+
+#, c-format
+msgid " Main Modelica : %s"
+msgstr " Fonction principale Modelica : %s"
+
+msgid "No block can be activated"
+msgstr "Aucun bloc ne peut être activé"
+
+msgid "Problem in port size or type."
+msgstr "Problème avec la taille ou le type de port."
+
+msgid ""
+"No continuous-time state. Thresholds are ignored; this \n"
+"may be OK if you don't generate external events with them.\n"
+"If you want to reactivate the thresholds, then you need\n"
+"\n"
+"to include a block with continuous-time state in your diagram.\n"
+"   You can for example include DUMMY CLSS block (linear palette)."
+msgstr ""
+"Pas d'état à temps continu. Les seuils sont ignorés ; ceci \n"
+"sera correct si vous ne générez pas d'évènements externes avec eux.\n"
+"Si vous souhaitez réactiver les seuils, alors vous devez\n"
+"\n"
+"inclure un bloc avec un état à temps continu dans votre diagramme.\n"
+"   Vous pouvez par exemple inclure un block CLSS (palette linéaire)."
+
+msgid "Diagram contains implicit blocks, compiling for implicit Solver."
+msgstr ""
+"Le diagramme contient des blocs implicites, compilation en cours pour le "
+"solveur implicite."
+
+msgid "Algebraic loop on events."
+msgstr "Boucle algébrique sur les événements."
+
+msgid "Algebraic loop."
+msgstr "Boucle algébrique."
+
+msgid ""
+"A C or Fortran block is used but not linked.\n"
+"You can save your compiled diagram and load it.\n"
+"This will automatically link the C or Fortran function."
+msgstr ""
+
+#, c-format
+msgid "Number of modes in block #%d cannot be determined."
+msgstr "Le nombre de modes dans le bloc %d ne peut pas être déterminé."
+
+#, c-format
+msgid "Number of zero crossings in block #%d cannot be determined."
+msgstr ""
+"Le nombre de traversées de zéro dans le bloc %d ne peut pas être déterminé."
+
+msgid ""
+"Not enough information to find port sizes.\n"
+"I try to find the problem."
+msgstr ""
+
+msgid ""
+"I cannot find a link with undetermined size.\n"
+"My guess is that you have a block with unconnected \n"
+"undetermined output ports."
+msgstr ""
+
+msgid "One of this block output has negative size.<br />Please check."
+msgstr ""
+"Une des sorties de ce bloc a une dimension négative.<br />Veuillez vérifier."
+
+msgid "Block input has negative size:"
+msgstr "L'entrée du bloc a une dimension négative :"
+
+msgid "Please compile the diagram to report the error."
+msgstr "Veuillez compiler le diagramme pour signaler l'erreur."
+
+msgid "Unable to report an error into a SuperBlock"
+msgstr "Impossible de signaler une erreur dans un superbloc"
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block output "
+"port has a non-determined size:"
+msgstr ""
+"<em>Veuillez mettre à jour le diagramme pour éviter cet avertissement.</"
+"em><br />Le  port de sortie du bloc a une dimension indéterminée :"
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block output "
+"port has a non-determined type:"
+msgstr ""
+"<em>Veuillez mettre à jour le diagramme pour éviter cet avertissement.</"
+"em><br />Le  port de sortie du bloc a un type indéterminé :"
+
+#, c-format
+msgid "Output port %s type."
+msgstr "Type du port de sortie %s."
+
+#, c-format
+msgid "Input port %s type."
+msgstr "Type du port d'entrée %s."
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block input "
+"port has a non-determined size:"
+msgstr ""
+"<em>Veuillez mettre à jour le diagramme pour éviter cet avertissement.</"
+"em><br />Le  port d'entrée du bloc a une dimension indéterminée :"
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block input "
+"port has a non-determined type:"
+msgstr ""
+"<em>Veuillez mettre à jour le diagramme pour éviter cet avertissement.</"
+"em><br />Le  port d'entrée du bloc a un type indéterminé :"
+
+msgid ""
+"Highlighted block(s) have connected ports \n"
+"with  sizes that cannot be determined by the context.\n"
+"What is the size of this link?"
+msgstr ""
+"Le ou les blocs en surbrillance ont des ports connectés \n"
+"avec des dimensions qui ne peuvent pas être déterminées par le contexte.\n"
+"Quelle est la dimension de ce lien ?"
+
+#, c-format
+msgid ""
+"the dep_ut size of the %s block is not correct.\n"
+"It should be a column vector of size %d."
+msgstr ""
+
+msgid ""
+"Not enough information to find port type.\n"
+"I will try to find the problem."
+msgstr ""
+
+msgid ""
+"I cannot find a link with undetermined size.\n"
+"My guess is that you have a block with unconnected \n"
+"undetermined types."
+msgstr ""
+
+msgid "Modelica compiler (flat2C)"
+msgstr "Compilateur Modelica (flat2C)"
+
+msgid "The initialization file already exists!"
+msgstr "Le fichier d'initialisation éxiste déjà!"
+
+msgid "Do you want to overwrite it?"
+msgstr "Voulez-vous l'écraser ?"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "Modelica blocks are reduced to a block with:"
+msgstr "Les blocs Modelica sont réduit à un bloc avec:"
+
+#, c-format
+msgid "Number of differential states: %d"
+msgstr "Nombre d'états différentiels : %d"
+
+#, c-format
+msgid "Number of algebraic states: %d"
+msgstr "Nombre d'états algébriques : %d"
+
+#, c-format
+msgid "Number of discrete time states  : %d"
+msgstr "Nombre d'état de temps discret  : %d"
+
+#, c-format
+msgid "Number of zero-crossing surfaces: %d"
+msgstr "Nombre de surfaces de traversées de zéros : %d"
+
+#, c-format
+msgid "Number of modes  : %d"
+msgstr "Nombre de modes : %d"
+
+#, c-format
+msgid "Number of inputs : %d"
+msgstr "Nombre d'entrées : %d"
+
+#, c-format
+msgid "Number of outputs: %d"
+msgstr "Nombre de sorties : %d"
+
+#, c-format
+msgid "Input/output dependency:[%s]"
+msgstr "Dépendance entrée/sortie : [%s]"
+
+#, c-format
+msgid "Analytical Jacobian: enabled  (%%Jacobian=%s)"
+msgstr "Jacobien analytique : activé (%%Jacobian=%s)"
+
+#, c-format
+msgid "Parameter embedding mode: enabled (%%Modelica_ParEmb=%s)"
+msgstr "Mode paramètre embarqué : activé (%%Modelica_ParEmb=%s)"
+
+#, c-format
+msgid "Generated files path: %s"
+msgstr "Chemin des fichiers générés : %s"
+
+msgid "Hyper Matrix is not supported"
+msgstr "Les hypermatrices ne sont pas prises en charge"
+
+msgid "Type not recognized"
+msgstr "Type non reconnu"
+
+msgid "Complex Matrix is not supported"
+msgstr "Les matrices complexes ne sont pas prises en charge"
+
+msgid "Block is ignored because of undefined input(s)."
+msgstr "Le bloc est ignoré car ses entrées n'ont pas été définies."
+
+msgid "Superblock should not contains any Scilab function block."
+msgstr "Le superbloc ne doit pas contenir de blocs de fonction Scilab."
+
+msgid "Generated block cannot be linked with Scilab."
+msgstr "Le bloc généré ne peut pas être lié à Scilab."
+
+msgid "Evaluation problem: value not updated from context."
+msgstr ""
+"Problème d'évaluation : La valeur n'est pas mise à jour à partir du contexte."
+
+msgid "Evaluation problem: Unknown block"
+msgstr "Problème d'évaluation : Bloc inconnu"
+
+#, c-format
+msgid ""
+"%s: Error while calling block %s [uid='%s']: invalid parameter (ier=%f, "
+"%%scicos_prob=%%%s).\n"
+msgstr ""
+"%s : Erreur à l'appel du bloc %s [uid='%s']: paramètre invalide (ier=%f, "
+"%%scicos_prob=%%%s).\n"
+
+msgid "Cannot load dynamic library: "
+msgstr "Impossible de charger la bibliothèque dynamique : "
+
+msgid "Can't include "
+msgstr "Impossible d'inclure "
+
+msgid "This file does not exist"
+msgstr "Ce fichier n'éxiste pas"
+
+msgid "Modelica compiler"
+msgstr "Compilateur Modelica"
+
+msgid "Sorry: Only C or FORTRAN languages are supported"
+msgstr "Seuls les langages C et Fortran sont pris en charge"
+
+msgid "Sorry file name not defined in "
+msgstr "Le nom de fichier n'est pas défini dans "
+
+msgid "I/O blocks must be only used in a Super Block"
+msgstr "Les blocs E/S doivent être utilisés uniquement dans un superbloc"
+
+msgid "This Super block input port is not connected."
+msgstr "Le port d'entrée de ce superbloc n'est pas connecté."
+
+msgid "Input ports are not numbered properly."
+msgstr "Les ports d'entrée ne sont pas numérotés correctement."
+
+msgid "Output ports are not numbered properly."
+msgstr "Les ports de sortie ne sont pas numérotés correctement."
+
+msgid "Event input ports are not numbered properly."
+msgstr "Les ports d'événement d'entrée ne sont pas numérotés correctement."
+
+msgid "Event output ports are not numbered properly."
+msgstr "Les ports d'événement de sortie ne sont pas numérotés correctement."
+
+#, c-format
+msgid "%s: Empty diagram"
+msgstr "%s : Diagramme vide"
+
+#, c-format
+msgid "%s: Wrong input argument.\n"
+msgstr "%s : Argument d'entrée erroné.\n"
+
+msgid "Set Xcos context"
+msgstr ""
+
+#, c-format
+msgid "The variable name %s cannot be used as block parameter: ignored\n"
+msgstr ""
+"Le nom de variable %s ne peut pas être utilisé comme paramètre de bloc : "
+"ignoré.\n"
+
+msgid "scs_show active..."
+msgstr "scs_show actif..."
+
+#, c-format
+msgid "Scilab Graphics of %s"
+msgstr "Graphiques de Scilab de %s"
+
+#, c-format
+msgid "%s: Type %s is not implemented.\n"
+msgstr "%s : Le type %s n'est pas implémenté.\n"
+
+#, c-format
+msgid "%s: Wrong size for block parameter '%s': %s expected, getting %s"
+msgstr ""
+"%s : Dimension erronée du paramètre '%s' du bloc : %s attendu, %s obtenu"
+
+#, c-format
+msgid "%s: Wrong type for block parameter '%s': %s(%s) expected, getting %s"
+msgstr "%s : Type erroné du paramètre '%s' du bloc : %s(%s) attendu, %s obtenu"
+
+msgid ""
+"There are too many Modelica files.\n"
+"It would be better to define several \n"
+"Modelica programs in a single file."
+msgstr ""
+
+msgid "-------Modelica translator error message:-----"
+msgstr "-------Message d'erreur du traducteur Modelica :-----"
+
+msgid "XML to Modelica"
+msgstr "XML vers Modelica"
+
+msgid "Xcos block parameter error"
+msgstr "Erreur de paramètre de bloc Xcos"
+
+#, c-format
+msgid ""
+"Answer given for %s \n"
+" has invalid dimension: \n"
+" waiting for dimension %s.\n"
+msgstr ""
+"La réponse donnée pour %s \n"
+" a une dimension invalide : \n"
+" Dimension attendue %s.\n"
+
+#, c-format
+msgid ""
+"Answer given for %s \n"
+" has incorrect type %s.\n"
+msgstr ""
+"La réponse donnée pour %s \n"
+" a un type erroné %s.\n"
+
+#, c-format
+msgid ""
+"Answer given for %s \n"
+" is incorrect: %s.\n"
+msgstr ""
+"La solution donnée pour %s \n"
+" est erronée : %s.\n"

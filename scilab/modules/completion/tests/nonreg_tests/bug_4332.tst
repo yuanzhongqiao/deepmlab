@@ -1,0 +1,34 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- Non-regression test for bug 4332 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/4332
+//
+// <-- Short Description -->
+// completion copies selected item instead of completing according to this one.
+
+
+// <-- ENGLISH IMPOSED -->
+// <-- CLI SHELL MODE -->
+
+ilib_verbose(0);
+ierr = exec(SCI+"/modules/completion/tests/utilities/build_primitives.sce","errcatch",-1);
+if ierr<>0 then pause, end
+ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
+if ierr<>0 then pause, end
+
+// You choose thermaSnap.img
+currentline = 'scipad thermaSnap.';
+r = completeline(currentline,'thermaSnap.img',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> 'scipad thermaSnap.img' then pause,end
+
+// You choose thermaSnap.sce
+currentline = 'scipad thermaSnap.';
+r = completeline(currentline,'thermaSnap.sce',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> 'scipad thermaSnap.sce' then pause,end

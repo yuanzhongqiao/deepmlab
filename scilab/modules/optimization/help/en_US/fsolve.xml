@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2011 - DIGITEO - Michael Baudin
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="fsolve" xml:lang="en">
+    <refnamediv>
+        <refname>fsolve</refname>
+        <refpurpose>find a zero of a system of non-linear equations - find f(x) = 0</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [x, v, info] = fsolve(x0, fct)
+            [x, v, info] = fsolve(x0, fct, fjac)
+            [x, v, info] = fsolve(x0, fct, fjac, tol)
+            [x, v, info] = fsolve(x0, fct, tol)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x0</term>
+                <listitem>
+                    <para>real vector (initial value of function argument).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fct</term>
+                <listitem>
+                    <para>external (i.e function or list or string).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fjac</term>
+                <listitem>
+                    <para>external (i.e function or list or string).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tol</term>
+                <listitem>
+                    <para>real scalar. precision tolerance: termination occurs when the
+                        algorithm estimates that the relative error between x and the
+                        solution is at most tol. (<literal>tol=1.d-10</literal> is the
+                        default value).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x :</term>
+                <listitem>
+                    <para>real vector (final value of function argument, estimated zero).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>v :</term>
+                <listitem>
+                    <para>optional real vector: value of function at x.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>info</term>
+                <listitem>
+                    <para>optional termination indicator:</para>
+                    <table>
+                        <tr><th>0</th><td>improper input parameters.</td></tr>
+                        <tr><th>1</th><td>algorithm estimates that the relative error between x
+                                          and the solution is at most tol.</td></tr>
+                        <tr><th>2</th><td>number of calls to fcn reached</td></tr>
+                        <tr><th>3</th><td>tol is too small. No further improvement in the
+                                          approximate solution x is possible.</td></tr>
+                        <tr><th>4</th><td>iteration is not making good progress.</td></tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Find a zero of a system of n nonlinear functions in n variables by a
+            modification of the Powell's hybrid method (Jacobian may be provided):
+        </para>
+        <para>
+            <latex><![CDATA[$f(x)=0$]]></latex> w.r.t. <latex><![CDATA[$x$]]></latex> where <latex><![CDATA[$f:R^n \rightarrow R^n$]]></latex>
+        </para>
+        <para>
+            <literal>fct</literal> is an "external". This external returns
+            <literal>v=fct(x)</literal> given <literal>x</literal>.
+        </para>
+        <para>
+            The simplest syntax for <literal>fct</literal> is:
+        </para>
+        <programlisting role=""><![CDATA[
+[v]=fct(x).
+ ]]></programlisting>
+        <para>
+            If <literal>fct</literal> is a character string, it refers to a C or
+            Fortran routine which must be linked to Scilab. Fortran calling sequence
+            must be
+        </para>
+        <programlisting role=""><![CDATA[
+fct(n,x,v,iflag)
+integer n,iflag
+double precision x(n),v(n)
+ ]]></programlisting>
+        <para>and C Syntax must be</para>
+        <programlisting role=""><![CDATA[
+fct(int *n, double x[],double v[],int *iflag)
+ ]]></programlisting>
+        <para>
+            Incremental link is possible (doc <literal>link</literal>).
+        </para>
+        <para>
+            <literal>jac</literal> is an "external". This external returns
+            <literal>v=d(fct)/dx (x)</literal> given <literal>x</literal>.
+        </para>
+        <para>
+            The simplest syntax for <literal>jac</literal> is:
+        </para>
+        <programlisting role=""><![CDATA[
+[v]=jac(x).
+ ]]></programlisting>
+        <para>
+            If <literal>jac</literal> is a character string, it refers to a to a
+            C or Fortran routine which must be linked to Scilab calling sequences are
+            the same as those for fct. Note however that v must be a nxn array.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// A simple example with fsolve
+a=[1,7;2,8];
+b=[10;11];
+
+function y=fsol1(x)
+  y=a*x+b
+endfunction
+function y=fsolj1(x)
+  y=a
+endfunction
+
+[xres]=fsolve([100;100],fsol1);
+a*xres+b
+
+[xres]=fsolve([100;100],fsol1,fsolj1);
+a*xres+b
+
+// See SCI/modules/optimization/sci_gateway/fortran/Ex-fsolve.f
+[xres]=fsolve([100;100],'fsol1','fsolj1',1.e-7);
+a*xres+b
+ ]]></programlisting>
+        <para>For some starting points and some equations system, the fsolve method can fail. The fsolve method is a local search method.
+            So, to have a good chance to find a solution to your equations system, you must ship, a good starting point to fsolve.
+        </para>
+        <para> Here is an example on which fsolve can fail:</para>
+        <programlisting role="example"><![CDATA[
+// Another example with fsolve
+function F=feuler(x,r)
+  F=x-r-dt*(x.^2-x.^3);
+endfunction
+function J=dFdx(x)  //Definition of the Jacobian
+   J=1-dt*(2*x-3*x^2);
+endfunction
+
+r = 0.04257794928862307 ;
+dt = 10;
+
+[x,v,info]=fsolve(r,list(feuler,r),dFdx); // fsolve do not find the solution
+disp(v); // The residual
+disp(info); // The termination indicator
+
+[x,v,info]=fsolve(1,list(feuler,r),dFdx); // fsolve find the solution
+disp(v); // The residual
+disp(info); // The termination indicator
+
+clf();
+x=linspace(0,1,1000);
+plot(x,feuler(x))
+a=gca();
+a.grid=[5 5];
+ ]]></programlisting>
+        <scilab:image>
+            function F=feuler(x,r)
+            F=x-r-dt*(x.^2-x.^3);
+            endfunction
+            function J=dFdx(x)
+            J=1-dt*(2*x-3*x^2);
+            endfunction
+
+            r = 0.04257794928862307 ;
+            dt = 10;
+
+            [x,v,info]=fsolve(r,list(feuler,r),dFdx);
+            [x,v,info]=fsolve(1,list(feuler,r),dFdx);
+            x=linspace(0,1,1000);
+            plot(x,feuler(x))
+            a=gca();
+            a.grid=[5 5];
+        </scilab:image>
+        <para>So, each time you use fsolve, be sure to check the termination indicator and the residual value to see if fsolve has converged.</para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="external">external</link>
+            </member>
+            <member>
+                <link linkend="qpsolve">qpsolve</link>
+            </member>
+            <member>
+                <link linkend="optim">optim</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

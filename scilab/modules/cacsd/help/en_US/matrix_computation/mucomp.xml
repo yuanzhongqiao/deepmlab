@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="mucomp">
+    <refnamediv>
+        <refname>mucomp</refname>
+        <refpurpose>mu (structured singular value) calculation</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[BOUND, D, G] = mucomp(Z, K, T)</synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>Z</term>
+                <listitem>
+                    <para>the complex n-by-n matrix for which the
+                        structured singular value is to be computed
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>K</term>
+                <listitem>
+                    <para> the vector of length m containing the block dimensions of the structured
+                        uncertainty Δ. The uncertainty Δ is supposed to be a block diagonal matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>T</term>
+                <listitem>
+                    <para>the vector of length m indicating the type
+                        of each uncertainty block. T(I) = 1 if the
+                        corresponding block is real T(I) = 2 if the
+                        corresponding block is complex.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>BOUND</term>
+                <listitem>
+                    <para>the upper bound on the structured singular value.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>D, G</term>
+                <listitem>
+                    <para>vectors of length n containing the diagonal
+                        entries of the diagonal matrices D and G,
+                        respectively, such that the matrix <literal>
+                            Z'*diag(D)^2*Z + sqrt(-1)*(diag(G)*Z-Z'*diag(G)) -
+                            bound^2*diag(D)^2
+                        </literal>
+                        is negative
+                        semidefinite.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            This function computes an upper bound on the structured
+            singular value for a given square complex matrix and given
+            block structure of the uncertainty.
+        </para>
+        <para>
+            The structured singular value μ(Z) is defined as the inverse of the norm of the smallest
+            uncertainty Δ that makes <literal>det(I- ΔZ)=0</literal>. Here Δ is supposed to be a
+            block diagonal matrix.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                K=[1,1,2,1,1];
+                T=[1,1,2,2,2];
+                Z=[-1+%i*6, 2-%i*3, 3+%i*8, 3+%i*8,-5-%i*9,-6+%i*2;
+                    4+%i*2,-2+%i*5,-6-%i*7,-4+%i*11,8-%i*7, 12-%i;
+                    5-%i*4,-4-%i*8, 1-%i*3,-6+%i*14,2-%i*5, 4+%i*16;
+                -1+%i*6, 2-%i*3, 3+%i*8, 3+%i*8,-5-%i*9,-6+%i*2;
+                    4+%i*2,-2+%i*5,-6-%i*7,-4+%i*11,8-%i*7, 12-%i;
+                    5-%i*4,-4-%i*8, 1-%i*3,-6+%i*14,2-%i*5, 4+%i*16];
+
+                [BOUND, D, G] = mucomp(Z, K, T)
+                spec(Z'*(diag(D)^2)*Z + %i*(diag(G)*Z-Z'*diag(G)) - BOUND^2*diag(D)^2)
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                M1 = [ ..
+                    5.2829       5.7683      -2.4004       1.2205      -6.4148    
+                    9.7769e-01   2.9786      -3.0408       5.0257e-01  -2.6504    
+                    7.0819       9.6324      -3.5750       3.3016      -6.7030    
+                    -1.6261      -2.9763       1.6870      -1.0603       1.2211    
+                    2.3056       4.3712      -2.4785       2.6152      -1.9832    ];
+                
+                M2 = [ ..
+                    -1.1308      -1.7785       8.7974e-01  -7.5206e-01   1.2089    
+                    -3.5255e-01  -5.7002e-01   2.9305e-01  -2.5442e-01   3.7691e-01
+                    -1.3724      -2.1501       1.0741      -9.1188e-01   1.4669   
+                    3.5839e-01   5.5101e-01  -2.7290e-01   2.3565e-01  -3.7663e-01
+                    -4.9015e-01  -7.8706e-01   4.0215e-01  -3.3617e-01   5.3261e-01];
+                
+                //*******************************************************
+                M = M1 + %i * M2;
+                
+                // Let the structure be all scalar blocks
+                K = [1 1 1 1 1]'; 
+                
+                // Let the first, the third and the fifth blocks be real,
+                // and let the rest of blocks be complex
+                T = [1 2 1 2 1]';
+                
+                [bound, D, G] = mucomp(M, K, T);
+                spec(M' * diag(D) * M + %i * (diag(G) * M - M' * diag(G)) - bound^2 * diag(D)^2)
+                
+                // Now, we compute it again with respect to all complex blocks
+                T = [2 2 2 2 2]';
+                [bound, D, G] = mucomp(M, K, T);
+                spec(M' * diag(D) * M + %i * (diag(G) * M - M' * diag(G)) - bound^2 * diag(D)^2)
+                
+                K = [2 3]';
+                T = [2 2]';
+                [bound, D, G] = mucomp(M, K, T);
+                 ]]>
+            </programlisting>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Used functions</title>
+        <para>
+            This function is based on the Slicot routine AB13MD.
+        </para>
+    </refsection>
+    <refsection>
+        <title>References</title>
+        <para>
+            Fan, M.K.H., Tits, A.L., and Doyle, J.C.
+            Robustness in the presence of mixed parametric uncertainty
+            and unmodeled dynamics.
+            IEEE Trans. Automatic Control, vol. AC-36, 1991, pp. 25-38.
+            Slicot routine AB13MD.
+        </para>
+    </refsection>
+</refentry>

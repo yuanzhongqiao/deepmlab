@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "../../functions/xml/gateway.dtd">
+<!--
+/*
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ */
+
+ Scilab
+ Interface description. In this file, we define the list of the function which
+ will be available into Scilab and the link to the "native" function.
+
+ Don't touch if you do not know what you are doing
+-->
+<module name="special_functions">
+    <gateway name="sci_legendre"        function="legendre"     type="0" />
+    <gateway name="sci_beta"            function="beta"         type="0" />
+    <gateway name="sci_besseli"         function="besseli"      type="0" />
+    <gateway name="sci_besselj"         function="besselj"      type="0" />
+    <gateway name="sci_besselk"         function="besselk"      type="0" />
+    <gateway name="sci_bessely"         function="bessely"      type="0" />
+    <gateway name="sci_besselh"         function="besselh"      type="0" />
+    <gateway name="sci_gamma"           function="gamma"        type="1" />
+    <gateway name="sci_lgamma"          function="gammaln"      type="1" />
+    <gateway name="sci_dlgamma"         function="dlgamma"      type="1" />
+    <gateway name="sci_Faddeeva_erf"    function="erf"          type="0" />
+    <gateway name="sci_Faddeeva_erfc"   function="erfc"         type="0" />
+    <gateway name="sci_Faddeeva_erfcx"  function="erfcx"        type="0" />
+    <gateway name="sci_Faddeeva_erfi"   function="erfi"         type="0" />
+    <gateway name="sci_Faddeeva_dawson" function="dawson"       type="0" />
+</module>

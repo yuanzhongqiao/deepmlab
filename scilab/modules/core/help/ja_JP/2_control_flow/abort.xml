@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="abort">
+    <refnamediv>
+        <refname>abort</refname>
+        <refpurpose>評価を中断する.  </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>説明</title>
+        <para>
+	  <code>abort</code> は現在の評価を中断し,
+          プロンプトを表示します.
+	  <code>pause</code>レベルの中の場合,
+          <code>abort</code>はレベル0プロンプトに戻します.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+a=2
+b=3
+abort // 実行はここで停止します.
+c=4   // c は定義されません
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="quit">quit</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

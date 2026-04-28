@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_options" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Options (ODE and DAE solvers)</refname>
+        <refpurpose>Changing the default behavior of solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ... = arkode( ... , options)
+            ... = cvode( ... , options)
+            ... = ida( ... , options)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="description">
+        <title>Common options</title>
+        <para>The default behavior of the solver can be tuned by specifying a sequence of named parameter values. These parameters are the following:
+        </para>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>options</td>
+                        <td>    
+                            <para>A struct with options field names and corresponding values. Specifying the options with a struct allows to use the same
+                                options set in different solver calls. Values are overriden by separately setting individual options.</para>
+                                <programlisting role="example"><![CDATA[
+                                    OPT = struct();
+                                    OPT.rtol = 1e-6;
+                                    OPT.atol = 1e-8;
+                                    [t,y] = cvode(%SUN_vdp1,[0 1],[0 2], options = OPT);
+                                ]]></programlisting>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>method</td>
+                        <td>    
+                            <para>The solver method given as a string. cvode accepts "ADAMS" or "BDF", ida accepts only "BDF" 
+                                and the table of <link linkend="arkode_methods">arkode methods</link> is given in a dedicated section.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>linearSolver, linSolMaxIters, precType, precBand</td>
+                        <td>    
+                            <para>These options allow to specify the linear solver. Please see the dedicated
+                                <link linkend="sundials_linear_solvers">linear solvers</link> page.</para>
+                        </td>
+                    </tr>    
+                    <tr>
+                        <td>nonLinSol, nonLinSolMaxIters, nonLinSolAccel</td>
+                        <td>    
+                            <para>nonLinSol precises the method to use in non-linear iterations when using an implicit solver method, 
+                                "Newton" (the default) or "fixedPoint". The maximum number of non-linear iterations is given by nonLinSolMaxIters
+                                and nonLinSolAccel gives the number of acceleration Anderson vectors in fixed point iterations.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>t0</td>
+                        <td>    
+                            <para>When the time span given to the solver is a scalar, it is considered as the final time and the
+                                initial time is undetermined. The t0 option allows to specify the initial time in that case.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>rhs, res</td>
+                        <td>    
+                            <para>These options allow to change the right hand side function (when using cvode or arkode) or the residual function (when using ida)
+                            when extending a solution.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>y0, yp0</td>
+                        <td>    
+                            <para>These options allow to change the initial condition of the solution (and its derivative when using ida)
+                            when extending a solution.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>rtol</td>
+                        <td>    
+                            <para>The scalar relative tolerance to control the local error estimator (default value is 1e-4).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>atol</td>
+                        <td>    
+                            <para>The absolute tolerance controlling the local error. It can be a scalar or an array of the same dimension as the differential equation state (default value is 1e-6).
+                           Note that unlike rtol, atol should take into account the scale of the solution components.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ratol</td>
+                        <td>    
+                            <para>The absolute tolerance controlling the residual in nonlinear iterations. Can be a scalar or an array of the same dimension
+                                 as the differential equation state.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>maxOrder</td>
+                        <td>    
+                            <para>Allows to bound the maximum order of the method. The default maximum order of the method is 5 for the BDF method and 12 for the 
+                                ADAMS method and any lower value can be chosen. This option is not available when using arkode.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>h0</td>
+                        <td>    
+                            <para>Proposed initial step. By default the solver computes the initial step by estimating second derivatives.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>hMin</td>
+                        <td>    
+                            <para>Minimum value of solver time steps. Can make convergence fail if chosen too large.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>hMax</td>
+                        <td>    
+                            <para>Maximum value of solver time steps. Use it with care and only if the solver misses an event 
+                                (for example a discontinuity) because of a large step. If you need a finer discretization of time
+                                span don't use an interval as time span but a vector like <code>t0:h:tf</code> or use the 
+                                <literal>refine</literal> options.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>maxSteps</td>
+                        <td>    
+                            <para>Maximum solver internal steps between user steps. You may have to increase the default value (500) when
+                                 the integration interval is large and a small number of user
+                                time steps have been specified in <code>tspan</code>. </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>refine</td>
+                        <td>    
+                            <para>The number of complimentary time points added between two successive solver time points by using the current
+                                 interpolation method (depending on the solver). 
+                                This option is active when using an interval <literal>[t0, tf]</literal> as time span. Example:</para>
+                            <para>
+                                <programlisting role="example"><![CDATA[
+                                    function acc = bounce(t,y,g)
+                                        acc = [y(2); -g]
+                                    endfunction
+                                    function [out,term,dir] = bounce_ev(t,y)
+                                        out = y(1);
+                                        term = 1;
+                                        dir = -1;
+                                    endfunction
+                                    [t,y] = cvode(list(bounce,9.81), [0 10], [1;0], events=bounce_ev);
+                                    [tr,yr] = cvode(list(bounce,9.81), [0 10], [1;0], events=bounce_ev,refine=4);
+                                    plot(tr,yr(1,:),'-o',t,y(1,:),'or')
+                                    legend("refined","original");
+                                    ]]></programlisting>
+                                    <scilab:image>
+                                        function acc = bounce(t,y,g)
+                                            acc = [y(2); -g]
+                                        endfunction
+                                        function [out,term,dir] = bounce_ev(t,y)
+                                            out = y(1);
+                                            term = 1;
+                                            dir = -1;
+                                        endfunction
+                                        [t,y] = cvode(list(bounce,9.81), [0 10], [1;0], events=bounce_ev);
+                                        [tr,yr] = cvode(list(bounce,9.81), [0 10], [1;0], events=bounce_ev,refine=4);
+                                        plot(tr,yr(1,:),'-o',t,y(1,:),'or')
+                                        legend("refined","original");
+                                        gcf().axes_size(2)=300  
+                                    </scilab:image>
+                            </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>negative, nonPositive, nonNegative, positive, </td>
+                    <td>    
+                    <para>
+                        A vector with the indices of the solution to constrain. When a component of the theoretical solution has a constant
+                        sign then any of the following four constraints can be imposed: yi&lt;0, yi&lt;=0, y&gt;=0, yi&gt;0. Solver steps 
+                        are eventually reduced to verify the constraint but repeated failures may indicate that the step tolerance has to
+                         be changed (see rtol and atol options). See the following classical problem, where reducing the maximum step is not
+                          enough to catch the "knee":
+                    </para>
+                    <para>
+                        <programlisting role="example"><![CDATA[
+                        tspan = [0 2]; y0 = 1;
+                        deff("yd=odefcn(t,y)","yd=((1-t)*y - y^2)/1e-6");
+                        [t1,y1] = cvode(odefcn, tspan, y0, method="BDF", hMax = 0.2);
+                        [t2,y2] = cvode(odefcn, tspan, y0, method="BDF", hMax = 0.2, nonNegative=1);
+                        plot(t1,y1,"-o",t2,y2,"-or");
+                        legend("No constraint","nonNegative");
+                        ]]></programlisting>
+                        <scilab:image>
+                            xspan = [0 2];
+                            deff("yd=odefcn(x,y)","yd=((1-x)*y - y^2)/1e-6");
+                            [x1,y1] = cvode(odefcn, xspan, 1, method="BDF", hMax = 0.2);
+                            [x2,y2] = cvode(odefcn, xspan, 1, method="BDF", hMax = 0.2, nonNegative=1);
+                            plot(x1,y1,"-o",x2,y2,"-or");
+                            gcf().axes_size(2)=300  
+                            legend("No constraint","nonNegative");
+                        </scilab:image>
+                    </para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>jacobian, jacBand, jacPattern, jacNonZeros</td>
+                    <td>    
+                        <para>These options allow to specify a user-supplied Jacobian or its approximation
+                            when an implicit method is used. Please see the dedicated
+                            <link linkend="sundials_jacobian">Jacobian</link> page.</para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>events, nbEvents, evDir, evTerm</td>
+                    <td>
+                        <para>The solver can record the values of (t,y) when a component of a given function g(t,y) vanishes.
+                            A detailed explanation and examples are given in the dedicated
+                            <link linkend="sundials_event">Events</link> page.</para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>callback</td>
+                    <td>
+                        <para>The solver can call a user function after each successfull internal or user prescribed step. See the  dedicated <link linkend="sundials_callback">Callback</link>
+                        page for explanations and use cases.
+                    </para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>nbThreads</td>
+                    <td>
+                        <para>A positive integer. This option is available when Scilab has been compiled with OpemMP support
+                            (<ulink url="https://www.openmp.org/">https://www.openmp.org</ulink>). It allows the use of multiple cores of
+                            the processor during calculations involving vectors in the solver algorithm. However, 
+                             testing has shown that vectors should be of length at least 100000 before the overhead associated with creating
+                             and using the threads is made up by the parallelism in the vector calculations. Moreover, 
+                             in order to fully take advantage of this option, C or C++ entrypoints should also be used.
+                    </para>
+                    </td>
+                </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+
+    <refsection role="description">
+        <title>cvode and ida options</title>
+        <para>cvode and ida accept the following specific options related to pure quadrature states and sensitivity computation:
+        </para>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>quadRhs, yQ0</td>
+                        <td>    
+                            <para>See the specific <link linkend="sundials_quadrature">pure quarature</link> help page.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>sensPar, sensParIndex, sensRhs, sensRes, sensErrCon, sensCorrStep, typicalPar, yS0, ypS0</td>
+                        <td>    
+                            <para>These options allow to trigger and parametrize sensitivity computation. Please 
+                            see the dedicated <link linkend="cvodes">ODE Sensitivity</link> and <link linkend="idas">DAE Sensitivity</link> help pages.</para>
+                        </td>
+                    </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+
+    <refsection role="description">
+        <title>cvode options</title>
+        <para>cvode accept the following specific options:
+        </para>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>projection, projectError</td>
+                        <td>    
+                            <para>See the projection section of the <link linkend="cvode_proj">cvode help page</link>.</para>
+                        </td>
+                    </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+
+    <refsection role="description">
+        <title>ida options</title>
+        <para>ida accepts options that only make sense for differential-algebraic implicit equations:
+        </para>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>calcIC</td>
+                        <td>    
+                            <para>A string specifying the type of initial condition to compute if <literal>y0,yp0</literal> vectors do not verify the equation F(t0,y0,yp0)=0.
+                            This string can be "yp0y0", in this case yp0 and the algebraic (non-differential) states of y0 are computed, knowing the differential states. 
+                            The algebraic states are specified with the <literal>yIsAlgebraic</literal> option. It can also be "y0" and in that case y0 is computed knowing yp0.
+                            The provided <literal>y0,yp0</literal> vectors in the <literal>ida</literal> call are used as inital guesses.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>yIsAlgebraic</td>
+                        <td>    
+                            <para>A vector of integer indices of algebraic states.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>supressAlg</td>
+                        <td>    
+                            <para>A boolean. If suppressAlg = %T, then the algebraic variables are excluded from the local error test. See the dedicated section
+                                in the <link linkend="ida_high_index">ida</link> help page.
+                            </para>
+                        </td>
+                    </tr>
+                </tbody>
+            </informaltable>
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function res = weissinger(t,y,yp)
+                res=t*y^2 * yp^3 - y^3 * yp^2 + t*(t^2 + 1)*yp - t^2 * y;
+            end
+            t0=1;
+            y0=sqrt(3/2);
+            yp0=0;
+            [t,y]=ida(weissinger,[1 10],y0,yp0,calcIc="y0yp0");
+            ]]></programlisting>
+        </para>
+    </refsection>
+
+    <refsection role="description">
+        <title>arkode options</title>
+        <para>arkode accepts the following specific options:
+        </para>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>stiffRhs</td>
+                        <td>    
+                            <para>A function, a string or a list, the stiff right hand side of the differential equation when implicit/explicit integration
+                                is to be performed. See the paragraph about implicit/explicit solver splitting in the <link linkend="arkode_imex">arkode help page</link>.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ERKButcherTab, DIRKButcherTab</td>
+                        <td>    
+                            <para>A matrix of size (s+2,s+1) or (s+1,s+1) where s is the number of stages of the method. See the paragraph about custom tableaux in the <link linkend="arkode_custom_tableaux">arkode help page</link>.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>fixedStep</td>
+                        <td>    
+                            <para>A positive number giving the fixed step value when adaptive stepping is to be disabled. Be warned that
+                                with a fixed step no error control occurs hence the computed solution may be very inaccurate.
+                            </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>mass</td>
+                        <td>    
+                            <para>A Scilab function, a list, a string or a matrix (dense or sparse).</para>
+                            <para>When passed as a constant matrix or as the output of a Scilab function, the mass matrix can be a dense, sparse or band matrix. In the latter case
+                                the <code>massBand</code> option must be set and the matrix must be dense and have mu+ml+1 rows and n columns, where n is the state dimension 
+                                (packed column-major banded format).
+                            </para>
+                                <para>See the Mass section on the 
+                                    <link linkend="arkode_mass">arkode help page</link> for more information and examples.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>massBand</td>
+                        <td>    
+                            <para>A vector of two positive integers [mu,ml] giving respectively the upper and lower half bandwidth of the mass matrix.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>massNonZeros</td>
+                        <td>    
+                            <para>An integer, the number of non-zeros terms when the Mass matrix is sparse and given as the output of a SUNDIALS DLL entrypoint.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>interpolation</td>
+                        <td>    
+                            <para>The interpolation method used to compute the solution between solver steps when dense output is required. "Hermite" (the default) and "Lagrange" interpolation methods can be chosen when using arkode. The Lagrange method is recommended when the ode is stiff and the rhs has a large Lipschitz constant.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>degree</td>
+                        <td>    
+                            <para>The degree of the polynomial used by arkode for dense output. Defaults to 3 for both Hermite (maximum is 5) and Lagrange methods (maximum is 3).</para>
+                        </td>
+                    </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

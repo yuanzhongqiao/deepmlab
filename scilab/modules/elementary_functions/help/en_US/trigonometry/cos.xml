@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:id="cos" xml:lang="en">
+    <refnamediv>
+        <refname>cos</refname>
+        <refpurpose>cosine function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[y]=cos(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real or complex vector/matrix</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            For a vector or a matrix, <literal>cos(x)</literal> is the cosine of
+            its elements . For matrix cosine use <literal>cosm(X)</literal>
+            function.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Sample</title>
+        <scilab:image>
+            x = -%pi*2:.05:%pi*2;
+            plot(x,cos(x))
+        </scilab:image>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x=[0,1,%i]
+acos(cos(x))
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cosd">cosd</link>
+            </member>
+            <member>
+                <link linkend="acos">acos</link>
+            </member>
+            <member>
+                <link linkend="acosd">acosd</link>
+            </member>
+            <member>
+                <link linkend="cosm">cosm</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

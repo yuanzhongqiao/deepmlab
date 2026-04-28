@@ -1,0 +1,21 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2023 - Dassault Systèmes S.E. - Clément DAVID
+#
+#
+# This Dockerfile describe the configuration of a Linux Fedora image base system
+#
+
+ARG DISTRO=fedora:40
+FROM $DISTRO
+
+RUN dnf install -y \
+  xorg-x11-server-Xvfb \
+  libXft \
+  util-linux \
+  xz \
+  libXtst \
+  && dnf clean all \
+  && rm -fr /var/cache/*
+
+RUN useradd --create-home scilab
+USER scilab

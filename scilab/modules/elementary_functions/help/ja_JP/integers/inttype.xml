@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<!--  module: integer  -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="inttype">
+    <refnamediv>
+        <refname>inttype</refname>
+        <refpurpose>整数データ型で使用される整数型</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>[i]=inttype(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>整数の行列 (int8,..参照)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>整数</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>inttype(x)</literal>  は<literal>x</literal>
+            のエントリの型を以下のように整数で返します :
+        </para>
+        <para>
+            1
+            :  1バイト整数表現
+        </para>
+        <para>
+            2
+            :  2バイト整数表現
+        </para>
+        <para>
+            4
+            :  4バイト整数表現
+        </para>
+        <para>
+            8
+            :  8バイト整数表現
+        </para>
+        <para>
+            11
+            :  1バイト符号なし整数表現
+        </para>
+        <para>
+            12
+            :  2バイト符号なし整数表現
+        </para>
+        <para>
+            14
+            :  4バイト符号なし整数表現
+        </para>
+        <para>
+            18
+            :  8バイト符号なし整数表現
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+x=uint16(1:10);
+inttype(x)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="int8">int8</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

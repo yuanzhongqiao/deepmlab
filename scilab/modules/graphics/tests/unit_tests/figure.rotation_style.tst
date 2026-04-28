@@ -1,0 +1,28 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechalinria.fr>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// Create a default figure
+my_figure = scf();
+clf(my_figure,"reset");
+
+// Test the default value
+assert_checkequal(my_figure.rotation_style, "unary");
+
+// Test the allocation
+my_figure.rotation_style = "multiple";
+assert_checkequal(my_figure.rotation_style, "multiple");
+
+execstr("my_figure.rotation_style = ''badvalue''",'errcatch','n');
+assert_checkequal(my_figure.rotation_style, "multiple");
+
+my_figure.rotation_style = "unary";
+assert_checkequal(my_figure.rotation_style, "unary");
+
+// Delete
+delete(my_figure);

@@ -1,0 +1,22 @@
+; Definition of lib for documentation build used in Scilab 
+
+; xml.apache.org SVG Library 
+batik.jar=@BATIK@
+
+; Reusable components used by Batik and FOP 
+fop-core.jar=@FOP_CORE@
+
+; LaTeX plugin
+jlatexmath-fop.jar=@JLATEXMATH_FOP@
+
+; A complete MathML rendering solution 
+jeuclid-core.jar=@JEUCLID_CORE@
+
+commons-io.jar=@COMMONS_IO@
+
+xmlgraphics-commons.jar=@XMLGRAPHICS_COMMONS@
+
+xml_apis_ext.jar = @XML_APIS_EXT@
+
+library.helptools.dir=${modules.dir}/helptools/${build.jar.dir}/
+library.helptools.name=org.scilab.modules.helptools.jar

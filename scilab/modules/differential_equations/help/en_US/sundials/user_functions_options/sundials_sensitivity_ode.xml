@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="cvodes" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Sensitivity (ODE)</refname>
+        <refpurpose>Forward Sensitivity computation with cvode</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [t,y,info] = cvode(f,tspan,y0, sensPar = pvalue, options)
+            sol = cvode( ... , sensPar = pvalue, options)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>pvalue</term>
+                <listitem>    
+                    <para>a real double array: the value of parameters with respect to which sensitivity is computed</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>    
+                    <para>a sequence of optional named arguments (see the <link linkend="sundials_options">solvers options</link>) and below for sensitivity
+                    specific options.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>    
+                    <para>vector of time points used by the solver.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>array of solution at time values in <term>t</term></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>info</term>
+                <listitem>
+                    <para>MList of <literal>_odeSolution</literal> type with solver information, 
+                    user events information (if applicable), statistics and sensitivity of the solution at solver time points.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sol</term>
+                <listitem>
+                    <para>MList of <literal>_odeSolution</literal> type</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+
+        <para>While integrating an ODE where the right hand side f(t,y,p) depends on a vector p of parameters, cvode can compute simultaneously the
+            solution vector y at given time points and also <latex style="inline">S={\partial y}/{\partial p</latex> the derivative of the solution with 
+            respect to p, i.e. the sensitivity matrix/function. 
+            This amounts to augment the original ODE with the sensitivity equation, which is obtained by formal derivation of the original ODE
+            with respect to p:
+            </para>
+            <para>
+                <latex style="display">
+                    \begin{array}{rcl}y^\prime &amp; = &amp; f(t,y,p),\\
+                    S^\prime &amp; = &amp; \frac{\partial f}{\partial y}S+\frac{\partial f}{\partial p},\\
+                    y(t_0) &amp; = &amp;y_0(p),\\
+                    S(t_0) &amp; = &amp; \frac{\partial y_0(p)}{\partial p},
+                    \end{array}
+                </latex>
+            </para>
+            <para>
+                The sensitivity matrix is typically used when solving identification parameter problems, for example nonlinear regression, and it can serve both
+                aspects of the problem solution, i.e. qualitative and quantitative: studying the sensitivity on the time span can help to state identifiability 
+                of the parameters whereas computing the sensitivity at precise time points of measurements allows to compute the gradient of the squared norm of
+                the residual. 
+            </para>
+            <para>
+                When the right hand side of the ODE is
+                explicitely known then the right hand side of the sensitivity equation can be provided (see the <code>sensRhs</code> below), but cvode can also
+                approximate it by approximating directional derivatives by finite difference quotients.
+            </para>
+            <para>
+                The sensitivity computation is triggered by using the <code>sensPar</code> option:
+            </para>
+            <para>
+                <programlisting role="no-scilab-exec">
+                    <![CDATA[[t,y,info] = cvode(fun, tspan, y0, sensPar = pvalue)
+                    sol = cvode(fun, tspan, y0, sensPar = pvalue]]>
+                </programlisting>
+            </para>
+            <para>
+                where the sensitivity of the solution is retrieved in the "s" field of either the <term>info</term> or <term>sol</term> output argument. 
+                When the right hand side of the ODE is yielded by a Scilab function, the protoype of <literal>fun</literal> must include a formal
+                input argument after the regular (t,y) pair (denoted p below), which will contain the parameter values. Additionnal user parameters
+                must be given as explained in the <link linkend="sundials_user_functions">User functions</link> help page :
+            </para> 
+            <para>
+                <programlisting role="no-scilab-exec"><![CDATA[dydt = fun(t, y, p, ...)]]></programlisting>
+            </para>
+            <para>
+                When the right hand side of the ODE is yielded by a DLL entry point, as only one array of double values can be passed,
+                complimentary user parameters must be passed together with sensitivity parameters in the same vector. The actual sensitivity
+                parameters can be precised by using the <code>sensParIndex</code> (see below).
+            </para>
+            <para>
+                Note that the yielded <term>s</term> array has dimensions (length(y0), length(p), length(t)) but singleton dimensions are squeezed when
+                p or the ODE state is a scalar. The sensitivity related output arguments <term>s</term> and <term>se</term> can also be recovered in 
+                the solution output as complimentary fields.
+            </para>
+    </refsection>
+
+    <refsection role="example">
+        <title>Example</title>
+        <para>Here we compute the sensitivity of the solution of the SIR epidemiologic system with respect to initial value y2(0), parameters β, γ and
+            plot only the sensitivity of y(2) with respect to β and γ. Option <code>yS0</code> allows to give the initial value of the sensitivity.
+        </para>
+        <para>
+            <programlisting><![CDATA[
+                function dydt = sir(t,y,p)
+                    β = p(2);
+                    γ = p(3);
+                    dydt = [-β*y(1)*y(2)
+                             β*y(1)*y(2)-γ*y(2)  
+                             γ*y(2)];
+                end
+                y20 = 1e-6;
+                β = 0.2;
+                γ = 0.05;
+                y0 = [1-y20; y20; 0];
+                [t,y,info] = cvode(sir, [0 200], y0, sensPar = [y20;β;γ], yS0 = [-1 0 0 ;1 0 0;0 0 0], method="BDF");
+                plot(t',squeeze(info.s(2,2:3,:))')
+                legend("$\Large\partial y_2/\partial"+["\beta","\gamma"]+"$");
+                ]]>
+            </programlisting>
+            <scilab:image>
+                function dydt = sir(t,y,p)
+                    β = p(2);
+                    γ = p(3);
+                    dydt = [-β*y(1)*y(2)
+                             β*y(1)*y(2)-γ*y(2)  
+                             γ*y(2)];
+                end
+                y20 = 1e-6;
+                β = 0.2;
+                γ = 0.05;
+                y0 = [1-y20; y20; 0];
+                [t,y,info]=cvode(sir, [0 200], y0, sensPar = [y20;β;γ], yS0 = [-1 0 0 ;1 0 0;0 0 0], method="BDF");
+                plot(t',squeeze(info.s(2,2:3,:))')
+                legend("$\Large\partial y_2/\partial"+["\beta","\gamma"]+"$");
+            </scilab:image>
+        </para>
+    </refsection>
+    
+    <refsection role="example">
+        <title>Options</title>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>sensPar</td>
+                        <td>    
+                            <para>a double array with the values of parameters w.r.t. which sensitivity is to be computed.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>sensParIndex</td>
+                        <td>    
+                            <para>an array of integers between 1 and <code>length(sensPar)</code>. It allows to define a subset
+                            of the parameter components w.r.t. which sensitivity is to be computed. In the following example we compute the sensitivity
+                            of the SIR system with respect to β only, and the yielded matrix <code>s</code> has only two dimensions.</para>
+                            <para>
+                                <programlisting><![CDATA[
+                                    function dydt = sir(t,y,p)
+                                        β = p(2);
+                                        γ = p(3);
+                                        dydt = [-β*y(1)*y(2)
+                                                 β*y(1)*y(2)-γ*y(2)  
+                                                 γ*y(2)];
+                                    end
+                                    y20 = 1e-6;
+                                    β = 0.2;
+                                    γ = 0.05;
+                                    y0 = [1-y20; y20; 0];
+                                    [t,y,info]=cvode(sir, [0 200], y0, sensPar=[y20;β;γ], sensParIndex=2, method="BDF");
+                                    plot(t',info.s')
+                                    legend("$\Large\partial y_"+["1","2","3"]+"/\partial \beta$");
+                                    ]]>
+                                </programlisting>            
+                                <scilab:image>
+                                    function dydt = sir(t,y,p)
+                                        β = p(2);
+                                        γ = p(3);
+                                        dydt = [-β*y(1)*y(2)
+                                                 β*y(1)*y(2)-γ*y(2)  
+                                                 γ*y(2)];
+                                    end
+                                    y20 = 1e-6;
+                                    β = 0.2;
+                                    γ = 0.05;
+                                    y0 = [1-y20; y20; 0];
+                                    [t,y,info]=cvode(sir, [0 200], y0, sensPar=[y20;β;γ], sensParIndex=2, method="BDF");
+                                    plot(t',info.s')
+                                    legend("$\Large\partial y_"+["1","2","3"]+"/\partial \beta$");
+            </scilab:image>
+        </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>yS0</td>
+                        <td>    
+                            <para>The initial condition of the sensitivity function, i.e. <latex>\partial y0(p)/\partial p</latex>.
+                            If sensParIndex options is used then the number of colums of yS0 must be compatible, i.e.
+                            <code>size(yS0,2) == length(sensParIndex)</code>. The default value is a null matrix (the initial condition
+                            does not depend on the parameters).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>sensRhs</td>
+                        <td>    
+                            <para>
+                            a function, a string or a list, the right hand side of the sensitivity function. When the right hand side of the ODE is known explicitely and 
+                            computation of its derivative is tractable (e.g. by symbolic differentiation or by any automatic procedure, including complex step), giving the
+                            true rhs of the sensitivity function improves the precision and the computation time. When sensRhs is a Scilab function, its prototype must be
+                        </para>
+                        <para>
+                            <programlisting role="no-scilab-exec"><![CDATA[dsdt = sensRhs(t, y, s, p, ...)]]></programlisting>
+                        </para>
+                        <para>
+                            In the following example, the sensParIndex is only used to guess the number of actual sensitivity parameters (here only beta) when they
+                            are not all considered:
+                        </para>
+                        <para>
+                            <programlisting><![CDATA[
+                                function dydt = sir(t,y,p)
+                                    β = p(2);
+                                    γ = p(3);
+                                    dydt = [-β*y(1)*y(2)
+                                             β*y(1)*y(2)-γ*y(2)  
+                                             γ*y(2)];
+                                end
+                                function dsdt = sirSens(t,y,s,p)
+                                    β = p(2);
+                                    γ = p(3);
+                                    ds1dt = -β*(y(2)*s(1)+y(1)*s(2))-y(1)*y(2);
+                                    dsdt = [ ds1dt; -ds1dt-γ*s(2); γ*s(2)]
+                                end
+                                y20 = 1e-6;
+                                β = 0.2;
+                                γ = 0.05;
+                                y0 = [1-y20; y20; 0];
+                                [t,y,info]=cvode(sir, [0 200], y0, sensPar=[y20;β;γ], sensParIndex=2, sensRhs=sirSens, method="BDF");
+                                plot(t,info.s)
+                                legend("$\Large\partial y_"+["1","2","3"]+"/\partial \beta$");
+                                ]]>
+                            </programlisting>
+                        </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>sensErrCon</td>
+                        <td>    
+                            <para>By default, sensErrCon is set to %f. If sensErrCon=%t then both state variables and sensitivity variables are included in the error tests.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>sensCorrStep</td>
+                        <td>    
+                            <para>"simultaneous" (the default) or "staggered": when sensCorrStep="simultaneous", the state and sensitivity variables are corrected at the same time. 
+                                If sensCorrStep="staggered", the correction step for the sensitivity variables takes place at the same time for all sensitivity equations, but only
+                                after the correction of the state variables has converged and the state variables have passed the local error test.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>typicalPar</td>
+                        <td>    
+                            <para>This option serves as positive scaling factors when the right-hand side of the sensitivity is computed by cvode using internal finite difference-quotients.
+                                 The results will be more accurate if an order of magnitude information is provided. Typically, if no component vanishes, the value of sensPar can be used.</para>
+                        </td>
+                    </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="idas">DAE Sensitivity</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+            <member>
+                <link linkend="SUN_Clink">SUN_Clink</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+</refentry>

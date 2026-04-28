@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2017 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="type">
+    <refnamediv>
+        <refname>type</refname>
+        <refpurpose>возвращает тип переменной</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>i = type(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>объект Scilab'а.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>целое число.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <code>type(x)</code> возвращает целое число, которое равно типу <varname>x</varname>:
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>1</term>
+                <listitem>
+                     <para>
+                        матрица вещественных или комплексных значений удвоенной точности (double).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>2</term>
+                <listitem>
+                     <para>
+                        матрица <link linkend="poly">полиномов</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>4</term>
+                <listitem>
+                     <para>
+                        матрица <link linkend="matrices">логических</link> значений.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>5</term>
+                <listitem>
+                     <para><link linkend="sparse">разрежённая</link> матрица.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>6</term>
+                <listitem>
+                     <para><link linkend="sparse">разрежённая</link> матрица логических значений.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>7</term>
+                <listitem>
+                     <para>
+                        разрежённая матрица Matlab'а.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>8</term>
+                <listitem>
+                     <para>
+                        матрица <link linkend="int8">целочисленных</link> значений, хранимых в 1
+                        (<literal>int8</literal>), 2 (<literal>int16</literal>) ,
+                        4 (<literal>int32</literal>) или 8 (<literal>int64</literal>) байтах.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>9</term>
+                <listitem>
+                     <para>
+                        матрица <link linkend="graphics_entities">графических дескрипторов</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>10</term>
+                <listitem>
+                     <para>
+                        матрица <link linkend="strings">символьных строк</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>13</term>
+                <listitem>
+                     <para>
+                        компилированная <link linkend="function">функция</link> (Scilab code).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>14</term>
+                <listitem>
+                     <para><link linkend="library">библиотека</link> функций.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>15</term>
+                <listitem>
+                     <para>
+                        список (<link linkend="list">list</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>16</term>
+                <listitem>
+                     <para>
+                        типизированный список (<link linkend="tlist">tlist</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>17</term>
+                <listitem>
+                     <para>
+                        матричноориентированный типизированный список (<link linkend="mlist">mlist</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>128</term>
+                <listitem>
+                     <para>
+                        идентификатор блока Xcos, результата <link linkend="lufact">lufact</link>() и т. д.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>129</term>
+                <listitem>
+                     <para>
+                        размер неявного многочлена, используемый для индексации.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>130</term>
+                <listitem>
+                     <para>
+                        встроенная функция Scilab'а, называемая также <emphasis role="italic">шлюзом</emphasis> (код C, C++ или Fortran).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>0</term>
+                <listitem>
+                     <para>
+                        Неопределённый компонент  простого списка. Такой компонент может быть в качестве
+                        опущенного входного аргумента при вызове Scilab-функции, как, например, в <literal>foo(a,,b)</literal>:
+                        внутри функции отсутствующий аргумент определён, но он нулевого типа. Определение
+                        <literal>L=list(%pi,,%i,,,%z)</literal> создаёт <literal>L(2)</literal> типа 0, и т.д.
+                        Для этих объектов <code>isdef()</code> возвращает <literal>%T</literal>, но
+                        их нулевой тип может быть проверен с помощью <literal>type()</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <refsect2>
+            <title>Примечания</title>
+            <para>
+               Некоторые данные могут быть сохранены в настраиваемых контейнерах, определённых как
+               типовые списки типа 16 (tlist) или 17 (матрично-ориентированный типизированный список
+               mlist). Это также и случай для встроенных типов, как например (<emphasis role="italic">рациональные числа</emphasis>),
+               (<emphasis role="italic">структуры</emphasis>), пространство состояний
+               <emphasis role="italic">state-space</emphasis>, интерактивные деревья
+               (<emphasis role="italic">uitree</emphasis>), и т.д., для которых
+               <literal>type(..)</literal> вернёт 16 или 17. Нужно использовать <link linkend="typeof">typeof</link>
+               для получения более детальной информации об их действительном (под)типе.
+            </para>
+            <para>
+                <emphasis role="bold">Преобразование типов в смешанных операциях</emphasis>:
+            </para>
+            <para>
+                Когда бинарный оператор (например, умножение) или n-арный итерационный оператор
+                (например, конкатенация) применяется межжду двумя операндами различных, но совместных
+                типов, обычно тип одного из двух неявно конвертируется, а другой операнд устанавливает
+                тип результата к своему собственному типу.
+                <para>
+                    Примеры с <link linkend="brackets">конкатенацией</link> :
+                    <code>[%t, 3.124]</code>, <code>[int8(5), 3.124]</code>, и т.д.
+                </para>
+                <para>
+                  Для конкатенации, сложения, вычитания, умножения, деления и возведения в степень
+                  иерархия между типами операндов следующая
+                (читай "A &lt; B": B устанавливает свой тип для A) :
+                <simplelist>
+                    <member>
+                        логическое &lt; (десятичное значение, комплекснозначное)
+                    </member>
+                    <member>
+                        <warning>
+                            (десятичное число, комплекснозначное число) &lt; кодированное целое.
+                        </warning>
+                    </member>
+                    <member>
+                        полиномиальное значение (вещественное | комплексное) &lt; рациональное
+                        значение (вещественное | комплексное)
+                    </member>
+                </simplelist>
+                </para>
+            </para>
+        </refsect2>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+// Выберите строки, щелкните их правой кнопкой мыши и выберите «Execute ..», чтобы запустить их
+L = list(%pi,,"abc");
+type(L(2))                  // неопределённый компонент списка
+
+type(42)                    // десятичные числа
+type(%nan)
+type(%inf)
+
+type(1+%i)                  // комплекснные числа
+
+s = sparse([1,2;4,5;3,10],[1,2,3]);
+type(s)                     // разрежённые десятичные или комплексные числа
+
+type(%t)                    // логические значения
+
+type(s>2)                   // разрежённые логические значения
+
+g = int8([1 -120 127 312]); // кодированные целые числа
+type(g)
+type(1.23 * int8(4))
+
+type(1-%z+%z^2)             // полиномиальные значения
+
+type(gdf())                 // указатели на графические окна
+
+type("foo")                 // текстовые значения
+
+deff('[x] = mymacro(y,z)',['a=3*y+1'; 'x=a*z+y']);
+type(mymacro)               // функции Scilab
+
+type(disp)                  // Встроенные фукнции
+
+l = list(1,["a" "b"]);      // простые списки
+type(l)
+
+e = tlist(["listtype","field1","field2"], [], []);
+type(e)                     // типизированный список
+
+h = mlist(['V','name','value'],['a','b';'c' 'd'],[1 2; 3 4]);
+type(h)                     // типизированный матрично-ориентированный список
+
+clear s, s.r = %pi          // структуры
+type(s)
+
+c = {%t %pi %i %z "abc" s}  // cell-массивы
+type(c)
+
+r = [%z/(1-%z) (1-%z)/%z^2]
+type(r)                     // рациональные дроби
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+            <member>
+                <link linkend="inttype">inttype</link>
+            </member>
+            <member>
+                <link linkend="isreal">isreal</link>
+            </member>
+            <member>
+                <link linkend="brackets">квадратные скобки</link>
+            </member>
+            <member>
+                <link linkend="overloading">перегрузка</link>
+            </member>
+            <member>
+                <link linkend="poly">poly</link>
+            </member>
+            <member>
+                <link linkend="rational">rational</link>
+            </member>
+            <member>
+                <link linkend="tlist">tlist</link>
+            </member>
+            <member>
+                <link linkend="mlist">mlist</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                  Тип 11 был удалён. Он использовался для некомпилировнных Scilab-функций.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

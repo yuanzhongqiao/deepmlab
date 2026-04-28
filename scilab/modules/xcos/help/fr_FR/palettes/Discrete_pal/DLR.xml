@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="DLR" xml:lang="fr">
+    <refnamediv>
+        <refname>DLR</refname>
+        <refpurpose>Fonction de transfert discrète</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/DLR.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_DLR">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_DLR">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_DLR">Paramètres</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_DLR">Propriétés par défaut</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_DLR">Fonction d'interfaçage</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_DLR">Fonction de calcul</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_DLR">
+        <title>Description</title>
+        <para>
+            Ce bloc réalise un système linéaire SISO représenté par sa fonction de transfert
+            rationnelle (avec la  variable symbolique z).
+            La fonction rationnelle doit être propre.
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_DLR">
+        <title>Paramètres</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/DLR_gui.gif"
+                            align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Numerator (z)</emphasis>
+                </para>
+                <para> Ce paramètre définit le numérateur de la fonction de transfert.</para>
+                <para>
+                    Ce doit être un polynôme en <emphasis role="bold">z</emphasis> .
+                </para>
+                <para> Propriétés : Type 'pol' de taille 1. </para>
+                <warning>
+                    Dans l'expression fournie, toute sous-expression représentant un exposant
+                    libélé soit par une variable (du contexte) dont le nom fait au moins 2
+                    caractères, soit par une expression (autre qu'un entier literal), doit se
+                    terminer par un espace (utilisé comme terminateur d'exposant). Dans le cas
+                    contraire, l'expression sera incorrectement affichée sur l'icône du bloc.
+                    <para/>
+                    Cette contrainte n'a cependant aucun effet sur la validité computationnelle
+                    de l'expression.
+                    <para/>
+                    Exemples: "z^12+1", "z^ +12+1", "z^+ 12+1" sont toutes affichées pour "z^{12}+1",
+                    alors que "1+z^ab+z^2" sera affichée comme "1+z^{ab+z^2}"
+                    (mais sera calculée comme <literal>1 + z^ab + z^2</literal>).
+                    Pour un affichage correct, "1+z^ab + z^2" devra être saisie.
+                    De même, "z^(ab+1) + 2" devra être saisie, au lieu de "z^(ab+1)+2".
+                </warning>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Denominator (z)</emphasis>
+                </para>
+                <para> Ce paramètre définit le dénominateur de la fonction de transfert.</para>
+                <para>
+                    Ce doit être un polynôme en <emphasis role="bold">z</emphasis> .
+                </para>
+                <para> Propriétés : Type 'pol' de taille 1.</para>
+                <para> Attention au libélé des exposants (voir <literal>Numerator</literal>).</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_DLR">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 1
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">dsslti4</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Interfacingfunction_DLR">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Linear/DLR.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_DLR">
+        <title>Fonction de calcul</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/src/c/dsslti4.c (Type 4)</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

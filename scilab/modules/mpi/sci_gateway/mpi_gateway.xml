@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "../../functions/mpi/gateway.dtd">
+<!--
+/*
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2015 - Scilab Enterprises - Cedric DELAMARRE
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ */
+ Scilab
+ Interface description. In this file, we define the list of the function which
+ will be available into Scilab and the link to the "native" function.
+
+ Don't touch if you do not know what you are doing
+-->
+<module name="mpi">
+    <gateway name="sci_mpi_init"                function="MPI_Init"                 type="0" />
+    <gateway name="sci_mpi_finalize"            function="MPI_Finalize"             type="0" />
+    <gateway name="sci_mpi_comm_size"           function="MPI_Comm_size"            type="0" />
+    <gateway name="sci_mpi_comm_rank"           function="MPI_Comm_rank"            type="0" />
+    <gateway name="sci_mpi_recv"                function="MPI_Recv"                 type="0" />
+    <gateway name="sci_mpi_send"                function="MPI_Send"                 type="0" />
+    <gateway name="sci_mpi_get_processor_name"  function="MPI_Get_processor_name"   type="0" />
+    <gateway name="sci_mpi_bcast"               function="MPI_Bcast"                type="0" />
+    <gateway name="sci_mpi_irecv"               function="MPI_Irecv"                type="0" />
+    <gateway name="sci_mpi_isend"               function="MPI_Isend"                type="0" />
+    <gateway name="sci_mpi_wait"                function="MPI_Wait"                 type="0" />
+    <gateway name="sci_mpi_createComm"          function="MPI_Create_comm"          type="1" />
+</module>

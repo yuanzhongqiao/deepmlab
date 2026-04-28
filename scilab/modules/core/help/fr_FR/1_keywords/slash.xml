@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="fr" xml:id="slash">
+    <refnamediv>
+        <refname>slash (/)</refname>
+        <refpurpose>division à droite et feedback  </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            X = A / B        // while A = X * B
+            X = A ./ B       // while A = X .* B
+            X = A ./. B      // while A = X .*. B
+            S = G /. K
+            // on-row comment
+            /* block of multilines comments */
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Division à droite.  <literal>x=A / b</literal> est la solution de <literal>x*b=A</literal>.
+        </para>
+        <para>
+            <literal>b/a = (a' \ b')'</literal>.
+        </para>
+        <para>
+            <literal>a./  b</literal> est la matrice dont les termes sont égaux à
+            <literal>a(i,j)/ b(i,j)</literal>.
+            Si <literal>b</literal> est un scalaire (matrice 1x1) cette opération est la même que
+            <literal> a./b*ones(a)</literal> (même convention si <literal>a</literal> est un scalaire).
+        </para>
+        <para>
+            L'anti-slash ("contre-barre" ou backslash) signifie quant à lui la division à gauche
+           (voir <literal>backslash</literal>).
+        </para>
+        <para>
+            Feedback de systèmes dynamiques.
+            <literal>S=G/.K</literal> évalue <literal>S=G*(eye()+K*G)^(-1)</literal>.
+            Cet opérateur évite des problèmes de simplification.
+        </para>
+        <note>
+            Noter que <literal>123./b</literal> est interprété comme <literal>(123)./b</literal>.
+            Dans de tels cas, le point fait partie de l'opérateur, non du nombre décimal.
+          <para/>
+            Mais attention : <literal>G/.5</literal> est interprété comme <literal>G/(.5)</literal> :
+            Le point fait ici partie du nombre décimal, non de l'opérateur, contrairement
+            à <literal>G/. 5</literal>
+        </note>
+        <para>
+        </para>
+        <para>
+            La suite de symboles <literal>//</literal> met une ligne en commentaire, c'est à dire,
+            les lignes commençant par <literal>//</literal> sont ignorées par l'interpréteur.
+        </para>
+        <para>
+            De le même façon, <literal>/*</literal> débute un commentaire et <literal>*/</literal>
+            termine un commentaire.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+a = [3.,-24.,30.];
+B = [
+   9.   -36.    30.
+  -36.   192.  -180.
+   30.  -180.   180.
+];
+x = a / B
+x*B-a // proche de zéro
+
+a = 4 / 2;      // valeur 2 attendue
+a = 2 ./ [2,4]; //   [1. 0.5]
+     ]]></programlisting>
+        <para>
+            Division tensorielle de Kronecker à droite :
+        </para>
+        <programlisting role="example"><![CDATA[
+A = [1 100 ; 10 1000], B = [1 2 4],
+P = A .*. B
+P ./. B
+ ]]></programlisting>
+    <screen><![CDATA[
+--> A = [1 100 ; 10 1000], B = [1 2 4],
+ A  =
+   1.    100.
+   10.   1000.
+
+ B  =
+   1.   2.   4.
+
+--> P = A .*. B
+ P  =
+   1.    2.    4.    100.    200.    400.
+   10.   20.   40.   1000.   2000.   4000.
+
+--> P ./. B
+ ans  =
+   1.   100.
+   10.  1000.
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+// Un commentaire aide à comprendre le code.
+a = 1;  // Commentaire en queue de ligne
+/* Même longs, sur plusieurs lignes,
+les commentaires sont utiles. */
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="inv">inv</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+            <member>
+                <link linkend="krondivide">kron ./.</link>
+            </member>
+            <member>
+                <link linkend="comments">comments</link>
+            </member>
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revremark>
+                  The threshold level which switches between Gaussian Elimination with row pivoting
+                  and linear least squares when computing B/A is decreased from sqrt(eps) to eps.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                  1./B  signifie désormais 1 ./ B, non plus 1. / B
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

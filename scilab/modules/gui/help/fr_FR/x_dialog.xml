@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="x_dialog">
+    <refnamediv>
+        <refname>x_dialog</refname>
+        <refpurpose>boîte de dialogue  </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            result = x_dialog(labels, valueini)
+            result = x_dialog(labels, valueini, ispassword)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>labels</term>
+                <listitem>
+                    <para>vecteur de chaînes de caractères. Commentaire de la boîte
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>valueini</term>
+                <listitem>
+                    <para>vecteur de n chaînes de caractères. Valeurs suggérées
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ispassword</term>
+                <listitem>
+                    <para>Scalaire de type booléen: si sa valeur vaut <literal>%T</literal>, cette boîte de dialogue servira à saisir un mot de passe, les caractères saisis par l'utilisateur seront cachés et la valeur retournée sera une chaîne de caractère. La valeur par défaut est <literal>%F</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>vecteur de n chaînes de caractères si le bouton "Ok" est pressé ou [] si "Cancel" a été pressé.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Crée une boîte de dialogue à plusieurs lignes.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+gain=evstr(x_dialog('Valeur du gain ?','0.235'))
+x_dialog(['Methode';'Saisir la periode d''echantillonnage'],'1')
+m=evstr(x_dialog('Saisir une matrice 3x3',['[0 0 0';'0 0 0';'0 0 0]']))
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+motdepasse = x_dialog("Entez votre mot de passe :","scilab", %t)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="x_mdialog">x_mdialog</link>
+            </member>
+            <member>
+                <link linkend="x_matrix">x_matrix</link>
+            </member>
+            <member>
+                <link linkend="evstr">evstr</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>Ajout du paramètre <literal>ispassword</literal>.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

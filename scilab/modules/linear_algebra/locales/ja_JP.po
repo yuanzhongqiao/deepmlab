@@ -1,0 +1,738 @@
+# Japanese translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Rui Hirokawa <Unknown>\n"
+"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-Language: Japanese\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: 入力引数 #%d を読み込めません.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
+msgstr ""
+"%s: 引数 #%d の型が間違っています:　実数または複素数の行列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String or integer expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています:  文字列または整数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d の大きさが間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s, %s, %s, or %s expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: %s, %s, %s, または %s を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s, %s, %s or %s expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: %s, %s, %s または %s を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 実数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A real scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: 実数のスカラーを1つ指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: 出力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Arguments %d and %d must have equal dimensions.\n"
+msgstr "%s: 引数 %d と %d の次元が等しい必要があります.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: Square matrix expected.\n"
+msgstr "%s: 引数 %d の型が間違っています: 正方行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Cannot allocate more memory.\n"
+msgstr "%s: メモリを確保できません.\n"
+
+#, c-format
+msgid "%s: LAPACK error n%d.\n"
+msgstr "%s: LAPACKエラー n%d.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 出力引数の数が間違っています: %d から %d  個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: Real or complex matrix expected.\n"
+msgstr ""
+"%s: 入力引数 %d の型が間違っています: 実数または複素数の行列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: A scalar expected.\n"
+msgstr "%s: 引数 %d の型が間違っています: スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgstr ""
+"%s: 引数 %d の値が間違っています: NaNまたはInfを含めることはできません.\n"
+
+#, c-format
+msgid "%s: Allocation failed.\n"
+msgstr "%s: 確保に失敗しました.\n"
+
+#
+# File: sci_gateway/c/sci_bdiag.c, line: 97
+#, c-format
+msgid "%s: Non convergence in QR steps.\n"
+msgstr "%s: QR反復が収束しません。\n"
+
+#, c-format
+msgid "%s: Matrix is not positive definite.\n"
+msgstr "%s: 行列が正定ではありません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Square matrix expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 正方行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Size varying argument a*eye(), (arg %d) not allowed here.\n"
+msgstr "%s: 大きさが可変の引数 a*eye(), (arg %d) はここで使用できません.\n"
+
+#, c-format
+msgid "%s: Argument %d: Square matrix expected. Please use pinv() otherwise.\n"
+msgstr ""
+
+msgid "Warning :\n"
+msgstr "警告:\n"
+
+#, c-format
+msgid "matrix is close to singular or badly scaled. rcond = %1.4E\n"
+msgstr "行列が特異に近いかスケーリング異常です. rcond=%1.4E\n"
+
+#, c-format
+msgid "%s: Problem is singular.\n"
+msgstr "%s: 問題が特異です.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A Real expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 実数を指定してください.\n"
+
+#, c-format
+msgid "%s: %s and %s must have equal number of rows.\n"
+msgstr "%s: %sおよび%sの行数は等しい必要があります.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Real scalar expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 実スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real or a string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 実数または文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Arg %d and arg %d must have equal dimensions.\n"
+msgstr "%s: 引数 %d および引数 %d の次元が等しい必要があります.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d or %d expected.\n"
+msgstr ""
+"%s: 出力変数の数が間違っています: %d または %d 個の変数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Real matrix expected.\n"
+msgstr "%s: 入力引数 #%d の型に誤りがあります: 実数行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Subroutine not found: %s\n"
+msgstr "%s: サブルーチンが見つかりません: %s\n"
+
+#, c-format
+msgid "%s: Schur exit with state %d\n"
+msgstr "%s: Schurがステート %dで終了しました\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument %d: Must not contain NaN or Inf.\n"
+msgstr ""
+"%s: 入力引数 %dの値が間違っています: NaNまたはInfを含んではいけません.\n"
+
+#, c-format
+msgid ""
+"%s: On entry to ZGEEV parameter number  3 had an illegal value (lapack "
+"library problem).\n"
+msgstr ""
+"%s: ZGEEVのエントリにおいて,パラメータ番号3の値が間違っています (lapackライブ"
+"ラリの問題).\n"
+
+#, c-format
+msgid ""
+"%s: Convergence problem, %d off-diagonal elements of an intermediate "
+"tridiagonal form did not converge to zero.\n"
+msgstr ""
+"%s: 収束に問題があり, 中間三重対角形式の%d 非対角項がゼロに収束しませんでし"
+"た.\n"
+
+#, c-format
+msgid ""
+"%s: On entry to ZHEEV parameter number  3 had an illegal value (lapack "
+"library problem).\n"
+msgstr ""
+"%s: ZHEEVのエントリにおいて, パラメータ番号3の値が間違っています (lapackライ"
+"ブラリの問題).\n"
+
+#, c-format
+msgid ""
+"%s: The QR algorithm failed to compute all the eigenvalues, and no "
+"eigenvectors have been computed. Elements and %d+1:N of W contain "
+"eigenvalues which have converged.\n"
+msgstr ""
+"%s: QRアルゴリズムが全固有値の計算に失敗し,固有ベクトルが計算されませんでし"
+"た. 要素と Wの%d+1:Nは収束した固有値を有しています.\n"
+
+#, c-format
+msgid ""
+"%s: The QR algorithm failed to compute all the eigenvalues, and no "
+"eigenvectors have been computed. Elements and %d+1:N of WR and WI contain "
+"eigenvalues which have converged.\n"
+msgstr ""
+"%s: QRアルゴリズムが全固有値の計算に失敗し,固有ベクトルが計算されませんでし"
+"た. 要素と WRとWIの%d+1:Nは収束した固有値を有しています.\n"
+
+msgid "Non convergence in the QZ algorithm.\n"
+msgstr "QZアルゴリズムが収束しませんでした.\n"
+
+#, c-format
+msgid "The top %d  x %d blocks may not be in generalized Schur form.\n"
+msgstr ""
+"上位の %d x %d ブロックは一般化 Schur 形式にすることができないかもしれませ"
+"ん.\n"
+
+#, c-format
+msgid "%s: The QZ iteration failed in DGGEV.\n"
+msgstr "%s: DGGEVにおけるQZ反復が失敗しました.\n"
+
+#, c-format
+msgid "%s: Other than QZ iteration failed in DHGEQZ.\n"
+msgstr "%s: DHGEQZにおけるQZ反復以外が失敗しました.\n"
+
+#, c-format
+msgid "%s: Error return from DTGEVC.\n"
+msgstr "%s: DTGEVCからエラーが返されました.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): At least %d expected.\n"
+msgstr "%s: 出力引数の数が間違っています: %d 個以上を指定してください.\n"
+
+#, c-format
+msgid "%s: Convergence problem...\n"
+msgstr "%s: 収束の問題があります...\n"
+
+#, c-format
+msgid "Argument %d in dgees had an illegal value.\n"
+msgstr "引数 %d (度)の値が間違っています.\n"
+
+msgid "The QR algorithm failed to compute all the eigenvalues.\n"
+msgstr "QRアルゴリズムが全固有値の計算に失敗しました.\n"
+
+msgid ""
+"The eigenvalues could not be reordered because some eigenvalues were too "
+"close to separate (the problem is very ill-conditioned).\n"
+msgstr ""
+"いくつかの固有値が近すぎるため,固有値の順番を変更できませんでした(この問題は"
+"非常に条件が悪いです).\n"
+
+msgid ""
+"After reordering, roundoff changed values of some complex eigenvalues so "
+"that leading eigenvalues in the Schur form no longer satisfy SELECT=.TRUE. "
+"This could also be caused by underflow due to scaling.\n"
+msgstr ""
+"順序変更の後,丸めによりSchur形式の先頭固有値がSELECT=.TRUE.をもはや満たさない"
+"いくつかの複素固有値の値が変更されました.これは スケーリングによるアンダーフ"
+"ローによっても発生します.\n"
+
+#, c-format
+msgid "Argument %d in zgees had an illegal value.\n"
+msgstr "zgees の引数 %d は不正な値を有しています.\n"
+
+#, c-format
+msgid "Argument %d in dgges had an illegal value.\n"
+msgstr "dgfesの引数 %d は不正な値を有しています.\n"
+
+msgid "The QZ iteration failed. (A,E) are not in Schur form.\n"
+msgstr "QZ反復が失敗しました. (A,E)はSchur形式ではありません.\n"
+
+msgid "Other than QZ iteration failed in DHGEQZ.\n"
+msgstr "QZ反復以外がDHGEQZで失敗しました.\n"
+
+msgid "Reordering failed in DTGSEN.\n"
+msgstr "DTGSENで順序変更が失敗しました.\n"
+
+#, c-format
+msgid "Argument %d in zgges had an illegal value.\n"
+msgstr "zggesの引数 %d が不正な値を有しています.\n"
+
+msgid "Other than QZ iteration failed in ZHGEQZ.\n"
+msgstr "ZHGEQZのQZ反復以外が失敗しました.\n"
+
+msgid "Reordering failed in ZTGSEN.\n"
+msgstr "ZTGSENにおいて順序変更に失敗しました。\n"
+
+#, c-format
+msgid "%s: Argument #%d: Decimal or complex number(s) expected.\n"
+msgstr "%s: 引数 #%d: 10進数または複素数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Polynomial expected."
+msgstr "%s: 入力引数 #%d の型が間違っています:  多項式を指定してください."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: must not contain %s or %s.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: %s または %s を含むことはできません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A matrix expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A square matrix expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 正方行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar or a string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: スカラーまたは文字列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: must be %d, %d, %s, '%s' or '%s'.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: %d, %d, %s, '%s' または '%s'としてくだ"
+"さい.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが正しくありません: スカラーを1つ指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Non-negative integers expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が正しくありません: 非負の整数を指定してください.\n"
+
+#, c-format
+msgid "%s : Wrong number of input arguments : %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A full or sparse square matrix or a "
+"function expected"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A positive integer expected if the "
+"first input argument is a function."
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A structure expected"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument: If A is a matrix, use opts with tol, "
+"maxiter, ncv, resid, cholB"
+msgstr ""
+
+#
+# File: modules/linear_algebra/macros/eigs.sci, line: 163
+#, c-format
+msgid ""
+"%s: Wrong type for input argument: If A is a function, use opts with tol, "
+"maxiter, ncv, resid, cholB, issym"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: An empty matrix or full or sparse "
+"square matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong dimension for input argument #%d: B must have the same size as A.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: k must be a positive integer.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real symmetric problems, k must "
+"be an integer in the range 1 to N - 1.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real non symmetric or complex "
+"problems, k must be an integer in the range 1 to N - 2.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+" Sigma must be one of '%s', '%s', '%s', '%s' or '%s'.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+" Sigma must be one of '%s', '%s', '%s', '%s', '%s' or '%s'.\n"
+msgstr ""
+
+#
+# File: modules/linear_algebra/macros/eigs.sci, line: 291
+# File: modules/linear_algebra/macros/eigs.sci, line: 751
+#, c-format
+msgid "%s: Invalid sigma value for complex or non symmetric problem.\n"
+msgstr ""
+
+#
+# File: modules/linear_algebra/macros/eigs.sci, line: 294
+# File: modules/linear_algebra/macros/eigs.sci, line: 754
+#, c-format
+msgid "%s: Invalid sigma value for real symmetric problem.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: a real scalar or a string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s must be a scalar.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: %s must be an integer positive "
+"value.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s must be a real scalar.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong dimension for input argument #%d: %s must be 1 by 1 size.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real symmetric problems, NCV "
+"must be k < NCV <= N.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real non symmetric problems, NCV "
+"must be k + 2 < NCV < N.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For complex problems, NCV must be k "
+"+ 1 < NCV <= N.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s must be %s or %s.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: %s must be an integer scalar or a "
+"boolean.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A real or complex matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong dimension for input argument #%d: Start vector %s must be N by 1.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Start vector %s must be real for real "
+"problems.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Start vector %s must be complex for "
+"complex problems.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: if opts.cholB is true, B must be "
+"upper triangular.\n"
+msgstr ""
+
+#
+# File: modules/linear_algebra/macros/eigs.sci, line: 435
+# File: modules/linear_algebra/macros/eigs.sci, line: 895
+#, c-format
+msgid ""
+"%s: Impossible to use the Cholesky factorization with complex sparse "
+"matrices.\n"
+msgstr ""
+
+#
+# File: modules/linear_algebra/macros/eigs.sci, line: 506
+# File: modules/linear_algebra/macros/eigs.sci, line: 512
+# File: modules/linear_algebra/macros/eigs.sci, line: 519
+# File: modules/linear_algebra/macros/eigs.sci, line: 591
+# File: modules/linear_algebra/macros/eigs.sci, line: 609
+# File: modules/linear_algebra/macros/eigs.sci, line: 646
+# File: modules/linear_algebra/macros/eigs.sci, line: 953
+# File: modules/linear_algebra/macros/eigs.sci, line: 958
+# File: modules/linear_algebra/macros/eigs.sci, line: 964
+# File: modules/linear_algebra/macros/eigs.sci, line: 1062
+# File: modules/linear_algebra/macros/eigs.sci, line: 1079
+# File: modules/linear_algebra/macros/eigs.sci, line: 1115
+#, c-format
+msgid "%s: Error with %s: info = %d.\n"
+msgstr ""
+
+#
+# File: modules/linear_algebra/macros/eigs.sci, line: 573
+# File: modules/linear_algebra/macros/eigs.sci, line: 575
+# File: modules/linear_algebra/macros/eigs.sci, line: 578
+# File: modules/linear_algebra/macros/eigs.sci, line: 1040
+# File: modules/linear_algebra/macros/eigs.sci, line: 1042
+# File: modules/linear_algebra/macros/eigs.sci, line: 1045
+#, c-format
+msgid "%s: Error with %s: unknown mode returned.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: n must be a positive integer.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real symmetric problems, k must "
+"be in the range 1 to N - 1.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real non symmetric or complex "
+"problems, k must be in the range 1 to N - 2.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: a scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: a string expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+" Sigma must be one of %s, %s, %s, %s or %s.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+" Sigma must be one of %s, %s, %s, %s, %s or %s.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong dimension for input argument #%d: %s must be an integer scalar.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong dimension for input argument #%d: Start vector opts.resid must be "
+"N by 1.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Start vector opts.resid must be real "
+"for real problems.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Start vector opts.resid must be "
+"complex for complex problems.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: n does not match rows number of "
+"matrix A.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type or value for input arguments.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A column vector expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: 列ベクトルを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: Decimal or complex numbers expected.\n"
+msgstr ""
+"%s: 引数%dの型が間違っています: 10進数または複素数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Column vector expected.\n"
+msgstr ""
+"%s: 入力引数  #%d の大きさが間違っています: 列ベクトルを指定してください.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
+msgstr ""
+"%s: 入力引数 #%d と #%d で互換性がありません: 大きさを同じにしてください.\n"
+
+#, c-format
+msgid "%s: SVD and QR not implemented in sparse.\n"
+msgstr "%s: 疎行列用のSVDとQRは実装されていません.\n"
+
+#, c-format
+msgid "%s: This feature has not been implemented.\n"
+msgstr "%s: この機能は実装されていません.\n"
+
+msgid "Conflicting linear constraints."
+msgstr "線形拘束にかかっています."
+
+msgid "Recomputing initial guess"
+msgstr "初期推定値を再計算中"
+
+#, c-format
+msgid "Possible Conflicting linear constraints, error in the order of %s"
+msgstr "線形拘束が衝突し, %s 次の誤差が発生した可能性があります"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d または %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Square matrix expected.\n"
+msgstr "%s: 引数 #%d: 正方行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が正しくありません: 集合 {%s} に含まれる値を指定してくだ"
+"さい.\n"
+
+#, c-format
+msgid "%s: Singular pencil."
+msgstr "%s: 特異なペンシル."
+
+#, c-format
+msgid ""
+"%s: Function not defined for type '%s'. Check argument or define function %s."
+msgstr ""
+"%s: 関数が型 '%s' について未定義です. 引数を確認または関数 %s を定義してくだ"
+"さい."
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Non-negative integer expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が正しくありません: 非負の整数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A square matrix expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが正しくありません: 正方行列を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Non-negative scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が正しくありません: 非負のスカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Symmetric expected"
+msgstr ""
+"%s: 入力引数 #%d の大きさが正しくありません:対称行列を指定してください."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Not semi-definite positive"
+msgstr "%s: 入力引数 #%d の値が正しくありません: 半正定値ではありません"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Requested rank is greater than "
+"matrix dimension."
+msgstr ""
+"%s: 入力引数 #%d の値が正しくありません: 指定された階数は行列の次元を超えてい"
+"ます."

@@ -1,0 +1,206 @@
+# Russian translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2016-11-07 14:41+0000\n"
+"Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %d.\n"
+msgstr ""
+"%s: неверный тип параметра. Ожидался %s. Возвращается значение по умолчанию "
+"%d.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %d.\n"
+msgstr "%s: параметр не найден. Возвращается значение по умолчанию %d.\n"
+
+#, c-format
+msgid "%s: wrong min bound for parameter %s: min bound %d, value %d\n"
+msgstr ""
+"%s: неверный нижний предел параметра %s: нижний предел %d, значение %d\n"
+
+#, c-format
+msgid "%s: wrong max bound for parameter %s: max bound %d, value %d\n"
+msgstr ""
+"%s: неверный верхний предел параметра %s: верхний предел %d, значение %d\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %d\n"
+msgstr "%s: неверное значение параметра %s: значение %d\n"
+
+#, c-format
+msgid "%s: awaited parameters: "
+msgstr "%s: ожидаемые параметры: "
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %f.\n"
+msgstr ""
+"%s: неверный тип параметра. Ожидался %s. Возвращается значение по умолчанию "
+"%f.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %f.\n"
+msgstr "%s: параметр не найден. Возвращается значение по умолчанию %f.\n"
+
+#, c-format
+msgid "%s: wrong min bound for parameter %s: min bound %f, value %f\n"
+msgstr ""
+"%s: неверный нижний предел параметра %s: нижний предел %f, значение %f\n"
+
+#, c-format
+msgid "%s: wrong max bound for parameter %s: max bound %f, value %f\n"
+msgstr ""
+"%s: неверный верхний предел параметра %s: верхний предел %f, значение %f\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %f\n"
+msgstr "%s: неверное значение параметра %s: значение %f\n"
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %s.\n"
+msgstr ""
+"%s: неверный тип параметра. Ожидался %s. Возвращается значение по умолчанию "
+"%s.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %s.\n"
+msgstr "%s: параметр не найден. Возвращается значение по умолчанию %s.\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %s\n"
+msgstr "%s: неверное значение параметра %s: значение %s\n"
+
+#, c-format
+msgid "%s: wrong size for parameter %s: %d requested, got %d\n"
+msgstr "%s: неверный размер параметра %s: требуется %d, получено %d\n"
+
+msgid "Parameters"
+msgstr "Параметры"
+
+msgid "plist handling"
+msgstr "обработка plist"
+
+msgid ""
+"This demo shows examples of plist utilizations: creation, insertion, "
+"removal, ..."
+msgstr ""
+"Эта демонстрация показывает примеры использования plist: создание, введение, "
+"удаление..."
+
+#, c-format
+msgid ""
+"\n"
+"Create a plist '%s' containing two fields 'min' = [0 0 0] and 'max' = [1 1 "
+"1].\n"
+msgstr ""
+"\n"
+"Создать plist '%s', содержащий два поля 'min' = [0 0 0] и 'max' = [1 1 1].\n"
+
+#, c-format
+msgid ""
+"\n"
+"Check fields: \n"
+msgstr ""
+"\n"
+"Проверьте поля: \n"
+
+#, c-format
+msgid "Set 'min' = [0 0 0] and 'max' = [1 1 1]:\n"
+msgstr "Установить 'min' = [0 0 0] и 'max' = [1 1 1]:\n"
+
+#, c-format
+msgid "Check values: \n"
+msgstr "Проверьте значения: \n"
+
+#, c-format
+msgid ""
+"\n"
+"Remove the parameter 'min' from %s.\n"
+msgstr ""
+"\n"
+"Удалить параметр 'min' из %s.\n"
+
+#, c-format
+msgid ""
+"\n"
+"Before remove_param: \n"
+msgstr ""
+"\n"
+"Перед  remove_param: \n"
+
+#, c-format
+msgid ""
+"\n"
+"After remove_param: \n"
+msgstr ""
+"\n"
+"После remove_param: \n"
+
+#, c-format
+msgid ""
+"\n"
+"Check removal: \n"
+msgstr ""
+"\n"
+"Проверить удалённое: \n"
+
+#, c-format
+msgid ""
+"\n"
+"Check type: \n"
+msgstr ""
+"\n"
+"Проверьте тип: \n"
+
+#, c-format
+msgid "Second output argument of %s is obsolete.\n"
+msgstr "Второй выходной аргумент %s устарел.\n"
+
+#, c-format
+msgid "This argument will be permanently removed in Scilab %s"
+msgstr "Этот аргумент будет навсегда удалён в Scilab %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: Неверное количество входных аргументов: ожидалось от %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: key %s already defined.\n"
+msgstr "%s: Неверное значение входного аргумента №%d: ключ %s уже определён.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr "%s: Неверный тип входного параметра №%d: ожидался %s.\n"
+
+#, c-format
+msgid "%s: parameter %s not defined"
+msgstr "%s: параметр %s не определен"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): An even number expected.\n"
+msgstr "%s: Неверное количество входных параметров: ожидалось чётное число.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: Неверное количество входных аргументов: ожидалось %d.\n"
+
+#, c-format
+msgid "%s: parameter doesn't exist"
+msgstr "%s: параметр не существует"

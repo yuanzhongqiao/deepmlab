@@ -1,0 +1,231 @@
+/* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ This file is released under the 3-clause BSD license. See COPYING-BSD.
+ */
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+#main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+#help {
+    position: absolute;
+    border: none;
+}
+
+#help img {
+    width: 16px;
+    height: 16px;
+    display: flex;
+}
+
+#refresh {
+    float: right;
+}
+
+.top {
+    flex: 0 0 50px;
+}
+
+.msgs {
+    flex: 0 0 86px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.msg {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dices {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1 1 auto;
+    align-items: center;
+    margin-bottom: 136px;
+}
+
+.grower {
+    width: 0px;
+    transition: width 0.5s linear;
+}
+
+.first {
+    transition: none!important;
+    transform: scale(1)!important;
+}
+
+.dice-show {
+    display: flex!important;
+    transition: transform 0.5s;
+}
+
+.dice {
+    flex: 0 0 110px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(0);
+}
+
+.dice .score {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.dice .image {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.dice .mult {
+    font-size: 12px;
+}
+
+.dice .mult .value {
+    display: inline;
+}
+
+.dice .level {
+    font-size: 12px;
+    display: inline;
+}
+
+.dice .level .value {
+    display: inline;
+}
+
+.dice .buy {
+    width: 100px;
+    font-weight: bold;
+    position: relative;
+}
+
+.dice .buy:hover:enabled {
+    background-color: #eee;
+}
+
+.dice .buy:active:enabled {
+    background-color: #ddd;
+}
+
+.progress {
+    position: absolute;
+    height: 10%;
+    width: 0%;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    transition: width 0.3s;
+}
+
+.dice span {
+    position: relative;
+}
+
+.dice span.good {
+    color: #008000;
+}
+
+.dice span.bad {
+    color: #C00000;
+}
+
+.buy:disabled {
+    background-color: #F0F0F0;
+}
+
+.buy:disabled span {
+    color: #808080;
+}
+
+#dialog-message {
+    display: none;
+}
+
+.ui-widget-overlay {
+    opacity: .5;
+}
+
+.total {
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.bottom {
+    flex: 0 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+#link {
+    flex: 0 0 80px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 10px;
+}
+
+#multiplier {
+    flex: 0 0 100px;
+}
+
+#roll {
+    flex: 0 0 100px;
+    position: relative;
+    font-weight: bold;
+}
+
+#empty {
+    flex: 0 0 100px;
+}
+
+#history {
+    flex: 0 0 100px;
+}
+
+#history-frame {
+    flex: 0 0 199px;
+    display: none;
+    border-left: 1px solid black;
+    background-color: #eee;
+    overflow: auto;
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+}

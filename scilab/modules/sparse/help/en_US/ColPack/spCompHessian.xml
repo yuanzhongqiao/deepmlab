@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="spCompHessian" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <refnamediv>
+    <refname>spCompHessian</refname>
+    <refpurpose>Consruct a compressed Hessian engine from its sparsity pattern using column intersection graph coloring</refpurpose>
+  </refnamediv>
+
+<refsynopsisdiv>
+   <title>Syntax</title>
+   <synopsis>
+     hess = spCompHessian(g,sp)
+     hess = spCompHessian(g,sp,options)
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+        <varlistentry>
+            <term>g</term>
+            <listitem>
+                 <para>a Scilab function computing the gradient</para></listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sp</term>
+                <listitem>
+                     <para>a sparse matrix</para></listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>options</term>
+                    <listitem>
+                         <para>a sequence of optional named arguments allowing to customize the engine (see available options below)</para></listitem>
+                    </varlistentry>
+                    <varlistentry>
+                        <term>hess</term>
+                        <listitem>
+                             <para>the returned engine, an MList of _spCompHessian type (fields are described below)</para></listitem>
+                        </varlistentry>
+                   </variablelist>
+                </refsection>
+                
+                <refsection>
+                   <title>Description</title>
+                   <para>First and foremost, you need a Scilab function <term>g</term> which computes the gradient (preferably exact) of the function for wich the Hessian is to be approximated.</para>   
+                   <para>The spCompHessian function consructs a compressed Hessian engine from the given sparsity pattern using column intersection graph coloring. Internally, after using a heuristic coloring algorithm, a "seed matrix" is generated, available as <code>hess.seed</code>, and later used by the engine to compute (approximate) directional derivatives of the gradient function <term>g</term> in each seed column direction. Then the uncompressed Hessian is recovered. The typical call sequence starts by calling <code>spCompHessian</code> then continues by invoking the returned MList with the vectors at which the Hessian is to be computed:</para>
+                   <para>
+                     <programlisting role="no-scilab-exec"><![CDATA[
+                     hess = spCompHessian(g,sp);
+                     H0 = hess(x0);
+                     H1 = hess(x1);
+                     ]]></programlisting>
+                   </para>
+                   <para>
+                     The options allows to change some parameters of the coloring algorithm and to choose the derivative approximation scheme as well as the step vector. The available options are the following:
+                     <itemizedlist>
+                      
+                     <listitem>
+                       <para><emphasis>Coloring</emphasis> : the allowed values are "ACYCLIC_FOR_INDIRECT_RECOVERY" (the default), "STAR"","RESTRICTED_STAR" and "DISTANCE_TWO"</para>
+                       <para/>
+                     </listitem>
+                     <listitem>
+                       <para><emphasis>Ordering</emphasis> : this field allows to change the way columns of the sparsity pattern are ordered before applying the coloring algorithm. The possible values are "NATURAL" (the default), "SMALLEST_LAST", "LARGEST_FIRST", "INCIDENCE_DEGREE", "RANDOM".</para>
+                       <para/>
+                     </listitem>
+                     <listitem>
+                       <para><emphasis>FiniteDifferenceType</emphasis> : this field gives the chosen approximation scheme. The possible values are "CENTERED" (the default order 2 centered scheme), "FORWARD" (the usual forward order 1 scheme) and "COMPLEXSTEP" (the order 2 complex step scheme). If you choose the complex step scheme check that <term>g</term> accepts complex input and handles it correctly (for example transposition operator has to be the dot-prefixed non-conjugate transposition <code>.'</code>).</para>
+                       <para/>
+                     </listitem>
+                     <listitem>
+                       <para><emphasis>FiniteDifferenceStepSize</emphasis> : this is the relative stepsize (see also <emphasis>"TypicalX"</emphasis> below). For a given <term>x0</term> the actual step is </para>
+                       <para/>
+                       <para>
+                         <code>sign(x0).*FiniteDifferenceStepSize.*max(TypicalX,x0)</code>
+                       </para>
+                       <para/>
+                       <para>It can be a scalar, or a vector with the same size as <code>x0</code>. Its default value depends on the chosen approximation scheme: <code>sqrt(%eps)</code> for the "FORWARD" scheme, <code>%eps^(1/3)</code> for the "CENTERED" scheme and <code>1e-100</code> for the "COMPLEXSTEP" scheme.</para>
+                       <para/>
+                     </listitem>
+                     <listitem>
+                       <para><emphasis>TypicalX</emphasis> : a vector of the same size as <code>x0</code>, with typical magnitude of components. The default value is <code>ones(x0)</code>.</para>
+                       <para/>
+                     </listitem>
+                     <listitem>
+                       <para><emphasis>Vectorized</emphasis> : "on" or "off" : allows to inform the engine if <term>g</term> can be called with a matrix <code>X</code> as argument, with the convention that <code>g(X)(:,i) == g(X(:,i))</code>.
+                       </para>
+                       <para>for each column of <code>X</code>.
+                     </para>
+                   </listitem>
+                   </itemizedlist>     
+                   </para>
+                   <para>
+                     The <term>hess</term> MList can be invoked with more than one arguments. In this case the remaining argument after the first are used by the engine as complimentary arguments when calling the gradient <term>g</term>.
+                   </para>
+                </refsection>
+                
+                <refsection>
+                   <title>Examples</title>
+                   <programlisting role="example"><![CDATA[
+                     function f = fun(x)
+                         n = length(x);
+                         f = norm(x(1:n-2).*x(2:n-1).*x(3:n))^2;
+                     endfunction
+                
+                     function g = grad(x)
+                         n = length(x);
+                         g = zeros(n,1);
+                         k = 3:n-2;
+                         g(1)   = 2*x(1)*x(2)^2*x(3)^2;
+                         g(2)   = 2*(x(2)*x(3)^2*x(4)^2+x(1)^2*x(2)*x(3)^2);
+                         g(k)   = 2*(x(k).*x(k+1).^2.*x(k+2).^2+x(k-1).^2.*x(k).*x(k+1).^2+x(k-2).^2.*x(k-1).^2.*x(k))
+                         g(n-1) = 2*(x(n-3)^2*x(n-2)^2*x(n-1)+x(n-2)^2*x(n-1)*x(n)^2); 
+                         g(n)   = 2*x(n-2)^2*x(n-1)^2*x(n);
+                     endfunction
+                
+                     n = 1000;
+                     // Hessian is pentadiagonal
+                     i = (1:n).*.ones(n,1);
+                     sp = sparse(abs(i-i') <= 2);
+                
+                     hess = spCompHessian(grad, sp, FiniteDifferenceType = "COMPLEXSTEP")
+                     x0 = rand(n,1);
+                     tic
+                     H = hess(x0);
+                     toc
+                     tic
+                     Hd = numderivative(grad,x0);
+                     toc
+                     disp(max(abs(H-Hd)))
+                   ]]></programlisting>
+                </refsection>
+                
+                <refsection role="see also">
+                   <title>See also</title>
+                   <simplelist type="inline">
+                     <member><link linkend="spCompJacobian">spCompJacobian</link></member>
+                     <member><link linkend="numderivative">numderivative</link></member>
+                   </simplelist>
+                </refsection>
+                
+                <refsection>
+                   <title>Bibliography</title>
+                   <para>A. H. Gebremedhin, D. C. Nguyen,
+                               Md. M. A. Patwary, A. Pothen}, ColPack: Software for graph coloring and related problems in scientific
+                               computing, ACM Trans. Math. Softw., N. 40(1), pp. 1-31, 2013, https://doi.org/10.1145/2513109.2513110.</para>
+                </refsection>
+                </refentry>

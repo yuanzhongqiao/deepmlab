@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="NaT" xml:lang="en">
+    <refnamediv>
+        <refname>NaT</refname>
+        <refpurpose>Not a Time function used to create empty datetime</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            dt = NaT()
+            dt = NaT(x)
+            dt = NaT(m, n)
+            dt = NaT(..., "OutputFormat", str)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>scalar, vector, matrix</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m, n</term>
+                <listitem>
+                    <para>scalars</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>str</term>
+                <listitem>
+                    <para>date format for display, string</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dt</term>
+                <listitem>
+                    <para>datetime</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para> NaT() returns an empty datetime, i.e datetime("") returns a NaT.
+        The NaT function can be used to allocate matrix of datetime.</para>
+        <para><literal>NaT()</literal> is equivalent to <literal>NaT(1,1)</literal> and returns a NaT (datetime value).</para>
+        <para><literal>NaT(<varname>x</varname>)</literal> returns a NaT matrix with the same size as <varname>x</varname>.</para>
+        <para><literal>NaT(<varname>m, n</varname>)</literal> creates a <varname>m x n</varname> NaT matrix.</para>
+        <para><literal>NaT(..., <varname>"OutputFormat", str</varname>)</literal> creates a datetime matrix of NaT values where the display format is specified.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+NaT()
+NaT(1)
+dt = NaT(3, 3)
+dt(1:4:9) = datetime(2022, 1, 1)
+
+// with outputformat
+dt2 = NaT(2, 2, "OutputFormat", "dd/MM/yyyy");
+dt2([1 4]) = datetime("2022-12-31")
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+            <member>
+                <link linkend="isnat">isnat</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2010 - Digiteo - Vincent LIARD
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="fr" xml:id="TMPDIR">
+    <refnamediv>
+        <refname>TMPDIR</refname>
+        <refpurpose>chemin du répertoire temporaire</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            La constante <literal>TMPDIR</literal> contient le chemin du
+            répertoire temporaire d'une session Scilab. Chaque session
+            Scilab a son propre répertoire temporaire, créé lors du
+            démarrage de Scilab puis référencé dans <literal>TMPDIR</literal>.
+        </para>
+        <para>
+            Les répertoires temporaires sont des sous-répertoires du
+            répertoire temporaire du système. Ils sont nommés
+            SCI_TMP_&lt;unique>, où &lt;unique> est un nombre généré
+            au démarrage de Scilab afin que le nom soit unique. Sous
+            GNU/Linux, UNIX et Mac OS X, les droits d'accès à ces
+            répertoires sont limités à l'utilisateur de Scilab.
+        </para>
+        <para>
+            La constante <literal>TMPDIR</literal> ne peut être modifiée
+            durant l'exécution de Scilab. Cependant, sous GNU/Linux, UNIX et
+            Mac OS X, le répertoire temporaire du système (habituellement,
+            <literal>/tmp</literal>) peut-être sélectionné en modifiant la
+            variable système <literal>TMPDIR</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+TMPDIR
+ls TMPDIR
+ls(TMPDIR)
+cd(TMPDIR)
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tempname">tempname</link>
+            </member>
+            <member>
+                <link linkend="home">home</link>
+            </member>
+            <member>
+                <link linkend="SCIHOME">SCIHOME</link>
+            </member>
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

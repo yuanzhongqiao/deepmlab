@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="DERIV" xml:lang="fr">
+    <refnamediv>
+        <refname>DERIV</refname>
+        <refpurpose>Dérivée</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/DERIV.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_DERIV">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_DERIV">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_DERIV">Propriétés par défaut</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_DERIV">Fonction d'interfaçage</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_DERIV">Fonction de calcul</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_DERIV">Exemple</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_DERIV">
+        <title>Description</title>
+        <para>Le bloc dérivée approxime la dérivée instantanée de son entrée par rapport au temps t.</para>
+        <para>Il mesure la variation de la sortie en fonction de la variation de l'entée Δu. La dérivée est donnée par :</para>
+        <latex alt="y(t) = (u(t) - u(t-h)) / h">
+            $$
+            y(t) = \frac{u(t) - u(t-h)}{h}
+            $$
+        </latex>
+        <para>Le bloc dérivée n'a pas de paramètres et la valeur initiale de la sortie pour le bloc est zéro.</para>
+    </refsection>
+    <refsection id="Defaultproperties_DERIV">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">deriv</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Example_DERIV">
+        <title>Exemple</title>
+        <para>Dans cet exemple, nous calculons et affichons la forme d'onde dérivée d'un signal d'entrée
+            sinusoïdal, d'amplitude 2 et de frequence 1,25 Hz.
+        </para>
+        <para>Les formes d'onde de l'entrée et de la sortie du bloc DERIVATIVE sont montrées ci-dessous :</para>
+
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/continuous_pal/DERIV_Example.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata fileref="../../../../examples/continuous_pal/DERIV_Example.zcos"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+        <scilab:image><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/continuous_pal/DERIV_Example.zcos");
+xcos_simulate(scs_m, 4);
+]]></scilab:image>
+    </refsection>
+    <refsection id="Interfacingfunction_DERIV">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/Linear/DERIV.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_DERIV">
+        <title>Fonction de calcul</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/deriv.c (Type 4)</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

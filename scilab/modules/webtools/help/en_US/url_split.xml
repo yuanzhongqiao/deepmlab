@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) - S/E - Sylvestre Ledru
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xml:id="url_split" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+    <refnamediv>
+        <refname>url_split</refname>
+
+        <refpurpose>Split an URL (HTTP, HTTPS, FTP...) </refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <title>Syntax</title>
+
+        <synopsis>[proto, server, path, query, username, port, fragment] = url_split(URL);
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>URL</term>
+                <listitem>
+                    <para>String: An URL. Supported and tested: HTTP, HTTPS, FTP (IPv4 and IPv6)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>proto</term>
+                <listitem>
+                    <para>
+                        String: the protocol (ex: <emphasis role="italic">http, ftp, etc</emphasis>)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>server</term>
+                <listitem>
+                    <para>
+                        String: the server (ex: <emphasis role="italic">www.scilab.org</emphasis>)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>path</term>
+                <listitem>
+                    <para>
+                        String: the path (ex: <emphasis role="italic">/products/scilab</emphasis>)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>query</term>
+                <listitem>
+                    <para>
+                        String: query (ex: <emphasis role="italic">?SearchText=plot3d</emphasis>)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>username</term>
+                <listitem>
+                    <para>
+                        String: username (ex: <emphasis role="italic">username:pass</emphasis>)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>port</term>
+                <listitem>
+                    <para>
+                        int: port (ex: <emphasis role="italic">80</emphasis>)
+                    </para>
+                    <para>
+                        <note>
+                            Note that if the port is not provided in the URL, the value will be 0.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fragment</term>
+                <listitem>
+                    <para>
+                        String: fragment (ex: <emphasis role="italic">#chapter1</emphasis>)
+                    </para>
+                    <para>The fragment is also called anchor and it is used to create a bookmark inside an HTML document.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection>
+        <title>Description</title>
+        <para>Split an URL by component </para>
+    </refsection>
+
+    <refsection>
+        <title>Examples</title>
+
+        <programlisting role="example">
+            [proto, server, path, query, username, port, fragment] = url_split("http://xmlsoft.org/html/libxml-uri.html#xmlParseURI")
+
+            [proto, server, path] = url_split("ftp://ftp.free.fr/pub/Distributions_Linux/debian/README")
+
+            [a,b,c,d]=url_split("https://www.scilab.org/content/search?SearchText=plot")
+
+        </programlisting>
+
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="http_get">http_get</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    <para>
+                        Function <literal>splitURL()</literal> introduced
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        Renamed to <literal>url_split()</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

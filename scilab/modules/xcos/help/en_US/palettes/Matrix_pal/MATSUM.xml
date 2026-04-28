@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="MATSUM" xml:lang="en_US">
+    <refnamediv>
+        <refname>MATSUM</refname>
+        <refpurpose>Sum of Matrix's Elements</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/MATSUM.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_MATSUM">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_MATSUM">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_MATSUM">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_MATSUM">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_MATSUM">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_MATSUM">Computational function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_MATSUM">See also</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_MATSUM">
+        <title>Description</title>
+        <para>
+            The MATSUM block returns the sum of the element of an input matrix/vector.
+        </para>
+        <para>
+            When the <emphasis role="bold">Sum along</emphasis> is set to:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">0</emphasis> (all) the block outputs the sum of all the
+                    elements of the matrix. The output is then a scalar.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">1</emphasis> (lines) the block is a row-wise sum.
+                    The output is a row vector.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">2</emphasis> (Columns) the block is a column-wise sum.
+                    The output is a column vector.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            The equivalent function of this block in Scilab is <link linkend="sum">sum</link>.
+        </para>
+    </refsection>
+
+    <refsection id="Dialogbox_MATSUM">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/MATSUM_gui.gif" align="center" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Datatype(1=real double 2=Complex)</emphasis>
+                </para>
+                <para>
+                    It indicates the type of the output. It support only the two types double (1) and complex (2).
+                    If we input another entry in this label xcos will print the message "Datatype is not supported".
+                </para>
+                <para> Properties : Type 'vec' of size 1. </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Sum along (0=all 1=lines 2=Columns)</emphasis>
+                </para>
+                <para> Indicates the used rule to sum. For more information see the description part.</para>
+                <para> Properties : Type 'vec' of size 1.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_MATSUM">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,-2] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">mat_sum</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Interfacingfunction_MATSUM">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/MatrixOp/MATSUM.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_MATSUM">
+        <title>Computational function</title>
+        <itemizedlist>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/mat_sum.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/mat_suml.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/mat_sumc.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/matz_sum.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/matz_suml.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/matz_sumc.c
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection xml:id="Seealso_MATSUM" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SUBMAT">SUBMAT</link>
+            </member>
+            <member>
+                <link linkend="SUMMATION">SUMMATION</link>
+            </member>
+            <member>
+                <link linkend="sum">sum</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

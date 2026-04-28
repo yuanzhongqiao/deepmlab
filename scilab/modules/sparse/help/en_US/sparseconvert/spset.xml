@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="spset">
+    <refnamediv>
+        <refname>spset</refname>
+        <refpurpose>Set non-zeros entries of sparse matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>spset(sp, values)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>sp</term>
+                <listitem>
+                    <para>real, complex sparse matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>values</term>
+                <listitem>
+                    <para>new values of non-zeros entries.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>spset</literal> is used to update all non-zeros entries of sparse matrix. The size of the <literal>values</literal> array must be equal to 
+            <literal>nnz(sp)</literal>.
+            <warning>
+                <para>
+                    This function modifies the first input variable (<literal>sp</literal>) contents.
+                </para>
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+sp=sparse([1,2;4,5;3,10],[1,2,3])
+[ij,v,mn]=spget(sp);
+spset(sp, v * 10);
+sp
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sparse">sparse</link>
+            </member>
+            <member>
+                <link linkend="sprand">spget</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>spset</literal> introduction.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

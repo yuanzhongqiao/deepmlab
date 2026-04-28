@@ -1,0 +1,1456 @@
+# Russian translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr "%s: Неверное количество входных аргументов: Ожидалось от %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: Неверное количество выходных аргументов: ожидалось %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr "%s: Неверный тип входного аргумента №%d: ожидался %s.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string or %s expected.\n"
+msgstr "%s: Неверный тип входного аргумента №%d: ожидался тип string или %s.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr "%s: Неверный размер входного аргумента №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr "%s: Неверное количество входных аргументов: ожидалось не менее %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: Argument #%d: %s expected.\n"
+msgstr "%s: Параметр №%d: ожидался %s.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Scalar (1 element) expected.\n"
+msgstr "%s: Аргумент №%d: ожидался скаляр (1 элемент).\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: Нельзя прочитать входной аргумент №%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра №%d: ожидалось логическое значение.\n"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
+msgid "Error on export"
+msgstr "Ошибка при экспорте"
+
+msgid "Please specify a valid file format"
+msgstr "Пожалуйста, определите корректный формат файла"
+
+msgid "Incompatibility detected"
+msgstr "Обнаружена несовместимость"
+
+msgid "Please check the diagram, before trying to simulate it."
+msgstr "Проверьте диаграмму перед выполнением."
+
+msgid "Some blocks have been removed to ensure compatibility."
+msgstr "Некоторые блоки были удалены для обеспечения совместимости"
+
+#, c-format
+msgid "Unable to decode \"%s\" : invalid data."
+msgstr "Невозможно декодировать \"%s\" : неверные данные."
+
+#, c-format
+msgid "Unable to decode \"%s.%s\" : invalid field."
+msgstr "Невозможно декодировать \"%s.%s\" : неверное поле."
+
+msgid "Modelica settings"
+msgstr "Настройки Modelica"
+
+msgid "name"
+msgstr "название"
+
+msgid "id"
+msgstr "id"
+
+msgid "kind"
+msgstr "тип"
+
+msgid "fixed"
+msgstr "неизменяемый"
+
+msgid "initial"
+msgstr "значение"
+
+msgid "weight"
+msgstr "вес"
+
+msgid "max"
+msgstr "макс."
+
+msgid "min"
+msgstr "мин."
+
+msgid "nominal"
+msgstr "номинал"
+
+msgid "comment"
+msgstr "комментарий"
+
+msgid "selected"
+msgstr "выбранный"
+
+msgid "Fix derivatives"
+msgstr "Поправить производные"
+
+msgid "Fix states"
+msgstr "Поправить состояния"
+
+msgid "Solve"
+msgstr "Решить"
+
+msgid "model is not valid"
+msgstr "модель не верна"
+
+msgid "Compiling"
+msgstr "Компиляция"
+
+msgid "Computing"
+msgstr "Вычисление"
+
+msgid "Global"
+msgstr "Общие"
+
+msgid "Equations"
+msgstr "Уравнения"
+
+msgid "Discretes"
+msgstr "Дискреты"
+
+msgid "Inputs"
+msgstr "Входы"
+
+msgid "Outputs"
+msgstr "Выходы"
+
+msgid "Solver"
+msgstr "Программа решения"
+
+msgid "Initial computing method"
+msgstr "Исходный метод вычисления"
+
+msgid "Parameter embedding"
+msgstr "Встраивание параметров"
+
+msgid ""
+"lets the user change the parameters and call the solver without regenerating "
+"code."
+msgstr ""
+"Позволяет пользователю изменять параметры и решать задачу без пересборки "
+"кода."
+
+msgid "Generate Jacobian"
+msgstr "Формировать матрицу Якоби"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Unknowns not equal to Equations"
+msgstr "Неизвестные не удовлетворяют уравнениям"
+
+msgid "Unknowns"
+msgstr "Неизвестные"
+
+msgid "Reduced"
+msgstr "Упрощено"
+
+msgid "Extended"
+msgstr "Расширенный"
+
+msgid "Diff. States"
+msgstr "Диф. состояний"
+
+msgid "Fixed parameters"
+msgstr "Неизменяемые параметры"
+
+msgid "Relaxed parameters"
+msgstr "Изменяемые параметры"
+
+msgid "Fixed variables"
+msgstr "Неизменяемые переменные"
+
+msgid "Relaxed variables"
+msgstr "Изменяемые переменные"
+
+msgid "Please take a look into the Scilab console"
+msgstr "Посмотрите в командное окно Scilab"
+
+#, c-format
+msgid "Wrong input argument \"%s\": invalid tree path.\n"
+msgstr "Неверный входной параметр «%s»: недопустимый путь дерева.\n"
+
+#, c-format
+msgid ""
+"Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n"
+msgstr ""
+"Неверный входной параметр «%s»: недопустимый узел, используйте "
+"«xcosPalDisable».\n"
+
+#, c-format
+msgid "Unable to import %s .\n"
+msgstr "Ну удалось импортировать %s .\n"
+
+#, c-format
+msgid "Unable to load block from %s ."
+msgstr "Не удалось загрузить блок из %s ."
+
+msgid "Loading the block"
+msgstr "Загружается блок"
+
+msgid "Untitled"
+msgstr "Безымянная диаграмма"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "New"
+msgstr "Создать"
+
+msgid "New diagram"
+msgstr "Новая диаграмма"
+
+msgid "New palette"
+msgstr "Новая палитра"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Open file in Scilab current directory"
+msgstr "Открыть файл в текущей директории Scilab"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save as"
+msgstr "Сохранить как"
+
+msgid "Export"
+msgstr "Экспортировать"
+
+msgid "Export all diagrams"
+msgstr "Экспортировать все диаграммы"
+
+msgid "Save as interface function"
+msgstr "Сохранить как интерфейсную функцию"
+
+msgid "Print"
+msgstr "Печать"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Quit Xcos"
+msgstr "Выход из Xcos"
+
+msgid "Recent files"
+msgstr "Последние файлы"
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "Block Parameters"
+msgstr "Параметры блока"
+
+msgid "Selection to superblock"
+msgstr "Выбор суперблока"
+
+msgid "Superblock mask"
+msgstr "Маска суперблока"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Customize"
+msgstr "Настроить"
+
+msgid "Save block GUI"
+msgstr "Сохранить как блок GUI"
+
+msgid "matches"
+msgstr "совпадает с"
+
+msgid "Previous"
+msgstr "Предыдущий"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Searching..."
+msgstr "Поиск…"
+
+msgid "Zoom In"
+msgstr "Увеличить"
+
+msgid "Zoom Out"
+msgstr "Уменьшить"
+
+msgid "Unable to load the selected blocks."
+msgstr "Невозможно загрузить выбранные блоки."
+
+msgid "Loading blocks"
+msgstr "Загрузка блоков"
+
+msgid "Load as palette"
+msgstr "Открыть как палитру"
+
+msgid "User-Defined"
+msgstr "Определённые пользователем"
+
+msgid "Create a category"
+msgstr "Создать категорию"
+
+msgid "Add to a new category"
+msgstr "Добавить в новую категорию"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Enter a name"
+msgstr "Введите имя"
+
+msgid "Dump"
+msgstr "Дамп"
+
+msgid "View in Scicos"
+msgstr "Просмотреть в Scicos"
+
+msgid "View"
+msgstr "Вид"
+
+msgid "Fit diagram or blocks to view"
+msgstr "Подогнать масштаб диаграммы или блоков"
+
+msgid "Normal 100%"
+msgstr "Нормальный размер"
+
+msgid "Palette browser"
+msgstr "Палитры блоков"
+
+msgid "tree_show(scs_m)"
+msgstr "tree_show(scs_m)"
+
+msgid "Diagram browser"
+msgstr "Информация о диаграмме"
+
+msgid "Viewport"
+msgstr "Окно просмотра"
+
+msgid "Get infos"
+msgstr "Получить информацию"
+
+msgid "Details"
+msgstr "Информация о блоке"
+
+msgid "Show parent diagram"
+msgstr "Показать основную диаграмму"
+
+msgid "Simulation"
+msgstr "Моделирование"
+
+msgid "Setup"
+msgstr "Параметры"
+
+msgid "Compile"
+msgstr "Компилировать"
+
+msgid "Start"
+msgstr "Выполнить"
+
+msgid "Stop"
+msgstr "Завершить"
+
+msgid "Set Context"
+msgstr "Задать переменные окружения"
+
+msgid "Format"
+msgstr "Формат"
+
+msgid "Resize"
+msgstr "Изменить размер"
+
+msgid "Rotate"
+msgstr "Вращать"
+
+msgid "Flip"
+msgstr "Отразить по вертикали"
+
+msgid "Mirror"
+msgstr "Отразить по горизонтали"
+
+msgid "Show/Hide shadow"
+msgstr "Показать/скрыть тень"
+
+msgid "Grid"
+msgstr "Сетка"
+
+msgid "Diagram background"
+msgstr "Фон диаграммы"
+
+msgid "Bold"
+msgstr "Полужирный"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Font size"
+msgstr "Размер шрифта"
+
+msgid "Font name"
+msgstr "Название шрифта"
+
+msgid "Font style"
+msgstr "Стиль шрифта"
+
+msgid "Block legend"
+msgstr "Легенда блока"
+
+msgid "Image path"
+msgstr "Изображение"
+
+msgid "Tools"
+msgstr "Инструменты"
+
+msgid "Code generation"
+msgstr "Сформировать код"
+
+msgid "?"
+msgstr "Справка"
+
+msgid "Xcos Help"
+msgstr "Справка по Xcos"
+
+msgid "Block Help"
+msgstr "Справка по блоку"
+
+msgid "Xcos Demonstrations"
+msgstr "Демонстрации Xcos"
+
+msgid "About Scilab"
+msgstr "О Scilab''е"
+
+msgid "Palettes"
+msgstr "Палитры"
+
+msgid "Sources"
+msgstr "Источники сигналов и воздействий"
+
+msgid "Continuous time systems"
+msgstr "Системы с непрерывным временем"
+
+msgid "Implicit"
+msgstr "Блоки неявных данных"
+
+msgid "Discontinuities"
+msgstr "Системы с разрывами"
+
+msgid "Lookup Tables"
+msgstr "Задание табличных значений"
+
+msgid "Signal Processing"
+msgstr "Обработка сигналов"
+
+msgid "Zero crossing detection"
+msgstr "Обнаружение перехода через нуль"
+
+msgid "Mathematical Operations"
+msgstr "Математические операции"
+
+msgid "Integer"
+msgstr "Целые числа"
+
+msgid "Matrix"
+msgstr "Матричные операции"
+
+msgid "Sinks"
+msgstr "Регистрирующие устройства"
+
+msgid "Port & Subsystem"
+msgstr "Порты и подсистемы"
+
+msgid "Annotations"
+msgstr "Примечания"
+
+msgid "Discrete time systems"
+msgstr "Системы с дискретным временем"
+
+msgid "Event handling"
+msgstr "Обработка событий"
+
+msgid "Signal Routing"
+msgstr "Маршрутизация сигналов"
+
+msgid "Recently Used Blocks"
+msgstr "Недавно использованные блоки"
+
+msgid "User-Defined Functions"
+msgstr "Пользовательские функции"
+
+msgid "Demonstrations Blocks"
+msgstr "Примеры блоков"
+
+msgid "Electrical"
+msgstr "Электрические блоки"
+
+msgid "Thermo-Hydraulics"
+msgstr "Термогидравлические блоки"
+
+msgid "Enable"
+msgstr "Включить"
+
+msgid "Palette name"
+msgstr "Имя палитры"
+
+msgid "Diagram has been modified since last save.<br/> Do you want to save it?"
+msgstr "Диаграмма была изменена.<br/> Сохранить изменения?"
+
+#, c-format
+msgid ""
+"The file %s doesn't exist\n"
+" Do you want to create it?"
+msgstr ""
+"Файл %s не существует.\n"
+"Создать файл?"
+
+#, c-format
+msgid "Unable to decode the URI : %s ."
+msgstr "Невозможно декодировать адрес : %s ."
+
+msgid "Ok"
+msgstr "ОК"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Reset to default"
+msgstr "Сбросить на значения по умолчанию"
+
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK), and every time the diagram "
+"is run."
+msgstr ""
+
+msgid "Failed to load Diagram"
+msgstr "Не удалось загрузить диаграмму"
+
+msgid "Could not save diagram."
+msgstr "Не удалось сохранить диаграмму"
+
+msgid "Do you want to overwrite existing file?"
+msgstr "Вы желаете перезаписать существующий файл?"
+
+msgid "Do you want a transparent background image?"
+msgstr "Вы желаете сделать фоновое изображение прозрачным?"
+
+msgid "Image contains no data."
+msgstr "Изображение не содержит данных"
+
+msgid "Unknown Diagram Version : "
+msgstr "Неизвестная версия диаграммы: "
+
+msgid "Will try to continue..."
+msgstr "Попытаюсь продолжить..."
+
+msgid "Xcos error"
+msgstr "Ошибка Xcos"
+
+msgid "Unable to delete "
+msgstr "Не удалось удалить "
+
+msgid "No block selected"
+msgstr "Нет выбранного блока"
+
+msgid "Export to XML"
+msgstr "Экспорт в XML"
+
+msgid "Export in progress"
+msgstr "Выполняется экспорт"
+
+msgid "Import from XML"
+msgstr "Импорт из XML"
+
+msgid "Add to"
+msgstr "Добавить к"
+
+msgid "Add to new diagram"
+msgstr "Добавить к новой диаграмме"
+
+msgid "Explicit data input port must be connected to explicit data output port"
+msgstr ""
+"Входной порт явных данных должен быть подключён к выходному порту явных "
+"данных"
+
+msgid "Implicit data input port must be connected to implicit data output port"
+msgstr ""
+"Входной порт неявных данных должен быть подключён к выходному порту неявных "
+"данных"
+
+msgid "Explicit data output port must be connected to explicit data input port"
+msgstr ""
+"Выходной порт явных данных должен быть подключён к входному порту явных "
+"данных"
+
+msgid "Implicit data output port must be connected to implicit data input port"
+msgstr ""
+"Выходной порт неявных данных должен быть подключён к входному порту неявных "
+"данных"
+
+msgid "Command port must be connected to control port"
+msgstr "Командный порт должен быть подключён к управляющему порту"
+
+msgid "control port must be connected to command port"
+msgstr "Управляющий порт должен быть подключён к командному порту"
+
+msgid ""
+"Port is already connected, please select an unconnected port or a valid link."
+msgstr ""
+"Порт уже подключён, выберите не подключенный порт или допустимое соединение."
+
+msgid "Align Blocks"
+msgstr "Выровнять блоки"
+
+msgid "Left"
+msgstr "По левому краю"
+
+msgid "Right"
+msgstr "По правому краю"
+
+msgid "Center"
+msgstr "По центру"
+
+msgid "Top"
+msgstr "По верхнему краю"
+
+msgid "Bottom"
+msgstr "По нижнему краю"
+
+msgid "Middle"
+msgstr "По середине"
+
+msgid "Block edge"
+msgstr "Край блока"
+
+msgid "Block background"
+msgstr "Фон блока"
+
+msgid "Legend color"
+msgstr "Цвет легенды"
+
+msgid "Link Style"
+msgstr "Стиль соединений"
+
+msgid "Straight"
+msgstr "Прямой"
+
+msgid "Horizontal"
+msgstr "Горизонтальный"
+
+msgid "Vertical"
+msgstr "Вертикальный"
+
+msgid "Set debugging level (0,1,2,3) <br/> it performs scicos_debug(n)"
+msgstr ""
+"Выберите уровень отладки (0,1,2,3) <br/> для выполнения scicos_debug(n)"
+
+msgid "Execution trace and Debug"
+msgstr "Трассировка и отладка"
+
+msgid "Final integration time"
+msgstr "Конечное время интегрирования"
+
+msgid "Real time scaling"
+msgstr "Количество секунд в единице времени"
+
+msgid "Integrator absolute tolerance"
+msgstr "Абсолютная погрешность интегрирования"
+
+msgid "Integrator relative tolerance"
+msgstr "Относительная погрешность интегрирования"
+
+msgid "Tolerance on time"
+msgstr "Погрешность по времени"
+
+msgid "Max integration time interval"
+msgstr "Максимальный временной интервал интегрирования"
+
+msgid "Solver kind"
+msgstr "Вид программы решения"
+
+msgid "Maximum step size (0 means no limit)"
+msgstr "Максимальный размер шага (0 означает \"без ограничения\")"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "Set Parameters"
+msgstr "Параметры моделирования"
+
+msgid "Based on Scicos"
+msgstr "Основан на Scicos"
+
+msgid "Saving diagram"
+msgstr "Сохранение диаграммы"
+
+msgid "Loading diagram"
+msgstr "Загружается диаграмма"
+
+msgid "Loading palettes"
+msgstr "Загружаются палитры"
+
+msgid "Loading user defined palettes"
+msgstr "Загружаются пользовательские палитры"
+
+msgid "Generating C Code for SuperBlock"
+msgstr "Формируется код на C для суперблока..."
+
+msgid "A SuperBlock must be selected to generate code"
+msgstr "Суперблок должен быть выделен, чтобы сформировать код"
+
+msgid "Simulation in progress"
+msgstr "Выполняется моделирование"
+
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
+msgstr "Идёт компиляция, результаты будут сохранены в переменной 'cpr'."
+
+msgid "Generate SuperBlock, please wait"
+msgstr "Генерация СуперБлока, пожалуйста, подождите"
+
+msgid "Click on diagram to add link point or on a compatible target to finish"
+msgstr ""
+"Нажмите левую кнопку мыши на диаграмме для добавления узла связи или на "
+"совместимой цели для завершения"
+
+msgid "No trace nor debug printing"
+msgstr "Трассировка и отладка отключены"
+
+msgid "Light Simulation trace (Discrete and Continuous part switches)"
+msgstr "Трассировка только блоков интегрирования"
+
+msgid "Per block execution trace and Debug block calls"
+msgstr "Трассировка всех блоков и вызовы блока отладки"
+
+msgid "Debug block calls without trace"
+msgstr "Вызовы блока отладки без трассировки"
+
+msgid "All supported formats"
+msgstr "Все поддерживаемые форматы"
+
+msgid "Scicos file"
+msgstr "Файл Scicos"
+
+msgid "Xcos file"
+msgstr "Файл Xcos"
+
+msgid "Xcos (zip) file"
+msgstr "Xcos (zip) файл"
+
+msgid "XMI (Eclipse EMF) file"
+msgstr "файл XMI (Eclipse EMF)"
+
+msgid "Scilab Open Data file"
+msgstr "Файл формата открытых данных Scilab"
+
+msgid "Masked SuperBlock editor"
+msgstr "Редактор маскированного суперблока"
+
+msgid "Insert"
+msgstr "Вставить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Move Up"
+msgstr "Переместить вверх"
+
+msgid "Move Down"
+msgstr "Переместить вниз"
+
+msgid "Rows"
+msgstr "Строки"
+
+msgid "Variable settings"
+msgstr "Настройки переменных"
+
+msgid "Default values"
+msgstr "Значения по умолчанию"
+
+msgid "WinTitle"
+msgstr "WinTitle"
+
+msgid "Window title"
+msgstr "Заголовок окна"
+
+msgid "Variable names"
+msgstr "Имена переменных"
+
+msgid "Variable descriptions"
+msgstr "Описания переменных"
+
+msgid "Editable"
+msgstr "Изменяемый"
+
+msgid "Values"
+msgstr "Значения"
+
+msgid "Set block parameters"
+msgstr "Задать параметры блока"
+
+msgid ""
+"The user palette configuration file (palettes.xml) is invalid.<BR> Switching "
+"to the default one."
+msgstr ""
+"Ошибка в пользовательском файле настроек палитр (palettes.xml).<BR> "
+"Используются настройки по умолчанию."
+
+msgid ""
+"The user configuration file (xcos.xml) is invalid.<BR> Switching to the "
+"default one."
+msgstr ""
+"Ошибка в пользовательском файле настроек (xcos.xml).<BR> Используются "
+"настройки по умолчанию."
+
+msgid "Setting up Modelica Compiler."
+msgstr "Настраивается компилятор Modelica"
+
+msgid "Modelica initialize"
+msgstr "Запускается Modelica"
+
+msgid "Error: unable to compile this SuperBlock"
+msgstr "Ошибка: невозможно скомпилировать этот SuperBlock"
+
+msgid "Evaluation problem: wrong port number."
+msgstr "Проблема выполнения: неверный номер порта."
+
+#, c-format
+msgid "Expecting <code>%d</code> but got <code>%d</code>."
+msgstr "Ожидалось <code>%d</code>, а получено <code>%d</code>."
+
+msgid ""
+"<html><body>Compilation error: link ignored because it is not connected. <br/"
+">Please reconnect it.</body></html>"
+msgstr ""
+"<html><body>Ошибка компиляции: ссылка проигнорированна, поскольку она не "
+"подсоединена. <br/>Пожалуйста, подсоедините её.</body></html>"
+
+msgid "Block name: "
+msgstr "Название блока: "
+
+msgid "Simulation: "
+msgstr "Моделирование: "
+
+msgid "UID: "
+msgstr "Идентификатор: "
+
+msgid "Style: "
+msgstr "Стиль: "
+
+msgid "Rpar: "
+msgstr "Rpar: "
+
+msgid "Ipar: "
+msgstr "Ipar: "
+
+msgid "Opar: "
+msgstr "Opar: "
+
+msgid "Datatype: "
+msgstr "Тип данных: "
+
+msgid "Implicit: "
+msgstr "Неявно: "
+
+msgid "Source datatype: "
+msgstr "Тип данных исходника: "
+
+msgid "Target datatype: "
+msgstr "Тип данных назначения: "
+
+msgid "Label: "
+msgstr "Метка: "
+
+msgid "Optimal"
+msgstr "Оптимальный"
+
+msgid "Auto-Position Block"
+msgstr "Блок автопозиции"
+
+msgid "Split Block"
+msgstr "Блок разделения"
+
+msgid "Auto-Position Split Block"
+msgstr "Блок разделения автопозиции"
+
+msgid "A one-line description of the block"
+msgstr "Однолинейное описание блока"
+
+msgid "Annotation (or comment) attached to the object"
+msgstr "Аннотация (или комментарий), прикреплённая к объекту"
+
+#, c-format
+msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
+msgstr "Модуль «%s» выключен в режимах -nogui и -nwni.\n"
+
+#, c-format
+msgid "Scilab '%s' module not installed.\n"
+msgstr "Модуль «%s» не установлен.\n"
+
+msgid "Number of recently opened files to display: "
+msgstr "Количество отображаемых недавно открытых файлов: "
+
+msgid "Default file format"
+msgstr "Формат файла по умолчанию"
+
+msgid "Default simulation settings"
+msgstr "Настройки моделирования по умолчанию"
+
+msgid "Default trace settings"
+msgstr "Настройки соединений по умолчанию"
+
+msgid "Basic controller"
+msgstr "Основной контроллер"
+
+msgid "Water tank"
+msgstr "Резервуар для воды"
+
+msgid "Discrete Controller"
+msgstr "Дискретный контроллер"
+
+msgid "Kalman Filter"
+msgstr "Калмановский фильтр"
+
+msgid "Discrete Kalman Filter"
+msgstr "Дискретный калмановский фильтр"
+
+msgid "Cont.Plant-Hybrid Observer"
+msgstr "Наблюдатель Cont.Plant-Hybrid"
+
+msgid "Temperature Controller"
+msgstr "Контроллер температуры"
+
+msgid "Inverted pendulum"
+msgstr "Перевёрнутый маятник"
+
+msgid "Lorenz butterfly"
+msgstr "Бабочка Лоренца"
+
+msgid "RLC Circuit"
+msgstr "RLC-цепочка"
+
+msgid "Bridge Rectifer"
+msgstr "Мостовой выпрямитель"
+
+msgid "Transformer"
+msgstr "Трансформатор"
+
+msgid "Differential amplifier"
+msgstr "Дифференциальный усилитель"
+
+msgid "OpAmp amplifier"
+msgstr "Операционный усилитель"
+
+msgid "Switched capacitor integrator"
+msgstr "Интегратор с переключаемым конденсатором"
+
+msgid "DC/DC Buck Converter"
+msgstr "Преобразователь-ограничитель DC/DC"
+
+msgid "DC/DC Boost Converter"
+msgstr "Повышающий преобразователь DC/DC"
+
+msgid "Colpitts oscillator"
+msgstr "емкостной трёхточечный генератор"
+
+msgid "Logic AND gate"
+msgstr "Логический элемент И"
+
+msgid "Logic NOR gate"
+msgstr "Логический элемент НЕ"
+
+msgid "If Then Else"
+msgstr "If Then Else"
+
+msgid "And"
+msgstr "И"
+
+msgid "Automotive Suspension"
+msgstr "Автомобильная подвеска"
+
+msgid "Ball on a Platform"
+msgstr "Шар на платформе"
+
+msgid "Bouncing Ball"
+msgstr "Подпрыгивающий мяч"
+
+msgid "Chaos Modelica"
+msgstr "Modelica хаоса"
+
+msgid "Hydraulics blocks"
+msgstr "Блоки гидравлики"
+
+msgid "RLC circuit"
+msgstr "RLC-цепочка"
+
+msgid "Heat conduction in a rod"
+msgstr "Теплопроводность в стержне"
+
+msgid "Second order rotational system"
+msgstr "Система вращения второго порядка"
+
+msgid "Old Gain Block"
+msgstr "Старый блок усиления"
+
+msgid "Optimal link route"
+msgstr "Оптимальный маршрут связи"
+
+msgid "Optimal split block position"
+msgstr "Оптимальное положение блока разделения"
+
+msgid "Standard demos"
+msgstr "Стандартные демонстрации"
+
+msgid "Control Systems"
+msgstr "Система управления"
+
+msgid "Electrical Systems"
+msgstr "Электрические системы"
+
+msgid "Mechanical Systems"
+msgstr "Механические системы"
+
+msgid "Modelica demos"
+msgstr "Демонстрации Modelica"
+
+msgid "Old demos"
+msgstr "Старые демонстрации"
+
+msgid "Simple Demo"
+msgstr "Простые демонстрации"
+
+msgid "Bouncing Balls"
+msgstr "Скачущие мячи"
+
+msgid "Simple Thermostat"
+msgstr "Простой термостат"
+
+msgid "Table Lookup"
+msgstr "Поиск в таблице"
+
+msgid "Signal Builder"
+msgstr "Построитель сигнала"
+
+msgid "Fibonacci Numbers"
+msgstr "Числа Фибоначчи"
+
+msgid "Scilab block"
+msgstr "блок Scilab"
+
+msgid "Xcos data types"
+msgstr "типы данных Xcos"
+
+msgid "Zero Crossing"
+msgstr "Пересечение нуля"
+
+msgid "_IF_ Xcos block"
+msgstr "блок Xcos _IF_"
+
+msgid "Goto/From blocks"
+msgstr "Goto/From-блоки"
+
+msgid "Event demos"
+msgstr "Демонстрации событий"
+
+msgid "Optimal positions"
+msgstr "Оптимальные положения"
+
+#, c-format
+msgid "%s: Unable to export %s to %s.\n"
+msgstr "%s: Не удалось экспортировать %s в %s.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: Неверное количество входных параметров: ожидалось от %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: Block type expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидался блок.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: directory path string expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра %s: ожидалась строка пути каталога.\n"
+
+#, c-format
+msgid "%s: Wrong input argument %s: svg, gif or jpg expected.\n"
+msgstr "%s: Неверный входной параметр %s: ожидалось svg, gif или jpg.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: boolean expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра %s: ожидалось логическое значение.\n"
+
+#, c-format
+msgid "%s: File '%s' does not exist.\n"
+msgstr "%s: Файл «%s» не существует.\n"
+
+#, c-format
+msgid "%s: File '%s' is not a valid palette file.\n"
+msgstr "%s: Файл «%s» не является допустимым файлом палитры.\n"
+
+#, c-format
+msgid "%s: Found '%s' instead of a block.\n"
+msgstr "%s: Найдено «%s» вместо блока.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: diagram structure expected"
+msgstr "%s: Неверный тип параметра %d: ожидалась структура диаграммы"
+
+#, c-format
+msgid "%s: Wrong type for %s variable: A string array expected.\n"
+msgstr ""
+"%s: Неверный тип переменной %s: ожидался массив строковых переменных.\n"
+
+#, c-format
+msgid "%s: All paths defined by %s variable must exist.\n"
+msgstr "%s: Все пути, определенные переменной %s, должны существовать.\n"
+
+#, c-format
+msgid ""
+"%s: The directory %s cannot been created, please check if you have write "
+"access on this directory.\n"
+msgstr ""
+"%s: Не удалось создать каталог %s, проверьте, имеете ли вы доступ для записи "
+"в данный каталог.\n"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "Не удалось открыть %s"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected."
+msgstr "%s: Неверное число входных аргуметов: ожидается %d."
+
+#, c-format
+msgid "%s: Not supported format %s.\n"
+msgstr "%s: Неподдерживаемый формат %s.\n"
+
+#, c-format
+msgid ""
+"%s: the block %s is no more available, please update the diagram with a "
+"compatible one."
+msgstr ""
+"%s: блок %s более недоступен, пожалуйста, обновите схему с помощью "
+"совместимого блока."
+
+#, c-format
+msgid "%s is not a valid name, please change the title of the diagram."
+msgstr "%s является недопустимым именем, пожалуйста, измените название схемы."
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string type expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: diagram type expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидалась диаграмма.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d to %d expected.\n"
+msgstr "%s: Неверное количество выходных параметров: ожидалось от %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: palette type or path expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидалась палитра или путь.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: File not found.\n"
+msgstr "%s: Неверный тип входного параметра %s: файл не найден.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string vector expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидался вектор строк.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: palette type expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидалась палитра.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: hdf5 file expected.\n"
+msgstr "%s: Не удалось загрузить блок из %s: ожидался файл hdf5.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: no `scs_m' variable found.\n"
+msgstr "%s: Не удалось загрузить блок из %s: переменной «scs_m» не найдено.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: Missing file.\n"
+msgstr "%s: Не удалось загрузить блок из %s: ожидался файл hdf5.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument %s: function as string or Block type or "
+"full path string expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра %s:ожидалась функция в виде строки, блок "
+"или строка полного пути.\n"
+
+#, c-format
+msgid "%s: Unable to generate the palette icon : %s already exists.\n"
+msgstr "%s: Не удалось сформировать значок палитры: %s уже существует.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: path string expected.\n"
+msgstr "%s: Неверный тип входного параметра %s: ожидалась строка пути.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument %s: An existing file expected.\n"
+msgstr ""
+"%s: Неверное значение входного параметра %s: Ожидался существующий файл.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument %s: A valid file format (png, jpg, gif) "
+"expected.\n"
+msgstr ""
+"%s: Неверное значение входного аргумента %s: Ожидается правильный формат "
+"файла (png, jpg, gif).\n"
+
+#, c-format
+msgid "%s: Unable to generate the image %s.\n"
+msgstr "%s: Не удалось сформировать изображение %s.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра %s: ожидалась строка или структура.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: full path string expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра %s: ожидалась строка полного пути.\n"
+
+#, c-format
+msgid "%s: Unable to export the palette to hdf5.\n"
+msgstr "%s: Не удалось экспортировать палитру в hdf5.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Matrix of strings expected.\n"
+msgstr "%s: Неверный тип аргумента №%d: ожидалась матрица строк.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Vector expected.\n"
+msgstr "%s: Неверный размер входного параметра №%d: ожидался вектор.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: No block found.\n"
+msgstr "%s: Неверное значение входного аргумента №%d: блок не найден.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A String expected."
+msgstr "%s: Неверный тип аргумента %d: ожидалась строка."
+
+msgid "Interface function does not exist or can not be called."
+msgstr "Функция интерфейса не существует или не может быть вызвана."
+
+#, c-format
+msgid "%s is not a valid block descriptor."
+msgstr "%s не является допустимым указателем блока."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: Неверный размер входного аргумента №%d: ожидалась матрица %d на %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr "%s: Неверное количество входных аргументов: ожидалось %d или %d.\n"
+
+#, c-format
+msgid "Block definition with function [%s] failed."
+msgstr "Определение блока с помощью функции [%s] не получилось."
+
+#, c-format
+msgid "Block configuration with function [%s] failed."
+msgstr "Настройка блока с помощью функции [%s] не получилась."
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A Block expected."
+msgstr "%s: Неверный тип аргумента №%d: Ожидался блок (Block)."
+
+#, c-format
+msgid "Field %s has different values."
+msgstr "Поле %s имеет разные значения."
+
+msgid "Stopped before block:"
+msgstr "Остановлено  перед блоком:"
+
+msgid "Stopped after block:"
+msgstr "Остановлено после блока:"
+
+msgid "State derivative computation"
+msgstr "Вычисление производной состояния"
+
+msgid "Regular outputs update"
+msgstr "Обновление обычных портов вывода"
+
+msgid "States update on discrete event"
+msgstr "Обновление состояний на дискретном событии"
+
+msgid "Output activation dates"
+msgstr "Даты активации вывода"
+
+msgid "Initialization"
+msgstr "Инициализация"
+
+msgid "Ending"
+msgstr "Окончание"
+
+msgid "ReInitialization"
+msgstr "Повторная инициализация"
+
+msgid "Continuous states properties update"
+msgstr "Обновление свойств непрерывных состояний"
+
+msgid "Zero crossing surfaces computation"
+msgstr "Вычисление поверхностей пересекающих ноль"
+
+msgid "Residual computation"
+msgstr "Вычисление вычетов"
+
+msgid "&File"
+msgstr "&Файл"
+
+msgid "&Tools"
+msgstr "&Инструменты"
+
+msgid "&Edit"
+msgstr "&Правка"
+
+msgid "&?"
+msgstr "&?"
+
+msgid "Xcos debug"
+msgstr "Xcos-отладка"
+
+msgid "Break point conditions"
+msgstr "Условия точки останова"
+
+msgid "Break on selected flags"
+msgstr "Разрыв на выбранных флагах"
+
+msgid "After call"
+msgstr "После вызова"
+
+msgid "Before call"
+msgstr "Перед вызовом"
+
+msgid "After date"
+msgstr "После даты"
+
+msgid "On the Scilab condition above"
+msgstr "По условиям Scilab выше"
+
+msgid "Current simulation state"
+msgstr "Текущее состояние симуляции"
+
+msgid "scs_m block path:"
+msgstr "путь блока scs_m:"
+
+msgid "Time:"
+msgstr "Время:"
+
+msgid "Flag:"
+msgstr "Флаг:"
+
+msgid "End debug"
+msgstr "Конец отладки"
+
+msgid "Pause"
+msgstr "Пауза"
+
+#, c-format
+msgid "Use the %s button to end the debugging"
+msgstr "Используйте клавишу %s для завершения отладки"
+
+#, c-format
+msgid "Unable to simulate %s"
+msgstr "Не удалось моделировать %s"
+
+msgid "Error occurred in pre_xcos_simulate: Cancelling simulation."
+msgstr "В pre_xcos_simulate произошла ошибка: отмена моделирования."
+
+#, c-format
+msgid "%s: Error during block parameters evaluation.\n"
+msgstr "%s: Ошибка во время вычисления параметров блока.\n"
+
+#, c-format
+msgid "%s: Error during block parameters update.\n"
+msgstr "%s: Ошибка во время обновления параметров блока.\n"
+
+msgid "Initialisation problem"
+msgstr "Задача инициализации"
+
+msgid "End problem"
+msgstr "Конечная задача"
+
+msgid "Simulation problem"
+msgstr "Задача моделирования"
+
+msgid "Error in post_xcos_simulate: ending simulation."
+msgstr "В post_xcos_simulate ошибка: моделирование завершается."
+
+#, c-format
+msgid "%s: Cannot open file '%s' for reading.\n"
+msgstr "%s: Не могу открыть файл '%s' на чтение.\n"
+
+#, c-format
+msgid "%s: Error while trying to read file contents from '%s'.\n"
+msgstr "%s: Ошибка при попытке прочитать содержание файла из '%s'.\n"
+
+#, c-format
+msgid "%s: Syntax error while trying to set up context from"
+msgstr "%s: Синтаксическая ошибка при попытке установить контекст из"

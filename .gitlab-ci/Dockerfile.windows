@@ -1,0 +1,54 @@
+# escape=`
+# This changes the Dockerfile escape character to backtick (`).
+#  The default escape character is backslash (\).
+#  By changing the escape character, we don't have to escape the path separator
+#  in Windows paths, and by changing it to backtick, our RUN commands look like
+#  PowerShell commands (where backtick is the escape character).
+
+# Use the Windows Server Core 2019 image.
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+
+# Restore the default Windows shell for correct batch processing.
+SHELL ["cmd", "/S", "/C"]
+
+# Download and install UnxUtils for tools like: sed, tail, ect...
+ADD https://unxutils.sourceforge.net/UnxUpdates.zip C:\unxutils\
+RUN tar -C C:\unxutils\ -xf C:\unxutils\UnxUpdates.zip
+RUN setx path "C:\unxutils\;%PATH%"
+RUN del /q C:\unxutils\UnxUpdates.zip
+
+# Download and install svn
+RUN curl -SL --output TortoiseSVN.msi https://ftp.halifax.rwth-aachen.de/osdn/storage/g/t/to/tortoisesvn/1.14.1/Application/TortoiseSVN-1.14.1.29085-x64-svn-1.14.1.msi
+RUN msiexec /i TortoiseSVN.msi ADDLOCAL=CLI
+RUN del /q TortoiseSVN.msi
+
+# Download and install OpenJDK
+RUN curl -SL --output OpenJDK.msi https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jdk_x64_windows_hotspot_8u292b10.msi
+RUN msiexec /i OpenJDK.msi /q ADDLOCAL=FeatureMain,FeatureEnvironment,FeatureJavaHome
+RUN del /q OpenJDK.msi
+
+# Download and install Innosetup
+RUN curl -SL --output Innosetup.exe https://files.jrsoftware.org/is/5/innosetup-5.5.9-unicode.exe
+RUN del /q Innosetup.exe
+
+# Download and Install Intel oneAPI HPC
+RUN curl -SL --output w_HPCKit.exe https://registrationcenter-download.intel.com/akdlm/irc_nas/18857/w_HPCKit_p_2022.3.0.9564_offline.exe
+RUN start /b /w w_HPCKit.exe -s -x -f oneapi_extracted --log extract.log
+
+# Download  and install visual studio
+RUN curl -SL --output vs.exe https://aka.ms/vs/15/release/vs_professional.exe
+RUN start /b /wait vs.exe --quiet --wait --nocache --norestart --installPath "c:\VS" --add Microsoft.VisualStudio.Workload.NativeDesktop  --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64  --add Microsoft.VisualStudio.Component.Windows81SDK  --add Microsoft.Component.VC.Runtime.UCRTSDK
+RUN setx VS2017INSTALLDIR "C:\VS"
+
+# Install Intel oneAPI HPC with VS Integration
+RUN start /b /w oneapi_extracted\bootstrapper.exe -s --action install --components=intel.oneapi.win.ifort-compiler:intel.oneapi.win.cpp-compiler -p=NEED_VS2017_INTEGRATION=1 --eula=accept
+RUN del /q w_HPCKit.exe
+RUN rd /s/q oneapi_extracted
+
+# Create Windows user in the container
+# RUN net user /add scilab
+# Set it for subsequent commands
+# USER scilab
+
+# This entry point starts the developer command prompt and launches the PowerShell shell.
+ENTRYPOINT ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - 2023 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="subplot">
+    <refnamediv>
+        <refname>subplot</refname>
+        <refpurpose>
+            устанавливает текущие оси в выбранную ячейку текущего показателя или рамки
+            с привязкой к сетке
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            subplot(m,n,p)
+            subplot(mnp)
+            ax = subplot(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>m, n, p</term>
+                <listitem>
+                    <para>
+                        целые числа &gt; 0. (m,n) = числа строк и столбцов виртуальной сетки.
+                        р = индекс целевой ячейки.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mnp</term>
+                <listitem>
+                    <para>
+                        целое число с десятичной нотацией <literal>mnp</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ax</term>
+                <listitem>
+                     <para>
+                        дескриптор созданной сущности Axes
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <emphasis role="bold">subplot(m,n,p)</emphasis> или
+            <emphasis role="bold">subplot(mnp)</emphasis> виртуально разделяет графическое
+            окно или uicontrol(frame) на матрицу подокон размером m-на-n, и выбирает
+            <varname>p</varname>-тое подокно для получения следующего графика.
+        </para>
+        <para>
+            В сетке, где ячейки индексированы вдоль каждого ряда, начиная с верхнего.
+            Следовательно, например, последняя ячейка первого ряда <varname>p</varname> будет
+            <varname>n</varname>-ной ячейкой. Ячейка в ряду №i и в столбце №j имеет индекс
+            <literal>p=(i-1)*n+j</literal>.
+        </para>
+        <para>
+            Когда выбранная зона точно соответствует существующим осям, то
+            <literal>subplot(…)</literal> просто устанавливает её в качестве текущих осей.
+        </para>
+        <para>
+            В противном случае <literal>subplot(…)</literal> создаёт пустые оси, по всей
+            выбранной зоне, готовые для получения следующего графического содержимого.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+            clf
+            subplot(221)
+            plot2d()
+
+            subplot(222)
+            plot3d()
+
+            subplot(2,2,3)
+            param3d()
+
+            subplot(2,2,4)
+            bar3d()
+ ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+            subplot(221)
+            plot2d()
+            subplot(222)
+            plot3d()
+            subplot(2,2,3)
+            param3d()
+            subplot(2,2,4)
+            bar3d()
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Более сложная компоновка</emphasis>, но по-прежнему
+            разграфлённая:
+        </para>
+        <programlisting role="example"><![CDATA[
+            clf
+            subplot(1,2,2)
+            Matplot1()
+            xtitle("Пример Matplot1()","","")
+
+            subplot(2,2,1)
+            histplot
+            delete(findobj("type","Legend"))
+
+            subplot(2,2,3)
+            title("Несколько меньшие графики:", "fontsize",3)
+
+            subplot(2,4,5)
+            polarplot()
+
+            subplot(2,4,6)
+            param3d()
+            xtitle("","","","")
+ ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+            clf
+            subplot(1,2,2)
+            Matplot1()
+            xtitle("Matplot1() example","","")
+
+            subplot(2,2,1)
+            histplot
+            delete(findobj("type","Legend"))
+
+            subplot(2,2,3)
+            title("Smaller plots:", "fontsize",3)
+
+            subplot(2,4,5)
+            polarplot()
+
+            subplot(2,4,6)
+            param3d()
+            xtitle("","","","")
+            gcf().axes_size = [670 400];
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Usage on uicontrol frames</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+x = -4:0.05:4;
+
+f = figure(...
+    "default_axes","off", ...
+    "toolbar","none", ...
+    "name","subplot in frames", ...
+    "backgroundColor",[1 1 1]*0.97);
+
+// Frame #1
+b = createBorder("titled", "Frame #1");
+uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.03 0.83 0.94 0.15]);
+
+// Frame #2
+b(2) = "Frame #2";
+fr2 = uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.03 0.03 0.60 0.8]);
+
+a2 = newaxes(fr2);
+subplot(1,2,1)
+plot(x, tanh(x)), title("tanh")
+
+subplot(2,2,2)
+plot(x, sinh(x)), title("sinh")
+
+// Frame #3
+b(2) = "Frame #3";
+fr3 = uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.65 0.03 0.32 0.8]);
+
+a3 = newaxes(fr3);
+subplot(2,1,1)
+plot(2*x, sinc(2*x)), title("sinc")
+
+subplot(2,1,2)
+plot(2*x, sin(2*x)), title("sin")
+
+// Back to Frame #2
+sca(a2);
+subplot(2,2,4)
+plot(x, cosh(x)), title("cosh")
+     ]]></programlisting>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../images/subplot_frame.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xsetech">xsetech</link>
+            </member>
+            <member>
+                <link linkend="newaxes">newaxes</link>
+            </member>
+            <member>
+                <link linkend="axes_properties">axes_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0</revnumber>
+                <revdescription>
+                    <literal>subplot(…)</literal> can be used on uicontrol frames.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

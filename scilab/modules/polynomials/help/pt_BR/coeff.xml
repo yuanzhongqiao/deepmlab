@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA - Serge STEER
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="coeff" xml:lang="pt">
+    <refnamediv>
+        <refname>coeff</refname>
+        <refpurpose>coeficientes de matrizes de polinômios</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title> Seqüência de Chamamento </title>
+        <synopsis>
+            C = coeff(Mp)
+            C = coeff(Mp, degrees)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>Mp</term>
+                <listitem>
+                    <para>matriz de polinômios</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>degrees</term>
+                <listitem>
+                    <para>vetor (linha ou coluna) de inteiros dos graus selecionados
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>C</term>
+                <listitem>
+                    <para>matriz grande dos coeficientes</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>C=coeff(Mp)</literal> retorna em uma matriz grande
+            <literal>C</literal> os coeficientes da matriz de polinômios
+            <literal>Mp</literal> . <literal>C</literal> é particionada como
+            <literal>C=[C0,C1,...,Ck]</literal> onde os <literal>Ci</literal> estão
+            dispostos em ordem crescente, <literal>k =
+                max(degree(Mp))
+            </literal>
+        </para>
+        <para>
+            <literal>C=coeff(Mp,degrees)</literal> retorna a matriz de coeficientes
+            com graus em <literal>degrees</literal> . (<literal>v</literal> é um vetor linha
+            ou coluna).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+s = poly(0,'s');
+w = s*rand(10,10);
+determ(w)
+coeff(w,1)
+
+r = poly([0 -1+%i -1-%i],'s',"roots");
+coeff(r)
+
+r = poly([-1-%i -1+2*%i 0],'s',"roots");
+coeff(r)
+     ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="poly">poly</link>
+            </member>
+            <member>
+                <link linkend="degree">degree</link>
+            </member>
+            <member>
+                <link linkend="inv_coeff">inv_coeff</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

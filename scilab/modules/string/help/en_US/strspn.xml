@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="strspn" xml:lang="en">
+    <refnamediv>
+        <refname>strspn</refname>
+        <refpurpose>
+            lengths of the beginning of strings as long as characters are among those allowed
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>headsLengths = strspn(Strings, allowedChars)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>Strings, allowedChars</term>
+                <listitem>
+                    <para>
+                        Matrices of strings, of identical dimensions.
+                        <varname>allowedChars</varname> can be a scalar string.
+                        It is then used for all <varname>Strings</varname> components.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>headsLengths</term>
+                <listitem>
+                    <para>
+                        Matrix of positive real integers, of the size of <varname>Strings</varname>:
+						lengths of the selected <varname>Strings</varname> heads.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>headsLengths = strspn(Strings, allowedChars)</literal> returns the length of the initial
+            portion of <varname>Strings</varname> which consists only of characters that are part of
+            <varname>allowedChars</varname>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+allowed = "0":"9"
+strspn("129th or the 130th", allowed)
+
+t = ["characters" "matrix" ; "text" "strings"]
+allowed = "a":"s"
+strspn(t, allowed)
+
+allowed = ["a":"j", "a":"u" ; "d":"u", "g":"v"]
+strspn(t, allowed)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> allowed = "0":"9"
+ allowed  =
+  "0123456789"
+
+--> strspn("129th or the 130th", allowed)
+ ans  =
+   3.
+
+
+--> t = ["characters" "matrix" ; "text" "strings"]
+ t  =
+  "characters"  "matrix"
+  "text"        "strings"
+
+--> allowed = "a":"s"
+ allowed  =
+  "abcdefghijklmnopqrs"
+--> strspn(t, allowed)
+ ans  =
+   6.   2.
+   0.   1.
+
+--> allowed = ["a":"j", "a":"u" ; "d":"u", "g":"v"]
+ allowed  =
+  "abcdefghij"          "abcdefghijklmnopqrstu"
+  "defghijklmnopqrstu"  "ghijklmnopqrstuv"
+
+--> strspn(t, allowed)
+ ans  =
+   3.   5.
+   2.   7.
+]]></screen>
+        <para>
+            With UTF-8 extended characters:
+        </para>
+        <programlisting role="example"><![CDATA[
+t = "Να αμφιβάλλετε τα πάντα ή να μην αμφιβάλλετε τίποτα: " + ..
+    "δύο ίσοι τρόποι αποφυγής σκέψης.";
+t = matrix(strsplit(t," "), 2,-1)
+allowed = "Ναβγδεϵζηθικλμνξοπρστυφϕχψωϐϑϰϱςϖ";
+strspn(t, allowed)
+ ]]></programlisting>
+        <screen><![CDATA[
+--> t = matrix(strsplit(t," "), 2,-1)
+ t  =
+  "Να"           "τα"     "ή"   "μην"          "τίποτα:"  "ίσοι"    "αποφυγής"
+  "αμφιβάλλετε"  "πάντα"  "να"  "αμφιβάλλετε"  "δύο"      "τρόποι"  "σκέψης."
+
+--> allowed = "Ναβγδεϵζηθικλμνξοπρστυφϕχψωϐϑϰϱςϖ";
+--> strspn(t, allowed)
+ ans  =
+   2.   2.   0.   3.   1.   0.   6.
+   5.   1.   2.   5.   1.   2.   2.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strcspn">strcspn</link>
+            </member>
+            <member>
+                <link linkend="strncpy">strncpy</link>
+            </member>
+            <member>
+                <link linkend="part">part</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

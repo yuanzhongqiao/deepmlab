@@ -1,0 +1,83 @@
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * This file is released under the 3-clause BSD license. See COPYING-BSD.
+ *
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="css/dice.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <div class="top">
+            <button id="help"><img src="images/help.png"></button>
+            <div class="total" id="idle_total">0</div>
+        </div>
+        <div class="msgs">
+            <div class="msg" id="roll_msg"></div>
+            <div class="msg" id="roll_gain"></div>
+        </div>
+        <div class="dices">
+            <div class="dice" id="dice-1">
+                <div class="score">400</div>
+                <img class="image" src="images/dice-1.png"/>
+                <div class="mult">Mult: <div class="value">100</div></div>
+                <div class="level">Level: <div class="value">100</div></div>
+                <button class="buy"><div class="progress"></div><span>123</span></button>
+            </div>
+            <div class="dice" id="dice-2">
+                <div class="score">400</div>
+                <img class="image" src="images/dice-1.png"/>
+                <div class="mult">Mult: <div class="value">100</div></div>
+                <div class="level">Level: <div class="value">100</div></div>
+                <button class="buy"><div class="progress"></div><span>123</span></button>
+            </div>
+            <div class="dice" id="dice-3">
+                <div class="score">400</div>
+                <img class="image" src="images/dice-1.png"/>
+                <div class="mult">Mult: <div class="value">100</div></div>
+                <div class="level">Level: <div class="value">100</div></div>
+                <button class="buy"><div class="progress"></div><span>123</span></button>
+            </div>
+            <div class="dice" id="dice-4">
+                <div class="score">400</div>
+                <img class="image" src="images/dice-1.png"/>
+                <div class="mult">Mult: <div class="value">100</div></div>
+                <div class="level">Level: <div class="value">100</div></div>
+                <button class="buy"><div class="progress"></div><span>123</span></button>
+            </div>
+            <div class="dice" id="dice-5">
+                <div class="score">400</div>
+                <img class="image" src="images/dice-1.png"/>
+                <div class="mult">Mult: <div class="value">100</div></div>
+                <div class="level">Level: <div class="value">100</div></div>
+                <button class="buy"><div class="progress"></div><span>123</span></button>
+            </div>
+            <div class="grower">
+
+            </div>
+        </div>
+        <div class="bottom">
+            <div id="link">Inspired by <a href="https://luts91.github.io/idle-dices" target="_blank">Idle Dice</a></div>
+            <button id="multiplier">x 1</button>
+            <button id="roll"><div class="progress"></div><span>Roll !</span></button>
+            <div id="empty"></div>
+            <button id="history">History</button>
+        </div>
+    </div>
+    <div id="history-frame">
+        <ul id="history-list">
+
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+    <script src="js/dice.js"></script>
+</body>
+</html>

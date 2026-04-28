@@ -1,0 +1,22 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2006-2008 - INRIA - Serge Steer
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for bug 2834 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/2834
+//
+// <-- Short Description -->
+// strange bug that appeared in scilab-5.0-alpha2 and disapeared then
+// the code below produced n=2 instead of 1
+
+n1=poly([4/3 1-%eps/2],'x','c');
+d1=poly([4/3 1],'x','c');
+[n,d]=simp(n1,d1);
+if or(abs(coeff(n)-1)>10*%eps) then pause,end

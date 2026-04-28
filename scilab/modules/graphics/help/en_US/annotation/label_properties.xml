@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Djalel Abdemouche
+ * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="label_properties">
+    <refnamediv>
+        <refname>Label entity properties</refname>
+        <refpurpose>
+            Properties of Axes labels and title
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Label entities are used as <literal>Axes.x_label</literal>,
+            <literal>Axes.y_label</literal>, <literal>Axes.z_label</literal>, and
+            <literal>Axes.title</literal> coumpound properties.
+            They are therefore addressed through any Axes handle as for instance returned by
+            <literal>gca()</literal>. <literal>gda()</literal> settings allow to define
+            the default values of their properties.
+        </para>
+        <warning>
+            Label entities cannot be directly deleted.
+        </warning>
+        <para>
+            Their properties are the following:
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>parent: </term>
+                <listitem>
+                    <para>
+                        Handle of the parent Axes.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>visible: </term>
+                <listitem>
+                    <para>
+                        "on" | "off".
+                        If <literal>"off"</literal> the label (and its box) still exists but is not
+                        displayed.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>text: </term>
+                <listitem>
+                    <para>
+                        Matrix of texts of the label. So, a label can have multiple rows or/and
+                        columns of text. Leading and trailing blanks are trimmed.
+                        In their columns, texts are left-justified.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>interpreter: </term>
+                <listitem>
+                    <para>the interpreter to be used to render the strings, given as a matrix
+                        of the same size and dimensions as the <term>text</term> property, with elements
+                        chosen among <literal>"auto"</literal> (the default), <literal>"latex"</literal>, 
+                        <literal>"mathml"</literal>, <literal>"none"</literal>. See <link linkend="math_rendering_features_in_graphic">LaTeX expressions</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_foreground: </term>
+                <listitem>
+                    <para>
+                        Color used to display the <literal>.text</literal> of the label.
+                        It is specified by its index in the current colormap (or -1 for black,
+                        -2 for white)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>foreground: </term>
+                <listitem>
+                    <para>
+                        Color used to display the border of the box surrounding the block of
+                        <literal>.text</literal>, if any. It is specified by its index in the current
+                        colormap, or -1 for black or -2 for white.
+                        It is ignored if <literal>.fill_mode="off"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>background: </term>
+                <listitem>
+                    <para>
+                        Color used to fill the box surrounding the block of <literal>text</literal>,
+                        if any. It is specified by its index in the current colormap, or -1 for
+                        black or -2 for white.
+                        It is ignored if <literal>.fill_mode="off"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fill_mode: </term>
+                <listitem>
+                    <para>
+                        This is actually a "box mode" property. <literal>"on"</literal> draws a box
+                        around the block of text of the label. Otherwise, no block's edge is drawn.
+                        The <literal>.foreground</literal> value is the color's index of the edge.
+                        The <literal>.background</literal> value is the index of the filling color.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_style: </term>
+                <listitem>
+                    <para>
+                        Integer <literal>id</literal> &gt;= 0 identifying the font used to display the label, among loaded ones. 
+                        The <link linkend="xlfont">xlfont</link> function returns the list of loaded fonts. 
+                        To find out the corresponding font name, use <literal>xlfont()(id+1)</literal>.
+                        For more information, see <link linkend="graphics_fonts">graphics_fonts</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_size: </term>
+                <listitem>
+                    <para>
+                        Scalar positive number specifying the size of displayed characters.
+                        If <literal>.fractional_font</literal> property is <literal>"off"</literal>
+                        only the integer part of the <literal>.font_size</literal>value is used.
+                        For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fractional_font: </term>
+                <listitem>
+                    <para>
+                        "on" |"off". When it is "off", only the integer part of the
+                        <literal>.font_size</literal> is considered. When it is "on", the font
+                        is scaled and the display of the text is anti-aliased (smoothed).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_angle: </term>
+                <listitem>
+                    <para>
+                        Clockwise angle of the label's block, in degrees, horizontal = 0°.
+                        The lower-left corner of the horizontal box is used as pivot (fixed point).
+                        Setting <literal>.font_angle</literal> automatically sets
+                        <literal>.auto_rotation="off"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>auto_rotation: </term>
+                <listitem>
+                    <para>
+                        If <literal>"on"</literal>, Scilab sets automatically the best label's
+                        orientation.
+                        Then the <literal>.font_angle</literal> value is not taken into account.
+                        If <literal>"off"</literal>, the orientation is set according to the
+                        <literal>.font_angle</literal> value.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>position: </term>
+                <listitem>
+                    <para>
+                        Vector of coordinates of the label's anchor, in data unit.
+                        The anchor is the lower-left corner of the horizontal box of the label.
+                        Setting the <literal>.position</literal> automatically sets
+                        <literal>.auto_position="off"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>auto_position: </term>
+                <listitem>
+                    <para>
+                        If <literal>"on"</literal>, Scilab sets automatically the best label's
+                        position. If <literal>"off"</literal>, the value of the
+                        <literal>.position</literal> property is used.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a=get("current_axes");
+a.title
+type(a.title)
+plot3d()
+a.x_label
+a.y_label
+a.z_label
+xtitle("My title","my x axis label", "Volume","Month")
+
+t=a.title;
+t.foreground=9;
+t.font_size=4;
+t.font_style=5;
+t.text="SCILAB";
+
+x_label=a.x_label;
+x_label.text=" Weight"
+x_label.font_style= 5;
+a.y_label.foreground = 12;
+
+// Labels written in LaTeX or MathML can be used:
+t.text = "$\sqrt{SCILAB}$";
+x_label.font_size= 5;
+x_label.text="<mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo></mo><mfenced open=""{"" close=""}"">" + ...
+"<mrow><mfrac><mrow><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac></mrow><mrow><mfrac><mrow><mi>c</mi></mrow><mrow><mi>d</mi></mrow>" + ...
+"</mfrac></mrow></mfrac></mrow></mfenced></mrow>"
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xlabel">xlabel ylabel zlabel</link>
+            </member>
+            <member>
+                <link linkend="xtitle">xtitle</link>
+            </member>
+            <member>
+                <link linkend="title">title</link>
+            </member>
+            <member>
+                <link linkend="xstring">xstring</link>
+            </member>
+            <member>
+                <link linkend="xlfont">xlfont</link>
+            </member>
+            <member>
+                <link linkend="color">color</link>
+            </member>
+            <member>
+                <link linkend="set">set</link>
+            </member>
+            <member>
+                <link linkend="text_properties">text_properties</link>
+            </member>
+            <member>
+                <link linkend="axes_properties">axes_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.2</revnumber>
+                <revremark>
+                    LaTeX expressions delimited with "$..$" are now supported
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

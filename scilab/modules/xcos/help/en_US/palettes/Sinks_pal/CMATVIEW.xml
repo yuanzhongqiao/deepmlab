@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xml:id="CMATVIEW" xml:lang="en_US">
+    <refnamediv>
+        <refname>CMATVIEW</refname>
+        <refpurpose>Matrix Colormapped viewer</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/CMATVIEW.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_CMATVIEW">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_CMATVIEW">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_CMATVIEW">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_CMATVIEW">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_CMATVIEW">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_CMATVIEW">Computational function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_CMATVIEW">Example</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_CMATVIEW">See also</xref>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+
+    <refsection id="Description_CMATVIEW">
+        <title>Description</title>
+        <para>
+            CMATVIEW is a scope that shows matrix values on a colormapped grid.
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_CMATVIEW">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/CMATVIEW_gui.gif" align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">ColorMap</emphasis>
+                </para>
+                <para>
+                    The colormap is a range color linked to the window output of the scope.
+                    You can put a <link linkend="jet">jet</link> or <link linkend="hot">hot</link> or <link linkend="gray">gray</link> or your own
+                    (see <link linkend="colormap">colormap</link> help).
+                </para>
+                <para>
+                    Properties: Must be a mx3 matrix and m ≥ 3
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Minimum level range</emphasis>
+                </para>
+                <para>
+                    The minimum level range is the minimum value who comes in the regular input
+                    port. It would be linked to the 'cold value' of the colormap.
+                </para>
+                <para> Properties: A scalar </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Maximum level range</emphasis>
+                </para>
+                <para>
+                    The maximum level range is the maximum value who comes in the regular input
+                    port. It would be linked to the 'hot value' of the colormap.
+                </para>
+                <para> Properties: A scalar</para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+
+    <refsection id="Defaultproperties_CMATVIEW">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1: size [-1,-2] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 1
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">cmatview</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+
+    <refsection id="Example_CMATVIEW">
+        <title>Example</title>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/sinks_pal/CMATVIEW_Example.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata align="center" fileref="../../../../examples/sinks_pal/CMATVIEW_Example.zcos" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+    </refsection>
+
+    <refsection id="Interfacingfunction_CMATVIEW">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Sinks/CMATVIEW.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_CMATVIEW">
+        <title>Computational function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/src/c/cmatview.c (Type 4)</para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+
+    <refsection xml:id="Seealso_CMATVIEW" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="CMAT3D">CMAT3D</link>
+            </member>
+            <member>
+                <link linkend="CSCOPE">CSCOPE</link>
+            </member>
+            <member>
+                <link linkend="CMSCOPE">CMSCOPE</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,126 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA
+// Copyright (C) 2020 - Samuel GOUGEON
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+//
+// <-- Short Description -->
+// Display of lists unitary tests
+%l_p(list())
+%l_p(list(1,2,3))
+  (1) = 1
+  (2) = 2
+  (3) = 3
+%l_p(list(list(1,list()),2))
+  (1): (2-elements list)
+      (1) = 1
+      (2): (empty list)
+  (2) = 2
+[p, q] = (poly(rand(5,1),"z"), poly(rand(6,1),"z"));
+%l_p(list(rlist(q,p), 1.23))
+  (1): [rational]
+  (2) = 1.23
+%l_p(list(1,1:$))
+  (1) = 1
+  (2): implicitlist
+%l_p(list(list(1:$)))
+  (1): (1-element list)
+      (1): implicitlist
+%l_p(list(list(1,$),list()))
+  (1): (2-elements list)
+      (1) = 1
+      (2) = $
+  (2): (empty list)
+//
+films = struct("Title", "A.I. Artificial Intelligence",..
+               "Year", 2001, ..
+               "Director", "Steven Spielberg", ..
+               "Duration", 140);
+L = list([%t %f %f]',                ..
+         $:-1:3,                    ..
+         int8([1 2 3 ; 4 5 6]),     ..
+         [-%inf, -1, 0, %i, 7.1, 3.3e20, %inf, %nan], ..
+         sparse([0 1 2; 3 0 4]),    ..
+         ["This" "is" "some" "text"], ..
+         ,              ..
+         sin,           ..
+         logspace,      ..
+         iolib,         ..
+         {%pi, "abcd" ;
+          list(,)(1),(%i-%s)^3},    ..
+          {},           ..
+          list(["Hello" "Allo" "Hé"], uint64(1234567)^(1:3), ,grand(2,4,"uin",0,10)), ..
+          list(), ..
+         films);
+%l_p(L)
+  (1) = [%t;%f;%f]
+  (2): implicitlist
+  (3) = int8([1,2,3;4,5,6])
+  (4): [1x8 double]
+  (5): [2x3 sparse]
+  (6) = ["This","is","some","text"]
+  (7): void
+  (8): function
+  (9): function
+  (10): library
+  (11): {2x2 cell}
+  (12) = {}
+  (13): (4-elements list)
+      (1) = ["Hello","Allo","Hé"]
+      (2): [1x3 uint64]
+      (3): void
+      (4) = [6,10,4,0;3,9,7,6]
+  (14): (empty list)
+  (15): [struct] with fields:
+      Title = "A.I. Artificial Intelligence"
+      Year = 2001
+      Director = "Steven Spielberg"
+      Duration = 140
+// Tlist overloaded display
+TL = tlist(["x" "field1", "field2"], 1, 2)
+ TL = (x tlist) with fields:
+  field1 = 1
+  field2 = 2
+deff("%x_p(x)","disp(''Mydisplay'',x(2),x(3))")
+TL
+ TL = (x tlist) with fields:
+  "Mydisplay"
+   1.
+   2.
+list(TL)
+ ans = (1-element list)
+  (1): (x tlist) with fields:
+      field1 = 1
+      field2 = 2
+list(list(TL))
+ ans = (1-element list)
+  (1): (1-element list)
+      (1): (x tlist) with fields:
+          field1 = 1
+          field2 = 2
+TL = tlist(["x" "field1", "field2"], 1:$, 2)
+ TL = (x tlist) with fields:
+  "Mydisplay"
+ 1:1:$
+   2.
+list(TL)
+ ans = (1-element list)
+  (1): (x tlist) with fields:
+      field1: implicitlist
+      field2 = 2
+list(list(TL))
+ ans = (1-element list)
+  (1): (1-element list)
+      (1): (x tlist) with fields:
+          field1: implicitlist
+          field2 = 2
+TL(2) = TL
+ TL = (x tlist) with fields:
+  "Mydisplay"
+  "Mydisplay"
+ 1:1:$
+   2.
+   2.

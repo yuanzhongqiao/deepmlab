@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="intsplin" xml:lang="en">
+    <refnamediv>
+        <refname>intsplin</refname>
+        <refpurpose>integration of experimental data by spline interpolation
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          v = intsplin(y)
+          v = intsplin(x, y)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        Vector of increasing real abscissae. It must have the length of
+                        <literal>y</literal>. Default values are <literal>1:size(y,'*')</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        vector of real or complex ordinates.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>v</term>
+                <listitem>
+                    <para>value of the integral. If <literal>y</literal> are complex numbers, the
+                      real and imaginary parts are integrated separately.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Let <literal>f</literal> be a function defined at some given sampled experimental points
+            <literal>(xi, yi=f(xi))</literal>.
+        </para>
+        <para>
+          <function>intsplin</function> computes an approximate of <literal>integral{f(x).dx}</literal>
+          from <literal>x0=x(1)</literal> to <literal>x1=x($)</literal>.
+        </para>
+        <para>
+            Between given points, <literal>f</literal> is approximated using a spline interpolation.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+t = 0:0.1:%pi
+intsplin(t,sin(t))
+
+intsplin(1:5)            // 12
+
+x = 0:0.1:0.4;
+intsplin(x, 1:5)         // 1.2
+
+intsplin((1:5)*%i)       // 12i
+intsplin(x, (1:5)*%i)    // 1.2i
+intsplin(x, x+(1:5)*%i)  // 0.08 + 1.2i
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="intg">intg</link>
+            </member>
+            <member>
+                <link linkend="integrate">integrate</link>
+            </member>
+            <member>
+                <link linkend="inttrap">inttrap</link>
+            </member>
+            <member>
+                <link linkend="splin">splin</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

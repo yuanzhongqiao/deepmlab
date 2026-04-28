@@ -1,0 +1,18 @@
+<!ELEMENT classpaths ( path+ ) >
+
+<!ELEMENT load EMPTY >
+<!ATTLIST load on NMTOKEN #REQUIRED >
+
+
+<!ATTLIST META 
+CATEGORY 	CDATA 	"Scilab classpath" 	 
+VERSION_SCI 	CDATA 	"5.3" 	 
+VERSION_DOC 	CDATA 	"1.2" 	 
+AUTHOR 	CDATA 	"Allan CORNET DIGITEO 2010" 	 
+>
+
+<!ELEMENT path ( load* ) >
+<!ATTLIST path disableUnderMode NMTOKEN #IMPLIED >
+<!ATTLIST path load ( onUse | startup ) #IMPLIED >
+<!ATTLIST path value CDATA #REQUIRED >
+

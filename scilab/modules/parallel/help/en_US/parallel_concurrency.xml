@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2010 - DIGITEO Bernard HUGUENEY
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="parallel_concurrency" xml:lang="en">
+    <refnamediv>
+        <refname>parallel_concurrency</refname>
+        <refpurpose>query about the concurrency of the current execution context</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>C=parallel_concurrency()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            parallel_concurrency() returns a non-zero value when called from a parallel execution context (such as <link linkend="parallel_run">parallel_run</link>.
+        </para>
+        <programlisting role="example"><![CDATA[function r=dummy_arg(n)
+  r= parallel_concurrency();
+  endfunction;
+parallel_concurrency() // returns 0
+// parallel_run requires a function taking at least one argument
+parallel_run(1:2,dummy_arg)// returns 2 non zero values ]]></programlisting>
+    </refsection>
+</refentry>

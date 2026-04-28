@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="gradient">
+    <refnamediv>
+        <refname>gradient</refname>
+        <refpurpose>compute numerical gradient</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            gx = gradient(f)
+            [gx, gy] = gradient(f)
+            [gx, gy, ..., gn] = gradient(f)
+
+            gx = gradient(f, h)
+            [gx, gy, ..., gn] = gradient(f, h)
+            [gx, gy, ..., gn] = gradient(f, hx, hy, ..., hn)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>
+                        matrix of doubles, representing sampled data
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h, hx, hy, ..., hn</term>
+                <listitem>
+                    <para>
+                        real scalar or vector, corresponding to step size(s) along each dimension. Default is 1.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>gx, gy, ..., gn</term>
+                <listitem>
+                    <para>
+                        matrix of doubles, corresponding to the gradient of f with respect to each dimension. Each matrix has the same size as f.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The gradient function computes the partial derivatives of a matrix f using central differences for interior points and 
+            first-order differences at the boudaries.
+        </para>
+        <para>
+            <literal>gx = gradient(f)</literal> returns the gradient along rows, i.e x-direction. The step between each point of f is equal to 1.
+        </para>
+        <para>
+            <literal>[gx, gy] = gradient(f)</literal> returns two matrices: <literal>gx</literal> 
+            gradient along rows, i.e x-direction and <literal>gy</literal>, gradient along columns y-direction. 
+            The step between each point of f is equal to 1.
+        </para>
+        <para>
+            <literal>[gx, gy, ..., gn] = gradient(f)</literal> returns n matrices if <literal>f</literal> is a n-dimensional matrix.
+        </para>
+        <para>
+            If <literal>h</literal> is provided, it scales the differences accordingly. It can be:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        a scalar: uniform step size in all direction.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        a vector: individual step sizes per dimension.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">2D gradient</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                f = [1 2 4; 
+                    3 6 9; 
+                    0 5 8];
+                [gx, gy] = gradient(f)
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Gradient with step size</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                f = [1 2 4; 
+                    3 6 9; 
+                    0 5 8];
+                [gx, gy] = gradient(f, 0.5) // assumes 0.5 spacing in both directions
+            ]]></programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                [x, y] = meshgrid(-2:0.5:2, -2:0.5:2);
+                f = x.^2 + y.^2;
+
+                [gx, gy] = gradient(f, 0.5);
+
+                // at point x0 = 1 and y0 = 1;
+                t = x == 1 & y == -1
+                // exact value of the gradient at the point (1,-1) is [2 -2]
+                [gx(t), gy(t)]
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="diff">diff</link>
+            </member>
+            <member>
+                <link linkend="diffxy">diffxy</link>
+            </member>
+            <member>
+                <link linkend="numderivative">numderivative</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

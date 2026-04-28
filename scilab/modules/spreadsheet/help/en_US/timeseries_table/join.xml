@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="join" xml:lang="en">
+    <refnamediv>
+        <refname>join</refname>
+        <refpurpose>combine two tables or timeseries</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [t, [idx]] = join(tleft, tright)
+            [t, [idx]] = join(tleft, tright, , OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tleft</term>
+                <listitem>
+                    <para>Left <link linkend="table">table</link> or <link linkend="timeseries">timeseries</link> object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tright</term>
+                <listitem>
+                    <para>Right <link linkend="table">table</link> or <link linkend="timeseries">timeseries</link> object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para><link linkend="table">table</link> or <link linkend="timeseries">timeseries</link> object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>idx</term>
+                <listitem>
+                    <para>column vector of doubles: indices of rows in tright.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>    
+            <para/>            
+            <varlistentry>
+                <term><emphasis role="bold">"Keys"</emphasis>, vector of strings or doubles</term>
+                <listitem>
+                    <para> 
+                        key variables must be present in tleft and tright. "Keys" cannot be used at the same time as "LeftKeys" and "RightKeys".
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"LeftKeys"</emphasis>, vector of strings or doubles</term>
+                <listitem>
+                    <para>
+                        key variables must be present in tleft. It must be used with "RightKeys".
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"RightKeys"</emphasis>, vector of strings or doubles</term>
+                <listitem>
+                    <para>
+                        key variables must be present in tright. It must be used with "LeftKeys".
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"LeftVariables"</emphasis>, vector of strings or doubles</term>
+                <listitem>
+                    <para>
+                        variables of tleft that will be included in t. By default, all variables of tleft are included in t.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry> 
+            <varlistentry>
+                <term><emphasis role="bold">"RightVariables"</emphasis>, vector of strings or doubles</term>
+                <listitem>
+                    <para>
+                        variables of tright that will be included in t. By default, all variables of tright except the key variable are included in t.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"KeepOneCopy"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para>
+                        only variables of tleft will be included in t. By default, common variables to tleft and tright are added to t with a suffix 
+                        *_Tleft for tleft and *_Tright for tright.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry> 
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>t = join(tleft, tright)</literal> combines the tables or timeseries tleft and tright if they have at least one common variable name (key variable) and 
+            that the values of the key variable(s) of tleft must match those of tright. The values of the key variable(s) of tright must be unique and must contain all values 
+            in the key variable(s) of tleft. The output t will be of the same type as tleft and will have also the same number of rows.
+        </para>
+        <para>
+            <literal>t = join(tleft, tright, "Keys", keys)</literal> allows to specify the key variables used to combine tleft and tright. 
+        </para>
+        <para>
+            <literal>t = join(tleft, tright, "LeftKeys", leftkeys, "RightKeys", rightkeys)</literal> is useful if data to merge is not contained in the same variable name(s) 
+            or at the same position(s) in tleft and tright. "LeftKeys" and "RightKeys" both must specify the same number of key variables. 
+            The "Keys" keyword should not be used with "LeftKeys" and "RightKeys".
+        </para>
+        <para>
+            <literal>t = join(..., "LeftVariables", leftvars)</literal> merges data from tleft and tright an includes only the variables contained in leftvars in the output t. 
+            Same behavior for "RightVariables". It is not possible to include row names or row times from tleft or tright.
+        </para>
+        <para>
+            <literal>t = join(..., "KeepOneCopy", value)</literal> allows to keep only the variables of tleft if theses variables are common to tleft and tright and not used as key variables.
+        </para>
+        <para>
+            <literal>[t, idx] = join(...)</literal> returns a column vector of indices of tright verifying t(1,...) = tright(idx(1),...), t(2, ...) = tright(idx(2), ...), t($, ...) = tright(idx($), ...).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Join tleft and tright</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            tleft = table([1; 2; 3], ["a"; "b"; "c"], "VariableNames", ["a", "b"]);
+            tright = table([3; 1; 2; 3], ["c"; "a"; "b"; "d"], [10; 12; 14; 0], "VariableNames", ["a", "b", "c"]);
+
+            t = join(tleft, tright)
+        ]]>
+        </programlisting>
+        <para><emphasis role="bold">Join tleft and tright with Keys</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            tleft = table([1; 2; 3], ["a"; "b"; "c"]);
+            tright = table([3; 1; 2; 3], ["c"; "a"; "b"; "d"]);
+
+            t = join(tleft, tright, "Keys", "Var2")
+        ]]>
+        </programlisting>
+        <para><emphasis role="bold">Join tleft and tright with LeftKeys and RighKeys</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            tleft = table([1; 2; 3], ["a"; "b"; "c"], "VariableNames", ["a", "b"]);
+            tright = table([3; 1; 2; 4], ["c"; "a"; "b"; "d"], [10; 12; 14; 0], "VariableNames", ["a", "d", "c"]);
+
+            [t, idx] = join(tleft, tright, "LeftKeys", "b", "RightKeys", "d")
+            tright(idx)
+        ]]>
+        </programlisting>
+        <para><emphasis role="bold">With "KeepOneCopy"</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            tleft = table([1; 2; 3], ["a"; "b"; "c"], "VariableNames", ["a", "b"]);
+            tright = table([3; 1; 2; 3], ["c"; "a"; "b"; "d"], [10; 12; 14; 0],"VariableNames", ["a", "b", "c"]);
+
+            t = join(tleft, tright, "Keys", "b")
+
+            t = join(tleft, tright, "Keys", "b", "KeepOneCopy", "a")
+        ]]>
+        </programlisting>
+        <para><emphasis role="bold">With timeseries</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            tleft = timeseries(hours(1:3)', ["a", "b", "c"]', "VariableNames", ["hours", "b"]);
+            tright = timeseries(hours([3;1;2;4]), ["c"; "a"; "b";"d"], [10; 12; 14; 0], "VariableNames", ["hours", "d", "c"]);
+
+            t = join(tleft, tright)
+
+            t = join(tleft, tright, "LeftKeys", "b", "RightKeys", "d")
+        ]]>
+        </programlisting>
+        <para><emphasis role="bold">With timeseries and table</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            tleft = timeseries(hours(1:3)', ["a", "b", "c"]', "VariableNames", ["hours", "b"]);
+            tright = table([3; 1; 2; 3], ["c"; "a"; "b"; "d"], [10; 12; 14; 0],"VariableNames", ["a", "b", "c"]);;
+
+            t = join(tleft, tright)
+        ]]>
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

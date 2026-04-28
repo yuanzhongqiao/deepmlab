@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="horner">
+    <refnamediv>
+        <refname>horner</refname>
+        <refpurpose>多項式/有理数の評価</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>horner(P,x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parameters</title>
+        <variablelist>
+            <varlistentry>
+                <term>P</term>
+                <listitem>
+                    <para>
+                          多項式または多項式商の配列
+                    </para>
+               </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                          数値、多項式、または多項式商の配列 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            多項式の変数<literal>s</literal>が<literal>x</literal>で
+            置換される時,
+            多項式または有理数行列<literal>P = P(s)</literal>を評価します:
+        </para>
+        <para>
+            <literal>horner(P,x)</literal>=<literal>P(x)</literal>
+        </para>
+        <para>
+            例 (双一次変換): <literal>P = P(s)</literal> が有理行列と仮定すると,
+            有理行列<literal>P((1+s)/(1-s))</literal>は
+            <literal>horner(P,(1+s)/(1-s))</literal>により得られます.
+        </para>
+        <para>
+            指定した周波数で有理行列を評価する場合は,
+            <literal>freq</literal>プリミティブを使用する方が良いでしょう.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <para>
+            多項式の評価：
+        </para>
+        <programlisting role="example"><![CDATA[
+P = poly(1:3, 'x', 'coeff')
+s = %s;
+horner(P, [1 2 ; 3 4])       // for real values
+horner(P, [1 2 ; 3 4]+%i)    // for complex values
+horner(P, [1, s ; s^2, s^3]) // for polynomial values
+horner(P, [1/s, 1/s^2])      // for rational values
+     ]]></programlisting>
+        <screen><![CDATA[
+--> P = poly(1:3, 'x', 'coeff')
+ P  =
+  1 +2x +3x²
+
+--> s = %s;
+--> horner(P, [1 2 ; 3 4])       // for real values
+ ans  =
+   6.    17.
+   34.   57.
+
+--> horner(P, [1 2 ; 3 4]+%i)    // for complex values
+ ans  =
+   3.  + 8.i    14. + 14.i
+   31. + 20.i   54. + 26.i
+
+--> horner(P, [1, s ; s^2, s^3]) // for polynomial values
+ ans  =
+  6            1 +2s +3s²
+
+  1 +2s² +3s⁴  1 +2s³ +3s⁶
+
+--> horner(P, [1/s, 1/s^2])      // for rational values
+ ans  =
+   3 +2s +s²  3 +2s² +s⁴
+   ---------  ----------
+      s²          s⁴
+]]></screen>
+        <para/>
+        <para>
+            いくつかの多項式商の評価 :
+        </para>
+        <programlisting role="example"><![CDATA[
+[s,z] = (%s, %z);
+M = [1/s, (s-1)/s]
+horner(M, 1)
+horner(M, %i)
+horner(M, 2+s)
+horner(M, (2+z)/z)
+horner(M, [1, 1/z ; 2, (2+z)/z])
+     ]]></programlisting>
+        <screen><![CDATA[
+--> M = [1/s, (s-1)/s]
+ M  =
+   1  -1 +s
+   -  -----
+   s    s
+
+--> horner(M, 1)
+ ans  =
+   1.   0.
+
+--> horner(M, %i)
+ ans  =
+   0. - i     1. + i
+
+--> horner(M, 2+s)
+ ans  =
+    1    1 +s
+   ----  ----
+   2 +s  2 +s
+
+--> horner(M, (2+z)/z)
+ ans  =
+    z     2
+   ----  ----
+   2 +z  2 +z
+
+--> horner(M, [1, 1/z ; 2, (2+z)/z])
+ ans  =
+   1   z    0  1 -z
+   -   -    -  ----
+   1   1    1   1
+
+   1   z    1   2
+   -  ----  -  ----
+   2  2 +z  2  2 +z
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="freq">freq</link>
+            </member>
+            <member>
+                <link linkend="repfreq">repfreq</link>
+            </member>
+            <member>
+                <link linkend="evstr">evstr</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

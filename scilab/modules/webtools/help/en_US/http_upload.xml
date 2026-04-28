@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2017 - ESI-Group
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="http_upload">
+    <refnamediv>
+        <refname>http_upload</refname>
+        <refpurpose>
+            HTTP POST or PUT request to upload file(s) on server.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [result, status, headers] = http_upload(url, filename, variablename)
+            [result, status, headers] = http_upload(url, filename, variablename, data)
+            [result, status, headers] = http_upload(url, filename, variablename, data, &lt;opt_args>)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>url</term>
+                <listitem>
+                    <para>
+                        A string containing the server address following by the optional port,
+                        the route of the request and query datas.
+                        syntax: "address:port/route?queryfield=querydata"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>
+                        A string or a matrix of string which contains local filename(s) to upload on server.
+                        The file on the server will have the same name as the local one.
+                    </para>
+                    <para>
+                        A structure or a structure array with fields "local" and "remote".
+                        The field "local" contains the local filename to upload on server.
+                        The field "remote" contains a string used to set the filename on the server.
+                        When "remote" is an empty string, the local filename is used on the server.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>variablename</term>
+                <listitem>
+                    <para>
+                        A string which contains the file variable name expected by the server.
+                        This value must be given by the documentation of the API you are using.
+                        When a scalar string is given, the same variable name is used for all uploaded files.
+                        A matrix of string of the same size than <literal>filename</literal> argument can be given to set a specific variable name by file to upload.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>data</term>
+                <listitem>
+                    <para>
+                        This argument represent data sent by the request.
+                        Can be a scilab variable which will be converted
+                        into JSON format if possible or sent as a string.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>&lt;opt_args&gt;</term>
+                <listitem>
+                    <para>
+                        This represents a sequence of statements
+                        <literal>key1=value1, key2=value2, ...</literal>
+                        where <literal>key1</literal>,
+                        <literal>key2</literal>, ... can be one of the following:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>headers</term>
+                            <listitem>
+                                <para>
+                                    Strings defined as <literal>"name: value"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>cookies</term>
+                            <listitem>
+                                <para>
+                                    Strings defined as <literal>"name=value"</literal>.
+                                    This parameter is used to send custom cookies regardless of cookie preferences.
+                                    Those cookies are sent in addition to stored cookies.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>cert</term>
+                            <listitem>
+                                <para>
+                                    This option determines whether Scilab verifies the authenticity
+                                    of the peer's certificate.
+                                    If <literal>none</literal> is given, no verification is performed.
+                                    <warning>
+                                        Disabling verification of the certificate allows bad guys
+                                        to man-in-the-middle the communication without you knowing it.
+                                        Disabling verification makes the communication insecure.
+                                        Just having encryption on a transfer is not enough as you
+                                        cannot be sure that you are communicating with the correct
+                                        end-point.
+                                    </warning>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>follow</term>
+                            <listitem>
+                                <para>
+                                    By default, <literal>follow</literal> is false.
+                                    Set <literal>follow=%t</literal> to follow eventual redirections.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>auth</term>
+                            <listitem>
+                                <para>
+                                    Username and password can be specified for the websites which
+                                    required authentication.</para>
+                                <para>
+                                    The syntax is <literal>auth="username:password"</literal>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>verbose</term>
+                            <listitem>
+                                <para>
+                                    This option displays information in the Scilab console to diagnose potential network issues. 
+                                    It is disabled by default, set <literal>verbose=%t</literal> to display the in-progress log.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>timeout</term>
+                            <listitem>
+                                <para>
+                                    Set the maximum time in seconds that you allow the request to take.
+                                    Millseconds can be set by using a floating point value. 
+                                    ie: 0.5 will set a timeout of 500 ms.
+                                    When the timeout is reached, the function returns an error.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                    <variablelist>
+                        <varlistentry>
+                            <term>method</term>
+                            <listitem>
+                                <para>
+                                    By default, this function send request a POST request.
+                                    Using this argument it is possible to use a PUT request,
+                                    by passing method="PUT".
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>
+                        Result is a string which contain the server answer or
+                        a Scilab variable if the answer is in JSON format.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>
+                        HTTP response code.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>headers</term>
+                <listitem>
+                    <para>
+                        struct: HTTP headers of the request result.
+                        <warning>When the optional argument <literal>follow</literal> is set to <literal>%t</literal>,
+                        all headers are returned in a list that contains one struct per request made to follow redirections.</warning>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>This function will perform an HTTP POST or PUT request to upload file(s).</para>
+        <para>
+            The proxy configuration is used if it's enabled in the Preferences under the rubric
+            "Web".
+        </para>
+        <para>
+            The cookies configuration under the "Web" rubric is used.
+            <variablelist>
+                <varlistentry>
+                    <term>Disabled</term>
+                    <listitem>
+                        <para>
+                            No cookies are used and store.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Normal</term>
+                    <listitem>
+                        <para>
+                            Cookies are used and store. They are keeped between Scilab sessions.
+                            They are stored in <code>SCIHOME/cookies.txt</code>.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Private</term>
+                    <listitem>
+                        <para>
+                             Cookies are used and store. They are deleted at Scilab close.
+                             They are stored in <code>TMPDIR/cookies.txt</code>.
+                        </para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="scilab-no-exec"><![CDATA[
+f1 = "myfilename";
+res = http_upload("url:port/route", f1, "varname");
+res = http_upload("url:port/route", f1, "varname", method="PUT");
+
+f2 = "myfilenametwo";
+res = http_upload("url:port/route", [f1 f2], "varname");
+
+data.type = "images";
+data.date = date();
+res = http_upload("url:port/route", [f1 f2], "varname", data);
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="http_get">http_get</link>
+            </member>
+            <member>
+                <link linkend="http_put">http_put</link>
+            </member>
+            <member>
+                <link linkend="http_patch">http_patch</link>
+            </member>
+            <member>
+                <link linkend="http_delete">http_delete</link>
+            </member>
+            <member>
+                <link linkend="http_upload">http_upload</link>
+            </member>
+            <member>
+                <link linkend="toJSON">toJSON</link>
+            </member>
+            <member>
+                <link linkend="fromJSON">fromJSON</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revremark>
+                    Function introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.1</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>headers</literal> output argument added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) Jaime Urzua
+ * Copyright (C) Allan CORNET - DIGITEO - 2010
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="browsevar">
+    <refnamediv>
+        <refname>browsevar</refname>
+        <refpurpose>Scilab variable browser</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>browsevar()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>browsevar</literal> is the embedded Scilab variable browser.
+        </para>
+        <para>
+            <literal>browsevar</literal> lists all user variables the current environment.
+        </para>
+        <para>
+            <literal>browsevar</literal> has several features:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                            A simple and comprehensive list
+                            <para/>
+                            <para>
+                                <inlinemediaobject>
+                                    <imageobject>
+                                        <imagedata fileref="../images/browsevar_list.png"/>
+                                    </imageobject>
+                                </inlinemediaobject>
+                            </para>
+                            <para/>
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                                Easy tooltips on the dimensions or types
+                                <para/>
+                                <para>
+                                    <inlinemediaobject>
+                                        <imageobject>
+                                            <imagedata fileref="../images/browsevar_tooltip.png"/>
+                                        </imageobject>
+                                    </inlinemediaobject>
+                                </para>
+                                <para/>
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                    Sort by columns
+                                    <para/>
+                                    <para>
+                                        <inlinemediaobject>
+                                            <imageobject>
+                                                <imagedata fileref="../images/browsevar_sort.png"/>
+                                            </imageobject>
+                                        </inlinemediaobject>
+                                    </para>
+                                    <para/>
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                        Direct connection to the <link linkend="editvar">editvar component</link> by double-clicking on the variable name
+                                        <para/>
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                     <para>
+                                            Filter by type from the menu
+                                            <para/>
+                                            <para>
+                                                <inlinemediaobject>
+                                                    <imageobject>
+                                                        <imagedata fileref="../images/browsevar_filter.png"/>
+                                                    </imageobject>
+                                                </inlinemediaobject>
+                                            </para>
+                                            <para/>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                                Filter out Scilab predefined variables (SCI, SCIHOME, %pi, etc) from the menu
+                                                <para/>
+                                                <para>
+                                                    <inlinemediaobject>
+                                                        <imageobject>
+                                                            <imagedata fileref="../images/browsevar_filtersci.png"/>
+                                                        </imageobject>
+                                                    </inlinemediaobject>
+                                                </para>
+                                                <para/>
+                                            </para>
+                                        </listitem>
+                                    </itemizedlist>
+                                </para>
+                            </refsection>
+                            <refsection>
+                                <title>Examples</title>
+                                <programlisting role="example"><![CDATA[
+                        a = rand(10,10);
+                        b = "my string";
+                        myCell = makecell([2 4],%t, int(-67),rand(2,3),1-%i,(1-%z)^3,1/(1-%z), "abcd", {"are", 45});
+                        myList = list("Hello", grand(2,4,"uin",-100,100), [%t %f %f ]', (1-%z).^[1 2]);
+                        myStru = struct("num",{3.1415, -1, %i}, "pol", {%z (1-%z) 2+%z^3}, "txt",{"Hi" "Hello" "Hola"});
+                        function r = myTest(a,b), c = 2; r = a*c - b; endfunction
+                        statLib = statisticslib;
+                        plot2d()
+                        curves = gce();
+                        
+                        browsevar();
+                         ]]></programlisting>
+                            <para>Then click on some variables in the browser, to edit or display them.</para>
+                            <table>
+                                <tr>
+                                    <td valign="top" align="center">
+                                        <inlinemediaobject>
+                                            <imageobject>
+                                                <imagedata fileref="../images/cell_view.png"/>
+                                            </imageobject>
+                                        </inlinemediaobject>
+                                        <para/>
+                                        <inlinemediaobject>
+                                            <imageobject>
+                                                <imagedata fileref="../images/library_view.png"/>
+                                            </imageobject>
+                                        </inlinemediaobject>
+                                    </td>
+                                    <td valign="top">
+                                        <inlinemediaobject>
+                                            <imageobject>
+                                                <imagedata fileref="../images/list_view.png"/>
+                                            </imageobject>
+                                        </inlinemediaobject>
+                                        <para/>
+                                        <inlinemediaobject>
+                                            <imageobject>
+                                                <imagedata fileref="../images/structure_view.png"/>
+                                            </imageobject>
+                                        </inlinemediaobject>
+                                    </td>
+                                </tr>
+                            </table>
+                            </refsection>
+                            <refsection role="see also">
+                                <title>See also</title>
+                                <simplelist type="inline">
+                                    <member>
+                                        <link linkend="editvar">editvar</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="who">who</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="whos">whos</link>
+                                    </member>
+                                    <member>
+                                        <link linkend="ged">ged</link>
+                                    </member>
+                                </simplelist>
+                            </refsection>
+                            <refsection role="history">
+                                <title>History</title>
+                                <revhistory>
+                                    <revision>
+                                        <revnumber>6.1.1</revnumber>
+                                        <revremark>
+                                            Clicking on a variable of type graphic, function, library, list, structure,
+                                            cell, syslin, or any custom tlist or mlist now displays it.
+                                        </revremark>
+                                    </revision>
+                                </revhistory>
+                            </refsection>
+                        </refentry>

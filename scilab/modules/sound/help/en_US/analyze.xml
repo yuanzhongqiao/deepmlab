@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+    * Copyright (C) ????-2006 - INRIA - Scilab
+    *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+    *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="analyze">
+    <refnamediv>
+        <refname>analyze</refname>
+        <refpurpose>frequency plot of a sound signal</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>fmin,fmax,rate,points</term>
+                <listitem>
+                    <para>scalars. default values fmin=100,fmax=1500,rate=22050,points=8192;</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Make a frequency plot of the signal <literal>w</literal> with sampling rate <literal>rate</literal>.
+            The data must be at least <literal>points</literal> long.
+            The maximal frequency plotted will be <literal>fmax</literal>, the minimal <literal>fmin</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// At first we create a time vector of 0.5 seconds sampled at 22050 Hz:
+t = 0 : 1/22050 : 0.5*(1-%eps);
+
+// Then we generate the sound.
+s=sin(440*t)+sin(220*t)/2+sin(880*t)/2;
+[nr,nc]=size(t);
+s(nc/2:nc)=sin(330*t(nc/2:nc));
+analyze(s);
+ ]]></programlisting>
+        <scilab:image>
+            t = 0 : 1/22050 : 0.5*(1-%eps);
+            s=sin(440*t)+sin(220*t)/2+sin(880*t)/2;
+            [nr,nc]=size(t);
+            s(nc/2:nc)=sin(330*t(nc/2:nc));
+            analyze(s);
+        </scilab:image>
+    </refsection>
+</refentry>

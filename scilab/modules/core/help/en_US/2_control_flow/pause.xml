@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006 - 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="pause">
+    <refnamediv>
+        <refname>pause</refname>
+        <refpurpose>
+            temporarily pauses the running execution, and allows instructions in console.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            pause
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Switch to the <function>pause</function> mode.
+            Inserted in the code of a function, <function>pause</function> interrupts the execution
+            of the function: one receives a prompt symbol which indicates
+            the level of the <function>pause</function> (e.g. <literal>-1-&gt;</literal>).
+            The user is then in the workspace where the pause occurs, and where all the variables
+            around are accessible and can be changed by hand on purpose.
+        </para>
+        <para>
+            To resume the execution, enter <code>resume</code>.
+        </para>
+        <para>
+            Enter <code>abort</code> to definitively stop the execution and return to the main level.
+        </para>
+        <note>
+            The <function>pause</function> is very useful for debugging purposes.
+        </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+function c = foo(b)
+    a = 42 + b
+    disp("Thanks to the pause, you can investigate if ''a'' has the right value");
+    disp("Values of local variables can be changed too if required.");
+    pause
+    c = a + 2
+endfunction
+
+a = 3;
+foo(2)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> a = 3;
+--> foo(2)
+  "Thanks to the pause, you can investigate if 'a' has the right value"
+  "Values of local variables can be changed too if required."
+
+Type 'resume' or 'abort' to return to standard level prompt.
+
+-1-> a
+ a  =
+   44.
+
+-1-> a = 0;
+
+-1-> resume
+ ans  =
+   2.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="debug">debug</link>
+            </member>
+            <member>
+                <link linkend="halt">halt</link>
+            </member>
+            <member>
+                <link linkend="return">return</link>
+            </member>
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+            <member>
+                <link linkend="whereami">whereami</link>
+            </member>
+            <member>
+                <link linkend="sleep">sleep</link>
+            </member>
+            <member>
+                <link linkend="quit">quit</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                   <para>
+                        The new values of local variables changed during a pause are now taken
+                        into account when resuming the execution with <literal>resume</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

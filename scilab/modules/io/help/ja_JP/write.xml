@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2012 - 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="write" xml:lang="ja">
+    <refnamediv>
+        <refname>write</refname>
+        <refpurpose>フォーマットされたファイルに書き込む</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            write(file_desc, a)
+            write(file_desc, a, format)
+            write(file_desc, a, k, format)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>file_desc</term>
+                <listitem>
+                    <para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                ファイル名を指定する文字列.
+                                既存のファイルを上書きしようとすると、エラーが発生します.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                または、 ファイル（…） で開かれたファイルの整数 ID
+                                （<link linkend="file">file</link>参照）.
+                                <literal>%io(2)</literal> を使用すると、コンソールに書き込みが行われます.
+    
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    </para>
+                    <para>この関数はUTFのファイル名をオープンすることができません.
+                        この場合は <link linkend="file">file</link> を使用してください.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>
+                        実数のマトリックス、または文字列の列.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>format</term>
+                <listitem>
+                    <para>文字列, "Fortran" 形式を指定します. 左括弧で始まり、右括弧で終わる必要があります.
+                        形式には浮動小数点数, 整数または文字編集モードを混ぜることは
+                        できません.
+                    </para>
+                    <para>
+                        Formatの例 : <literal>"(1x,e10.3,5x,3(f3.0),1x,i4)"</literal>,
+                        <literal>"(10x,a20)"</literal>.
+                        <table border="0">
+                            <tr><td valign="top">"x":</td>
+                                <td>white space. "5x" = 5 white spaces</td></tr>
+                            <tr><td valign="top">"a":</td>
+                                <td>string. "a20" = 20 first characters of the input string.</td></tr>
+                            <tr><td valign="top">"i":</td>
+                                <td>print as integer</td></tr>
+                            <tr><td valign="top">"f":</td>
+                                <td>real number</td></tr>
+                            <tr><td valign="top">"e":</td>
+                                <td>real number in exponential form.</td></tr>
+                            <tr><td valign="top">"(…)":</td>
+                                <td>group. 3(…) = iterate 3 times the group.</td></tr>
+                        </table>
+                    </para>
+                    <para>詳細はFortranブックを参照ください.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>k</term>
+                <listitem>
+                    <para>整数ベクトル</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            実数行列または文字列の列ベクトルを整形されたファイルに
+            行毎に書き込みます.
+            引数<varname>a</varname>の各行は,
+            <varname>file_desc</varname>ファイルの新しい行で始まります.
+            <varname>format</varname> に基づき
+            <varname>a</varname>引数の指定した行が
+            <varname>file_desc</varname>ファイルの複数行に書き込まれます.
+        </para>
+        <para>直接アクセスファイル :
+            <literal>x=write(file_desc, a, k, format)</literal>. ここで
+            <varname>k</varname> はレコードのベクトルです (行毎に1レコード, すなわち,
+            <literal>m=prod(size(k)</literal>)
+        </para>
+        <para>
+            <literal>write(%io(2),....)</literal> は Scilabのウインドウを書き込みます.
+            この場合,<varname>format</varname>は
+            行列の各行について1行出力する必要があります.
+            この拘束条件が確認できない場合,予測できない結果となる可能性があります.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+if getos() == 'Windows' then unix('del asave');
+else unix('rm -f asave'); end
+A = rand(5,3);
+write('asave',A);
+A = read('asave',5,3);
+
+write(%io(2),A,'('' | '',3(f10.3,'' | ''))')
+write(%io(2),string(1:10))
+write(%io(2),strcat(string(1:10),','))
+write(%io(2),1:10,'(10(i2,3x))')
+
+if getos() == 'Windows' then unix('del foo');
+else unix('rm -f foo'); end
+write('foo',A)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="save">save</link>
+            </member>
+            <member>
+                <link linkend="file">file</link>
+            </member>
+            <member>
+                <link linkend="fileinfo">fileinfo</link>
+            </member>
+            <member>
+                <link linkend="print">print</link>
+            </member>
+            <member>
+                <link linkend="mfprintf">mfprintf</link>
+            </member>
+            <member>
+                <link linkend="mprintf">mprintf</link>
+            </member>
+            <member>
+                <link linkend="fprintfMat">fprintfMat</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revdescription>
+                    write(…) overwrites existing file.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,40 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 5268 -->
+//
+// <-- CLI SHELL MODE -->
+// 
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/5268
+//
+// <-- Short Description -->
+// bugs about format function
+
+
+format(10, 0);
+f = format();
+assert_checkequal(f, [0 10]);
+
+format(5, 1);
+f = format();
+assert_checkequal(f, [1 5]);
+
+format(8, 0);
+f = format();
+assert_checkequal(f, [0 8]);
+
+format([10 0])
+f = format();
+assert_checkequal(f, [0 10]);
+
+format([10 1])
+f = format();
+assert_checkequal(f, [1 10]);
+
+msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the interval [%d, %d].\n"),"format", 1, 8, 25);
+assert_checkerror ("format(5, 0)" , msgerr );

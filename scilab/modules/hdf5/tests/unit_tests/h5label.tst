@@ -1,0 +1,31 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+
+msgerr = msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "h5label", 4);
+assert_checkerror("h5label()",msgerr,77);
+msgerr = msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "h5label", 4);
+assert_checkerror("h5label(42)",msgerr,77);
+msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: string or H5Object expected.\n"), "h5label", 1);
+assert_checkerror("h5label(42,42,42,42)",msgerr,999);
+msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "h5label", 2);
+assert_checkerror("h5label(""42"",42,42,42)",msgerr,999);
+msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: Row array of strings expected.\n"), "h5label", 4);
+assert_checkerror("h5label(""42"",""42"",42,42)",msgerr,999);
+msgerr = msprintf(gettext("%s: %s\n"), "h5label", msprintf(gettext("Invalid hdf5 file: %s."), "42"));
+assert_checkerror("h5label(""42"",""42"",42,[""42""])",msgerr,999);
+
+a = h5open(TMPDIR + "/test.h5", "w");
+msgerr = msprintf(gettext("%s: %s\n"), "h5label", msprintf(gettext("Invalid name: %s.") ,"42"));
+assert_checkerror("h5label(a,""42"",42,[""42""])",msgerr,999);
+
+x = uint8(1:24);
+h5dataset(a, "Dset_1", [1 2 3 4 ; 1 1 1 1 ; 1 1 1 1 ; 1 1 1 1; 1 2 3 4], x, [1 2 3 4 ; 1 2 3 4 ; 1 1 1 1 ; 1 1 1 1 ; 1 1 1 1 ; 1 2 3 4]);
+h5label(a, "Dset_1", [1 3], ["Hello" "World"]);
+assert_checkequal(a.root.Dset_1.DIMENSION_LABELS.data,["Hello" "" "World" ""]);
+h5close(a)

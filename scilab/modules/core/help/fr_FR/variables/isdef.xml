@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isdef" xml:lang="fr">
+    <refnamediv>
+        <refname>isdef</refname>
+        <refpurpose>vérifie si une variable existe</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            ve = isdef(name)
+            ve = isdef(name, where)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>ve</term>
+                <listitem>
+                    <para>
+                        une matrice de booléens de même taille que <varname>name</varname>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>une matrice de chaînes de caractères.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>where</term>
+                <listitem>
+                    <para>
+                        chaîne de caractères, peut valoir <literal>'l'</literal> (pour <literal>"local"</literal>),
+                        <literal>'n'</literal> (pour <literal>"nolocal"</literal>) ou
+                        <literal>'a'</literal> (pour <literal>"all"</literal>). Par défaut, vaut
+                        <literal>'a'</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <code>isdef(name)</code> renvoie <constant>%T</constant> (vrai)
+            si la variable nommée <varname>name</varname> existe et
+            <constant>%F</constant> (faux) sinon.
+        </para>
+        <para>
+            <caution>
+                Mise en garde : une fonction utilisant <function>isdef</function> peut
+                renvoyer un résultat dépendant de l'environnement courant !
+            </caution>
+        </para>
+        <para>
+            <code>isdef(name, 'l')</code> renvoie <constant>%T</constant>
+            si la variable nommée <varname>name</varname> existe dans l'environnement
+            local de la fonction courante et <constant>%F</constant> sinon.
+        </para>
+        <para>
+            <code>isdef(name, 'n')</code> renvoie
+            <constant>%T</constant> si la variable nommée <varname>name</varname> existe
+            dans l'environnement appelant (y compris le niveau global) de la fonction
+            courante et <constant>%F</constant> sinon.
+        </para>
+        <para>
+            <note>
+                Remarque : seule la première lettre de l'option <varname>where</varname> est prise en compte.
+            </note>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+A = 1; B = 2; C = 3; D = 4;
+isdef(['A', 'B'; 'C', 'D'] )
+clear A B C D;
+isdef(['A', 'B'; 'C', 'D')
+
+function level1()
+  function level2()
+    disp(isdef(["a", "b"], "a"));
+    disp(isdef(["a", "b"], "l"));
+    disp(isdef(["a", "b"], "n"));
+  endfunction
+  level2()
+endfunction
+function go()
+  a = 1;
+  level1()
+endfunction
+go()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="exists">exists</link>
+            </member>
+            <member>
+                <link linkend="isglobal">isglobal</link>
+            </member>
+            <member>
+                <link linkend="whereis">whereis</link>
+            </member>
+            <member>
+                <link linkend="type">type</link>
+            </member>
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+            <member>
+                <link linkend="clear">clear</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

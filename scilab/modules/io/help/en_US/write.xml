@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2012 - 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="write" xml:lang="en">
+    <refnamediv>
+        <refname>write</refname>
+        <refpurpose>writes real numbers or strings in the console or in a formatted file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            write(file_desc, a)
+            write(file_desc, a, format)
+            write(file_desc, a, k, format)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>file_desc</term>
+                <listitem>
+                    <para>Either
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    A character string specifying the file name.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    or the integer id of a file opened with <literal>file(…)</literal>
+                                    (see <link linkend="file">file</link>).
+                                    Using <literal>%io(2)</literal> will write in the console.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                    <para>
+                        This function can not open a UTF filename. In this case,
+                        please uses <link linkend="file">file</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>Matrix of real numbers, or column of character strings.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>format</term>
+                <listitem>
+                    <para>
+                        character string specifying a "Fortran" format. It must begin with
+                        a left parenthesis and end with a right one. The <varname>format</varname>
+                        must be about only one type of input data. It can't mix placeholders for
+                        real numbers and for strings.
+                    </para>
+                    <para>
+                        Format examples : <literal>"(1x,e10.3,5x,3(f3.0),1x,i4)"</literal> ,
+                        <literal>"(10x,a20)"</literal>.
+                        <table border="0">
+                            <tr><td valign="top">"x":</td>
+                                <td>white space. "5x" = 5 white spaces</td></tr>
+                            <tr><td valign="top">"a":</td>
+                                <td>string. "a20" = 20 first characters of the input string.</td></tr>
+                            <tr><td valign="top">"i":</td>
+                                <td>print as integer</td></tr>
+                            <tr><td valign="top">"f":</td>
+                                <td>real number</td></tr>
+                            <tr><td valign="top">"e":</td>
+                                <td>real number in exponential form.</td></tr>
+                            <tr><td valign="top">"(…)":</td>
+                                <td>group. 3(…) = iterate 3 times the group.</td></tr>
+                        </table>
+                        Please see a Fortran book for more information.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>k</term>
+                <listitem>
+                    <para>integer vector</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>writes row-by-row in a formatted file a matrix of real numbers or a column vector
+            of character strings. If the file already exists, it is overwritten.
+            Each row of the <varname>a</varname> argument
+            begins a new line of <varname>file_desc</varname> file. Depending on
+            <varname>format</varname>, a given row of the <varname>a</varname> argument
+            may be written in more than one line of <varname>file_desc</varname>
+            file.
+        </para>
+        <para>Direct access files :
+            <literal>x=write(file_desc,a,k,format)</literal>. Here
+            <literal>k</literal> is the vector of records (one record by row, i.e.
+            <literal>m=prod(size(k)</literal>)
+        </para>
+        <para>
+            <literal>write(%io(2),....)</literal> writes on Scilab's console.
+            Note that in this case <varname>format</varname> should produce one output
+            line per matrix row. If this constraint is not verified, unpredictable
+            behavior could happen.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+if getos() == 'Windows' then unix('del asave');
+else unix('rm -f asave'); end
+A = rand(5,3);
+write('asave',A);
+A = read('asave',5,3);
+
+write(%io(2),A,'('' | '',3(f10.3,'' | ''))')
+write(%io(2),string(1:10))
+write(%io(2),strcat(string(1:10),','))
+write(%io(2),1:10,'(10(i2,3x))')
+
+if getos() == 'Windows' then unix('del foo');
+else unix('rm -f foo'); end
+write('foo',A)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="save">save</link>
+            </member>
+            <member>
+                <link linkend="file">file</link>
+            </member>
+            <member>
+                <link linkend="fileinfo">fileinfo</link>
+            </member>
+            <member>
+                <link linkend="print">print</link>
+            </member>
+            <member>
+                <link linkend="mfprintf">mfprintf</link>
+            </member>
+            <member>
+                <link linkend="mprintf">mprintf</link>
+            </member>
+            <member>
+                <link linkend="fprintfMat">fprintfMat</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revremark>
+                    write(…) overwrites existing file.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

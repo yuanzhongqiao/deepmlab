@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="quart">
+    <refnamediv>
+        <refname>quart</refname>
+        <refpurpose>computation of quartiles
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            s = quart(x)
+            s = quart(x, orientation)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real or complex vector or matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                    <para>
+                        index of the dimension along which the quart is computed. It can be either
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                a character <literal>"*"</literal> (default), <literal>"r"</literal> or
+                              <literal>"c"</literal>
+                          </para>
+                      </listitem>
+                        <listitem>
+                             <para>
+                                a positive integer: 1 or 2. 1 is equivalent to "r" and 2 is equivalent to "c".
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>s</term>
+                <listitem>
+                    <para>real or complex scalar or vector</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            For a vector  or a matrix x,  q = quart(x) or q = quart(x, "*")
+            returns in the vector q the quartiles of x.
+
+            q = quart(x, 'r')        (or,         equivalently,
+            q = quart(x, 1)) are the   rowwise percentiles.  It
+            returns in  each  column of    the matrix  q   the
+            quartiles  of   data   in the   corresponding column  of
+            x.
+        </para>
+        <para>
+            q = quart(x, 'c')        (or,         equivalently,
+            q = quart(x, 2)) are the  columnwise quartiles.  It
+            returns in each row of  the matrix q the quartiles
+            of data in the corresponding row of x.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x=[6 7 0 7 10 4 2 2 7 1;
+   6 0 5 5 5 2 0 6 8 10;
+   8 6 4 3 5 9 8 3 4 7;
+   1 3 2 7 6 1 1 4 8 2;
+   6 3 5 1 6 5 9 9 5 5;
+   1 6 4 4 5 4 0 8 1 8;
+   7 1 3 7 8 0 2 8 10 8;
+   3 6 1 9 8 5 5 3 2 1;
+   5 7 6 2 10 8 7 4 0 8;
+   10 3 3 4 8 6 9 4 8 3]
+q=quart(x)
+q=quart(x, 'r')
+q=quart(x, 'c')
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Bibliography</title>
+        <para>
+            Wonacott, T.H. &amp; Wonacott, R.J.; Introductory Statistics, fifth edition, J.Wiley &amp; Sons, 1990.
+        </para>
+    </refsection>
+</refentry>

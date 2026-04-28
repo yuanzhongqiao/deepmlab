@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="clear">
+    <refnamediv>
+        <refname>clear</refname>
+        <refpurpose>kills variables</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            clear a b c
+            clear('a', 'b', 'c')
+            clear(['a' 'b' 'c'])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>a, b, c...</term>
+                <listitem>
+                    <para>names of variables of any type and size, but not protected</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This command kills variables which are not protected.
+            It removes the named variables from the environment.
+            By itself <code>clear</code> kills all the variables except the variables
+            protected by <code>predef</code>. Thus the two commands <code>predef(0)</code> and <code>clear</code>
+            remove all the variables.
+        </para>
+        <para>
+            Normally, protected variables are standard libraries and variables with the percent prefix.
+        </para>
+        <para>
+            <note>
+                Note the particular syntax <code>clear a</code> and <code>clear('a')</code>
+                and not <code>clear(a)</code>. Note also that <code>a=[]</code> does not kill
+                <varname>a</varname> but sets <varname>a</varname> to an empty matrix.
+            </note>
+        </para>
+        <para>
+            If a name <emphasis>Var</emphasis> matches no variable, <literal>clear Var</literal>
+            does nothing silently.
+        </para>
+      <note>
+        <literal>clear()</literal> can be overloaded for any <literal>mlist("foo")</literal> type,
+        by defining a <literal>%foo_clear()</literal> macro. It will be called either when
+        <literal>clear</literal> is explicitly applied to any mlist of this type, or implicitly
+        when any mlist of this type is deleted when leaving the environment where it has been
+        defined.
+      </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a = 2;
+b = 3;
+c = 4;
+clear a
+isdef("a") // F
+isdef("b") // T
+clear("b");
+isdef("b") // F
+
+a = 2;
+b = 3;
+c = 4;
+clear(['a' 'b' 'c'])
+isdef("a") | isdef("b") | isdef("c") // F
+     ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+function %foo_clear(o)
+    disp("deleted");
+endfunction
+
+value = mlist("foo");
+clear value // will print "deleted"
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="predef">predef</link>
+            </member>
+            <member>
+                <link linkend="clearglobal">clearglobal</link>
+            </member>
+            <member>
+                <link linkend="funcprot">funcprot</link>
+            </member>
+            <member>
+                <link linkend="who">who</link>
+            </member>
+            <member>
+                <link linkend="xmlDelete">xmlDelete</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Argument can now be a matrix of strings</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>clear</literal> is now protected:
+                        Assignments like <literal>clear=1</literal> are no longer possible.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>clear</literal> becomes overloadable for any
+                        <literal>mlist("foo")</literal>, with <literal>%foo_clear()</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

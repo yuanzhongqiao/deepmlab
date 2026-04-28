@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Francois DELEBECQUE
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2022 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="intl" xml:lang="pt">
+    <refnamediv>
+        <refname>intl</refname>
+        <refpurpose>integral de Cauchy ao longo de um arco circular</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+            y = intl(a, b, z0, r, f)
+            y = intl(a, b, z0, r, f, abserr)
+            y = intl(a, b, z0, r, f, abserr, relerr)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>z0</term>
+                <listitem>
+                     <para>
+                        número complexo</para>
+                                   </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a, b</term>
+                <listitem>
+                     <para>
+                        dois números reais</para>
+                                      </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                     <para>
+                        número real positivo</para>
+                                        </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                     <para>
+                        Identificador da função a integrar (tipos 13 ou 130).</para>
+                                                                         </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>abserr, relerr</term>
+                <listitem>
+                     <para>
+                    números reais: tolerâncias numéricas absolutas e relativas. Os valores padrão
+                    são <literal>1.d-13</literal> e <literal>1d-8</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Se <literal>f</literal> é uma função externa com valores complexos,
+            <literal>intl(a,b,z0,r,f)</literal> computa a integral de
+            <literal>f(z)dz</literal> ao longo da curva no plano complexo definida por
+            <literal>z0 + r.*exp(%i*t)</literal> para <literal>a&lt;=t&lt;=b</literal>
+            (parte do círculo com centro <literal>z0</literal> e raio
+            <literal>r</literal> com fase entre <literal>a</literal> e
+            <literal>b</literal>).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+function y = f(z)
+  y = z^(3 + %pi * %i)
+endfunction
+
+intl(1, 2, 1+%i, 3, f)
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="intc">intc</link>
+            </member>
+            <member>
+                <link linkend="integrate">integrate</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+           <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    Default <varname>abserr</varname> and <literal>relerr</literal> values
+                    standardized: <literal>1d-13</literal> and <literal>1d-8</literal> instead of
+                    <literal>%eps</literal> and <literal>1d-12</literal>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

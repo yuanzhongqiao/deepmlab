@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ * Copyright (C) 2016 - Samuel GOUGEON
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="harmean">
+    <refnamediv>
+        <refname>harmean</refname>
+        <refpurpose>harmonic mean : inverse of the inverses average (without zeros)</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            hm = harmean(x)
+            hm = harmean(x, orientation)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>vector, matrix, or hypermatrix of real or complex
+                    numbers or polynomials. Rationals not supported.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                    <para>
+                    index of the dimension along which the harmean is computed.
+                    It can be either
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                a character <literal>"*"</literal> (default), <literal>"r"</literal>,
+                              <literal>"c"</literal> or <literal>"m"</literal>. "m" is equivalent
+                              to <literal>find(size(x)&gt;1,1)</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                a positive integer. 1 is equivalent to "r" and 2 is equivalent to "c".
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hm</term>
+                <listitem>
+                  <para>scalar, or row (if <literal>"r"</literal> is used), or
+                    column (if <literal>"c"</literal> is used).
+                    If <varname>x</varname> are polynomials,
+                    <varname>hm</varname> is of rational type.
+                  </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            This function  computes the harmonic mean of input values = inverse
+            of the average of inversed non-zero values.
+        </para>
+        <para>
+            <literal> hm = harmean(x) </literal> or <literal>hm = harmean(x, '*') </literal> returns 
+            in scalar <literal>hm</literal> the harmonic mean of all the entries.
+        </para>
+        <para>
+            <literal>hm = harmean(x,'r')</literal>   (or,   equivalently,
+            <literal>hm = harmean(x, 1)</literal> ) returns  in each  entry of
+            the row vector <literal> hm</literal> the harmonic mean of each
+            column of <literal> x</literal>.
+        </para>
+        <para>
+            <literal>hm = harmean(x,'c')</literal>   (or,   equivalently,
+            <literal>hm = harmean(x, 2)</literal> ) returns  in each entry
+            of the column vector <literal> hm</literal> the harmonic mean of
+            each  row of <literal> x </literal>.
+        </para>
+        <warning>
+            If <varname>x</varname> is an hypermatrix and a
+            <literal>"r", 1, "c", 2</literal> flag is used, an error occurs.
+        </warning>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+harmean(1:10) // Returns 1 / mean(1 ./(1:10))
+h = harmean([1 1 0 1 0 1])  // returns 1: zeros are not considered
+1 / mean(1./[1 1 0 1 0 1])  // returns 0, as soon as a zero is present
+
+x = grand(3, 4, "uin",-10, 10)
+harmean(x)
+harmean(x, "r")
+harmean(x, 2)
+
+// Hypermatrix
+x = grand(3,4,2, "uin",-10, 10)
+harmean(x)
+// warning: harmean(x, "r") and harmean(x, 3) generate one error: not supported !
+
+harmean([%z 0])
+harmean([%z %z/2])
+harmean([%z %i+%z])
+harmean([%z %i+%z]) == 1 / ((1/%z + 1/(%i+%z))/2)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+            Wonacott, T.H. &amp; Wonacott, R.J.; Introductory Statistics,
+            fifth edition, J.Wiley &amp; Sons, 1990.
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="mean">mean</link>
+            </member>
+            <member>
+                <link linkend="geomean">geomean</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

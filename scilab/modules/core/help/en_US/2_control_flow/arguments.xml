@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Antoine ELIAS
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="arguments">
+    <refnamediv>
+        <refname>arguments</refname>
+        <refpurpose>keyword to check function arguments. Arguments block must be the expression in the function.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <programlisting><![CDATA[
+        arguments
+            argName1 (dimensions) datatype {validators} = defaultValue
+            ...
+            argNameN
+        end
+        ]]></programlisting>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>argName1, ... argNameN</term>
+                <listitem>
+                    <para>
+                            Name of the arguments from function protoptype.
+                    </para>
+                    <para>
+                            All input arguments must be declared in <literal>arguments</literal> block and in the same order.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>(dimension)</term>
+                <listitem>
+                    <para>
+                        Expected (i, j, ...) dimensions for an input argument like <literal>(2, 3, 4)</literal>. Must be a list of integer values or <literal>:</literal> or input variable name.
+                    </para>
+                    <para>
+                        Matrix form (4, [3 6 10]) can be used to except size of <literal>4 x 3</literal> or <literal>4 x 6</literal> or <literal>4 x 10</literal>.
+                    </para>
+                    <para>
+                        If input argument is a scalar and expected dimensions are bigger, input argument will be expand to match the expected dimensions.
+                    </para>
+                    <para>
+                        If expected dimensions is a vector (1xn or nx1) and input argument is a vector, input will be transposed to match expected form.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>datatype</term>
+                <listitem>
+                    <para>
+                        Expected datatype of input arguments. Inputs must be of datatype or convertable to this type.
+                    </para>
+                    <para>
+                        <literal>datatype</literal> can be <literal>double</literal>, <literal>(u)int(8/16/32/64)</literal>, <literal>boolean</literal>, <literal>string</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>{validators}</term>
+                <listitem>
+                    <para>
+                        List of predefined functions used to check input validity.
+                    </para>
+                    <para>
+                        Each validator must be validate to accept the input.
+                    </para>
+                    <para>
+                        <link linkend="arguments_validators">List of validators</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>defaultValue</term>
+                <listitem>
+                    <para>
+                        If an input is not given by caller, variable will take this value.
+                    </para>
+                    <para>
+                        All variables with default value must be at the end of the prototype.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            function test(x, y)
+                arguments
+                    x (1, 10) double {mustBeReal, mustBePositive}
+                    y double = 1
+                end
+
+                disp(x, y)
+            end
+        ]]></programlisting>
+
+        <programlisting role="example"><![CDATA[
+            //OK
+            a = 1:10;
+            test(a) //y == 1 its default value
+            test(a') //x will be transposed to match 1 x 10 dimensions, y == 1
+            test(42, 2) //x become a(ones(1, 10)) and y == 2
+        ]]></programlisting>
+
+        <programlisting role="example"><![CDATA[
+            //rejected
+            test() //x is required
+            test(a, list(1)) // a list cannot be convert to a double
+            test(0:9) // x must be > 0
+        ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arguments_validators">Arguments validators</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

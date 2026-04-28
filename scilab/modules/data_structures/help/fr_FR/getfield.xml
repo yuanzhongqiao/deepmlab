@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="getfield">
+    <refnamediv>
+        <refname>getfield</refname>
+        <refpurpose>extraction d'un champ d'une liste  </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>[x,...]=getfield(i,l)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>x  </term>
+                <listitem>
+                    <para>matrice de tout type
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>l  </term>
+                <listitem>
+                    <para>variable de type list, tlist ou mlist
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i  </term>
+                <listitem>
+                    <para>
+                        indice du champ, voir <literal>extraction</literal> pour plus de détails
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Cette fonction est un équivalent de la syntaxe <literal>[x,...]=l(i)</literal> pour l'extraction de champs avec la seule différence qu'elle s'applique aussi aux objets de type <literal>mlist</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+l = list(1,'qwerw',%s)
+[a,b] = getfield([3 2],l)
+
+// Les fractions rationnelles sont encodées des T-listes :
+r = [%z/(1-%z) %z^2/(1+%z)]
+type(r)
+[num, den] = getfield([2 3],r)
+
+// Les tableaux de structures sont des  M-listes:
+s.r = %pi
+s.b = %t
+s.t = "Scilab"
+s(2).t = "Basile"
+getfield(2,s)==size(s)
+getfield(1,s)(3:5)==fieldnames(s)'
+[r,b,t] = getfield([3 4 5],s)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="extraction">extraction</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

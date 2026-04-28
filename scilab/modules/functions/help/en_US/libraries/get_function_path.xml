@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ????-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="get_function_path">
+    <refnamediv>
+        <refname>get_function_path</refname>
+        <refpurpose>get source file path of a library function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>path = get_function_path(fun_name)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>fun_name</term>
+                <listitem>
+                    <para>a string, the name of the function</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>path</term>
+                <listitem>
+                    <para>a vector of strings containing:</para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                absolute pathname of the function source file (.sci)
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>"&lt;script&gt;"</literal> if <literal>fun_name</literal>
+                                is an user-defined function written in Scilab language executed in Scilab's console.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>"&lt;moduleName&gt;"</literal> if <literal>fun_name</literal>
+                                is a builtin function (so-called Scilab primitive)
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>Otherwise: <literal>[]</literal>.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Given the name of a function get_function_path returns a vector containing 
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        the absolute pathname of the function source file if the function is defined in a
+                        Scilab library (see lib)
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>"&lt;script&gt;"</literal> if the function is an user-defined function executed in the console
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>"&lt;moduleName&gt;"</literal> if the function is a builtin written and compiled in an external language (C, C++..)
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            get_function_path returns [] if <literal>fun_name</literal> does not match any library function.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+get_function_path('median')
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="lib">lib</link>
+            </member>
+            <member>
+                <link linkend="string">string</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Stephane MOTTELET
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="get_absolute_file_path" xml:lang="ru">
+    <refnamediv>
+        <refname>get_absolute_file_path</refname>
+        <refpurpose>
+            даёт абсолютный путь к файлу, открытому в Scilab
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>[filepath, filename] = get_absolute_file_path()</synopsis>
+        <synopsis>filepath = get_absolute_file_path(filename)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>символьная строка: имя файла.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>filepath</term>
+                <listitem>
+                    <para>символьная строка: абсолютный путь.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <function>get_absolute_file_path</function> даёт абсолютный путь к
+            файлу уже открытому в Scilab.
+        </para>
+        <para>
+            <function>get_absolute_file_path(filename)</function> ищет
+            <varname>filename</varname>во внутреннем списке файлов, открытых в
+            данный момент и возвращает его путь <varname>pathname</varname>.
+        </para>
+        <para>
+            Если файл не открыт, то будет возвращена ошибка.
+        </para>
+      <para>
+          Без входных аргументов и при вызове из сценария
+          <function>get_absolute_file_path()</function> возвращает абсолютный путь
+          сценария и, по выбору, его имя. При вызове без входных аргументов из
+          командной строки <function>get_absolute_file_path()</function> возвращает
+          ошибку.
+      </para>
+        <para>
+            <warning>
+                В прежней версии (Scilab 5.0.x), если файл не был найден,
+                возвращалась текущая директория.
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+mputl(['[filepath,filename]=get_absolute_file_path()'
+       'disp(filepath,filename)'],TMPDIR+'/script.sce');
+exec(TMPDIR+'/script.sce',-1)
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+fd = mopen(TMPDIR+'/foo.txt','wt');
+filepath = get_absolute_file_path("foo.txt")
+mclose(fd)
+filepath = get_absolute_file_path("foo.txt")
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="dispfiles">dispfiles</link>
+            </member>
+            <member>
+                <link linkend="file">file(id)</link>
+            </member>
+            <member>
+                <link linkend="getshortpathname">getshortpathname</link>
+            </member>
+            <member>
+                <link linkend="getlongpathname">getlongpathname</link>
+            </member>
+            <member>
+                <link linkend="pwd">pwd</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

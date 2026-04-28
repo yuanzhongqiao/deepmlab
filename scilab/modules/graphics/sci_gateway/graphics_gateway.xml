@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "../../functions/xml/gateway.dtd">
+<!--
+/*
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2011 - DIGITEO - Antoine ELIAS
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ */
+ Scilab
+ Interface description. In this file, we define the list of the function which
+ will be available into Scilab and the link to the "native" function.
+
+ Don't touch if you do not know what you are doing
+-->
+<module name="graphics">
+    <!-- gateway CPP -->
+    <gateway name="sci_get"             function="get"              type="1" />
+    <gateway name="sci_winsid"          function="winsid"           type="1" />
+    <gateway name="sci_matplot1"        function="Matplot1"         type="1" />
+    <gateway name="sci_glue"            function="glue"             type="1" />
+
+    <!-- gateway CPP OPT-->
+    <gateway name="sci_matplot"         function="Matplot"          type="3" />
+
+    <!-- Gateway C-->
+    <gateway name="sci_light"           function="light"            type="4" />
+
+    <!-- Old gateway C-->
+    <gateway name="sci_champ"           function="champ"            type="0" />
+    <gateway name="sci_fec"             function="fec"              type="0" />
+    <gateway name="sci_geom3d"          function="geom3d"           type="0" />
+    <gateway name="sci_grayplot"        function="grayplot"         type="0" />
+    <gateway name="sci_contour2di"      function="contour2di"       type="0" />
+    <gateway name="sci_param3d"         function="param3d"          type="0" />
+    <gateway name="sci_param3d1"        function="param3d1"         type="0" />
+    <gateway name="sci_xstringb"        function="xstringb"         type="0" />
+    <gateway name="sci_plot2d"          function="plot2d"           type="0" />
+    <gateway name="sci_plot2d1_2"       function="plot2d2"          type="0" />
+    <gateway name="sci_plot2d1_3"       function="plot2d3"          type="0" />
+    <gateway name="sci_plot2d1_4"       function="plot2d4"          type="0" />
+    <gateway name="sci_plot3d"          function="plot3d"           type="0" />
+    <gateway name="sci_plot3d"          function="plot3d1"          type="0" />
+    <gateway name="sci_xarc"            function="xarc"             type="0" />
+    <gateway name="sci_xarcs"           function="xarcs"            type="0" />
+    <gateway name="sci_xarrows"         function="xarrows"          type="0" />
+    <gateway name="sci_drawaxis"        function="drawaxis"         type="0" />
+    <gateway name="sci_xchange"         function="xchange"          type="0" />
+    <gateway name="sci_xclick"          function="xclick"           type="0" />
+    <gateway name="sci_xarc"            function="xfarc"            type="0" />
+    <gateway name="sci_xfarcs"          function="xfarcs"           type="0" />
+    <gateway name="sci_xfpoly"          function="xfpoly"           type="0" />
+    <gateway name="sci_xfpolys"         function="xfpolys"          type="0" />
+    <gateway name="sci_xrect"           function="xfrect"           type="0" />
+    <gateway name="sci_xgetmouse"       function="xgetmouse"        type="0" />
+    <gateway name="sci_xgrid"           function="xgrid"            type="0" />
+    <gateway name="sci_xlfont"          function="xlfont"           type="0" />
+    <gateway name="sci_xpoly"           function="xpoly"            type="0" />
+    <gateway name="sci_xpolys"          function="xpolys"           type="0" />
+    <gateway name="sci_xrect"           function="xrect"            type="0" />
+    <gateway name="sci_xrects"          function="xrects"           type="0" />
+    <gateway name="sci_xsegs"           function="xsegs"            type="0" />
+    <gateway name="sci_show_window"     function="show_window"      type="0" />
+    <gateway name="sci_xstring"         function="xstring"          type="0" />
+    <gateway name="sci_xtitle"          function="xtitle"           type="0" />
+    <gateway name="sci_xgraduate"       function="xgraduate"        type="0" />
+    <gateway name="sci_zoom_rect"       function="zoom_rect"        type="0" />
+    <gateway name="sci_unzoom"          function="unzoom"           type="0" />
+    <gateway name="sci_stringbox"       function="stringbox"        type="0" />
+    <gateway name="sci_move"            function="move"             type="0" />
+    <gateway name="sci_unglue"          function="unglue"           type="0" />
+    <gateway name="sci_drawnow"         function="drawnow"          type="0" />
+    <gateway name="sci_drawlater"       function="drawlater"        type="0" />
+    <gateway name="sci_copy"            function="copy"             type="0" />
+    <gateway name="sci_delete"          function="delete"           type="0" />
+    <gateway name="sci_set"             function="set"              type="0" />
+    <gateway name="sci_newaxes"         function="newaxes"          type="0" />
+    <gateway name="sci_swap_handles"    function="swap_handles"     type="0" />
+    <gateway name="sci_rubberbox"       function="rubberbox"        type="0" />
+    <gateway name="sci_rotate_axes"     function="rotate_axes"      type="0" />
+    <gateway name="sci_is_handle_valid" function="is_handle_valid"  type="0" />
+    <gateway name="sci_percent_legend"  function="%_legend"         type="0" />
+    <gateway name="sci_addcolor"        function="addcolor"         type="0" />
+    <gateway name="sci_name2rgb"        function="name2rgb"         type="0" />
+    <gateway name="sci_color"           function="color"            type="0" />
+    <gateway name="sci_contour2dm"      function="contour2dm"       type="0" />
+</module>

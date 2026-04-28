@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * ...
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="mseek">
+    <refnamediv>
+        <refname>mseek</refname>
+        <refpurpose>sets current position in a binary file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>mseek(n [,fd, flag])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>a scalar: the offset in a number of bytes.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fd</term>
+                <listitem>
+                    <para>
+                        a scalar: a file descriptor returned by the function
+                        <function>mopen</function>. <literal>-1</literal>
+                        stands for last opened file. Default value is
+                        <literal>-1</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>flag</term>
+                <listitem>
+                    <para>
+                        a string: specifies the origin. Default value <literal>'set'</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The function <function>mseek</function> sets the position of the next input or output operation on the stream <varname>fd</varname>. The new position is at the signed distance given by <varname>n</varname> bytes from the beginning, from the current position, or from the end of the file, according  to the <varname>flag</varname> value which can be <literal>'set'</literal>, <literal>'cur'</literal> or <literal>'end'</literal>. This is the reason why <varname>n</varname>  must be positive when <varname>flag</varname> is equal to <literal>'set'</literal>.
+        </para>
+        <para>
+            <function>mseek</function> allows the file position indicator to be
+            set beyond the end of the existing data in the file. If data is
+            later written at this point, subsequent reads of data in the gap
+            will return zero until data is actually written into the gap.
+            <function>mseek</function>, by itself, does not extend the size of
+            the file.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+file3=fullfile(TMPDIR,'test3.bin');
+fd1= mopen(file3,'wb');
+for i=1:10
+  mput(i,'d');
+end
+mseek(0);
+mput(678,'d');
+mseek(0,fd1,'end');
+mput(932,'d');
+mclose(fd1)
+
+fd1= mopen(file3,'rb');
+res=mget(11,'d')
+res1=[1:11]; res1(1)=678;res1($)=932;
+if res1<>res then
+  write(%io(2),'Bug');
+end
+mseek(0,fd1,'set');
+
+// trying to read more than stored data
+res1=mget(100,'d',fd1);
+if res1<>res then
+  write(%io(2),'Bug');
+end
+meof(fd1)
+mclearerr(fd1)
+mclose(fd1);
+
+
+file='test.bin'
+file2='test2.bin'
+
+fd1= mopen(file,'rb');
+fd2= mopen(file2,'rb');
+
+mseek(0);           // Go to the begin of the last file open (file 2). Equal to mseek(0,fd2,'set')
+mseek(0,'end');     // Go to the end of the last file open (file 2). Equal to mseek(0,fd2,'end')
+mseek(0,fd1);       // Go to the begin of file 1. Equal to mseek(0,fd1,'set')
+mseek(2,fd1,'cur'); // Set the position to the current position offset to 2.
+
+mclose(fd1);
+mclose(fd2);
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="mclose">mclose</link>
+            </member>
+            <member>
+                <link linkend="meof">meof</link>
+            </member>
+            <member>
+                <link linkend="mfprintf">mfprintf</link>
+            </member>
+            <member>
+                <link linkend="fprintfMat">fprintfMat</link>
+            </member>
+            <member>
+                <link linkend="mfscanf">mfscanf</link>
+            </member>
+            <member>
+                <link linkend="fscanfMat">fscanfMat</link>
+            </member>
+            <member>
+                <link linkend="mget">mget</link>
+            </member>
+            <member>
+                <link linkend="mgetstr">mgetstr</link>
+            </member>
+            <member>
+                <link linkend="mopen">mopen</link>
+            </member>
+            <member>
+                <link linkend="mprintf">mprintf</link>
+            </member>
+            <member>
+                <link linkend="mput">mput</link>
+            </member>
+            <member>
+                <link linkend="mputstr">mputstr</link>
+            </member>
+            <member>
+                <link linkend="mtell">mtell</link>
+            </member>
+            <member>
+                <link linkend="mdelete">mdelete</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

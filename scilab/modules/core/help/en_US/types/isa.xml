@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ * This file is distributed under the same license as the Scilab package.
+  -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="isa">
+    <refnamediv>
+        <refname>isa</refname>
+        <refpurpose>checks variable type</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            status = isa(var, type)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>var</term>
+                <listitem>
+                    <para>
+                        a Scilab variable.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>type</term>
+                <listitem>
+                    <para>
+                        A string representing the variable type.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>
+                        Boolean: <literal>%t</literal> if <literal>var</literal> <literal>isa</literal> <literal>type</literal>.
+                        otherwise %f
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>type</literal> can be of the following value:
+        </para>
+        <para>
+            <code>"double"</code>, <code>"constant"</code>, <code>"string"</code>,
+        </para>
+        <para>
+            <code>"int8"</code>, <code>"int16"</code>, <code>"int32"</code>, <code>"int64"</code>,
+        </para>
+        <para>
+            <code>"uint8"</code>, <code>"uint16"</code>, <code>"uint32"</code>, <code>"uint64"</code>,
+        </para>
+        <para>
+            <code>"int"</code>, <code>"integer"</code>, <code>"signed"</code>, <code>"unsigned"</code>,
+        </para>
+        <para>
+            <code>"bool"</code>, <code>"boolean"</code>, <code>"poly"</code>, <code>"polynom"</code>, <code>"polynomial"</code>,
+        </para>
+        <para>
+            <code>"list"</code>, <code>"tlist"</code>, <code>"mlist"</code>, <code>"sparse"</code>, <code>"bsparse"</code>, <code>"booleansparse"</code>,
+        </para>
+        <para>
+            <code>"lib"</code>, <code>"library"</code>, <code>"function"</code>, <code>"fptr"</code>, <code>"builtin"</code>,
+        </para>
+        <para>
+            <code>"ce"</code>, <code>"cell"</code>, <code>"classdef"</code>, <code>"object"</code>
+        </para>
+    </refsection>
+
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <programlisting role="example">
+<![CDATA[
+    isa([1 2 3], "double") // %T
+    isa([1 2 3], "string") // %F
+    isa(["1" "2" "3"], "string") // %T
+
+    isa(int8(1), "int") // %T
+    isa(int8(1), "integer") // %T
+    isa(int8(1), "signed") // %T
+    isa(int8(1), "unsigned") // %F
+
+    t = table([1 2 3]', ["1" "2" "3"]');
+    isa(t, "mlist") // %T
+    isa(t, "table") // %T
+
+    isa(cos, "fptr") // %T
+    isa(cos, "function") // %T
+    isa(cos, "builtin") // %T
+
+    isa(cosd, "function") // %T
+    isa(cosd, "builtin") // %F
+
+    classdef test, end
+
+    isa(test, "classdef") // %T
+    isa(test(), "object") // %T
+    isa(test(), "test") // %T
+
+]]>
+            </programlisting>
+        </para>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+            <member>
+                <link linkend="type">type</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>isa</literal> introduction.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

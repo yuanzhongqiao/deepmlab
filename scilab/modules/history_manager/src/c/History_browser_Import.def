@@ -1,0 +1,12 @@
+	LIBRARY    history_browser.dll
+
+
+EXPORTS
+;history_browser
+;
+CommandHistoryInitialize
+CommandHistoryAppendLine
+CommandHistoryLoadFromFile
+CommandHistoryReset
+CommandHistoryDeleteLine
+CommandHistoryExpandAll

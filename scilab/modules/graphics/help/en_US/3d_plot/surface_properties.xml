@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Djalel Abdemouche
+ * Copyright (C) INRIA - Fabrice Leray
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="surface_properties">
+    <refnamediv>
+        <refname>surface properties</refname>
+        <refpurpose>description of the 3D entities
+            properties
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>The Surface entity is a leaf of the graphics entities hierarchy. Two
+            classes appears under this type of entity : <literal>Plot3d</literal> and
+            <literal>Fac3d</literal> according to the plotting function or the way data is
+            entered. <literal>Fac3d</literal> and <literal>Plo3d</literal> entities are similar
+            but <literal>Fac3d</literal> is more complete and accept more options than
+            <literal>Plot3d</literal>. To always have <literal>Fac3d</literal> entities, simply
+            use <literal>genfac3d</literal> to pre-build matrices before using
+            <literal>plot3d</literal> or use the <literal>surf</literal> command.
+        </para>
+        <para>Here are the properties contained in a surface entity:</para>
+        <variablelist>
+            <varlistentry>
+                <term>parent: </term>
+                <listitem>
+                    <para>This property contains the handle of the parent. The parent of the
+                        surface entity should be of type <literal>"Axes"</literal> or
+                        <literal>"Compound"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>children: </term>
+                <listitem>
+                    <para>
+                        This property contains a vector with the <literal>children</literal> of
+                        the handle. However, surface handles currently do not have any
+                        <literal>children</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>visible: </term>
+                <listitem>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><emphasis role="bold">"on"</emphasis> (default): The surface is
+                                    displayed, possibly with its mesh and markers.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><emphasis role="bold">"off"</emphasis> : The surface and its mesh
+                                    and markers are hidden.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>surface_mode: </term>
+                <listitem>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><emphasis role="bold">"on"</emphasis> (default): facets (body and
+                                    edges) are drawn.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><emphasis role="bold">"off"</emphasis> : facets (body and edges)
+                                    are hidden. But markers -- if any -- are still displayed
+                                    (provided that <literal>.mark_mode = "on"</literal>).
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>foreground: </term>
+                <listitem>
+                    <para>
+                        If <literal>color_mode &gt;= 0</literal>, this field contains the color
+                        index used to draw the edges. If not, foreground is not used at all.
+                        The foreground value should be an integer color index (relative to the
+                        current colormap).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>thickness: </term>
+                <listitem>
+                    <para>This property is a positive real specifying the width of facets contours
+                        in pixels. The displayed width is actually determined by rounding the supplied width
+                        to the nearest integer. The only exception is vectorial export where the whole <literal>thickness</literal>
+                        value is considered.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mark_mode: </term>
+                <listitem>
+                    <para>
+                        This field contains the default <literal>mark_mode</literal> property
+                        value for the surface. Its value should be <literal>"on"</literal> (marks
+                        drawn) or <literal>"off"</literal> (no marks drawn).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mark_style: </term>
+                <listitem>
+                    <para>
+                        The <literal>mark_style</literal> property value is used to select the
+                        type of mark to use when <literal>mark_mode</literal> property is
+                        <literal>"on"</literal>. The value should be an integer in [0 20].
+                        The figure below shows the aspects of the marks depending on the <literal>mark_style</literal> and the
+                        <literal>mark_foreground</literal> and
+                        <literal>mark_background</literal> properties.
+                    </para>
+                    <para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../../images/marks.svg"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mark_size_unit: </term>
+                <listitem>
+                    <para>
+                        This field contains the default <literal>mark_size_unit</literal>
+                        property value. If <literal>mark_size_unit</literal> is set to
+                        <literal>"point"</literal>, then the <literal>mark_size</literal> value is
+                        directly given in points. When <literal>mark_size_unit</literal> is set to
+                        <literal>"tabulated"</literal>, <literal>mark_size</literal> is computed relative
+                        to the font size array: therefore, its value should be an integer in
+                        [0 5] which stands for 8pt, 10pt, 12pt, 14pt, 18pt and 24pt. Note that
+                        <link linkend="plot3d">plot3d</link> and pure scilab functions use
+                        <literal>tabulated</literal> mode as default ; when using the
+                        <link linkend="surf">surf</link> (or <link linkend="plot">plot</link> for 2D lines) function, the
+                        <literal>point</literal> mode is automatically enabled.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mark_size: </term>
+                <listitem>
+                    <para>
+                        The <literal>mark_size</literal> property is used to select the type of
+                        size of the marks when <literal>mark_mode</literal> property is
+                        <literal>"on"</literal>. Its value should be an integer between 0 and 5
+                        which stands for 8pt, 10pt, 12pt, 14pt, 18pt and 24pt.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mark_foreground: </term>
+                <listitem>
+                    <para>
+                        This field contains the <literal>mark_foreground</literal> property
+                        value which is the marks' edge color. Its value should be a color
+                        index (relative to the current color_map) or 0 for transparent edge.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mark_background: </term>
+                <listitem>
+                    <para>
+                        This field contains the <literal>mark_background</literal> property
+                        value which is the marks' face color. Its value should be a color
+                        index (relative to the current color_map) or 0 for transparent face.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>data: </term>
+                <listitem>
+                    <para>
+                        This field defines a <literal>tlist</literal> data structure of type
+                        "3d" composed of a row and column indices of each element as the x-,
+                        y- and z-coordinates contained respectively in
+                        <literal>data.x</literal>,<literal>data.y</literal> and <literal>data.z</literal>. The
+                        complementary field named <literal>data.color</literal> is available in case
+                        a real color vector or matrix is specified. If none,
+                        <literal>data.color</literal> is not listed. The surface is painted
+                        according to <literal>color_mode </literal>and <literal>color_flag</literal>
+                        properties.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>color_mode: </term>
+                <listitem>
+                    <para>
+                        color index in <literal>[-size(colormap), size(colormap)]</literal>
+                        <para>
+                            If <emphasis role="italic">color_flag == 0</emphasis> :
+                            The uniform color of the whole upward surface is set to the index
+                            <literal>abs(color_mode)</literal>.
+                        </para>
+                        <para>
+                            In addition, whatever is <literal>color_flag</literal>,
+                            <itemizedlist>
+                                <listitem>
+                                     <para><literal>color_mode = 0</literal> makes facets hollow and displays
+                                        only the surface's mesh.
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                     <para><literal>color_mode &gt; 0</literal> displays facets bodies and
+                                        edges.
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                     <para><literal>color_mode &lt; 0</literal> hides the mesh and displays
+                                        only facets bodies.
+                                    </para>
+                                </listitem>
+                            </itemizedlist>
+                        </para>
+                        <para>
+                            When it is displayed, the mesh color is set to <varname>foreground</varname>.
+                        </para>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>color_flag: </term>
+                <listitem>
+                    <para>Chooses the algorithm used to set the color of the body of the upward face
+                        of facets, when it is displayed.
+                    </para>
+                    <para>
+                        In addition,
+                        <itemizedlist>
+                            <listitem>
+                                 <para><varname>color_mode</varname> rules the display of the mesh
+                                    (facets edges) and/or body of facets.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><varname>foreground</varname> and <varname>thickness</varname> rules
+                                    the line color and thickness of the mesh.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><varname>hiddencolor</varname> rules the color of the backward facets
+                                    face.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                    <para>
+                        Here below,
+                        <itemizedlist>
+                            <listitem>
+                                 <para><emphasis role="bold">nf</emphasis> stands for the number of facets
+                                    of the surface.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><emphasis role="bold">n</emphasis> stands for the number of
+                                    vertices of each facet. All facets have the same number of vertices.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                        Then we have:
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <term>color_flag = 0</term> <emphasis role="bold">(uniform color)</emphasis> :
+                            </para>
+                            <para>All facets are painted using the same color index and method
+                                defined by <literal>color_mode</literal> (see above).
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <term>color_flag = 1</term>
+                                <emphasis role="bold">(uniform color on each facet, mapping Z)</emphasis> :
+                            </para>
+                            <para>
+                                The average Z of each facet is computed according to the Z of
+                                its vertices.
+                                Then the [Zmin, Zmax] range of facets Z is computed.
+                                Each facet gets its uniform color in [1, size(colormap)] according
+                                to its Z position in [Zmin, Zmax].
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        <emphasis role="bold">color_flag== 2,3 or 4</emphasis> values
+                        are only available with <literal>Fac3d</literal> entities.
+                        These algorithms require the <literal>data.color</literal> input to set
+                        facets colors. If <literal>data.color</literal> is empty, the
+                        <literal>color_flag=1</literal> fallback algorithm is used.
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <term>color_flag = 2</term> <emphasis role="bold">('flat' shading)</emphasis> :
+                            </para>
+                            <para>All facets are painted using the color index given in the
+                                <literal>data.color</literal> property (one color per facet is
+                                needed). Two cases are then possible :
+                            </para>
+                            <orderedlist>
+                                <listitem>
+                                    <para>
+                                        <literal>data.color</literal> is a vector of as many
+                                        <literal>color</literal> indices as there are facets,
+                                        <literal>color(i)</literal> being the color index for the
+                                        facet <literal>#i</literal> :
+                                        <itemizedlist>
+                                            <listitem>
+                                                 <para><literal>color(i)&gt;0</literal>: the boundary of the facet
+                                                    is drawn with current line style and color.
+                                                </para>
+                                            </listitem>
+                                            <listitem>
+                                                 <para><literal>color(i)&lt;0</literal>: the facet's
+                                                    boundary is not drawn, and <literal>-color(i)</literal>
+                                                    is used as facet's color.
+                                                </para>
+                                            </listitem>
+                                        </itemizedlist>
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                    <para>
+                                        <literal>data.color</literal> is a matrix of color indices,
+                                        of size (n,nf). Then, the actual color index of the facet is
+                                        set to the average color of all its vertices.
+                                    </para>
+                                </listitem>
+                            </orderedlist>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <term>color_flag = 3</term>
+                                <emphasis role="bold">(interpolated shading on each facet)</emphasis> :
+                            </para>
+                            <para>
+                                Facets painting is done by interpolating their vertices colors.
+                                The indices of vertices color are given in the
+                                <literal>data.color</literal> property (one color per vertex is
+                                needed). Two cases are possible :
+                            </para>
+                            <orderedlist>
+                                <listitem>
+                                    <para>
+                                        <literal>data.color</literal> is a vector of <literal>nf</literal>
+                                        <literal>color</literal> indices,
+                                        <literal>color(i)</literal> being the index of the flat uniform
+                                        color of the facet <literal>#i</literal>.
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                    <para>
+                                        <literal>data.color</literal> is a color matrix of size
+                                        (n,nf): The facet #i is drawn with some graded colors
+                                        interpolated between the <literal>color(:,i)</literal>
+                                        colors of its vertices.
+                                    </para>
+                                    <note>
+                                        If the Z coordinate of vertices has been assigned to
+                                        <literal>data.color</literal>, this mode allows to map local Z
+                                        with colors, down to the facet scale. See also the
+                                        <literal>.cdata_mapping</literal> property.
+                                    </note>
+                                </listitem>
+                            </orderedlist>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <term> color_flag = 4</term>
+                                <emphasis role="bold">(Matlab-like 'flat' shading)</emphasis> :
+                            </para>
+                            <para>
+                                Same as <literal>color_flag==2</literal>, except that, when
+                                <literal>data.color</literal> is a color matrix, each facet #i is
+                                painted with the uniform <literal>color(1,i)</literal> of its
+                                first vertex (instead of the average color of all its vertices).
+                                Other vertices colors are ignored.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>cdata_mapping: </term>
+                <listitem>
+                    <para>
+                        <literal>'scaled'</literal> or <literal>'direct'</literal>.
+                        Used only for <literal>color_flag=2|3|4</literal>
+                        (<literal>Fac3d</literal> handles), with some <literal>data.color</literal>
+                        defined. Otherwise ignored.
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    <emphasis>"direct"</emphasis>: <literal>data.color</literal>
+                                    values are directly considered as color indices in the
+                                    current colormap given by <literal>gcf().color_map</literal>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para><emphasis>"scaled"</emphasis>: <literal>data.color</literal>
+                                    values are mapped to indices in the current colormap depending on the
+                                    <term>cdata_bounds</term> and <term>color_range</term> properties defined below.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>cdata_bounds: </term>
+                <listitem>
+                    <para>
+                        This vector of size 2, <literal>[cmin,cmax]</literal>, gives the <literal>data.color</literal> interval of values mapped to indices 
+                        <literal>1:size(gcf().color_map,1)</literal> of the current
+                        colormap or to an eventual subset defined by the <term>color_range</term> property.
+                        Values of <literal>data.color</literal> outside <literal>[cmin,cmax]</literal> are mapped respectively to the first and the last element of the colormap.
+                        By default, the <literal>cdata_bounds</literal> property is <literal>[0,0]</literal> which means
+                        that <literal>cmin</literal> and <literal>cmax</literal> are automatically set to the minimum and maximum of <literal>data.color</literal> property.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>color_range: </term>
+                <listitem>
+                    <para>
+                        This vector of size 2, <literal>[rmin, rmax]</literal>, where <literal>rmin</literal> and <literal>rmax</literal> stand for
+                        colormap indices, defines a subset of the current colormap for displaying the surface object. If they are both greater than 1, 
+                        then the actual colormap used to display the fac3d entity is <literal>gcf().color_map(rmin:rmax,:)</literal>.
+                        By default, the <literal>color_range</literal> property value is <literal>[0,0]</literal> which means that the whole colormap is used.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hiddencolor: </term>
+                <listitem>
+                    <para>
+                        Positive index of the color of the uniform backward faces of all facets.
+                        If a negative or null value is provided, backward faces are painted with
+                        the same respective colors as the upward visible ones.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>clip_state: </term>
+                <listitem>
+                    <para>
+                        This field contains the <literal>clip_state</literal> property value for
+                        the surface. It should be :
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>"off"</literal> this means that the surface is not
+                                clipped.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"clipgrf"</literal> this means that the surface is clipped
+                                outside the Axes box.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"on"</literal> this means that the surface is clipped
+                                outside the rectangle given by property clip_box.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>clip_box: </term>
+                <listitem>
+                    <para>
+                        This field is to determinate the <literal>clip_box</literal> property.
+                        By Default its value should be an empty matrix if clip_state is "off".
+                        Other cases the vector <literal>[x,y,w,h]</literal> (upper-left point width
+                        height) defines the portions of the surface to display, however
+                        <literal>clip_state</literal> property value will be changed.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>use_color_material: </term>
+                <listitem>
+                    <para>This field is use to enable the use of the surface color as diffuse color.
+                        Its default value is <literal>"on"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>material_shininess: </term>
+                <listitem>
+                    <para>This field defines the shininess level of the surface. This parameter
+                        controls the shinines color spreading in the surface. Any positive value can
+                        be used. Good values to use are in the [0 10] range, where low values generates
+                        strong highlight and high values generates barely perceptible highlights.
+                        The default value is <literal>"2"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ambient_color: </term>
+                <listitem>
+                    <para>This field defines the ambient color of the surface.
+                        The color is defined by a 3 element vector <literal>"[red, green, blue]"</literal>
+                        with each element in the range [0, 1].
+                        The default value is <literal>"[1 1 1]"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>diffuse_color: </term>
+                <listitem>
+                    <para>This field defines the diffuse color of the surface.
+                        The color is defined by a 3 element vector <literal>"[red, green, blue]"</literal>
+                        with each element in the range [0, 1]. Notice that this field is
+                        only used when use_color_material is disabled.
+                        The default value is <literal>"[1 1 1]"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>specular_color: </term>
+                <listitem>
+                    <para>This field defines the specular color of the surface.
+                        The color is defined by a 3 element vector <literal>"[red, green, blue]"</literal>
+                        with each element in the range [0, 1].
+                        The default value is <literal>"[1 1 1]"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>user_data: </term>
+                <listitem>
+                    <para>This field can be use to store any scilab variable in the surface
+                        data structure, and to retrieve it.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// create a figure and get its handle
+f = scf()
+t = [0:0.3:2*%pi]'; z=sin(t)*cos(t');
+[xx,yy,zz] = genfac3d(t,t,z);
+// draw and get handle on the surface entity
+h = plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
+a = gca(); //get current axes
+a.rotation_angles=[40,70];
+a.grid=[1 1 1];
+//make grids
+a.data_bounds=[-6,0,-1;6,6,5];
+a.axes_visible="off";
+// axes are hidden a.axes_bounds=[.2 0 1 1];
+
+f.color_map=hot(64);
+// change the figure colormap
+h.color_flag=1;
+// color according to z
+h.color_mode=-2;
+// remove the facets boundary
+h.color_flag=2;
+// color according to given colors
+h.data.color=[1+modulo(1:400,64),1+modulo(1:400,64)];
+// shaded
+h.color_flag=3;
+
+scf(); // create a second figure and use surf command
+subplot(211)
+surf(z,'cdata_mapping','direct','facecol','interp')
+
+subplot(212)
+e = surf(t,t,z,'edgeco','b','marker','d','markersiz',9,'markeredg','red','markerfac','k')
+e.color_flag=1 // color index proportional to altitude (z coord.)
+e.color_flag=2; // back to default mode
+e.color_flag= 3; // interpolated shading mode (based on blue default color because field data.color is not filled)
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Example using cdata_bounds and color_range properties</title>
+        <para>When <literal>cdata_mapping</literal> is set to <literal>"scaled"</literal> (this is the default when using <literal>surf()</literal>), these properties allow to have a full control on the mapping between the <literal>data.color</literal> property of a <literal>Fac3d</literal> entity and its actual colors shown on screen. For example, different subsets of the color map can be used for different entities belonging to the same figure and actual interval of <literal>data.color</literal> values mapped to this subset:
+    </para>
+    <programlisting role="example"><![CDATA[
+        clf;
+        subplot(2,2,1);
+        nc = 128;
+        gcf().color_map = [coolwarm(nc); spectral(nc)];
+        [X,Y] = meshgrid(-1:0.1:1,-1:0.1:1);
+        h = surf(X,Y,X.^2-Y.^2,"facecolor","interp","edgecolor")
+        h.color_range = [nc+1 2*nc];
+
+        subplot(2,2,2);
+        h = surf(X,Y,-X.^2-Y.^2,"facecolor","interp");
+        h.color_range = [1 nc];
+
+        subplot(2,2,3);
+        h = surf(X,Y,X.^2-Y.^2,"facecolor","interp");
+        h.color_range = [nc+1 2*nc];
+        h.cdata_bounds = [0 1];
+
+        subplot(2,2,4);
+        h = surf(X,Y,-X.^2-Y.^2,"facecolor","interp");
+        h.color_range = [1 nc];
+        h.cdata_bounds = [-1 -0.5];
+        ]]></programlisting>
+        <scilab:image><![CDATA[
+            
+            clf;
+            subplot(2,2,1);
+            nc = 128;
+            gcf().color_map = [coolwarm(nc); spectral(nc)];
+            [X,Y]=meshgrid(-1:0.1:1,-1:0.1:1);
+            h = surf(X,Y,X.^2-Y.^2,"facecolor","interp","edgecolor");
+            h.color_range = [nc+1 2*nc];
+
+            subplot(2,2,2);
+            h = surf(X,Y,-X.^2-Y.^2,"facecolor","interp");
+            h.color_range = [1 nc];
+
+            subplot(2,2,3);
+            h = surf(X,Y,X.^2-Y.^2,"facecolor","interp");
+            h.color_range = [nc+1 2*nc];
+            h.cdata_bounds = [0 1];
+
+            subplot(2,2,4);
+            h = surf(X,Y,-X.^2-Y.^2,"facecolor","interp");
+            h.color_range = [1 nc];
+            h.cdata_bounds = [-1 -0.5];
+            ]]></scilab:image>
+        </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="set">set</link>
+            </member>
+            <member>
+                <link linkend="get">get</link>
+            </member>
+            <member>
+                <link linkend="delete">delete</link>
+            </member>
+            <member>
+                <link linkend="plot3d">plot3d</link>
+            </member>
+            <member>
+                <link linkend="plot3d1">plot3d1</link>
+            </member>
+            <member>
+                <link linkend="plot3d2">plot3d2</link>
+            </member>
+            <member>
+                <link linkend="surf">surf</link>
+            </member>
+            <member>
+                <link linkend="grayplot_properties">grayplot_properties</link>
+            </member>
+            <member>
+                <link linkend="Matplot_properties">Matplot_properties</link>
+            </member>
+            <member>
+                <link linkend="graphics_entities">graphics_entities</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>cdata_bounds</literal> and <literal>color_range</literal>properties added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

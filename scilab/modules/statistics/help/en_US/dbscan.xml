@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="dbscan">
+    <refnamediv>
+        <refname>dbscan</refname>
+        <refpurpose>Density-based clustering (DBSCAN)</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            labels = dbscan(X, eps, min_samples, metricName, metricParam)
+            [labels, core_idx] = dbscan(X, eps, min_samples, metricName, metricParam)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>
+                        is a N x D (N samples, D features) real
+                        matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>eps</term>
+                <listitem>
+                    <para>
+                        a positive scalar (default=0.5). It is the neighborhood radius.
+                        Points within distance <literal>eps</literal> are considered neighbors.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>min_samples</term>
+                <listitem>
+                    <para>
+                        an integer (default=5). It is the minimum number of points required
+                        within the <literal>eps</literal> neighborhood for a point to be considered a
+                        core point.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>metricName</term>
+                <listitem>
+                    <para>
+                        optional string specifying the distance metric used by algorithm. Default="euclidean". Supported values are available 
+                        in <link linkend="pdist2">pdist2</link> help page.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>metricParam</term>
+                <listitem>
+                    <para>
+                        optional real used only by <literal>"seuclidean"</literal>, <literal>"mahalanobis"</literal> and <literal>"minkowski"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labels</term>
+                <listitem>
+                    <para>
+                        integers column vector (N x 1).
+                        Cluster assignment for each point.
+                        The value <literal>-1</literal> indicates a noise point.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>core_idx</term>
+                <listitem>
+                    <para>
+                        vector containing the indices of the core points.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            The <literal>DBSCAN</literal> (Density-Based Spatial Clustering of Applications with Noise) algorithm groups
+            points that are close to each other into clusters, based on local density. Points that are too far from others
+            are considered noise.
+        </para>
+        <para>
+            It is based on two main concepts:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                   <literal>eps</literal>: this is the maximum distance between two points so that they are
+                   considered in the same neighborhood.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>min_samples</literal> corresponds to the minimum number of points needed to form a dense cluster.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            So, each cluster is formed around core points, which are points that
+            have at least <literal>min_samples</literal> neighbors within distance <literal>eps</literal>.
+            Points close to core points but not dense enough themselves are called
+            border points. All remaining points are labeled as noise.
+        </para>
+        <para>
+            Unlike <link linkend="kmeans">kmeans</link>, the DBSCAN algorithm does not require the number of clusters
+            to be specified in advance, and it can detect clusters of arbitrary shapes.
+            </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Two compact clusters with noise</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                n = 50;
+                X = [rand(n,2); rand(n,2)+3];
+                X = [X; 6*rand(10,2)];
+                labels = dbscan(X, 0.5, 5);
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Two compact clusters with noise");
+            ]]></programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                n = 50;
+                X = [rand(n,2); rand(n,2)+3];
+                X = [X; 6*rand(10,2)];
+                labels = dbscan(X, 0.5, 5);
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Two compact clusters with noise");
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Three clusters of different densities</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                X1 = 0.3*rand(100,2);
+                X2 = rand(50,2) + 3;
+                X3 = 1.8*rand(100,2) - 2;
+
+                X = [X1; X2; X3];
+                labels = dbscan(X, 0.4, 5);
+
+                scf();
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Three clusters of different densities");
+                gca().isoview = "on";
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                X1 = 0.3*rand(100,2);
+                X2 = rand(50,2) + 3;
+                X3 = 1.8*rand(100,2) - 2;
+
+                X = [X1; X2; X3];
+                labels = dbscan(X, 0.4, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Three clusters of different densities");
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">half-moon shaped data</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                n = 100;
+                t = linspace(0, %pi, n)';
+                X1 = [cos(t), sin(t)] + 0.05*rand(n,2);
+                X2 = [1-cos(t), -sin(t)-0.5] + 0.05*rand(n,2);
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.2, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                n = 100;
+                t = linspace(0, %pi, n)';
+                X1 = [cos(t), sin(t)] + 0.05*rand(n,2);
+                X2 = [1-cos(t), -sin(t)-0.5] + 0.05*rand(n,2);
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.2, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Circular cluster with noise</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                theta = 2*%pi*rand(200,1);
+                r = 1 + 0.1*rand(200,1);
+                X1 = [r.*cos(theta), r.*sin(theta)]; // circle
+
+                X2 = 3*(rand(30,2)-0.5); // noise
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.2, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Circular cluster with noise");
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                theta = 2*%pi*rand(200,1);
+                r = 1 + 0.1*rand(200,1);
+                X1 = [r.*cos(theta), r.*sin(theta)]; // circle
+
+                X2 = 3*(rand(30,2)-0.5); // noise
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.2, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Circular cluster with noise");
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Nested spirals</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                t = linspace(0, 4*%pi, 200)';
+                r = linspace(0.1, 1, 200)';
+
+                X1 = [r.*cos(t), r.*sin(t)] + 0.02*rand(200,2);
+                X2 = [r.*cos(t+%pi), r.*sin(t+%pi)] + 0.02*rand(200,2);
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.15, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Nested spirals");
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                t = linspace(0, 4*%pi, 200)';
+                r = linspace(0.1, 1, 200)';
+
+                X1 = [r.*cos(t), r.*sin(t)] + 0.02*rand(200,2);
+                X2 = [r.*cos(t+%pi), r.*sin(t+%pi)] + 0.02*rand(200,2);
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.15, 5);
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Nested spirals");
+            </scilab:image>
+        </para>
+        <para><emphasis role="bold">Nested spirals - metric = cityblock</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                rand("seed", 0)
+                t = linspace(0, 4*%pi, 200)';
+                r = linspace(0.1, 1, 200)';
+
+                X1 = [r.*cos(t), r.*sin(t)] + 0.02*rand(200,2);
+                X2 = [r.*cos(t+%pi), r.*sin(t+%pi)] + 0.02*rand(200,2);
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.19, 5, "cityblock");
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Nested spirals - dbscan uses cityblock metric distance");
+            ]]>
+            </programlisting>
+            <scilab:image>
+                rand("seed", 0)
+                t = linspace(0, 4*%pi, 200)';
+                r = linspace(0.1, 1, 200)';
+
+                X1 = [r.*cos(t), r.*sin(t)] + 0.02*rand(200,2);
+                X2 = [r.*cos(t+%pi), r.*sin(t+%pi)] + 0.02*rand(200,2);
+
+                X = [X1; X2];
+                labels = dbscan(X, 0.19, 5, "cityblock");
+
+                scf();
+                gca().isoview = "on";
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                xtitle("Nested spirals - dbscan uses cityblock metric distance");
+            </scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="kmeans">kmeans</link>
+            </member>
+            <member>
+                <link linkend="meanshift">meanshift</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        dbscan now accepts the metric distances available in <literal>pdist2</literal> function.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

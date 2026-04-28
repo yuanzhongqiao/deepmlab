@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+*
+* Copyright (C) XXXX-2008 - INRIA
+* Copyright (C) 2018 - Samuel GOUGEON
+* Copyright (C) 2012 - 2016 - Scilab Enterprises
+* Copyright (C) 2025 - Dassault Systèmes S.E. - Cédric DELAMARRE
+*
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="host">
+    <refnamediv>
+        <refname>host</refname>
+        <refpurpose>executes a Windows, Linux, or MacOS command</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="unix">
+        <refname>unix</refname>
+        <refpurpose>alias de host()</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[status, stdout, stderr] = host(commands, echo=%f)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>commands</term>
+                <listitem>
+                    <para>
+                        Single string containing instructions sent to the OS command interpreter.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>echo</term>
+                <listitem>
+                    <para>
+                        Optional boolean used to print both stdout and stderr in Scilab's console.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>
+                      Integer, the status code return by the executed command.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stdout</term>
+                <listitem>
+                    <para>
+                        String that contains the standard output of the executed command.
+                        When the function is called with two output argument, stdout will contain both stdout and stderr.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stderr</term>
+                <listitem>
+                    <para>
+                        String that contains the standard error of the executed command.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection id="host_description">
+        <title>Description</title>
+        <para>
+            <literal>host(…)</literal>
+            creates a session of the OS command interpreter (<emphasis>sh</emphasis>
+            on Linux and MacOS, or <emphasis>cmd.exe</emphasis> on Windows),
+            to execute the given command.
+        </para>
+        <para>
+            <literal>host(…)</literal> returns both outputs in the same variable when it has been called with two output arguments.
+            It can be useful to maintain the chronological order of logs between stdout and stderr.
+        </para>
+        <para>
+            By using the optional argument echo=%t, the standard output and error will be printed in Scilab's console during the command execution.
+        </para>
+        <important>
+            The opened session of the OS interpreter is a fork of the session homing the current
+            Scilab session. As a consequence, it has the following properties:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        Its starting current working directory (CWD) is the current one in the Scilab
+                        session when running <literal>host(…)</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Its starting environment variables are copied from the OS interpreter session
+                        homing the current Scilab session. They can be modified using
+                        <link linkend="setenv">setenv</link>, before calling host().
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Changing the CWD or/and the environment variables with instructions in
+                        <varname>commands</varname> does not change them in the Scilab session or/and
+                        in the underlying OS interpreter session homing it.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        When called with 2 or 3 outputs the function will wait for the end of the command execution to return outputs.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </important>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <refsect3>
+            <title>Using Scilab defined environment variable</title>
+            <programlisting role="example"><![CDATA[
+disp(SCI)
+if getos() == "Windows" then
+    [stat, stdout] = host("echo %SCI%")
+else
+    [stat, stdout] = host("echo $SCI")
+end
+     ]]></programlisting>
+        </refsect3>
+        <refsect3>
+            <title>Playing with outputs</title>
+            <programlisting role="example"><![CDATA[
+// get separated stdout and stderr
+[stat, stdout, stderr] = host("echo OK && echo KO 1>&2 && echo END")
+// get both outputs keeping chronological order
+[stat, stdout] = host("echo OK && echo KO 1>&2 && echo END")
+     ]]></programlisting>
+        </refsect3>
+        <refsect3>
+            <title>Detached command</title>
+            <programlisting role="example"><![CDATA[
+				
+// Detach a command to avoid waiting for its end
+if getos() == "Windows" then
+    host("start /b ping localhost")
+else
+    host("ping -c 3 localhost &")
+end
+
+// But, this command will wait for outputs
+if getos() == "Windows" then
+    [stat, stdout] = host("start /b ping localhost")
+else
+    [stat, stdout] = host("ping -c 3 localhost &")
+end
+     ]]></programlisting>
+        </refsect3>
+        <refsect3>
+            <title>Force command outputs in the Scilab's console</title>
+            <programlisting role="example"><![CDATA[
+				
+if getos() == "Windows" then
+    host("ping localhost", echo=%t)
+else
+    host("ping -c 3 localhost", echo=%t)
+end
+     ]]></programlisting>
+        </refsect3>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="consolebox">consolebox</link>
+            </member>
+            <member>
+                <link linkend="getos">getos</link>
+            </member>
+            <member>
+                <link linkend="setenv">setenv</link>
+            </member>
+            <member>
+                <link linkend="powershell">powershell</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>
+                    Returns standard output and standard error.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    An optional named argument 'echo' was added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

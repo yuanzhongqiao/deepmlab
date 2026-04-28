@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2016 - Scilab Enterprises - Pierre-Aime AGNEL
+ * Copyright (C) 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="tbx_builder_help" xml:lang="en">
+    <refnamediv>
+        <refname>tbx_builder_help</refname>
+        <refpurpose>
+            Builds the multilingual help pages of a toolbox, with possible subsections
+        </refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tbx_builder_help(toolbox_path)
+            tbx_builder_help(toolbox_path, languages)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>toolbox_path</term>
+                <listitem>
+                     <para>
+                      Root directory of toolbox sources ; builder_help.sce script will be
+                      searched in the help subdirectory of this directory.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>languages</term>
+                <listitem>
+                     <para>
+                        Vector of strings like <literal>"en_US"</literal>, specifying the subset of the
+                        languages for which help pages must be built.
+                        
+                        The shortcuts <literal>"en", "fr", "pt", "ja", "ru"</literal>
+                        can be used. They are automatically expanded into
+                        <literal>"en_US", "fr_FR", "pt_BR", "ja_JP", "ru_RU"</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>tbx_builder_help</literal> is used for generating the help of a toolbox.
+        </para>
+        <para>
+            This macro is usually called from <literal>builder.sce</literal> scripts when creating
+            a toolbox.
+        </para>
+        <para>
+            It scans the <literal>toolbox_path</literal> directory for a <literal>help</literal>
+            subdirectory. If <literal>~/help</literal> is found, <literal>tbx_builder_help(…)</literal>
+            looks for a script whose name starts by <literal>builder</literal>.
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        If a file <literal>~/help/builder*</literal> is found,
+                        <literal>tbx_builder_help(…)</literal> executes it, and then returns.
+                        In this case, the <varname>languages</varname> option is ignored.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Otherwise: <literal>tbx_builder_help(…)</literal> generates the help pages
+                        from all <literal>la_LA</literal> subdirectories, where <literal>la_LA</literal>
+                        specifies the language and country according to ISO 15897.
+                        If the <varname>languages</varname> option is used, pages are generated only
+                        for existing and selected languages.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            If the <literal>~/help</literal> directory is missing,
+            <literal>tbx_builder_help(…)</literal> exits silently.
+        </para>
+        <important>
+            The toolbox name is retrieved as the basename of the file
+            <literal>toolbox_path/etc/*.start</literal>. This file must exists, even if it is empty.
+        </important>
+    </refsection>
+
+    <refsection role="examples">
+        <title>Examples</title>
+        <programlisting role="no-scilab-exec"><![CDATA[
+// Recommended usage, from a builder.sce script:
+tbx_builder_help(get_absolute_file_path('builder.sce'))
+ ]]></programlisting>
+
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="man">man</link>
+            </member>
+            <member>
+                <link linkend="xmltojar">xmltojar</link>
+            </member>
+            <member>
+                <link linkend="tbx_builder_help_lang">tbx_builder_help_lang</link>
+            </member>
+            <member>
+                <link linkend="tbx_build_help_loader">tbx_build_help_loader</link>
+            </member>
+            <member>
+                <link linkend="tbx_build_help">tbx_build_help</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        No longer restricts the build scripts to <literal>builder_help.sce</literal>.
+                        Now any scripts called builder*.sce or builder*.sce is valid
+                        for help generation.
+                    </para>
+                    <para>
+                        No longer requires a builder script, the default behaviour generates the help
+                        from all <literal>la_LA</literal> subdirectory inside the <literal>help</literal>
+                        directory.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.2</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>languages</literal> input option added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

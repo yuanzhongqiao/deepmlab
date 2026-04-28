@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="day">
+    <refnamediv>
+        <refname>day</refname>
+        <refpurpose>extracts day from datetime</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            d = day(dt, dayType)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>dt</term>
+                <listitem>
+                    <para>
+                        <link linkend="datetime">datetime</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dayType</term>
+                <listitem>
+                    <para>
+                        string with possible values: "dayofmonth" (default value), "dayofweek", "iso-dayofweek", "dayofyear", "name" and "shortname"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>d</term>
+                <listitem>
+                    <para>
+                        day value(s) (double) or day name(s) (string)
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">d = day(dt)</emphasis> returns the day value(s) of the input argument 
+            <literal>dt</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">d = day(dt, dayType)</emphasis> returns the day value(s) or day name(s) 
+            depending on <literal>dayType</literal>:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    "dayofmonth", day-of-month values (default)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "dayofyear", day-of-year value, from 1 to 365 or 366.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "dayofweek", day-of-week value, from 1 to 7, where 1 corresponds to "Sunday"
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "iso-dayofweek", day-of-week value, from 1 to 7, according to the ISO 8601 standard, where 1 corresponds to "Monday"
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "name", full day names. If <literal>dt</literal> contains <literal>NaT</literal> values, they will be replaced by "".
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "shortname", abbreviated day names. If <literal>dt</literal> contains <literal>NaT</literal> values, they will be replaced by "".
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Extracts day values from dt</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime(2025, 2, 5)
+                d = day(dt)
+
+                dt = datetime(2025, 3, 15):caldays(20):datetime(2025, 7, 26)
+                d = day(dt)
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">With "dayofyear" keyword</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime()
+                d = day(dt, "dayofyear")
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">With "dayofweek", "iso-dayofweek", "name" and "shortname" keyword</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime(2025, 6, 14)
+                d = day(dt, "dayofweek")
+                d = day(dt, "iso-dayofweek")
+                d = day(dt, "name")
+                d = day(dt, "shortname")
+
+                dt = datetime(2024, 2, 27):caldays(2):datetime(2024, 3, 2)
+                d = day(dt, "dayofweek")
+                d = day(dt, "iso-dayofweek")
+                d = day(dt, "name")
+                d = day(dt, "shortname")
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

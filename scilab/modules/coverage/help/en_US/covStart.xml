@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="covStart">
+    <refnamediv>
+        <refname>covStart</refname>
+        <refpurpose>
+            Instruments some macros to store runtime information on code coverage and
+            execution time
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          covStart(macro)
+          covStart([dirs names])
+          covStart(lib)
+          covStart(libnames)
+          counters = covStart(...)
+       </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>macro</term>
+                <listitem>
+                    <para>
+                        handle of a specific function. Example: <literal>covStart(members)</literal>,
+                        not <literal>covStart("members")</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dirs</term>
+                <listitem>
+                    <para>a column vector of strings. Directory paths to identify macros. All <literal>.sci</literal> file stored in these directories and loaded within Scilab are instrumented.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>names</term>
+                <listitem>
+                    <para>a column vector of strings. Per directory name to display on the HTML output.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>lib</term>
+                <listitem>
+                    <para>a library or a string which is a Scilab library name for instrumenting a Scilab-provided library. Can be the result of <literal>librarieslist()</literal> to instrument all the currently loaded Scilab-provided libraries.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>counters</term>
+                <listitem>
+                    <para>Count of all the instrumentation points.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Instruments the passed arguments to store runtime informations on execution. These informations can be latter exported by calling <literal>covWrite</literal> or <literal>profileGetInfo</literal>. To remove any instrumentation data <literal>covStop</literal> can be used.
+        </para>
+        <para>
+            You can either select a single function, user-defined libraries (as macros directories) or Scilab-provided libraries. The call of <literal>covStart(librarieslist())</literal> is useful to have a global overview and later specific informations can be produced for one or a set of identified functions.
+        </para>
+        <para>
+            Each time the function is called, it clears the previous instrumented counters. The associated <literal>profileEnable</literal> and <literal>profileDisable</literal> functions could be used to fine-tune your selection without clearing everything.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+covStart(isnan)                        // instrument isnan by macro value
+for i=1:1e5; isnan(i); end             // run
+covWrite("html", "TMPDIR/coverage")    // write runtime information to a directory
+covStop();                             // remove any instrumentation
+    ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+// load the libraries before instrumeting them
+loadXcosLibs();
+loadScicos();
+
+// Pass [dirs names] to list the libraries and associate names
+covStart(["SCI\modules\xcos\macros"                 "xcos" ; ..
+          "SCI\modules\scicos\macros\scicos_auto"   "scicos_auto" ; ..
+          "SCI\modules\scicos\macros\scicos_scicos" "scicos_scicos" ; ..
+          "SCI\modules\scicos\macros\scicos_utils"  "scicos_utils"]);
+
+// run the bench
+importXcosDiagram("SCI\modules\xcos\demos\Cont.Disc-Observer.zcos");
+scicos_simulate(scs_m, list(), "nw");
+
+// write the output
+covWrite("html", "TMPDIR/coverage2");
+covStop();
+    ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+// instrument the Scilab "elementary_functions" library
+covStart("elementary_functions")
+
+// run
+ones(100,200) .\. ones(1000,2000)
+
+// write the output as HTML
+covWrite("html", "TMPDIR/coverage3")
+covStop();
+    ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="covStop">covStop</link>
+            </member>
+            <member>
+                <link linkend="covWrite">covWrite</link>
+            </member>
+            <member>
+                <link linkend="profileGetInfo">profileGetInfo</link>
+            </member>
+            <member>
+                <link linkend="profileEnable">profileEnable</link>
+            </member>
+            <member>
+                <link linkend="profileDisable">profileDisable</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>covStart("all")</literal> is no more supported. Use <literal>covStart(librarylist())</literal> instead.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

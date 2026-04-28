@@ -1,0 +1,37 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2006-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// <-- Non-regression test for bug 1023 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/1023
+//
+// <-- Short Description -->
+//    mfscanf cores dump scilab. 
+//
+//    I have a file named links.txt, its size is 350k. When I 
+//    try to run the below code, line 5 kills scilab with the 
+//    error "error in fscanf : cannot allocate more memory". But 
+//    the command "free" tells me I have 182Mb free memory. 
+//
+//    ================================================= 
+//    filename = "/home/fsilva/kazus.ebooks/links.txt" 
+//    inputfile = mopen(filename,"r") 
+//
+//    [n,a] = mfscanf(-1,inputfile,"%s"); 
+//    [m,b] = mfscanf(-1,inputfile,"%s"); //line 5 
+//
+//    mclose(inputfile);
+Tref=['xxxx';'yyy';'z'];
+mputl(Tref,TMPDIR+'/bug1023.txt');
+u=mopen(TMPDIR+'/bug1023.txt','r');
+[n,a] = mfscanf(-1,u,"%s");
+[m,b] = mfscanf(-1,u,"%s");
+if n<>1        then bugmes();quit;end
+if or(a<>Tref) then bugmes();quit;end
+if m<>-1       then bugmes();quit;end
+if b<>[]       then bugmes();quit;end

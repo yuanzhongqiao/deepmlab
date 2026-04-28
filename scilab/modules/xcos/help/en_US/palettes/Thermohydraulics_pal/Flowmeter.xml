@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xml:id="Flowmeter" xml:lang="en_US">
+    <refnamediv>
+        <refname>Flowmeter</refname>
+        <refpurpose>Thermal-hydraulic Flow sensor</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/Flowmeter.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_Flowmeter">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_Flowmeter">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_Flowmeter">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_Flowmeter">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Flowmeter">Modelica model</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_Flowmeter">
+        <title>Description</title>
+        <para>
+            This component is used to measure the volumetric flow rate.
+        </para>
+    </refsection>
+
+    <refsection id="Defaultproperties_Flowmeter">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Inputs :</emphasis>
+                </para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">Modelica variable name :</emphasis> 'C1'
+                        </para>
+                        <para>
+                            Implicit <emphasis role="bold">variable.</emphasis>
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Outputs :</emphasis>
+                </para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">Modelica variable name :</emphasis> 'C2'
+                        </para>
+                        <para>
+                            Implicit <emphasis role="bold">variable.</emphasis>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">Modelica variable name :</emphasis> 'Mesure'
+                        </para>
+                        <para>
+                            Explicit <emphasis role="bold">variable.</emphasis>
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">File name of the model :</emphasis> Flowmeter
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Interfacingfunction_Flowmeter">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Hydraulics/Flowmeter.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Modelicamodel_Flowmeter">
+        <title>Modelica model</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Hydraulics/Hydraulics.mo</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="Discrete_pal" xml:lang="fr">
+    <refnamediv>
+        <refname>Discrete_pal</refname>
+        <refpurpose>Palette Systèmes à temps discret</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <para>
+            <link linkend="AUTOMAT">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="AUTOMAT" fileref="../../../../images/palettes/AUTOMAT.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DELAYV_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DELAYV_f" fileref="../../../../images/palettes/DELAYV_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DELAY_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DELAY_f" fileref="../../../../images/palettes/DELAY_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DLR">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DLR" fileref="../../../../images/palettes/DLR.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DLRADAPT_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DLRADAPT_f" fileref="../../../../images/palettes/DLRADAPT_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DLSS">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DLSS" fileref="../../../../images/palettes/DLSS.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="DOLLAR_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="DOLLAR_f" fileref="../../../../images/palettes/DOLLAR_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SAMPHOLD_m">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SAMPHOLD_m" fileref="../../../../images/palettes/SAMPHOLD_m.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="TCLSS">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="TCLSS" fileref="../../../../images/palettes/TCLSS.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="REGISTER">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="REGISTER" fileref="../../../../images/palettes/REGISTER.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+      </para>
+    </refsection>
+    <refsection id="Description_Discrete_pal">
+        <title>Description</title>
+        <para>La palette Systèmes à temps discret contient les blocs de modélisation en temps discret.</para>
+    </refsection>
+    <refsection id="Blocks_Discrete_pal" role="see also">
+        <title>Blocs</title>
+        <simplelist>
+            <member>
+                <link linkend="DELAY_f">DELAY_f</link>
+            </member>
+            <member>
+                <link linkend="DELAYV_f">DELAYV_f</link>
+            </member>
+            <member>
+                <link linkend="DLR">DLR</link>
+            </member>
+            <member>
+                <link linkend="DLRADAPT_f">DLRADAPT_f</link>
+            </member>
+            <member>
+                <link linkend="DLSS">DLSS</link>
+            </member>
+            <member>
+                <link linkend="DOLLAR_f">DOLLAR_f</link>
+            </member>
+            <member>
+                <link linkend="REGISTER">REGISTER</link>
+            </member>
+            <member>
+                <link linkend="SAMPHOLD_m">SAMPHOLD_m</link>
+            </member>
+            <member>
+                <link linkend="TCLSS">TCLSS</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

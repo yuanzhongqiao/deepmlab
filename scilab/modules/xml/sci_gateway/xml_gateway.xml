@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "../../functions/xml/gateway.dtd">
+<!--
+/*
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ */
+ Scilab
+ Interface description. In this file, we define the list of the function which
+ will be available into Scilab and the link to the "native" function.
+
+ Don't touch if you do not know what you are doing
+-->
+<module name="xml">
+    <gateway name="sci_xmlRead"                     function="xmlRead"              type="0" />
+    <gateway name="sci_xmlDelete"                   function="xmlDelete"            type="0" />
+    <gateway name="sci_xmlDump"                     function="xmlDump"              type="0" />
+    <gateway name="sci_xmlGetOpenDocs"              function="xmlGetOpenDocs"       type="0" />
+    <gateway name="sci_xmlXPath"                    function="xmlXPath"             type="0" />
+    <gateway name="sci_percent_XMLDoc_e"            function="%XMLDoc_e"            type="0" />
+    <gateway name="sci_percent_XMLElem_e"           function="%XMLElem_e"           type="0" />
+    <gateway name="sci_percent_XMLNs_e"             function="%XMLNs_e"             type="0" />
+    <gateway name="sci_percent_XMLAttr_e"           function="%XMLAttr_e"           type="0" />
+    <gateway name="sci_percent_XMLList_e"           function="%XMLList_e"           type="0" />
+    <gateway name="sci_percent_XMLList_e"           function="%XMLSet_e"            type="0" />
+    <gateway name="sci_percent_XMLAttr_p"           function="%XMLAttr_p"           type="0" />
+    <gateway name="sci_percent_XMLList_size"        function="%XMLList_size"        type="0" />
+    <gateway name="sci_percent_XMLList_size"        function="%XMLSet_size"         type="0" />
+    <gateway name="sci_percent_XMLAttr_size"        function="%XMLAttr_size"        type="0" />
+    <gateway name="sci_percent_c_i_XMLDoc"          function="%c_i_XMLDoc"          type="0" />
+    <gateway name="sci_percent_XMLElem_i_XMLDoc"    function="%XMLElem_i_XMLDoc"    type="0" />
+    <gateway name="sci_percent_c_i_XMLElem"         function="%c_i_XMLElem"         type="0" />
+    <gateway name="sci_percent_XMLElem_i_XMLElem"   function="%XMLElem_i_XMLElem"   type="0" />
+    <gateway name="sci_percent_XMLAttr_i_XMLElem"   function="%XMLAttr_i_XMLElem"   type="0" />
+    <gateway name="sci_percent_XMLList_i_XMLElem"   function="%XMLList_i_XMLElem"   type="0" />
+    <gateway name="sci_percent_XMLNs_i_XMLElem"     function="%XMLNs_i_XMLElem"     type="0" />
+    <gateway name="sci_percent_c_i_XMLAttr"         function="%c_i_XMLAttr"         type="0" />
+    <gateway name="sci_percent_XMLElem_i_XMLList"   function="%XMLElem_i_XMLList"   type="0" />
+    <gateway name="sci_percent_XMLDoc_i_XMLList"    function="%XMLDoc_i_XMLList"    type="0" />
+    <gateway name="sci_percent_c_i_XMLList"         function="%c_i_XMLList"         type="0" />
+    <gateway name="sci_percent_s_i_XMLList"         function="%s_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%p_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%b_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%sp_i_XMLList"        type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%spb_i_XMLList"       type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%i_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%h_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%fptr_i_XMLList"      type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%function_i_XMLList"  type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%l_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%hm_i_XMLList"        type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%ptr_i_XMLList"       type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%ce_i_XMLList"        type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%st_i_XMLList"        type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%r_i_XMLList"         type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%lss_i_XMLList"       type="0" />
+    <gateway name="sci_percent_foo_i_XMLList"       function="%ip_i_XMLList"        type="0" />
+    <gateway name="sci_percent_XMLList_i_XMLList"   function="%XMLList_i_XMLList"   type="0" />
+    <gateway name="sci_xmlReadStr"                  function="xmlReadStr"           type="0" />
+    <gateway name="sci_xmlFormat"                   function="xmlFormat"            type="0" />
+    <gateway name="sci_xmlElement"                  function="xmlElement"           type="0" />
+    <gateway name="sci_xmlDocument"                 function="xmlDocument"          type="0" />
+    <gateway name="sci_xmlNs"                       function="xmlNs"                type="0" />
+    <gateway name="sci_xmlAddNs"                    function="xmlAddNs"             type="0" />
+    <gateway name="sci_xmlGetNsByHref"              function="xmlGetNsByHref"       type="0" />
+    <gateway name="sci_xmlGetNsByPrefix"            function="xmlGetNsByPrefix"     type="0" />
+    <gateway name="sci_percent_XMLElem_e"           function="%XMLElem_6"           type="0" />
+    <gateway name="sci_percent_XMLDoc_e"            function="%XMLDoc_6"            type="0" />
+    <gateway name="sci_percent_XMLNs_e"             function="%XMLNs_6"             type="0" />
+    <gateway name="sci_percent_XMLAttr_e"           function="%XMLAttr_6"           type="0" />
+    <gateway name="sci_percent_XMLList_e"           function="%XMLList_6"           type="0" />
+    <gateway name="sci_percent_XMLList_e"           function="%XMLSet_6"            type="0" />
+    <gateway name="sci_xmlWrite"                    function="xmlWrite"             type="0" />
+    <gateway name="sci_percent_XMLList_length"      function="%XMLList_length"      type="0" />
+    <gateway name="sci_percent_XMLList_length"      function="%XMLSet_length"       type="0" />
+    <gateway name="sci_percent_XMLAttr_length"      function="%XMLAttr_length"      type="0" />
+    <gateway name="sci_xmlDTD"                      function="xmlDTD"               type="0" />
+    <gateway name="sci_xmlSchema"                   function="xmlSchema"            type="0" />
+    <gateway name="sci_xmlRelaxNG"                  function="xmlRelaxNG"           type="0" />
+    <gateway name="sci_xmlValidate"                 function="xmlValidate"          type="0" />
+    <gateway name="sci_percent_XMLValid_p"          function="%XMLValid_p"          type="0" />
+    <gateway name="sci_xmlIsValidObject"            function="xmlIsValidObject"     type="0" />
+    <gateway name="sci_xmlAsNumber"                 function="xmlAsNumber"          type="0" />
+    <gateway name="sci_xmlAsText"                   function="xmlAsText"            type="0" />
+    <gateway name="sci_xmlRemove"                   function="xmlRemove"            type="0" />
+    <gateway name="sci_xmlSetAttributes"            function="xmlSetAttributes"     type="0" />
+    <gateway name="sci_xmlName"                     function="xmlName"              type="0" />
+    <gateway name="sci_xmlAppend"                   function="xmlAppend"            type="0" />
+    <gateway name="sci_htmlRead"                    function="htmlRead"             type="0" />
+    <gateway name="sci_htmlReadStr"                 function="htmlReadStr"           type="0" />
+    <gateway name="sci_htmlWrite"                   function="htmlWrite"            type="0" />
+    <gateway name="sci_htmlDump"                    function="htmlDump"             type="0" />
+</module>

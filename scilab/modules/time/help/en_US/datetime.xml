@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="datetime" xml:lang="en">
+    <refnamediv>
+        <refname>datetime</refname>
+        <refpurpose>create points in time</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            dt = datetime()
+            dt = datetime(keyword)
+
+            dt = datetime(datestr)
+            dt = datetime(datestr, "InputFormat", infmt)
+
+            dt = datetime(Y, M, D)
+            dt = datetime(Y, M, D, H, m, S)
+            dt = datetime(Y, M, D, H, m, S, MS)
+
+            dt = datetime(x)
+            dt = datetime(x, "ConvertFrom", depfmt)
+            
+            dt = datetime(..., "OutputFormat", outfmt)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>keyword</term>
+                <listitem>
+                    <para>
+                        string with possible values:<emphasis role="bold">"now", "today", "yesterday"</emphasis> and <emphasis role="bold">"tomorrow"</emphasis>
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>datestr</term>
+                <listitem>
+                    <para>
+                        matrix of strings representing date and time (i.e: "2022-12-08 16:14:42").
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        m-by-3 matrix, [Y, M, D] or m-by-6 matrix, [Y, M, D, H, m, S]
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Y, M, D, H, m, S, MS</term>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">year, month, day, hour, minute, second, millisecond</emphasis>
+                    </para>
+                    <para>
+                        those arguments can be real scalars or matrices of the same size.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>infmt</term>
+                <listitem>
+                    <para>
+                        string, format of <literal>datestr</literal>.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>depfmt</term>
+                <listitem>
+                    <para>
+                        string, format of <literal>x</literal>.
+                    </para>
+                    <para>
+                        Possible values: <emphasis role="bold">'datenum', 'excel', 'posixtime', 'yyyymmdd'</emphasis>
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>outfmt</term>
+                <listitem>
+                    <para>
+                        string, display format.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dt</term>
+                <listitem>
+                    <para>
+                        datetime object.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Create a datetime object representing points in time (dates and times in hours, minutes and seconds).
+        </para>
+        <para>
+            <emphasis role="bold">dt = datetime(Y, M, D)</emphasis> creates a datetime object based on Y, M, D (year, month, day).
+        </para>
+        <para>
+            <emphasis role="bold">dt = datetime(Y, M, D, H, m, S [, MS])</emphasis> returns a datetime object based on Y, M, D, H, m, S and optionaly MS 
+        (year, month, day, hour, minute, second and millisecond).
+        </para>
+        <para>
+            <emphasis role="bold">dt = datetime(x)</emphasis> creates a column vector of datetime. <literal>x</literal> can be:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    m-by-3 matrix containing Y, M, D (year, month, day), one information per column.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    m-by-6 matrix containing Y, M, D, H, MI, S (year, month, day, hour, minute and second), one information per column.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            <emphasis role="bold">dt = datetime(keyword)</emphasis> creates a datetime object from keywords: <emphasis role="bold">'now', 'today', 'yesterday', 'tomorrow'.</emphasis>
+        </para>  
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">dt = datetime('now')</emphasis> or <emphasis role="bold">dt = datetime()</emphasis> returns the current date and time.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">dt = datetime('today'|'yersterday'|'tomorrow')</emphasis> returns the current|previous|next date at midnight.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            <emphasis role="bold">dt = datetime(datestr)</emphasis> creates a datetime object from formatted strings. By default, the accepted formats for strings are 
+            <emphasis role="bold">"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss</emphasis> and 
+            <emphasis role="bold">"dd-MMM-yyyy", "dd-MMM-yyyy HH:mm:ss"</emphasis>. If the format of datestr does not match the 
+            default formats, then <emphasis role="bold">dt = datetime(datestr, 'InputFormat', infmt)</emphasis> has to be used. For more details, see Format section below.
+        </para>        
+        <para>
+            <emphasis role="bold">dt = datetime(x, 'ConvertFrom', depfmt)</emphasis> converts x to a datetime object. 
+            <literal>depfmt</literal> specifies the format of x. The available values are:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'datenum'</emphasis>: number of days since 0000-01-01.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'excel'</emphasis>: number of days since 1900-01-01.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'posixtime'</emphasis>: number of seconds since 1970-01-01.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'yyyymmdd'</emphasis>: dates as YYYYMMDD values.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            The default display format is <emphasis role="bold">yyyy-mm-dd HH:mm:ss</emphasis>, but it is possible to change it by specifying the 
+            <literal>OuputFormat</literal> option: 
+            <emphasis role="bold">datetime(..., 'OutputFormat', outfmt)</emphasis>. For more details, see Format section below.
+        </para>
+        <para>
+            <emphasis role="bold">datetime([])</emphasis> creates a 0x0 datetime object.
+        </para>
+        <para>
+            <emphasis role="bold">datetime("")</emphasis> creates a <link linkend="NaT"/> datetime.
+        </para>
+        <para/>
+    </refsection>
+    <refsection>
+        <title>Input/Output Format</title>
+        <para>
+            To specify your input/output format, you must use the following letters:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'yy', 'yyyy'</emphasis> is for year.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'M', 'MM', 'MMM', 'MMMM'</emphasis> is for month.
+                </para>
+                <para>
+                    'MMM' corresponds to the first three letters of the month (for example, Dec for December).
+                </para>
+                <para>
+                    'MMMM' must be used for the full month name.
+                </para>
+                <para>
+                    Warning: the months must be in English.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'d' or 'dd'</emphasis> is for day.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'H' or 'HH'</emphasis> is for hour, 24 hours format.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'h' or 'hh'</emphasis> is for hour, 12 hours format.
+                </para>
+                <para>
+                    With this format, you must add <emphasis role="bold">'a'</emphasis> to specify 'AM'/'PM. For more details, 
+                    see Hour time format section.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'mm'</emphasis> is for minutes.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'ss' or 'ss.SSS'</emphasis> is for second with or without millisecond.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">'eee' or 'eeee'</emphasis> is for day of week.
+                </para>
+                <para>
+                    'eee' corresponds to the first three letters of the day (for example, Mon for Monday).
+                </para>
+                <para>
+                    'eeee' must be used for the full day name.
+                </para>
+                <para>
+                    Warning: the days of week must be in English.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            To separate each group, you can use '-', '/', '.', ..., space or tabulation.
+        </para>
+        <para/>
+    </refsection>
+    <refsection>
+        <title>Hour time Format</title>
+        <para>
+            The symbols <literal>h</literal> and <literal>hh</literal> represent hours in
+            <emphasis role="bold">12-hour format</emphasis> (from 1 to 12). They must be combined with
+            <literal>a</literal> to specify AM or PM.
+        </para>
+        <programlisting role="no-scilab-exec"><![CDATA[
+            hh:mm[:ss[.SSS]] a
+            datetime("2025-10-07 14:05:32.250", "OutputFormat", "hh:mm:ss.SSS a")
+            // Result: 02:05:32.250 PM
+        ]]></programlisting>
+        <para>where:</para>
+        <itemizedlist>
+            <listitem>
+                <para><literal>h</literal>: hour in 12-hour format without leading zero (1-12)</para>
+            </listitem>
+            <listitem>
+                <para><literal>hh</literal>: hour in 12-hour format with leading zero (01-12)</para>
+            </listitem>
+            <listitem>
+                <para><literal>mm</literal>: minutes (00-59)</para>
+            </listitem>
+            <listitem>
+                <para><literal>ss</literal>: seconds (00-59), optional</para>
+            </listitem>
+            <listitem>
+                <para><literal>SSS</literal>: milliseconds, optional</para>
+            </listitem>
+            <listitem>
+                <para><literal>a</literal>: AM/PM indicator</para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            To display time in 24-hour format, use <literal>H</literal> or <literal>HH</literal>:
+        </para>
+        <programlisting role="no-scilab-exec"><![CDATA[
+        HH:mm[:ss[.SSS]]
+        datetime("2025-10-07 14:05:00", "OutputFormat", "HH:mm")
+        // Result: 14:05
+        ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">No argument</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime()
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime()
+
+            dt = [datetime]
+
+            2025-10-07 15:16:07.789
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with keyword</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime("yesterday")
+        dt = datetime("today")
+        dt = datetime("tomorrow")
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime("yesterday")
+
+            dt = [datetime]
+
+            2025-10-06
+
+            --> dt = datetime("today")
+
+            dt = [datetime]
+
+            2025-10-07
+
+            --> dt = datetime("tomorrow")
+
+            dt = [datetime]
+
+            2025-10-08
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with datestr - default formats: 'yyyy-MM-dd HH:mm:ss' or 'dd-MMM-yyyy HH:mm:ss'</emphasis></para>
+        <para>If the format of datestr does not match with the default format, 'InputFormat' has to be specified.</para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        // default formats managed by datetime
+        dt = datetime("2022-09-01")
+        dt = datetime("01-Sep-2022")
+        dt = datetime("2022-09-01 09:53:30")
+        dt = datetime("01-Sep-2022 09:53:30")
+
+        dt = datetime(["2022-09-01" "2022-09-15"])
+        dt = datetime(["10-Apr-2022" "20-Aug-2022"])
+        dt = datetime(["2022-09-01 09:53:30"; "2022-09-01 11:46:15"])
+        dt = datetime(["01-Dec-2022 09:53:30"; "31-Dec-2022 23:59:59"])
+
+        // with ""
+        dt = datetime(["01-Dec-2022 09:53:30"; ""; "31-Dec-2022 23:59:59"])
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime("2022-09-01")
+
+            dt = [datetime]
+
+            2022-09-01
+
+            --> dt = datetime("01-Sep-2022")
+
+            dt = [datetime]
+
+            2022-09-01
+
+            --> dt = datetime("2022-09-01 09:53:30")
+
+            dt = [datetime]
+
+            2022-09-01 09:53:30
+
+            --> dt = datetime("01-Sep-2022 09:53:30")
+
+            dt = [datetime]
+
+            2022-09-01 09:53:30
+
+            --> 
+
+            --> dt = datetime(["2022-09-01" "2022-09-15"])
+
+            dt = [1x2 datetime]
+
+            2022-09-01   2022-09-15
+
+            --> dt = datetime(["10-Apr-2022" "20-Aug-2022"])
+
+            dt = [1x2 datetime]
+
+            2022-04-10   2022-08-20
+
+            --> dt = datetime(["2022-09-01 09:53:30"; "2022-09-01 11:46:15"])
+
+            dt = [2x1 datetime]
+
+            2022-09-01 09:53:30
+            2022-09-01 11:46:15
+
+            --> dt = datetime(["01-Dec-2022 09:53:30"; "31-Dec-2022 23:59:59"])
+
+            dt = [2x1 datetime]
+
+            2022-12-01 09:53:30
+            2022-12-31 23:59:59
+
+            --> 
+
+            --> // with ""
+
+            --> dt = datetime(["01-Dec-2022 09:53:30"; ""; "31-Dec-2022 23:59:59"])
+
+            dt = [3x1 datetime]
+
+            2022-12-01 09:53:30
+                            NaT
+            2022-12-31 23:59:59
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with InputFormat</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime("14.07.1789", "InputFormat", "dd.MM.yyyy")
+        dt = datetime("14.07.1789 14:37:54.123", "InputFormat", "dd.MM.yyyy HH:mm:ss.SSS")
+        dt = datetime("14.07.1789 14:37", "InputFormat", "dd.MM.yyyy HH:mm")
+        dt = datetime(["Wednesday, December 7, 2022 00:41 AM"], "InputFormat", "eeee, MMMM d, yyyy hh:mm a")
+        dt = datetime(["01:23:45.678" "12:34:56.789" "23:45:01.234"], "InputFormat", "HH:mm:ss.SSS")
+        dt = datetime("15:54:51", "InputFormat", "HH:mm:ss")
+        dt = datetime("15:54", "InputFormat", "HH:mm")
+        dt = datetime("2022-12-25 15:54:01.456", "InputFormat", "yyyy-MM-dd HH:mm:ss.SSS")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Datetime with 12-hour time format</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            val = ["14:40:51"; "14:40:56"; "14:41:01"; "14:41:06"; "14:41:11"; "14:41:16"];
+            d = datetime(val, "InputFormat", "HH:mm:ss", "OutputFormat", "hh:mm:ss a")
+
+            d = datetime(2025, 10, 7, 8, (1:10)', 0, "OutputFormat", "h:mm a")
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> val = ["14:40:51"; "14:40:56"; "14:41:01"; "14:41:06"; "14:41:11"; "14:41:16"];
+
+            --> d = datetime(val, "InputFormat", "HH:mm:ss", "OutputFormat", "hh:mm:ss a")
+
+            d = [6x1 datetime]
+
+            02:40:51 PM
+            02:40:56 PM
+            02:41:01 PM
+            02:41:06 PM
+            02:41:11 PM
+            02:41:16 PM
+
+            --> 
+
+            --> d = datetime(2025, 10, 7, 8, (1:10)', 0, "OutputFormat", "h:mm a")
+
+            d = [10x1 datetime]
+
+            8:01 AM
+            8:02 AM
+            8:03 AM
+            8:04 AM
+            8:05 AM
+            8:06 AM
+            8:07 AM
+            8:08 AM
+            8:09 AM
+            8:10 AM
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with X</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        // X: matrix m-by-3 or m-b-6
+        dt = datetime([2022 9 1])
+        dt = datetime([2022 9 1; 2022 9 15])
+        dt = datetime([2022 12 1 9 53 30])
+        dt = datetime([2022 12 1 9 53 30; 2022 12 31 23 59 59])
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime([2022 9 1])
+
+            dt = [datetime]
+
+            2022-09-01
+
+            --> dt = datetime([2022 9 1; 2022 9 15])
+
+            dt = [2x1 datetime]
+
+            2022-09-01
+            2022-09-15
+
+            --> dt = datetime([2022 12 1 9 53 30])
+
+            dt = [datetime]
+
+            2022-12-01 09:53:30
+
+            --> dt = datetime([2022 12 1 9 53 30; 2022 12 31 23 59 59])
+
+            dt = [2x1 datetime]
+
+            2022-12-01 09:53:30
+            2022-12-31 23:59:59
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with Y, M, D</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime(1789, 7, 14)
+        dt = datetime([1789 2022], 7, 14)
+        dt = datetime(2022,1:12, 1)
+        dt = datetime(2022, 1, [1 14; 15 31])
+        dt = datetime([1990:5:2000]', 1, 1)
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+        --> dt = datetime(1789, 7, 14)
+
+        dt = [datetime]
+
+        1789-07-14
+
+        --> dt = datetime([1789 2022], 7, 14)
+
+        dt = [1x2 datetime]
+
+        1789-07-14   2022-07-14
+
+        --> dt = datetime(2022,1:12, 1)
+
+        dt = [1x12 datetime]
+
+        2022-01-01   2022-02-01   2022-03-01   2022-04-01   2022-05-01   2022-06-01   2022-07-01   2022-08-01   2022-09-01   2022-10-01   2022-11-01   2022-12-01
+
+        --> dt = datetime(2022, 1, [1 14; 15 31])
+
+        dt = [2x2 datetime]
+
+        2022-01-01   2022-01-14
+        2022-01-15   2022-01-31
+
+        --> dt = datetime([1990:5:2000]', 1, 1)
+
+        dt = [3x1 datetime]
+
+        1990-01-01
+        1995-01-01
+        2000-01-01
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with Y, M, D, H, MI, S</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime(2010, 6, 14, 12, 47, 5)
+        dt = datetime(2010, 6, 14, 12, 47:2:59, 5)
+        dt = datetime([2010; 2020], 6, [14; 23], 12, 47, 5)
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+        --> dt = datetime(2010, 6, 14, 12, 47, 5)
+
+        dt = [datetime]
+
+        2010-06-14 12:47:05
+
+        --> dt = datetime(2010, 6, 14, 12, 47:2:59, 5)
+
+        dt = [1x7 datetime]
+
+        2010-06-14 12:47:05   2010-06-14 12:49:05   2010-06-14 12:51:05   2010-06-14 12:53:05   2010-06-14 12:55:05   2010-06-14 12:57:05   2010-06-14 12:59:05
+
+        --> dt = datetime([2010; 2020], 6, [14; 23], 12, 47, 5)
+
+        dt = [2x1 datetime]
+
+        2010-06-14 12:47:05
+        2020-06-23 12:47:05
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with Y, M, D, H, MI, S, MS</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime(2010, 6, 14, 12, 47, 5, 300)
+        dt = datetime(2010, 6, 14, 12, 47:2:59, 5, 300)
+        dt = datetime([2010; 2020], 6, [14; 23], 12, 47, 5, [300; 234])
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime(2010, 6, 14, 12, 47, 5, 300)
+
+            dt = [datetime]
+
+            2010-06-14 12:47:05.300
+
+            --> dt = datetime(2010, 6, 14, 12, 47:2:59, 5, 300)
+
+            dt = [1x7 datetime]
+
+                    column 1 to 6
+
+            2010-06-14 12:47:05.300   2010-06-14 12:49:05.300   2010-06-14 12:51:05.300   2010-06-14 12:53:05.300   2010-06-14 12:55:05.300   2010-06-14 12:57:05.300
+
+
+                    column 7 to 7
+
+            2010-06-14 12:59:05.300
+
+            --> dt = datetime([2010; 2020], 6, [14; 23], 12, 47, 5, [300; 234])
+
+            dt = [2x1 datetime]
+
+            2010-06-14 12:47:05.300
+            2020-06-23 12:47:05.234
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with ConvertFrom</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        // With ConvertFrom
+        dt = datetime(datenum(), "ConvertFrom", "datenum")
+        dt = datetime(44819.3834418981, "ConvertFrom", "excel")
+        dt = datetime(1663226303.936, "ConvertFrom", "posixtime")
+        dt = datetime(20140402, "ConvertFrom", "yyyymmdd")
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime(datenum(), "ConvertFrom", "datenum")
+
+            dt = [datetime]
+
+            2025-10-07 15:30:30.415
+
+            --> dt = datetime(44819.3834418981, "ConvertFrom", "excel")
+
+            dt = [datetime]
+
+            2022-09-15 09:12:09.380
+
+            --> dt = datetime(1663226303.936, "ConvertFrom", "posixtime")
+
+            dt = [datetime]
+
+            2022-09-15 09:18:23.936
+
+            --> dt = datetime(20140402, "ConvertFrom", "yyyymmdd")
+
+            dt = [datetime]
+
+            2014-04-02
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with OutputFormat</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime("2022-09-01", "OutputFormat", "dd MMMM yyyy")
+        dt = datetime("2022-09-01", "OutputFormat", "eeee, dd MMMM yyyy")
+        dt = datetime("2022-09-01", "OutputFormat", "MMMM d, yyyy")
+        dt = datetime("2022-09-01", "OutputFormat", "dd/MM/yy")
+
+        dt = datetime("2022-09-01 08:10", "OutputFormat", "dd MMMM yyyy HH:mm")
+        dt = datetime("2022-09-01 08:10", "OutputFormat", "eeee, dd MMMM yyyy HH:mm")
+        dt = datetime("2022-09-01 08:10:30", "OutputFormat", "MMMM d, yyyy HH:mm:ss")
+        dt = datetime("2022-09-01 00:41 AM", "OutputFormat", "dd/MM/yy hh:mm a")
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime("2022-09-01", "OutputFormat", "dd MMMM yyyy")
+
+            dt = [datetime]
+
+            01 September 2022
+
+            --> dt = datetime("2022-09-01", "OutputFormat", "eeee, dd MMMM yyyy")
+
+            dt = [datetime]
+
+            Thursday, 01 September 2022
+
+            --> dt = datetime("2022-09-01", "OutputFormat", "MMMM d, yyyy")
+
+            dt = [datetime]
+
+            September 1, 2022
+
+            --> dt = datetime("2022-09-01", "OutputFormat", "dd/MM/yy")
+
+            dt = [datetime]
+
+            01/09/22
+
+            --> 
+
+            --> dt = datetime("2022-09-01 08:10", "OutputFormat", "dd MMMM yyyy HH:mm")
+
+            dt = [datetime]
+
+            01 September 2022 08:10
+
+            --> dt = datetime("2022-09-01 08:10", "OutputFormat", "eeee, dd MMMM yyyy HH:mm")
+
+            dt = [datetime]
+
+            Thursday, 01 September 2022 08:10
+
+            --> dt = datetime("2022-09-01 08:10:30", "OutputFormat", "MMMM d, yyyy HH:mm:ss")
+
+            dt = [datetime]
+
+            September 1, 2022 08:10:30
+
+            --> dt = datetime("2022-09-01 00:41 AM", "OutputFormat", "dd/MM/yy hh:mm a")
+
+            dt = [datetime]
+
+            01/09/22 12:41 AM
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Datetime with InputFormat and OutputFormat</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime("12 December 2022", "InputFormat", "dd MMMM yyyy", "OutputFormat", "MM/dd/yy")
+        dt = datetime("12 December 2022 09:50 PM", "InputFormat", "dd MMMM yyyy hh:mm a", "OutputFormat", "MM/dd/yy HH:mm:ss")
+        ]]>
+        </programlisting>
+        <screen><![CDATA[
+            --> dt = datetime("12 December 2022", "InputFormat", "dd MMMM yyyy", "OutputFormat", "MM/dd/yy")
+
+            dt = [datetime]
+
+            12/12/22
+
+            --> dt = datetime("12 December 2022 09:50 PM", "InputFormat", "dd MMMM yyyy hh:mm a", "OutputFormat", "MM/dd/yy HH:mm:ss")
+
+            dt = [datetime]
+
+            12/12/22 21:50:00
+        ]]></screen>
+        </para>
+        <para><emphasis role="bold">Extraction - Insertion - Computation</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        dt = datetime(2022, 08, 31):calmonths(2):datetime(2022, 12, 31)
+        dt(2)
+        dt($+1) = dt($) + calmonths(2)
+        size(dt)
+        dt = matrix(dt, 2, 2)
+        dt(1,2) = dt(1,2) + duration(12, 0, 0)
+        dt(2,1) = duration(9,45,12) + dt(2,1)
+        ]]></programlisting>
+        <screen><![CDATA[
+            --> dt = datetime(2022, 08, 31):calmonths(2):datetime(2022, 12, 31)
+
+            dt = [1x3 datetime]
+
+            2022-08-31   2022-10-31   2022-12-31
+
+            --> dt(2)
+
+            ans = [datetime]
+
+            2022-10-31
+
+            --> dt($+1) = dt($) + calmonths(2)
+
+            dt = [1x4 datetime]
+
+            2022-08-31   2022-10-31   2022-12-31   2023-03-03
+
+            --> size(dt)
+
+            ans = [1x2 double]
+
+            1.   4.
+
+            --> dt = matrix(dt, 2, 2)
+
+            dt = [2x2 datetime]
+
+            2022-08-31   2022-12-31
+            2022-10-31   2023-03-03
+
+            --> dt(1,2) = dt(1,2) + duration(12, 0, 0)
+
+            dt = [2x2 datetime]
+
+            2022-08-31 00:00:00   2022-12-31 12:00:00
+            2022-10-31 00:00:00   2023-03-03 00:00:00
+
+            --> dt(2,1) = duration(9,45,12) + dt(2,1)
+
+            dt = [2x2 datetime]
+
+            2022-08-31 00:00:00   2022-12-31 12:00:00
+            2022-10-31 09:45:12   2023-03-03 00:00:00
+        ]]></screen>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+            <member>
+                <link linkend="calendarDuration">calendarDuration</link>
+            </member>
+            <member>
+                <link linkend="NaT">NaT</link>
+            </member>
+            <member>
+                <link linkend="isnat">isnat</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>datetime()</literal> and <literal>datetime("now")</literal> handle milliseconds values.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

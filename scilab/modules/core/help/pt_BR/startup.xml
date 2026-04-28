@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="startup" xml:lang="pt">
+    <refnamediv>
+        <refname>startup</refname>
+        <refpurpose>arquivo de inicialização</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            O arquivo de inicialização<literal> SCIHOME/.scilab</literal> e
+            <literal>SCIHOME/scilab.ini</literal> são automaticamente executados (se
+            estiverem presentes) quando o Scilab é chamado, junto com o arquivo
+            <literal>scilab.star</literal> no diretório Scilab (SCI).
+        </para>
+        <warning>
+            <para>A última linha de um arquivo de inicialização deve ser terminada por
+                uma nova linha a ser levada em conta.
+            </para>
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+ls(SCIHOME)
+if ls(SCIHOME+"/scilab.ini") == [] & ls(SCIHOME+"/.scilab") == []
+   disp("No startup file defined");
+end
+     ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scilab">scilab</link>
+            </member>
+            <member>
+                <link linkend="SCIHOME">SCIHOME</link>
+            </member>
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+            <member>
+                <link linkend="TMPDIR">TMPDIR</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

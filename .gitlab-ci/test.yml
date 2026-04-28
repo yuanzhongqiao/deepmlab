@@ -1,0 +1,345 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Clément DAVID
+#
+#
+# This YAML file describe the test stage of the CI. Tests run are defined
+# per platform and split in basic, intermediate and advanced sets. Special rules named
+# impacted are added for modules modified by Merge Request.
+#
+
+windows_install:
+  stage: test
+  tags: [x64_windows, shell, scilab]
+  variables:
+    ARTIFACT_DOWNLOAD_ATTEMPTS: 3
+    GET_SOURCES_ATTEMPTS: 3
+    GIT_STRATEGY: "fetch"
+  retry:
+    max: 2
+    when: runner_system_failure
+  needs:
+    - job: windows_build_release
+      optional: true
+    - job: windows_build_nightly
+      optional: true
+    - job: windows_build_mr
+      optional: true
+    - windows_set_env
+  script:
+    - .gitlab-ci\test_windows_install.ps1
+  artifacts:
+    paths:
+      - "${SCI_VERSION_STRING}/"
+    when: always
+
+.windows_test:
+  stage: test
+  tags: [x64_windows, shell, scilab]
+  variables:
+    ARTIFACT_DOWNLOAD_ATTEMPTS: 3
+    GET_SOURCES_ATTEMPTS: 3
+    GIT_STRATEGY: "fetch"
+    ARCH: "x64"
+  retry:
+    max: 2
+    when: runner_system_failure
+  script:
+    - cmd /C "call .gitlab-ci\test.bat"
+  artifacts:
+    when: always
+    paths:
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}/"
+    reports:
+      junit: "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
+
+windows_basic:
+  extends: .windows_test
+  needs:
+    - windows_install
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - .gitlab-ci.yml
+        - .gitlab-ci/*
+  parallel:
+    matrix: &BASIC_TEST_ANCHOR
+      - TEST:
+          - api_scilab
+          - arnoldi
+          - ast
+          - boolean
+          - completion
+          - core
+          - data_structures
+          - development_tools
+          - elementary_functions
+          - fftw
+          - fileio
+          - functions
+          - hdf5
+          - history_manager
+          - integer
+          - parameters
+          - polynomials
+          - special_functions
+          - spreadsheet
+          - string
+          - webtools
+          - xml
+
+windows_intermediate:
+  extends: .windows_test
+  needs:
+    - windows_install
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix: &INTERMEDIATE_TEST_ANCHOR
+      - TEST:
+          - cacsd
+          - console
+          - coverage
+          - demo_tools
+          - differential_equations
+          - dynamic_link
+          - helptools
+          - interpolation
+          - io
+          - jvm
+          - linear_algebra
+          - localization
+          - m2sci
+          - matio
+          - mexlib
+          - modules_manager
+          - optimization
+          - output_stream
+          - overloading
+          - randlib
+          - renderer
+          - signal_processing
+          - slint
+          - sound
+          - sparse
+          - statistics
+          - time
+          - ui_data
+          - umfpack
+
+windows_advanced:
+  extends: .windows_test
+  needs:
+    - windows_install
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix: &ADVANCED_TEST_ANCHOR
+      - TEST:
+          - call_scilab
+          - external_objects
+          - external_objects_java
+          - graphic_export
+          - graphic_objects
+          - graphics
+          - gui
+          - preferences
+          - scicos
+          - scicos_blocks
+          - scinotes
+          - tclsci
+          - xcos
+
+windows_only:
+  extends: .windows_test
+  needs:
+    - windows_install
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix:
+      - TEST:
+          - windows_tools
+
+
+.linux_test:
+  stage: test
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${SCI_REGISTRY_IMAGE}/ubuntu-22.04:${DOCKER_TAG}
+  variables:
+    ARTIFACT_DOWNLOAD_ATTEMPTS: 3
+    EXECUTOR_JOB_SECTION_ATTEMPTS: 3
+    GET_SOURCES_ATTEMPTS: 3
+    GIT_STRATEGY: "fetch"
+  retry:
+    max: 2
+    when: runner_system_failure
+  script: bash -e -x .gitlab-ci/test.sh
+  artifacts:
+    when: always
+    paths:
+      - "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}/${TEST}/"
+    reports:
+      junit: "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
+
+linux_basic:
+  extends: .linux_test
+  needs: &LINUX_NEEDS
+    - job: linux_build_release
+      optional: true
+    - job: linux_build_nightly
+      optional: true
+    - job: linux_build_mr
+      optional: true
+    - linux_set_env
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - .gitlab-ci.yml
+        - .gitlab-ci/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - .gitlab-ci.yml
+          - .gitlab-ci/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix: *BASIC_TEST_ANCHOR
+
+linux_intermediate:
+  extends: .linux_test
+  needs: *LINUX_NEEDS
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix: *INTERMEDIATE_TEST_ANCHOR
+
+linux_advanced:
+  extends: .linux_test
+  needs: *LINUX_NEEDS
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix: *ADVANCED_TEST_ANCHOR
+
+
+# ATOMS tests will modify Scilab installation, execute them on a dedicated stage
+# The installer is shared on a common directory for all tests, see windows_install:
+windows_atoms:
+  extends: .windows_test
+  stage: test_atoms
+  variables:
+    ARCH: "x64"
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix:
+      - TEST: [atoms]
+
+linux_atoms:
+  extends: .linux_test
+  stage: test_atoms
+  needs: *LINUX_NEEDS
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths:
+          - scilab/modules/$TEST/**/*
+        compare_to: ${CI_DEFAULT_BRANCH}
+  parallel:
+    matrix:
+      - TEST: [atoms]

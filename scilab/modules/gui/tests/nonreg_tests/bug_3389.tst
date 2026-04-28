@@ -1,0 +1,72 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Vincent COUVERT
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+//
+// <-- Non-regression test for bug 3389 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/3389
+//
+// <-- Short Description -->
+//    if figure() is called with non-existing properties, Scilab crashes
+
+// try to set uicontrol/uimenu properties to a figure ...
+f = figure();
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Enable");
+assert_checkerror("set(f, ""enable"", ""on"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Label");
+assert_checkerror("set(f, ""label"", ""toto"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "String");
+assert_checkerror("set(f, ""string"", ""toto"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "ForegroundColor");
+assert_checkerror("set(f, ""foregroundcolor"", [0.5 0.5 0.5])", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "FontWeight");
+assert_checkerror("set(f, ""fontweight"", ""bold"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "FontUnits");
+assert_checkerror("set(f, ""fontunits"", ""pixels"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "FontSize");
+assert_checkerror("set(f, ""fontsize"", 12)", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "FontAngle");
+assert_checkerror("set(f, ""fontangle"", ""italic"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Min");
+assert_checkerror("set(f, ""min"", 10)", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Max");
+assert_checkerror("set(f, ""max"", 20)", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "ListboxTop");
+assert_checkerror("set(f, ""listboxtop"", 1)", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Value");
+assert_checkerror("set(f, ""value"", 1)", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Relief");
+assert_checkerror("set(f, ""relief"", ""raised"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "HorizontalAlignment");
+assert_checkerror("set(f, ""horizontalalignment"", ""right"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "VerticalAlignment");
+assert_checkerror("set(f, ""verticalalignment"", ""top"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "FontName");
+assert_checkerror("set(f, ""fontname"", ""arial"")", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "SliderStep");
+assert_checkerror("set(f, ""sliderstep"", [1 2])", refmsg);
+
+refmsg = msprintf(gettext("''%s'' property does not exist for this handle.\n"), "Units");
+assert_checkerror("set(f, ""units"", ""pixels"")", refmsg);

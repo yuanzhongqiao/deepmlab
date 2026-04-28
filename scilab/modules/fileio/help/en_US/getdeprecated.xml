@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Cédric DELAMARRE
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="getdeprecated">
+    <refnamediv>
+        <refname>getdeprecated</refname>
+        <refpurpose>Get names of deprecated functions and replacement function names.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            deprecated = getdeprecated();
+            [deprecated, replaced_by] = getdeprecated();
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>deprecated</term>
+                <listitem>
+                    <para>String vector of deprecated functions.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>replaced_by</term>
+                <listitem>
+                    <para>String vector of the same size as <literal>deprecated</literal> containing the replacement functions.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <function>getdeprecated</function> returns a vector of deprecated function names and a vector of replacement function names.
+            When a function is deprecated without replacement, an empty string is returned in <literal>replaced_by</literal> output for this function.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+[deprecated, replaced_by] = getdeprecated();
+replaced_by(find(replaced_by == "")) = "nothing !";
+for i = 1:size(deprecated, "*")
+    mprintf("%s is deprecated and will be replaced by %s.\n", deprecated(i), replaced_by(i))
+end
+ ]]></programlisting>
+    </refsection>
+</refentry>

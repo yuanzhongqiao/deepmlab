@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="bdiag">
+    <refnamediv>
+        <refname>bdiag</refname>
+        <refpurpose>block diagonalization, generalized eigenvectors</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [Ab, X, bs] = bdiag(A)
+            [Ab, X, bs] = bdiag(A, rmax)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                    <para>real or complex square matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rmax</term>
+                <listitem>
+                    <para>real number</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Ab</term>
+                <listitem>
+                    <para>real or complex square matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>real or complex non-singular matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>bs</term>
+                <listitem>
+                    <para>vector of integers</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">[Ab, X, bs] = bdiag(A, rmax)</emphasis> performs the
+            block-diagonalization of matrix <literal>A</literal>.  <varname>bs</varname>
+            gives the structure of the blocks (respective sizes of the blocks).
+            <varname>X</varname> is the change of basis i.e. <literal>Ab = inv(X)*A*X</literal>
+            is block diagonal.
+        </para>
+        <para>
+            <varname>rmax</varname> controls the conditioning of <varname>X</varname>. The
+            default value is the l1 norm of <varname>A</varname>.
+        </para>
+        <para>
+            To get a diagonal form (if it exists), choose a large value for
+            <varname>rmax</varname> (<literal>rmax=1/%eps</literal> for example).
+            Generically (for real random A) the blocks are (1x1) and (2x2) and
+            <varname>X</varname> is the matrix of eigenvectors.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Real case: 1x1 and 2x2 blocks
+a = rand(5,5);
+[ab, x, bs] = bdiag(a);ab
+ ]]></programlisting>
+        <screen><![CDATA[
+--> [ab, x, bs] = bdiag(a);ab
+ ab  =
+   2.4777836   0.          0.          0.         0.
+   0.          0.0757087   0.4869251   0.         0.
+   0.         -0.5777956  -0.1248605   0.         0.
+   0.          0.          0.          0.069654   0.
+   0.          0.          0.          0.         0.5341598
+]]></screen>
+        <programlisting role="example"><![CDATA[
+// Complex case: complex 1x1 blocks
+a = rand(5, 5);
+[ab, x, bs] = bdiag(a+%i*0); ab
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="schur">schur</link>
+            </member>
+            <member>
+                <link linkend="sylv">sylv</link>
+            </member>
+            <member>
+                <link linkend="spec">spec</link>
+            </member>
+            <member>
+                <link linkend="blockdiag">blockdiag</link>
+            </member>
+            <member>
+                <link linkend="lcmdiag">lcmdiag</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

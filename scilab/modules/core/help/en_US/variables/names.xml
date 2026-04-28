@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2017 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="names">
+    <refnamediv>
+        <refname>names</refname>
+        <refpurpose>Naming rules for variables and functions</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Names of variables and functions must begin with a letter or one of
+            the following special characters: <literal>% _ # ! ? $</literal>.
+            Next characters may be letters, digits, or any special character among
+            <literal>_ # ! $ ?</literal>.
+        </para>
+        <para>
+            Upper and lower case letters are different.
+        </para>
+        <para>
+            Multilingual UTF-8 characters are accepted. Names may be as long as you want.
+        </para>
+        <warning>
+            <literal>_</literal> is reserved to ignore an output argument assignment.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Valid names
+%eps
+A1 = 123
+#Color = 8
+þæ_Ð = %pi
+
+// Non valid names
+//1A , b%, .C
+
+// Long names
+The_name_of_an_identifier_is_not_length_limited = 1
+
+// A kilometric name:
+name = strcat(part("a",ones(1,1000))); // 1000-char long
+execstr(name+"=%pi; b ="+name);
+b
+ ]]></programlisting>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    The underscore `_` variable is reserved, it is used to ignore a function output argument.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    Scilab's parser no longer truncates names longer than 24 characters.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    UTF-8 characters are now accepted in names of variables and fields.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Xcos
+ *
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * Copyright 2011 - Bernard DUJARDIN <bernard.dujardin@contrib.scilab.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="xcos">
+    <refnamediv>
+        <refname>xcos</refname>
+        <refpurpose>Block diagram editor and GUI for the hybrid simulator</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            xcos()
+            xcos(filename)
+            xcos(scs_m_list)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection id="Parameters_xcos">
+        <title>Arguments</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">filename : </emphasis> a character string containing
+                    the path of the diagram file (.ssp or .zcos extension). If no input
+                    argument is used, an empty diagram is opened (default name Untitled).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">scs_m_list :</emphasis> a <emphasis>Xcos</emphasis>
+                    diagram structure after edition.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_xcos">
+        <title>Description</title>
+        <para>
+            <emphasis>Xcos</emphasis> is a graphical editor for constructing models of hybrid dynamical systems.
+            Models can then be assembled, loaded, saved, compiled, simulated, using GUI of
+            <emphasis>Xcos</emphasis>. <emphasis>Xcos</emphasis> serves as an interface to the
+            various block diagram compilers and the hybrid simulator <link linkend="scicosim">scicosim</link>
+        </para>
+        <para>
+            The <emphasis>Xcos</emphasis> environment presents the following elements:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Editor</emphasis>
+                </para>
+                <para>
+                    The editor allows the design of flow charts representing a dynamic system made of blocks
+                    defined in palettes. Users can customize standard blocks and define new ones.
+                </para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Palette browser</emphasis>
+                </para>
+                <para>
+                    The palette browser lists all Xcos standard blocks grouped by categories (signal processing,
+                    electrical, hydraulics, derivative, integral, etc.). See the figure below.
+                </para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Compiler/Simulator</emphasis>
+                </para>
+                <para>
+                    Xcos environment enables, from the built model, the simulation of complex systems -
+                    discrete, continuous, defined by symbolic equations (Modelica), etc.. and hybrid systems
+                    combining the capabilities above. The data resulting of the simulation can then be
+                    graphically viewed in real time, used in Scilab for post processing...
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+        <para>
+            Invoking xcos with the toolbar icon
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../gui/images/icons/32x32/apps/utilities-system-monitor.png"/>
+                </imageobject>
+            </inlinemediaobject>
+            , with the <emphasis>Xcos</emphasis> menu item in <emphasis>Applications</emphasis> of the Scilab main window,
+            or as the following example opens up the empty <emphasis>Xcos</emphasis> window of edition shown below.
+        </para>
+        <para/>
+        <programlisting role="example">
+            xcos
+        </programlisting>
+        <para/>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="../gui/xcos/en_US/xcos_gui.png"/>
+            </imageobject>
+        </mediaobject>
+        <para>
+            To open an existing diagram, you must provide a valid filename, like in this example:
+        </para>
+        <para/>
+        <programlisting role="example"><![CDATA[xcos("SCI/modules/xcos/demos/bounce.zcos")]]></programlisting>
+        <para>
+            In this use case, the <emphasis>Xcos</emphasis> window is opened and displays the diagram of<emphasis>bounce.zcos</emphasis> demonstration.
+        </para>
+        <para/>
+        <para>
+            If a diagram structure is present in <emphasis>Scilab</emphasis> workspace, you can open it like in this example:
+        </para>
+        <para/>
+        <programlisting role="example"><![CDATA[
+loadXcosLibs();
+
+// define diagram structure
+scs_m = scicos_diagram();
+scs_m.props.title = "Imported diagram";
+scs_m.objs(1) = SUMMATION("define");
+scs_m.objs(1).graphics.sz = [30 50];
+
+xcos(scs_m);]]></programlisting>
+        <para>
+            where <emphasis>scs_m</emphasis> is the diagram structure of <emphasis>bounce.zcos</emphasis>.
+        </para>
+        <para>
+            You build your models by linking the blocks provided in the palette browser simultaneously opened with
+            <emphasis>Xcos</emphasis> editor. This window has the following appearance
+        </para>
+        <para/>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="../gui/xcos/en_US/xcos_palette_gui.png"/>
+            </imageobject>
+        </mediaobject>
+        <para/>
+        <para>
+            You can customize the palettes to be shown by clicking on the <emphasis>Palette</emphasis> title in
+            the left part of the windows. The palette windows shows a selection list where you can select/deselect
+            palettes individually. Tp return to the previous display, click on a palette title.
+        </para>
+        <para/>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="../gui/xcos/en_US/xcos_palette_select_gui.png"/>
+            </imageobject>
+        </mediaobject>
+        <para>Xcos may requires a C compiler for Modelica based models, for user defined blocks and code generation.</para>
+        <para>An installed supported compiler is recommended.</para>
+    </refsection>
+    <refsection>
+        <title>Example</title>
+        <programlisting role="example"><![CDATA[
+xcos();
+xcos(SCI+"/modules/xcos/demos/Discrete-KalmanFilter.zcos");
+scs_m = scicos_diagram();
+scs_m.objs($+1) = BIGSOM_f("define");
+xcos(scs_m);
+ ]]></programlisting>
+    </refsection>
+    <refsection xml:id="SeeAlso_xcos" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scicosim">xcossim</link>
+            </member>
+            <member>
+                <link linkend="scicos_simulate">scicos_simulate</link>
+            </member>
+            <member>
+                <link linkend="xcos_menu_entries">Menu entries</link>
+            </member>
+            <member>
+                <link linkend="supported_compilers">Supported compilers</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

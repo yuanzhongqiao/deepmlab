@@ -1,0 +1,44 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+//
+if  %inf <>  %inf <> %f then bugmes();quit;end
+if  %inf ==  %inf <> %t then bugmes();quit;end
+if  %inf >   %inf <> %f then bugmes();quit;end
+if  %inf <   %inf <> %f then bugmes();quit;end
+if  %inf >=  %inf <> %t then bugmes();quit;end
+if  %inf <=  %inf <> %t then bugmes();quit;end
+if  %nan <>  %nan <> %t then bugmes();quit;end
+if  %nan ==  %nan <> %f then bugmes();quit;end
+if  %nan >   %nan <> %f then bugmes();quit;end
+if  %nan <   %nan <> %f then bugmes();quit;end
+if  %nan >=  %nan <> %f then bugmes();quit;end
+if  %nan <=  %nan <> %f then bugmes();quit;end
+if  %nan <>  %inf <> %t then bugmes();quit;end
+if  %nan ==  %inf <> %f then bugmes();quit;end
+if  %nan >   %inf <> %f then bugmes();quit;end
+if  %nan <   %inf <> %f then bugmes();quit;end
+if  %nan >=  %inf <> %f then bugmes();quit;end
+if  %nan <=  %inf <> %f then bugmes();quit;end
+if  %inf <>  %nan <> %t then bugmes();quit;end
+if  %inf ==  %nan <> %f then bugmes();quit;end
+if  %inf >   %nan <> %f then bugmes();quit;end
+if  %inf <   %nan <> %f then bugmes();quit;end
+if  %inf >=  %nan <> %f then bugmes();quit;end
+if  %inf <=  %nan <> %f then bugmes();quit;end
+if  %inf <>  5.0  <> %t then bugmes();quit;end
+if  %inf ==  5.0  <> %f then bugmes();quit;end
+if  %inf >   5.0  <> %t then bugmes();quit;end
+if  %inf <   5.0  <> %f then bugmes();quit;end
+if  %inf >=  5.0  <> %t then bugmes();quit;end
+if  %inf <=  5.0  <> %f then bugmes();quit;end
+if  %nan <>  5.0  <> %t then bugmes();quit;end
+if  %nan ==  5.0  <> %f then bugmes();quit;end
+if  %nan >   5.0  <> %f then bugmes();quit;end
+if  %nan <   5.0  <> %f then bugmes();quit;end
+if  %nan >=  5.0  <> %f then bugmes();quit;end
+if  %nan <=  5.0  <> %f then bugmes();quit;end

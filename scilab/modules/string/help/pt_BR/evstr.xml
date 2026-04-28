@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="evstr" xml:lang="pt">
+    <refnamediv>
+        <refname>evstr</refname>
+        <refpurpose>avaliação de expressões</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+            H = evstr(M)
+            H = evstr(list(M, subExpr))
+            [H, ierr] = evstr(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+          <varlistentry>
+            <term>M</term>
+            <listitem>
+              <para>matriz de strings</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>subExpr</term>
+            <listitem>
+              <para>vetor de strings</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>H</term>
+            <listitem>
+              <para>matriz</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>ierr</term>
+            <listitem>
+              <para>inteiro, indicador de erro</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Retorna o resultado da avaliação da matriz de strings <literal>M</literal>.
+            Cada elemento da matriz deve definir uma expressão Scilab válida.
+        </para>
+        <para>
+            Se a avaliação de <literal>M</literal> levar a um erro, a versão de
+            valor de único retorno, <literal>H=evstr(M)</literal>, levanta erro de
+            modo usual. A versão de dois valores de retorno,
+            <literal>[H,ierr]=evstr(M)</literal> , por outro lado, não produz erro,
+            mas retorna o número de erro em <literal>ierr</literal>.
+        </para>
+        <para>
+            Se uma lista for fornecida, <literal>subExpr</literal> é um
+            vetor de strings, que define subexpressões que são avaliadas antes da
+            avaliação de <literal>M</literal>. Estas subexpressões devem ser referidas
+            como <literal>%(k)</literal> em <literal>M</literal>, onde
+            <literal>k</literal> é o índice da subexpressão em
+            <literal>Subexp</literal>.
+        </para>
+        <warning>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                    Assignments like <literal>"a = 1"</literal> are not accepted as expressions,
+                    neither in <varname>M</varname> nor in <varname>subExpr</varname>.
+                    <function>execstr</function> must be used instead to evaluate such expressions.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                    Continuation marks <literal>".."</literal> are forbidden in expressions
+                    in <varname>M</varname> as well as in <varname>subExpr</varname>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </warning>
+        <note>Special aliases:
+            <itemizedlist>
+                <listitem>
+                     <para><literal>"Nan"</literal> and <literal>"NaN"</literal> are parsed as
+                            <constant>%nan</constant>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>"Inf"</literal> and <literal>"INF"</literal> are parsed as
+                            <constant>%inf</constant>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </note>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+a = 1; b = 2; Z = ['a','b'] ;
+evstr(Z)
+
+a = 1; b = 2; Z = list(['%(1)','%(1)-%(2)'],['a+1','b+1']);
+evstr(Z)
+
+evstr('NaN'), evstr('Inf')
+
+//The two return values version
+[H, ierr] = evstr(Z) // no error
+Z = ['a', 'b', 'c'] ;// the variable c is undefined
+[H, ierr] = evstr(Z) // error 4: Undefined variable: c
+     ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="sci2exp">sci2exp</link>
+            </member>
+            <member>
+                <link linkend="strtod">strtod</link>
+            </member>
+            <member>
+                <link linkend="brackets">concatenation</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.3.0</revnumber>
+                <revdescription>
+                <literal>"Nan"</literal> and <literal>"NaN"</literal> are now parsed as <literal>%nan</literal>.
+                <literal>"Inf"</literal> and <literal>"INF"</literal> are now parsed as <literal>%inf</literal>.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                  Simple comments are now supported in almost all possible input expressions,
+                  whatever is the shape of <literal>M</literal>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

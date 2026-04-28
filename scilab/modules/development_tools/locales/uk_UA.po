@@ -1,0 +1,388 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2020-01-15 18:14+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected."
+msgstr "%s: помилкова кількість вхідних параметрів: мало бути від %d до %d."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Polynomial expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати поліном.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю з "
+"рядків.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мала бути матриця %d на "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be > %d.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати > %d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set  {%s}.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d. Значення має належати набору "
+"{%s}.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: слід використовувати однакову "
+"розмірність.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d: Same degrees expected.\n"
+msgstr "%s: параметри %d і %d: кількість степенів мала бути однаковою.\n"
+
+#, c-format
+msgid "%s: Assertion failed: expected = %s while computed = %s"
+msgstr "%s: помилка порівняння. Мало бути %s, обчислене значення — %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same types expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d. Типи параметрів мали збігатися.\n"
+
+#, c-format
+msgid "%s: Computed is real, but expected is complex."
+msgstr ""
+"%s: обчислено дійсне значення, а потрібне значення має бути комплексним."
+
+#, c-format
+msgid "%s: Computed is complex, but expected is real."
+msgstr ""
+"%s: обчислено комплексне значення, а потрібне значення має бути дійсним."
+
+#, c-format
+msgid "%s: Assertion failed: expected= %s  while computed= %s"
+msgstr "%s: перевірку не пройдено: мало бути %s, маємо — %s"
+
+#, c-format
+msgid ""
+"%s: Assertion failed: expected and computed are two distinct built-in "
+"functions."
+msgstr ""
+"%s: перевірку не пройдено: очікуване і обчислене значення є надто різними "
+"вбудованими функціями."
+
+#, c-format
+msgid "expected(%d)= "
+msgstr "мало бути (%d)= "
+
+#, c-format
+msgid "computed(%d)= "
+msgstr "маємо (%d)= "
+
+msgid "expected= "
+msgstr "мало бути= "
+
+msgid "computed= "
+msgstr "маємо= "
+
+#, c-format
+msgid "%s: Assertion failed: %s  while %s (mean diff = %s)"
+msgstr "%s: перевірку не пройдено: %s, хоча %s (середня різниця %s)"
+
+#, c-format
+msgid "%s: Assertion failed: %s  while %s"
+msgstr "%s: перевірку не пройдено: %s, хоча %s"
+
+#, c-format
+msgid "%s: Wrong number of input argument: At least %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати не менше за "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A string vector expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути вказано вектор-"
+"рядок.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Non-negative integers expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід було вказувати "
+"невід’ємні цілі числа.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Non-empty matrix expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати непорожню "
+"матрицю.\n"
+
+#, c-format
+msgid "%s: No error was produced while evaluating %s."
+msgstr "%s: під час обчислення %s помилок не сталося."
+
+#, c-format
+msgid "%s: Error while formatting the error message: %s"
+msgstr "%s: помилка під час форматування повідомлення про помилку: %s"
+
+#, c-format
+msgid ""
+"%s: Assertion failed: expected error message = %s while computed error "
+"message = %s."
+msgstr ""
+"%s: помилка порівняння. Мало бути повідомлення про помилку %s, обчислене "
+"повідомлення — %s."
+
+#, c-format
+msgid ""
+"%s: Assertion failed: expected error number = %d while computed error number "
+"= %d."
+msgstr ""
+"%s: помилка порівняння. Мав бути номер помилки %d, обчислений номер помилки "
+"— %d."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Boolean matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано матрицю з "
+"булевих значень.\n"
+
+#, c-format
+msgid "%s: Assertion failed: Entry %%T found in condition(%d).\n"
+msgstr "%s: не пройдено перевірку: запис %%T виявлено в умові(%d).\n"
+
+#, c-format
+msgid ""
+"%s: Expected type %s or %s for input argument %s #%d, but got %s instead."
+msgstr ""
+"%s: мав бути тип %s або %s for input argument %s #%d, but got %s instead."
+
+#, c-format
+msgid "%s: The file %s does not exist.\n"
+msgstr "%s: файла з назвою %s не існує.\n"
+
+#, c-format
+msgid "%s: Cannot open file %s.\n"
+msgstr "%s: не вдалося відкрити файл %s.\n"
+
+#, c-format
+msgid ""
+"%s: The content of computed file %s is different from the content of "
+"reference file %s."
+msgstr ""
+"%s: вміст файла обчислених даних %s не збігається з вмістом еталонного файла "
+"%s."
+
+#, c-format
+msgid "%s: Cannot close file %s.\n"
+msgstr "%s: не вдалося закрити файл %s.\n"
+
+#, c-format
+msgid "%s: Assertion failed: Entry %%F found in condition(%d).\n"
+msgstr "%s: не пройдено перевірку: запис %%F виявлено в умові(%d).\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d.\n"
+
+#, c-format
+msgid ""
+"%s: The number of output arguments %d do not match the number of input "
+"arguments %d."
+msgstr ""
+"%s: кількість вихідних параметрів %d не збігається з кількістю вхідних "
+"параметрів %d."
+
+#, c-format
+msgid "%s: Expected %d rows in input argument #%d, but found %d rows instead."
+msgstr "%s: мало бути %d рядків у вхідному параметрі №%d, виявлено %d рядків."
+
+#, c-format
+msgid ""
+"%s: Expected %d columns in input argument #%d, but found %d columns instead."
+msgstr ""
+"%s: мало бути %d стовпчиків у вхідному параметрі №%d, виявлено %d стовпчиків."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be real.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути вказано дійсне "
+"число.\n"
+
+#, c-format
+msgid "%s: %s is not an installed module"
+msgstr "%s: %s не є встановленим модулем"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: test %s not found in the list of "
+"modules"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: перевіртки %s не знайдено у "
+"списку модулів"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d параметрів.\n"
+
+#, c-format
+msgid "%s: Cannot create file %s, created file %s instead.\n"
+msgstr "%s: не вдалося створити файл %s, замість нього створено файл %s.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A row array of strings expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано рядковий масив "
+"з рядків.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A row array of strings expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути вказано рядковий "
+"масив з рядків.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A row array of strings or empty "
+"matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано рядковий масив "
+"з рядків або порожню матрицю.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A row array of strings or empty "
+"matrix expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути вказано рядковий "
+"масив з рядків або порожню матрицю.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A Scilab module name expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути назву модуля "
+"Scilab.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A valid language expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід було вказати коректну "
+"мову.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A '%s' module function name "
+"expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід було вказати назву "
+"функції модуля «%s».\n"
+
+#, c-format
+msgid "%s: Wrong first input argument: File with .dia suffix expected."
+msgstr ""
+"%s: помилковий перший параметр: слід вказувати файл з суфіксом назви .dia."
+
+#, c-format
+msgid "Test failed ERROR DETECTED while executing %s"
+msgstr "Не вдалося пройти перевірку. Під час виконання %s виявлено помилку"
+
+#, c-format
+msgid "Test Failed. See : fc /L /N  %s"
+msgstr "Не вдалося пройти перевірку. Див. fc /L /N  %s"
+
+#, c-format
+msgid "Test Failed. See : diff -wu  %s"
+msgstr "Не вдалося пройти перевірку. Див.: diff -wu  %s"
+
+msgid "Test passed"
+msgstr "Тест пройдено"
+
+#, c-format
+msgid "%s is not an installed module"
+msgstr "%s не належить до встановлених модулів"
+
+#, c-format
+msgid "%s: Wrong size for input argument."
+msgstr "%s: помилкова розмірність вхідного параметра."
+
+#, c-format
+msgid "The test %s is not available from the %s module"
+msgstr "Тест %s недоступний з модуля %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments."
+msgstr "%s: помилкова кількість вхідних параметрів."
+
+#, c-format
+msgid "%s is not an installed module or toolbox"
+msgstr "%s не належить до встановлених модулів або наборів інструментів"
+
+msgid ""
+"option JVM NOT MANDATORY is deprecated, please use CLI SHELL MODE instead"
+msgstr ""
+"параметр JVM NOT MANDATORY вважається застарілим, будь ласка, скористайтеся "
+"замість нього параметром CLI SHELL MODE"
+
+#, c-format
+msgid "The ref file (%s) doesn't exist"
+msgstr "Еталонного файла (%s) не існує"
+
+#, c-format
+msgid ""
+"The file '%s' is not following the XUnit XML format. Root tag expected "
+"'testsuites'.\n"
+msgstr ""
+"У файлі «%s» не виконується формат XML XUnit. Кореневим теґом мав бути "
+"«testsuites».\n"
+
+#, c-format
+msgid "No variable %s_ref in reference file"
+msgstr "У еталонному файлі немає змінної %s_ref"

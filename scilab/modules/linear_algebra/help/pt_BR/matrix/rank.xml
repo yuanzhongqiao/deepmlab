@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="rank" xml:lang="pt">
+    <refnamediv>
+        <refname>rank</refname>
+        <refpurpose>posto</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title> Seqüência de Chamamento </title>
+        <synopsis>[i]=rank(X)
+            [i]=rank(X,tol)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>matriz de reais ou complexos </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tol</term>
+                <listitem>
+                    <para>número real não-negativo</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>rank(X)</literal> é o posto numérico de
+            <literal>X</literal> i.e. o número de valores singulares de X que são
+            maiores que <literal>norm(size(X),'inf') * norm(X) *
+                %eps
+            </literal>
+            .
+        </para>
+        <para>
+            <literal>rank(X,tol)</literal> é o número de valores singulares de
+            <literal>X</literal> que são maiores que <literal>tol</literal>.
+        </para>
+        <para><literal>rank([])</literal> returns 0.</para>
+        <para>
+            Note que o valor padrão de <literal>tol</literal> é proporcional a
+            <literal>norm(X)</literal>. Como conseqüência,
+            <literal>rank([1.d-80,0;0,1.d-80])</literal> é 2 !.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+rank([1.d-80,0;0,1.d-80])
+rank([1,0;0,1.d-80])
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="svd">svd</link>
+            </member>
+            <member>
+                <link linkend="qr">qr</link>
+            </member>
+            <member>
+                <link linkend="rowcomp">rowcomp</link>
+            </member>
+            <member>
+                <link linkend="colcomp">colcomp</link>
+            </member>
+            <member>
+                <link linkend="lu">lu</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="Sinks_pal" xml:lang="en_US">
+    <refnamediv>
+        <refname>Sinks_pal</refname>
+        <refpurpose>Sinks palette</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <para>
+            <link linkend="AFFICH_m">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/AFFICH_m.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="BARXY">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/BARXY.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CANIMXY">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CANIMXY.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CANIMXY3D">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CANIMXY3D.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CEVENTSCOPE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CEVENTSCOPE.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CFSCOPE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CFSCOPE.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CLKOUTV_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CLKOUTV_f.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CMAT3D">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CMAT3D.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CMATVIEW">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CMATVIEW.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CMSCOPE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CMSCOPE.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CSCOPE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CSCOPE.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CSCOPXY">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CSCOPXY.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="CSCOPXY3D">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/CSCOPXY3D.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="ENDBLK">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/ENDBLK.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="END_c">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/END_c.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="HALT_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/HALT_f.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="OUTIMPL_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/OUTIMPL_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="OUT_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/OUT_f.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="TOWS_c">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/TOWS_c.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="TRASH_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/TRASH_f.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="WRITEAU_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/WRITEAU_f.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="WRITEC_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../images/palettes/WRITEC_f.png"
+                     style="width:100px; padding: 10px;  border-style: solid; border-width: 1px; border-color: #1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+        </para>
+    </refsection>
+
+    <refsection id="Description_Sinks_pal">
+        <title>Description</title>
+        <para>In Sinks palette, you can find a variety of blocks used to display
+            (Scope) and write data during simulation and also some output ports used
+            in superblocks.
+        </para>
+        <para>
+            The blocks of that palette do not have regular output ports.
+        </para>
+    </refsection>
+    <refsection xml:id="Blocks_Sinks_pal" role="see also">
+        <title>Blocks</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="AFFICH_m">AFFICH_m</link>
+            </member>
+            <member>
+                <link linkend="BARXY">BARXY</link>
+            </member>
+            <member>
+                <link linkend="CANIMXY">CANIMXY</link>
+            </member>
+            <member>
+                <link linkend="CANIMXY3D">CANIMXY3D</link>
+            </member>
+            <member>
+                <link linkend="CEVENTSCOPE">CEVENTSCOPE</link>
+            </member>
+            <member>
+                <link linkend="CFSCOPE">CFSCOPE</link>
+            </member>
+            <member>
+                <link linkend="CLKOUTV_f">CLKOUTV_f</link>
+            </member>
+            <member>
+                <link linkend="CMAT3D">CMAT3D</link>
+            </member>
+            <member>
+                <link linkend="CMATVIEW">CMATVIEW</link>
+            </member>
+            <member>
+                <link linkend="CMSCOPE">CMSCOPE</link>
+            </member>
+            <member>
+                <link linkend="CSCOPE">CSCOPE</link>
+            </member>
+            <member>
+                <link linkend="CSCOPXY">CSCOPXY</link>
+            </member>
+            <member>
+                <link linkend="CSCOPXY3D">CSCOPXY3D</link>
+            </member>
+            <member>
+                <link linkend="ENDBLK">ENDBLK</link>
+            </member>
+            <member>
+                <link linkend="END_c">END_c</link>
+            </member>
+            <member>
+                <link linkend="HALT_f">HALT_f</link>
+            </member>
+            <member>
+                <link linkend="OUTIMPL_f">OUTIMPL_f</link>
+            </member>
+            <member>
+                <link linkend="OUT_f">OUT_f</link>
+            </member>
+            <member>
+                <link linkend="TOWS_c">TOWS_c</link>
+            </member>
+            <member>
+                <link linkend="TRASH_f">TRASH_f</link>
+            </member>
+            <member>
+                <link linkend="WRITEAU_f">WRITEAU_f</link>
+            </member>
+            <member>
+                <link linkend="WRITEC_f">WRITEC_f</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

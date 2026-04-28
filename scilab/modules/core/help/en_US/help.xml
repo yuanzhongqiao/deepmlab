@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="help">
+    <refnamediv>
+        <refname>help</refname>
+        <refpurpose>Displays an inline summary of a documentation page</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            help key
+            txt = help(key)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>key</term>
+                <listitem>
+                    <para>Scalar string naming the documentation page to display (usually a function name or the page identifier).</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>The <function>help</function> function looks up the DocBook page referenced by <varname>key</varname> in the inline help index, applies the compact text stylesheet, and makes the resulting summary available in the current console.</para>
+        <para>If no output argument is requested, the formatted text is printed directly. When an output argument is provided, the same text is returned as a single string so that it can be inspected or post-processed programmatically.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Display the inline summary of the "plot" page in the console
+help("plot");
+
+// Ask for the documentation page name before opening it with doc
+fun = "fft";
+help(fun);
+doc(fun);
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="doc">doc</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

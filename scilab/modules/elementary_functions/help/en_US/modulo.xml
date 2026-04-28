@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2013, 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="modulo" xml:lang="en">
+    <refnamediv>
+        <refname>modulo</refname>
+        <refpurpose>
+            remainder modulo m with the sign of the left operand, or of a polynomial division
+        </refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="pmodulo">
+        <refname>pmodulo</refname>
+        <refpurpose>positive euclidian remainder modulo m</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>i = modulo(n,m)</synopsis>
+      <para></para>
+        <synopsis>i = pmodulo(n,m)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>m, n</term>
+                <listitem>
+                    <para>
+                        Scalar, vector, matrix or hypermatrix of encoded integers, reals, or
+                        polynomials with real coefficients.
+                        <varname>m</varname> and <varname>n</varname> must have the same type.
+                        If they are of integer type, they may be of distinct encoding length
+                        (for instance int8 and int16).
+                        If none of them is scalar, they must have the same sizes.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>
+                        Scalar, vector, matrix or hypermatrix of <varname>n</varname>'s type
+                        (and inttype).
+                        <varname>i</varname> takes the sizes of the bigger <varname>m</varname>
+                        or <varname>n</varname>.
+                    </para>
+                    <para>
+                        <warning>
+                            For polynomials, when all remainders in the array <varname>i</varname>
+                            are constant (degree==0), <varname>i</varname> is of type 1
+                            (numbers) instead of 2 (constant polynomials).
+                        </warning>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>modulo()</literal> computes <literal>i = n (modulo m)</literal>
+            i.e. remainder of <varname>n</varname> divided by <varname>m</varname>.
+        </para>
+        <para>For polynomials, <literal>pdiv()</literal> is called.</para>
+        <para>
+            For numbers,
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <literal>modulo()</literal> computes <literal>i = n - m .* int (n ./ m)</literal>.
+                        The result is negative (or null) when <varname>n</varname> is negative, and
+                        is positive otherwise.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>pmodulo()</literal> computes <literal>i = n - |m| .* floor (n ./ |m|)</literal>.
+                        The result is always positive or null.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            <warning>
+                If <varname>m</varname> contains at least one 0 value, <literal>modulo(x,m)</literal>
+                and <literal>pmodulo(x,m)</literal> will perform a division by zero.
+                If <varname>m</varname> is of real type, this exception will be processed according
+                to the <literal>ieee()</literal> mode.
+                For encoded integers, it will always yield an error.
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+n = [1,2,10,15];
+m = [2,2,3,5];
+modulo(n,m)
+
+modulo(-3, 9)
+modulo(10, -4)
+
+pmodulo(-3, 9)
+pmodulo(10, -6)
+pmodulo(-10, -6)
+
+// Encoded integers
+modulo( int8(-13), int16(-7))
+pmodulo(int8(-13), int16(-7))
+modulo( int8(-13), int16([-7 5]))
+pmodulo(int8(-13), int16([-7 5]))
+modulo( int8([-13 8]), int16(-7))
+pmodulo(int8([-13 8]), int16(-7))
+modulo( int8([-13 8]), int16([-7 5]))
+pmodulo(int8([-13 8]), int16([-7 5]))
+
+// Hypermatrices
+m = grand(2,2,2,"uin",-100,100)
+n = grand(2,2,2,"uin",-10 ,10);
+n(n==0) = 1
+modulo(m, 5)
+pmodulo(m,5)
+modulo(51, n)
+pmodulo(51,n)
+modulo(m, n)
+pmodulo(m,n)
+
+// Polynomials
+modulo( %z^2+1, %z)
+pmodulo(%z^2+1, %z)
+ ]]></programlisting>
+    </refsection>
+    <refsection role= "see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="unwrap">unwrap</link>
+            </member>
+            <member>
+                <link linkend="ieee">ieee</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Extension to encoded integers and to hypermatrices of encoded integers or reals.</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revremark>Extension to hypermatrices of polynomials.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

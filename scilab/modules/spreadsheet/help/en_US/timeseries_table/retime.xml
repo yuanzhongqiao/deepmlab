@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="retime" xml:lang="en">
+    <refnamediv>
+        <refname>retime</refname>
+        <refpurpose>create a new timeserie on a new time basis</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tsout = retime(tsin, newTimeStep)
+            tsout = retime(tsin, newTimeStep, method)
+            tsout = retime(tsin, newTimes)
+            tsout = retime(tsin, newTimes, method)
+            tsout = retime(tsin, "regular", "TimeStep", timeStep)
+            tsout = retime(tsin, "regular", "SampleRate", sampleRate)
+            tsout = retime(tsin, "regular", method, "TimeStep", timeStep)
+            tsout = retime(tsin, "regular", method, "SampleRate", sampleRate)
+            tsout = retime(..., OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tsin</term>
+                <listitem>
+                    <para>timeseries object in input</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>newTimeStep</term>
+                <listitem>
+                    <para>time step defined by <emphasis role="bold">'yearly', 'monthly', 'daily', 'hourly', 'minutely', 'secondly'</emphasis></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>newTimes</term>
+                <listitem>
+                    <para>new time, duration or datetime column vector.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeStep</term>
+                <listitem>
+                    <para>time step, duration or calendarDuration value</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sampleRate</term>
+                <listitem>
+                    <para>number of samples per second (Hz), real scalar</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>method</term>
+                <listitem>
+                    <para>method used to fill the missing values or to compute informations for each new row time</para>
+                    <para>methods available to fill the missing value: <emphasis role="bold">'default', 'fillwithmissing', 'fillwihconstant', 
+                    'linear', 'spline'</emphasis></para>
+                    <para>computation methods available: <emphasis role="bold">'count', 'firstvalue', 'lastvalue', 'mode', a Scilab function, or
+                     an user function</emphasis></para>
+                     <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"Constant"</emphasis>, cell</term>
+                <listitem>
+                    <para> 
+                        option available only with fillwihconstant method.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"IncludedEdge"</emphasis>, "left" or "right"</term>
+                <listitem>
+                    <para> 
+                        This option is only available with 'count', 'firstvalue', 'lastvalue', 'mode', Scilab function,
+                        user function methods.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tsout</term>
+                <listitem>
+                    <para>output argument - new timeseries.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>retime creates a new timeserie, tsout, on a new time basis defined by newTimeStep, newTimes, TimeStep or SampleRate. tsout has the same variables (columns) that tsin.</para>
+        <para><emphasis role="bold">tsout = retime(tsin, newTimeStep)</emphasis> created a new timeseries based on newTimeStep, 
+        regular spaced time. newTimeStep can be <emphasis role="bold">'yearly', 'monthly' 'daily', 'hourly', 'minutely' ou 'secondly'</emphasis></para>
+        <para>Specifying the method, <emphasis role="bold">tsout = retime(tsin, newTimeStep, method)</emphasis>, the results will be different:</para>
+        <itemizedlist>
+            <listitem>
+                 <para><emphasis role="bold">'default'</emphasis>: either 'fillwithmissing' method or uses method defined in VariableContinuity 
+                    property of tsin (see <link linkend="timeseries">)</link>.</para>
+                                                                          </listitem>
+            <listitem>
+                 <para><emphasis role="bold">'fillwithmissing'</emphasis>: for the times of tsout not matching to the times of tsin, the rows 
+                of tsout are filled with the default values for each type (NaN for doubles, "" for strings, NaT for datetimes, ...).</para>
+                                                                                                                                </listitem>
+            <listitem>
+                 <para><emphasis role="bold">'fillwithconstant'</emphasis>: this method uses 'Constant' keyword. 'Constant' is a cell of the same number of columns 
+                than tsin without the Time column. The cell content must concord with the column of tsin.</para>
+                                                                                                     </listitem>
+            <listitem>
+                 <para><emphasis role="bold">'linear'</emphasis>: linear interpolation. tsin must be sorted by time and contains unique values in the time column.</para></listitem>
+                <listitem>
+                     <para><emphasis role="bold">'spline'</emphasis>: cubic spline interpolation. tsin must be sorted by time and contains unique values in the time column.</para></listitem>
+                    <listitem>
+                         <para><emphasis role="bold">'count'</emphasis>: counts the number of values of tsin contained in each new time step defined for tsout.</para></listitem>
+                        <listitem>
+                             <para><emphasis role="bold">'firstvalue'</emphasis>: takes the first value contained in tsin for each time step defined for tsout.</para></listitem>
+                            <listitem>
+                                 <para><emphasis role="bold">'lastvalue'</emphasis>: takes the last value contained in tsin for each time step defined for tsout.</para></listitem>
+                                <listitem>
+                                     <para><emphasis role="bold">'mode'</emphasis>: computes the mode of the values of tsin contained in each new time step defined for tsout.</para></listitem>
+                                    <listitem>
+                                         <para><emphasis role="bold">Scilab or user function</emphasis>: function used to compute values of tsout (for example: mean, sum, ...).</para></listitem>
+                                    </itemizedlist>
+                                    <para><emphasis role="bold">tsout = retime(tsin, newTimes)</emphasis> or <emphasis role="bold">tsout = retime(tsin, newTimes, method)</emphasis> returns 
+                                        a new timeseries based on the data of the column vector newTimes, 
+                                    that may be irregular. If newTimes doesn't match with the row times of tsin, method is used to fill missing values.</para>
+                                    <para><emphasis role="bold">tsout = retime(tsin, "regular", "TimeStep", timestep)</emphasis> <emphasis role="bold">tsout = retime(tsin, "regular", method, "TimeStep", timestep)</emphasis> 
+                                    generates a timeseries with regular time step defined by timestep.</para>
+                                    <para><emphasis role="bold">tsout = retime(tsin, "regular", "SampleRate", sampleRate)</emphasis> or <emphasis role="bold">tsout = retime(tsin, "regular", method, "SampleRate", sampleRate)</emphasis> 
+                                    generates a timeseries with regular time step defined by sampleRate.</para>
+                                    <para><emphasis role="bold">tsout = retime(..., method, "IncludedEdge", "right"|"left")</emphasis>. When IncludedEdge is equal to 'left', 
+                                    the computed time base (newrowTimes) will be truncated to newrowTimes(1:$-1) unless newrowTimes($) is present in the initial time basis of tsin. 
+                                    If IncludedEdge is equal to "right", then newrowTimes will be truncated to newrowTimes(2:$) unless newrowTimes(1) is present in the initial time basis of tsin.</para>
+                                </refsection>
+                                <refsection>
+                                    <title>Examples</title>
+                                    <para><emphasis role="bold">retime with linear method + newTimeStep = "minutely"</emphasis></para>
+                                    <para>
+                                    <programlisting role="example"><![CDATA[
+                                    // newTimeStep == "minutely"
+                                    T = datetime(["2022-12-01 08:35:00"; "2022-12-01 08:37:00"; "2022-12-01 08:39:00"; ...
+                                    "2022-12-01 08:45:17"; "2022-12-01 08:47:00"]);
+                            
+                                    AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+                                    FlowRate = [50; 52; 53; 55; 60];
+                            
+                                    ts = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                    r = retime(ts, 'minutely')
+                            
+                                    // with linear method
+                                    r = retime(ts, 'minutely', 'linear')
+                                    ]]>
+                                    </programlisting>
+                                    </para>
+                                    <para><emphasis role="bold">retime with linear method + newTimes</emphasis></para>
+                                    <para>
+                                    <programlisting role="example"><![CDATA[
+                                    // with newTimes
+                                    T = datetime(["2022-12-01 08:35:00"; "2022-12-01 08:57:15"; "2022-12-01 09:27:43"; ...
+                                    "2022-12-01 10:00:00"; "2022-12-01 10:14:56"]);
+                            
+                                    AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+                                    FlowRate = [50; 52; 53; 55; 60];
+                            
+                                    ts = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                    newTimes = [datetime("2022-12-01 08:30:00"):minutes(15):datetime("2022-12-01 10:15:00")]'
+                                    r = retime(ts, newTimes, 'linear')
+                                    ]]>
+                                    </programlisting>
+                                    </para>
+                                    <para><emphasis role="bold">retime with linear method + TimeStep</emphasis></para>
+                                    <para>
+                                    <programlisting role="example"><![CDATA[
+                                    // with TimeStep
+                                    T = datetime(["2022-12-01 08:35:00"; "2022-12-01 08:57:15"; "2022-12-01 09:27:43"; ...
+                                    "2022-12-01 10:00:00"; "2022-12-01 10:14:56"]);
+                            
+                                    AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+                                    FlowRate = [50; 52; 53; 55; 60];
+                            
+                                    ts = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                    timestep = hours(1)
+                                    r = retime(ts, 'regular', 'linear', 'TimeStep', timestep)
+                                    ]]>
+                                    </programlisting>
+                                    </para>
+                                    <para><emphasis role="bold">retime with scilab function + IncludedEdge</emphasis></para>
+                                    <para>
+                                    <programlisting role="example"><![CDATA[
+                                    // with scilab function
+                                    monthsM = [10 * ones(31,1); 11 * ones(30,1); 12 * ones(31,1)];
+                                    daysM = [(1:31)'; (1:30)'; (1:31)'];
+                                    T = datetime(2022, monthsM, daysM);
+                            
+                                    AmbientTemperature = floor(rand(92,1)*18);
+                                    FlowRate = floor(grand(92,1, "unf", 50,60));
+                            
+                                    ts = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                    r = retime(ts, 'monthly', mean)
+                                    r = retime(ts, 'monthly', mean, 'IncludedEdge', 'right')
+                                    ]]>
+                                    </programlisting>
+                                    </para>
+                                </refsection>
+                                <refsection role="see also">
+                                    <title>See also</title>
+                                    <simplelist type="inline">
+                                        <member>
+                                            <link linkend="timeseries">timeseries</link>
+                                        </member>
+                                        <member>
+                                            <link linkend="synchronize">synchronize</link>
+                                        </member>
+                                        <member>
+                                            <link linkend="isregular">isregular</link>
+                                        </member>
+                                    </simplelist>
+                                </refsection>
+                                <refsection role="history">
+                                    <title>History</title>
+                                    <revhistory>
+                                        <revision>
+                                            <revnumber>2024.0.0</revnumber>
+                                            <revremark>
+                                                Introduction in Scilab.
+                                            </revremark>
+                                        </revision>
+                                    </revhistory>
+                                </refsection>
+                            </refentry>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="datenum">
+    <refnamediv>
+        <refname>datenum</refname>
+        <refpurpose>Convertit une date en un nombre</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>N = datenum()
+            N = datenum(DT)
+            N = datenum(Y, M, D)
+            N = datenum(Y, M, D, H, MI, S)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            La fonction datenum convertie une date en un nombre lui correspondant.
+            Ce nombre correspond au nombre de jours passe depuis une date reference.
+            Par defaut, cette date est le 1-Jan-0000.
+        </para>
+        <para>
+            N = datenum() retourne le nombre correspondant a la date courante.
+        </para>
+        <para>
+            N = datenum(DT) retourne le nombre correspondant a la date représentée par
+            la matrice DT. DT est soit une matrice m * 3 ou une matrice m * 6 contenant
+            respectivement une date entiere (annee,mois,jour,heure,minute,seconde) ou une
+            date partielle (annee,mois,jour).
+        </para>
+        <para>
+            N = datenum(Y, M, D) retourne le nombre correspondant aux elements Y,
+            M, D (annee, mois, jour). Y, M et D peuvent être des matrices de même
+            dimensions ou de simples scalaires.
+        </para>
+        <para>
+            N = datenum(Y, M, D, H, MI, S) retourne le nombre correspondant aux
+            elements Y, M, D, H, MI, et S (annee, mois, jour, heure, minute, et
+            seconde).Y, M, D, H, MI, et S peuvent être des matrices de même
+            dimensions ou de simples scalaires.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+// N = datenum()
+datenum()
+
+// N = datenum(DT)
+A = [ 0 1 1 0 0 0 ; 2005 2 8 21 37 30 ]
+datenum(A)
+
+// N = datenum(Y, M, D)
+Annees = [0; 1973; 2006]
+Mois = [1; 8; 2]
+Jours = [1; 4; 8]
+datenum(Annees,Mois,Jours)
+
+Annees = [0 0 0 ; 0 0 0]
+Mois = [1 1 1 ; 1 1 1]
+Jours = [1 2 3 ; 4 5 6]
+datenum(Annees,Mois,Jours)
+
+// N = datenum(Y, M, D, H, MI, S)
+
+Annees = grand(5,10,'uin',0,2006)
+Mois = grand(5,10,'uin',1,12)
+Jours = grand(5,10,'uin',1,28)
+Heures = grand(5,10,'uin',0,23)
+Minutes = grand(5,10,'uin',0,59)
+Secondes = grand(5,10,'uin',0,59)
+datenum(Annees,Mois,Jours,Heures,Minutes,Secondes)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datevec">datevec</link>
+            </member>
+            <member>
+                <link linkend="calendar">calendar</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                Les valeurs hors <literal>1:12</literal> pour <literal>M</literal> (mois) et hors <literal>1:31</literal> pour <literal>D</literal> (jour) sont maintenant gérées.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>datenum()</literal> gère les millisecondes.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

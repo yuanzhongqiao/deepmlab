@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="month">
+    <refnamediv>
+        <refname>month</refname>
+        <refpurpose>extracts month from datetime</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            m = month(dt, monthType)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>dt</term>
+                <listitem>
+                    <para>
+                        <link linkend="datetime">datetime</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>monthType</term>
+                <listitem>
+                    <para>
+                        string with possible values: "monthofyear" (default value), "name" and "shortname"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>
+                        month value(s) (double) or month name(s) (string)
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">m = month(dt)</emphasis> returns the month value(s) of the input argument 
+            <literal>dt</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">m = month(dt, monthType)</emphasis> returns the month value(s) or month name(s) 
+            depending on <literal>monthType</literal>:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    "monthofyear", month value(s) (default)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "name", full month name(s). If <literal>dt</literal> contains <literal>NaT</literal> values, they will be replaced by "".
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    "shortname", abbreviated month names. If <literal>dt</literal> contains <literal>NaT</literal> values, they will be replaced by "".
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Extracts month value(s) from dt</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime(2025, 2, 5)
+                m = month(dt)
+
+                dt = datetime(2025, 3, 15):caldays(20):datetime(2025, 7, 26)
+                m = month(dt)
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">With "name" keyword</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime(2025, 2, 5)
+                m = month(dt, "name")
+
+                dt = datetime(2025, 3, 15):calmonths(2):datetime(2025, 9, 30)
+                m = month(dt, "name")
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">With "shortname" keyword</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime()
+                m = month(dt, "shortname")
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

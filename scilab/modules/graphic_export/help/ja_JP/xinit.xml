@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ * Copyright (C) 2008 - INRIA - Jean-Baptiste Silvy
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="xinit">
+    <refnamediv>
+        <refname>xinit</refname>
+        <refpurpose>グラフィックドライバの初期化</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            xinit(FileName)
+            xinit()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>FileName</term>
+                <listitem>
+                    <para>文字列: エキスポートファイルの名前.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            Postscript, Xfig, Gif または PPM ドライバの場合,
+            <literal>FileName</literal> を指定する必要があります.
+            ファイル名で指定されたファイルに全てのグラフィック処理が記録されます.
+        </para>
+        <para>
+            画面ドライバ(X11またはRec)の場合,
+            <literal>xinit</literal> は引数を指定せずにコールする必要があり,
+            からの画面ウインドウがオープンされます.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+driver("Pos")
+xinit("foo.ps")
+plot2d()
+xend()
+driver("X11")
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="driver">driver</link>
+            </member>
+            <member>
+                <link linkend="xend">xend</link>
+            </member>
+            <member>
+                <link linkend="scf">scf</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="ludel" xml:lang="pt">
+    <refnamediv>
+        <refname>ludel</refname>
+        <refpurpose>função utilitária usada com lufact</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>ludel(hand)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>hand</term>
+                <listitem>
+                    <para>manipulador para fatores lu esparsos (saída de lufact)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Esta função é usada de modo conjunto com <literal>lufact</literal>.
+            Ela limpa o espaço de memória interna usado para guardar o resultado de
+            <literal>lufact</literal>.
+        </para>
+        <para>A seqüência de comandos
+            <literal>[p,r]=lufact(A);x=lusolve(p,b);ludel(p);</literal> resolve o
+            sistema linear esparso <literal>A*x = b</literal> e limpa
+            <literal>p</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sparse">sparse</link>
+            </member>
+            <member>
+                <link linkend="lufact">lufact</link>
+            </member>
+            <member>
+                <link linkend="luget">luget</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="set_io">
+    <refnamediv>
+        <refname>set_io</refname>
+        <refpurpose>Set or update Xcos block inputs and outputs</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [model, graphics, ok] = set_io(model, graphics, list(in, it), list(out, ot))
+            [model, graphics, ok] = set_io(model, graphics, list(in, it), list(out, ot), clkin, clkout)
+            [model, graphics, ok] = set_io(model, graphics, list(in, it), list(out, ot), clkin, clkout, in_implicit, out_implicit)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>model</term>
+                <listitem>
+                    <para>
+                        Block <link linkend="scicos_model">scicos_model</link> representing information passed to the simulation.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>graphics</term>
+                <listitem>
+                    <para>
+                        Block <link linkend="scicos_graphics">scicos_graphics</link> with graphical information used to display it.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>list(in, it)</term>
+                <listitem>
+                    <para>define input port properties, where N is the input port count:</para>
+                    <para>
+                        <emphasis role="bold">in:</emphasis> N-by-2 matrix, dimensions of the N-th input port.
+                    </para>
+                    <para>
+                        <emphasis role="bold">it:</emphasis> N vector, Scilab type of the N-th input port.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>list(out, ot)</term>
+                <listitem>
+                    <para>define output port properties, where N is the output port count:</para>
+                    <para>
+                        <emphasis role="bold">out:</emphasis> N-by-2 matrix, dimensions of the N-th output port.
+                    </para>
+                    <para>
+                        <emphasis role="bold">ot:</emphasis> N vector, type of the N-th output port.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>clkin</term>
+                <listitem>
+                    <para>N vector where N is the clock input port count, index of each clock</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>clkout</term>
+                <listitem>
+                    <para>N vector where N is the clock output port count, index of each clock</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>in_implicit</term>
+                <listitem>
+                    <para>N vector where N is the input port count, <code>"I"</code> for implicit port, <code>"E"</code> for explicit port.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>out_implicit</term>
+                <listitem>
+                    <para>N vector where N is the output port count, <code>"I"</code> for implicit port, <code>"E"</code> for explicit port.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection id="Description_set_io">
+        <title>Description</title>
+        <para>
+            Create or update block ports (through the model and graphics fields) with specified types, sizes. This function can be used to update all the port related properties of a block at once.
+        </para>
+    </refsection>
+    <refsection id="Example_set_io">
+        <title>Example</title>
+        <programlisting role="example"><![CDATA[
+ blk = scicos_block(gui="MyBlock");
+ 
+ // set inputs to :
+ //  1. double 2x2 matrix 
+ //  2. int32 scalar
+ // set outputs to :
+ //  1. double 2x1 vector
+ [model, graphics, ok] = set_io(blk.model, blk.graphics, list([2 2 ; 1 1], [1 3]), list([2 1], 1))
+ 
+ blk.model = model;
+ blk.graphics = graphics;
+ blk
+ ]]></programlisting>
+    </refsection>
+</refentry>

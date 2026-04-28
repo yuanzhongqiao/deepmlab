@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:id="math_rendering_features_in_graphic" xml:lang="en">
+    <refnamediv>
+        <refname>Math rendering in Scilab graphics</refname>
+        <refpurpose>Display mathematical equations in Scilab graphics through the
+            LaTeX or MathML languages.
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Usage</title>
+        <para>Starting from Scilab 5.2, it is possible to write LaTeX or MathML
+            expression. By default, the processing of strings by one of the two math interpreters (instead of the default text rendering)
+            is triggered by the presence of special characters, but a given interpreter can be forced by setting the corresponding property.
+            To this purpose the <term>Text</term>, <term>Label</term> and <term>Legend</term> entities have the "interpreter" property,
+            the <term>Axis</term> entity has the "tics_interpreters" property and the <term>Axes</term> x_ticks, y_ticks and z_ticks tlists
+            have the "interpreters" field, as summarized in the following table:
+        </para>
+        <para>
+            <informaltable border="1" cellpadding="2">
+                <tr>
+                    <td align="left">Entity </td> 
+                    <td align="left">property name</td>
+                    <td align="left">Reference</td>
+                </tr>
+                <tr>
+                    <td align="left"><term>Text</term> </td> 
+                    <td align="left">"interpreter"</td>
+                    <td align="left"><link linkend="text_properties">text_properties</link></td>
+                </tr>
+                <tr>
+                    <td align="left"><term>Label</term> </td> 
+                    <td align="left">"interpreter"</td>
+                    <td align="left"><link linkend="label_properties">label_properties</link></td>
+                </tr>
+                <tr>
+                    <td align="left"><term>Legend</term>  </td> 
+                    <td align="left">"interpreter"</td>
+                    <td align="left"><link linkend="legend_properties">legend_properties</link></td>
+                </tr>
+                <tr>
+                    <td align="left"><term>Axis</term>  </td> 
+                    <td align="left">"tics_interpreters"</td>
+                    <td align="left"><link linkend="axis_properties">axis_properties</link></td>
+                </tr>
+                <tr>
+                    <td align="left"><term>ticks</term> tlist </td> 
+                    <td align="left">"interpreters"</td>
+                    <td align="left"><link linkend="axes_properties">axes_properties</link></td>
+                </tr>
+             </informaltable>
+        </para>
+        <para>The allowed value of this property is a scalar string or an array of strings among "auto" (the default), "latex", "mathml" or "none".
+        </para>
+        <para>When the string to be displayed starts and ends with a "$" (dollar symbol), and if the interpreter is set to "auto", 
+            then the LaTeX interpreter is used. If the interpreter is set to "latex", the LaTeX interpreter is
+            used, regardless of the previous rule. It allows to mix regular upright text and math
+             formulas rendered with the same font family. If the interpreter is set to "none", default raw text rendering
+             is used, regardless of the presence of dollar symbols starting and ending the string.
+        </para>
+        <para>When the string starts with a "&lt;" and ends with "&gt;" with a valid syntax, and if the interpreter
+             is set to "mahtml", then the MathML rendering engine is used. If the interpreter is set to "none",
+              default text rendering is used, regardless of the presence of "&lt;" and "&gt;" starting 
+              and ending the string.
+        </para>
+        <para>When the LaTeX or MathML interpreter fails to render the
+            string because of an invalid syntax, the string is rendered as raw text and in red
+            color. Note that these libraries are dynamically loaded at first use, hence on first use there can be a small
+            lag (note that the MathML interpreter is slower to load than the LaTeX interpreter).
+            
+        </para>
+        <programlisting role="example"><![CDATA[
+// Example with LaTeX / MathML ticks:
+plot2d();
+a=gca();
+
+mathml="<mrow>;<mfrac><mrow><mi>d</mi><mi>y</mi></mrow><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mfrac>" + ..
+"<mn>1</mn><msup><mi>y</mi><mn>2</mn></msup></mfrac></mrow>";
+// LaTeX and MathML mixed expression
+a.x_ticks = tlist(["ticks", "locations", "labels"], (0:6)', [mathml;"1";"$\sin(x)$";"3";"$\cos(a) - test$";"5";"6"]);
+sleep(1000);
+a.x_ticks()
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>LaTeX description</title>
+        <para>The rendering engine is based on the Java library JLaTeXMath.
+            JLaTeXMath is an implementation of the mathematic mode of LaTeX. All LaTeX
+            base commands are handled (do not hesitate to submit a bug report if
+            missing). Few TeX commands, like <literal>\over are supported.</literal>
+        </para>
+        <para>Since Scilab 5.2.1, greek, cyrillic and complete unicode for latin alphabets characters are handled in the Scilab graphics</para>
+        <scilab:image>
+            str='$\big\sum_{n=1}^{+\infty}\frac1{n^2}=\frac{\pi^2}{6}$';
+            xstring(0.5,0.5,str)
+            gce().font_size=6
+            gce().text_box_mode="centered"
+            gcf().figure_size(2)=200
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+title('$\textstyle\sum_{n=1}^{+\infty}\frac1{n^2}=\frac{\pi^2}{6}$')
+title('$\big(\bigg)$')
+title('$\mbox{Vector field for }\ddot{\theta}=\sin\theta$')
+title('$\JLaTeXMath\ \mathfrak{and}\ \mathtt{Scilab}$')
+xstring(0.5,0.5,"$\overbrace{привет\ мир} \underbrace{γειά\ κόσμο}$")
+ ]]></programlisting>
+        <para>JLaTeXMath provides several fonts with the commands
+            <literal>\mathbb</literal>, <literal>\mathscr</literal>,
+            <literal>\mathcal</literal>, <literal>\mathbf</literal>,
+            <literal>\mathit</literal>, <literal>\mathsf</literal>,
+            <literal>\mathtt</literal>, <literal>\mathfrak</literal>,
+            <literal>\mathds</literal>, <literal>\mathrm</literal>, with their bold
+            versions when they are available with the command
+            <literal>\boldsymbol</literal> :
+        </para>
+        <programlisting role="example"><![CDATA[
+title('$\mathbb{SCILAB}\ \mathsf{or}\ \boldsymbol{\mathfrak{Scilab}}$')
+title('$\mathscr{C}\mbox{ n''est pas }\boldsymbol{\mathcal{C}}$')
+ ]]></programlisting>
+        <para>Different LaTeX packages are available:
+            <replaceable>amsmath</replaceable>, <replaceable>amssymb</replaceable>,
+            <replaceable>stmaryrd</replaceable>, <replaceable>amsxtra</replaceable>
+            and <replaceable>accents</replaceable> with some commands of
+            <replaceable>graphics</replaceable>. Most of the commands of these
+            packages are available (some of <replaceable>amsmath</replaceable> are
+            missing for example).
+        </para>
+        <programlisting role="example"><![CDATA[
+title('$\sideset{_\alpha^\beta}{_\gamma^\delta}\prod$')
+title('$\hat{\accentset{\star}{\hat h}}\undertilde{ABC}$')
+title('$\begin{pmatrix}\mathfrak{a}&\alpha\\\mathbb{A}&\mathcal{A}\end{pmatrix}\mbox{ or }' + ...
+'\begin{bmatrix}\mathfrak{a}&\alpha\\\mathbb{A}&\mathcal{A}\end{bmatrix}$')
+xstring(0.5,0.5,'$\left(\frac{\pi}{\sqrt[3]{2}}\middle|\sqrt{\frac{1+\frac1x}{x}}\right\rangle$')
+title('$\doublecup\ddag\fatbslash\lll\oplus\ovee\circledcirc\circlearrowright$')
+title('$\rotatebox{180}{\boxed{\JLaTeXMath}}\ \reflectbox{\JLaTeXMath}$')
+title('$\scalebox{0.6}{\sum_{n=1}^{+\infty}\frac1{n^2}=\frac{\pi^2}6}$')
+title('$\fcolorbox{black}{Tan}{\JLaTeXMath}$')
+title('$\textcolor{Magenta}{\mathfrak{Scilab}}\mbox{ and }\textcolor{Green}{\mathcal{SCILAB}}$')
+ ]]></programlisting>
+        <para>It is also possible to define new commands or new
+            environments:
+        </para>
+        <programlisting role="example"><![CDATA[
+title('$\newcommand{\op}{\left(}\newcommand{\cp}{\right)} \op\frac12\cp$')
+title('$\newcommand{\myfrac}[2]{\frac{\mathfrak{#1}}{\mathcal{#2}}}\myfrac{A}{B}$')
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>MathML description</title>
+        <para>The MathML rendering is based on Jeuclid. Jeuclid is a MathML
+            implementation which covers the whole specification. Therefore, all the
+            MathML language is supported within Scilab.
+        </para>
+        <para>Due to the size of the Jeuclid library, on the first use, it can
+            take up to a few seconds to load. However, next uses are much
+            faster.
+        </para>
+        <scilab:image><![CDATA[
+str="<mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo></mo><mfenced open=""{"" close=""}"">" + ..
+"<mrow><mfrac><mrow><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac></mrow><mrow><mfrac><mrow>" +  ..
+"<mi>c</mi></mrow><mrow><mi>d</mi></mrow></mfrac></mrow></mfrac></mrow></mfenced></mrow>"
+xstring(0.5,0.5,str)
+gce().font_size=6
+gce().text_box_mode="centered"
+gcf().figure_size(2)=200
+]]></scilab:image>
+        <programlisting role="example"><![CDATA[
+plot3d();
+a=get("current_axes");
+a.x_label.font_size= 5;
+a.x_label.text="<mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo></mo><mfenced open=""{"" close=""}"">" + ..
+"<mrow><mfrac><mrow><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac></mrow><mrow><mfrac><mrow>" + ..
+"<mi>c</mi></mrow><mrow><mi>d</mi></mrow></mfrac></mrow></mfrac></mrow></mfenced></mrow>"
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Using the interpreter property</title>
+        <para>By default (the property is set to "auto") the adequate interpreter (LaTeX of MathML) is triggered by analysing the string to be displayed.
+            However, when a string has to be displayed as is without trying to apply the defaut rules, the property can be set to "none", as in the following
+            LaTeX example:
+        </para>
+        <programlisting role="example"><![CDATA[
+            xstring(0.5,0.5,["$\frac{1}{1 +2s +s^2}$","rendered as","$\frac{1}{1 +2s +s^2}$"])
+
+            gce().interpreter(1)="none"
+            gce().font_size=4
+            gce().text_box_mode="centered"
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            xstring(0.5,0.5,["$\frac{1}{1 +2s +s^2}$","rendered as","$\frac{1}{1 +2s +s^2}$"])
+            gce().interpreter(1)="none"
+            gce().font_size=4
+            gce().text_box_mode="centered"
+            gcf().figure_size(2)=200
+]]></scilab:image>
+    <para>Forcing the attribute to "latex" allows to mix regular upright text with math formulas within strings, which otherwise are not detected as valid LaTeX markup:
+    </para>
+    <programlisting role="example"><![CDATA[
+    xstring(0.5,0.5, ["Function is $s\rightarrow \frac{1}{1 +2s +s^2}$"
+        "Function is $s\rightarrow \displaystyle\frac{1}{1 +2s +s^2}$"
+        "Function is s\rightarrow \frac{1}{1 +2s +s^2}"]);
+
+    gce().interpreter(2:3) = "latex"
+    gce().font_size=4
+    gce().text_box_mode="centered"
+    ]]></programlisting>
+        <scilab:image><![CDATA[
+            xstring(0.5,0.5, ["Function is $s\rightarrow \frac{1}{1 +2s +s^2}$"
+                "Function is $s\rightarrow \displaystyle\frac{1}{1 +2s +s^2}$"
+                "Function is s\rightarrow \frac{1}{1 +2s +s^2}"]);
+            gce().interpreter(2:3) = "latex"
+            gce().font_size=4
+            gce().text_box_mode="centered"
+            gcf().figure_size(2)=200
+]]></scilab:image>
+    <para>Note in the third string that the absence of dollars does not prevent the rendering but renders math formulas with roman typestyle. 
+        This is actually due to the way that mixed text and math formulas are handled by JLaTeXMath, which always renders markup in math mode. 
+    </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xtitle">xtitle</link>
+            </member>
+            <member>
+                <link linkend="axes_properties">axes_properties</link>
+            </member>
+            <member>
+                <link linkend="label_properties">label_properties</link>
+            </member>
+            <member>
+                <link linkend="legend_properties">legend_properties</link>
+            </member>
+            <member>
+                <link linkend="text_properties">text_properties</link>
+            </member>
+            <member>
+                <link linkend="xstringb">xstringb</link>
+            </member>
+            <member>
+                <link linkend="xstringl">xstringl</link>
+            </member>
+            <member>
+                <link linkend="xstring">xstring</link>
+            </member>
+            <member>
+                <link linkend="uicontrol">uicontrol</link>
+            </member>
+            <member>
+                <link linkend="uimenu">uimenu</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

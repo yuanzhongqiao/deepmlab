@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2017-2017 - Siddhartha Gairola
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* pursuant to article 5.3.4 of the CeCILL v.2.1.
+* This file was originally licensed under the terms of the CeCILL v2.1,
+* and continues to be available under such terms.
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xml:id="mex_access_data" xml:lang="en">
+    <refnamediv>
+        <refname>Access Data</refname>
+        <refpurpose>Read or write data to an array</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <variablelist>
+            <varlistentry>
+                <term>These are the different functions present in the mexlib module of Scilab</term>
+                <itemizedlist>
+                    <listitem>
+                         <para>mxGetNumberOfDimensions</para></listitem>
+                        <listitem>
+                             <para>mxGetElementSize</para></listitem>
+                            <listitem>
+                                 <para>mxGetDimensions</para></listitem>
+                                <listitem>
+                                     <para>mxSetDimensions</para></listitem>
+                                    <listitem>
+                                         <para>mxGetNumberOfElements</para></listitem>
+                                        <listitem>
+                                             <para>mxCalcSingleSubscript</para></listitem>
+                                            <listitem>
+                                                 <para>mxGetM</para></listitem>
+                                                <listitem>
+                                                     <para>mxSetM</para></listitem>
+                                                    <listitem>
+                                                         <para>mxGetN</para></listitem>
+                                                        <listitem>
+                                                             <para>mxSetN</para></listitem>
+                                                            <listitem>
+                                                                 <para>mxGetScalar</para></listitem>
+                                                                <listitem>
+                                                                     <para>mxGetPr</para></listitem>
+                                                                    <listitem>
+                                                                         <para>mxSetPr</para></listitem>
+                                                                        <listitem>
+                                                                             <para>mxGetPi</para></listitem>
+                                                                            <listitem>
+                                                                                 <para>mxSetPi</para></listitem>
+                                                                                <listitem>
+                                                                                     <para>mxGetData</para></listitem>
+                                                                                    <listitem>
+                                                                                         <para>mxSetData</para></listitem>
+                                                                                        <listitem>
+                                                                                             <para>mxGetImagData</para></listitem>
+                                                                                            <listitem>
+                                                                                                 <para>mxSetImagData</para></listitem>
+                                                                                                <listitem>
+                                                                                                     <para>mxGetChars</para></listitem>
+                                                                                                    <listitem>
+                                                                                                         <para>mxGetLogicals</para></listitem>
+                                                                                                        <listitem>
+                                                                                                             <para>mxGetClassID</para></listitem>
+                                                                                                            <listitem>
+                                                                                                                 <para>mxGetClassName</para></listitem>
+                                                                                                                <listitem>
+                                                                                                                     <para>mxGetField</para></listitem>
+                                                                                                                    <listitem>
+                                                                                                                         <para>mxSetField</para></listitem>
+                                                                                                                        <listitem>
+                                                                                                                             <para>mxGetNumberOfFields</para></listitem>
+                                                                                                                            <listitem>
+                                                                                                                                 <para>mxGetFieldNameByNumber</para></listitem>
+                                                                                                                                <listitem>
+                                                                                                                                     <para>mxGetFieldNumber</para></listitem>
+                                                                                                                                    <listitem>
+                                                                                                                                         <para>mxGetFieldByNumber</para></listitem>
+                                                                                                                                        <listitem>
+                                                                                                                                             <para>mxSetFieldByNumber</para></listitem>
+                                                                                                                                            <listitem>
+                                                                                                                                                 <para>mxAddField</para></listitem>
+                                                                                                                                                <listitem>
+                                                                                                                                                     <para>mxGetCell</para></listitem>
+                                                                                                                                                    <listitem>
+                                                                                                                                                         <para>mxSetCell</para></listitem>
+                                                                                                                                                        <listitem>
+                                                                                                                                                             <para>mxGetNzmax</para></listitem>
+                                                                                                                                                            <listitem>
+                                                                                                                                                                 <para>mxGetIr</para></listitem>
+                                                                                                                                                                <listitem>
+                                                                                                                                                                     <para>mxGetJc</para></listitem>
+                                                                                                                                                                </itemizedlist>
+                                                                                                                                                            </varlistentry>
+                                                                                                                                                        </variablelist>
+                                                                                                                                                    </refsection>
+                                                                                                                                                
+                                                                                                                                                    <refsection role="see also">
+                                                                                                                                                        <title>See also</title>
+                                                                                                                                                
+                                                                                                                                                        <simplelist type="inline">
+                                                                                                                                                            <member>
+                                                                                                                                                                <link linkend="mex_data_types"/>
+                                                                                                                                                            </member>
+                                                                                                                                                            <member>
+                                                                                                                                                                <link linkend="mex_validate_data"/>
+                                                                                                                                                            </member>
+                                                                                                                                                            <member>
+                                                                                                                                                                <link linkend="mex_create_or_delete"/>
+                                                                                                                                                            </member>
+                                                                                                                                                            <member>
+                                                                                                                                                                <link linkend="mex_convert_data"/>
+                                                                                                                                                            </member>
+                                                                                                                                                            <member>
+                                                                                                                                                                <link xlink:href="https://www.mathworks.com/help/matlab/cc-matrix-library-api.html">Matlab C Matrix Library API</link>
+                                                                                                                                                            </member>
+                                                                                                                                                        </simplelist>
+                                                                                                                                                    </refsection>
+                                                                                                                                                </refentry>

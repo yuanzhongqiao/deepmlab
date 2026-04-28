@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="xpoly">
+    <refnamediv>
+        <refname>xpoly</refname>
+        <refpurpose>dessine une ligne brisée ou un
+            polygone
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>xpoly(xv,yv [,dtype [,close]])
+            hdl = xpoly(...)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>xv,yv</term>
+                <listitem>
+                    <para>matrices de même taille (points de la ligne brisée).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dtype</term>
+                <listitem>
+                    <para>chaîne de caractères (style de dessin, valeur par défaut :
+                        "lines").
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>close</term>
+                <listitem>
+                    <para>entier. Si close=1, la ligne brisée est fermée (valeur par
+                        défaut : 0).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Polyline</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="polyline_properties">polyline_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>xpoly</literal> dessine une ligne brisée décrite par les vecteurs de
+            coordonnées <literal>xv</literal> et <literal>yv</literal>. Si <literal>xv</literal> et
+            <literal>yv</literal> sont des matrices elles sont considérées comme des
+            vecteurs (par concaténation de leurs colonnes). Si close=1 un segment
+            supplémentaire est ajouté entre le premier et le dernier point de la ligne
+            brisée. <literal>dtype</literal> peut être égal à   <literal>"lines"</literal>
+            pour utiliser le style de ligne courant ou <literal>"marks"</literal> pour
+            utiliser des marqueurs.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+x = sin(2*%pi*(0:4)/5);
+y = cos(2*%pi*(0:4)/5);
+
+plot2d(0,0,-1,"010"," ",[-1,-1,1,1])  // trace un repère graphique borné vide
+e = xpoly(x, y)
+set(e, "foreground", color("red"), "closed", "on");
+ ]]></programlisting>
+ <scilab:image>
+   x = sin(2*%pi*(0:4)/5);
+   y = cos(2*%pi*(0:4)/5);
+   plot2d(0,0,-1,"010"," ",[-1,-1,1,1])
+   e = xpoly(x, y)
+   set(e, "foreground", color("red"), "closed", "on");
+   gcf().axes_size = [300 300];
+ </scilab:image>
+        <programlisting role="example"><![CDATA[
+// Avec des marqueurs
+plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+t=[0:4]*2*%pi/5;
+x=5+5*cos(t);
+y=5+5*sin(t);
+xpoly(x,y,"marks")
+e=gce();
+set(e,"mark_style",2);
+]]></programlisting>
+<scilab:image>
+    plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+    t=[0:4]*2*%pi/5;
+    x=5+5*cos(t);
+    y=5+5*sin(t);
+    e=xpoly(x,y,"marks");
+    set(e,"mark_style",2);
+</scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xfpoly">xfpoly</link>
+            </member>
+            <member>
+                <link linkend="xfpolys">xfpolys</link>
+            </member>
+            <member>
+                <link linkend="xpolys">xpolys</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">polyline_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    La fonction renvoie le(s) handle(s) créé(s).
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

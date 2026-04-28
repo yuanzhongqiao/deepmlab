@@ -1,0 +1,846 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+#
+# Yuri Chornoivan <yurchor@gmail.com>, 2010, 2011.
+# Yuri Chornoivan <yurchor@ukr.net>, 2012, 2013, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Argument #%d: Must be in the interval [%s, %s].\n"
+msgstr "%s: параметр %d: має потрапляти до проміжку [%s, %s].\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: не вдалося прочитати вхідний параметр №%d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
+msgstr ""
+"%s: Помилкове значення вхідного параметра №%d: слід використовувати «%s» або "
+"«%s».\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real vector expected.\n"
+msgstr ""
+"%s: помилковий тип параметра №%d: мало бути вказано вектор дійсних значень.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real or complex vector expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати вектор "
+"дійсних або комплексних значень.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: помилка під час спроби виділення пам’яті.\n"
+
+#, c-format
+msgid "%s : Memory allocation error.\n"
+msgstr "%s: помилка під час спроби отримати область пам’яті.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d параметрів.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати скалярний "
+"тип.\n"
+
+msgid "fft call : needs power of two!"
+msgstr "виклик fft: потрібна степінь двійки!"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю.\n"
+
+#, c-format
+msgid "%s: Wrong size for argument: Incompatible dimensions.\n"
+msgstr "%s: помилкова розмірність параметра: несумісні розмірності.\n"
+
+#, c-format
+msgid "%s: Too many coefficients are required.\n"
+msgstr "%s: потрібно забагато коефіцієнтів.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Real scalar expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати дійсне "
+"число.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Scalar expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати скалярний "
+"тип.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: First element must not be %s.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: першим елементом не може бути "
+"%s.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %d-element list expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати список із %d "
+"елементів.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element %d of input argument #%d: A matrix of real "
+"expected.\n"
+msgstr ""
+"%s: помилковий тип елемента %d вхідного параметра №%d: мало бути вказано "
+"матрицю з дійсними елементами.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for element %d of input argument #%d: A row vector expected.\n"
+msgstr ""
+"%s: помилкова розмірність елемента %d вхідного параметра №%d: слід "
+"використовувати вектор-рядок.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for element %d of input argument #%d: Size must be multiple "
+"of %d.\n"
+msgstr ""
+"%s: помилкова розмірність елемента %d вхідного параметра №%d: розмірність "
+"має бути кратною до %d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for element %d of input argument #%d: A square matrix "
+"expected.\n"
+msgstr ""
+"%s: помилкова розмірність елемента %d вхідного параметра №%d: слід "
+"використовувати квадратну матрицю.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for element %d of input argument #%d: Same sizes of element "
+"%d expected.\n"
+msgstr ""
+"%s: помилкова розмірність елемента %d вхідного параметра №%d: розмірність "
+"має збігатися із розмірністю елемента %d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A row vector expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати вектор-"
+"рядок.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: Same column dimensions "
+"expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: слід використовувати однакову "
+"розмірність за стовпчиками.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мала бути матриця %dx%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: Real scalar expected.\n"
+msgstr ""
+"%s: помилковий тип параметра %d: мало бути вказано дійсне числове значення.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A %d-by-%d array expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати масив "
+"%d-на-%d.\n"
+
+#, c-format
+msgid "%s: specs => invalid order filter.\n"
+msgstr "%s: specs => некоректний фільтр порядку.\n"
+
+#, c-format
+msgid "%s: specs => too high order filter.\n"
+msgstr "%s: specs => надто високий фільтр порядку.\n"
+
+#, c-format
+msgid "%s: error in function syredi.\n"
+msgstr "%s: помилка у функції syredi.\n"
+
+#, c-format
+msgid "Undefined function '%ls'.\n"
+msgstr "Невизначене функція «%ls».\n"
+
+#, c-format
+msgid "User function '%s' have not been set.\n"
+msgstr "Функцію користувача «%s» не встановлено.\n"
+
+msgid "An error occurred while getting Signalprocessingfunctions object.\n"
+msgstr ""
+"Під час спроби отримання об’єкта Signalprocessingfunctions сталася помилка.\n"
+
+#, c-format
+msgid "%ls: error while calling user function.\n"
+msgstr "%ls: помилка під час спроби викликати функцію користувача.\n"
+
+#, c-format
+msgid "%s: Wrong type for output argument #%d: Real matrix expected.\n"
+msgstr ""
+"%s: помилковий тип параметра №%d: слід використовувати матрицю дійсних "
+"значень.\n"
+
+msgid "Simulation of an ARMAX process:"
+msgstr "Моделювання процесу ARMAX:"
+
+msgid "Identification ARX (least square):"
+msgstr "ARX ідентифікації (найменший квадрат):"
+
+msgid "Simulation of an ARMAX process: "
+msgstr "Моделювання процесу ARMAX: "
+
+msgid "Identification ARX (least square): "
+msgstr "Визначення ARX (метод найменших квадратів): "
+
+msgid "Arma Spectral power estimation:"
+msgstr "Оцінка потужності спектра ARMA:"
+
+msgid "Arma identification"
+msgstr "Визначення за ARMA"
+
+msgid "Theoretical value"
+msgstr "Теоретичне значення"
+
+msgid "Using macro mese"
+msgstr "Використання макросу mese"
+
+msgid "Spectral power"
+msgstr "Спектральна потужність"
+
+msgid "frequency"
+msgstr "частота"
+
+msgid "spectral estimate"
+msgstr "оцінка спектральної щільності"
+
+msgid "Press Return to continue ... \n"
+msgstr "Натисніть Enter, щоб продовжити… \n"
+
+msgid "filtered signal"
+msgstr "фільтрований сигнал"
+
+msgid "given noisy signal"
+msgstr "заданий шумний сигнал"
+
+msgid "Signal"
+msgstr "Сигнал"
+
+msgid "2 points convolution"
+msgstr "двоточкова згортка"
+
+msgid "3 points convolution"
+msgstr "триточкова згортка"
+
+msgid "Signal derivative estimate"
+msgstr "Наближена похідна сигналу"
+
+msgid "Choose filter type and parameters"
+msgstr "Виберіть тип фільтрування та параметри"
+
+msgid "Discrete IIR filter "
+msgstr "Дискретний IIR-фільтр "
+
+msgid "Discrete IIR filter: low pass  fr < 0.2"
+msgstr "Дискретний IIR-фільтр: нижні частоти < 0.2"
+
+msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
+msgstr "Дискретний IIR-фільтр за діапазоном частот 0.15 < fr < 0.25"
+
+msgid "Minimax FIR filter"
+msgstr "Мінімаксний FIR-фільтр"
+
+msgid "low pass  cut-off in [.23,.27]"
+msgstr "нижні частоти обрізання на [.23,.27]"
+
+msgid "length 33"
+msgstr "довжина 33"
+
+msgid "Remez Triangular filter"
+msgstr "Трикутний фільтр Ремеза"
+
+msgid "magnitude error"
+msgstr "помилка у амплітуді"
+
+msgid "Signal Processing"
+msgstr "Обробка сигналів"
+
+msgid "Spectral Estimation"
+msgstr "Спектральна оцінка"
+
+msgid "IIR filter design"
+msgstr "Схема з IIR-фільтром"
+
+msgid "Minimax FIR filter design"
+msgstr "Схема з мінімаксним FIR-фільтром"
+
+msgid "Discrete IIR filter"
+msgstr "Дискретний IIR-фільтр"
+
+msgid "Wiener filter"
+msgstr "Фільтр Вінера"
+
+msgid "Bode plots"
+msgstr "Графіки Боде"
+
+msgid "Window FIR filters"
+msgstr "Діапазонні FIR-фільтри"
+
+msgid "1-D convolution"
+msgstr "Одновимірна згортка"
+
+msgid "2-D convolution"
+msgstr "Двовимірна згортка"
+
+msgid "Arma simulation and identification"
+msgstr "Моделювання та визначення ARMA"
+
+msgid "Arma, bidimensional version"
+msgstr "ARMA, двовимірна версія"
+
+msgid "Arma, Spectral power estimation"
+msgstr "ARMA, оцінка потужності спектра"
+
+msgid "Data spectrum"
+msgstr "Спектр даних"
+
+msgid "magnitude"
+msgstr "амплітуда"
+
+msgid "Spectral estimation"
+msgstr "Спектральна оцінка"
+
+msgid "spectral power"
+msgstr "спектральна потужність"
+
+msgid "estimates xf"
+msgstr "оцінки xf"
+
+msgid "estimates xs"
+msgstr "оцінки xs"
+
+msgid "real state"
+msgstr "поточний стан"
+
+msgid "Windowed FIR Low pass Filter"
+msgstr "Віконний фільтр низьких частот зі СІХ (FIR)"
+
+msgid "Kaiser window, cut-off: 0.2"
+msgstr "Вікно Кайзера, обрізання: 0.2"
+
+msgid "Hamming window, cut-off: 0.2, 0.3"
+msgstr "Вікно Гаммінґа, обрізання: 0.2, 0.3"
+
+msgid "length 127"
+msgstr "довжина 127"
+
+msgid "Windowed FIR Band pass Filter"
+msgstr "Віконний фільтр діапазону частот зі СІХ (FIR)"
+
+msgid "Chebyshev window, cut-off: 0.15, 0.35"
+msgstr "Вікно Чебишева, обрізання: 0.15, 0.35"
+
+msgid "length 55"
+msgstr "довжина 55"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Real matrix or polynomial expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути використано матрицю або "
+"поліном.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: a polynomial and 1-by-1 matrix "
+"or two polynomials expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: мало бути вказано поліном і "
+"матрицю 1х1 або два поліноми.\n"
+
+#
+# File: modules/signal_processing/macros/%_unwrap.sci, line: 23
+msgid ": 1-D examples "
+msgstr ""
+
+#
+# File: modules/signal_processing/macros/%_unwrap.sci, line: 103
+msgid ": 2-D examples"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Array of floating point numbers "
+"expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати масив зі "
+"значень з плаваючою комою.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A polynomial expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"поліном.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: degree must be in the set {%s}.\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: слід встановити значення "
+"степеня з набору {%s}.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same degree expected.\n"
+msgstr "%s: несумісні вхідні параметри №%d і №%d: степені мають збігатися.\n"
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: Elements must be positive.\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: елементи мають бути "
+"додатніми.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Distance between Max and Min "
+"elements must be greater than %g.\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: відстань між максимальним та "
+"мінімальним елементами має бути більшою за %g.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: Same numbers of elements "
+"expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: слід використовувати однакову "
+"кількість елементів.\n"
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: Not sampled high enough.\n"
+msgstr "%s: помилкові значення вхідного параметра №%d: недостатня частота.\n"
+
+#, c-format
+msgid "%s: Wrong size for argument #%d: Vector expected.\n"
+msgstr "%s: помилковий розмір параметра №%d: слід використовувати вектор.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s or %s expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати %s або "
+"%s.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d must have the same sizes.\n"
+msgstr "%s: параметри №%d та №%d повинні мати однакову розмірність.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати %d або %d.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Decimal or complex number(s) expected.\n"
+msgstr ""
+"%s: параметр №%d: мало бути вказано десяткове або комплексне число або "
+"числа.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Must be in the set {%s}.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d. Значення має належати набору "
+"{%s}.\n"
+
+#, c-format
+msgid "%s: Filter order too small.\n"
+msgstr "%s: надто малий порядок фільтрування.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A single input, single output system "
+"expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"систему з одним входом і одним виходом.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d:  Linear dynamical system or row "
+"vector of floats expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати лінійну "
+"динамічну систему або вектор-рядок дійсних чисел.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A real or polynomial matrix or a "
+"rational expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути використано матрицю з "
+"дійсних чисел або поліномів чи раціональне число.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A discrete system expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути використано дискретну "
+"систему.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A positive integer expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути додатне ціле число.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A positive integer expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути додатне ціле "
+"число.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A positive integer expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути використано додатне "
+"ціле число.\n"
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: Unsupported '%s' type.\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: непідтримуваний тип «%s».\n"
+
+#, c-format
+msgid "%s: Wrong size for input arguments: Incompatible sizes.\n"
+msgstr "%s: помилкові розмірності вхідних параметрів: несумісні розмірності.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: An odd integer expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано непарне ціле "
+"число.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Array of double expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано масив зі "
+"значень типу double.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d or %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вихідних параметрів: слід використовувати %d або "
+"%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Non-negative integers expected.\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: слід використовувати "
+"невід’ємні цілі числа\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Elements must be in the interval "
+"[%s, %s].\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: слід використовувати значення "
+"елементів у інтервалі [%s, %s].\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A tall matrix expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати матрицю, "
+"де кількість стовпчиків менша за кількість рядків.\n"
+
+#, c-format
+msgid "%s: Wrong values for input arguments #%d and #%d.\n"
+msgstr "%s: помилкові значення вхідних параметрів №%d та №%d.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Column expected.\n"
+msgstr "%s: параметр №%d: мало бути вказано стовпчик.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d: Same numbers of elements expected.\n"
+msgstr "%s: параметри №%d і №%d: кількість елементів мала бути однаковою.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: Argument #%d expected to be "
+"less than argument #%d.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d та №%d: параметр №%d повинен мати менше "
+"значення за значення параметра №%d.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: слід використовувати однакову "
+"розмірність.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: An integer value expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: a scalar with integer value "
+"expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be odd.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for argument %d: Real vector expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for argument %d: At least %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for argument %d: At most %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input argument(s).\n"
+msgstr "%s: помилкова кількість вхідних параметрів.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: rational fraction array expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати масив з "
+"раціональних дробів.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A %d elements array expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати масив "
+"з %d елементами.\n"
+
+#
+# File: modules/signal_processing/macros/unwrap.sci, line: 37
+msgid "Press return to display 2D examples"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Real expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set  {%s}.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Must have at least 4 rows.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Must have at least 4 columns.\n"
+msgstr ""
+
+#, c-format
+msgid "%s:  Wrong value for input argument #%d: Must be odd.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати непарне "
+"значення.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A %d-by-%d real vector expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати вектор "
+"дійсних чисел %d-на-%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A %d-by-%d real vector expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"вектор дійсних чисел %d-на-%d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the interval %s.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: значення має перебувати у "
+"інтервалі %s.\n"
+
+#, c-format
+msgid "%s: Elements of %dth argument must be in increasing order.\n"
+msgstr "%s: елементи параметра %d слід вказувати за зростанням.\n"
+
+msgid "&File"
+msgstr "&Файл"
+
+msgid "&Tools"
+msgstr "&Інструменти"
+
+msgid "&Edit"
+msgstr "З&міни"
+
+msgid "&?"
+msgstr "&Довідка"
+
+msgid "WFIR settings"
+msgstr "Параметри фільтра ХСІХ"
+
+msgid "Filter type"
+msgstr "Тип фільтрування"
+
+msgid "Band pass"
+msgstr "Смуга пропускання"
+
+msgid "High pass"
+msgstr "Верхні частоти"
+
+msgid "Low pass"
+msgstr "Нижні частоти"
+
+msgid "Stop Band"
+msgstr "Смуга придушення"
+
+msgid "Window type"
+msgstr "Тип вікна"
+
+msgid "Hanning"
+msgstr "Ганнів"
+
+msgid "Rectangular"
+msgstr "Прямокутне"
+
+msgid "Triangular"
+msgstr "Трикутне"
+
+msgid "Chebychev main lobe"
+msgstr "Основна пелюстка за Чебишевим"
+
+msgid "Chebychev side lobe"
+msgstr "Бічна пелюстка за Чебишевим"
+
+msgid "Hamming"
+msgstr "Гаммінґа"
+
+msgid "Kaiser"
+msgstr "Кайзера"
+
+msgid "Sampling Frequency (Hz)"
+msgstr "Частота дискретизації (у Гц)"
+
+msgid "Filter Order"
+msgstr "Порядок фільтрування"
+
+msgid "Low cutoff frequency (Hz)"
+msgstr "Нижня частота обрізання (у Гц)"
+
+msgid "High cutoff frequency (Hz)"
+msgstr "Верхня частота обрізання (у Гц)"
+
+msgid "Parameter"
+msgstr "Параметр"
+
+msgid "View"
+msgstr "Перегляд"
+
+msgid "Ok"
+msgstr "Гаразд"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Help"
+msgstr "Довідка"
+
+msgid "Window main lobe width"
+msgstr "Ширина основної пелюстки вікна"
+
+msgid "maximum side-lobe height"
+msgstr "максимальна висота бічної пелюстки"
+
+msgid "frequency (Hz)"
+msgstr "частота (у Гц)"
+
+msgid "Magnitude (dB)"
+msgstr "Амплітуда (у дБ)"
+
+#, c-format
+msgid "%s: Input argument #%d must be strictly positive.\n"
+msgstr "%s: вхідний параметр №%d має бути строго додатним.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: incorrect element #%d\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: некоректний елемент №%d\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Real or complex vector expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати вектор "
+"дійсних або комплексних значень.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: an integer expected.\n"
+msgstr "%s: помилковий тип параметра №%d: мало бути вказано ціле число.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for argument #%d: the expected value must be greater than "
+"%d.\n"
+msgstr ""
+"%s: помилкове значення параметра №%d: мало бути вказано значення, більше за "
+"%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: The first element must be %s and "
+"the last %s.\n"
+msgstr ""
+"%s: помилкові значення вхідного параметра №%d: першим елементом має бути %s, "
+"а останнім — %s.\n"
+
+#, c-format
+msgid "%s: Too abrupt change near end of frequency range.\n"
+msgstr "%s: занадто різка зміна поблизу до межі частотного діапазону.\n"
+
+#, c-format
+#~ msgid "%s: Wrong type for argument %d: Real matrix expected.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип параметра %d: слід використовувати матрицю дійсних "
+#~ "значень.\n"

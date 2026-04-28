@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Clément DAVID
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="xcosAddToolsMenu">
+    <refnamediv>
+        <refname>xcosAddToolsMenu</refname>
+        <refpurpose>Add a menu item into the Xcos "Tools" menu.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>xcosAddToolsMenu(label, command)</synopsis>
+    </refsynopsisdiv>
+    <refsection id="Description_xcosAddToolsMenu">
+        <title>Description</title>
+        <para>Add a menu into Xcos with a scilab command. The scilab command can assume that there is two variable on the current scilab context :</para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">blk :</emphasis> The selected block. Variable does not exist if nothing is selected. The variable has a <link linkend="scicos_block">scicos_block</link> type.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">scs_m :</emphasis> The whole diagram. The variable has a <link linkend="scicos_diagram">scicos_diagram</link> type.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>This function has been introduced in Scilab 5.4.0.</para>
+        <para>
+            <programlisting role="example"><![CDATA[
+xcosAddToolsMenu("print plop", "disp(''plop'')");
+xcosAddToolsMenu("print selected block", "disp(blk)");
+xcosAddToolsMenu("print diagram", "disp(scs_m)");
+
+// define a custom update function
+function myUpdateFunction(blk, scs_m)
+    execstr("[ok, blk] = " + blk.gui + "(''set'', blk);");
+    xcosUpdateBlock(blk);
+endfunction
+xcosAddToolsMenu("update block", "myUpdateFunction(blk, scs_m)");
+]]></programlisting>
+        </para>
+    </refsection>
+    <refsection xml:id="SeeAlso_xcosAddToolsMenu" role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xcos">xcos</link>
+            </member>
+            <member>
+                <link linkend="xcosUpdateBlock">xcosUpdateBlock</link>
+            </member>
+            <member>
+                <link linkend="scicos_block">scicos_block</link>
+            </member>
+            <member>
+                <link linkend="scicos_diagram">scicos_diagram</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

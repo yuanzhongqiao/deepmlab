@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="demo_choose">
+    <refnamediv>
+        <refname>demo_choose</refname>
+        <refpurpose>
+            créé une boîte de choix d'options. <emphasis role="bold">Cette fonction est obsolète. Merci d'utiliser <literal>x_choose</literal> à la place.</emphasis>
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>num = demo_choose(fil)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>fil</term>
+                <listitem>
+                    <para>Chaîne de caractère contenant le chemin du fichier binaire</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>num</term>
+                <listitem>
+                    <para>numéro de la ligne sélectionnée</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            La fonction demo_choose crée une boîte de choix d'options. Elle prend comme
+            argument le fichier fil, un fichier binaire. Il doit contenir les variables 'choice', un
+            vecteur colonne de texte entre crochets (les différentes options), et 'titl',
+            le titre de la boîte de dialogue. 
+            La fonction demo_choose renvoie en sortie le numéro de ligne du choix
+            effectué dans le vecteur colonne des options.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+choice = ['Continuous time';'Discrete time'];
+titl = 'Select time domain';
+save(fullfile(TMPDIR, "example.bin"));
+[n]=demo_choose(fullfile(TMPDIR, "example.bin"));
+select n
+  case 0
+    disp("Cancel")
+  case 1
+    disp("Choice: 1")
+  case 2
+    disp("Choice: 2")
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="x_choose">x_choose</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    Déclarée obsolète et sera supprimée de Scilab 2026.1.0.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

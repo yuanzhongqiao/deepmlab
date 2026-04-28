@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ????-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="macro" xml:lang="pt">
+    <refnamediv>
+        <refname>macro</refname>
+        <refpurpose>Procedimento Scilab e objeto Scilab</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Descrição</title>
+        <para>Macros são procedimentos Scilab ("macro", "função" e "procedimento"
+            possuem o mesmo significado). Geralmente, eles são definidos em arquivos
+            com um editor e carregados no Scilab com <function>exec</function> ou
+            através de uma biblioteca.
+        </para>
+        <para>
+            Também podem ser definidos on-line (ver <link linkend="deff">deff</link>). Um
+            arquivo que contém uma macro deve começar como segue:
+        </para>
+        <programlisting role='no-scilab-exec'><![CDATA[
+function [y1,...,yn]=foo(x1,...,xm)
+ ]]></programlisting>
+        <para>
+            Os <literal>yi</literal> são variáveis de saída calculadas como
+            funções de variáveis de entrada e variáveis existentes no Scilab quando o
+            macro é executado. Um macro pode ser compilado para uma execução mais
+            rápida. Coleções de macros podem ser armazenadas em bibliotecas. Macros
+            que começam pelo símbolo <literal>%</literal> (ex.:
+            <literal>%foo</literal>) e cujos argumentos são listas são usadas para
+            executar operações específicas: por exemplo,
+            <code>z=%rmr(x,y)</code> é equivalente a <code>z=x*y</code>
+            quando <varname>x</varname> e <varname>z</varname> são racionais (i.e.
+            <code>x=list('r',n,d,[])</code> com <varname>n</varname> e
+            <varname>d</varname> polinômios).
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="deff">deff</link>
+            </member>
+            <member>
+                <link linkend="lib">lib</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

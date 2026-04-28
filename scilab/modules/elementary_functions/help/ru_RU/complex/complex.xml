@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Michael Baudin
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="complex" xml:lang="ru">
+    <refnamediv>
+        <refname>complex</refname>
+        <refpurpose>Построение массива комплексных чисел по их частям</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            c = complex(u)
+            c = complex(a, b)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>u, a, b</term>
+                <listitem>
+                     <para>
+                        скаляры, векторы, матрицы и гиперматрицы вещественных чисел.
+                        Если оба <varname>a</varname> и <varname>b</varname> не скаляры,
+                        то они должны быть одинакового размера.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                     <para>
+                        Массив комплексных чисел того же размера, что и <varname>u</varname> или
+                        <varname>a</varname> и <varname>b</varname>.
+                        Если <varname>u</varname> является разрежённой, либо если <varname>a</varname> и
+                        <varname>b</varname> имеют одинаковые размеры и обе являются разрежёнными,
+                        то <varname>c</varname> является также разрежённой.
+                        В противном случае <varname>c</varname> является плотной.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <emphasis role="bold">c = complex(u)</emphasis> создаёт комплексное число из
+            его реальной части <varname>u</varname> и нуля в качестве мнимой части.
+        </para>
+        <para>
+            <emphasis role="bold">c = complex(a, b)</emphasis> создаёт комплексное число из его реальной части
+            <varname>a</varname> и мнимой части <varname>b</varname>.
+        </para>
+        <para>
+            Эта функция эквивалентна <literal>a + imult(b)</literal>, и должным
+            образом управляет специальными Inf и NaN вещественной и мнимой частями.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <para>
+            В следующем примере мы создадим комплексное число из его реальной и мнимой части.
+        </para>
+        <programlisting role="example"><![CDATA[
+complex(1,2)
+complex([1 2],[3 4])
+ ]]></programlisting>
+        <para>
+            Если определено только <varname>a</varname>, то мнимая часть устанавливается равной нулю.
+        </para>
+        <programlisting role="example"><![CDATA[
+complex([1 2 3])
+ ]]></programlisting>
+        <para>
+            Если <varname>a</varname> является скаляром, а <varname>b</varname>
+            является матрицей, то результат <varname>c</varname> имеет тот же размер, что и
+            <varname>b</varname>.
+            Аналогично, если <varname>a</varname> является матрицей, а <varname>b</varname> является
+            скаляром, то результат <varname>c</varname> имеет тот же размер, что и
+            <varname>a</varname>.
+        </para>
+        <programlisting role="example"><![CDATA[
+c = complex([1 2 3], 4)
+c = complex(1, [2 3 4])
+ ]]></programlisting>
+        <para>
+            Если <varname>a</varname> и <varname>b</varname> являются матрицами разных размеров,
+            то сформируется ошибка, как в следующем примере.
+        </para>
+        <screen><![CDATA[
+-->complex(ones(2,3),ones(4,5))
+ !--error 10000
+complex: Несовместимые входные параметры №1 и №2: ожидались одинаковые размеры.
+at line      33 of function complex called by :
+complex(ones(2,3),ones(4,5))
+ ]]></screen>
+        <para>
+            При специальных вещественной или/и мнимой частях:
+        </para>
+        <programlisting role="example"><![CDATA[
+r = [0   0    0 %inf %inf %inf %nan %nan %nan].';
+i = [0 %inf %nan  0  %inf %nan   0  %inf %nan].';
+[r, i]
+
+// Затем сравним complex(r, i) и r + i*%i :
+[complex(r,i), r+i*%i]
+ ]]></programlisting>
+        <screen><![CDATA[
+--> [r, i]
+ ans  =
+   0.    0.
+   0.    Inf
+   0.    Nan
+   Inf   0.
+   Inf   Inf
+   Inf   Nan
+   Nan   0.
+   Nan   Inf
+   Nan   Nan
+
+// Затем сравним complex(r, i) и r + i*%i :
+--> [complex(r,i), r+i*%i]
+ ans  =
+   0.  + 0.i    0.  + 0.i
+   0.  + Infi   Nan + Infi
+   0.  + Nani   Nan + Nani
+   Inf + 0.i    Inf + 0.i
+   Inf + Infi   Nan + Infi
+   Inf + Nani   Nan + Nani
+   Nan + 0.i    Nan + 0.i
+   Nan + Infi   Nan + Infi
+   Nan + Nani   Nan + Nani
+ ]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="percenti">%i</link>
+            </member>
+            <member>
+                <link linkend="imult">imult</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revdescription>
+                    Расширение до разрежённых массивов.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="ru" xml:id="percentk">
+    <refnamediv>
+        <refname>%k</refname>
+        <refpurpose>
+            Полный эллиптический интеграл Якоби первого рода (векторизованный)
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>K = %k(m)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>
+                        вектор вещественных чисел <literal>[-∞,1)</literal>: параметр
+                        эллиптического интеграла.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>K</term>
+                <listitem>
+                    <para>вектор соответствующих значений интеграла.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Вычисляет и выдаёт значения полного эллиптического интеграла Якоби первого рода,
+            определённого как
+            <latex style="display" alt="K(m) = integral_0^1 {dt / sqrt[(1 - t^2)(1 - m.t^2)]}">K(m)=\int_0^1 \frac{dt}{\sqrt{(1-t^2)(1-m\,t^2)}}</latex>
+        </para>
+        <para>
+            <emphasis role="bold">Литература</emphasis> : Abramowitz and Stegun page 598
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+m = 0.4;
+[%k(m) delip(1, sqrt(m))]
+%k([-%inf -10 -1 0 0.1 0.3 0.9])
+%k(0)==%pi/2
+ ]]></programlisting>
+    <screen><![CDATA[
+--> m = 0.4;
+--> [%k(m) delip(1, sqrt(m))]
+ ans  =
+   1.7775194   1.7775194
+
+--> %k([-%inf -10 -1 0 0.1 0.3 0.9])
+ ans  =
+   0.   0.7908719   1.3110288   1.5707963   1.6124413   1.7138894   2.5780921
+
+--> %k(0)==%pi/2
+ ans  =
+  T
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="delip">delip</link>
+            </member>
+            <member>
+                <link linkend="ellipj">ellipj</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

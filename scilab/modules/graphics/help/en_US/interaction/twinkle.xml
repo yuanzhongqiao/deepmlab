@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2015, 2016, 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xml:lang="en" xml:id="twinkle">
+    <refnamediv>
+        <refname>twinkle</refname>
+        <refpurpose>highlights one or more graphical objects by flashing them</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            twinkle
+            twinkle(n)
+            twinkle(h)
+            twinkle(h,n)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>
+                        handle or vector of handles of one or several graphical entities to blink.
+                        By default, the current graphic entity pointed by <literal>gce()</literal>
+                        is considered.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>positive integer number: the number of blinks. Default n = 5.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <function>twinkle</function> blinks <varname>n</varname> times graphical entities
+            handled with <varname>h</varname>. If some of the objects are initially invisible,
+            they are blinked with other ones and are finally left invisible before returning.
+        </para>
+        <para>
+            If <function>twinkle()</function> is run while no graphical figure exists,
+            it does nothing and returns. If the handle <varname>h</varname> has some invalid
+            components (the entity has been deleted in the meantime),
+            <function>twinkle(h..)</function> yields an error.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+clf
+plot()
+twinkle     // twinkles the last group of curves plotted in the plot() example
+twinkle(3)  // twinkles it only three times
+
+clf
+x = linspace(-2*%pi,2*%pi,100)';
+p=plot2d(x,[sin(x),cos(x)]);
+twinkle(p(2))       // cos plot twinkle
+twinkle(p(1),10)    // sin plot twinkle 10 times
+twinkle(gca())    // axes twinkle
+ ]]></programlisting>
+    <para/>
+        <programlisting role="example"><![CDATA[
+// Blinking a subset of many curves, with some initially invisible ones
+clf
+plot()
+c = gca().children.children(1:10);
+c(1:5).visible = "off";
+sleep(5,'s')
+twinkle(c)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="graphics_entities">graphics entities</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                    <para>twinkle() and twinkle(n) added.</para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revdescription>
+                    <para>Several independent objects can now be blinked together.</para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2022 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="asin" xml:lang="pt">
+    <refnamediv>
+        <refname>asin</refname>
+        <refpurpose>arco-seno</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>t = asin(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, t</term>
+                <listitem>
+                    <para>
+                        vectores, matrizes ou hipermatrices de números reais ou complexos,
+                        do mesmo tamanho.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            As entradas de <literal>t</literal> são os arcos-senos das entradas
+            correspondentes de <literal>x</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <scilab:image>
+            xr = -1:0.05:1;
+            subplot(1,2,1)
+            plot(xr, real(asin(xr)))
+            xtitle("x ∈[-1, 1], asin(x) ∈ ℝ", "x","")
+
+            subplot(1,2,2)
+            x = -2.5:.05:2.5;
+            y = asin(x);
+            plot(x,real(y),"k", x, imag(y));
+            gce().children(1).foreground = color("orange");
+            xtitle(".                             asin(x) ∈ ℂ","x","asin(x)")
+            legend(["Real part", "Imaginary part"],-5)
+            gca().tight_limits(1) = "on";
+
+            gcf().children.grid = [1 1]*color("grey75")
+            gcf().axes_size = [700, 370]
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+x = 0:0.2:1; x = [-x ; x]
+asin(x)
+
+A = [1,2 ; 3,4];
+a = asin(A)
+sin(a)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> x = 0:0.2:1; x = [-x ; x]
+ x  =
+   0.  -0.2  -0.4  -0.6  -0.8  -1.
+   0.   0.2   0.4   0.6   0.8   1.
+
+--> asin(x)
+ ans  =
+   0.  -0.2013579  -0.4115168  -0.6435011  -0.9272952  -1.5707963
+   0.   0.2013579   0.4115168   0.6435011   0.9272952   1.5707963
+
+
+--> A = [1,2 ; 3,4];
+--> a = asin(A)
+ a  =
+   1.5707963 + 0.i          1.5707963 - 1.3169579i
+   1.5707963 - 1.7627472i   1.5707963 - 2.0634371i
+
+--> sin(a)
+ ans  =
+   1. + 0.i          2. - 1.061D-16i
+   3. - 1.732D-16i   4. - 2.372D-16i
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="asind">asind</link>
+            </member>
+            <member>
+                <link linkend="sin">sin</link>
+            </member>
+            <member>
+                <link linkend="sind">sind</link>
+            </member>
+            <member>
+                <link linkend="sinm">sinm</link>
+            </member>
+            <member>
+                <link linkend="asinm">asinm</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.2</revnumber>
+                <revdescription>
+                    For <literal>x&gt;1</literal>, <literal>imag(asin(x))</literal> is now set negative.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

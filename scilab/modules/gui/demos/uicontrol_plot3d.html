@@ -1,0 +1,142 @@
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * This file is released under the 3-clause BSD license. See COPYING-BSD.
+ *
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="css/uicontrol_plot3d.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <p class="fs-4 text-center mb-0">Control Panel</p>
+        <div class="px-1 mb-1">
+            <p class="fs-6 text-center mb-0">Title</p>
+            <input class="form-control form-control-sm mb-1" placeholder="My Beautiful Plot" id="title" aria-describedby="emailHelp">
+        </div>
+        <div class="px-1 mb-1">
+            <p class="fs-6 text-center mt-0 mb-0">Show Hide</p>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check form-switch small">
+                        <input class="form-check-input" type="checkbox" value="" id="showtics">
+                        <label class="form-check-label" for="tics">Tics</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check form-switch small">
+                        <input class="form-check-input" type="checkbox" value="" id="showtitle">
+                        <label class="form-check-label" for="tics">Title</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check form-switch small">
+                        <input class="form-check-input" type="checkbox" value="" id="showlabels">
+                        <label class="form-check-label" for="tics">Labels</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check form-switch small">
+                        <input class="form-check-input" type="checkbox" value="" id="showedges">
+                        <label class="form-check-label" for="tics">Edges</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-1 mb-1">
+            <p class="fs-6 text-center mt-0 mb-0">Colormap</p>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check small">
+                        <input class="form-check-input" name="cm" type="radio" id="cmjet" checked>
+                        <label class="form-check-label" for="cmjet">Jet</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check small">
+                        <input class="form-check-input" name="cm" type="radio" id="cmhot">
+                        <label class="form-check-label" for="cmhot">Hot</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check small">
+                        <input class="form-check-input" name="cm" type="radio" id="cmgray">
+                        <label class="form-check-label" for="cmgray">Gray</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check small">
+                        <input class="form-check-input" name="cm" type="radio" id="cmparula">
+                        <label class="form-check-label" for="cmparula">Parula</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-1 mb-1">
+            <p class="fs-6 text-center mt-0 mb-0">Color</p>
+            <div class="row">
+                <div class="col">
+                    <label for="colorbackground" class="col-form-label col-form-label-sm">Background</label>
+                </div>
+                <div class="col">
+                    <input type="color" class="form-control" value="#FFFFFF" id="colorbackground">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="coloraxes" class="col-form-label col-form-label-sm">Axes</label>
+                </div>
+                <div class="col">
+                    <input type="color" class="form-control" value="#FFFFFF" id="coloraxes">
+                </div>
+            </div>
+        </div>
+        <div class="px-1 mb-1">
+            <p class="fs-6 text-center mt-0 mb-0">Rotation</p>
+            <div class="row">
+                <div class="col">
+                    <label for="alpha" class="col-form-label col-form-label-sm">Alpha</label>
+                </div>
+                <div class="col">
+                    <input type="range" class="form-range form-range-sm" min="0" max="180" step="1" id="alpha" list="alphamarkers">
+                    <datalist id="alphamarkers">
+                        <option value="0"></option>
+                        <option value="45"></option>
+                        <option value="90"></option>
+                        <option value="135"></option>
+                        <option value="180"></option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="theta" class="col-form-label col-form-label-sm">Theta</label>
+                </div>
+                <div class="col">
+                    <input type="range" class="form-range form-range-sm" min="0" max="360" step="1" id="theta" list="thetamarkers">
+                    <datalist id="thetamarkers">
+                        <option value="0"></option>
+                        <option value="90"></option>
+                        <option value="180"></option>
+                        <option value="270"></option>
+                        <option value="360"></option>
+                    </datalist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--button>Refresh</button-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/uicontrol_plot3d.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
+// Unitary test for conversion of Matlab function: ISSPARSE
+exec("SCI/modules/m2sci/tests/unit_tests/utils/m2sciTestConversion.sci", -1);
+if ~m2sciTestConversion("ISSPARSE") then bugmes();quit;end
+  ****** Beginning of mfile2sci() session ******
+  File to convert: SCI/modules/m2sci/tests/unit_tests/mfiles/ISSPARSE.m
+  Result file path: TMPDIR/
+  Recursive mode: OFF
+  Only double values used in M-file: NO
+  Verbose mode: -1
+  Generate formatted code: YES
+  M-file reading...
+  M-file reading: Done
+  Syntax modification...
+  Syntax modification: Done
+  Macro to tree conversion...
+  Conversion of M-tree...
+  L.7: Unknown variable m2sciUnknownType is a M-file.
+  L.9: Unknown variable m2sciUnknownDims is a M-file.
+  L.19: Unknown variable m2sciUnknownType is a M-file.
+  L.21: Unknown variable m2sciUnknownType is a M-file.
+  L.23: Unknown variable m2sciUnknownType is a M-file.
+  L.25: Unknown variable m2sciUnknownType is a M-file.
+  L.27: Unknown variable m2sciUnknownDims is a M-file.
+  L.29: Unknown variable m2sciUnknownDims is a M-file.
+  L.31: Unknown variable m2sciUnknownDims is a M-file.
+  L.33: Unknown variable m2sciUnknownDims is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  Variable i supposed to be the Imaginary unit.
+  Variable i supposed to be the Imaginary unit.
+  Variable i supposed to be the Imaginary unit.
+  L.43: Unknown variable m2sciUnknownType is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.45: Unknown variable m2sciUnknownType is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.47: Unknown variable m2sciUnknownType is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.49: Unknown variable m2sciUnknownType is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.51: Unknown variable m2sciUnknownDims is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.53: Unknown variable m2sciUnknownDims is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.55: Unknown variable m2sciUnknownDims is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.57: Unknown variable m2sciUnknownDims is a M-file.
+  Variable i supposed to be the Imaginary unit.
+  L.69: Unknown variable m2sciUnknownType is a M-file.
+  L.71: Unknown variable m2sciUnknownType is a M-file.
+  L.73: Unknown variable m2sciUnknownType is a M-file.
+  L.75: Unknown variable m2sciUnknownType is a M-file.
+  L.77: Unknown variable m2sciUnknownType is a M-file.
+  L.79: Unknown variable m2sciUnknownDims is a M-file.
+  L.81: Unknown variable m2sciUnknownDims is a M-file.
+  L.83: Unknown variable m2sciUnknownDims is a M-file.
+  L.85: Unknown variable m2sciUnknownDims is a M-file.
+  L.87: Unknown variable m2sciUnknownDims is a M-file.
+  L.97: Unknown variable m2sciUnknownType is a M-file.
+  L.99: Unknown variable m2sciUnknownType is a M-file.
+  L.101: Unknown variable m2sciUnknownType is a M-file.
+  L.103: Unknown variable m2sciUnknownType is a M-file.
+  L.105: Unknown variable m2sciUnknownDims is a M-file.
+  L.107: Unknown variable m2sciUnknownDims is a M-file.
+  L.109: Unknown variable m2sciUnknownDims is a M-file.
+  L.111: Unknown variable m2sciUnknownDims is a M-file.
+  Conversion of M-tree: Done
+TESTING M2SCI: creating varslist file...
+  Macro to tree conversion: Done
+  ****** End of mfile2sci() session ******
+Syntaxes = [
+    "%m2scideclare a|3 5|Sparse|Real"     ""
+    "issparse(a)"                         "or(type(a)==[5,6])"
+    "%m2scideclare b|3 5|Sparse|?"        ""
+    "issparse(b)"                         "or(type(b)==[5,6])"
+    "%m2scideclare c|3 5|Boolean|?"       ""
+    "issparse(c)"                         "or(type(c)==[5,6])"
+    "%m2scideclare d|3 5|Boolean|Sparse"  ""
+    "issparse(d)"                         "or(type(d)==[5,6])"
+    "%m2scideclare e|3 5|?|?"             ""
+    "issparse(e)"                         "or(type(e)==[5,6])"
+    ];
+mfile = TMPDIR + "/OPERATORS_special_syntax";
+mputl(Syntaxes(:,1), mfile + ".m");
+mfile2sci(mfile + ".m", TMPDIR)
+  ****** Beginning of mfile2sci() session ******
+  File to convert: TMPDIR/OPERATORS_special_syntax.m
+  Result file path: TMPDIR/
+  Recursive mode: OFF
+  Only double values used in M-file: NO
+  Verbose mode: 3
+  Generate formatted code: NO
+  M-file reading...
+  M-file reading: Done
+  Syntax modification...
+  Syntax modification: Done
+  Macro to tree conversion...
+  Conversion of M-tree...
+  Conversion of M-tree: Done
+  Macro to tree conversion: Done
+  ****** End of mfile2sci() session ******
+ ans  =
+   1.
+Res = mgetl(mfile + ".sci");
+assert_checkequal(Res, [""; Syntaxes(:,2)]);

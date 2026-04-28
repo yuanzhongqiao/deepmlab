@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="rowfun" xml:lang="en">
+    <refnamediv>
+        <refname>rowfun</refname>
+        <refpurpose>apply a function to each row of the table/timeseries</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            r = rowfun(f, t)
+            r = rowfun(f, t, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>function to apply with prototype [r1, ..., rN] = f(x1, ..., xN).</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table or timeseries object in input</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"InputVariables"</emphasis>, variable names or variable indices</term>
+                <listitem>
+                    <para> 
+                        the function will be apply only on this specified variables.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"GroupingVariables"</emphasis>, variable names or variable indices</term>
+                <listitem>
+                    <para> 
+                        variables values are used to create unique groups.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"OutputVariableNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        variable names for output table corresponding to the wanted output arguments of the function f.
+                        If omitted, the value is generated using 'NumOutputs' ("Var1", ...).
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"NumOutputs"</emphasis>, real scalar</term>
+                <listitem>
+                    <para> 
+                        number of wanted output arguments of the function f. 
+                        If omitted, the default value is 1 or size of 'OutputVariableNames'.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>output argument - table or timeseries object (same object as t).</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <emphasis role="bold">rowfun</emphasis> function returns a <link linkend="table">table</link> 
+            or <link linkend="timeseries">timeseries</link> (same object as t) 
+            where each row contains the result of the function applied to each row of t.
+        </para>
+        <para>
+            <emphasis role="bold">r = rowfun(f, t)</emphasis> applies the function f to each row of t.
+        </para>
+        <para>
+            To apply the function only on certain table variables, <emphasis role="bold">InputVariables</emphasis> 
+            must be specified: <emphasis role="bold">r = rowfun(f, t, "InputVariables", ["Var1", ...,])</emphasis>.
+            It is also possible to use the syntax <emphasis role="bold">v = rowfun(f, t(:, ["Var1", ...,]))</emphasis>.
+        </para>
+        <para>
+            <emphasis role="bold">r = rowfun(f, t, "GroupingVariables", ["Var1", ...,])</emphasis> allows to specify 
+            the variables values are used to create unique groups. The function f will be applied to each group of rows 
+            of t.
+        </para>
+        <para>
+            The function f can have multiple output arguments. <emphasis role="bold">r = rowfun(..., NumOutputs, val)</emphasis>
+             allows to specify the number of output arguments. To give a name of output variable, 
+             <emphasis role="bold">r = rowfun(..., OutputVariableNames, ["VarOutput1", ...])</emphasis> syntax must be used.
+        </para> 
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">r = rowfun(f, t)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function z = f(x, y)
+                z = x + y;
+            endfunction
+
+            rand("seed", 0)
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x1, x2, "VariableNames", ["x1", "x2"])
+
+            r = rowfun(f, t)
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            r = rowfun(f, ts)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">r = rowfun(f, t, "InputVariables", ["Var1", ...])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function z = f(x, y)
+                z = x + y;
+            endfunction
+
+            rand("seed", 0)
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            x3 = floor(rand(5,1)*5)+1;
+            t = table(x1, x2, x3, "VariableNames", ["x1", "x2", "x3"])
+            
+            r = rowfun(f, t, "InputVariables", ["x1", "x3"])
+
+            // Possible with extraction: t(:, ["var1", ..., "varN"])
+            r = rowfun(f, t(:, ["x1", "x3"]))
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, x3, "VariableNames", ["timestamp", "x1", "x2", "x3"])
+
+            r = rowfun(f, ts, "InputVariables", ["x1", "x3"])
+            r = rowfun(f, ts(:, ["x1", "x3"]))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">v = rowfun(f, t, "GroupingVariables", ["Var1", ...])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function z = f(x, y)
+                z = x + y;
+            endfunction
+
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            x3 = floor(rand(5,1)*5)+1;
+            t = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+            
+            r = rowfun(f, t, "GroupingVariables", "x")
+
+            t.x3 = x3;
+            r = rowfun(f, t, "GroupingVariables", "x", "InputVariables", ["x1", "x3"])
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            r = rowfun(f, ts, "GroupingVariables", "timestamp")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">v = rowfun(..., "OutputVariableNames", ["Var1", ...])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function z = f(x, y)
+                z = x + y;
+            endfunction
+
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+            
+            r = rowfun(f, t, "GroupingVariables", "x", "OutputVariableNames", "result")
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            r = rowfun(f, ts, "GroupingVariables", "timestamp", "OutputVariableNames", "result")
+        ]]>
+        </programlisting>
+        </para>
+        <programlisting role="example"><![CDATA[
+            function [z1, z2, z3] = f(x, y)
+                z1 = x + y;
+                z2 = x - y;
+                z3 = x.^2 + y.^2;
+            endfunction
+
+            rand("seed", 0)
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x1, x2, "VariableNames", ["x1", "x2"])
+            
+            r = rowfun(f, t, "OutputVariableNames", ["a", "b", "c"])
+            r = rowfun(f, t, "NumOutputs", 3)
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            r = rowfun(f, t, "OutputVariableNames", ["a", "b", "c"])
+            r = rowfun(f, t, "NumOutputs", 3)
+        ]]>
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+            <member>
+                <link linkend="varfun">varfun</link>
+            </member>
+            <member>
+                <link linkend="groupcounts">groupcounts</link>
+            </member>
+            <member>
+                <link linkend="groupsummary">groupsummary</link>
+            </member>
+            <member>
+                <link linkend="pivot">pivot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

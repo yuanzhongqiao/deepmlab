@@ -1,0 +1,259 @@
+# Russian translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2018-06-30 13:12+0000\n"
+"Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+msgid "Warning: Problem(s) with TCL/TK interface. Interface not enabled.\n"
+msgstr "Предупреждение: Проблемы с интерфейсом TCL/TK. Интерфейс не включён.\n"
+
+msgid "Tcl/TK interface disabled in -nogui mode.\n"
+msgstr "В режиме -nogui интерфейс Tcl/TK отключён.\n"
+
+#, c-format
+msgid "%s: Error main TCL interpreter not initialized.\n"
+msgstr "%s: Ошибка. Главный TCL-интерпретатор не инициализирован.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgstr "%s: Неверный тип аргумента №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: No such slave interpreter.\n"
+msgstr "%s: Не тот ведомый интерпретатор.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr "%s: Неверный тип входного аргумента №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: File %s not found.\n"
+msgstr "%s: Файл %s не найден.\n"
+
+#, c-format
+msgid ""
+"%s, at line %i of file %s\n"
+"\t%s.\n"
+msgstr ""
+"%s, а строке %i файла %s\n"
+"\t%s.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgstr ""
+"%s: Неверное значение аргумента №%d: ожидалась матрица строковых значений.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: Ошибка распределения памяти.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: String or vector of strings "
+"expected.\n"
+msgstr ""
+"%s: Неверный тип входного аргумента №%d: ожидалась строковое значение или "
+"вектор строковых значений.\n"
+
+#, c-format
+msgid "%s: No more memory.\n"
+msgstr "%s: Недостаточно памяти.\n"
+
+#, c-format
+msgid "%s: Could not read Tcl Variable.\n"
+msgstr "%s: Не могу прочитать Tcl-переменную.\n"
+
+msgid "Alpha Release"
+msgstr "Альфа-релиз"
+
+msgid "Beta Release"
+msgstr "Бета-релиз"
+
+msgid "Final Release"
+msgstr "Конечный релиз"
+
+msgid "Unknown Release"
+msgstr "Неизвестный релиз"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
+msgstr "%s: Неверное значение входного аргумента №%d: ожидалось «%s».\n"
+
+msgid "This function doesn't work with Complex.\n"
+msgstr "Эта функция не работает с комплексными числами.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: A real expected.\n"
+msgstr "%s: Неверный тип аргумента %d: ожидался тип real.\n"
+
+msgid "[] doesn't work with Tcl/Tk.\n"
+msgstr "[] не работает с Tcl/Tk.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
+msgstr "%s: Неверный тип входного аргумента №%d: Ожидалась матрица.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d or #%d: String expected.\n"
+msgstr "%s: Неверный тип входного аргумента №%d или №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: An error occurred: %s\n"
+msgstr "%s: Произошла ошибка: %s\n"
+
+msgid "Impossible to set environment variable."
+msgstr "Невозможно задать переменную окружения."
+
+msgid "Impossible to set system encoding."
+msgstr "Невозможно задать системную кодировку."
+
+msgid ""
+"The SCI environment variable is not set.\n"
+"TCL initialisation failed !\n"
+msgstr ""
+"Переменная окружения SCI не задана.\n"
+"Сбой инициализации TCL!\n"
+
+msgid ""
+"Unable to find Tcl initialisation scripts.\n"
+"Check your SCI environment variable.\n"
+"Tcl initialisation failed !"
+msgstr ""
+"Не удалось найти скрипт инициализации Tcl.\n"
+"Проверьте вашу переменную окружения SCI.\n"
+"Сбой инициализации Tcl!"
+
+msgid ""
+"The SCI environment variable is not set.\n"
+"Tcl initialisation failed !\n"
+msgstr ""
+"Переменная окружения SCI не задана.\n"
+"Сбой инициализации TCL!\n"
+
+msgid "Tcl Error: Unable to create Tcl interpreter (Tcl_CreateInterp).\n"
+msgstr "Ошибка Tcl: Не удалось создать интерпретатор Tcl (Tcl_CreateInterp).\n"
+
+#, c-format
+msgid "Tcl Error: Error during the Tcl initialization (Tcl_Init): %s\n"
+msgstr "Ошибка Tcl: Ошибка во время инициализации Tcl (Tcl_Init): %s\n"
+
+#, c-format
+msgid "Tcl Error: Error during the TK initialization (Tk_Init): %s\n"
+msgstr "Ошибка Tcl: Ошибка в процессе инициализации TK (Tk_Init): %s\n"
+
+#, c-format
+msgid ""
+"Tcl Error: Error during the Scilab/Tcl init process. Could not set SciPath: "
+"%s\n"
+msgstr ""
+"Ошибка Tcl: Ошибка во время процесса инициализации Scilab/TK. Невозможно "
+"задать SciPath: %s\n"
+
+#, c-format
+msgid ""
+"Tcl Error: Error during the Scilab/TK init process. Error while loading %s: "
+"%s\n"
+msgstr ""
+"Ошибка Tcl: Ошибка во время процесса инициализации Scilab/TK. Ошибка при "
+"загрузке %s: %s\n"
+
+#, c-format
+msgid "Tcl Error : %s\n"
+msgstr "Ошибка Tcl : %s\n"
+
+#, c-format
+msgid "Tcl Error: %s\n"
+msgstr "Ошибка Tcl: %s\n"
+
+msgid "Variable too long.\n"
+msgstr "Слишком длинная переменная.\n"
+
+#, c-format
+msgid "%s: Error TCL interpreter not initialized.\n"
+msgstr "%s: Ошибка: интерпретатор TCL не инициализирован.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): at least one expected.\n"
+msgstr "%s: Неверное количество входных аргументов: ожидался хотя бы один.\n"
+
+msgid "Scilab TCL/TK module not installed.\n"
+msgstr "Модуль TCL/TK не установлен.\n"
+
+msgid "Color"
+msgstr "Цвет"
+
+msgid "Puzzle"
+msgstr "Головоломка"
+
+msgid "Scroll"
+msgstr "Прокрутка"
+
+msgid "Scale"
+msgstr "Масштаб"
+
+#, c-format
+msgid "%s: Argument #%d: Text(s) expected.\n"
+msgstr "%s: Аргумент №%d: ожидался текст.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Variable undefined.\n"
+msgstr "%s: Аргумент №%d:  ожидалась переменная.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Name of a variable of type 1, 4 or 10 expected.\n"
+msgstr "%s: Аргумент №%d: ожидалось имя переменной типа 1, 4 или 10.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr "%s: Неверное количество входных параметров: ожидалось от %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: Неверное количество выходных параметров: ожидалось %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A String expected.\n"
+msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A Boolean expected.\n"
+msgstr ""
+"%s: Неверный тип входного параметра №%d: ожидалось логическое значение.\n"
+
+#, c-format
+msgid "%s: Slave interpreter already exists.\n"
+msgstr "%s: Ведомый интерпретатор уже существует.\n"
+
+#
+# File: modules/tclsci/macros/ged_move_entity.sci, line: 38
+msgid "Mouse moving picker ON => Console LOCKED"
+msgstr ""
+
+#
+# File: modules/tclsci/macros/ged_move_entity.sci, line: 39
+msgid "On a figure: Click left to get and set. Click middle to QUIT...\n"
+msgstr ""
+
+#
+# File: modules/tclsci/macros/ged_move_entity.sci, line: 192
+msgid ""
+"\n"
+"--> // Moving picker OFF => Back to the console.\n"
+msgstr ""
+
+#, c-format
+msgid "Error %s while loading library %s"
+msgstr "Ошибка %s при загрузке библиотеки %s"

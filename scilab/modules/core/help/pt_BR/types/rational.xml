@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2005 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="rational" xml:lang="pt">
+    <refnamediv>
+        <refname>rational</refname>
+        <refpurpose>razão de polinômios</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Um razão de polinômios <literal>r</literal> é um quociente entre dois polinômios
+            <literal>r=num/den</literal>.
+        </para>
+        <para>
+            Uma matriz <literal>R</literal> de razãos de polinômios pode ser definida diretamente
+            como o elemento-wise quociente de dois matrizes de polinômios <literal>Num</literal> e
+            <literal>Den</literal>: <literal>R = Num./Den</literal>
+        </para>
+        <para>
+            A representação interna de uma matriz de razãos de polinômios racional é uma lista do
+            tipo "r": <literal>R=tlist(['r','num','den','dt'], Num, Den, [])</literal>, ou
+            <literal>R = rlist(Num, Den, [])</literal>.
+        </para>
+        <para>
+            Todos os operadores usuais podem ser aplicados a matrizes de razãos de polinômios :
+            <literal>'  .'  +  -  *  .*  /  ./  .^  .*.  [,] [;]</literal>,
+        </para>
+        <para>
+            Quanto aos polinômios, a função <literal>horner()</literal> calcula o valor de razãos
+            para algum valor de sua variável.
+        </para>
+        <para>
+            Muitas outras funções do Scilab podem ser aplicadas a frações polinomiais :
+            <literal>permute</literal>,
+            <literal>cat</literal>, <literal>real</literal>, <literal>imag</literal>,
+            <literal>conj</literal>, <literal>isreal</literal>, etc.
+        </para>
+        <warning>
+            Endereçando alguns componentes de uma matriz <literal>R</literal> de razãos com seus
+            índices linearizados podem ser feitos usando a sintaxe <literal>R(k,0)</literal> onde
+            <literal>k</literal> é o vetor de índices linearizados, e 0 é usado em vez de
+            índices <literal>j</literal> ou de maior ordem.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+s=poly(0,'s');
+W=[1/s,1/(s+1)]
+W'*W
+Num=[s,s+2;1,s];Den=[s*s,s;s,s*s];
+rlist(Num,Den,[])
+H=Num./Den
+syslin('c',Num,Den)
+syslin('c',H)
+[Num1,Den1]=simp(Num,Den)
+ ]]></programlisting>
+    <para/>
+    <programlisting role="example"><![CDATA[
+R = (1-%s).^[1 0 2] ./ %s.^[1 2 0]
+horner(R,[-1 0 2 -2]')
+
+R = (1-%s)/(1+%s)
+horner(R, 1-%z^2)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> R = (1-%s).^[1 0 2] ./ %s.^[1 2 0]
+ R  =
+                         2
+   1 - s   1   1 - 2s + s
+   ------  --  -----------
+            2
+     s     s       1
+
+--> horner(R,[-1 0 2 -2]')
+ ans  =
+  -2.    1.     4.
+   Inf   Inf    1.
+  -0.5   0.25   1.
+  -1.5   0.25   9.
+
+--> R = (1-%s)/(1+%s)
+ R  =
+   1 - s
+   ------
+   1 + s
+
+--> horner(R, 1-%z^2)
+ ans  =
+      2
+     z
+   ------
+        2
+   2 - z
+]]></screen>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="poly">poly</link>
+            </member>
+            <member>
+                <link linkend="syslin">syslin</link>
+            </member>
+            <member>
+                <link linkend="horner">horner</link>
+            </member>
+            <member>
+                <link linkend="simp">simp</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    The syntax <literal>R(k,0)</literal> is now available to address components
+                    with their linearized indices k.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

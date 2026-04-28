@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isdef" xml:lang="ja">
+    <refnamediv>
+        <refname>isdef</refname>
+        <refpurpose>変数の存在を確認</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            ve = isdef(name)
+            ve = isdef(name, where)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>ve</term>
+                <listitem>
+                    <para>
+                        論理値を有する <varname>name</varname>と同じ大きさの行列
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>文字列の行列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>where</term>
+                <listitem>
+                    <para>
+                        文字列, <literal>'l'</literal> (<literal>"local"</literal>の場合),
+                        <literal>'n'</literal> (<literal>"nolocal"</literal>の場合) or
+                        <literal>'a'</literal> (<literal>"all"</literal>の場合)を指定できます.
+                        デフォルト値は <literal>'a'</literal>です.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <code>isdef(name)</code>は,
+            <varname>name</varname> という名前の変数が存在する場合に
+            <constant>%T</constant>,それ以外の場合に <constant>%F</constant>を返します.
+        </para>
+        <para>
+            <caution>
+                注意: <function>isdef</function> を使用する関数
+                は環境に依存した結果を返す可能性があります!
+            </caution>
+        </para>
+        <para>
+            <code>isdef(name, 'l')</code> は,
+            <varname>name</varname> という名前の変数がカレントの関数のローカル環境に
+            存在する場合に<constant>%T</constant>,
+            それ以外の場合に <constant>%F</constant> を返します.
+        </para>
+        <para>
+            <code>isdef(name, 'n')</code>  は,
+            <varname>name</varname> という名前の変数が
+            (グローバルレベルを含む)呼び出した側の環境に
+            存在する場合に<constant>%T</constant>,
+            それ以外の場合に <constant>%F</constant>を返します.
+        </para>
+        <note>
+            注意: <varname>where</varname>オプション
+            の最初の1文字のみが処理されます.
+        </note>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+A = 1; B = 2; C = 3; D = 4;
+isdef(['A', 'B'; 'C', 'D'])
+clear A B C D;
+isdef(['A', 'B'; 'C', 'D'])
+function level1()
+  function level2()
+    disp(isdef(["a", "b"], "a"));
+    disp(isdef(["a", "b"], "l"));
+    disp(isdef(["a", "b"], "n"));
+  endfunction
+  level2()
+endfunction
+function go()
+  a = 1;
+  level1()
+endfunction
+go()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="exists">exists</link>
+            </member>
+            <member>
+                <link linkend="isglobal">isglobal</link>
+            </member>
+            <member>
+                <link linkend="whereis">whereis</link>
+            </member>
+            <member>
+                <link linkend="type">type</link>
+            </member>
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+            <member>
+                <link linkend="clear">clear</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

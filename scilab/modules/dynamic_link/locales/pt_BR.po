@@ -1,0 +1,613 @@
+# Brazilian Portuguese translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2016-10-19 13:04+0000\n"
+"Last-Translator: Ramiro Pereira de Magalhães <ramiro.p.magalhaes@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s : Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s : Wrong type for input argument #%d: String vector expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s : second argument must be a unique id of a shared library.\n"
+msgstr ""
+"%s : o segundo argumento deve ser um identificador único de uma biblioteca "
+"compartilhada.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: unable to find entry point %ls.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A real matrix or a string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A real scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : string expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: '%s', '%s', '%s' or '%s' expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: incompatible type between input and output variables.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: incompatible sizes between input and output variables.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A int expected.\n"
+msgstr ""
+"%s: Valor incorreto para o argumento de entrada #%d: esperava-se um número "
+"inteiro.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s Wrong type for input argument #%d: string or string vector expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s : Wrong value for argument #%d: %s\n"
+msgstr "%s : Valor errado para o argumento #%d: %s\n"
+
+msgid "Unique id of a shared library expected."
+msgstr "Esperava-se um identificador único de uma biblioteca compartilhada."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar or a string expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"Number of entry points %d.\n"
+"Shared libraries :\n"
+msgstr ""
+"Número de pontos de entrada %d.\n"
+"Bibliotecas compartilhadas :\n"
+
+#, c-format
+msgid "] : %d library.\n"
+msgstr "] : %d biblioteca.\n"
+
+#, c-format
+msgid "] : %d libraries.\n"
+msgstr "] : %d bibliotecas.\n"
+
+#, c-format
+msgid "Entry point %ls in shared library %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: real scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: The shared archive was not loaded: %s\n"
+msgstr "%s: O arquivo compartilhado não foi carregado: %s\n"
+
+#, c-format
+msgid "%s: Shared lib %s does not exist.\n"
+msgstr "%s: A biblioteca compartilhada %s não existe.\n"
+
+#, c-format
+msgid "%s: Already loaded from library %s\n"
+msgstr "%s: Já carregado da biblioteca %s\n"
+
+#, c-format
+msgid "%s: problem with one of the entry point.\n"
+msgstr "%s: Problema com um dos pontos de entrada.\n"
+
+#, c-format
+msgid "%s: can not to load a x86 dll in a x64 environment.\n"
+msgstr "%s: não é possível carregar uma dll x86 em um ambiente x64.\n"
+
+#, c-format
+msgid "%s: can not load a x64 dll in a x86 environment.\n"
+msgstr "%s: não é possível carregar uma dll x64 em um ambiente x86.\n"
+
+#, c-format
+msgid "%ls: The file %ls does not exist in PATH environment.\n"
+msgstr ""
+
+#, c-format
+msgid "Link failed for dynamic library '%ls'.\n"
+msgstr ""
+
+#, c-format
+msgid "An error occurred: %s\n"
+msgstr "Um erro ocorreu: %s\n"
+
+msgid "Shared archive loaded.\n"
+msgstr "Arquivo compartilhado carregado.\n"
+
+msgid "Link done.\n"
+msgstr "Link feito.\n"
+
+#, c-format
+msgid "Entry name %ls.\n"
+msgstr ""
+
+#, c-format
+msgid "%ls is not an entry point.\n"
+msgstr ""
+
+#, c-format
+msgid "Linking %ls.\n"
+msgstr ""
+
+msgid "Calling a C function from Scilab.\n"
+msgstr ""
+
+msgid "Calling ilib_for_link to build C function.\n"
+msgstr ""
+
+msgid "Calling C function. Z = X+Y"
+msgstr ""
+
+#, c-format
+msgid "with X = %d"
+msgstr ""
+
+#, c-format
+msgid "with Y = %d"
+msgstr ""
+
+#, c-format
+msgid "Result Z = %d"
+msgstr ""
+
+msgid "Calling C function. Z = (1+Y)**X - 1"
+msgstr ""
+
+msgid "Calling a C++ function from Scilab.\n"
+msgstr ""
+
+msgid "Calling ilib_for_link to build C++ function.\n"
+msgstr ""
+
+msgid "Calling C++ function. Z = X+Y"
+msgstr ""
+
+msgid "Calling a Fortran subroutine from Scilab.\n"
+msgstr ""
+
+msgid "Calling ilib_for_link to build a Fortran subroutine.\n"
+msgstr ""
+
+msgid "Calling Fortran subroutine. Z = X+Y"
+msgstr ""
+
+msgid "Calling Fortran subroutine. Z = (1+Y)**X - 1"
+msgstr ""
+
+msgid "Dynamic link"
+msgstr ""
+
+msgid "Call a C function"
+msgstr ""
+
+msgid "Call a C function (using C standard library)"
+msgstr ""
+
+msgid "Call a Fortran subroutine"
+msgstr ""
+
+msgid "Call a Fortran subroutine (with Fortran intrinsics)"
+msgstr ""
+
+msgid "Call a C++ function"
+msgstr ""
+
+msgid "Call a C++ function (using C++ Standard Library)"
+msgstr ""
+
+#, c-format
+msgid "%s: A Fortran or C compiler is required.\n"
+msgstr "%s: Um compilador de Fortran ou C necessário.\n"
+
+msgid "Intel Fortran Compiler 9, 10, 11 or 12 Compiler not found."
+msgstr ""
+"Não foi possível encontrar um compilador Intel Fortran 9, 10, 11 ou 12."
+
+msgid ""
+"Microsoft Visual Studio C 2008 (or more recent) x64 Compiler not installed."
+msgstr ""
+
+msgid "Microsoft Visual Studio C 2008 (or more recent) Compiler not found."
+msgstr ""
+
+#, c-format
+msgid "%s: This feature has been implemented for Windows.\n"
+msgstr "%s: Este recurso foi implementado apenas para Windows.\n"
+
+#, c-format
+msgid "%s: The file %s does not exist.\n"
+msgstr "%s: O arquivo %s não existe.\n"
+
+#, c-format
+msgid "%s: Cannot open file %s.\n"
+msgstr "%s: Não foi possível abrir o arquivo %s.\n"
+
+#, c-format
+msgid "%s: Feature not available under Microsoft Windows.\n"
+msgstr "%s: Recurso não disponível para o Microsoft Windows.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: Quantidade incorreta de argumentos de entrada: esperava-se %d.\n"
+
+msgid ""
+"Due to the multivendors nature of the Unix world, the function "
+"'haveacompiler' is only supported under Windows."
+msgstr ""
+"Dada a natureza multifabricante do mundo Unix, a função \"haveacompiler\" só "
+"tem suporte no Windows."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr ""
+"%s: Tamanho incorreto para o argumento de entrada #%d: esperava-se um "
+"texto.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A matrix of strings expected.\n"
+msgstr ""
+"%s: Tipo incorreto para o argumento de entrada #%d: esperava-se uma matriz "
+"de textos.\n"
+
+#, c-format
+msgid "%s: A managed file extension for input argument #%d expected."
+msgstr ""
+"%s: esperava-se uma extensão de arquivo gerenciada para o argumento de "
+"entrada #%d."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d:  or [] expected.\n"
+msgstr ""
+"%s: Valor incorreto para o argumento de entrada #%d:  ou [] esperado.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: existing file(s) expected.\n"
+msgstr ""
+"%s: Valor incorreto para o argumento de entrada #%d: esperava-se arquivo(s) "
+"existente(s).\n"
+
+#, c-format
+msgid "%s: %s already loaded in scilab."
+msgstr "%s: %s já está carregado no Scilab."
+
+msgid "You need to unload this library before."
+msgstr "Você precisa descarregar esta biblioteca antes."
+
+msgid "   Generate a gateway file\n"
+msgstr "   Gerar um arquivo de gateway\n"
+
+#, c-format
+msgid "%s: %s format is not supported by your compiler."
+msgstr ""
+
+msgid "   Generate a loader file\n"
+msgstr "   Gerar um arquivo de carga\n"
+
+msgid "   Generate a Makefile\n"
+msgstr "   Gerar um Makefile\n"
+
+msgid "   Running the makefile\n"
+msgstr "   Executando o makefile\n"
+
+msgid "   Generate a cleaner file\n"
+msgstr "   Gerar um arquivo mais limpo\n"
+
+#, c-format
+msgid "%s: function not available in NWNI mode.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): 3 to 5 expected.\n"
+msgstr ""
+
+#, c-format
+msgid "   Building JAR library %s\n"
+msgstr ""
+
+#, c-format
+msgid "Cannot create jar build dir %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"   Add dependency class paths:\n"
+"%s\n"
+msgstr ""
+
+#, c-format
+msgid "   Build package %s\n"
+msgstr ""
+
+msgid "   Compiling source files:\n"
+msgstr ""
+
+#, c-format
+msgid "   Compiling Java sources in %s\n"
+msgstr ""
+
+#, c-format
+msgid "No Java sources in %s to compile for package %s"
+msgstr ""
+
+#, c-format
+msgid "Cannot create jar package directory %s"
+msgstr ""
+
+#, c-format
+msgid "   Copying compiled package from %s to %s\n"
+msgstr ""
+
+#, c-format
+msgid "Cannot find compilation directory %s for package %s"
+msgstr ""
+
+#, c-format
+msgid "   Creating JAR archive %s\n"
+msgstr ""
+
+#, c-format
+msgid "Cannot create JAR file %s"
+msgstr ""
+
+#, c-format
+msgid "   Creating scripts for JAR relative path %s\n"
+msgstr ""
+
+#, c-format
+msgid "   Create loader script for Java %s\n"
+msgstr ""
+
+#, c-format
+msgid "   Create cleaner script for Java %s\n"
+msgstr ""
+
+msgid "A Fortran or C compiler is required."
+msgstr "É exigido um copilador C ou Fortran."
+
+#, c-format
+msgid ""
+"%s: Warning: Scilab has not been able to find where the Scilab sources are. "
+"Please submit a bug report on https://gitlab.com/scilab/scilab/-/issues\n"
+msgstr ""
+"%s: Alerta: Scilab não foi capaz de encontrar onde os fontes do Scilab se "
+"encontram. Por favor envie um relato de erro através de http://bugzilla."
+"scilab.org/\n"
+
+#, c-format
+msgid "%s: Build command: %s\n"
+msgstr "%s: construir comando: %s\n"
+
+#, c-format
+msgid "Output: %s\n"
+msgstr "Saída: %s\n"
+
+#, c-format
+msgid "stderr: %s\n"
+msgstr "saída de erro padrão: %s\n"
+
+#, c-format
+msgid "%s: An error occurred during the compilation:\n"
+msgstr "%s: Ocorreu um erro durante a compilação:\n"
+
+#, c-format
+msgid "%s: The command was:\n"
+msgstr "%s: O comando foi:\n"
+
+#, c-format
+msgid ""
+"%s: Warning: No error code returned by the compilation but the error output "
+"is not empty:\n"
+msgstr ""
+"%s: Aviso: Nenhum código de erro foi retornado pela compilação mas a saída "
+"de erro não está vazia:\n"
+
+#, c-format
+msgid "%s: Could not find the built library '%s'.\n"
+msgstr "%s: Não foi possível localizar a biblioteca \"%s\".\n"
+
+#, c-format
+msgid "%s: A managed file extension for input argument #%d expected.\n"
+msgstr ""
+"%s: esperava-se uma extensão de arquivo gerenciada para o argumento de "
+"entrada #%d.\n"
+
+msgid "F2C cannot build fortran 90"
+msgstr "F2C não pode construir fortran 90"
+
+msgid "   Running the Makefile\n"
+msgstr "   Executando o Makefile\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s: Tamanho errado para o argumento de entrada #%d.\n"
+
+#, c-format
+msgid "   %s: Copy compilation files (Makefile*, libtool...) to TMPDIR\n"
+msgstr ""
+"   %s: Copia os arquivos de compilação (Makefile*, libtool...) para TMPDIR\n"
+
+#, c-format
+msgid "   %s: Copy %s to TMPDIR\n"
+msgstr "   %s: Copia %s para TMPDIR\n"
+
+#, c-format
+msgid ""
+"   %s: Did not copy %s: Source and target directories are the same (%s).\n"
+msgstr "   %s: Não copiou %s: Diretórios fonte e destino são o mesmo (%s).\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: existing file(s) expected. Provided: "
+"%s\n"
+msgstr ""
+"%s: Valor incorreto para o argumento de entrada #%d: esperava-se um arquivo "
+"existente. O fornecido foi %s.\n"
+
+#, c-format
+msgid "   %s: File %s ignored.\n"
+msgstr "   %s: Arquivo %s ignorado.\n"
+
+#, c-format
+msgid "   %s: Use the previous detection of compiler.\n"
+msgstr "   %s: Usar a detecção anterior do compilador.\n"
+
+#, c-format
+msgid "   %s: Need to run the compiler detection (configure).\n"
+msgstr "   %s: É necessário rodar a detecção de compilador (configurar).\n"
+
+#, c-format
+msgid "   %s: Modification of the Makefile in TMPDIR.\n"
+msgstr "   %s: Modificação do Makefile em TMPDIR.\n"
+
+#, c-format
+msgid "   %s: Substitute the reference by the actual file.\n"
+msgstr "   %s: substituir a referência pelo arquivo atual.\n"
+
+#, c-format
+msgid "   Command: %s\n"
+msgstr "   Comando: %s\n"
+
+#, c-format
+msgid "%s: Error while modifying the reference Makefile:\n"
+msgstr "%s: erro quando modificando o Makefile de referência:\n"
+
+#, c-format
+msgid "   %s: configure : Generate Makefile.\n"
+msgstr "   %s: Configurar: Gerar Makefile.\n"
+
+#, c-format
+msgid "   %s: Command: %s\n"
+msgstr "   %s: Comando: %s\n"
+
+#, c-format
+msgid "   Output: %s\n"
+msgstr "   Saída: %s\n"
+
+#, c-format
+msgid "   stderr: %s\n"
+msgstr "   stderr: %s\n"
+
+#, c-format
+msgid ""
+"%s: An error occurred during the detection of the compiler(s). Set "
+"ilib_verbose(2) for more information.\n"
+msgstr ""
+"%s: Ocorreu um erro ao detectar o(s) compilador(es). Defina ilib_verbose(2) "
+"para mais informações.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d expected.\n"
+msgstr "%s: Tamanho errado para o argumento de entrada #%d: Esperava-se %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d,%d or %d expected.\n"
+msgstr ""
+"%s: Quantidade incorreta de argumentos de entrada: esperava-se %d, %d ou "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Vector expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Failed to add include path : %s"
+msgstr "%s: Falhou em adicionar um caminho de inclusão: %s"
+
+msgid "   Compilation of "
+msgstr "   Compilação de "
+
+msgid "   Building shared library (be patient)\n"
+msgstr "   Criando bibioleteca compartilhada (seja paciente)\n"
+
+#, c-format
+msgid "%s: Error while executing %s.\n"
+msgstr "%s: Erro durante a execução de %s.\n"
+
+#, c-format
+msgid "%s: This feature required Microsoft visual studio C compiler.\n"
+msgstr "%s: Este recurso exige o compilador C do Microsoft visual studio.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr ""
+"%s: Tipo incorreto para o argumento de entrada #%d: esperava-se um "
+"booleano.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
+msgstr ""
+"%s: Tamanho incorreto para o argumento de entrada #%d: esperava-se uma "
+"grandeza escalar.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): at least %d expected.\n"
+msgstr ""
+"%s: Quantidade incorreta de argumentos de entrada: esperava-se pelo menos "
+"%d.\n"
+
+msgid "not found."
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected."
+msgstr ""

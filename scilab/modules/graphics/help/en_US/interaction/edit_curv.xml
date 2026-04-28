@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Serge Steer
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2017 - 2022 - Samuel GOUGEON - Le Mans Université
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="edit_curv">
+    <refnamediv>
+        <refname>edit_curv</refname>
+        <refpurpose>interactive modal (blocking) graphic curve editor</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [x, y, ok, gc] = edit_curv()
+            [x, y, ok, gc] = edit_curv(y)
+            [x, y, ok, gc] = edit_curv(x, y)
+            [x, y, ok, gc] = edit_curv(x, y, job)
+            [x, y, ok, gc] = edit_curv(x, y, job, titles)
+            [x, y, ok, gc] = edit_curv(x, y, job, titles, gc)
+            [x, y, ok, gc] = edit_curv(Axes, ..)
+
+            [x, y, ok, gc] = edit_curv(hCurve)
+            [x, y, ok, gc] = edit_curv(hCurve, job)
+            [x, y, ok, gc] = edit_curv(hCurve, job, titles)
+            [x, y, ok, gc] = edit_curv(hCurve, job, titles, gc)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                     <para>
+                        vector of initial or final x coordinates of the curve.
+                        Default value: <literal>1:length(y)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                     <para>
+                        vector of initial or final y coordinates of the curve. Default value:
+                        <literal>[]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hCurve</term>
+                <listitem>
+                     <para>
+                        Graphic handle of Polyline type: the existing curve to be edited.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Axes</term>
+                <listitem>
+                     <para>
+                        Graphic handle of the axes in which the given curve must be displayed and
+                        edited. The axes may be in a figure or in a uicontrol frame.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>job</term>
+                <listitem>
+                     <para>
+                        a character string made of one to four characters in any order among
+                        <literal>'a','d','x','y'</literal>, setting authorizations:
+                        <table>
+                            <tr><td valign="top"><emphasis role="bold">"a"</emphasis>:</td>
+                                <td>addition of points to the curve.</td>
+                            </tr>
+                            <tr><td valign="top"><emphasis role="bold">"d"</emphasis>:</td>
+                                <td>deletion of points of the curve.</td>
+                            </tr>
+                            <tr><td valign="top"><emphasis role="bold">"x"</emphasis>:</td>
+                                <td>moving points horizontally, along x.</td>
+                            </tr>
+                            <tr><td valign="top"><emphasis role="bold">"y"</emphasis>:</td>
+                                <td>moving points vertically, along y.</td>
+                            </tr>
+                        </table>
+                        Default value: <literal>"adxy"</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>titles</term>
+                <listitem>
+                     <para>
+                        a vector of three character strings:
+                        <literal>[axes_title, x_axis_legend, y_axis_legend]</literal>.
+                        By default, the current or default legends and title are unchanged.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>gc</term>
+                <listitem>
+                     <para>
+                        a list of graphic parameters: <literal>gc=list(dataBounds, xyTicks, lineStyles)</literal><table>
+                            <tr><td>dataBounds:</td>
+                                <td><literal>[xmin, ymin, xmax, ymax]</literal> values to assign to
+                                <literal>gca().data_bounds</literal> as new axes bounds.
+                                </td>
+                            </tr>
+                            <tr><td>xyTicks:</td>
+                                <td>
+                                    (unused) graduation parameters <literal>[nx,Nx,ny,Ny]</literal>:
+                                    Nx = number of major ticks along the x axis (-1 for autoticking).
+                                    nx = number of minor ticks between 2 major ticks.
+                                    Ny, ny: same thing along the y axis.
+                                </td>
+                            </tr>
+                            <tr><td>lineStyles:</td>
+                                <td><literal>[line_style, colorIndex, thickness, mark_style]</literal>
+                                    of the curve. <literal>%nan</literal> stands for keeping the default
+                                    value, that are <literal>[1 1 2 1]</literal>
+                                    (solid black 2-thick line with "+" marks).
+                                </td>
+                            </tr>
+                        </table><literal>list(,, lineStyles)</literal> will use default values for
+                        <literal>dataBounds</literal> and <literal>xyTicks</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ok</term>
+                <listitem>
+                     <para>
+                        Boolean: %t when <literal>edit_curv()</literal> is quit through the 'ok' menu.
+                        %F otherwise ('Abort' menu, Figure closed through its X cross..).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">Edition place</emphasis>:
+            <literal>edit_curv()</literal>,  <literal>edit_curv(y)</literal>,
+            <literal>edit_curv(x,y)</literal> and <literal>edit_curv(x,y,…)</literal>
+            open a new figure, edit the curve in this one, and finally close the figure when
+            leaving. <literal>edit_curv(Axes,…)</literal> edits the curve in the given existing
+            <varname>Axes</varname> set on a uicontrol frame or in a figure and made the current one.
+            <literal>edit_curv(hCurve,…)</literal> edits the given curve in its parent Axes.
+        </para>
+        <para>
+            <emphasis role="bold">Figure, Axes and curve settings and styles</emphasis>:
+            <literal>edit_curv(Axes,…)</literal> and <literal>edit_curv(hCurve,…)</literal>
+            change some settings of the figure: The graphics toolbar and existing menus are hidden.
+            Some menus are added; the title and x and y axis legends may be changed;
+            a grid is displayed in the axes area; the style of
+            the <varname>hCurve</varname> is changed (thickness, color, markers..).
+            When leaving, all initial settings are restored.
+        </para>
+        <para>
+            <literal>edit_curv(…)</literal> edits the curve in blocking mode: While editing,
+            it waits for validating or aborting the edition before returning to the calling
+            level and performing the next instruction.
+        </para>
+        <para>
+            The edited curve is set as the current graphical entity before returning.
+        </para>
+        <refsect3>
+            <title>Actions</title>
+            <para>
+                Enabled actions are set by the <literal>job</literal> parameter.
+                Clicking or/and pressing are done using the left button of the mouse.
+                <table>
+                    <tr><td>
+                        <emphasis role="bold">Append a point</emphasis>: Click out of the curve. The
+                        new point and a segment connecting it to the nearest tip of the curve are drawn.
+                        </td></tr>
+                    <tr><td><emphasis role="bold">Insert a point</emphasis>: Click on an existing
+                            segment. The new point is drawn where the segment is split.
+                        </td></tr>
+                    <tr><td><emphasis role="bold">Move a point</emphasis>: Click on it ;
+                            move the mouse to where the point should go: the point and its segments
+                            follow the mouse ; click to set and stop moving the point at its final
+                            position.
+                        </td></tr>
+                    <tr><td/></tr>
+                    <tr><td><emphasis role="bold">Delete a point</emphasis>: Click on it. Then press
+                            the &lt;suppr&gt; key.</td></tr>
+                    <tr><td><emphasis role="bold">Cancel the previous action (Undo)</emphasis>:
+                            Press <literal>CTRL Z</literal> keys (or use the Control → Undo menu)</td></tr>
+                    <tr><td><emphasis role="bold">Cancel the previous cancelation (Redo)</emphasis>:
+                            Press <literal>CTRL Y</literal> keys.</td></tr>
+                </table>
+            </para>
+        </refsect3>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../images/edit_curv.png"/>
+            </imageobject>
+        </inlinemediaobject>
+        <refsect3>
+            <title>Menus</title>
+            <variablelist>
+                <varlistentry>
+                    <term>Control</term>
+                    <listitem>
+                        <table>
+                            <tr><td valign="top">Ok</td>
+                                <td>Validates the current curve, and returns</td>
+                            </tr>
+                            <tr><td valign="top" style="white-space:nowrap">Undo (Ctrl-Z)</td>
+                                <td>Iteratively cancels the previous curve's modification.
+                                    Restores its previous state.
+                                </td>
+                            </tr>
+                            <tr><td valign="top" style="white-space:nowrap">Redo (Ctrl-Y)</td>
+                                <td>Iteratively restores the last canceled modification of the curve.
+                                </td>
+                            </tr>
+                            <tr><td valign="top">Abort</td>
+                                <td>Restores the initial curve, and returns.
+                                </td>
+                            </tr>
+                        </table>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Data</term>
+                    <listitem>
+                        <table>
+                            <tr><td valign="top">Load</td>
+                                <td>Opens an interface to choose and load a *.scg graphic file, or a
+                                    *.sod binary data file, or *.xy text file.
+                                    <para/>
+                                    A *.scg file is then scanned for a polyline curve, whose .data
+                                    xy coordinates are loaded.
+                                    <para/>
+                                    A *.sod file is scanned for a variable named <literal>xy</literal>
+                                    being a matrix of real numbers. Then <literal>xy(:,1:2)</literal>
+                                    coordinates are loaded.
+                                    <para/>
+                                    A *.xy file is assumed to contain a matrix of reals. Its first
+                                    two columns are loaded as x and y coordinates.
+                                </td>
+                            </tr>
+                            <tr><td valign="top">Save</td>
+                                <td>Opens an interface to choose a directory and *.sod or *.xy
+                                    filename. Then builds a matrix of size N×2 named
+                                    <literal>xy</literal> with the (x,y) coordinates of the edited
+                                    curve, and records the matrix in the chosen .sod binary or
+                                    .xy text file.
+                                </td>
+                            </tr>
+                            <tr><td valign="top">Clear</td>
+                                <td>Clears the current edited curve.</td>
+                            </tr>
+                            <tr><td valign="top">Reframe</td>
+                                <td>Sets the axes bounds to the curve's ones.
+                                </td>
+                            </tr>
+                            <tr><td valign="top">Bounds</td>
+                                <td>Opens a pop-pup window prompting the user to enter new
+                                    <literal>[xmin, ymin, xmax, ymax]</literal> bounds of the axes.
+                                </td>
+                            </tr>
+                        </table>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </refsect3>
+        <refsect3>
+            <title>Non-blocking edition</title>
+            <para>
+                An existing curve may be edited in a non-blocking mode, but without constrain on
+                x or y:
+                <itemizedlist>
+                    <listitem>
+                         <para>
+                            Activate the asynchronous editor for the targeted figure, either by running
+                            <literal>useeditor(gcf().figure_id)</literal>, or by clicking on the edit
+                            button
+                            
+                            in the graphics toolbar.
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                            Click or double-click on the curve to edit. Double-click shows its points.
+                            Then change its position or shape.
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                            Finally, disable the editor:
+                            <literal>useeditor(gcf().figure_id)</literal>
+                        </para>
+                    </listitem>
+                </itemizedlist>
+                Please see the <link linkend="ieditor">ieditor</link> page for more information.
+            </para>
+        </refsect3>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        Creating a curve from scratch in an independent GUI, with default styles:
+        <programlisting role="example"><![CDATA[
+[x, y] = edit_curv();
+[x y]'
+     ]]></programlisting>
+        <para/>
+        Allow only moving vertically the points of a predefined curve, without any addition or deletion:
+        <programlisting role="example"><![CDATA[
+[x, y] = edit_curv(rand(1,8), "y");
+[x y]'
+     ]]></programlisting>
+        <para/>
+        Editing a curve in an independent GUI, with a red thick style:
+        <programlisting role="example"><![CDATA[
+[x, y] = edit_curv(1:8, rand(1,8), "adxy", , list(,,[%nan color("red") 2 %nan]));
+[x y]'
+     ]]></programlisting>
+        <para/>
+        When we provide the handle of a plotted curve, its style can be set before calling
+        <literal>edit_curv()</literal>:
+        <programlisting role="example"><![CDATA[
+clf
+curve = plot(1:6)
+set(curve, "line_style",8, "foreground",color("red"), "thickness",2)
+xtitle("Template", "X axis", "Y axis")
+[x,y] = edit_curv(curve, "y");
+[x y]'
+     ]]></programlisting>
+        <para/>
+        Editing a curve in a given subplot:
+        <programlisting role="example"><![CDATA[
+clf
+subplot(1,2,2)
+title("Main initial title", "fontsize", 4)
+xlabel("X axis")
+ylabel("Y axis")
+[x, y] = edit_curv(gca(), 1:8, rand(1,8), "y", ["Main editing title", "X", ""]);
+[x y]'
+// Default menus are hidden.
+/// After leaving, initial menus, toolbar and legends are restored.
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ieditor">non-blocking curve editor</link>
+            </member>
+            <member>
+                <link linkend="object_editor">Property editor</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para><literal>hCurve</literal> and <literal>Axes</literal> optional inputs added.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>"d"</literal> job: deletion of points now allowed.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>Undo</literal> action actually implemented. CTRL-Z implemented.
+                                <literal>Redo</literal> and CTRL-Y action added.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="atomsUpdate">
+    <refnamediv>
+        <refname>atomsUpdate</refname>
+        <refpurpose>Update one or several external modules</refpurpose>
+    </refnamediv>
+    <!-- ===================================================================== -->
+    <!-- Syntax -->
+    <!-- ===================================================================== -->
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = atomsUpdate()
+            result = atomsUpdate(name)
+            result = atomsUpdate(name, section)
+        </synopsis>
+    </refsynopsisdiv>
+    <!-- ===================================================================== -->
+    <!-- Parameters -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <!-- First input argument -->
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>
+                        1xn character string matrix  : module's technical name
+                    </para>
+                </listitem>
+            </varlistentry>
+            <!-- Second input argument -->
+            <varlistentry>
+                <term>section</term>
+                <listitem>
+                    <para>
+                        This argument controls the list of sections where search
+                        modules to update.
+                    </para>
+                    <para>
+                        <literal>section</literal> is a single-string and its value should be :
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>"all"</literal>: Modules to remove are searched in both
+                                "user" and "allusers" sections.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"allusers"</literal>: Modules to remove are only searched in
+                                the "allusers" section.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"user"</literal>: Modules to remove are only searched in
+                                the "user" section.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        If SCI is write accessible, "all" is the default value.
+                        Otherwise, the default value is "user".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <!-- Outpu argument -->
+            <varlistentry>
+                <term>result</term>
+                 <para>matrix containing the updated toolboxes:</para>
+                <listitem>
+                    <para>
+                        <informaltable border="1">
+                            <tr>
+                                <th>1st Col.</th>
+                                <th>2nd Col.</th>
+                                <th>3rd Col.</th>
+                                <th>4th Col.</th>
+                                <th>5th Col.</th>
+                            </tr>
+                            <tr>
+                                <td>Technical name</td>
+                                <td>Version</td>
+                                <td>Installation section: this parameter determines 
+                                    whether the module has been installed
+                                    for all users or only for the current user.</td>
+                                <td>Installation path</td>
+                                <td>Status: "I" stands for "Intentionally", "A" stands for "Automatically"</td>
+                            </tr>
+                        </informaltable>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Description -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsUpdate</literal> updates one or more external modules.
+        </para>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Examples -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+atomsSetConfig("Verbose","True");
+
+// Load the test repository
+exec("SCI/modules/atoms/tests/unit_tests/atomsTestUtils.sce", -1);
+repository = atomsCreateTestRepository("scene10");
+
+// Install toolbox_5V6
+atomsInstall("toolbox_5V6");
+
+disp(atomsGetInstalled());
+
+// Load the 2nd scenario in which toolbox_4V6 has been updated:
+// toolbox_4V6 version 1.1 has been added
+// (toolbox_4V6 is a dependency of toolbox_5V6)
+
+atomsRepositoryDel(repository);
+repository = atomsCreateTestRepository("scene11");
+
+
+// Update toolbox_5V6
+atomsUpdate("toolbox_5V6");
+disp(atomsGetInstalled());
+
+// Cleaning
+atomsRepositoryDel(repository);
+atomsRemove("toolbox_5V6");
+        ]]></programlisting>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- See also -->
+    <!-- ===================================================================== -->
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsInstall">atomsInstall</link>
+            </member>
+            <member>
+                <link linkend="atomsRemove">atomsRemove</link>
+            </member>
+            <member>
+                <link linkend="atomsGetInstalled">atomsGetInstalled</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Authors -->
+    <!-- ===================================================================== -->
+</refentry>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+    * Copyright (C) 2006 - INRIA - Farid BELAHCENE
+    *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+    *
+    -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="mtlb_sort">
+    <refnamediv>
+        <refname>mtlb_sort</refname>
+        <refpurpose>Matlab sort emulation
+            function
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>P = mtlb_sort(X)
+            P = mtlb_sort(X,dim[,mode])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>a scalar, vector, matrix of reals, booleans or a string</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <variablelist>
+            <varlistentry>
+                <term>dim</term>
+                <listitem>
+                    <para>a positive scalar integer</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>a string ("ascend" or "descend")</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Matlab <literal>sort</literal> and Scilab <literal>gsort</literal> behave
+            differently in some particular cases:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    For a vector <literal>X</literal> the Matlab
+                    <literal>sort(X,'g','i')</literal> function call is equivalent to the
+                    Scilab <literal>gsort(X)</literal> function call.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The value <literal>1</literal> (resp. <literal>2</literal>) of the Matlab
+                    dim is equivalent to the Scilab <literal>"r"</literal> flag (resp.
+                    <literal>"c"</literal>).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The Matlab "<literal>ascend"</literal> (resp.
+                    <literal>"descend"</literal>) mode is equivalent to the Scilab
+                    <literal>"i"</literal> (resp. <literal>"d"</literal>) flag.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            The function <literal>mtlb_sort(X[,dim[,mode]])</literal> is used by
+            <literal>mfile2sci</literal> to replace <literal>sort(X[,dim[,mode]])</literal> when
+            it was not possible to know what were the inputs while porting Matlab code
+            to Scilab. This function will determine the correct semantic at run time.
+            If you want to have a more efficient code it is possible to replace
+            <literal>mtlb_sort</literal> call by <link linkend="gsort">gsort</link> call.
+        </para>
+        <para>
+            <warning>
+                Caution: <literal>mtlb_sort</literal> has not to be used for hand coded functions.
+            </warning>
+        </para>
+    </refsection>
+</refentry>

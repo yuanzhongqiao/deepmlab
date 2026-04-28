@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="apropos" xml:lang="pt">
+    <refnamediv>
+        <refname>apropos</refname>
+        <refpurpose>procura por palavras-chave na ajuda do Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>apropos(key)
+            apropos(regexp)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>key</term>
+                <listitem>
+                    <para>string. Fornece a seqüência de caracteres a ser
+                        encontrada.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>regexp</term>
+                <listitem>
+                    <para>string. Fornece a expressão regular a ser encontrada (apenas
+                        com "Scilab Browser")
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>apropos(key)</literal> procura por arquivos de ajuda Scilab
+            contendo a palavra-chave <literal>key</literal> na seção de descrições
+            breves.
+        </para>
+        <para>
+            <literal>apropos(regexp)</literal> procura por arquivos de ajuda
+            Scilab contendo a expressão regular <literal>regexp</literal> na seção de
+            descrições breves.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+apropos('ode')
+apropos ode
+apropos "list of"
+apropos "sin.*hyperbolic"
+apropos "^ab"  //procura por ajuda começando com os dois caracteres "ab"
+apropos "quadratic.*solver"
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="doc">doc</link>
+            </member>
+            <member>
+                <link linkend="man">man</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

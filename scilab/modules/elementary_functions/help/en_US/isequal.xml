@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2016, 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isequal" xml:lang="en">
+    <refnamediv>
+        <refname>isequal</refname>
+        <refpurpose>
+            tests the strict global equality between several objects, without equivalences
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = isequal(a, b, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>a, b, ...</term>
+                <listitem>
+                    <para>
+                        objects: variable of any types ; expressions of any types of results.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>single boolean.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>isequal</literal> compares its arguments. If all of them
+            are equal then the function returns <literal>%t</literal>. Otherwise
+            it returns <literal>%f</literal>.
+        </para>
+        <para>
+            2 objects <varname>a</varname> and <varname>b</varname> are equal
+            whether they fulfill ALL the following conditions:
+            <itemizedlist>
+                <listitem>
+                     <para>they must have the same type of containers: both are
+                        matrices
+                        or hypermatrices with the same data types, or lists,
+                        or cells arrays, or structures arrays,
+                        or any mlists or tlists of same types.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>they must have the same sizes.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>they must have the same encoding: boolean, int8, uint8,
+                        int16, uint16, int32, uint32, int64, uint64, decimal,
+                        complex, sparse
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>If they are mlists or tlists such as structures,
+                        they must have the same fields in the same order.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>They must have the same contents, the same values
+                        at the same places.
+                        <warning>
+                            <literal>1/%z == -1/(-%z)</literal> returns
+                            <literal>%T</literal>, while
+                            <literal>1/%z == 2/(2*%z)</literal>,
+                            <literal>isequal(1/%z, -1/(-%z))</literal> and
+                            <literal>isequal(1/%z, 2/(2*%z))</literal>
+                            are <literal>%F</literal>.
+                        </warning></para>
+                              </listitem>
+            </itemizedlist>
+            If at least one of these conditions is not fulfilled, the objects
+            are considered not equal.
+        </para>
+        <para>
+            When comparing nested heterogeneous containers like lists, structures,
+            cells, etc, comparisons are performed recursively.
+        </para>
+        <important>
+            With <function>isequal</function>, 2 compared NaN values are always
+            considered not equal, according to the IEEE rule.
+            <para/>
+            Comparing two objects including NaN values and considering that all NaN
+            are equal can be done with
+            <literal>[ans,msg]=<link linkend="assert_checkequal">assert_checkequal(…)</link></literal>.
+        </important>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <para>
+            Comparisons answering %T (objects are equal):
+        </para>
+        <programlisting role="example"><![CDATA[
+a = [1 2];
+isequal(a, [1 2])
+isequal(a, 1)
+isequal([1<2, %pi>%e], [3<10, %e>1])
+isequal(-0, +0)
+isequal([-%inf %inf], [-%inf %inf])
+isequal(%z, poly(0,"z"), poly([0 1], "z", "coeff"))
+
+// Functions "handles" can be compared:
+s = sin;   isequal(s, sin)   // Built-in function
+c = cosd;  isequal(c, cosd)  // Scilab function
+
+// Comparisons are done recursively (here in nested lists):
+L = list(%pi, "test", list(%t, 1/%z, 7), sin);
+n = %pi; t = "test"; r = 1/%z; s = sin;
+isequal(L, list(n, t, list(%t,r,7), s))
+]]></programlisting>
+        <para/>
+        <para>
+            Comparisons answering %F (objects are NOT equal):
+        </para>
+        <programlisting role="example"><![CDATA[
+// 1) Containers must be identical:
+isequal([1 %pi], {1, %pi})
+isequal([1 %pi], list(1, %pi))
+
+// 2) Encodings must be identical:
+isequal([1 7], int8([1 7]))
+isequal(uint8([1 7]), int8([1 7]))
+isequal(int8([1 7]), int16([1 7]))
+
+and([1 0]==[1 0*%i]) // is %T, but not as objects:
+//isequal([1 0], [1 0*%i])  // bug https://gitlab.com/scilab/scilab/-/issues/9153#note_1126223590
+
+p = (1+%z)^3
+pc = p + 0*%i
+p==pc
+//isequal(p, pc)           // bug https://gitlab.com/scilab/scilab/-/issues/9153#note_1126223590
+
+s = sprand(10,10,0.1); and(s==full(s)) // is %T, but not as objects:
+isequal(s, full(s))
+
+// 3) Sizes must be identical:
+isequal([7 11], [7 11]')
+
+// 4) fields of tlists or of mlists such as structures must be in the same order:
+s1 = struct("r", %pi,     "t", "Hello")
+s2 = struct("t", "Hello", "r", %pi)
+//isequal(s1,s2)           // bug https://gitlab.com/scilab/scilab/-/issues/9153#note_1126223613
+     ]]></programlisting>
+        <para/>
+        <para>
+            Results for objects including NaN values:
+        </para>
+        <programlisting role="example"><![CDATA[
+%nan == %nan                          // %F
+isequal(%nan, %nan)                   // %F
+isequal([3 %nan], [3 %nan])           // %F
+assert_checkequal([3 %nan], [3 %nan]) // %T
+
+L = list(3, "test", %z, list(1, %nan, %T));
+isequal(L, L)                         // %F
+assert_checkequal(L, L)               // %T
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="comparison">==</link>
+            </member>
+            <member>
+                <link linkend="strcmp">strcmp</link>
+            </member>
+            <member>
+                <link linkend="percentnan">NaN</link>
+            </member>
+            <member>
+                <link linkend="assert_checkequal">assert_checkequal</link>
+            </member>
+            <member>
+                <link linkend="assert_checkfilesequal">assert_checkfilesequal</link>
+            </member>
+            <member>
+                <link linkend="intersect">intersect</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>isequalbitwise(…)</literal> removed.
+                        <literal>[ans,msg]=assert_checkequal(a,b)</literal> may be used instead.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

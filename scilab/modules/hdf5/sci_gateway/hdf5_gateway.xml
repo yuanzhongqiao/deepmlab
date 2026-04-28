@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "../../functions/xml/gateway.dtd">
+<!--
+/*
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2013 - Scilab Enterprises - Calixte DENIZET
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ */
+ Scilab
+ Interface description. In this file, we define the list of the function which
+ will be available into Scilab and the link to the "native" function.
+
+ Don't touch if you do not know what you are doing
+-->
+<module name="hdf5">
+    <gateway name="sci_hdf5_save"                       function="save"                     type="1" />
+    <gateway name="sci_hdf5_save"                       function="hdf5_save"                type="1" />
+    <gateway name="sci_hdf5_load"                       function="load"                     type="1" />
+    <gateway name="sci_hdf5_load"                       function="hdf5_load"                type="1" />
+    <gateway name="sci_hdf5_load_v1"                    function="hdf5_load_v1"             type="0" />
+    <gateway name="sci_hdf5_load_v2"                    function="hdf5_load_v2"             type="0" />
+    <gateway name="sci_hdf5_load_v3"                    function="hdf5_load_v3"             type="1" />
+    <gateway name="sci_hdf5_load_v4"                    function="hdf5_load_v4"             type="1" />
+    <gateway name="sci_hdf5_listvar"                    function="hdf5_listvar"             type="1" />
+    <gateway name="sci_hdf5_listvar"                    function="listvarinfile"            type="1" />
+    <gateway name="sci_hdf5_listvar_v2"                 function="hdf5_listvar_v2"          type="0" />
+    <gateway name="sci_hdf5_listvar_v3"                 function="hdf5_listvar_v3"          type="1" />
+    <gateway name="sci_hdf5_is_file"                    function="hdf5_is_file"             type="0" />
+    <gateway name="sci_hdf5_file_version"               function="hdf5_file_version"        type="1" />
+    <gateway name="sci_h5dump"                          function="h5dump"                   type="0" />
+    <gateway name="sci_h5open"                          function="h5open"                   type="0" />
+    <gateway name="sci_h5close"                         function="h5close"                  type="0" />
+    <gateway name="sci_h5read"                          function="h5read"                   type="0" />
+    <gateway name="sci_h5ls"                            function="h5ls"                     type="0" />
+    <gateway name="sci_percent_H5Object_p"              function="%H5Object_p"              type="0" />
+    <gateway name="sci_percent_H5Object_e"              function="%H5Object_e"              type="0" />
+    <gateway name="sci_h5group"                         function="h5group"                  type="0" />
+    <gateway name="sci_h5rm"                            function="h5rm"                     type="0" />
+    <gateway name="sci_h5dataset"                       function="h5dataset"                type="0" />
+    <gateway name="sci_h5write"                         function="h5write"                  type="0" />
+    <gateway name="sci_h5attr"                          function="h5attr"                   type="0" />
+    <gateway name="sci_h5attr"                          function="h5writeattr"              type="0" />
+    <gateway name="sci_h5ln"                            function="h5ln"                     type="0" />
+    <gateway name="sci_h5readattr"                      function="h5readattr"               type="0" />
+    <gateway name="sci_h5flush"                         function="h5flush"                  type="0" />
+    <gateway name="sci_h5cp"                            function="h5cp"                     type="0" />
+    <gateway name="sci_h5isFile"                        function="h5isFile"                 type="0" />
+    <gateway name="sci_h5isGroup"                       function="h5isGroup"                type="0" />
+    <gateway name="sci_h5isSet"                         function="h5isSet"                  type="0" />
+    <gateway name="sci_h5isAttr"                        function="h5isAttr"                 type="0" />
+    <gateway name="sci_h5isSpace"                       function="h5isSpace"                type="0" />
+    <gateway name="sci_h5isType"                        function="h5isType"                 type="0" />
+    <gateway name="sci_h5isRef"                         function="h5isRef"                  type="0" />
+    <gateway name="sci_h5isList"                        function="h5isList"                 type="0" />
+    <gateway name="sci_h5mount"                         function="h5mount"                  type="0" />
+    <gateway name="sci_h5umount"                        function="h5umount"                 type="0" />
+    <gateway name="sci_h5mv"                            function="h5mv"                     type="0" />
+    <gateway name="sci_h5get"                           function="h5get"                    type="0" />
+    <gateway name="sci_h5label"                         function="h5label"                  type="0" />
+    <gateway name="sci_h5exists"                        function="h5exists"                 type="0" />
+    <gateway name="sci_h5isCompound"                    function="h5isCompound"             type="0" />
+    <gateway name="sci_percent_H5Object_fieldnames"     function="%H5Object_fieldnames"     type="0" />
+    <gateway name="sci_h5isArray"                       function="h5isArray"                type="0" />
+    <gateway name="sci_h5isVlen"                        function="h5isVlen"                 type="0" />
+</module>

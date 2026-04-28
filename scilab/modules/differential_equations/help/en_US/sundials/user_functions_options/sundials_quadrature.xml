@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_quadrature" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Pure quadrature</refname>
+        <refpurpose>Integration of quadrature equations</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ... = cvode( ... , quadRhs = fun, options)
+            ... = ida( ... , quadRhs = fun, options)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>fun</term>
+                <listitem>    
+                    <para>A Scilab function, a list, a string.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>    
+                    <para>a sequence of optional named arguments (see the <link linkend="sundials_options">solvers options</link>) and below for quadrature
+                    specific options.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+
+        <para>During integration, the solver can compute simultaneously quadratures/integrals of a function g depending on time t and solution when solving an ODE or a DAE:
+        </para>
+            <para>
+                <latex style="display">
+                    y_q(t) = y_q(t_0)+\int_{t_0}^t g(u,y(u))\,du.
+                </latex>
+            </para>
+            and depending also on y' when solving a DAE
+            <para>
+                <latex style="display">
+                    y_q(t) =  y_q(t_0)+\int_{t_0}^t g(u,y(u),y'(u))\,du.
+                </latex>
+            </para>
+            <para>
+                These quantities could be added as new states and trivial equations in the original problem since <latex style="text">y_q'= g</latex>
+                but giving them separately avoids computing useless Jacobians and saves the solver effort. 
+                The value of g is given by the output of <term>fun</term>, which has the same prototype as a classical ODE rhs or DAE residual. After the solver call
+                the quadrature variables are retrieved in the "q" field of either the <term>info</term> or <term>sol</term> output argument, 
+                as in the following examples (typically, only the final value of q will be of interest). The initial values of the quadrature variables are zero 
+                by default but can be set with the option <term>yQ0</term>. Note 
+
+            </para>
+    </refsection>
+
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting><![CDATA[
+                function dyqdt = g(t,y)
+                    dyqdt = t*y(1);
+                end
+                [t,y,info] = cvode(%SUN_vdp1, [0 1], [1 2], quadRhs=g);
+                info.q
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            <programlisting><![CDATA[
+                function dyqdt = g(t,y,yp)
+                    dyqdt = y(2);
+                end
+                y0  = [1-1e-6; 1e-6; 0];
+                yp0 = [-2e-7; 1.5e-7; 5e-8];
+                [t,y,info] = ida(%SUN_sir, [0,200], y0, yp0, quadRhs=g);
+                info.q
+                ]]>
+            </programlisting>
+        </para>
+    </refsection>
+    
+    <refsection role="description">
+        <title>Options</title>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>yQ0</td>
+                        <td>    
+                            <para>a double array giving the initial state of the quadrature variable.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>quadErrCon</td>
+                        <td>    
+                            <para>By default, QuadErrCon is set to %f. If quadErrCon=%t then quadrature variables are included in the error tests.</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>rtolQ</td>
+                        <td>    
+                            <para>The scalar relative tolerance to control the local error estimator when quadErrCon=%t (default value is 1e-4).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>atolQ</td>
+                        <td>    
+                            <para>The absolute tolerance controlling the local error when quadErrCon=%t. It can be a scalar or an array of the same dimension as the quadrature variable (default value is 1e-6).</para>
+                        </td>
+                    </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+    
+    
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+            <member>
+                <link linkend="SUN_Clink">SUN_Clink</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+</refentry>

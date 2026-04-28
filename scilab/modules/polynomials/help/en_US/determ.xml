@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA - Francois DELBECQUE
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="determ">
+    <refnamediv>
+        <refname>determ</refname>
+        <refpurpose>determinant of a matrix of polynomials</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            res = determ(W)
+            res = determ(W, k)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>W</term>
+                <listitem>
+                    <para>square matrix of real or complex polynomials</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>k</term>
+                <listitem>
+                    <para>integer (upper bound for the degree of the determinant of W)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            returns the determinant of a matrix of polynomials.
+        </para>
+        <para>
+            <literal>res=determ(W [,k])</literal> where <literal>k</literal> is an integer larger
+            than the actual degree of the determinant of <literal>W</literal>.
+        </para>
+        <para>
+            The default value of <literal>k</literal> is the smallest power of 2 which is larger
+            than <literal>n*max(degree(W))</literal>.
+        </para>
+        <para>
+            Method (Only if W size is greater than 2*2) : evaluate the determinant of
+            <literal>W</literal> for the Fourier frequencies
+            and apply inverse FFT to the coefficients of the determinant.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+s = %s;
+P = [5+3*s, 1-5*s, -4+6*s ; -3+5*s, -3*s, -9 ; 8*s, -6-2*s, 4-6*s]
+determ(P)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> P = [5+3*s, 1-5*s, -4+6*s ; -3+5*s, -3*s, -9 ; 8*s, -6-2*s, 4-6*s]
+ P  =
+  5 +3s   1 -5s   -4 +6s
+
+  -3 +5s  -3s     -9
+
+  8s      -6 -2s  4 -6s
+
+--> determ(P)
+ ans  =
+  -330 -278s +380s² -12s³
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="det">det</link>
+            </member>
+            <member>
+                <link linkend="detr">detr</link>
+            </member>
+            <member>
+                <link linkend="coffg">coffg</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

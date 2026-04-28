@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="xmlValidate" xml:lang="en">
+    <refnamediv>
+        <refname>xmlValidate</refname>
+        <refpurpose>Validate a document in using a DTD, a Relax NG or a Schema.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            error = xmlValidate(xdocs [, valid])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>docs</term>
+                <listitem>
+                    <para>a mlist typed XMLDoc or a matrix of string containing path to XML documents</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>valid</term>
+                <listitem>
+                    <para>a mlist typed XMLValid.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>error</term>
+                <listitem>
+                    <para>a matrix of string if an error occurred or []</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Validate an already parsed document or a set of documents with given paths with a DTD, a Relax NG or a Schema. If the document is valid, then the returned error is an empty matrix, else a matrix of strings is returned with the error message.</para>
+        <para>Validate a document with its path can improve performance and reduce the memory consumption.</para>
+        <para>It is not possible for the moment to validate a document against an external DTD. The only way to do this is to include in your XML file something like <literal>&lt;!DOCTYPE foo SYSTEM "foo.dtd"&gt;</literal> and to use xmlValidate without second argument.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+    xdoc = xmlRead("SCI/modules/xml/tests/unit_tests/library.xml");
+    dtd = xmlDTD("SCI/modules/xml/tests/unit_tests/library.dtd");
+    schema = xmlSchema("SCI/modules/xml/tests/unit_tests/library.xsd");
+    rng = xmlRelaxNG("SCI/modules/xml/tests/unit_tests/library.rng");
+
+    // We test if the document is valid
+    // If no error the file is valid
+
+    // DTD
+    xmlValidate(xdoc, dtd);
+
+    // Relax NG
+    xmlValidate(xdoc, rng);
+
+    // Schema
+    xmlValidate(xdoc, schema);
+
+    // All is ok... now we add a new element to the document
+    xdoc.root.children(3) = "<a>error</a>"
+
+    // Now the validations go to fail
+    xmlValidate(xdoc, dtd);
+    xmlValidate(xdoc, rng);
+    xmlValidate(xdoc, schema);
+
+    // You can validate a document with its path
+    xmlValidate("SCI/modules/xml/tests/unit_tests/library.xml")
+    xmlValidate("SCI/modules/xml/tests/unit_tests/invalid_library.xml")
+
+    xmlValidate("SCI/modules/xml/tests/unit_tests/library.xml", schema)
+    xmlValidate("SCI/modules/xml/tests/unit_tests/invalid_library.xml", rng)
+
+    // We delete the all the open documents
+    xmlDelete(xdoc, dtd, schema, rng);
+    ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xmlDTD">xmlDTD</link>
+            </member>
+            <member>
+                <link linkend="xmlSchema">xmlSchema</link>
+            </member>
+            <member>
+                <link linkend="xmlRelaxNG">xmlRelaxNG</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>XML module introduced.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

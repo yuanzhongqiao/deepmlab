@@ -1,0 +1,48 @@
+/*
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - 2009 - Sylvestre LEDRU
+ *
+ * This file is released under the 3-clause BSD license. See COPYING-BSD.
+ *
+ */
+#ifdef _MSC_VER
+#pragma comment(lib, "api_scilab.lib")
+#pragma comment(lib, "call_scilab.lib")
+#endif
+/*------------------------------------------------------------*/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h> /* getenv */
+#include "call_scilab.h" /* Provide functions to call Scilab engine */
+/*------------------------------------------------------------*/
+int main(void)
+{
+#ifdef _MSC_VER
+    if ( StartScilab(NULL, NULL, 0) == FALSE )
+#else
+    if ( StartScilab(getenv("SCI"), NULL, 0) == FALSE )
+#endif
+    {
+        fprintf(stderr, "Error while calling StartScilab\n");
+        return -1;
+    }
+
+
+    int code = SendScilabJob("failedMyCurrentJob=%pi*3/0");
+    if (code != 0)
+    {
+        char lastjob[4096];
+        if (GetLastJob(lastjob, 4096))
+        {
+            printf("Failed command: %s\n", lastjob);
+        }
+    }
+
+    if ( TerminateScilab(NULL) == FALSE )
+    {
+        fprintf(stderr, "Error while calling TerminateScilab\n");
+        return -2;
+    }
+    return 0;
+}
+/*------------------------------------------------------------*/

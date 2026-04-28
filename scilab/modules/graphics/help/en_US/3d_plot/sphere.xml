@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Vincent COUVERT
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="sphere">
+    <refnamediv>
+        <refname>sphere</refname>
+        <refpurpose>Computes sphere coordinates</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[x, y, z] = sphere(n)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>Number of faces. Default value is 20.</para>
+                    <para>Can be scalar or a vector of size 1 x 2 (number of faces for longitude and latitude)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x, y, z</term>
+                <listitem>
+                    <para>Computed coordinates returned as <literal>(n+1) x (n+1)</literal> matrices.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+        <literal>sphere</literal> returns the Cartesian coordinates of a sphere (without drawing it). The returned sphere has a radius equal to 1 and is centered on origin.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Sphere centered on origin with radius equal to 1:</emphasis></para>
+        <programlisting role="example"><![CDATA[
+scf();
+[x, y, z] = sphere(40);
+surf(x, y, z);
+gcf().color_map = jet(64);
+gca().isoview = "on";
+ ]]></programlisting>
+        <scilab:image>
+            scf();
+            [x, y, z] = sphere(40);
+            surf(x, y, z);
+            gcf().color_map = jet(64);
+            gca().isoview = "on";
+        </scilab:image>
+        <para><emphasis role="bold">Sphere centered on origin with radius equal to 3:</emphasis></para>
+        <programlisting role="example"><![CDATA[
+scf();
+[x, y, z] = sphere(40);
+surf(3 * x, 3 * y, 3 * z);
+gcf().color_map = parula(64);
+gca().isoview = "on";
+ ]]></programlisting>
+        <scilab:image>
+            scf();
+            [x, y, z] = sphere(40);
+            surf(3 * x, 3 * y, 3 * z);
+            gcf().color_map = parula(64);
+            gca().isoview = "on";
+        </scilab:image>
+    </refsection>
+    <refsection>
+        <para><emphasis role="bold">Sphere centered on (1,2,3) with radius equal to 1:</emphasis></para>
+        <programlisting role="example"><![CDATA[
+scf();
+[x, y, z] = sphere(40);
+surf(x + 1, y + 2, z + 3);
+gcf().color_map = autumn(64);
+gca().isoview = "on";
+ ]]></programlisting>
+        <scilab:image>
+            scf();
+            [x, y, z] = sphere(40);
+            surf(x + 1, y + 2, z + 3);
+            gcf().color_map = autumn(64);
+            gca().isoview = "on";
+        </scilab:image>
+    </refsection>
+    <refsection>
+        <para><emphasis role="bold">Sphere centered on origin with a vector n:</emphasis></para>
+        <programlisting role="example"><![CDATA[
+scf();
+[x, y, z] = sphere([20 40]);
+surf(x, y, z);
+gcf().color_map = parula(64);
+gca().isoview = "on";
+ ]]></programlisting>
+        <scilab:image>
+            scf();
+            [x, y, z] = sphere([20 40]);
+            surf(x, y, z);
+            gcf().color_map = parula(64);
+            gca().isoview = "on";
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="nf3d">nf3d</link>
+            </member>
+            <member>
+                <link linkend="surf">surf</link>
+            </member>
+            <member>
+                <link linkend="cylinder">cylinder</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        Function <literal>sphere</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

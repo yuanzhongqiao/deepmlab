@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="file" xml:lang="ru">
+    <refnamediv>
+        <refname>file</refname>
+        <refpurpose>управление файлами</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            [unit, err] = file("open", file-name [,status] [,access [,recl]] [,format])
+            file("close", unit)
+            file("rewind", unit)
+            file("backspace", unit)
+            file("last", unit)
+            [units, typ, nams, mod, swap] = file()
+            [units, typ, nams, mod, swap] = file(unit)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>file-name</term>
+                <listitem>
+                    <para>строковое значение, имя файла, который нужно открыть</para>
+                    <warning>
+                        Эта функция не может открывать файлы, чьи пути имеют не-ascii
+                        UTF-символы (диакритические знаки и т.д.). В этом случае следует
+                        использовать <literal>mopen()</literal>.
+                    </warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>строковое значение, статус файла, который следует открыть</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"new"</term>
+                            <listitem>
+                                <para>файл не существует, новый файл (по умолчанию);</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"old"</term>
+                            <listitem>
+                                <para>файл уже существует;</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"unknown"</term>
+                            <listitem>
+                                <para>неизвестный статус;</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"scratch"</term>
+                            <listitem>
+                                <para>файл должен будет удалён в конце сессии.</para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>access</term>
+                <listitem>
+                    <para>строковое значение, тип доступа к файлу:</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"sequential"</term>
+                            <listitem>
+                                <para>последовательный доступ (по умолчанию);</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"direct"</term>
+                            <listitem>
+                                <para>прямой доступ. Тогда обязателен следующий аргумент <varname>recl</varname>.</para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>format</term>
+                <listitem>
+                    <para>строковое значение, формат файла:</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"formatted"</term>
+                            <listitem>
+                                <para>для форматированных файлов (по умолчанию);</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"unformatted"</term>
+                            <listitem>
+                                <para>двоичная запись.</para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>recl</term>
+                <listitem>
+                    <para>целочисленное значение, это размер записи в байтах, в случае
+                        <literal>access="direct"</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>unit</term>
+                <listitem>
+                    <para>
+                        целочисленное значение, указатель на логический модуль открытого файла
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>units</term>
+                <listitem>
+                    <para>
+                        вектор целочисленных значений, указатель на логический модуль открытого 
+                        файла. Модули 5 и 6 (%io) зарезервированы системой для входных и выходных 
+                        устройств.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>typs</term>
+                <listitem>
+                    <para>
+                        Символьный вектор-строка, тип (C или Fortran) открытых файлов.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nams</term>
+                <listitem>
+                    <para>Символьный вектор-строка, имена путей открытых файлов.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mod</term>
+                <listitem>
+                    <para>режим открытия файла. Сформированный тремя элементами abc:</para>
+                    <table border="0">
+                        <tr valign="top">
+                            <td colspan="2">><emphasis role="bold">Файлы Fortran</emphasis></td>
+                        </tr>
+                        <tr valign="top">
+                            <th>a</th>
+                            <td>0 стоит для форматированных, а 1 - для неформатированных (двоичных)</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>b</th>
+                            <td>0 стоит для последовательного доступа, а 1 - для прямого доступа</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>c</th>
+                            <td>0 стоит для "new", 1 - для "old", 2 - для "scratch" и 3 - для "unknown"</td>
+                        </tr>
+                        <tr valign="top">
+                            <td colspan="2"><emphasis role="bold">C-файлы</emphasis></td>
+                        </tr>
+                        <tr valign="top">
+                            <th>a</th>
+                            <td>1 стоит для "r" (чтение), 2 стоит для "w" (запись) и 3 - для "a" (дополнение)</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>b</th>
+                            <td>равен 1, если файл открыт в режиме "+" (обновление)</td>
+                        </tr>
+                        <tr valign="top">
+                            <th>c</th>
+                            <td>равен 1, если файл открыт в режиме "b" (двоичный)</td>
+                        </tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>swap</term>
+                <listitem>
+                    <para>
+                        переключатель автоматического обмена. <literal>swap=1</literal>, если
+                        автоматический обмен включён. Для Fortran-файлов <varname>swap</varname>
+                        всегда 0.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>err</term>
+                <listitem>
+                    <para>
+                        целочисленный код, возвращаемый, если открытие файла провалилось.
+                        Если <varname>err</varname> пропущен, то выдаётся сообщение об ошибке.
+                    </para>
+                    <table>
+                        <tr valign="top"><th>65</th><td>Файл уже используется</td></tr>
+                        <tr valign="top"><th>66</th><td>Открыто слишком много файлов!</td></tr>
+                        <tr valign="top"><th>67</th><td>Неизвестный формат файла</td></tr>
+                        <tr valign="top"><th>240</th>
+                                         <td>Файл уже существует или запрещена запись в директорию.</td></tr>
+                        <tr valign="top"><th>241</th><td>Файл не существует или чтение запрещено.</td></tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            <literal>file(…)</literal> выбирает логический модуль <varname>unit</varname> и
+            управляет файлом <varname>file-name</varname>.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>[unit [,err]]=file("open", file-name [,status] [,access [,recl]][,format])
+                </term>
+                <listitem>
+                    <para>
+                        позволяет открыть файл с особыми параметрами и получить номер связанного
+                        модуля <varname>unit</varname>. Этот номер модуля можно использовать для
+                        дальнейших действий с этим файлом или в качестве дескриптора файла при
+                        вызове функций <function>read</function>, <function>write</function>,
+                        <function>save</function>, <function>load</function>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("close", unit)
+                </term>
+                <listitem>
+                    <para>
+                        позволяет закрыть файл или передвинуть текущий указатель файла.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("rewind", unit)
+                </term>
+                <listitem>
+                    <para>
+                        кладёт указатель в начало файла.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("backspace", unit)
+                </term>
+                <listitem>
+                    <para>
+                        кладёт указатель в начало последней записи.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file("last", unit)
+                </term>
+                <listitem>
+                    <para>
+                        кладёт указатель после последней записи.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    file()
+                </term>
+                <listitem>
+                    <para>
+                        возвращает дескрипторы открытых файлов.
+                    </para>
+                    <para>
+                        Чтобы проверить, открыт ли файл, чей модуль равен <literal>id</literal>,
+                        можно использовать <literal>file(id)~=[]</literal>.
+                    </para>
+                    <para>
+                        Чтобы закрыть все открытые пользователем файлы (типа C или Fortran),
+                        можно использовать <literal>file("close",file())</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+u=file("open",TMPDIR+"/foo","unknown")
+for k=1:4
+  a=rand(1,4)
+  write(u,a)
+end
+file("rewind",u)
+x=read(u,2,4)
+file("close",u)
+//
+u1=file("open",TMPDIR+"/foo","unknown")
+u2=mopen(TMPDIR+"/foo1","wb")
+[units,typs,nams]=file()
+file("close",u1);
+mclose(u2);
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="isfile">isfile</link>
+            </member>
+            <member>
+                <link linkend="read">read</link>
+            </member>
+            <member>
+                <link linkend="write">write</link>
+            </member>
+            <member>
+                <link linkend="mopen">mopen</link>
+            </member>
+            <member>
+                <link linkend="save">save</link>
+            </member>
+            <member>
+                <link linkend="load">load</link>
+            </member>
+            <member>
+                <link linkend="uigetfile">uigetfile</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    Внесена stderr в выход file() в виде units(1)=0, typ(1)="STD" и
+                    nams(1)="stderr".
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

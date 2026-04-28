@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="table2timeseries" xml:lang="en">
+    <refnamediv>
+        <refname>table2timeseries</refname>
+        <refpurpose>convert a table into a timeseries</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ts = table2timeseries(t)
+
+            ts = table2timeseries(t, "RowTimes", time)
+            
+            ts = table2timeseries(t, "SampleRate", sampleRate)
+            ts = table2timeseries(t, "TimeStep", timeStep)
+            ts = table2timeseries(t, "SampleRate", sampleRate, "StartTime", t0)
+            ts = table2timeseries(t, "TimeStep", timeStep, "StartTime", t0)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>time</term>
+                <listitem>
+                    <para>time vector or variable name of table</para>
+                    <para>duration or datetime column vector or string</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeStep</term>
+                <listitem>
+                    <para>time step, duration or calendarDuration value</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sampleRate</term>
+                <listitem>
+                    <para>number of samples per second (Hz), real scalar</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t0</term>
+                <listitem>
+                    <para>start time, duration or datetime value</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ts</term>
+                <listitem>
+                    <para>timeseries object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">table2timeseries</emphasis> converts a table into a timeseries. 
+            The table must have a duration or datetime variable.
+        </para>
+        <para>
+            If the table has multiple duration and datetime variables, the first variable becomes the row times of timeseries. 
+            It is also possible to specify the name of the variable which will become the rowtimes of the timeseries, thanks to 
+            'RowTimes'.
+        </para>
+        <para>
+            If the table does not contain any time variable, you must use: 'RowTimes', 'TimeStep' or 'SampleRate':
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">ts = table2timeseries(t, 'RowTimes', time)</emphasis> adds a vector time to the timeseries.
+            </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">ts = table2timeseries(t, 'TimeStep', timeStep)</emphasis>: ts will be a timeseries whose the time vector is generated from the 
+                    time step <emphasis role="bold">timeStep</emphasis>. By default, the first row time is zero seconds and this vector will have the same number of rows 
+                    as the table t.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">ts = table2timeseries(t, 'SampleRate', sampleRate)</emphasis> create a timeseries from a table whose the time vector is generated from the 
+                    sample rate <emphasis role="bold">sampleRate</emphasis>. sampleRate is a real value, number of samples per second. The first value of this time vector is zero seconds 
+                    and will have the same number of rows as the variable data vectors.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            To define the first row time, you must use 'StartTime'.
+        </para>
+        <para>
+            For more information, see timeseries.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">ts = table2timeseries(t)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Time = datetime(2023, 6, 1:3)';
+            A = [1; 2; 3];
+            B = [10; 20; 30];
+            C = [-10;-20;-30];
+            t = table(Time, A, B, C, "VariableNames", ["Time", "A", "B", "C"]);
+            ts = table2timeseries(t)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = table2timeseries(t, "RowTimes", time) where time is a variable name</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Time = datetime(2023, 6, 1:3)';
+            A = [1; 2; 3];
+            B = [10; 20; 30];
+            C = [-10;-20;-30];
+            Hours = hours(1:3)';
+            t = table(Time, A, B, C, Hours, "VariableNames", ["Time", "A", "B", "C", "Hours"]);
+            ts = table2timeseries(t, "RowTimes", "Hours")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = table2timeseries(t, "RowTimes", time) where time is a datetime vector</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Time = datetime(2023, 6, 1:3)';
+            A = [1; 2; 3];
+            B = [10; 20; 30];
+            C = [-10;-20;-30];
+            t = table(A, B, C, "VariableNames", ["A", "B", "C"]);
+            ts = table2timeseries(t, "RowTimes", Time)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = table2timeseries(t, "TimeStep", time)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            A = [1; 2; 3];
+            B = [10; 20; 30];
+            C = [-10;-20;-30];
+            t = table(A, B, C, "VariableNames", ["A", "B", "C"]);
+            ts = table2timeseries(t, "TimeStep", hours(1))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = table2timeseries(t, "SampleRate", time)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            A = [1; 2; 3];
+            B = [10; 20; 30];
+            C = [-10;-20;-30];
+            t = table(A, B, C, "VariableNames", ["A", "B", "C"]);
+            ts = table2timeseries(t, "SampleRate", 0.05)
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries2table">timeseries2table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

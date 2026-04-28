@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ????-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2021 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="genlib">
+    <refnamediv>
+        <refname>genlib</refname>
+        <refpurpose>
+            builds a library from a set of *.sci files defining functions in a given directory
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            genlib(lib_name)
+            genlib(lib_name, dir_name)
+            genlib(lib_name, dir_name, Force)
+            genlib(lib_name, dir_name, Force, verb)
+            genlib(lib_name [,path=dir_name] [,verbose=verb] [,force=Force])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>lib_name</term>
+                <listitem>
+                     <para>
+                        Scilab string:  The identifying name ascribed to the library to build.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dir_name</term>
+                <listitem>
+                     <para>
+                        Scilab string:  The pathname of the directory containing
+                        <literal>.sci</literal> functions files, and where the <literal>lib</literal>
+                        file generated and defining the library will be stored.
+                        By default, the current working directory is considered.
+                        <warning>
+                            The <varname>dir_name</varname> directory and its <literal>lib</literal>
+                            and <literal>.bin</literal> files must be writable.
+                        </warning></para>
+                              </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Force</term>
+                <listitem>
+                     <para>
+                        boolean value (default value is <literal>%f</literal>). Set it to
+                        <literal>%t</literal> to force the sci-files recompilation.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>verb</term>
+                <listitem>
+                     <para>
+                        boolean value (default value is <literal>%f</literal>). Set it to
+                        <literal>%t</literal> to display more information during the build.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>genlib(..)</literal> selects all files belonging to the
+            <varname>dir_name</varname> directory and with the <literal>.sci</literal> extension.
+            If any, subdirectories are never considered. If it is required, they must be compiled
+            apart into independent libraries.
+        </para>
+        <para>
+            Then, an XML editable file named <literal>lib</literal> is created in the
+            <varname>dir_name</varname> directory. The name <varname>lib_name</varname>
+            of the library is recorded into it.
+        </para>
+        <para>
+            Then, for each <literal>.sci</literal> file:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        If
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    there is no related <literal>.bin</literal> file in <varname>dir_name</varname>
+                                    with the same basename (as for the initial build of the library), or
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    the content of the <literal>.sci</literal> file has changed since
+                                    the previous build,
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+                <listitem>
+                     <para>
+                        Otherwise: If the file's content has not changed and has already a function
+                        entry in the <literal>lib</literal> file, this entry is kept.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            If the option <literal>force=%t</literal> is used, all <literal>.sci</literal> files
+            are compiled, even if their content has not changed.
+        </para>
+        <para>
+            When in the directory of a library some former .sci files have been removed while
+            all remaining .sci files are unchanged, rebuilding the library without the
+            <literal>force=%t</literal> will anyway update the list of library's members.
+        </para>
+        <para>
+            If the option <literal>verbose</literal> is true, more information is displayed during
+            the build process.
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="library">library</link>
+            </member>
+            <member>
+                <link linkend="load">load</link>
+            </member>
+            <member>
+                <link linkend="getd">getd</link>
+            </member>
+            <member>
+                <link linkend="lib">lib</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                The file <literal>names</literal> is no longer required.
+                                The <literal>Names</literal> option is removed.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                When a .sci file contains functions not named accordingly with the
+                                file name, they are no longer public: They are visible and callable only
+                                from the main function.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                When a library named <varname>lib_name</varname> is already loaded, the
+                                default <varname>dir_name</varname> directory is no longer its
+                                directory (update mode), but always the current working one.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                The generated <literal>lib</literal> file is now a human-readable XML
+                                file, instead of a binary.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                genlib() can no longer register any variable as full member of a library.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                By default, any .sci file is now recompiled if its content has
+                                changed, no longer if its modification date is newer than the .bin's one.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                The generated <literal>.bin</literal> files can no longer be loaded
+                                independently with load().
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>Generated library is not automatically loaded anymore. <link linkend="lib">lib</link> must be called.</para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

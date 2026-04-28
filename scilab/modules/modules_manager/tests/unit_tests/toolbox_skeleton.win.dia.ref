@@ -1,0 +1,135 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Vincent COUVERT
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- NO CHECK ERROR OUTPUT -->
+// <-- ENGLISH IMPOSED -->
+// Test the toolbox skeleton in SCI/contrib/
+//  - Building/Compilation
+//  - Loading
+//  - Tests
+// Scilab external module skeleton
+status = copyfile(SCI + "/contrib/toolbox_skeleton/", TMPDIR + "/toolbox_skeleton/");
+assert_checkequal(status, 1);
+exec("TMPDIR/toolbox_skeleton/builder.sce");
+Building macros...
+-- Creation of [toolbox_skeletonlib] (Macros) --
+genlib: Processing file: scilab_error.sci
+genlib: Processing file: scilab_sum.sci
+Building sources...
+   Generate a loader file
+   Generate a Makefile
+   Running the Makefile
+   Compilation of fsum.f
+   Building shared library (be patient)
+   Generate a cleaner file
+   Generate a loader file
+   Generate a Makefile
+   Running the Makefile
+   Compilation of csub.c
+   Compilation of csum.c
+   Compilation of multiplybypi.c
+   Building shared library (be patient)
+   Generate a cleaner file
+   Building JAR library org.scilab.contrib.toolboxskeleton.jar
+   Compiling Java sources in TMPDIR\toolbox_skeleton\src\java\
+   Creating JAR archive TMPDIR\toolbox_skeleton\jar\org.scilab.contrib.toolboxskeleton.jar
+   Create loader script for Java loader.sce
+   Create cleaner script for Java cleaner.sce
+Generating cleaner_src.sce...
+Building gateway...
+   Generate a gateway file
+   Generate a loader file
+   Generate a Makefile
+   Running the makefile
+   Compilation of sci_cerror.c
+   Compilation of sci_cerror6.c
+   Compilation of sci_csub.c
+   Compilation of sci_csub6.c
+   Compilation of sci_csum.c
+   Compilation of sci_csum6.c
+   Compilation of sci_foo.c
+   Compilation of sci_foo6.c
+   Compilation of sci_multiplybypi.c
+   Compilation of sci_multiplybypi6.c
+   Compilation of skeleton_c.cpp
+   Compilation of skeleton_c.h
+   Compilation of skeleton_c.hxx
+   Building shared library (be patient)
+   Generate a cleaner file
+   Generate a gateway file
+   Generate a loader file
+   Generate a Makefile
+   Running the makefile
+   Compilation of sci_fsum.c
+   Compilation of skeleton_fortran.cpp
+   Compilation of skeleton_fortran.h
+   Compilation of skeleton_fortran.hxx
+   Building shared library (be patient)
+   Generate a cleaner file
+   Generate a gateway file
+   Generate a loader file
+   Generate a Makefile
+   Running the makefile
+   Compilation of sci_cpp_find.cxx
+   Compilation of sci_cpperror.cpp
+   Compilation of sci_cppfoo.cpp
+   Compilation of sci_cppmultiplybypi.cpp
+   Compilation of sci_cppsub.cpp
+   Compilation of sci_cppsum.cpp
+   Compilation of skeleton_cpp.cpp
+   Compilation of skeleton_cpp.h
+   Compilation of skeleton_cpp.hxx
+   Building shared library (be patient)
+   Generate a cleaner file
+Generating loader_gateway.sce...
+Generating cleaner_gateway.sce...
+WARNING: tbx_build_localization (toolbox_skeleton\locales\): 
+WARNING:    - The msgid have been updated in '*.po' files.
+WARNING:    - fr_FR.po : 0 untranslated messages.
+Generating localization
+-- Building for "en_US" --
+-- Building for "fr_FR" --
+Building help...
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
+Building the links file [inline] in TMPDIR/toolbox_skeleton/inline/en_US.
+Building the manual file [javaHelp] in TMPDIR\toolbox_skeleton\help\en_US.
+Generate image ./c_multiplybypi_en_US_1.png from Scilab code from file c_multiplybypi.xml
+Generate image ./c_sub_1.png from Scilab code from file c_sub.xml
+Generate image ./c_sub_en_US_2.png from Scilab code from file c_sub.xml
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
+Building the links file [inline] in TMPDIR/toolbox_skeleton/inline/fr_FR.
+Building the manual file [javaHelp] in TMPDIR\toolbox_skeleton\help\fr_FR.
+Generate image ./c_sub_1.png from Scilab code from file c_sub.xml
+Generate image ./c_sub_fr_FR_2.png from Scilab code from file c_sub.xml
+Generating loader.sce...
+Generating unloader.sce...
+Generating cleaner.sce...
+exec("TMPDIR/toolbox_skeleton/loader.sce");
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
+test_run("TMPDIR/toolbox_skeleton/", [], "short_summary");
+ Module  001/001 - [TMPDIR/toolbox_skeleton/] : 
+   001/004 - [TMPDIR/toolbox_skeleton/] c_sum ........................... passed
+   002/004 - [TMPDIR/toolbox_skeleton/] fortran_sum ..................... passed
+   003/004 - [TMPDIR/toolbox_skeleton/] java_sum ........................ passed
+   004/004 - [TMPDIR/toolbox_skeleton/] scilab_sum ...................... passed
+   -----------------------------------------------------------------------------
+   Tests:    4,    Passed:    4,    Failed:    0,    Skipped:    0
+   -----------------------------------------------------------------------------

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="ieditor">
+    <refnamediv>
+        <refname>Interactive Editor</refname>
+        <refpurpose>Interactive plot editor</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+
+        <para>
+            The interactive plot editor added new features to scilab, now the user can
+            interact with the plot window and the graphic objects without using a single line of code.
+        </para>
+        <para>
+            The interactive plot editor provides the following features:
+        </para>
+        <para>
+            Editor menu:
+        </para>
+        <para>
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../images/editor_menu.png"/>
+                </imageobject>
+            </inlinemediaobject>
+        </para>
+        <itemizedlist>
+            <listitem>
+                 <para>
+                    The user can select curves, surfaces and legends on the plot window.
+                    </para>
+                </listitem>
+            <listitem>
+                 <para>
+                    Selected entities can be copied/cutted and be pasted to others figures (except legends).
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    The axes properties can be copied and pasted to ease formatting between figures.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    The figure can be copied to the system clipboard, and pasted to others programs (like Word).
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    Deletes the selected entity.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    Enables the user to hide the selected entity and unhide all hidden entities.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                    Almost any action done with the editor can be undone/ redone.
+                    </para>
+                </listitem>
+
+            <listitem>
+                 <para>
+                        Labels
+                    </para>
+                    <para>
+                        With a simply right click the user can insert labels in the axes, and doing a double click over a label text opens a dialog to edit its text.
+                    </para>
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="../images/editor_edit_label.png"/>
+                        </imageobject>
+                    </inlinemediaobject>
+                </listitem>
+    
+                <listitem>
+                     <para>
+                            Legends
+                        </para>
+                        <para>
+                            With a simply right click the user can insert a legend to the selected curve or remove it, and doing a double click over a legend box opens a dialog to edit its text.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_edit_legend.png"/>
+                            </imageobject>
+                            <!-- <imageobject>
+                    <imagedata fileref="../images/editor_remove_legend.png"/>
+                  </imageobject>
+                  <imageobject>
+                    <imagedata fileref="../images/editor_removed_legend.png"/>
+                  </imageobject> -->
+                        </inlinemediaobject>
+                    </listitem>
+        
+                    <listitem>
+                         <para>
+                            Clears the figure.
+                            </para>
+                        </listitem>
+        
+                    <listitem>
+                         <para>
+                            With a simply right click the user can open the ged with the properties from the selected/right clicked entity.
+                        </para>
+                    </listitem>
+        
+                </itemizedlist>
+        
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            Move objects
+                        </para>
+                        <para>
+                            To move objects: enable the data editor mode, select and drag an object.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_enable_edit.png"/>
+                            </imageobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_move_curve.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_move_legend.png"/>
+                            </imageobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_moved_legend.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </listitem>
+        
+                    <listitem>
+                        <para>
+                            Graphically curve data editor
+                        </para>
+                        <para>
+                            To edit a curve data: enable the data editor mode, select an object, right click, edit curve data or double click over curve.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_enable_curve_edit.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                        <para>
+                            To add a point: with the selected curve in edit mode, right click, "insert" or double click over the curve.
+                        </para>
+                        <para>
+                            To remove a point: with the selected curve in edit mode, right click, "remove".
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_add_point.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                        <para>
+                            To move a point: with the selected curve in edit mode, click in the point and drag it.
+                        </para>
+                        <inlinemediaobject>
+                            <imageobject>
+                                <imagedata fileref="../images/editor_move_point.png"/>
+                            </imageobject>
+                        </inlinemediaobject>
+                    </listitem>
+                </itemizedlist>
+            </refsection>
+            <refsection role="see also">
+                <title>See also</title>
+                <simplelist type="inline">
+                    <member>
+                        <link linkend="object_editor">Properties editor</link>
+                    </member>
+                    <member>
+                        <link linkend="ged">ged</link>
+                    </member>
+                    <member>
+                        <link linkend="graphics_entities">graphics_entities</link>
+                    </member>
+                    <member>
+                        <link linkend="set">set</link>
+                    </member>
+                    <member>
+                        <link linkend="get">get</link>
+                    </member>
+                </simplelist>
+            </refsection>
+        </refentry>

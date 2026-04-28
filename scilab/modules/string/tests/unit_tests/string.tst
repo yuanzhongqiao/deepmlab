@@ -1,0 +1,85 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2007-2008 - INRIA
+// Copyright (C) 2016 - Samuel GOUGEON
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
+
+//===============================
+// unit tests string
+//===============================
+assert_checkequal(string(1), "1");
+//===============================
+assert_checkequal(string(1.5), "1.5");
+//===============================
+// Special display cases :
+assert_checkequal(string(0+%i), "%i");
+assert_checkequal(string(0-%i), "-%i");
+assert_checkequal(string(0+0*%i), "0");
+assert_checkequal(string(-1+%i), "-1+%i");
+assert_checkequal(string(-1-%i), "-1-%i");
+assert_checkequal(string(0+2*%i), "%i*2");
+assert_checkequal(string(0-2*%i), "-%i*2");
+assert_checkequal(string(-2+2*%i), "-2+%i*2");
+assert_checkequal(string(-2-2*%i), "-2-%i*2");
+// BUG #10082
+assert_checkequal(string(1+%i), "1+%i");
+assert_checkequal(string(2+3.5*%i), "2+%i*3.5");
+assert_checkequal(string(3.4-2*%i), "3.4-%i*2");
+assert_checkequal(string(complex(3.4,-%nan)), "3.4+%i*Nan");
+assert_checkequal(string(complex(3.4,%inf)), "3.4+%i*Inf");
+assert_checkequal(string(complex(%nan,0)), "Nan");
+assert_checkequal(string(complex(0,%nan)), "%i*Nan");
+assert_checkequal(string(complex(-%inf,-%nan)), "-Inf+%i*Nan");
+//===============================
+assert_checkequal(string([]), []);
+//===============================
+assert_checkequal(string(""), "");
+//===============================
+assert_checkequal(string(1:3), ["1","2","3"]);
+//===============================
+assert_checkequal(string([1;2;3]), ["1";"2";"3"]);
+//===============================
+assert_checkequal(string("foo"), "foo");
+//===============================
+deff("y = mymacro(x)", "y = x + 1");
+[out, in, text] = string(mymacro);
+assert_checkequal(out, "y");
+assert_checkequal(in, "x");
+assert_checkequal(text, [" "; "y = x + 1"; " "]);
+//===============================
+mymacro = null();
+deff("y = mymacro(x)", "y = x + 1");
+[out, in, text]=string(mymacro);
+assert_checkequal(out, "y");
+assert_checkequal(in, "x");
+assert_checkequal(text, [" "; "y = x + 1"; " "]);
+//===============================
+R = string(corelib);
+assert_checkequal(strsubst(R(1),"\","/"), "SCI/modules/core/macros/");
+//===============================
+A = floor(abs(2^8  * rand(10,10)));
+B = floor(abs(2^16 * rand(10,10)));
+C = floor(abs(2^32 * rand(10,10)));
+
+D = floor(abs(2^7  * rand(10,10)));
+E = floor(abs(2^15 * rand(10,10)));
+F = floor(abs(2^31 * rand(10,10)));
+
+assert_checkequal(string(A), string(uint8(A)));
+assert_checkequal(string(B), string(uint16(B)));
+assert_checkequal(string(C), string(uint32(C)));
+
+assert_checkequal(string(D), string(int8(D)));
+assert_checkequal(string(E), string(int16(E)));
+assert_checkequal(string(F), string(int32(F)));
+//===============================
+myLambda = #(x) -> (2 * (x + 3));
+[out, in, text]=string(myLambda);
+assert_checkequal(out, []);
+assert_checkequal(in, "x");
+assert_checkequal(text, [" "; "2 * (x + 3)"; " "]);

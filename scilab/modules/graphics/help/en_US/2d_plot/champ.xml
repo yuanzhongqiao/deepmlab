@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="champ">
+    <refnamediv>
+        <refname>champ</refname>
+        <refpurpose>plots as arrows a field of 2D vectors</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            champ()  // example
+            champ(x, y, fx, fy)
+            champ(x, y, fx, fy, arfact)
+            champ(x, y, fx, fy, arfact, rect)
+            champ(x, y, fx, fy, arfact, rect, strf)
+            champ(x, y, fx, fy, &lt;opt_args&gt;)
+            hdl = champ(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, y</term>
+                <listitem>
+                    <para>
+                        vectors of decimal numbers, which define the grid of nodes
+                        = coordinates of arrows starting points.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fx</term>
+                <listitem>
+                    <para>
+                        a matrix which describes the x component of the vector
+                        field. <literal>fx(i,j)</literal> is the x
+                        component of the vector field at point
+                        <literal>(x(i),y(j))</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fy</term>
+                <listitem>
+                    <para>
+                        a matrix which describes the y component of the vector
+                        field. <literal>fy(i,j)</literal> is the y component of
+                        the vector field at point <literal>(x(i),y(j))</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>&lt;opt_args&gt;</term>
+                <listitem>
+                    <para>
+                        This represents a sequence of statements
+                        <literal>key1=value1, key2=value2</literal>,... where
+                        <literal>key1</literal>, <literal>key2</literal>,... can
+                        be one of the following: <varname>arfact</varname>,
+                        <varname>rect</varname>, <varname>strf</varname> (see below).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>arfact</term>
+                <listitem>
+                    <para>
+                        an optional argument of type <literal>real</literal>
+                        which gives a scale factor for the display of the arrow
+                        heads on the plot (default value is <literal>1.0</literal>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rect</term>
+                <listitem>
+                    <para>
+                        a vector <literal>rect=[xmin, ymin, xmax, ymax]</literal>
+                        which gives the boundaries of the graphics frame to use.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>strf</term>
+                <listitem>
+                    <para>
+                        a string of length 3 "xyz" which has the same meaning as
+                        the <varname>strf</varname> parameter of
+                        <function>plot2d</function>. The first  character
+                        <literal>x</literal> has no effect with
+                        <function>champ</function>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Champ entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="champ_properties">champ_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>champ(…)</literal> plots a field of 2D vectors with arrows.
+        </para>
+        <para>
+            By default, all arrows have the same color, and their length is
+            proportional to the local intensity of the field (norm of vectors).
+            In addition, all lengths are normalized according to the longest arrow.
+        </para>
+        <para>
+            When setting the <literal>colored</literal> property of the entity handle to <literal>"on"</literal>
+            each arrow becomes as long as possible in its cell, and is colored
+            according to the local intensity of the field.
+        </para>
+        <para>
+            Enter the command <literal>champ()</literal> to see an example.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x = -4:6;
+X = ndgrid(x);
+[fx, fy] =  (rand(X)-0.5, rand(X)-0.5);
+
+clf
+gcf().color_map = jet(50);
+
+// Field's intensity = arrows length
+subplot(2,2,1)
+champ(x, x, fx, fy)
+
+// With bigger arrow heads
+subplot(2,2,2)
+champ(x, x, fx, fy, arfact=1.7)
+title("arfact=1.7", "fontsize",3)
+
+// Field's intensity = arrows color
+xsetech([0 0.5 0.55 0.5])
+h = champ(x, x, fx, fy, arfact=1.7)
+h.colored = "on";
+title("arfact=1.7, .colored=""on""", "fontsize",3)
+colorbar
+
+// Field's intensity = color, + imposed boundaries
+subplot(2,2,4)
+h = champ(x, x, fx, fy, rect=[-5,-6,9,7],strf="011")
+h.colored = "on";
+title("rect=[-5,-6,9,6], strf=""011"", .colored=""on""", "fontsize",3)
+
+gcf().axes_size = [740 680];
+    ]]></programlisting>
+        <scilab:image>
+            x = -4:6;
+            X = ndgrid(x);
+            [fx, fy] =  (rand(X)-0.5, rand(X)-0.5);
+
+            clf
+            gcf().color_map = jet(50);
+
+            // Field's intensity = arrows length
+            subplot(2,2,1)
+            champ(x, x, fx, fy)
+
+            // With bigger arrow heads
+            subplot(2,2,2)
+            champ(x, x, fx, fy, arfact=1.7)
+            title("arfact=1.7", "fontsize",3)
+
+            // Field's intensity = arrows color
+            xsetech([0 0.5 0.55 0.5])
+            h = champ(x, x, fx, fy, arfact=1.7)
+            h.colored = "on";
+            title("arfact=1.7, .colored=""on""", "fontsize",3)
+            L = sqrt(fx.^2 + fy.^2);
+            colorbar(min(L), max(L));
+
+            // Field's intensity = color, + imposed boundaries
+            subplot(2,2,4)
+            h = champ(x, x, fx, fy, rect=[-5,-6,9,7],strf="011")
+            h.colored = "on";
+            title("rect=[-5,-6,9,6], strf=""011"", .colored=""on""", "fontsize",3)
+
+            gcf().axes_size = [740 680];
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+x = -1.2:0.11:0.7;
+y = -1:0.11:0.5;
+[X, Y] = ndgrid(x, y);
+[fx, fy] = (2*X, 2*Y);
+
+clf
+xsetech([0 0 0.45 1])
+champ(x, y, fx, fy)
+title(".colored = ""off"" (default)", "fontsize",3)
+xsetech([0.45 0 0.55 1])
+h = champ(x, y, fx, fy)
+title(".colored = ""on""", "fontsize",3)
+h.colored = "on";
+
+gcf().color_map = jet(100);
+colorbar
+]]></programlisting>
+        <scilab:image>
+            x = -1.2:0.11:0.7;
+            y = -1:0.11:0.5;
+            [X, Y] = ndgrid(x, y);
+            [fx, fy] = (2*X, 2*Y);
+
+            clf
+            xsetech([0 0 0.45 1])
+            champ(x, y, fx, fy)
+            title(".colored = ""off"" (default)", "fontsize",3)
+            xsetech([0.45 0 0.55 1])
+            h = champ(x, y, fx, fy)
+            title(".colored = ""on""", "fontsize",3)
+            h.colored = "on";
+
+            gcf().color_map = jet(100);
+            L = sqrt(fx.^2 + fy.^2);
+            colorbar(min(L), max(L));
+
+            gcf().axes_size = [720 340];
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="champ_properties">champ_properties</link>
+            </member>
+            <member>
+                <link linkend="fchamp">fchamp</link>
+            </member>
+            <member>
+                <link linkend="xarrows">xarrows</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">Arrowed polyline</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>
+                    Function returns the created handle(s).
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

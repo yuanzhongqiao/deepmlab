@@ -1,0 +1,243 @@
+# Japanese translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2017-05-02 02:37+0000\n"
+"Last-Translator: Rui Hirokawa <Unknown>\n"
+"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-Language: Japanese\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: 入力引数 #%d を読み込めません.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: \"%s\" expected.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています: \"%s\" を指定してください.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: メモリ確保エラー.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s: 入力引数 #%d の大きさが間違っています.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A matrix of string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 文字列の行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Append lines in Scilab history failed.\n"
+msgstr "%s: Scilabヒストリに行を追加できませんでした.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected.\n"
+msgstr "%s: 入力引数の数に誤りがあります: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A double expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: doubleを指定してください.\n"
+
+#, c-format
+msgid "%s: An error occurred: Get line %d failed.\n"
+msgstr "%s: エラーが発生しました: %d 行を取得できませんでした.\n"
+
+#, c-format
+msgid "%s: An error occurred: %s\n"
+msgstr "%s: エラーが発生しました: %s\n"
+
+#
+# File: sci_gateway/c/sci_gethistoryfile.c, line: 41
+msgid "filename not defined."
+msgstr "ファイル名が定義されていません。"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
+
+#
+# File: sci_gateway/c/sci_historymanager.c, line: 76
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be '%s' or '%s'.\n"
+msgstr "%s: 入力引数 #%d で不正な値: '%s' または '%s'であるべきです。\n"
+
+#, c-format
+msgid "%s: loadScilabHistoryFromFile failed.\n"
+msgstr "%s: loadScilabHistoryFromFile が失敗しました.\n"
+
+#, c-format
+msgid "%s: getFilenameScilabHistory failed.\n"
+msgstr "%s: getFilenameScilabHistory が失敗しました.\n"
+
+#, c-format
+msgid "%s: Load Scilab history from file failed.\n"
+msgstr "%s: ファイルからScilabヒストリを読み込めませんでした.\n"
+
+#, c-format
+msgid "%s: expandPathVariableW failed.\n"
+msgstr "%s: expandPathVariableW が失敗しました.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be in the interval [%d, %d].\n"
+msgstr "%s: 入力引数 #%d の値が間違っています: [%d,%d] の範囲としてください.\n"
+
+#, c-format
+msgid "%s: Reset history failed.\n"
+msgstr "%s: ヒストリのリセットに失敗しました.\n"
+
+#, c-format
+msgid ""
+"%s: This function is canceled. It will be permanently removed in Scilab %s\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 論理値を指定してください.\n"
+
+msgid "Begin Session : "
+msgstr "セッションを開始: "
+
+#
+# File: src/c/getCommentDateSession.c, line: 108
+msgid "Sun"
+msgstr "日"
+
+#
+# File: src/c/getCommentDateSession.c, line: 109
+msgid "Mon"
+msgstr "月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 110
+msgid "Tue"
+msgstr "火"
+
+#
+# File: src/c/getCommentDateSession.c, line: 111
+msgid "Wed"
+msgstr "水"
+
+#
+# File: src/c/getCommentDateSession.c, line: 112
+msgid "Thu"
+msgstr "木"
+
+#
+# File: src/c/getCommentDateSession.c, line: 113
+msgid "Fri"
+msgstr "金"
+
+#
+# File: src/c/getCommentDateSession.c, line: 114
+msgid "Sat"
+msgstr "土"
+
+#
+# File: src/c/getCommentDateSession.c, line: 126
+msgid "Jan"
+msgstr "1月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 127
+msgid "Feb"
+msgstr "2月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 128
+msgid "Mar"
+msgstr "3月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 129
+msgid "Apr"
+msgstr "4月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 130
+msgid "May"
+msgstr "5月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 131
+msgid "Jun"
+msgstr "6月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 132
+msgid "Jul"
+msgstr "7月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 133
+msgid "Aug"
+msgstr "8月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 134
+msgid "Sep"
+msgstr "9月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 135
+msgid "Oct"
+msgstr "10月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 136
+msgid "Nov"
+msgstr "11月"
+
+#
+# File: src/c/getCommentDateSession.c, line: 137
+msgid "Dec"
+msgstr "12月"
+
+#, c-format
+msgid "%d : %s\n"
+msgstr "%d: %s\n"
+
+msgid "Command history"
+msgstr "コマンド履歴"
+
+msgid "History Management Settings"
+msgstr "履歴管理の設定"
+
+msgid "Enable history management"
+msgstr "履歴管理を有効にする"
+
+msgid "History file: "
+msgstr "履歴ファイル: "
+
+msgid "History files"
+msgstr "履歴ファイル"
+
+msgid "History lines: "
+msgstr "履歴の行: "

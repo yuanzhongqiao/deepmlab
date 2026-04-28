@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009  - DIGITEO - Sylvestre LEDRU
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="ExecScilabCommand" xml:lang="en">
+    <refnamediv>
+        <refname>ExecScilabCommand</refname>
+        <refpurpose>Execute a Scilab from a C/C++ code (call_scilab) and can get message and callstack on error.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <synopsis>int ExecScilabCommand(char* cmd, char** msg, char** stack)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>This fonction is provided in call_scilab. This function execute a command by the Scilab engine.</para>
+        <para>In case of error, it can fill buffers to get error message and/or callstack information.</para>
+    </refsection>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>cmd</term>
+                <listitem>
+                    <para>a standard C char* containing the Scilab commands</para>
+                </listitem>
+                <term>msg</term>
+                <listitem>
+                    <para>in case of error during execution and if <literal>msg</literal> != NULL, engine will fill buffer with error message</para>
+                    <para><literal>msg</literal> must be free.</para>
+                </listitem>
+                <term>stack</term>
+                <listitem>
+                    <para>in case of error during execution and if <literal>stack</literal> != NULL, engine will fill buffer with callstack information</para>
+                    <para><literal>stack</literal> must be free.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>returns</term>
+                <listitem>
+                    <para>0 if the execution is successful.</para>
+                    <para>-1 if the execution fails.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+    <![CDATA[
+// A simple ExecScilabCommand example
+
+StartScilab(NULL, NULL, 0);
+
+char* errmsg = NULL;
+char* errstack = NULL;
+int err = ExecScilabCommand((char*)"cosd(\"a\")", &errmsg, &errstack);
+if (err)
+{
+    std::cout << "Msg: " << errmsg << std::endl;
+    std::cout << "Stack: " << errstack<< std::endl;
+
+    free(errmsg);
+    free(errstack);
+}
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="call_scilab">Call_Scilab</link>
+            </member>
+            <member>
+                <link linkend="compile_and_run_call_scilab">Compile and run with call_scilab</link>
+            </member>
+            <member>
+                <link linkend="SendScilabJob">SendScilabJob</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

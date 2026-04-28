@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="samplef">
+    <refnamediv>
+        <refname>samplef</refname>
+        <refpurpose>sample values with replacement from a population
+            with given frequencies.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>s = samplef(n,X,f,orient)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>positive integer (size of sample)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>matrix. Population, samples are extracted from this matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>
+                        matrix of positive real values. Indicates the corresponding frequencies of the values in <literal>X</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orient</term>
+                <listitem>
+                    <para>
+                        Optional parameter. Admissible values are <literal>{'*'}, 1, 2, 'r' </literal> or <literal>'c'</literal>. The orientation to sample rows or columns. See Description below.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>s</term>
+                <listitem>
+                    <para>
+                         vector or matrix containing the sampled values of <literal>X</literal> at frequencies <literal>f</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function returns <literal>s</literal>, a  vector of length <literal>n</literal>.  It contains
+            a  sample of  <literal>n</literal>  extractions, with  replacement, from  the
+            vector  (or  matrix)  <literal>X</literal>,  each element  counted  with  the
+            frequency given by the corresponding value in vector <literal>f</literal>.
+        </para>
+        <para>
+            <literal>s=samplef(n,X,f)</literal> (or
+            <literal>s=samplef(n,X,f,'*')</literal>)   returns  a
+            vector <literal>s</literal> whose values are a random sample of n values from
+            <literal>X</literal>,   each  value   with  a   probability  to   be  sampled
+            proportional  to the corresponding  value of  <literal>f</literal>, extracted
+            with replacement, from <literal>X</literal>.  <literal>f</literal> must have same length than <literal>X</literal>.
+        </para>
+        <para>
+            <literal>s=samplef(n,X,f,'r')</literal>           (or,          equivalently,
+            <literal>s=samplef(n,X,f,1)) </literal>   returns    a    matrix   of    type
+            <literal>size(X,'r') * n</literal>.  It contains a random sample of <literal>n</literal> rows from
+            <literal>X</literal>, each row with  a probability to be sampled proportional
+            to   the  corresponding   value  of   <literal>f</literal>,   extracted  with
+            replacement, from the  rows of <literal>X</literal>. The length  of <literal>f</literal> must be
+            equal to the number of rows of <literal>X</literal>.
+        </para>
+        <para>
+            <literal>s=samplef(n,X,f,'c')</literal>           (or,          equivalently,
+            <literal>s=samplef(n,X,f,2))</literal>    returns    a    matrix   of    type
+            <literal>n * size(X,'c')</literal>.  It  contains a random sample  of <literal>n</literal> columns
+            from  <literal>X</literal>, each  column  with a  probability  to be  sampled
+            proportional  to the corresponding  value of  <literal>f</literal>, extracted
+            with replacement, from the columns  of <literal>X</literal>.  The length of <literal>f</literal>
+            must be equal to the number of columns of <literal>X</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title> Random number generator </title>
+        <para>
+             <literal>samplef</literal> is based on <link linkend="grand">grand</link> for generating the random samples. Use <literal>grand("setsd", seed)</literal> to change the seed for <literal>samplef</literal>.
+        </para>
+        <programlisting role="example"><![CDATA[
+            seed = getdate("s");
+            grand("setsd", seed); //sets the seed to current date
+
+            seed = 0;
+            grand("setsd", seed); //sets the seed to default value
+            ]]>
+        </programlisting>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+X = [3 7 9; 22 4 2];
+f1 = [10 1 1 1 1 1];
+f2 = [1 ; 15];
+f3 = [10 1 1];
+s=samplef(20, X, f1)      //the first value of matrix X will be chosen with frequency 10/15
+s=samplef(20, X, f2, 'r') //the second row of matrix a will be chosen with frequency  15/16
+s=samplef(20, X, f3, 'c') //the first column of matrix a will be chosen with frequency 10/12
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sample">sample</link>
+            </member>
+            <member>
+                <link linkend="samwr">samwr</link>
+            </member>
+            <member>
+                <link linkend="grand">grand</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

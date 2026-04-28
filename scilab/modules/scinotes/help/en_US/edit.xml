@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ????-2008 - INRIA
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="edit" xml:lang="en">
+    <refnamediv>
+        <refname>edit</refname>
+        <refpurpose>edits a given Scilab function or file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            edit functionname
+            edit(functionname, linenumber)
+            edit functionname linenumber
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>functionname</term>
+                <listitem>
+                    <para>character string</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>linenumber</term>
+                <listitem>
+                    <para>
+                        positive integer (of type 1 or 10)
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            If <varname>functionname</varname> is the name of a defined scilab function,
+            <literal>edit(functionname)</literal> tries to open the associated source file
+            <literal>functionname.sci</literal>.
+        </para>
+        <para>
+            If <varname>functionname</varname> is not found as a defined Scilab function but
+            matches naming rules of Scilab functions, <literal>edit(functionname)</literal>
+            creates the file <literal>functionname.sci</literal> file in the
+            <literal>TMPDIR</literal> directory.
+        </para>
+        <para>
+            If <varname>functionname</varname> is a file path or an expression not matching
+            Scilab functions naming rules, <literal>edit(functionname)</literal> opens the file
+            with file name equal to <varname>functionname</varname>.
+        </para>
+        <para>
+            If <varname>linenumber</varname> is given, the file is opened at this line inside the
+            function/endfunction block defining the macro named as the file itself.
+            If the definition of the function <varname>functionname</varname> is not found in the
+            file, the file is opened at the absolute line number <varname>linenumber</varname>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Opens editor with text of this function
+edit edit
+
+// Opens editor for a new function, creating the file myfun.sci in TMPDIR
+edit myfunction
+
+// Opens or creates the file foo.sce in the current working directory
+edit foo.sce
+
+// Opens the file scilab.ini in the SCIHOME directory
+edit(SCIHOME+"/scilab.ini")
+
+// Opens the file test_run.sci in which test_run() is defined,
+// at line 123 inside the test_run() function block:
+edit('test_run', 123)
+
+// Same thing with an inline syntax (line number as text):
+edit test_run 123
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="editor">editor</link>
+            </member>
+            <member>
+                <link linkend="scinotes">scinotes</link>
+            </member>
+            <member>
+                <link linkend="manedit">manedit</link>
+            </member>
+            <member>
+                <link linkend="names">names</link>
+            </member>
+            <member>
+                <link linkend="editvar">editvar</link>
+            </member>
+            <member>
+                <link linkend="ged">ged</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.3.1</revnumber>
+                <revdescription>
+                    <para>
+                        New <varname>linenumber</varname> input option.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <varname>linenumber</varname> can now be of type text as "23".
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

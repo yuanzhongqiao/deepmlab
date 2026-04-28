@@ -1,0 +1,568 @@
+/*
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2008-2008 - DIGITEO - Antoine ELIAS
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ */
+
+//file included in runvisitor.cpp
+namespace ast {
+
+/*
+    [1,2;3,4] with/without special character $ and :
+    */
+template<class T>
+void RunVisitorT<T>::visitprivate(const MatrixExp &e)
+{
+    CoverageInstance::invokeAndStartChrono((void*)&e);
+    try
+    {
+        exps_t::const_iterator row;
+        exps_t::const_iterator col;
+        types::InternalType *poResult = NULL;
+        std::list<types::InternalType*> rowList;
+
+        exps_t lines = e.getLines();
+        if (lines.size() == 0)
+        {
+            setResult(types::Double::Empty());
+            CoverageInstance::invokeAndStartChrono((void*)&e);
+            return;
+        }
+
+        //special case for 1x1 matrix
+        if (lines.size() == 1)
+        {
+            exps_t cols = lines[0]->getAs<MatrixLineExp>()->getColumns();
+            if (cols.size() == 1)
+            {
+                setResult(NULL); // Reset value on loop re-start
+
+                cols[0]->accept(*this);
+                //manage evstr('//xxx') for example
+                if (getResult() == NULL)
+                {
+                    setResult(types::Double::Empty());
+                }
+                CoverageInstance::invokeAndStartChrono((void*)&e);
+                return;
+            }
+        }
+
+        //do all [x,x]
+        for (row = lines.begin(); row != lines.end(); row++)
+        {
+            types::InternalType* poRow = NULL;
+            exps_t cols = (*row)->getAs<MatrixLineExp>()->getColumns();
+            for (col = cols.begin(); col != cols.end(); col++)
+            {
+                setResult(NULL); // Reset value on loop re-start
+
+                try
+                {
+                    (*col)->accept(*this);
+                }
+                catch (const InternalError& error)
+                {
+                    if (poRow)
+                    {
+                        poRow->killMe();
+                    }
+                    if (poResult)
+                    {
+                        poResult->killMe();
+                    }
+
+                    throw error;
+                }
+
+                types::InternalType *pIT = getResult();
+                if (pIT == NULL)
+                {
+                    continue;
+                }
+
+                //reset result but without delete the value
+                clearResultButFirst();
+
+                if (pIT->isImplicitList())
+                {
+                    types::ImplicitList *pIL = pIT->getAs<types::ImplicitList>();
+                    if (pIL->isComputable())
+                    {
+                        types::InternalType* pIT2 = pIL->extractFullMatrix();
+                        pIT->killMe();
+                        pIT = pIT2;
+                    }
+                    else
+                    {
+                        if (poRow == NULL)
+                        {
+                            //first loop
+                            poRow = pIT;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                poRow = callOverloadMatrixExp(L"c", poRow, pIT, e.getLocation());
+                            }
+                            catch (const InternalError& error)
+                            {
+                                if (poResult)
+                                {
+                                    poResult->killMe();
+                                }
+                                throw error;
+                            }
+                        }
+
+                        continue;
+                    }
+                }
+
+                if (pIT->isGenericType() == false)
+                {
+                    if (poRow == NULL)
+                    {
+                        //first loop
+                        poRow = pIT;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if ((poRow->isObject() && poRow->getAs<types::Object>()->hasMethod(L"horzcat")) ||
+                                (pIT->isObject() && pIT->getAs<types::Object>()->hasMethod(L"horzcat")))
+                            {
+                                types::Object* obj = nullptr;
+                                if (poRow->isObject())
+                                {
+                                    obj = poRow->getAs<types::Object>();
+                                }
+                                else
+                                {
+                                    obj = pIT->getAs<types::Object>();
+                                }
+
+                                types::typed_list in;
+                                types::optional_list opt;
+                                types::typed_list out;
+
+                                in.push_back(poRow);
+                                in.push_back(pIT);
+
+                                poRow->IncreaseRef();
+                                pIT->IncreaseRef();
+
+                                if (obj->callMethod(L"horzcat", in, opt, 1, out, e) == types::Function::OK && out.size() == 1)
+                                {
+                                    poRow = out[0];
+                                }
+                                else
+                                {
+                                    poRow = callOverloadMatrixExp(L"c", poRow, pIT, e.getLocation());
+                                }
+
+                                cleanIn(in, out);
+                            }
+                            else
+                            {
+                                poRow = callOverloadMatrixExp(L"c", poRow, pIT, e.getLocation());
+                            }
+                        }
+                        catch (const InternalError& error)
+                        {
+                            if (poResult)
+                            {
+                                poResult->killMe();
+                            }
+
+                            pIT->killMe();
+                            throw error;
+                        }
+                    }
+
+                    continue;
+                }
+
+                types::GenericType* pGT = pIT->getAs<types::GenericType>();
+
+                if (poRow == NULL)
+                {
+                    //first loop
+                    if (poResult == NULL && pGT->isDouble() && pGT->getAs<types::Double>()->isEmpty())
+                    {
+                        pGT->killMe();
+                        continue;
+                    }
+
+                    if (pGT->isDouble() && pGT->getAs<types::Double>()->isEmpty())
+                    {
+                        if (poResult && (poResult->isList() || poResult->isStruct()))
+                        {
+                            //in case of [list(); [], ...]
+
+                            //we don't know what to do with [], keep it as "normal" value and continue process
+                            poRow = pGT;
+                            continue;
+                        }
+
+                        pGT->killMe();
+                        continue;
+                    }
+
+                    poRow = pGT;
+                    continue;
+                }
+
+                //manage overload on list/struct/implicitlist and hypermatrix before management of []
+                if (pGT->isList() || poRow->isList() || pGT->isStruct() || poRow->isStruct() || poRow->isImplicitList() || pGT->getDims() > 2)
+                {
+                    try
+                    {
+                        poRow = callOverloadMatrixExp(L"c", poRow, pGT, e.getLocation());
+                    }
+                    catch (const InternalError& error)
+                    {
+                        if (poResult)
+                        {
+                            poResult->killMe();
+                        }
+                        throw error;
+                    }
+
+                    continue;
+                }
+
+                if (pGT->isDouble() && pGT->getAs<types::Double>()->isEmpty())
+                {
+                    pGT->killMe();
+                    continue;
+                }
+
+                types::GenericType* pGTRow = poRow->getAs<types::GenericType>();
+
+                //check dimension
+                if (pGT->getDims() != 2 || ( (pGT->getRows() != pGTRow->getRows()) && pGT->getRows() != 0 && pGTRow->getRows() != 0) )
+                {
+                    poRow->killMe();
+                    if (poRow != pGT)
+                    {
+                        pGT->killMe();
+                    }
+                    std::wostringstream os;
+                    os << _W("inconsistent row/column dimensions\n");
+                    throw ast::InternalError(os.str(), 999, (*row)->getLocation());
+                }
+
+                // if we concatenate [Double Sparse], transform the Double to Sparse and perform [Sparse Sparse]
+                // this avoids to allocate a Double result of size of Double+Sparse and initialize all elements.
+                if (pGT->isSparse() && pGTRow->isDouble())
+                {
+                    poRow = new types::Sparse(*pGTRow->getAs<types::Double>());
+                    pGTRow->killMe();
+                    pGTRow = poRow->getAs<types::GenericType>();
+                }
+                else if (pGT->isSparseBool() && pGTRow->isBool()) // [Bool SparseBool] => [SparseBool SparseBool]
+                {
+                    poRow = new types::SparseBool(*pGTRow->getAs<types::Bool>());
+                    pGTRow->killMe();
+                    pGTRow = poRow->getAs<types::GenericType>();
+                }
+                else if (pGT->isDollar() && pGTRow->isDouble())
+                {
+                    int _iRows = pGTRow->getRows();
+                    int _iCols = pGTRow->getCols();
+                    int* piRank = new int[_iRows * _iCols];
+                    memset(piRank, 0x00, _iRows * _iCols * sizeof(int));
+                    poRow = new types::Polynom(pGT->getAs<types::Polynom>()->getVariableName(), _iRows, _iCols, piRank);
+                    types::Polynom* pP = poRow->getAs<types::Polynom>();
+                    types::SinglePoly** pSS = pP->get();
+                    types::Double* pDb = pGTRow->getAs<types::Double>();
+                    double* pdblR = pDb->get();
+                    if (pDb->isComplex())
+                    {
+                        double* pdblI = pDb->getImg();
+                        pP->setComplex(true);
+                        for (int i = 0; i < pDb->getSize(); i++)
+                        {
+                            pSS[i]->setRank(0);
+                            pSS[i]->setCoef(pdblR + i, pdblI + i);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < pDb->getSize(); i++)
+                        {
+                            pSS[i]->setRank(0);
+                            pSS[i]->setCoef(pdblR + i, NULL);
+                        }
+                    }
+                    pGTRow->killMe();
+                    pGTRow = poRow->getAs<types::GenericType>();
+                    delete[] piRank;
+                }
+
+                types::InternalType* p = NULL;
+                if (!pGT->isSparse() && !pGT->isSparseBool())
+                {
+                    types::InternalType *pNewSize = AddElementToVariable(NULL, poRow, std::max(pGTRow->getRows(),pGT->getRows()), pGTRow->getCols() + pGT->getCols());
+                    if(pNewSize)
+                    {
+                        p = AddElementToVariable(pNewSize, pGT, 0, pGTRow->getCols());
+                        if (p != pNewSize)
+                        {
+                            pNewSize->killMe();
+                        }
+                    }
+                }
+            
+                // call overload
+                if (p == NULL)
+                {
+                    try
+                    {
+                        poRow = callOverloadMatrixExp(L"c", pGTRow, pGT, e.getLocation());
+                    }
+                    catch (const InternalError& error)
+                    {
+                        if (poResult)
+                        {
+                            poResult->killMe();
+                        }
+                        throw error;
+                    }
+                    continue;
+                }
+
+                if (poRow != pGT)
+                {
+                    pGT->killMe();
+                }
+
+                if (p != poRow)
+                {
+                    poRow->killMe();
+                    poRow = p;
+                }
+            }
+
+            if (poRow == NULL)
+            {
+                continue;
+            }
+
+            if (poResult == NULL)
+            {
+                poResult = poRow;
+                continue;
+            }
+
+            // management of concatenation with 1:$
+            if (poRow->isImplicitList() || poResult->isImplicitList())
+            {
+                try
+                {
+                    poResult = callOverloadMatrixExp(L"f", poResult, poRow, e.getLocation());
+                }
+                catch (const InternalError& error)
+                {
+                    throw error;
+                }
+                continue;
+            }
+
+            types::GenericType* pGT = poRow->getAs<types::GenericType>();
+
+            //check dimension
+            types::GenericType* pGTResult = poResult->getAs<types::GenericType>();
+
+            if (pGT->isList() || pGTResult->isList() || pGT->isStruct() || pGTResult->isStruct() || pGT->getDims() > 2)
+            {
+                try
+                {
+                    poResult = callOverloadMatrixExp(L"f", pGTResult, pGT, e.getLocation());
+                }
+                catch (const InternalError& error)
+                {
+                    throw error;
+                }
+
+                continue;
+            }
+            else
+            {//[]
+                if (pGT->isDouble() && pGT->getAs<types::Double>()->isEmpty())
+                {
+                    pGT->killMe();
+                    continue;
+                }
+            }
+
+            //check dimension
+            if ((pGT->getCols() != pGTResult->getCols()) && pGT->getCols() != 0 &&  pGTResult->getCols() != 0)
+            {
+                poRow->killMe();
+                if (poResult)
+                {
+                    poResult->killMe();
+                }
+                std::wostringstream os;
+                os << _W("inconsistent row/column dimensions\n");
+                throw ast::InternalError(os.str(), 999, (*e.getLines().begin())->getLocation());
+            }
+
+            // if we concatenate [Double Sparse], transform the Double to Sparse and perform [Sparse Sparse]
+            // this avoids to allocate a Double result of size of Double+Sparse and initialize all elements.
+            if (pGT->isSparse() && pGTResult->isDouble())
+            {
+                poResult = new types::Sparse(*pGTResult->getAs<types::Double>());
+                pGTResult->killMe();
+                pGTResult = poResult->getAs<types::GenericType>();
+            }
+            else if (pGT->isSparseBool() && pGTResult->isBool()) // [Bool SparseBool] => [SparseBool SparseBool]
+            {
+                poResult = new types::SparseBool(*pGTResult->getAs<types::Bool>());
+                pGTResult->killMe();
+                pGTResult = poResult->getAs<types::GenericType>();
+            }
+
+            types::InternalType* p = NULL;
+            if (!pGT->isSparse() && !pGT->isSparseBool())
+            {
+                types::InternalType* pNewSize = AddElementToVariable(NULL, poResult, pGTResult->getRows() + pGT->getRows(), std::max(pGT->getCols(),pGTResult->getCols()));
+                p = AddElementToVariable(pNewSize, pGT, pGTResult->getRows(), 0);                
+                if (p != pNewSize)
+                {
+                    pNewSize->killMe();
+                }
+            }
+
+            // call overload
+            if (p == NULL)
+            {
+                try
+                {
+                    if (poRow->isObject() && poRow->getAs<types::Object>()->hasMethod(L"vertcat"))
+                    {
+                        types::Object* obj = poRow->getAs<types::Object>();
+                        types::typed_list in;
+                        types::optional_list opt;
+                        types::typed_list out;
+
+                        in.push_back(pGTResult);
+                        in.push_back(pGT);
+
+                        pGTResult->IncreaseRef();
+                        pGT->IncreaseRef();
+
+                        if (obj->callMethod(L"vertcat", in, opt, 1, out, e) == types::Function::OK && out.size() == 1)
+                        {
+                            poResult = out[0];
+                        }
+                        else
+                        {
+                            poResult = callOverloadMatrixExp(L"f", pGTResult, pGT, e.getLocation());
+                        }
+
+                        cleanIn(in, out);
+                    }
+                    else
+                    {
+                        poResult = callOverloadMatrixExp(L"f", pGTResult, pGT, e.getLocation());
+                    }
+                }
+                catch (const InternalError& error)
+                {
+                    throw error;
+                }
+                continue;
+            }
+
+            if (poResult != poRow)
+            {
+                poRow->killMe();
+            }
+
+            if (p != poResult)
+            {
+                poResult->killMe();
+                poResult = p;
+            }
+        }
+
+        if (poResult)
+        {
+            setResult(poResult);
+        }
+        else
+        {
+            setResult(types::Double::Empty());
+        }
+    }
+    catch (const InternalError& error)
+    {
+        setResult(NULL);
+        CoverageInstance::invokeAndStartChrono((void*)&e);
+        throw error;
+    }
+    CoverageInstance::invokeAndStartChrono((void*)&e);
+}
+
+template<class T>
+types::InternalType* RunVisitorT<T>::callOverloadMatrixExp(const std::wstring& strType, types::InternalType* _paramL, types::InternalType* _paramR, const Location& _location)
+{
+    types::typed_list in;
+    types::typed_list out;
+    types::Callable::ReturnValue Ret;
+
+    _paramL->IncreaseRef();
+    _paramR->IncreaseRef();
+
+    in.push_back(_paramL);
+    in.push_back(_paramR);
+
+    try
+    {
+        if (_paramR->isGenericType() && _paramR->getAs<types::GenericType>()->getDims() > 2)
+        {
+            Ret = Overload::call(L"%hm_" + strType + L"_hm", in, 1, out, true, true, _location);
+        }
+        else
+        {
+            Ret = Overload::call(L"%" + _paramL->getAs<types::List>()->getShortTypeStr() + L"_" + strType + L"_" + _paramR->getAs<types::List>()->getShortTypeStr(), in, 1, out, true, true, _location);
+        }
+    }
+    catch (const InternalError& error)
+    {
+        cleanInOut(in, out);
+        throw error;
+    }
+
+    if (Ret != types::Callable::OK)
+    {
+        cleanInOut(in, out);
+        throw InternalError(ConfigVariable::getLastErrorMessage());
+    }
+
+    cleanIn(in, out);
+
+    if (out.empty())
+    {
+        // TODO: avoid crash if out is empty but must return an error...
+        return NULL;
+    }
+
+    return out[0];
+}
+
+} /* namespace ast */

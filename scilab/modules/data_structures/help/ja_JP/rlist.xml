@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="rlist">
+    <refnamediv>
+        <refname>rlist</refname>
+        <refpurpose>Scilab 有理関数定義</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            rlist(a1,....an)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>rlist(a1,....an)</literal> は
+            <literal>tlist(['r','num';'den','dt'], a1,....an)</literal>へのショートカットです.
+        </para>
+        <para>
+            <literal>['r','num';'den','dt']</literal>を最初のエントリ,
+            <literal>ai</literal>を次のエントリといったようなエントリを有する
+            <literal>tlist</literal>を作成します.
+            <literal>ai</literal>の型も大きさも確認されません.
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tlist">tlist</link>
+            </member>
+            <member>
+                <link linkend="syslin">syslin</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+            <title>History</title>
+            <revhistory>
+                <revision>
+                    <revnumber>6.1</revnumber>
+                    <revremark>rlist() removed.</revremark>
+                </revision>
+            </revhistory>
+    </refsection>
+</refentry>

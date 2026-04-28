@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="scilab">
+    <refnamediv>
+        <refname>scilab</refname>
+        <refpurpose>run command or file in another Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[err, stdout, stderr] = scilab(code, file, mode, quit, args)</synopsis>
+        <synopsis>scilab(..., background)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>code</term>
+                <listitem>
+                    <para>command to execute in the new Scilab.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>file</term>
+                <listitem>
+                    <para>file to execute in the new Scilab.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para><literal>"nwni"</literal>: to start a new Scilab without graphical and Xcos features.</para>
+                    <para><literal>"nw"</literal>: to start a new Scilab with graphical and Xcos features. (default)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>quit</term>
+                <listitem>
+                    <para>boolean to indicate if Scilab must quit after execution (default: %t)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>args</term>
+                <listitem>
+                    <para>Other arguments to pass to the new Scilab, they can be retrieved via <link linkend="sciargs">sciargs</link>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>background</term>
+                <listitem>
+                    <para>boolean to indicate that the new Scilab must be launched in a detached process without waiting for end of execution to continue.</para>
+                    <warning><para>If <literal>background</literal> is <literal>%T</literal> the function will not return any value.</para></warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>err</term>
+                <listitem>
+                    <para>status of execution (0 if succeeded).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stdout</term>
+                <listitem>
+                    <para>Content of Standard Output.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stderr</term>
+                <listitem>
+                    <para>Content of Standard Error.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Executes <literal>code</literal> or <literal>file</literal> in a new Scilab and returns status and logs.</para>
+    </refsection>
+    <refsection>
+        <title>Remarks</title>
+        <warning>
+            <para><literal>code</literal> and <literal>file</literal> are mutually exclusive.</para>
+        </warning>
+        <para>We recommand to use this function with named arguments (see examples)</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+    <![CDATA[
+    //execute 1+1 in a new Scilab and exit at the end
+    [status, stdout, stderr] = scilab(code="1+1")
+    //execute 1+1 in a new Scilab and exit at the end without graphics
+    [status, stdout, stderr] = scilab(code="1+1", mode="nwni")
+
+    tmp = tempname();
+    mputl("1+1", tmp);
+
+    //execute 1+1 in a new Scilab and exit at the end
+    [status, stdout, stderr] = scilab(file=tmp)
+    //execute 1+1 in a new Scilab and exit at the end without graphics
+    [status, stdout, stderr] = scilab(file=tmp, mode="nwni")
+
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="exec">exec</link>
+            </member>
+            <member>
+                <link linkend="evstr">evstr</link>
+            </member>
+            <member>
+                <link linkend="sciargs">sciargs</link>
+            </member>
+            <member>
+                <link linkend="startup_options">Scilab startup options</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>scilab</literal> function introduced
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

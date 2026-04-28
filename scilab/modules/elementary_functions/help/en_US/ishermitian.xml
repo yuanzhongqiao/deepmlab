@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2026 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="ishermitian">
+    <refnamediv>
+        <refname>ishermitian</refname>
+        <refpurpose>Check whether a matrix is hermitian</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = ishermitian(A)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                    <para>
+                        real or complex square matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>
+                        boolean value (%t or %f). Returns %t if the matrix is Hermitian, %f otherwise.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>ishermitian</literal> returns %t if the matrix <literal>A</literal> is hermitian, that is if <literal>A* = A</literal>, where 
+            <literal>A*</literal> denotes the conjugate transpose of <literal>A</literal>.
+        </para>
+        <para>
+            Equivalently, a matrix is hermitian if <literal>A(i,j) = conj(A(j,i))</literal> for all indices <literal>i</literal> and <literal>j</literal>. 
+            And diagonal elements must be real.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [1 %i; -%i 2];
+                ishermitian(X)
+                // %t
+            ]]></programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [1 %i; %i 2];
+                ishermitian(X)
+                // %f
+            ]]></programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [1 2; 2 3];
+                ishermitian(X)
+                // %t
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="issymmetric">issymmetric</link>
+            </member>
+            <member>
+                <link linkend="conj">conj</link>
+            </member>
+            <member>
+                <link linkend="isequal">isequal</link>
+            </member>
+            <member>
+                <link linkend="quote">quote</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

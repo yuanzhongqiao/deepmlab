@@ -1,0 +1,1469 @@
+# Japanese translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Japanese <zz-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-Language: Japanese\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: 出力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています : %s を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string or %s expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています : 文字列または %s を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d の大きさが間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr "%s: 入力引数の数が間違っています:  %d 以上の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Argument #%d: %s expected.\n"
+msgstr "%s: 引数 #%d : %s を指定してください.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Scalar (1 element) expected.\n"
+msgstr "%s: 引数 #%d: スカラー (要素数1)を指定してください.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: 入力引数 #%d を読み込めません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 論理値を指定してください.\n"
+
+msgid "Preview"
+msgstr "プレビュー"
+
+msgid "Error on export"
+msgstr "エクスポートエラー"
+
+msgid "Please specify a valid file format"
+msgstr "有効なフォーマットを指定してください"
+
+msgid "Incompatibility detected"
+msgstr "互換性がありません"
+
+msgid "Please check the diagram, before trying to simulate it."
+msgstr "シミュレーション実行前にダイアグラムを確認してください."
+
+msgid "Some blocks have been removed to ensure compatibility."
+msgstr "互換性を確保するためいくつかのブロックが削除されています."
+
+#, c-format
+msgid "Unable to decode \"%s\" : invalid data."
+msgstr "\"%s\" をデコードできません : データが無効です."
+
+#, c-format
+msgid "Unable to decode \"%s.%s\" : invalid field."
+msgstr "\"%s.%s\" をデコードできません : フィールドが無効です."
+
+msgid "Modelica settings"
+msgstr "Modelica設定"
+
+msgid "name"
+msgstr "名前"
+
+msgid "id"
+msgstr "id"
+
+msgid "kind"
+msgstr "種類"
+
+msgid "fixed"
+msgstr "固定"
+
+msgid "initial"
+msgstr "初期値"
+
+msgid "weight"
+msgstr "重み"
+
+msgid "max"
+msgstr "最大"
+
+msgid "min"
+msgstr "最小"
+
+msgid "nominal"
+msgstr "ノミナル"
+
+msgid "comment"
+msgstr "コメント"
+
+msgid "selected"
+msgstr "選択"
+
+msgid "Fix derivatives"
+msgstr "微係数を固定"
+
+msgid "Fix states"
+msgstr "状態量を固定"
+
+msgid "Solve"
+msgstr "解く"
+
+msgid "model is not valid"
+msgstr "モデルが有効ではありません"
+
+msgid "Compiling"
+msgstr "コンパイル中"
+
+msgid "Computing"
+msgstr "計算中"
+
+msgid "Global"
+msgstr "グローバル"
+
+msgid "Equations"
+msgstr "方程式"
+
+msgid "Discretes"
+msgstr "離散"
+
+msgid "Inputs"
+msgstr "入力"
+
+msgid "Outputs"
+msgstr "出力"
+
+msgid "Solver"
+msgstr "ソルバー"
+
+msgid "Initial computing method"
+msgstr "初期値計算法"
+
+msgid "Parameter embedding"
+msgstr "パラメータ埋込"
+
+msgid ""
+"lets the user change the parameters and call the solver without regenerating "
+"code."
+msgstr ""
+"ユーザにパラメータを変更させ,コードを再度生成することなくソルバをコールします"
+
+msgid "Generate Jacobian"
+msgstr "ヤコビアンを生成"
+
+msgid "Error"
+msgstr "エラー"
+
+msgid "Unknowns not equal to Equations"
+msgstr "未知数の数が方程式と等じではありません"
+
+msgid "Unknowns"
+msgstr "未知"
+
+msgid "Reduced"
+msgstr "削減"
+
+msgid "Extended"
+msgstr "拡張"
+
+msgid "Diff. States"
+msgstr "状態量の微分"
+
+msgid "Fixed parameters"
+msgstr "固定されたパラメータ"
+
+msgid "Relaxed parameters"
+msgstr "緩和されたパラメータ"
+
+msgid "Fixed variables"
+msgstr "固定された変数"
+
+msgid "Relaxed variables"
+msgstr "緩和された変数"
+
+msgid "Please take a look into the Scilab console"
+msgstr "Scilabコンソールを確認してください"
+
+#, c-format
+msgid "Wrong input argument \"%s\": invalid tree path.\n"
+msgstr "入力引数 \"%s\" が間違っています: ツリーパスが間違っています.\n"
+
+#, c-format
+msgid ""
+"Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n"
+msgstr ""
+"入力引数 \"%s\" が間違っています: ノードが不正です, 代わりに "
+"'xcosPalDisable' を使用してください.\n"
+
+#, c-format
+msgid "Unable to import %s .\n"
+msgstr "%s をインポートできません.\n"
+
+#, c-format
+msgid "Unable to load block from %s ."
+msgstr "%s からブロックを読み込めません."
+
+msgid "Loading the block"
+msgstr "ブロックを読み込み中"
+
+msgid "Untitled"
+msgstr "無題"
+
+msgid "File"
+msgstr "ファイル"
+
+msgid "New"
+msgstr "新規"
+
+msgid "New diagram"
+msgstr "新規ダイアグラム"
+
+msgid "New palette"
+msgstr "新規パレット"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Open file in Scilab current directory"
+msgstr "Scilabカレントディレクトリのファイルを開く"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save as"
+msgstr "名前を付けて保存"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Export all diagrams"
+msgstr "全ダイアグラムをエクスポート"
+
+msgid "Save as interface function"
+msgstr "インターフェース関数の保存"
+
+msgid "Print"
+msgstr "印刷"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Quit Xcos"
+msgstr "Xcosを終了"
+
+msgid "Recent files"
+msgstr "最近のファイル"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Block Parameters"
+msgstr "ブロック パラメーター"
+
+msgid "Selection to superblock"
+msgstr "スーパーブロックへのセレクション"
+
+msgid "Superblock mask"
+msgstr "スーパーブロック・マスク"
+
+msgid "Create"
+msgstr "作成"
+
+msgid "Rename"
+msgstr "名前を変更"
+
+msgid "Remove"
+msgstr "削除"
+
+msgid "Customize"
+msgstr "カスタマイズ"
+
+msgid "Save block GUI"
+msgstr "GUIブロックの保存"
+
+msgid "matches"
+msgstr "一致"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Searching..."
+msgstr "検索中…"
+
+msgid "Zoom In"
+msgstr "拡大"
+
+msgid "Zoom Out"
+msgstr "縮小"
+
+msgid "Unable to load the selected blocks."
+msgstr "選択したブロックを読み込めませんでした."
+
+msgid "Loading blocks"
+msgstr "ブロックを読み込み中"
+
+msgid "Load as palette"
+msgstr "パレットとして取り込む"
+
+msgid "User-Defined"
+msgstr "ユーザ定義"
+
+msgid "Create a category"
+msgstr "カテゴリを作成"
+
+msgid "Add to a new category"
+msgstr "新規カテゴリを追加"
+
+msgid "Category"
+msgstr "カテゴリ"
+
+msgid "Enter a name"
+msgstr "名前を入力"
+
+msgid "Dump"
+msgstr "ダンプ"
+
+msgid "View in Scicos"
+msgstr "Scicosでの表示"
+
+msgid "View"
+msgstr "表示"
+
+msgid "Fit diagram or blocks to view"
+msgstr "ダイアグラムまたはブロックを視野に一致させる"
+
+msgid "Normal 100%"
+msgstr "標準 100%"
+
+msgid "Palette browser"
+msgstr "パレット ブラウザー"
+
+msgid "tree_show(scs_m)"
+msgstr "tree_show(scs_m)"
+
+msgid "Diagram browser"
+msgstr "ダイアグラム ブラウザ"
+
+msgid "Viewport"
+msgstr "表示ポート"
+
+msgid "Get infos"
+msgstr "情報を取得"
+
+msgid "Details"
+msgstr "詳細"
+
+msgid "Show parent diagram"
+msgstr "親ダイアグラムを表示"
+
+msgid "Simulation"
+msgstr "シミュレーション"
+
+msgid "Setup"
+msgstr "設定"
+
+msgid "Compile"
+msgstr "コンパイル"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Set Context"
+msgstr "コンテキスト設定"
+
+msgid "Format"
+msgstr "書式"
+
+msgid "Resize"
+msgstr "サイズ変更"
+
+msgid "Rotate"
+msgstr "回転"
+
+msgid "Flip"
+msgstr "反転"
+
+msgid "Mirror"
+msgstr "反転"
+
+msgid "Show/Hide shadow"
+msgstr "影の表示/非表示"
+
+msgid "Grid"
+msgstr "グリッド"
+
+msgid "Diagram background"
+msgstr "ダイアグラムの背景"
+
+msgid "Bold"
+msgstr "ボールド体"
+
+msgid "Italic"
+msgstr "イタリック体"
+
+msgid "Font size"
+msgstr "フォントの大きさ"
+
+msgid "Font name"
+msgstr "フォント名"
+
+msgid "Font style"
+msgstr "フォントの種類"
+
+msgid "Block legend"
+msgstr ""
+
+msgid "Image path"
+msgstr "イメージのパス"
+
+msgid "Tools"
+msgstr "ツール"
+
+msgid "Code generation"
+msgstr "コード生成"
+
+msgid "?"
+msgstr "?"
+
+msgid "Xcos Help"
+msgstr "Xcos ヘルプ"
+
+msgid "Block Help"
+msgstr "ブロックヘルプ"
+
+msgid "Xcos Demonstrations"
+msgstr "Xcos デモ"
+
+msgid "About Scilab"
+msgstr "Scilabについて"
+
+msgid "Palettes"
+msgstr "パレット"
+
+msgid "Sources"
+msgstr "信号源"
+
+msgid "Continuous time systems"
+msgstr "連続時間システム"
+
+msgid "Implicit"
+msgstr "暗示的"
+
+msgid "Discontinuities"
+msgstr "不連続"
+
+msgid "Lookup Tables"
+msgstr "ルックアップ・テーブル"
+
+msgid "Signal Processing"
+msgstr "信号処理"
+
+msgid "Zero crossing detection"
+msgstr "ゼロクロス検出"
+
+msgid "Mathematical Operations"
+msgstr "数値計算"
+
+msgid "Integer"
+msgstr "整数"
+
+msgid "Matrix"
+msgstr "行列"
+
+msgid "Sinks"
+msgstr "出力／表示"
+
+msgid "Port & Subsystem"
+msgstr "ポートとサブシステム"
+
+msgid "Annotations"
+msgstr "注釈"
+
+msgid "Discrete time systems"
+msgstr "離散時間システム"
+
+msgid "Event handling"
+msgstr "イベント・ハンドリング"
+
+msgid "Signal Routing"
+msgstr "信号の配線"
+
+msgid "Recently Used Blocks"
+msgstr "最近使用されたブロック"
+
+msgid "User-Defined Functions"
+msgstr "ユーザ定義関数"
+
+msgid "Demonstrations Blocks"
+msgstr "ブロック・デモ"
+
+msgid "Electrical"
+msgstr "電気工学"
+
+msgid "Thermo-Hydraulics"
+msgstr "熱水力学"
+
+msgid "Enable"
+msgstr "有効にする"
+
+msgid "Palette name"
+msgstr "パレット名"
+
+msgid "Diagram has been modified since last save.<br/> Do you want to save it?"
+msgstr "直近の保存以降にダイアグラムが修正されています.<br/>保存しますか?"
+
+#, c-format
+msgid ""
+"The file %s doesn't exist\n"
+" Do you want to create it?"
+msgstr ""
+"ファイル %s は存在しません\n"
+"作成しますか?"
+
+#, c-format
+msgid "Unable to decode the URI : %s ."
+msgstr "URIをデコードできません : %s ."
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Reset to default"
+msgstr "デフォルトに戻す"
+
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK), and every time the diagram "
+"is run."
+msgstr ""
+
+msgid "Failed to load Diagram"
+msgstr "ダイアグラムの読み込みに失敗"
+
+msgid "Could not save diagram."
+msgstr "ダイアグラムを保存できません."
+
+msgid "Do you want to overwrite existing file?"
+msgstr "既存ファイルを上書きしますか?"
+
+msgid "Do you want a transparent background image?"
+msgstr "背景イメージを透明にしますか?"
+
+msgid "Image contains no data."
+msgstr "イメージはデータを含みません。"
+
+msgid "Unknown Diagram Version : "
+msgstr "未知のダイアグラムバージョン: "
+
+msgid "Will try to continue..."
+msgstr "継続を試みます..."
+
+msgid "Xcos error"
+msgstr "Xcos エラー"
+
+msgid "Unable to delete "
+msgstr "削除できません "
+
+msgid "No block selected"
+msgstr "ブロックが選択されていません"
+
+msgid "Export to XML"
+msgstr "XMLにエキスポート"
+
+msgid "Export in progress"
+msgstr "エクスポート中"
+
+msgid "Import from XML"
+msgstr "XMLをインポート"
+
+msgid "Add to"
+msgstr "追加"
+
+msgid "Add to new diagram"
+msgstr "新規ダイアグラムを追加"
+
+msgid "Explicit data input port must be connected to explicit data output port"
+msgstr ""
+"明示的データ入力ポートは明示的データ出力ポートと結合されている必要があります"
+
+msgid "Implicit data input port must be connected to implicit data output port"
+msgstr ""
+"暗示的なデータ入力ポートは、暗示的なデータ出力ポートと繋がってなくてはいけま"
+"せん"
+
+msgid "Explicit data output port must be connected to explicit data input port"
+msgstr ""
+"明示的データ出力ポートは明示的データ入力ポートと結合されている必要があります"
+
+msgid "Implicit data output port must be connected to implicit data input port"
+msgstr ""
+"暗示的なデータ出力ポートは、暗示的なデータ入力ポートと繋がってなくてはいけま"
+"せん"
+
+msgid "Command port must be connected to control port"
+msgstr "コマンドポートは、制御ポートと接続されなくてはなりません"
+
+msgid "control port must be connected to command port"
+msgstr "制御ポートは、コマンドポートと接続されてなくてはなりません"
+
+msgid ""
+"Port is already connected, please select an unconnected port or a valid link."
+msgstr ""
+"ポートは接続済みです, 未接続のポートまたは有効なリンクを選択してください."
+
+msgid "Align Blocks"
+msgstr "ブロックを整列"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Center"
+msgstr "中央"
+
+msgid "Top"
+msgstr "上位"
+
+msgid "Bottom"
+msgstr "下揃え"
+
+msgid "Middle"
+msgstr "中間"
+
+msgid "Block edge"
+msgstr ""
+
+msgid "Block background"
+msgstr ""
+
+msgid "Legend color"
+msgstr ""
+
+msgid "Link Style"
+msgstr "結合方法"
+
+msgid "Straight"
+msgstr "直線"
+
+msgid "Horizontal"
+msgstr "水平"
+
+msgid "Vertical"
+msgstr "垂直"
+
+msgid "Set debugging level (0,1,2,3) <br/> it performs scicos_debug(n)"
+msgstr "デバッグレベル設定 (0,1,2,3) <br/>scicos_debug(n)を実行します"
+
+msgid "Execution trace and Debug"
+msgstr "トレースとデバッグの実行"
+
+msgid "Final integration time"
+msgstr "積分終了時間"
+
+msgid "Real time scaling"
+msgstr "実時間スケール"
+
+msgid "Integrator absolute tolerance"
+msgstr "積算絶対許容誤差"
+
+msgid "Integrator relative tolerance"
+msgstr "積分相対誤差"
+
+msgid "Tolerance on time"
+msgstr "時間の誤差"
+
+msgid "Max integration time interval"
+msgstr "最大積分時間間隔"
+
+msgid "Solver kind"
+msgstr "ソルバーの種類"
+
+msgid "Maximum step size (0 means no limit)"
+msgstr "ステップ最大値 (0: 制限無し)"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "Set Parameters"
+msgstr "パラメーター設定"
+
+msgid "Based on Scicos"
+msgstr "Scicosに基づく"
+
+msgid "Saving diagram"
+msgstr "ダイアグラムを保存"
+
+msgid "Loading diagram"
+msgstr "ダイアグラムを読み込み中"
+
+msgid "Loading palettes"
+msgstr "パレットを読み込み中"
+
+msgid "Loading user defined palettes"
+msgstr "ユーザ定義パレットを読み込み中"
+
+msgid "Generating C Code for SuperBlock"
+msgstr "スーパーブロックのCコードを生成中"
+
+msgid "A SuperBlock must be selected to generate code"
+msgstr "コードを生成するにはスーパーブロックを指定する必要があります"
+
+msgid "Simulation in progress"
+msgstr "シミュレーション実行中"
+
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
+msgstr "コンパイル中, 結果は 'cpr'変数に保存されます"
+
+msgid "Generate SuperBlock, please wait"
+msgstr "SuperBlockを生成中, お待ちください"
+
+msgid "Click on diagram to add link point or on a compatible target to finish"
+msgstr ""
+"図形をクリックしてリンク点を加えるか、あるいは互換の目標をクリックして終了し"
+"てください"
+
+msgid "No trace nor debug printing"
+msgstr "トレースもデバッグ出力も行ないません"
+
+msgid "Light Simulation trace (Discrete and Continuous part switches)"
+msgstr "軽量シミュレーショントレース (離散または連続部のスイッチ)"
+
+msgid "Per block execution trace and Debug block calls"
+msgstr "ブロック毎の実行トレースとデバッグブロックコール"
+
+msgid "Debug block calls without trace"
+msgstr "トレースなしのデバッグブロックコール"
+
+msgid "All supported formats"
+msgstr "サポートされる全形式"
+
+msgid "Scicos file"
+msgstr "Scicosファイル"
+
+msgid "Xcos file"
+msgstr "Xcosファイル"
+
+msgid "Xcos (zip) file"
+msgstr "Xcos (zip) ファイル"
+
+msgid "XMI (Eclipse EMF) file"
+msgstr "XMI (Eclipse EMF)ファイル"
+
+msgid "Scilab Open Data file"
+msgstr "Scilab オープンデータファイル"
+
+msgid "Masked SuperBlock editor"
+msgstr "マスクされたスーパーブロックエディタ"
+
+msgid "Insert"
+msgstr "挿入"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Move Up"
+msgstr "上へ"
+
+msgid "Move Down"
+msgstr "下へ"
+
+msgid "Rows"
+msgstr "行"
+
+msgid "Variable settings"
+msgstr "変数設定"
+
+msgid "Default values"
+msgstr "デフォルト値"
+
+msgid "WinTitle"
+msgstr "ウインドウ・タイトル"
+
+msgid "Window title"
+msgstr "ウインドウ・タイトル"
+
+msgid "Variable names"
+msgstr "変数名"
+
+msgid "Variable descriptions"
+msgstr "変数記述"
+
+msgid "Editable"
+msgstr "編集可"
+
+msgid "Values"
+msgstr "値"
+
+msgid "Set block parameters"
+msgstr "ブロック・パラメータ設定"
+
+msgid ""
+"The user palette configuration file (palettes.xml) is invalid.<BR> Switching "
+"to the default one."
+msgstr ""
+"ユーザのパレット設定ファイル (palettes.xml) に誤りがあります.<BR>デフォルトの"
+"設定に切り替えます."
+
+msgid ""
+"The user configuration file (xcos.xml) is invalid.<BR> Switching to the "
+"default one."
+msgstr ""
+"ユーザ設定ファイル (xcos.xml) に誤りがあります.<BR> デフォルトの設定に切り替"
+"えます."
+
+msgid "Setting up Modelica Compiler."
+msgstr "Modelicaコンパイラを設定"
+
+msgid "Modelica initialize"
+msgstr "Modelica初期化"
+
+msgid "Error: unable to compile this SuperBlock"
+msgstr "エラー: このSuperBlockをコンパイルできません"
+
+msgid "Evaluation problem: wrong port number."
+msgstr "評価時の問題: ポート番号が間違っています."
+
+#, c-format
+msgid "Expecting <code>%d</code> but got <code>%d</code>."
+msgstr "<code>%d</code> が仕様ですが,  <code>%d</code> が得られました."
+
+msgid ""
+"<html><body>Compilation error: link ignored because it is not connected. <br/"
+">Please reconnect it.</body></html>"
+msgstr ""
+"<html><body>コンパイルエラー: 未接続のためリンクは無視されます. <br/>再接続し"
+"てください.</body></html>"
+
+msgid "Block name: "
+msgstr "ブロック名: "
+
+msgid "Simulation: "
+msgstr "シミュレーション: "
+
+msgid "UID: "
+msgstr "UID: "
+
+msgid "Style: "
+msgstr "スタイル: "
+
+msgid "Rpar: "
+msgstr "Rpar: "
+
+msgid "Ipar: "
+msgstr "Ipar: "
+
+msgid "Opar: "
+msgstr "Opar: "
+
+msgid "Datatype: "
+msgstr "データ型: "
+
+msgid "Implicit: "
+msgstr "陰的: "
+
+msgid "Source datatype: "
+msgstr "ソースのデータ型: "
+
+msgid "Target datatype: "
+msgstr "ターゲットのデータ型: "
+
+msgid "Label: "
+msgstr "ラベル: "
+
+msgid "Optimal"
+msgstr "最適"
+
+msgid "Auto-Position Block"
+msgstr "自動位置ブロック"
+
+msgid "Split Block"
+msgstr "分割ブロック"
+
+msgid "Auto-Position Split Block"
+msgstr "自動位置分割ブロック"
+
+msgid "A one-line description of the block"
+msgstr "ブロックの簡易説明"
+
+msgid "Annotation (or comment) attached to the object"
+msgstr "オブジェクトに付属するアノテーション (またはコメント)"
+
+#, c-format
+msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
+msgstr "-nogui または -nwni モードでは Scilab '%s' モジュールは無効です.\n"
+
+#, c-format
+msgid "Scilab '%s' module not installed.\n"
+msgstr "Scilabモジュール '%s' はインストールされていません.\n"
+
+msgid "Number of recently opened files to display: "
+msgstr "表示用に最近開いたファイルの数: "
+
+msgid "Default file format"
+msgstr "デフォルトのファイル形式"
+
+msgid "Default simulation settings"
+msgstr "シミュレーション設定のデフォルト値"
+
+msgid "Default trace settings"
+msgstr "トレース設定のデフォルト値"
+
+msgid "Basic controller"
+msgstr "基本制御器"
+
+msgid "Water tank"
+msgstr "水タンク"
+
+msgid "Discrete Controller"
+msgstr "離散制御器"
+
+msgid "Kalman Filter"
+msgstr "カルマンフィルタ"
+
+msgid "Discrete Kalman Filter"
+msgstr "離散カルマンフィルタ"
+
+msgid "Cont.Plant-Hybrid Observer"
+msgstr "連続系-ハイブリッドオブザーバ"
+
+msgid "Temperature Controller"
+msgstr "温度制御器"
+
+msgid "Inverted pendulum"
+msgstr "倒立振子"
+
+msgid "Lorenz butterfly"
+msgstr "ローレンツバタフライ"
+
+msgid "RLC Circuit"
+msgstr "RLC回路"
+
+msgid "Bridge Rectifer"
+msgstr "ブリッジダイオード"
+
+msgid "Transformer"
+msgstr "トランス"
+
+msgid "Differential amplifier"
+msgstr "差動アンプ"
+
+msgid "OpAmp amplifier"
+msgstr "オペアンプ"
+
+msgid "Switched capacitor integrator"
+msgstr "スイッチドキャパシタ積分器"
+
+msgid "DC/DC Buck Converter"
+msgstr "DC/DCバック変換器"
+
+msgid "DC/DC Boost Converter"
+msgstr "DC/DCブースト変換器"
+
+msgid "Colpitts oscillator"
+msgstr "Colpitts振動子"
+
+msgid "Logic AND gate"
+msgstr "論理ANDゲート"
+
+msgid "Logic NOR gate"
+msgstr "論理NORゲート"
+
+msgid "If Then Else"
+msgstr "If Then Else"
+
+msgid "And"
+msgstr "And"
+
+msgid "Automotive Suspension"
+msgstr "自動車のサスペンション"
+
+msgid "Ball on a Platform"
+msgstr "台の上のボール"
+
+msgid "Bouncing Ball"
+msgstr "弾むボール"
+
+msgid "Chaos Modelica"
+msgstr "Chaos Modelica"
+
+msgid "Hydraulics blocks"
+msgstr "油圧ブロック"
+
+msgid "RLC circuit"
+msgstr "RLC回路"
+
+msgid "Heat conduction in a rod"
+msgstr "ロッドの熱伝導"
+
+msgid "Second order rotational system"
+msgstr "二次回転系"
+
+msgid "Old Gain Block"
+msgstr "古いゲインブロック"
+
+msgid "Optimal link route"
+msgstr "最適ルートのリンク"
+
+msgid "Optimal split block position"
+msgstr "最適ブロック位置分割"
+
+msgid "Standard demos"
+msgstr "標準デモ"
+
+msgid "Control Systems"
+msgstr "制御系"
+
+msgid "Electrical Systems"
+msgstr "電気系"
+
+msgid "Mechanical Systems"
+msgstr "機械系"
+
+msgid "Modelica demos"
+msgstr "Modelicaデモ"
+
+msgid "Old demos"
+msgstr "古いデモ"
+
+msgid "Simple Demo"
+msgstr "簡単なデモ"
+
+msgid "Bouncing Balls"
+msgstr "弾むボール"
+
+msgid "Simple Thermostat"
+msgstr "簡単なサーモスタット"
+
+msgid "Table Lookup"
+msgstr "テーブル検索"
+
+msgid "Signal Builder"
+msgstr "信号生成器"
+
+msgid "Fibonacci Numbers"
+msgstr "フィボナッチ数列"
+
+msgid "Scilab block"
+msgstr "Scilabブロック"
+
+msgid "Xcos data types"
+msgstr "Xcosデータ型"
+
+msgid "Zero Crossing"
+msgstr "ゼロ交差"
+
+msgid "_IF_ Xcos block"
+msgstr "_IF_Xcosブロック"
+
+msgid "Goto/From blocks"
+msgstr "Goto/Fromブロック"
+
+msgid "Event demos"
+msgstr "イベントデモ"
+
+msgid "Optimal positions"
+msgstr "最適位置"
+
+#, c-format
+msgid "%s: Unable to export %s to %s.\n"
+msgstr "%s: %s を %s にエクスポートできません.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: Block type expected.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: ブロック型を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: directory path string expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています: ディレクトリパス文字列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong input argument %s: svg, gif or jpg expected.\n"
+msgstr ""
+"%s: 入力引数 %s が間違っています : svg, gif または jpg を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string expected.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: boolean expected.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: 論理値を指定してください.\n"
+
+#, c-format
+msgid "%s: File '%s' does not exist.\n"
+msgstr "%s: ファイル '%s' が存在しません.\n"
+
+#, c-format
+msgid "%s: File '%s' is not a valid palette file.\n"
+msgstr "%s: ファイル '%s' は有効なパレットファイルではありません.\n"
+
+#, c-format
+msgid "%s: Found '%s' instead of a block.\n"
+msgstr "%s: ブロックの代わりに '%s' が見つかりました.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: diagram structure expected"
+msgstr "%s: 引数 %d で不正な型: 図形構造体が予想されます"
+
+#, c-format
+msgid "%s: Wrong type for %s variable: A string array expected.\n"
+msgstr "%s: 変数 %s の型が間違っています: 文字列の配列を指定してください.\n"
+
+#, c-format
+msgid "%s: All paths defined by %s variable must exist.\n"
+msgstr "%s: %s 変数により定義された全てのパスが存在する必要があります.\n"
+
+#, c-format
+msgid ""
+"%s: The directory %s cannot been created, please check if you have write "
+"access on this directory.\n"
+msgstr ""
+"%s: ディレクトリー %s を作成できません. このディレクトリーへの書き込みアクセ"
+"ス権の有無を確認ください.\n"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "%s を開けません"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected."
+msgstr "%s: 入力引数の数が間違っています: %d 個の引数を指定してください."
+
+#, c-format
+msgid "%s: Not supported format %s.\n"
+msgstr "%s: サポートされない形式 %s.\n"
+
+#, c-format
+msgid ""
+"%s: the block %s is no more available, please update the diagram with a "
+"compatible one."
+msgstr ""
+"%s: ブロック %s は利用できなくなりました, ダイアグラムを同等なブロックに更新"
+"してください."
+
+#, c-format
+msgid "%s is not a valid name, please change the title of the diagram."
+msgstr "%s は有効な名前ではありません, 図のタイトルを変更してください."
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string type expected.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: 文字列型を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: diagram type expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています: ダイアグラム型を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d to %d expected.\n"
+msgstr ""
+"%s: 出力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: palette type or path expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています: パレット型またはパスを指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: File not found.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: ファイルが見つかりません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string vector expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています:文字列のベクトルを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: palette type expected.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: パレット型を指定してください.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: hdf5 file expected.\n"
+msgstr ""
+"%s: ブロックを %s から読み込めません: hdf5 ファイルを指定してください.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: no `scs_m' variable found.\n"
+msgstr ""
+"%s:  %s からブロックをロードできませんでした: `scs_m' 変数が見つかりません.\n"
+
+#, c-format
+msgid "%s: Unable to load block from %s: Missing file.\n"
+msgstr ""
+"%s: ブロックを %s から読み込めません: hdf5 ファイルを指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument %s: function as string or Block type or "
+"full path string expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています: 文字列で指定した関数またはブロック"
+"(Block)型または完全パス文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Unable to generate the palette icon : %s already exists.\n"
+msgstr "%s: パレットアイコンを作成できません: %s が既に存在します.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: path string expected.\n"
+msgstr "%s: 入力引数 %s の型が間違っています: パス文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument %s: An existing file expected.\n"
+msgstr ""
+"%s: 入力引数 %s の値が間違っています:存在するファイルを指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument %s: A valid file format (png, jpg, gif) "
+"expected.\n"
+msgstr ""
+"%s: 入力引数 %s が間違っています : 有効な形式 (png, jpg, gif) を指定してくだ"
+"さい.\n"
+
+#, c-format
+msgid "%s: Unable to generate the image %s.\n"
+msgstr "%s: イメージ %s を作成できません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています: 文字列または構造体を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument %s: full path string expected.\n"
+msgstr ""
+"%s: 入力引数 %s の型が間違っています: ファイルパス文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Unable to export the palette to hdf5.\n"
+msgstr "%s: パレットを hdf5にエクスポートできません.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Matrix of strings expected.\n"
+msgstr "%s: 引数 #%d の型が間違っています:  文字列の行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Vector expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: ベクトルを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: No block found.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています:  ブロックが見つかりません.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A String expected."
+msgstr "%s: 引数 %dの型が間違っています: 文字列を指定してください."
+
+msgid "Interface function does not exist or can not be called."
+msgstr "インターフェイス関数が存在しないかまたはコールできません."
+
+#, c-format
+msgid "%s is not a valid block descriptor."
+msgstr "%s は有効なブロック記述子ではありません."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: %d 行 %d 列の行列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d または %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "Block definition with function [%s] failed."
+msgstr "関数 [%s] のブロック定義が失敗しました."
+
+#, c-format
+msgid "Block configuration with function [%s] failed."
+msgstr "関数 [%s] のブロック設定が失敗しました."
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A Block expected."
+msgstr "%s: 入力引数 #%d の型が間違っています: ブロックを指定してください."
+
+#, c-format
+msgid "Field %s has different values."
+msgstr "フィールド %s は異なる値を有しています."
+
+msgid "Stopped before block:"
+msgstr "ブロックの前で停止:"
+
+msgid "Stopped after block:"
+msgstr "ブロックの後で停止:"
+
+msgid "State derivative computation"
+msgstr "状態量微分計算"
+
+msgid "Regular outputs update"
+msgstr "通常の出力更新"
+
+msgid "States update on discrete event"
+msgstr "離散イベントで状態量更新"
+
+msgid "Output activation dates"
+msgstr "出力アクティベーションした日付"
+
+msgid "Initialization"
+msgstr "初期化"
+
+msgid "Ending"
+msgstr "終了中"
+
+msgid "ReInitialization"
+msgstr "最初期化"
+
+msgid "Continuous states properties update"
+msgstr "連続状態量プロパティ更新"
+
+msgid "Zero crossing surfaces computation"
+msgstr "ゼロ交差局面の計算"
+
+msgid "Residual computation"
+msgstr "残差の計算"
+
+msgid "&File"
+msgstr "ファイル(&F)"
+
+msgid "&Tools"
+msgstr "ツール (&T)"
+
+msgid "&Edit"
+msgstr "編集(&E)"
+
+msgid "&?"
+msgstr "&?"
+
+msgid "Xcos debug"
+msgstr "Xcosデバック"
+
+msgid "Break point conditions"
+msgstr "ブレークポイント条件"
+
+msgid "Break on selected flags"
+msgstr "選択されたフラグでブレーク"
+
+msgid "After call"
+msgstr "コール後"
+
+msgid "Before call"
+msgstr "コール前"
+
+msgid "After date"
+msgstr "開始後"
+
+msgid "On the Scilab condition above"
+msgstr "上記のScilab条件に基づく"
+
+msgid "Current simulation state"
+msgstr "現在のシミュレーション状態"
+
+msgid "scs_m block path:"
+msgstr "scs_mブロックのパス:"
+
+msgid "Time:"
+msgstr "時間:"
+
+msgid "Flag:"
+msgstr "フラグ:"
+
+msgid "End debug"
+msgstr "デバッグ終了"
+
+msgid "Pause"
+msgstr "一時停止"
+
+#, c-format
+msgid "Use the %s button to end the debugging"
+msgstr "デバッグを終了するには %s ボタンを使用してください"
+
+#, c-format
+msgid "Unable to simulate %s"
+msgstr "%s をシュミレートできません"
+
+msgid "Error occurred in pre_xcos_simulate: Cancelling simulation."
+msgstr ""
+"pre_xcos_simulateでエラーが発生しました: シミュレーションをキャンセルします."
+
+#, c-format
+msgid "%s: Error during block parameters evaluation.\n"
+msgstr "%s: ブロックパラメータを評価する際にエラーが発生しました.\n"
+
+#, c-format
+msgid "%s: Error during block parameters update.\n"
+msgstr "%s: ブロックパラメータを更新する際にエラーが発生しました.\n"
+
+msgid "Initialisation problem"
+msgstr "初期化時に問題"
+
+msgid "End problem"
+msgstr "終了時に問題"
+
+msgid "Simulation problem"
+msgstr "シミュレーション問題"
+
+msgid "Error in post_xcos_simulate: ending simulation."
+msgstr ""
+"post_xcos_simulateでエラーが発生しました: シミュレーションを終了します."
+
+#, c-format
+msgid "%s: Cannot open file '%s' for reading.\n"
+msgstr "%s: '%s'を読み込み用にオープンできませんでした.\n"
+
+#, c-format
+msgid "%s: Error while trying to read file contents from '%s'.\n"
+msgstr "%s: '%s'からファイルの内容を読み込む際にエラーが発生しました.\n"
+
+#, c-format
+msgid "%s: Syntax error while trying to set up context from"
+msgstr "%s: コンテキストを設定中に構文エラーが発生しました"

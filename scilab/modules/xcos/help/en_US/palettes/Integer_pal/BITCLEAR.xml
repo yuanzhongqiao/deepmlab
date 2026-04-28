@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Xcos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * Copyright (C) 2011 - Bernard DUJARDIN <bernard.dujardin@contrib.scilab.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xmln.mml="http://www.w3.org/1998/Math/MathML" xml:id="BITCLEAR" xml:lang="en_US">
+    <refnamediv>
+        <refname>BITCLEAR</refname>
+        <refpurpose>Clear a Bit</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/BITCLEAR.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_BITCLEAR">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_BITCLEAR">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Data_Type_BITCLEAR">Data types</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_BITCLEAR">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_BITCLEAR">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_BITCLEAR">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_BITCLEAR">Computational function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_BITCLEAR">Example</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_BITCLEAR">See also</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_BITCLEAR">
+        <title>Description</title>
+        <para>
+            This block sets to <literal>0</literal> the specified bit of its input.
+            The user gives the bit index in the field <emphasis role="bold">Index of Bit</emphasis>
+            with index <literal>0</literal>, as that of the least significant bit.The operation can be
+            summarized by this expression:
+        </para>
+        <para>
+            <emphasis>Sortie = Entrée ∧ Masque</emphasis>
+        </para>
+        <para>
+            i.e. a bitwise <literal>AND</literal> between <literal>Input</literal> and
+            <literal>Mask</literal>, an integer of the same length as the input with a value
+            <literal>0</literal> for the bit to clear and a value <literal>1</literal>
+            for the other bits.
+        </para>
+    </refsection>
+
+    <refsection id="Data_Type_BITCLEAR">
+        <title>Data types</title>
+        <para>
+            The block supports the following types :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Input : scalar. All Scilab's integer type (<emphasis role="bold">Data type</emphasis> parameter).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Output : same type and dimensions than input.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Dialogbox_BITCLEAR">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../gui/integer_pal/en_US/BITCLEAR_gui.png" align="center" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Data Type (3=int32 4=int16 5=int8 ...)</emphasis>
+                </para>
+                <para>
+                    It indicates the integer type of the input (output) data : between 3 and 8.
+                </para>
+                <para>Properties : Type 'vec' of size 1.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Index of Bit (0 is least significant)</emphasis>
+                </para>
+                <para>It indicate the index of the bit to clear. The index must be, when the type is:</para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            int32 or uint32:  positive and less than 32.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            int16 or uint16: positive and less than 16.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            int8 or uint8: positive and less than 8.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+                <para>Properties : Type 'vec' of size 1.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_BITCLEAR">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> yes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 3</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 3</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">bit_clear_32</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+
+    <refsection id="Example_BITCLEAR">
+        <title>Example</title>
+        <para>
+            Below a simple use case of the block.
+        </para>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/integer_pal/en_US/BITCLEAR_en_US.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata fileref="../../../../examples/integer_pal/en_US/BITCLEAR_en_US.zcos" align="center"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+    </refsection>
+    <refsection id="Interfacingfunction_BITCLEAR">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link type="scilab" linkend="scilab.scinotes/scicos_blocks/IntegerOp/BITCLEAR.sci">SCI/modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci</link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_BITCLEAR">
+        <title>Computational function</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/bit_clear_32.c</para>
+            </listitem>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/bit_clear_16.c</para>
+            </listitem>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/src/c/bit_clear_8.c</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection role="see also" xml:id="Seealso_BITCLEAR">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="BITSET">BITSET</link>
+            </member>
+            <member>
+                <link linkend="EXTRACTBITS">EXTRACTBITS</link>
+            </member>
+            <member>
+                <link linkend="LOGICAL_OP">LOGICAL_OP</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

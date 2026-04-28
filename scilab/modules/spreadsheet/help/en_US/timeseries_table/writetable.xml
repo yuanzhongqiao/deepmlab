@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="writetable" xml:lang="en">
+    <refnamediv>
+        <refname>writetable</refname>
+        <refpurpose>write a table to file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            writetable(t)
+            writetable(t, filename)
+            writetable(..., OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>name or path of file</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"Delimiter"</emphasis>, string</term>
+                <listitem>
+                    <para> 
+                        the column separator. Default value: ",".
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"WriteRowNames"</emphasis>, boolean</term>
+                <listitem>
+                    <para> 
+                        when %t, writes row names in the file (first column).
+                        Default value: %f.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"WriteVariableNames"</emphasis>, boolean</term>
+                <listitem>
+                    <para> 
+                        when %t, writes variables names in the file (column names).
+                        Default value: %t.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <emphasis role="bold">writetable</emphasis> function writes a table into a text file, where data are separated by comma. 
+            Accepted file formats are .txt, .dat or .csv.
+        </para>
+        <para>
+            <emphasis role="bold">writetable(t)</emphasis> writes table t into the file table.txt saved in TMPDIR.
+        </para>
+        <para>
+            <emphasis role="bold">writetable(t, filename, OptionName, Value) can be used to specify the column delimiter, to write 
+                the row names and the variable names into the file.
+            </emphasis>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">writetbale(t, filename) and writetbale(t, filename, 'WriteVariableNames', %f)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+            
+            // Write the table in TXT file
+            writetable(t, fullfile(TMPDIR, "data.txt"))
+
+            // Read the TXT file with readtable
+            r = readtable(fullfile(TMPDIR, "data.txt"))
+
+            // Write the table in TXT file
+            writetable(t, fullfile(TMPDIR, "data.txt"), "WriteVariableNames", %f)
+
+            // Read the TXT file with readtable
+            r = readtable(fullfile(TMPDIR, "data.txt"))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">t = readtable(filename, "WriteRowNames", %t)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            x = ["a"; "b"; "c"; "d"; "e"];
+            x1 = [1:5]';
+            x2 = 2.*[1:5]';
+            t = table(x1, x2, "VariableNames", ["x1", "x2"]);
+            t.Row = x;
+
+            writetable(t, fullfile(TMPDIR, "data.csv"), "WriteRowNames", %t);
+            r = readtable(fullfile(TMPDIR, "data.csv"), "ReadRowNames", %t)
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="readtable">readtable</link>
+            </member>
+            <member>
+                <link linkend="table">table</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

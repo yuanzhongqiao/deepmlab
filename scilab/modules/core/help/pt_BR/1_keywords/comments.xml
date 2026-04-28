@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="comments" xml:lang="pt">
+    <refnamediv>
+        <refname>comments</refname>
+        <refpurpose>(// or /*...*/) comments</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Uma seqüência de duas barras <literal> // </literal> fora de uma
+            definição de string marca o início de um comentário. As barras, tanto
+            quanto o restante dos caracteres até o fim das linhas não são
+            interpretados.
+        </para>
+        <para>
+            Another way to comment a block of code is to use /* at the beginning
+            and */ at the end. It is more useful than // which must be positioned at the
+            beginning of each line to comment.
+        </para>
+        <para>Dentro de uma função, as primeiras linhas de comentário até a
+            primeira instrução ou linha vazia podem ser usadas para fornecer o
+            conteúdo padrão para a documentação de ajuda da função ("help" da função).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+g=9.81// a gravidade
+
+text='a//b'
+
+/* As this comment is quite long to be on many lines,
+the symbols slash and star to start the comment
+and star and slash to end the comment are used */
+
+function y=myfunction(x)
+//  myfunction computa y=x^2+1
+// x deve ser um vetor ou uma matriz
+  y=x^2+1
+endfunction
+
+doc myfunction
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="head_comments">head_comments</link>
+            </member>
+            <member>
+                <link linkend="slash">slash</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                    <literal>/* .. */</literal> block comments introduced.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

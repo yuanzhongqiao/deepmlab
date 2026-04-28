@@ -1,0 +1,109 @@
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
+//
+// Copyright (C) 2012 - 2016 - Scilab Enterprises
+//
+// This file is hereby licensed under the terms of the GNU GPL v2.0,
+// pursuant to article 5.3.4 of the CeCILL v.2.1.
+// This file was originally licensed under the terms of the CeCILL v2.1,
+// and continues to be available under such terms.
+// For more information, see the COPYING file which you should have received
+// along with this program.
+
+// <-- CLI SHELL MODE -->
+
+// 
+// Test #1 : Without parameters 
+//
+op = optimset ();
+assert_checkequal ( op.Display , [] );
+assert_checkequal ( op.FunValCheck , [] );
+assert_checkequal ( op.MaxFunEvals , [] );
+assert_checkequal ( op.MaxIter , [] );
+assert_checkequal ( op.OutputFcn , [] );
+assert_checkequal ( op.PlotFcns , [] );
+assert_checkequal ( op.TolFun , [] );
+assert_checkequal ( op.TolX , [] );
+clear op
+function y = myoutputfun (x)
+  y = x;
+endfunction
+function y = myplotfun (x)
+  y = x;
+endfunction
+// 
+// Test #2 : With parameters
+//
+op = optimset (...
+  'Display','iter',...
+  "FunValCheck","on",...
+  "MaxFunEvals",100,...
+  "MaxIter",110,...
+  "OutputFcn",myoutputfun,...
+  "PlotFcns",myplotfun,...
+  "TolFun",1.e-12,...
+  "TolX",1.e-13...
+  );
+assert_checkequal ( op.Display , "iter" );
+assert_checkequal ( op.FunValCheck , "on" );
+assert_checkequal ( op.MaxFunEvals , 100 );
+assert_checkequal ( op.MaxIter , 110 );
+//assert_checkequal ( op.OutputFcn , myoutputfun );
+//assert_checkequal ( op.PlotFcns , myplotfun );
+assert_checkequal ( op.TolFun , 1.e-12 );
+assert_checkequal ( op.TolX , 1.e-13 );
+clear op
+// 
+// Test #3 : Copy one option set into another
+// 
+op1 = optimset ("TolFun",1.e-12);
+op2 = optimset (op1,"TolX",1.e-13);
+assert_checkequal ( op2.TolFun , 1.e-12 );
+assert_checkequal ( op2.TolX , 1.e-13 );
+clear op1
+clear op2
+// 
+// Test #3 : with one method name
+// 
+op = optimset ("fminsearch");
+assert_checkequal ( op.TolFun , 1.e-4 );
+assert_checkequal ( op.TolX , 1.e-4 );
+assert_checkequal ( op.Display , "notify" );
+assert_checkequal ( op.MaxFunEvals , "200*numberofvariables" );
+assert_checkequal ( op.MaxIter , "200*numberofvariables" );
+clear op
+
+//
+// Test where the first input argument is not a struct
+//
+cmd = "optimset (''foo'',''MaxFunEvals'',100)";
+assert_checkerror(cmd,"%s: Odd number of arguments : the first argument is expected to be a struct, but is a %s",[],"optimset","string");
+//
+// Test where the key is unknown
+//
+cmd = "optimset (''foo'',100)";
+assert_checkerror(cmd,"%s: Unrecognized parameter name ''%s''.",[],"optimset","foo");
+
+//
+// Test where the algorithm is unknown
+//
+cmd = "optimset (''foo'')";
+assert_checkerror(cmd,"%s: No default options available: the function ''%s'' does not exist on the path.",[],"optimset","foo");
+//
+// Test where the Display key is unknown
+//
+cmd = "optimset (''Display'',''foo'')";
+assert_checkerror(cmd,"%s: Unrecognized value ''%s'' for ''Display'' option.",[],"optimset","foo");
+//
+// Test all possible values of Display
+//
+op = optimset ( "Display" , "final" );
+assert_checkequal ( op.Display , "final" );
+op = optimset ( "Display" , "iter" );
+assert_checkequal ( op.Display , "iter" );
+op = optimset ( "Display" , "off" );
+assert_checkequal ( op.Display , "off" );
+op = optimset ( "Display" , "notify" );
+assert_checkequal ( op.Display , "notify" );
+

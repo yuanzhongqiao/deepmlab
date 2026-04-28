@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="fr" xml:id="getvalue">
+    <refnamediv>
+        <refname>getvalue</refname>
+        <refpurpose>boîte de dialogue de saisie de paramètres   </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>[ok,x1,..,x14]=getvalue(desc,labels,typ,ini)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>desc  </term>
+                <listitem>
+                    <para>
+                      vecteur colonne de texte : présentation de la liste des paramètres.
+                      Tout caractère "&lt;" doit être remplacé par "&amp;lt;"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>labels  </term>
+                <listitem>
+                    <para>
+                        vecteur colonne de n textes : <literal>labels(i)</literal> l'intitulé
+                        du i-ème paramètre.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>typ  </term>
+                <listitem>
+                    <para>
+                        : <literal>list(typ_1,dim_1,..,typ_n,dim_n)</literal>
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>typ_i  </term>
+                            <listitem>
+                                <para>
+                                   définit le type de la ième valeur. Par défaut, les saisies
+                                   sont interprêtées comme des nombres décimaux. Les valeurs
+                                   groupées en colonne doivent être séparées par ";".
+                                   typ_i peut prendre l'une des valeurs suivantes :
+                                </para>
+                                <table>
+                                  <tr><th>"mat"</th><td>matrice</td></tr>
+                                  <tr><th>"col"</th><td>vecteur colonne (valeurs séparées par ";")</td></tr>
+                                  <tr><th>"row"</th><td>vecteur ligne</td></tr>
+                                  <tr><th>"vec"</th><td>vecteur (orientation libre)</td></tr>
+                                  <tr><th>"intvec"</th><td>scalaire, vecteur ou matrice de nombres entiers.</td></tr>
+                                  <tr><th>"str"</th><td>scalaire, vecteur ou matrice de textes, délimités par ".."</td></tr>
+                                  <tr><th>"lis"</th><td>liste (non implémenté)</td></tr>
+                                </table>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>dim_i  </term>
+                            <listitem>
+                                <para>
+                                    définit les dimensions de la i-ème valeur. Ce doit être un entier
+                                    ou un vecteur de deux entiers. -1 signifie que les dimensions
+                                    sont libres / non définies.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                  </variablelist>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>ini  </term>
+            <listitem>
+              <para>
+                vecteur colonne de n chaînes de caractères, <literal>ini(i)</literal>
+                donne la valeur par défaut du i-ème paramètre
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>ok  </term>
+            <listitem>
+              <para>booléen, %t (vrai) si le bouton "Ok" a été pressé, %f
+                (faux) pour le bouton "Cancel"
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>xi  </term>
+            <listitem>
+              <para>contient le i-ème paramètre si ok=%t. Si la liste des arguments de
+                sortie contient un <literal>xi</literal> de plus que nécessaire, la valeur
+                du dernier <literal>xi</literal> contient le vecteur des chaînes de
+                caractères correspondant aux paramètres choisis.
+              </para>
+            </listitem>
+          </varlistentry>
+      </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Cette fonction est une interface vers la fonction <literal>x_mdialog</literal>,
+            avec contrôle d'erreur, vérification de taille et de type des
+            paramètres, évaluation des expressions Scilab, etc.
+        </para>
+        <note>
+          <para>
+              Toute expression Scilab valide peut être utilisée pour entrer un paramètre.
+              Pour les matrices et les vecteurs, <literal>getvalues()</literal>
+              ajoute [ ] autour de chaque groupe de valeurs saisies, avant leur évaluation.
+          </para>
+        </note>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+labels=["module";"frequence";"phase    "];
+[ok,mag,Freq,ph]=getvalue("signal sinusoidal",labels,...
+list("vec",1,"vec",1,"vec",1),["0.85";"10^2";"%pi/3"])
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="x_mdialog">x_mdialog</link>
+            </member>
+            <member>
+                <link linkend="x_matrix">x_matrix</link>
+            </member>
+            <member>
+                <link linkend="x_dialog">x_dialog</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

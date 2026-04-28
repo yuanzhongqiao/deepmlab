@@ -1,0 +1,29 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+// <-- Non-regression test for bug 7751 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/7751
+//
+// <-- Short Description -->
+// justify() did not work correctly with strings embedded leading or trailing spaces.
+
+s = ["  1223 " " hetsher   " ; "abdljmkm" "   fljl"];
+r1 = justify(s,"l");
+r2 = justify(s,"c");
+r3 = justify(s,"r");
+s = stripblanks(s);
+ref1 = justify(s,"l");
+ref2 = justify(s,"c");
+ref3 = justify(s,"r");
+
+if or(ref1 <> r1) then pause, end
+if or(ref2 <> r2) then pause, end
+if or(ref3 <> r3) then pause, end
+

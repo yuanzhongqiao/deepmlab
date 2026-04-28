@@ -1,0 +1,30 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 -INRIA - Serge Steer
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 11524 -->
+//
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
+// 
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/11524
+//
+// <-- Short Description -->
+// vector ^ scalar operation tagged obsolete
+//Here I can only test that the scalar^scalar operation and square^scalar are not tagged obsolete
+2^2;
+%s^2;
+(1/%s)^2;
+sparse(3)^2;
+err = execstr("[1 2 3]^2;", "errcatch");
+assert_checktrue(err <> 0);
+err = execstr("[1 %s]^3;", "errcatch");
+assert_checktrue(err <> 0);
+err = execstr("[1 1/%s]^3;", "errcatch");
+assert_checktrue(err <> 0);
+err = execstr("sparse([1 2 3])^2;", "errcatch");
+assert_checktrue(err <> 0);

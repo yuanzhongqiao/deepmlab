@@ -1,0 +1,50 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2016 - Scilab Enterprises - Paul Bignier
+// Copyright (C) 2011 - DIGITEO - Sylvestre LEDRU
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- NO CHECK ERROR OUTPUT -->
+// <-- NO CHECK REF -->
+// <-- CLI SHELL MODE -->
+//
+// <-- UNIX ONLY -->
+
+ilib_verbose(0);
+curDir = pwd();
+cd TMPDIR;
+
+fd = mopen("test_script2.sce", "wt");
+
+txt = [
+"cd TMPDIR;"
+"f2 = ["
+"""int ext2c(int *n, double *a_, double *b, double *c)"""
+"""{"""
+"""    volatile int x = 42;"""
+"""    volatile int y = 0;"""
+"""    x=x/y;"""
+"""    return 0;"""
+"""}""];"
+""
+"mputl(f2, ""fun2.c"");"
+""
+"libname = ilib_for_link(""ext2c"", ""fun2.c"", [], ""c"", [], ""loader.sce"", ""test"");"
+"refname = ""libtest"" + getdynlibext();"
+"assert_checkequal(refname, libname);"
+"exec(""loader.sce"");"
+""
+"n = 3;"
+"a = [1 2 3];"
+"b = [4 5 6];"
+"call(""ext2c"", n,1,""i"", a,2,""d"", b,3,""d"", ""out"",[1 3],4,""d"");"
+];
+
+mputl(txt, fd);
+mclose(fd);
+
+stat = host(SCI+"/bin/scilab-cli -f ""test_script2.sce""");
+assert_checkfalse(stat == 0);
+

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="ones" xml:lang="en">
+    <refnamediv>
+        <refname>ones</refname>
+        <refpurpose>matrix made of ones</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>y=ones(m1,m2,...)
+            y=ones(x)
+            y=ones()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x,y</term>
+                <listitem>
+                    <para>matrices</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m1, m2,..</term>
+                <listitem>
+                    <para>integers</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>type</term>
+                <listitem>
+                    <para>optional character string: 'double', 'boolean', 'int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', or 'uint64'.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Returns a matrix made of ones.  By default the returned matrix is of double precision floating point type but a given type can be precised in the <term>type</term>argument.</para>
+        <variablelist>
+            <varlistentry>
+                <term>ones(m1,m2,..,mn)</term>
+                <listitem>
+                    <para>
+                        creates a <literal>(m1,m2,..,mn)</literal> matrix full of
+                        ones.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ones(m1,m2,..,mn,type)</term>
+                <listitem>
+                    <para>
+                        returns a <literal>(m1,m2,..,mn)</literal> matrix made of ones with type given by <literal>type</literal>. In the case of boolean type the matrix is filled with <literal>%T</literal> value. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ones(x)</term>
+                <listitem>
+                    <para>returns a matrix full of ones with the same size as
+                        <literal>x</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ones(x,type)</term>
+                <listitem>
+                    <para>returns a matrix full of ones with the same size as
+                        <literal>x</literal> and type given by <literal>type</literal>. In the case of boolean type the matrix is filled with <literal>%T</literal> value. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ones(x)</term>
+                <listitem>
+                    <para>
+                        is also valid for <literal>x</literal> a
+                        <literal>syslin</literal> list.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Remarks</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Note that <literal>ones(3)</literal> is <literal>ones(a)</literal>
+                    with <literal>a=3</literal> i.e it is NOT a 3x3 matrix!
+                </para>
+            </listitem>
+            <listitem>
+                <para>ones() is equivalent to ones(1,1).</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>ones(3,-3)</literal> and <literal>ones(-3,-3)</literal> both return an empty matrix.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <note>
+           <literal>repmat(1, sizes)</literal> can be used to generate an array of ones with
+           <literal>sizes=[m1 m2 ..]</literal> given as a vector.
+        </note>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+ones(3)
+ones(3,3)
+ones(3,3,"uint8")
+ones(3,3,"boolean")
+ones(2,3,2)
+
+repmat(1, [2 4 2])
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="eye">eye</link>
+            </member>
+            <member>
+                <link linkend="zeros">zeros</link>
+            </member>
+            <member>
+                <link linkend="repmat">repmat</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

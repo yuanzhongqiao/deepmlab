@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_event" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Events</refname>
+        <refpurpose>Specifying a user events function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ... = solver( ... , events = evFn)
+            ... = solver( ... , events = evFn, nbEvents = nb)
+            ... = solver( ... , events = evFn, nbEvents = nb, evDir = dir)
+            ... = solver( ... , events = evFn, nbEvents = nb, evDir = dir, evTerm = term)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>evFn</term>
+                <listitem>    
+                    <para>A Scilab function, a list, a string.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nb</term>
+                <listitem>
+                    <para>The size of the vector yielded by the DLL entrypoint when <term>evFn</term> is a string.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dir,term</term>
+                <listitem>
+                    <para>Two vectors of length <term>nb</term>, when <term>evFn</term> is a string</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>While integrating an ODE or a DAE, the solver can also find the roots of a set of <term>nb</term> user-defined functions that depend both
+             on t and on the solution vector y (and also y' for a DAE). The number of these roots or event functions is arbitrary, 
+             and if more than one function is found to have a root in any given interval, the various root locations are found and reported in the order 
+             that they occur on the t axis, in the direction of integration. The syntax
+            </para>
+            <para><programlisting role="no-scilab-exec"><![CDATA[
+                [t,y,info] = solver(...,  events = evFn)
+                sol = solver(...,  events = evFn)
+            ]]>
+        </programlisting></para>
+            <para>
+                for an ODE or a DAE, allows to recover the event locations
+                and the vanishing function(s) in the respective fields <literal>te,ye,ype,ie</literal> of the output 
+                arguments <term>info</term> or <term>sol</term>. Field <literal>te</literal> is a vector giving the time of 
+                events, <literal>ye</literal> an array with solution at each event time
+                (<literal>ype</literal> gives the derivative of the solution in the case of a DAE)
+                and <literal>ie</literal> is a matrix with as many lines as the number of event functions and as many columns
+                of events having occurred. Typically <literal>info.ie(i,j)</literal> will be 1 or -1 when event function <literal>i</literal>
+                vanishes at time <literal>info.te(j)</literal> with corresponding sign of its derivative (two event functions can vanish
+                at the same time).
+           General information about the different ways of providing a user function (and 
+           eventual user parameters) is given in the <link linkend="sundials_user_functions">User Functions</link> help page. 
+        </para>
+    </refsection>
+    
+    <refsection role="description">
+        <title>Event function given as a Scilab function</title>    
+                <para>
+                    In that case <term>evFn</term> is a Scilab function with prototype
+                </para>
+               <para><programlisting role="no-scilab-exec"><![CDATA[
+                        [eq,term,dir] = evFn(t,y,...)
+                        [eq,term,dir] = evFn(t,y,yp,...)
+                ]]>
+        </programlisting></para>
+                <para>
+                for an ODE or a DAE, respectively, where <literal>eq(i) = 0</literal> when event <literal>i</literal>
+                occurs. The two other optional outputs <literal>term,dir</literal>, if present, will be used only at solver initialization. The vector <literal>term</literal> is a boolean
+                vector, with <literal>term(i) = 1</literal> if integration has to be stopped when event <literal>i</literal> occurs. Vector <literal>dir</literal> allows to 
+                select event direction, where <literal>term(i)</literal> can take the values <literal>-1,1</literal> if solution has to be decreasing or increasing or <literal>0</literal>
+                if direction does not matter. If the corresponding behavior does not matter, <literal>dir</literal> or both <literal>term,dir</literal> outputs can be omitted in the function
+                prototype. 
+                </para>
+                <para>
+                For example, in order to find all points in [0,10] where the solution of Van Der Pol equation veryfies y(t)=1, we use the following code:
+                </para>
+                <para>
+                    <programlisting role="example"><![CDATA[
+                    function eq = g1(t,v)
+                        eq = v(1)-1;
+                    end
+                    function [eq,term,dir] = g2(t,v)
+                        dir = -1;
+                        term = 1;
+                        eq = v(1)-1;
+                    end
+                    [t, v, info] = cvode(%SUN_vdp1, [0 10], [0; 2], events = g1);
+                    plot(info.te, info.ye(1,:),"or",t,v)
+                    [t, v, info] = cvode(%SUN_vdp1, [0 10], [0; 2], events = g2);
+                    plot(info.te, info.ye(1,:),"xr","marksize",10)
+                    ]]></programlisting>
+                    <scilab:image>
+                        function eq = g1(t,v)
+                            eq = v(1)-1;
+                        end
+                        function [eq,term,dir] = g2(t,v)
+                            dir = -1;
+                            term = 1;
+                            eq = v(1)-1;
+                        end
+                        [t,v,info] = cvode(%SUN_vdp1, [0 10], [0; 2], events = g1);
+                        plot(info.te, info.ye(1,:),"or",t,v)
+                        [t,v,info] = cvode(%SUN_vdp1, [0 10], [0; 2], events = g2);
+                        plot(info.te, info.ye(1,:),"xr","marksize",10)
+                        gcf().axes_size(2)=300  
+                    </scilab:image>
+                </para>
+                <para>
+                    In this other example, we find the time and value of the maximum of  <latex style="text">y_2</latex> in SIR model by finding the
+                    time when <latex style="text">y_2'</latex> vanishes:
+                </para>
+                <para>
+                       <programlisting role="example"><![CDATA[
+                           function eq = g(t,y,yp)
+                               eq = yp(2)
+                           end
+                           y0 = [1-1e-6;1e-6;0];
+                           yp0 = [-2e-7;1.5e-7;5e-8];
+                           [t, y, info] = ida(%SUN_sir, [0,200], y0, yp0, events=g);
+                           clf
+                           plot(t, y, info.te, info.ye(2),'or')
+                           xstring(info.te, info.ye(2), msprintf("t=%g, y=%g", info.te, info.ye(2)))
+                           ]]></programlisting>
+                           <scilab:image>
+                               function eq = g(t,y,yp)
+                                   eq = yp(2)
+                               end
+                               y0=[1-1e-6;1e-6;0];
+                               yp0=[-2e-7;1.5e-7;5e-8];
+                               [t,y,info] = ida(%SUN_sir, [0,200], y0, yp0, events=g);
+                               clf
+                               plot(t, y, info.te, info.ye(2),'or')
+                               xstring(info.te, info.ye(2), msprintf("t=%g, y=%g", info.te, info.ye(2)))
+                               gcf().axes_size(2)=300  
+                           </scilab:image>
+            </para>
+        </refsection>
+        <refsection role="description">
+            <title>Event function given as a SUNDIALS DLL entrypoint</title>    
+        
+                <para>In that case <term>evFn</term> must have the C prototype</para> 
+                <para><programlisting role="no-scilab-exec"><![CDATA[
+                        int sunEvent(sunrealtype t, N_Vector Y, sunrealtype *gout, void *user_data)
+                        int sunEvent(sunrealtype t, N_Vector Y, N_Vector Yp, sunrealtype *gout, void *user_data)
+                    ]]>
+        </programlisting></para>
+                <para>
+                    for an ODE or a DAE, respectively. When calling the solver the option <literal>nEvents</literal> 
+                    must be set in order to define the number of events. If 
+                    the direction of the events have to be set or if some events should
+                    terminate the solver iterations, the <literal>evDir</literal> and <literal>evTerm</literal> can be used
+                    and the values of <term>dir</term> and <term>term</term> follow the same convention as when <term>evFn</term> is
+                    a Scilab function. See the examples below (Van Der Pol ODE and SIR model DAE):
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                        code=[
+                            "#include <nvector/nvector_serial.h>"
+                            "int sunEvent(sunrealtype t, N_Vector Y, sunrealtype* gout, void* user_data)"
+                            "{ "
+                            "double *y = NV_DATA_S(Y);"
+                            "gout[0] = y[0]-1.7;"
+                            "return 0;"
+                            "}"];
+                        mputl(code,"code.c"); //create the C file
+                        SUN_Clink("sunEvent","code.c",load=%t); // compile and link
+                        [t, y, info1] = cvode(%SUN_vdp1,[0 10],[2;1], nbEvents=1, events="sunEvent");
+                        [t, y, info2] = cvode(%SUN_vdp1,[0 10],[2;1], nbEvents=1, events="sunEvent", evDir=-1);
+                        [t, y, info3] = cvode(%SUN_vdp1,[0 10],[2;1], nbEvents=1, events="sunEvent", evDir=-1, evTerm=1);
+                        disp(info1.ye, info2.ye, info3.ye)
+                        ]]></programlisting>
+                    </para>
+                    <para>
+                        <programlisting><![CDATA[
+                            code=[
+                                "#include <nvector/nvector_serial.h>"
+                                "int sunEvent(sunrealtype t, N_Vector Y, N_Vector Yd, sunrealtype* gout, void* user_data)"
+                                "{ "
+                                "double *yd = NV_DATA_S(Yd);"
+                                "gout[0] = yd[1];"
+                                "return 0;"
+                                "}"];
+                            mputl(code,"code.c"); //create the C file
+                            SUN_Clink("sunEvent","code.c",load=%t); // compile and link
+                            y0 = [1-1e-6;1e-6;0];
+                            yp0 = [-2e-7;1.5e-7;5e-8];
+                            [t, y, info] = ida(%SUN_sir, [0,200], y0, yp0, events="sunEvent", nbEvents=1);
+                            disp(info.te, info.ype)
+                            ]]></programlisting>
+                    </para>
+    </refsection>
+
+    
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+            <member>
+                <link linkend="SUN_Clink">SUN_Clink</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+</refentry>

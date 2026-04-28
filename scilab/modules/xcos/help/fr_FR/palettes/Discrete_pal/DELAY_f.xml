@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="DELAY_f">
+    <refnamediv>
+        <refname>DELAY_f</refname>
+        <refpurpose>Retard en temps discret</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/DELAY_f.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_DELAY_f">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_DELAY_f">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_DELAY_f">Paramètres</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_DELAY_f">Propriétés par défaut</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_DELAY_f">Exemple</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_DELAY_f">Fonction d'interfaçage</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_DELAY_f">
+        <title>Description</title>
+        <para>
+            Ce bloc implémente un retard à temps discret. Il est construit avec un registre à
+            décalage et une horloge. Le retard est donnée par la pas de temps discret multiplié
+            par le nombre d'états du registre moins un.
+        </para>
+        <para>
+            <latex><![CDATA[
+\left\{
+    \begin{array}{l l}
+        T_0=length(Register)                                                  \\
+        y(t) = Register(n)      & \text{when}\ t < nT_0                     \\
+        y(t) = x(n*(T - T_0))   & \text{when}\ t\in[n;n+1]*(T - T_0)
+    \end{array}
+\right.
+]]></latex>
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_DELAY_f">
+        <title>Paramètres</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../gui/discrete_pal/fr_FR/DELAY_f_gui.png"
+                           align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Pas de temps discret</emphasis>
+                </para>
+                <para> Valeur de la période.</para>
+                <para> Propriétés : Type 'vec' de taille 1. </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">État initiale du registre</emphasis>
+                </para>
+                <para> Valeur à l'instant initial du registre. La taille de ce vecteur conditionne le retard.</para>
+                <para> Propriétés : Type 'vec' de taille -1.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_DELAY_f">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">csuper</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Example_DELAY_f">
+        <title>Exemple</title>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/discrete_pal/fr_FR/DELAY_f_1_fr_FR.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata align="center" fileref="../../../../examples/discrete_pal/fr_FR/DELAY_f_1_fr_FR.zcos" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+        <scilab:image localized="true"><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/discrete_pal/fr_FR/DELAY_f_1_fr_FR.zcos");
+xcos_simulate(scs_m, 4);
+]]></scilab:image>
+        <para/>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/discrete_pal/en_US/DELAY_f_2_en_US.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata fileref="../../../../examples/discrete_pal/en_US/DELAY_f_2_en_US.zcos" align="center" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+        <scilab:image><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/discrete_pal/en_US/DELAY_f_2_en_US.zcos");
+xcos_simulate(scs_m, 4);
+]]></scilab:image>
+    </refsection>
+    <refsection id="Interfacingfunction_DELAY_f">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link type="scilab" linkend="scilab.scinotes/scicos_blocks/macros/Linear/DELAY_f.sci">SCI/modules/scicos_blocks/macros/Linear/DELAY_f.sci</link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

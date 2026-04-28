@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="debug">
+    <refnamediv>
+        <refname>debug</refname>
+        <refpurpose>enters the Scilab CLI debugger mode</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            debug
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>debug</literal> enters the debug's mode for functions written in Scilab language.
+            The prompt becomes <literal>debug> </literal>.
+        </para>
+        <para>
+            This mode allows you to manage <literal>breakpoints</literal>,
+            launch execution with stop on error, execute a function step by step, ...
+        </para>
+        <note>
+            <para>
+                For a GUI version, you can install <link xlink:href="https://marketplace.visualstudio.com/items?itemName=scilab.scilab">Scilab Language Support extension</link> for Visual Studio Code (VS Code) and then debug your Scilab scripts using Visual Studio Code integrated debugger.
+            </para>
+        </note>
+        <refsect3>
+            <title>Commands available in debugging mode</title>
+            <para>
+                <term>h:</term>
+                Shows the debugger's help in the console.
+            </para>
+            <para>
+                <term>help:</term>
+                In Scilab standard running mode (with GUIs), displays the debugger's help page
+                in the help browser. Otherwise, displays the help in the console (as with "h").
+            </para>
+            <para>
+                <term>(q)uit:</term>
+                Leaves the debug mode and returns to the normal Scilab mode.
+            </para>
+            <para>
+                <term>(w)here or bt:</term>
+                Displays the callstack.
+            </para>
+            <para>
+                <term>(e)xec or (r)un command :</term>
+                Executes the given Scilab command.
+            </para>
+            <para>
+                <term>(d)isp var, or (p)rint var: </term>
+                Displays the value of the variable <literal>var</literal>.
+            </para>
+            <para>
+                <term>(c)ontinue:</term>
+                Continues the execution.
+            </para>
+            <para>
+                <term>(a)bort:</term>
+                Aborts the execution.
+            </para>
+            <para>
+                <term>step(n)ext or next:</term>
+                Executes the next expression.
+            </para>
+            <para>
+                <term>step(i)n or in:</term>
+                Executes the next expression in sub function.
+            </para>
+            <para>
+                <term>step(o)ut or out:</term>
+                Executes the next expression in previous function.
+            </para>
+            <para>
+                <term>(b)reakpoint or break:</term>
+                <literal>breakpoint function [line [condition]]</literal> :
+                Adds a breakpoint in a function at line <literal>line</literal>.
+                If a condition is specified, the breakpoint is enabled only if the condition
+                is <literal>%t</literal>
+            </para>
+            <para>
+                <term>(del)ete [n]:</term>
+                Removes all breakpoints. If n is specified: removes the breakpoint #n.
+            </para>
+            <para>
+                <term>enable [n]:</term>
+                Enables all breakpoints. If n is specified: enables the breakpoint #n.
+            </para>
+            <para>
+                <term>disable [n]:</term>
+                Disables all breakpoints. If n is specified: disables the breakpoint #n.
+            </para>
+            <para>
+                <term>(s)how [n]:</term>
+                Shows all breakpoints information. If n is specified: shows the breakpoint #n.
+            </para>
+        </refsect3>
+        <refsect3>
+            <title>How to debug a script</title>
+            <para>
+                Debugging a series of Scilab instructions out of any function requires first to
+                embed them in a dummy function. Example: We want to debug the following instructions
+                <programlisting role="no-scilab-exe">
+                a = 1;
+                b = linspace(a, 3, 10);
+                c = exp(a + %i + c);
+                </programlisting>
+            </para>
+            <para>
+                Then we must first rewrite them as
+            </para>
+            <para>
+                <programlisting role="no-scilab-exe">
+                function script()
+                    a = 1;
+                    b = linspace(a, 3, 10);
+                    c = exp(a + %i + c);
+                endfunction
+                </programlisting>
+            </para>
+            <para>
+                and execute this code (in normal Scilab mode) in order to define script() in Scilab.
+                Then breakpoints can be defined and handled within the script() function as for
+                any other function.
+            </para>
+        </refsect3>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+//function to overload cosine on string
+function v = %c_cos(val)
+    printf("val : %s\n", val);
+    v = cos(evstr(val));
+endfunction
+
+//caller
+function a = test_debug()
+    b = cos("%pi");
+    a = b * 3;
+endfunction
+
+debug
+break test_debug
+exec test_debug
+where
+stepin
+disp val
+continue
+quit
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+function v = compute(val)
+    v = 1;
+    for i=1:val
+        v = v * i;
+    end
+endfunction
+
+debug
+break compute 4 "i == 5"
+exec compute(10)
+disp val
+disp i
+disp v
+continue
+quit
+ ]]></programlisting>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>New version: console interface to Scilab 6 debugger.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

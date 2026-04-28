@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="scicos_debug">
+    <refnamediv>
+        <refname>scicos_debug</refname>
+        <refpurpose>Set the level of the Scicos debugging</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>scicos_debug(level)
+            level = scicos_debug()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection id="Parameters_scicos_debug">
+        <title>Arguments</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">level :</emphasis> set/get the current level of the Scicos simulation debugging.
+                </para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">0:</emphasis>
+                            no debugging.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">1:</emphasis>
+                            light debugging information printout.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">2:</emphasis>
+                            more information printout and execution of Debug Block if any in diagram.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">3:</emphasis>
+                            silent debugging mode (no information printout) and execution of Debug Block if any in diagram.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_scicos_debug">
+        <title>Description</title>
+        <para>
+            This Scilab function is used to set the debug level of a Scicos simulation. It will print debugging information and/or execute the Debug Block if any in the diagram.
+        </para>
+        <para>
+            It can also be used to log Scilab function blocks errors during the simulation.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+scicos_debug(level)
+level = scicos_debug()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="DEBUG">DEBUG block</link>
+            </member>
+            <member>
+                <link linkend="xcos_debug_gui">xcos_debug_gui</link>
+            </member>
+            <member>
+                <link linkend="scicos_log">scicos_log</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

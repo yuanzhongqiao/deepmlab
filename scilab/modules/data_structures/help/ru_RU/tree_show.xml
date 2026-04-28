@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="tree_show">
+    <refnamediv>
+        <refname>tree_show</refname>
+        <refpurpose>
+            Отображает в виде дерева содержимое list, tlist, mlist, cell-массивы или массивы структур,
+            Xcos block
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            tree_show(x)
+            tree_show(x, rootTitle)
+            tree_show(x, rootTitle, styles)
+            tree_show(x, rootTitle, styles, arrayByFields)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        Контейнер для отображения. Поддерживаемые контейнеры list, mlist, tlist,
+                        cell-массивы или массивы структур, identifier of an Xcos block.
+                        Другие контейнеры могут быть вложены в <varname>x</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rootTitle</term>
+                <listitem>
+                    <para>
+                        Отдельная строка: напрямую указанная метка корня дерева, например, имя
+                        переменной <varname>x</varname> в вызываюжщем окружении. По умолчанию
+                        <literal>""</literal>.
+                    </para>
+                    <note>
+                        Для изменения стиля названия корня могут использоваться теги стилей
+                        HTML.4.
+                        Например: "<literal>&lt;html&gt;&lt;font color="red"&gt;&lt;b&gt;Название&lt;/b&gt;</literal>"
+                        отобразит <emphasis>Название</emphasis> жирным красным шрифтом.
+                    </note>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>styles</term>
+                <listitem>
+                    <para>
+                        Отдельная строка: тег стиля HTML.4, включающий символ
+                        <literal>"$"</literal>, который будет заменяться адресом данных (имена
+                        полей, индексы списков...).
+                    </para>
+                    <para>
+                        Опция <varname>styles</varname> может исползоваться для настройки стилей
+                        либо адресов, либо соответствующее содержимое или и то и другое. Примеры:
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>"&lt;b&gt;$&lt;/b&gt;"</literal> : адрес жирным, содержимое нормальным чёрным шрифтом.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"$&lt;i&gt;"</literal> : адрес нормальным, содержимое курсивным шрифтом.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"&lt;i&gt;$"</literal> : и адрес и содержимое курсивным шрифтом.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"&lt;font color=''grey''&gt;$&lt;/font&gt;&lt;i&gt;"</literal> :
+                                    адрес серым, содержимое курсивным шрифтом.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                    <para>
+                        По умолчанию =
+                        <literal>"&lt;font color=""blue""&gt;$&lt;/font&gt;"</literal>
+                        (адрес синим, содержимое чёрным шрифтом).
+                    </para>
+                    <para>
+                        Установка <literal>""</literal> удаляет стилевое оформление.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>arrayByFields</term>
+                <listitem>
+                    <para>
+                        Отдельное логическое значение, используемое только для массивов структур:
+                        <table>
+                            <tr><th>%T :</th>
+                                <td>
+                                    Для каждого поля структуры отображается массив его значений.
+                                </td>
+                            </tr>
+                            <tr><th>%F :</th>
+                                <td>
+                                    Для каждой структуры массива отображаются её поля и их значения.
+                                </td>
+                            </tr>
+                        </table>
+                    </para>
+                    <para>
+                        Выбранный режим отображения используется также для каждого вложенного
+                        массива структур на любой глубине.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Создаёт окно и отображает указанный контейнер в виде дерева.
+        </para>
+        <warning>
+            Это окно не имеет дескриптора.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <para>
+            <emphasis role="bold">list(), включая cell-массив</emphasis> :
+        </para>
+        <table>
+            <tr>
+                <td>
+                    <programlisting role="example"><![CDATA[
+films = struct("Title", "A.I. Artificial Intelligence",..
+               "Year", 2001, ..
+               "Director", "Steven Spielberg", ..
+               "Duration", 140);
+L = list([%t %f %f],                ..
+         $:-1:3,                    ..
+         int8([1 2 3 ; 4 5 6]),     ..
+         [-%inf, -1, 0, %i, 7.1, 3.3e20, %inf, %nan], ..
+         sparse([0 1 2; 3 0 4]),    ..
+         ["This" "is" "some" "text"], ..
+         ,              ..
+         sin,           ..
+         logspace,      ..
+         iolib,         ..
+         {%pi, "abcd" ;
+          list(,)(1),(%i-%s)^3},    ..
+          {},           ..
+         films);
+tree_show(L)
+             ]]></programlisting>
+                </td>
+                <td>
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="../images/tree_show_list.png"/>
+                        </imageobject>
+                    </inlinemediaobject>
+                </td>
+            </tr>
+        </table>
+
+        <para>
+            <emphasis role="bold">
+                Использование опций <emphasis>rootTitle</emphasis> и <emphasis>styles</emphasis>
+            </emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+// Данные для отображения:
+clear films
+films(1) = struct("Title", "A.I. Artificial Intelligence",..
+                  "Year", 2001, ..
+                  "Director", "Steven Spielberg", ..
+                  "Duration", 140);
+films(2,2) = struct("Title", "I, robot", ..
+                    "Year", 2004, ..
+                    "Director", "Alex Proyas", ..
+                    "Duration", 120);
+
+// Стилевое оформление как адресов, так и содержимого:
+mainTitle = "<html><b>Films (A)</b>";
+tree_show(films, mainTitle , "<font color=""red"">$</font><i>");
+
+// Стилевое оформление только содержимого:
+mainTitle = "<html><b>Films (B)</b>";
+tree_show(films([1 4]), mainTitle, "$<font color=""green"">", %t);
+     ]]></programlisting>
+        <para/>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../images/tree_show_styling.png"/>
+            </imageobject>
+        </inlinemediaobject>
+
+        <para>
+            <emphasis role="bold">Массив структур</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+clear films
+films(1) = struct("Title", "A.I. Artificial Intelligence",..
+              "Year", 2001, ..
+              "Director", "Steven Spielberg", ..
+              "Duration", 140);
+films(2) = struct("Title", "I, robot", ..
+              "Year", 2004, ..
+              "Director", "Alex Proyas", ..
+              "Duration", 120);
+films(1,2) = struct("Title", "Gravity", ..
+                "Year", 2013, ..
+                "Director", "Alfonso Cuarón", ..
+                "Duration", 100);
+films(2,2) = struct("Title", "2001: A space odyssey", ..
+                "Year", 1968, ..
+                "Director", "Stanley Kubrick", ..
+                "Duration", 141);
+
+tree_show(films(:),"Films (I)");
+tree_show(films   ,"Films (II)");
+tree_show(films(:),"Films (III)", , %t);
+tree_show(films   ,"Films (IV)" , , %t);
+     ]]></programlisting>
+        <screen><![CDATA[
+2x2 struct array with fields:
+   Title
+   Director
+   Year
+   Duration
+    ]]></screen>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../images/tree_show_2x2.png"/>
+            </imageobject>
+        </inlinemediaobject>
+        <para/>
+        <para>
+            <emphasis role="bold">С пользовательским tlist или mlist</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+// Для mlist:
+str = ['a','b','c','d','e','f','g','h'];
+n = matrix(str, [2,2,2]);
+v = matrix(1:8, [2,2,2]);
+Mm = mlist(['V','name','value'],n,v);
+tree_show(Mm);
+
+// Для tlist:
+Mt = tlist(['V','name','value'],['a','b','c'],[1 2 3]);
+tree_show(Mt);
+     ]]></programlisting>
+        <para/>
+        <para>
+            <emphasis role="bold">For an Xcos block</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+loadXcosLibs();
+
+blk = BIGSOM_f("define");
+tree_show(blk)
+         ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uiDisplayTree">uiDisplayTree</link>
+            </member>
+            <member>
+                <link linkend="uiDumpTree">uiDumpTree</link>
+            </member>
+            <member>
+                <link linkend="prettyprint">prettyprint</link>
+            </member>
+            <member>
+                <link linkend="editvar">editvar</link>
+            </member>
+            <member>
+                <link linkend="browsevar">browsevar</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                Добавлены входные опции rootTitle, styles и arrayByFields.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                Теперь поддерживаются входные контейнеры, включающие пустые элементы.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

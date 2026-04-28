@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2010 - Serge Steer - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sum" xml:lang="fr">
+    <refnamediv>
+        <refname>sum</refname>
+        <refpurpose>somme des éléments d'un tableau.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            y = sum(x)
+            y = sum(x, orientation)
+            y = sum(x, outtype)
+            y = sum(x, orientation, outtype)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                     <para>
+                        Tableau de booléens (dense ou creux),  entiers encodés,
+                        nombres (dense ou creux), polynômes, ou fractions rationnelles.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                     <para>
+                        Cet argument peut être
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    un caractère : <literal>"*"</literal>,
+                                    <literal>"r"</literal>, <literal>"c"</literal> ou
+                                    <literal>"m"</literal>
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    un entier positif : n° de la dimension selon laquelle les sommes
+                                    doivent être calculées.
+                                    </para>
+                                </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>outtype</term>
+                <listitem>
+                     <para>
+                        une chaîne de caractères pouvant prendre les valeurs
+                        <literal>"native"</literal> ou <literal>"double"</literal>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                     <para>
+                        un scalaire ou un tableau.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Pour un tableau <literal>x</literal>,
+            <literal>y=sum(x)</literal> renvoie dans <literal>y</literal> la
+            somme de tous les éléments de <literal>x</literal>.
+        </para>
+        <para>
+            <literal>y=sum(x,orientation)</literal> retourne dans
+            <literal>y</literal> la somme des éléments de <literal>x</literal>
+            le long de la dimension donnée par le paramêtre
+            <literal>orientation</literal>:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Si <literal>orientation</literal> est égal à  1 ou "r" alors:
+                </para>
+                <para>
+                    <latex>{ y(\mathbf{1},j) = \sum_{\mathbf{i}} x(\mathbf{i},j)}</latex>
+                </para>
+                <para>ou </para>
+                <para>
+                    <latex> y(\mathbf{1},j,k,\ldots) = \sum_{\mathbf{i}} x(\mathbf{i},j,k,\ldots)</latex>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Si <literal>orientation</literal>  est égal à  2 ou "c" alors:
+                </para>
+                <para>
+                    <latex> y(i,\mathbf{1}) = \sum_{\mathbf{j}} x(i,\mathbf{j})</latex>
+                </para>
+                <para>ou</para>
+                <para>
+                    <latex> y(i,\mathbf{1},k,\ldots) = \sum_{j} x(i,\mathbf{j},k,\ldots)</latex>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Si <literal>orientation</literal>  est égal à n  alors
+                </para>
+                <para>
+                    <latex> y(i_1,\ldots,i_{n-1},\mathbf{1},i_{n+1},\ldots) = \sum_{\mathbf{i_n}} x(i_1,\ldots,i_{n-1},\mathbf{i_n},i_{n+1},\ldots)</latex>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>y=sum(x,"*")</literal> est équivalent à <literal>y=sum(x)</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>y=sum(x,"m")</literal> est équivalent à
+                    <literal>y=sum(x,orientation)</literal> où
+                    <literal>orientation</literal> est l'index de la première
+                    dimension de <literal>x</literal> qui est plus grande que
+                    1. Cette option est utilisé pour la compatibilité avec Matlab.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            L'argument <literal>outtype</literal> gère la façon dont le produit est réalisé :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>Pour les matrices de doubles, de polynômes, de fractions rationnelles,
+                    l'évaluation est toujours effetuée sur des nombres à virgule flottante.
+                    Les options <literal>"double"</literal> ou <literal>"native"</literal> sont équivalentes
+                    (par défaut, <literal>outtype = "double"</literal>).
+                </para>
+            </listitem>
+            <listitem>
+                <para>Pour les tableaux d'entiers,</para>
+                <para>
+                    si <literal>outtype="native"</literal>, le calcul est effectué sur des nombres entiers
+                    (modulo 2^b, où b est le nombre de bits utilisés).
+                </para>
+                <para>
+                    si <literal>outtype="double"</literal>, le calcul est effectué sur
+                    des nombres à virgule flottante.
+                </para>
+                <para>
+                    La valeur par défaut est <literal>outtype="native"</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Pour les tableaux de booléens,</para>
+                <para>
+                    si <literal>outtype="native"</literal>, le calcul est effectué sur des booléens
+                    (* est remplacée par &amp;),
+                </para>
+                <para>
+                    si <literal>outtype="double"</literal>, le calcul est effectué sur des nombres
+                    à virgule flottante (%t est remplacé par 1 et %f par 0).
+                </para>
+                <para>
+                    La valeur par défaut est <literal>outtype="double"</literal>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Remarque</title>
+        <para>Cette fonction s'applique avec les mêmes règles aux matrices creuses et aux hypermatrices.</para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+A=[1,2;3,4];
+sum(A)
+sum(A,1)
+
+I=uint8([2 95 103;254 9 0])
+sum(I) //native evaluation
+sum(I,"double")
+sum(I,2,"double")
+
+s=poly(0,"s");
+P=[s,%i+s;s^2,1];
+sum(P),
+sum(P,2)
+
+B=[%t %t %f %f];
+sum(B) //evaluation in float
+sum(B,"native") //similar to or(B)
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="plus">plus</link>
+            </member>
+            <member>
+                <link linkend="cumsum">cumsum</link>
+            </member>
+            <member>
+                <link linkend="prod">prod</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

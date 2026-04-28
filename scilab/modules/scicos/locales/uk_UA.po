@@ -1,0 +1,1599 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+#
+# Yuri Chornoivan <yurchor@gmail.com>, 2010.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012, 2013, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2020-02-19 07:11+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: мало бути %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: помилкова кількість вихідних параметрів: мало бути %d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d : A real or integer matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю з "
+"дійсних або цілих значень.\n"
+
+#, c-format
+msgid "%s : inconsistent dimensions between arguments.\n"
+msgstr "%s: несумісні розмірності параметрів.\n"
+
+#, c-format
+msgid "%s : bad dimension for argument #%d.\n"
+msgstr "%s: помилкова розмірність параметра №%d.\n"
+
+#, c-format
+msgid "%s : arguments must have the same length.\n"
+msgstr "%s: параметри мають бути однакової довжини.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument: %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: мало бути %d.\n"
+
+#, c-format
+msgid "%s : First argument must be a scicos_block typed list.\n"
+msgstr "%s: першим параметром має бути типізований список scicos_block.\n"
+
+#, c-format
+msgid "%s : First argument must be a valid scicos_block typed list.\n"
+msgstr ""
+"%s: першим параметром має бути коректний типізований список scicos_block.\n"
+
+#, c-format
+msgid "%s : Second argument must be scalar.\n"
+msgstr "%s: другим параметром має бути числове значення.\n"
+
+#, c-format
+msgid "%s : Third argument must be scalar.\n"
+msgstr "%s: третім параметром має бути числове значення.\n"
+
+#, c-format
+msgid "%s: scicosim is not running.\n"
+msgstr "%s: scicosim не запущено.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : string expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути використано рядковий "
+"тип.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A real matrix expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути вказано матрицю з "
+"дійсними елементами.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вихідних параметрів: слід використовувати %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d параметрів.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d : A real, complex or integer matrix "
+"expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю з "
+"дійсних, комплексних або цілих значень.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: Only hypermatrices with 3 dimensions "
+"are allowed.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: можна використовувати лише "
+"тривимірні гіперматриці.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A real expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип дійсних "
+"значень.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A scalar expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"дійсне число.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : A real value expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути вказано дійсне "
+"значення.\n"
+
+#, c-format
+msgid "%s: 1st and 2nd argument must have equal size\n"
+msgstr "%s: розмірності першого і другого параметрів мають збігатися\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d or %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: мало бути %d або %d.\n"
+
+msgid ""
+"\n"
+"getscicosvars: utility function to retrieve\n"
+msgstr ""
+"\n"
+"getscicosvars: допоміжна функція для отримання\n"
+
+msgid ""
+"                scicos arrays during simulation.\n"
+"\n"
+msgstr ""
+"                масивів scicos під час імітації.\n"
+"\n"
+
+msgid ""
+"Usage: [myvar]=getscicosvars([\"str1\";\"str2\";...]);\n"
+"\n"
+msgstr ""
+"Використання: [моя_змінна]=getscicosvars([\"рядок1\";\"рядок2\";...]);\n"
+"\n"
+
+msgid "- myvar: an int32 or double matrix or a Tlist.\n"
+msgstr "- моя_змінна: значення int32, матриця з double або Tlist.\n"
+
+msgid "- [\"str1\";\"str2\",...] is a string matrix\n"
+msgstr "- [\"рядок1\";\"рядок2\",...] — матриця з рядків\n"
+
+msgid "  that must be informed with the following values:\n"
+msgstr "  якій слід передати такі значення:\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A string matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю з "
+"рядків.\n"
+
+#, c-format
+msgid "%s: Undefined field in string matrix position: %d.\n"
+msgstr "%s: невизначене поле у позиції матриці з рядків: %d.\n"
+
+#, c-format
+msgid "%s: Error with parameter \"%s\".\n"
+msgstr "%s: помилка з параметром «%s».\n"
+
+#, c-format
+msgid "%s : First argument must be a Typed list.\n"
+msgstr "%s: першим параметром має бути типізований список.\n"
+
+#, c-format
+msgid "%s : unknown block : %s\n"
+msgstr "%s: невідомий блок: %s\n"
+
+#, c-format
+msgid "%s : type 1 function not allowed for scilab blocks\n"
+msgstr "%s: у блоках Scilab не можна використовувати функції типу 1\n"
+
+#, c-format
+msgid "%s : type 2 function not allowed for scilab blocks\n"
+msgstr "%s: у блоках Scilab не можна використовувати функції типу 2\n"
+
+#, c-format
+msgid "%s : Undefined Function type\n"
+msgstr "%s: функція невизначеного типу\n"
+
+#, c-format
+msgid "%s : Undetermined Size. in(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s: невизначена розмірність. in(%d)=%d. Будь ласка, виправте параметри вашої "
+"моделі.\n"
+
+#, c-format
+msgid "%s : Allocation error.\n"
+msgstr "%s: помилка розподілу пам’яті.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. in2(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s: невизначена розмірність. in2(%d)=%d. Будь ласка, виправте параметри "
+"вашої моделі.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. intyp(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s: невизначена розмірність. intyp(%d)=%d. Будь ласка, виправте параметри "
+"вашої моделі.\n"
+
+#, c-format
+msgid "%s : Unknown Data type\n"
+msgstr "%s: невідомий тип даних\n"
+
+#, c-format
+msgid "%s : Undetermined Size. out(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s: невизначена розмірність. out(%d)=%d. Будь ласка, виправте параметри "
+"вашої моделі.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. out2(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s: невизначена розмірність. out2(%d)=%d. Будь ласка, виправте параметри "
+"вашої моделі.\n"
+
+#, c-format
+msgid "%s : Undetermined Size. outtyp(%d)=%d. Please adjust your model.\n"
+msgstr ""
+"%s: невизначена розмірність. outtyp(%d)=%d. Будь ласка, виправте параметри "
+"вашої моделі.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: мало бути вказано принаймні %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати %s.\n"
+
+#, c-format
+msgid "%s: Unable to load \"%s\" .\n"
+msgstr "%s: не вдалося завантажити «%s» .\n"
+
+#, c-format
+msgid "%s: Unable to save \"%s\" .\n"
+msgstr "%s: не вдалося зберегти «%s» .\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати %d або %d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A real scalar expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"дійсне число.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : An integer value expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати ціле "
+"значення.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: String expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be one of %ls.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра %d: мало бути використано одне зі "
+"значень %ls.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: unable to set \"%ls\".\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: не вдалося встановити «%ls».\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Row vector expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути використано "
+"вектор-рядок.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d:  \"%ls\" type is not managed.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: тип «%ls» не є керованим.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %dx%d expected.\n"
+msgstr "%s: помилкова розмірність вхідного параметра №%d: мало бути %dx%d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: invalid UID.\n"
+msgstr "%s: помилкове значення вхідного параметра №%d: некоректний UID.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: not handled kind.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: не придатний до обробки тип.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: At least %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: мало бути не менше за %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String or ID expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мав бути рядок або "
+"ідентифікатор.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
+msgstr "%s: помилкова кількість вихідних параметрів: мало бути від %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A tlist expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати типізований "
+"список (tlist).\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : %d elements expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути %d елементів.\n"
+
+#, c-format
+msgid "%s: Wrong type for element #%d of argument #%d : A matrix expected.\n"
+msgstr ""
+"%s: помилковий тип елемента %d вхідного параметра №%d: мало бути вказано "
+"матрицю.\n"
+
+#, c-format
+msgid "%s: Wrong type for element #%d of argument #%d : A list expected.\n"
+msgstr ""
+"%s: помилковий тип елемента %d вхідного параметра №%d: мало бути вказано "
+"список.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути використано матрицю.\n"
+
+#, c-format
+msgid "%s : Incompatible sim.nb RHS parameter.\n"
+msgstr "%s: несумісний параметр RHS sim.nb.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element #%d of argument #%d : A string matrix expected.\n"
+msgstr ""
+"%s: помилковий тип елемента %d вхідного параметра №%d: мало бути вказано "
+"матрицю з рядків.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: помилка під час спроби виділення пам’яті.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : %s, %s %s %s or %s expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати %s, %s, "
+"%s, %s або %s.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : %d to %d elements expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути від %d до %d "
+"елементів.\n"
+
+#, c-format
+msgid "%s : error in cross variable size checking : %d\n"
+msgstr ""
+"%s: під час перевірки сумісності розмірностей змінних виявлено помилку: %d\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for element #%d of input argument #%d : A scalar expected.\n"
+msgstr ""
+"%s: помилкова розмірність елемента %d вхідного параметра №%d: слід "
+"використовувати скаляр.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element #%d of input argument #%d : string or macro "
+"expected.\n"
+msgstr ""
+"%s: помилковий тип елемента %d вхідного параметра №%d: мало бути вказано "
+"рядок або макрос.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for element #%d of element #%d of argument #%d : A matrix "
+"expected.\n"
+msgstr ""
+"%s: помилковий тип елемента %d елемента %d вхідного параметра №%d: мало бути "
+"вказано матрицю.\n"
+
+#, c-format
+msgid "%s : No more free memory.\n"
+msgstr "%s: недостатньо вільної пам’яті.\n"
+
+msgid "scheduling problem"
+msgstr "проблема побудови розкладу"
+
+msgid "input to zero-crossing stuck on zero"
+msgstr "вхід до навколонульового циклу у нулі"
+
+msgid "event conflict"
+msgstr "конфлікт подій"
+
+msgid "algebraic loop detected"
+msgstr "виявлено алгебраїчний цикл"
+
+msgid "cannot allocate memory"
+msgstr "не вдалося виділити пам’ять"
+
+#, c-format
+msgid "the block %d has been called with input out of its domain"
+msgstr ""
+"блок %d було викликано з вхідними даними поза межами його діапазону роботи"
+
+msgid "singularity in a block"
+msgstr "сингулярність у блоці"
+
+msgid "block produces an internal error"
+msgstr "у блоці сталася внутрішня помилка"
+
+msgid "initial conditions not converging"
+msgstr "збіжність за таких початкових умов неможлива"
+
+#, c-format
+msgid "cannot allocate memory in block=%d"
+msgstr "не вдалося виділити пам'ять у блоці=%d"
+
+msgid "sliding mode condition, cannot integrate"
+msgstr "умова ковзного режиму, інтегрування неможливе"
+
+msgid "Cannot find the initial mode, maybe there is a sliding mode condition"
+msgstr ""
+"Не вдалося визначити початковий режим, можливо, маємо умову ковзного режиму"
+
+msgid ""
+"You have changed a parameter in your model, but the model has been compiled "
+"to use an XML file containing initial values and parameters. So you should "
+"either recompile your Scicos diagram or [re]launch the initialization "
+"interface to regenerate the XML file  with new parameters."
+msgstr ""
+"Вами було змінено параметр моделі, але модель зібрано з використанням файла "
+"XML, що містить початкові значення і параметри. Отже вам слід або повторно "
+"зібрати вашу діаграму Scicos, або перезапустити інтерфейс ініціалізації для "
+"повторного створення цього файла XML з новими параметрами."
+
+msgid "Undefined data type."
+msgstr "Невизначений тип даних."
+
+msgid ""
+"The number of parameter provided by Scicos blocks is different from what "
+"expected by the code generated by the Modelica compiler. You might have "
+"relaxed a parameter using FIXED property (i.e., fixed=false) in a Modelica "
+"model. This will be corrected in the next version"
+msgstr ""
+"Кількість параметрів, які можна змінити у блоці Scicos, не збігається з "
+"кількістю параметрів у коді компілятора Modelica. Зайві параметри можна "
+"приховати за допомогою властивості FIXED (тобто призначити fixed=false) у "
+"моделі Modelica. Цю помилку буде виправлено у наступних версіях."
+
+msgid "unknown or erroneous block"
+msgstr "невідомий або помилковий блок"
+
+#, c-format
+msgid "integration problem istate=%d"
+msgstr "помилка інтегрування istate=%d"
+
+msgid "scicos unexpected error, please report..."
+msgstr "неочікувана помилка scicos, будь ласка, повідомте про неї…"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A vector expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати вектор.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d : %d or %d expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати %d або "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d : A struct expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«struct».\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d : A single struct expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"одинарну структуру.\n"
+
+#, c-format
+msgid "%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"
+msgstr ""
+"%s: помилкові поля вхідного параметра №%d: слід використовувати «%s» і "
+"«%s».\n"
+
+#, c-format
+msgid "%s: Wrong size for argument #%d: string expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути вказано рядок.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real row vector expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати вектор-рядок "
+"дійсних чисел.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A row vector expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати вектор-"
+"рядок.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: At least %dx%d expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"розмірність вхідного параметра рівну принаймні %d x %d.\n"
+
+msgid "type 1 function not allowed for scilab blocks\n"
+msgstr "не можна використовувати функції типу 1 у блоках scilab\n"
+
+msgid "type 2 function not allowed for scilab blocks\n"
+msgstr "не можна використовувати функції типу 2 у блоках scilab\n"
+
+msgid "Undefined Function type\n"
+msgstr "Невизначений тип функції\n"
+
+#, c-format
+msgid ""
+"\n"
+"SUNDIALS_ERROR: %s() failed - returned NULL pointer\n"
+"\n"
+msgstr ""
+"\n"
+"SUNDIALS_ERROR: помилка у %s(): повернуто нульовий вказівник\n"
+"\n"
+
+#, c-format
+msgid ""
+"\n"
+"SUNDIALS_ERROR: %s() failed with flag = %d\n"
+"\n"
+msgstr ""
+"\n"
+"SUNDIALS_ERROR: помилка у %s() з прапорцем = %d\n"
+"\n"
+
+#, c-format
+msgid ""
+"\n"
+"MEMORY_ERROR: %s() failed - returned NULL pointer\n"
+"\n"
+msgstr ""
+"\n"
+"MEMORY_ERROR: помилка у %s(): повернуто нульовий вказівник\n"
+"\n"
+
+#, c-format
+msgid "****SUNDIALS.Cvode from: %f to %f hot= %d  \n"
+msgstr "****SUNDIALS.Cvode від %f до %f hot= %d  \n"
+
+#, c-format
+msgid "****SUNDIALS.Cvode reached: %f\n"
+msgstr "****SUNDIALS.досягнуто Cvode: %f\n"
+
+#, c-format
+msgid ""
+"****SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and "
+"ATOL)\n"
+msgstr ""
+"**** SUNDIALS.Cvode: занадто багато роботи за час=%g (фіксований діапазон, "
+"змініть RTOL і ATOL)\n"
+
+#, c-format
+msgid "root found at t=: %f\n"
+msgstr "корінь знайдено за t=:%f\n"
+
+#, c-format
+msgid "Event: %d activated at t=%f\n"
+msgstr "Подія: %d задіяно у момент t=%f\n"
+
+#, c-format
+msgid "mode of block %d=%d, "
+msgstr "режим блоку %d=%d, "
+
+msgid "**mod**\n"
+msgstr "**mod**\n"
+
+msgid "End of activation\n"
+msgstr "Завершення активації\n"
+
+msgid "**** SUNDIALS.IDA successfully initialized *****\n"
+msgstr "**** SUNDIALS.IDA успішно ініціалізовано *****\n"
+
+msgid "**** SUNDIALS.IDA failed to initialize ->try again *****\n"
+msgstr "**** Не вдалося ініціалізувати SUNDIALS.IDA -> повторна спроба *****\n"
+
+#, c-format
+msgid "****daskr from: %f to %f hot= %d  \n"
+msgstr "****daskr від %f до %f hot= %d  \n"
+
+#, c-format
+msgid "****SUNDIALS.Ida reached: %f\n"
+msgstr "****SUNDIALS.Ida досягнуто: %f\n"
+
+#, c-format
+msgid ""
+"**** SUNDIALS.Ida: too much work at time=%g (stiff region, change RTOL and "
+"ATOL)\n"
+msgstr ""
+"**** SUNDIALS.Ida: занадто багато роботи за час=%g (фіксований діапазон, "
+"змініть RTOL і ATOL)\n"
+
+#, c-format
+msgid "block %d [%s] is called "
+msgstr "викликано блок %d [%s] "
+
+#, c-format
+msgid "with flag %d "
+msgstr "з прапорцем %d "
+
+#, c-format
+msgid "at time %f \n"
+msgstr "у момент %f \n"
+
+msgid "Entering the block \n"
+msgstr "Вхід до блоку \n"
+
+#, c-format
+msgid "Leaving block %d \n"
+msgstr "Вихід з блоку %d \n"
+
+msgid "Error in the Debug block \n"
+msgstr "Помилка у діагностичному блоці \n"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The computing function #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Попередження: у результаті обчислення функції №%d повернуто NaN/Inf"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The zero_crossing function #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Попередження: функцією змінного знаку №%d повернуто NaN/Inf"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The zero-crossing function #%d returns a NaN"
+msgstr ""
+"\n"
+"Попередження: функцією змінного знаку №%d повернуто NaN"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The residual function #%d returns a NaN"
+msgstr ""
+"\n"
+"Попередження: функцією лишків №%d повернуто NaN"
+
+msgid ""
+"\n"
+"Error: Problem in the evaluation of a root function"
+msgstr ""
+"\n"
+"Помилка: проблеми з визначенням кореневої функції"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The preconditioner evaluation function returns a NaN at index #%d."
+msgstr ""
+"\n"
+"Попередження: функція обчислення передобумовлення повернула NaN для індексу №"
+"%d."
+
+msgid ""
+"\n"
+"Error: The preconditioner evaluation function failed."
+msgstr ""
+"\n"
+"Помилка: не вдалося використати функцію визначення передобумовлення."
+
+msgid ""
+"\n"
+"Error: Failed to factor the preconditioner."
+msgstr ""
+"\n"
+"Помилка: не вдалося факторизувати передобумовлення."
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The preconditioner application function returns a NaN at index #%d."
+msgstr ""
+"\n"
+"Попередження: функція застосування передобумовлення повернула NaN для "
+"індексу №%d."
+
+#, c-format
+msgid ""
+"\n"
+" Warning: an event is reprogrammed at t=%g by removing another"
+msgstr ""
+"\n"
+" Попередження: програмування події змінено у момент t=%g вилученням іншої"
+
+msgid ""
+"\n"
+"         (already programmed) event. There may be an error in"
+msgstr ""
+"\n"
+"         (вже запрограмованої) події. Ймовірно, помилка у вашій"
+
+msgid ""
+"\n"
+"         your model. Please check your model\n"
+msgstr ""
+"\n"
+"         моделі. Будь ласка, перевірте вашу модель\n"
+
+msgid ""
+"\n"
+" error in Jacobian"
+msgstr ""
+"\n"
+" помилка у якобіані"
+
+#, c-format
+msgid "Error: Cannot find file '%s'.\n"
+msgstr "Помилка: не знайдено файл «%s».\n"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The initialization system #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Попередження: системою ініціалізації №%d повернуто NaN/Inf"
+
+#, c-format
+msgid ""
+"\n"
+"Warning: The residual function #%d returns a NaN/Inf"
+msgstr ""
+"\n"
+"Попередження: остаточною функцією №%d повернуто NaN/Inf"
+
+msgid ""
+"\n"
+" The residual function returns NAN/Inf. \n"
+" Please verify your model:\n"
+" some functions might be called with illegal inputs."
+msgstr ""
+"\n"
+" Остаточною функцією повернуто NAN/Inf. \n"
+" Будь ласка, перевірте вашу модель:\n"
+" ймовірно, деякі з функцій було викликано з некоректними параметрами."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: unknown integer type.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: невідомий тип цілого числа.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Could not read its content.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: не вдалося прочитати його "
+"вміст.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s, %s, %s, %s or %s type.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути використано тип %s, %s, "
+"%s, %s або %s.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for element #%d of input argument #%d: Integer matrix cannot "
+"be empty.\n"
+msgstr ""
+"%s: помилкове значення елемента №%d вхідного параметра №%d: матриця з цілих "
+"чисел не може бути порожньою.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for element #%d of input argument #%d: String matrix cannot "
+"be empty.\n"
+msgstr ""
+"%s: помилкове значення елемента №%d вхідного параметра №%d: матриця з рядків "
+"не може бути порожньою.\n"
+
+#, c-format
+msgid "%s: Wrong value for element #%d of input argument #%d: Unknown type.\n"
+msgstr ""
+"%s: помилкове значення елемента №%d вхідного параметра №%d: невідомий тип.\n"
+
+#, c-format
+msgid "Wrong type for field %ls: Tlist or Mlist expected.\n"
+msgstr "Помилковий тип поля %ls: мало бути викорисано Tlist або Mlist.\n"
+
+#, c-format
+msgid "Wrong length for field %ls: at least %d element expected.\n"
+msgstr "Помилкова довжина поля %ls: мало бути принаймні %d елементів.\n"
+
+#, c-format
+msgid ""
+"Wrong length for header of field \"%ls\": at least %d element expected.\n"
+msgstr ""
+"Помилкова довжина заголовка поля «%ls»: мало бути принаймні %d елементів.\n"
+
+#, c-format
+msgid "Wrong value for header of field \"%ls\": \"%ls\" expected.\n"
+msgstr "Помилкове значення заголовка поля «%ls»: мало бути «%ls».\n"
+
+#, c-format
+msgid "Wrong type for field %s: list expected.\n"
+msgstr "Помилковий тип поля %s: мав бути список.\n"
+
+#, c-format
+msgid "Wrong type for element %d of field %s: unknown Scicos object.\n"
+msgstr "Помилковий тип елемента %d поля %s: невідомий об’єкт Scicos.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s: %d-by-%d expected.\n"
+msgstr "Помилкова розмірність поля %s: мала бути %d x %d.\n"
+
+#, c-format
+msgid "Wrong size for field %s: at least %d-by-%d expected.\n"
+msgstr "Помилкова розмірність поля %s: мала бути принаймні %d x %d.\n"
+
+#, c-format
+msgid "\"%s\" is a read-only field.\n"
+msgstr "Поле «%s» призначено лише для читання.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: Real matrix expected.\n"
+msgstr "Помилковий тип поля %s.%s: мала бути матриця з дійсними елементами.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: %d-by-%d expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мала бути матриця %d x %d.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: string expected.\n"
+msgstr "Помилковий тип поля %s.%s: мав бути рядок.\n"
+
+#, c-format
+msgid "Wrong type for field %s: Real matrix object.\n"
+msgstr "Помилковий тип поля %s: мав бути об’єкт матриці з дійсних чисел.\n"
+
+#, c-format
+msgid "Wrong type for field %s: String matrix expected.\n"
+msgstr "Помилковий тип поля %s:мала бути матриця з рядків.\n"
+
+#, c-format
+msgid "Wrong type for field %s: Real matrix expected.\n"
+msgstr "Помилковий тип поля %s: мала бути матриця з дійсних чисел.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : %d-by-%d expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мало бути %d x %d.\n"
+
+#, c-format
+msgid "Wrong length for field %s.%s : %d expected.\n"
+msgstr "Помилкова довжина поля %s.%s: мало бути %d.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : String matrix expected.\n"
+msgstr "Помилковий тип поля %s.%s: мала бути матриця з рядків.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : Round number expected.\n"
+msgstr "Помилкове значення поля %s.%s: мало бути вказано округлене число.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Real vector expected.\n"
+msgstr ""
+"Помилковий тип для поля %s.%s: мало бути використано вектор із дійсних "
+"значень.\n"
+
+#, c-format
+msgid "Wrong size for field %s.%s : Real vector expected.\n"
+msgstr ""
+"Помилкова розмірність поля %s.%s: мало бути використано вектор із дійсних "
+"значень.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Real matrix expected.\n"
+msgstr ""
+"Помилковий тип поля %s.%s: мало бути вказано матрицю з дійсних чисел.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : m-by-1 expected.\n"
+msgstr "Помилкова розмірність поля %s.%s:мало бути m x 1.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : List expected.\n"
+msgstr "Помилковий тип поля %s.%s: мав бути список.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : %s (%s) has an invalid port number.\n"
+msgstr ""
+"Помилкове значення поля %s.%s: %s (%s) містить некоректний номер порту.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : %s (%s) has an invalid implicit port.\n"
+msgstr ""
+"Помилкове значення поля %s.%s : %s (%s) містить некоректний неявний порт.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : %s (%s) has an invalid explicit port.\n"
+msgstr ""
+"Помилкове значення поля %s.%s: %s (%s) містить некоректний явний порт.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Diagram expected.\n"
+msgstr "Помилковий тип поля %s.%s: мало бути вказано діаграму.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : List clear previous value.\n"
+msgstr "Помилковий тип поля %s.%s: список спорожнює попереднє значення.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : m-by-1 matrix expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мала бути матриця m x 1.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s : Integer values expected.\n"
+msgstr "Помилкове значення поля %s.%s: мало бути використано цілі числа.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : String expected.\n"
+msgstr "Помилковий тип поля %s.%s: мало бути використано рядковий тип.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s : String expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мало бути вказано рядок.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : Boolean matrix expected.\n"
+msgstr "Помилковий тип поля %s.%s: мала бути матриця з булевих значень.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: String expected.\n"
+msgstr "Помилковий тип поля %s.%s: мав бути рядок.\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: String expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мав бути рядок.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: Real expected.\n"
+msgstr "Помилковий тип поля %s.%s: мало бути дійсне число (Real).\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: Real expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мало бути дійсне число (Real).\n"
+
+#, c-format
+msgid "Wrong dimension for field %s.%s: m-by-1 expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мало бути m x 1.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s : string expected.\n"
+msgstr "Помилковий тип поля %s.%s: мав бути рядок.\n"
+
+#, c-format
+msgid "Wrong type for field %s: Mlist expected.\n"
+msgstr "Помилковий тип поля %s: мав бути Mlist.\n"
+
+#, c-format
+msgid "Wrong size for field %s: at least %d elements expected.\n"
+msgstr "Помилкова розмірність поля %s: мало бути принаймні %d елементів.\n"
+
+#, c-format
+msgid "Wrong value for header of field %s: field %s expected.\n"
+msgstr "Помилкове значення заголовка поля %s: мало бути поле %s.\n"
+
+#, c-format
+msgid "Wrong dimensions for field %s.%s: %d-by-%d expected.\n"
+msgstr "Помилкова розмірність поля %s.%s: мало бути %d x %d.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s: String matrix expected.\n"
+msgstr "Помилковий тип поля %s.%s: мала бути матриця з рядків.\n"
+
+#, c-format
+msgid ""
+"Wrong value for field %s.%s: '%s' unrecognized, only expected '%s' or '%s' "
+"vector. Switching to '%s'.\n"
+msgstr ""
+"Помилкове значення поля %s.%s: «%s» не може бути розпізнано, можливі лише "
+"вектори «%s» або «%s». Перемикаємося на «%s».\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s.\n"
+msgstr "Помилоквий тип поля %s.%s.\n"
+
+#, c-format
+msgid "Wrong value for field %s.%s: Round number expected.\n"
+msgstr "Помилкове значення поля %s.%s: мало бути округлене число.\n"
+
+#, c-format
+msgid "Wrong type for field %s.%s .\n"
+msgstr "Помилковий тип поля %s.%s.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати не менше за "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A diagram expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано діаграму.\n"
+
+#, c-format
+msgid "%s: Error during block parameters evaluation.\n"
+msgstr "%s: помилка під час визначення параметрів блоку.\n"
+
+#, c-format
+msgid "%s: Unable to find diagram inputs\n"
+msgstr "%s: не вдалося знайти вхідні дані діаграми\n"
+
+#, c-format
+msgid "%s: Unable to find diagram outputs\n"
+msgstr "%s: не вдалося знайти вихідні дані діаграми\n"
+
+#, c-format
+msgid "%s: Input ports are not numbered properly.\n"
+msgstr "%s: помилкова нумерації портів вхідних даних.\n"
+
+#, c-format
+msgid "%s: Output ports are not numbered properly.\n"
+msgstr "%s: помилкова нумерації портів вихідних даних.\n"
+
+#, c-format
+msgid "%s: Diagram does not compile in pass %d.\n"
+msgstr "%s: не вдалося створити діаграму на кроці %d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Empty matrix expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати порожню \n"
+"матрицю.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мала бути матриця %d на "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments. Must be between %d and %d.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів. Їх має бути від %d до %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s data structure expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати структуру "
+"даних %s.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A list expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип списку.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати «%s».\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String array expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати масив "
+"значень типу «string».\n"
+
+msgid "Can't convert old diagram (problem in version)"
+msgstr "Не вдалося перетворити діаграму у старому форматі (проблеми з версією)"
+
+#, c-format
+msgid ""
+"Warning the variable %s does not match any context variable name\n"
+"ignored"
+msgstr ""
+"Попередження: назва змінної %s не відповідає жодній назві контекстної "
+"змінної.\n"
+"Пропускаємо"
+
+#, c-format
+msgid "%s: Error during block parameters update.\n"
+msgstr "%s: помилка під час оновлення параметрів блоку.\n"
+
+msgid ""
+"Diagram has been compiled for implicit solver\n"
+"switching to implicit solver.\n"
+msgstr ""
+"Діаграму було зібрано для неявного інструмента розв’язування.\n"
+"Перемикаємося на неявний інструмент розв’язування.\n"
+
+msgid ""
+"Diagram has been compiled for explicit solver\n"
+"switching to explicit solver.\n"
+msgstr ""
+"Діаграму було зібрано для явного інструмента розв’язування.\n"
+"Перемикаємося на явний інструмент розв’язування.\n"
+
+msgid "Simulation parameters not set:"
+msgstr "Не встановлено параметри імітації:"
+
+msgid "Initialization problem:"
+msgstr "Проблема ініціалізації:"
+
+msgid "Simulation problem: "
+msgstr "Проблема імітації: "
+
+msgid "End problem: "
+msgstr "Проблема завершення: "
+
+#, c-format
+msgid "%s: property %s obsolete, please use %s instead.\n"
+msgstr ""
+"%s: властивість %s вважається застарілою, замість неї слід використовувати "
+"%s.\n"
+
+#, c-format
+msgid "Wrong type for diagram element #%d: %s, %s or %s expected.\n"
+msgstr ""
+"Помилковий тип елемента діаграми №%d: слід використовувати %s, %s або %s.\n"
+
+msgid ""
+"Your model contains states defined in standard Scicos blocks.\n"
+"Current initialization interface does not support mixed models."
+msgstr ""
+"У вашій моделі містяться стани, визначені у стандартних блоках Scicos.\n"
+"У поточній ініціалізації інтерфейсу не передбачено підтримки змішаних "
+"моделей."
+
+#, c-format
+msgid "Initialisation problem in %s "
+msgstr "Проблема з ініціалізацією у %s "
+
+#, c-format
+msgid "Initialisation problem in the %s method"
+msgstr "Проблема з ініціалізацією у методі %s"
+
+msgid "Initialisation problem in the finish phase"
+msgstr "Проблема з ініціалізацією на завершальному кроці"
+
+msgid "Problem with the block generated from modelica blocks."
+msgstr "Проблема з блоком, створеним на основі блоків Modelica."
+
+msgid "Block has connected output port<br />with incompatible size:"
+msgstr "Блок з’єднано з вихідним портом<br />з несумісною розмірністю:"
+
+#, c-format
+msgid "Output port %s size is: %s"
+msgstr "Розмірність вихідного порту %s: %s"
+
+#, c-format
+msgid "Input port %s size is: %s"
+msgstr "Розмірність вхідного порту %s: %s"
+
+msgid "Block has connected output port<br />with incompatible type."
+msgstr "Блок з’єднано з вихідним портом<br />з несумісним типом."
+
+#, c-format
+msgid "Output port %s type is: %s"
+msgstr "Тип вихідного порту %s: %s"
+
+#, c-format
+msgid "Input port %s type is: %s"
+msgstr "Тип вхідного порту %s: %s"
+
+msgid "Block has connected input port<br />with incompatible size:"
+msgstr "Блок з’єднано з вхідним портом<br />з несумісною розмірністю:"
+
+msgid "Block has connected input port<br />with incompatible type:"
+msgstr "Блок з’єднано з вхідним портом<br />з несумісним типом:"
+
+#, c-format
+msgid "%s: Error: A scifunc block has not been defined."
+msgstr "%s: помилка: блок scifunc не було визначено."
+
+#, c-format
+msgid " Main Modelica : %s"
+msgstr " Основний модуль Modelica : %s"
+
+msgid "No block can be activated"
+msgstr "Не може бути активовано жоден з блоків"
+
+msgid "Problem in port size or type."
+msgstr "Проблеми з розмірністю або типом порту."
+
+msgid ""
+"No continuous-time state. Thresholds are ignored; this \n"
+"may be OK if you don't generate external events with them.\n"
+"If you want to reactivate the thresholds, then you need\n"
+"\n"
+"to include a block with continuous-time state in your diagram.\n"
+"   You can for example include DUMMY CLSS block (linear palette)."
+msgstr ""
+"Режим обробки часу не є неперервним. Порогові обмеження ігноруються.\n"
+"Цим можна не перейматися, якщо ви не створюєте програмно\n"
+"зовнішніх подій для таких обмежень.\n"
+"Якщо вам потрібно задіяти порогові обмеження,\n"
+"вам слід включити до діаграми блок з неперервною обробкою за часом.\n"
+"   Наприклад, ви можете включити блок DUMMY CLSS (набір лінійних блоків)."
+
+msgid "Diagram contains implicit blocks, compiling for implicit Solver."
+msgstr ""
+"У діаграмі містяться неявні блоки, збираємо для інструменту неявного "
+"розв’язування."
+
+msgid "Algebraic loop on events."
+msgstr "Алгебраїчний цикл для подій."
+
+msgid "Algebraic loop."
+msgstr "Алгебраїчний цикл."
+
+msgid ""
+"A C or Fortran block is used but not linked.\n"
+"You can save your compiled diagram and load it.\n"
+"This will automatically link the C or Fortran function."
+msgstr ""
+"Використано, але не з’єднано блок C або Fortran.\n"
+"Ви можете зберегти вашу скомпільовану діаграму і завантажити її.\n"
+"Це автоматично скомпонує функцію C або Fortran."
+
+#, c-format
+msgid "Number of modes in block #%d cannot be determined."
+msgstr "Не вдалося визначити кількість режимі у блоці №%d."
+
+#, c-format
+msgid "Number of zero crossings in block #%d cannot be determined."
+msgstr "Не вдалося визначити кількість точок зміни знаку у блоці №%d."
+
+msgid ""
+"Not enough information to find port sizes.\n"
+"I try to find the problem."
+msgstr ""
+"Недостатньо даних для визначення розмірності портів.\n"
+"Намагаємося знайти причину."
+
+msgid ""
+"I cannot find a link with undetermined size.\n"
+"My guess is that you have a block with unconnected \n"
+"undetermined output ports."
+msgstr ""
+"Неможливо знайти посилання із невизначеною розмірністю.\n"
+"Здається, у вас є блок із нез’єднаними портами виведення, \n"
+"які не визначено."
+
+msgid "One of this block output has negative size.<br />Please check."
+msgstr ""
+"Розмірність одного з вихідних портів цього блоку від’ємна.<br />Виправте "
+"помилку."
+
+msgid "Block input has negative size:"
+msgstr "Розмірність вхідних даних блоку від’ємна:"
+
+msgid "Please compile the diagram to report the error."
+msgstr "Будь ласка, зберіть діаграму, щоб повідомити про помилку."
+
+msgid "Unable to report an error into a SuperBlock"
+msgstr "Неможливо повідомити про помилку у суперблоці"
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block output "
+"port has a non-determined size:"
+msgstr ""
+"<em>Будь ласка, оновіть діаграму, щоб усунути це попередження.</em><br /"
+">Розмірність вихідного порту блоку не визначено:"
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block output "
+"port has a non-determined type:"
+msgstr ""
+"<em>Будь ласка, оновіть діаграму, щоб усунути це попередження.</em><br />Тип "
+"вихідного порту блоку не визначено:"
+
+#, c-format
+msgid "Output port %s type."
+msgstr "Тип вихідного порту %s."
+
+#, c-format
+msgid "Input port %s type."
+msgstr "Тип вхідного порту %s."
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block input "
+"port has a non-determined size:"
+msgstr ""
+"<em>Будь ласка, оновіть діаграму, щоб усунути це попередження.</em><br /"
+">Розмірність вхідного порту блоку не визначено:"
+
+msgid ""
+"<em>Please update the diagram to avoid this warning.</em><br />Block input "
+"port has a non-determined type:"
+msgstr ""
+"<em>Будь ласка, оновіть діаграму, щоб усунути це попередження.</em><br />Тип "
+"вхідного порту блоку не визначено:"
+
+msgid ""
+"Highlighted block(s) have connected ports \n"
+"with  sizes that cannot be determined by the context.\n"
+"What is the size of this link?"
+msgstr ""
+"Позначені блоки містять з’єднані порти з \n"
+"розмірностями, які не можна визначити з контексту.\n"
+"Якою є розмірність цього зв’язку?"
+
+#, c-format
+msgid ""
+"the dep_ut size of the %s block is not correct.\n"
+"It should be a column vector of size %d."
+msgstr ""
+"розмірність dep_ut блоку %s є некоректною.\n"
+"Це мав бути вектор-стовпчик розмірності %d."
+
+msgid ""
+"Not enough information to find port type.\n"
+"I will try to find the problem."
+msgstr ""
+"Недостатньо даних для визначення типу порту.\n"
+"Спробуємо визначити причину."
+
+msgid ""
+"I cannot find a link with undetermined size.\n"
+"My guess is that you have a block with unconnected \n"
+"undetermined types."
+msgstr ""
+"Неможливо знайти посилання із невизначеною розмірністю.\n"
+"Здається, у вас є блок із нез’єднаними типами виведення, \n"
+"які не визначено."
+
+msgid "Modelica compiler (flat2C)"
+msgstr "Компілятор Modelica (flat2C)"
+
+msgid "The initialization file already exists!"
+msgstr "Файл ініціалізації вже існує!"
+
+msgid "Do you want to overwrite it?"
+msgstr "Хочете його перезаписати?"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "Modelica blocks are reduced to a block with:"
+msgstr "Блоки Modelica спрощено до одного блоку:"
+
+#, c-format
+msgid "Number of differential states: %d"
+msgstr "Кількість окремих станів: %d"
+
+#, c-format
+msgid "Number of algebraic states: %d"
+msgstr "Кількість алгебраїчних станів: %d"
+
+#, c-format
+msgid "Number of discrete time states  : %d"
+msgstr "Кількість дискретних станів за часом: %d"
+
+#, c-format
+msgid "Number of zero-crossing surfaces: %d"
+msgstr "Кількість поверхонь з перетином нульового рівня: %d"
+
+#, c-format
+msgid "Number of modes  : %d"
+msgstr "Кількість режимів: %d"
+
+#, c-format
+msgid "Number of inputs : %d"
+msgstr "Кількість входів: %d"
+
+#, c-format
+msgid "Number of outputs: %d"
+msgstr "Кількість виходів: %d"
+
+#, c-format
+msgid "Input/output dependency:[%s]"
+msgstr "Залежність вхід/вихід: [%s]"
+
+#, c-format
+msgid "Analytical Jacobian: enabled  (%%Jacobian=%s)"
+msgstr "Аналітична матриця Якобі: увімкнено  (%%Jacobian=%s)"
+
+#, c-format
+msgid "Parameter embedding mode: enabled (%%Modelica_ParEmb=%s)"
+msgstr "Режим вбудовування параметрів: увімкнено (%%Modelica_ParEmb=%s)"
+
+#, c-format
+msgid "Generated files path: %s"
+msgstr "Шлях до створених файлів: %s"
+
+msgid "Hyper Matrix is not supported"
+msgstr "Підтримки гіперматриць не передбачено"
+
+msgid "Type not recognized"
+msgstr "Тип не розпізнано"
+
+msgid "Complex Matrix is not supported"
+msgstr "Підтримки комплекснозначних матриць не передбачено"
+
+msgid "Block is ignored because of undefined input(s)."
+msgstr "Блок проігноровано через невизначені входи."
+
+msgid "Superblock should not contains any Scilab function block."
+msgstr "Надблок не повинен містити блоків функцій Scilab."
+
+msgid "Generated block cannot be linked with Scilab."
+msgstr "Створений блок не може бути скомпоновано зі Scilab."
+
+msgid "Evaluation problem: value not updated from context."
+msgstr "Проблема обчислення: значення не оновлено на основі контексту."
+
+msgid "Evaluation problem: Unknown block"
+msgstr "Проблема з обчисленнями: невідомий блок"
+
+#, c-format
+msgid ""
+"%s: Error while calling block %s [uid='%s']: invalid parameter (ier=%f, "
+"%%scicos_prob=%%%s).\n"
+msgstr ""
+"%s: помилка під час виклику блоку %s [uid=«%s»]: некоректний параметр (ier="
+"%f, %%scicos_prob=%%%s).\n"
+
+msgid "Cannot load dynamic library: "
+msgstr "Не вдалося завантажити динамічну бібліотеку: "
+
+msgid "Can't include "
+msgstr "Не вдалося включити "
+
+msgid "This file does not exist"
+msgstr "Цього файла не існує"
+
+msgid "Modelica compiler"
+msgstr "Компілятор Modelica"
+
+msgid "Sorry: Only C or FORTRAN languages are supported"
+msgstr "Вибачте, передбачено підтримку лише мов C і FORTRAN"
+
+msgid "Sorry file name not defined in "
+msgstr "Вибачте, назву файла не визначено у "
+
+msgid "I/O blocks must be only used in a Super Block"
+msgstr "Блоки введення-виведення слід використовувати лише у надблоці"
+
+msgid "This Super block input port is not connected."
+msgstr "Цей порт вхідних даних надблоку ні з чим не з’єднано."
+
+msgid "Input ports are not numbered properly."
+msgstr "Нумерація вхідних портів є помилковою."
+
+msgid "Output ports are not numbered properly."
+msgstr "Нумерація вихідних портів є помилковою."
+
+msgid "Event input ports are not numbered properly."
+msgstr "Нумерація вхідних портів подій є помилковою."
+
+msgid "Event output ports are not numbered properly."
+msgstr "Нумерація вихідних портів подій є помилковою."
+
+#, c-format
+msgid "%s: Empty diagram"
+msgstr "%s: порожня діаграма"
+
+#, c-format
+msgid "%s: Wrong input argument.\n"
+msgstr "%s: помилковий вхідний параметр.\n"
+
+msgid "Set Xcos context"
+msgstr "Встановити контекст Xcos"
+
+#, c-format
+msgid "The variable name %s cannot be used as block parameter: ignored\n"
+msgstr ""
+"Змінну з назвою %s не можна використовувати як параметр блоку: змінну "
+"проігноровано.\n"
+
+msgid "scs_show active..."
+msgstr "задіяно scs_show…"
+
+#, c-format
+msgid "Scilab Graphics of %s"
+msgstr "Графічні дані Scilab %s"
+
+#, c-format
+msgid "%s: Type %s is not implemented.\n"
+msgstr "%s: тип %s не реалізовано.\n"
+
+#, c-format
+msgid "%s: Wrong size for block parameter '%s': %s expected, getting %s"
+msgstr "%s: помилкова розмірність параметра блоку «%s»: мало бути %s, маємо %s"
+
+#, c-format
+msgid "%s: Wrong type for block parameter '%s': %s(%s) expected, getting %s"
+msgstr "%s: помилковий тип параметра блоку «%s»: мало бути %s(%s), маємо %s"
+
+msgid ""
+"There are too many Modelica files.\n"
+"It would be better to define several \n"
+"Modelica programs in a single file."
+msgstr ""
+"Забагато файлів Modelica.\n"
+"Краще було б визначити декілька \n"
+"програм Modelica у одному файлі."
+
+msgid "-------Modelica translator error message:-----"
+msgstr "-------Повідомлення про помилку транслятора Modelica:-----"
+
+msgid "XML to Modelica"
+msgstr "XML у Modelica"
+
+msgid "Xcos block parameter error"
+msgstr "Помилка параметра блоку Xcos"
+
+#, c-format
+msgid ""
+"Answer given for %s \n"
+" has invalid dimension: \n"
+" waiting for dimension %s.\n"
+msgstr ""
+"Відповідь, дана на %s, \n"
+" має некоректну розмірність: \n"
+" слід було використовувати розмірність %s.\n"
+
+#, c-format
+msgid ""
+"Answer given for %s \n"
+" has incorrect type %s.\n"
+msgstr ""
+"Відповідь, дана на %s, \n"
+" належить до помилкового типу %s.\n"
+
+#, c-format
+msgid ""
+"Answer given for %s \n"
+" is incorrect: %s.\n"
+msgstr ""
+"Відповідь, вказана для %s \n"
+" є помилковою: %s.\n"

@@ -1,0 +1,27 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - Scilab Enterprises - Sylvestre Ledru
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- ENGLISH IMPOSED -->
+//
+// <-- Non-regression test for bug 11999 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/11999
+//
+// <-- Short Description -->
+// csvRead does not ignore blank lines
+//
+filename = SCI + "/modules/spreadsheet/tests/nonreg_tests/bug_11999.csv";
+csvDefault("blank", "off"); // Default behavior in 5.4.0, changed 5.4.1 to "on"
+errMsg = msprintf(gettext("%s: can not read file, error in the column structure\n"), "csvRead");
+assert_checkerror("a=csvRead(filename, "";"", [], ""string"");", errMsg, 999);
+Warning: Inconsistency found in the columns. At line 2, found 1 columns while the previous had 3.
+csvDefault("blank", "on");
+a=csvRead(filename, ";", [], "string");
+assert_checkequal(a,["foo", "bar", "foo"; "foo2", "bar2", "bar3"]);

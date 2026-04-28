@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="m2sci_close">
+    <refnamediv>
+        <refname>close (Matlab function)</refname>
+        <refpurpose>Delete specified figure</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Matlab/Scilab equivalent</title>
+        <informaltable border="1" width="100%">
+            <tr>
+                <td align="center">
+                    <emphasis role="bold">Matlab</emphasis>
+                </td>
+                <td align="center">
+                    <emphasis role="bold">Scilab</emphasis>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+close
+]]></programlisting>
+                </td>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+close, delete
+]]></programlisting>
+                </td>
+            </tr>
+        </informaltable>
+    </refsection>
+    <refsection>
+        <title>Particular cases</title>
+        <variablelist>
+            <varlistentry>
+                <term>close</term>
+                <listitem>
+                    <para>
+                        If current figure is a uicontrol one, Scilab and Matlab <emphasis role="bold">close</emphasis> are equivalent. But if current figure is a graphic window, Scilab equivalent for Matlab <emphasis role="bold">close</emphasis> is <emphasis role="bold">delete(gcf())</emphasis>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>close(h)</term>
+                <listitem>
+                    <para>
+                        If <emphasis role="bold">h</emphasis> is a uicontrol figure, Scilab and Matlab <emphasis role="bold">close(h)</emphasis> are equivalent. But if <emphasis role="bold">h</emphasis> is a graphic window, Scilab equivalent for Matlab <emphasis role="bold">close(h)</emphasis> is <emphasis role="bold">delete(h)</emphasis>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>close('all')</term>
+                <listitem>
+                    <para>
+                        Scilab equivalent for Matlab <emphasis role="bold">close('all')</emphasis> is <emphasis role="bold">close(winsid())</emphasis>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>close(name)</term>
+                <listitem>
+                    <para>
+                        There is no Scilab equivalent for Matlab <emphasis role="bold">close(name)</emphasis> however, <emphasis role="bold">mtlb_close</emphasis> can be an equivalent.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>close('all','hidden')</term>
+                <listitem>
+                    <para>
+                        Scilab equivalent for Matlab <emphasis role="bold">close('all','hidden')</emphasis> is <emphasis role="bold">close(winsid())</emphasis> but Scilab kills all figures even if they are hidden.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+</refentry>

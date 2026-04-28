@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C)             - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="error_table" xml:lang="en">
+    <refnamediv>
+        <refname>error_table</refname>
+        <refpurpose>list of main standard errors messages</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Contents</title>
+        <para>
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        Messages
+                        <itemizedlist>
+                            <listitem>
+                                <link linkend="error_table_arg_number">Checking Arguments numbers</link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_type_checking">
+                                    Checking container and content types and encoding
+                                </link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_sizes_checking">
+                                    Checking sizes
+                                </link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_values_checking">Checking values</link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_interarguments_constrains">
+                                    Inter-arguments constrains
+                                </link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_files_directories">Files, directories</link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_dynamical_systems">Dynamical systems</link>
+                            </listitem>
+                            <listitem>
+                                <link linkend="error_table_miscellaneous">Miscellaneous</link>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+                <listitem>
+                    <link linkend="error_table_examples">Examples</link>
+                </listitem>
+                <listitem>
+                    <link linkend="error_table_seealso">See also</link>
+                </listitem>
+            </itemizedlist>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This page gives a non-exhaustive list of the main standard predefined error messages
+            used in Scilab itself. These messages can be used in external codes as well.
+        </para>
+        <para>
+            Whatever is the current Scilab session language, the english version of a message is used
+            as message identifier by the <link linkend="gettext">gettext</link>() translation system.
+            The listed messages are used in Scilab itself.
+            <note>
+                Please avoid using double-quotes " inside messages: single quotes ' must be used
+                or prefered instead.
+            </note>
+        </para>
+        <para>
+            A message may include some tags starting with the "%" symbol. These tags follow
+            a C-like syntax (see <link linkend="printf_conversion">printf() conversion rules</link>).
+            They aim to be replaced with custom contents, in order to customize the standard
+            with local data, thanks to <link linkend="msprintf">msprintf</link>. To include a true
+            "%" character in such a message, use "%%".
+        </para>
+        <para>
+            Standard messages must start with "%s" and end with "\n". The heading "%s" will be
+            replaced with the name of the function in which the error occurs.
+        </para>
+        <refsect2 id="error_table_arg_number">
+            <title>Checking arguments numbers</title>
+            <para>
+                <emphasis role="bold">Input arguments:</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Wrong number of input arguments.\n"
+"%s: Wrong number of input arguments: %d expected.\n"
+"%s: Wrong number of input arguments: %d or %d expected.\n"
+"%s: Wrong number of input arguments: %d to %d expected.\n"
+"%s: Wrong number of input arguments: At least %d expected.\n"
+"%s: Wrong number of input arguments: At most %d expected.\n"
+]]></screen>
+            <para>
+                <emphasis role="bold">Ouput arguments:</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Wrong number of output arguments: %d expected.\n"
+"%s: Wrong number of output arguments: %d to %d expected.\n"
+]]></screen>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_type_checking">
+            <title>Checking container and content types</title>
+            <para>
+                <emphasis role="bold">Wrong content type:</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Argument #%d: Boolean(s) expected.\n"
+
+"%s: Argument #%d: Encoded integer expected.\n"
+"%s: Argument #%d: Encoded integer of type (%s) expected.\n"
+"%s: Argument #%d: Integer expected.\n"         // integer-encoded or decimal-encoded
+"%s: Argument #%d: Decimal integer expected.\n"
+"%s: Argument #%d: Decimal number expected.\n"
+"%s: Argument #%d: Decimal or complex number expected.\n"
+"%s: Argument #%d: Complex number expected.\n"
+"%s: Argument #%d: Complex number not supported.\n"
+
+"%s: Argument #%d: Polynomial expected.\n"
+"%s: Argument #%d: Rational fraction expected.\n"
+"%s: Argument #%d: Polynomial or rational expected.\n"
+"%s: Argument #%d: Real polynomial expected.\n"
+"%s: Argument #%d: Real rational expected.\n"
+
+"%s: Argument #%d: Text(s) expected.\n"
+
+"%s: Argument #%d: Graphic handle expected.\n"
+"%s: Argument #%d: Graphic handle of type ''%s'' expected.\n"
+
+"%s: Argument #%d: Function expected.\n"
+"%s: Argument #%d: Transfer function expected.\n"
+"%s: Argument #%d: Linear state space expected.\n"
+"%s: Argument #%d: %s expected.\n"
+
+"%s: Type %s is not implemented.\n"
+]]></screen>
+            <para>
+                <emphasis role="bold">Wrong container:</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Argument #%d: List expected.\n"
+"%s: Argument #%d: Cell expected.\n"
+"%s: Argument #%d: Structure expected.\n"
+"%s: Argument #%d: M-list expected.\n"
+"%s: Argument #%d: T-list of type %s expected.\n"
+"%s: Argument #%d: %s expected.\n"
+]]></screen>
+            <para>
+                <emphasis role="bold">Wrong encoding:</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Argument #%d: Sparse matrix expected.\n"
+"%s: Argument #%d: Dense matrix expected.\n"
+]]></screen>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_sizes_checking">
+            <title>Checking container's dimension and sizes</title>
+            <para>
+                <emphasis role="bold">Dimensions / sizes / shape of the container:</emphasis>
+                <itemizedlist>
+                    <listitem>
+                         <para>
+                            "array" applies to Cells and Structures
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                            "Scalar", "Row", "Column" apply to matrices as well as to other arrays
+                            (Cells and Structures)
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <screen><![CDATA[
+"%s: Argument #%d: Non-empty matrix expected.\n"
+"%s: Argument #%d: Empty matrix expected.\n"
+"%s: Argument #%d: Scalar (1 element) expected.\n"
+"%s: Argument #%d: Row expected.\n"
+"%s: Argument #%d: Column expected.\n"
+"%s: Argument #%d: Vector expected.\n"
+"%s: Argument #%d: Row with %d elements expected.\n"
+"%s: Argument #%d: Column with %d elements expected.\n"
+"%s: Argument #%d: Vector with %d elements expected.\n"
+
+"%s: Argument #%d: Matrix expected.\n"
+"%s: Argument #%d: Square matrix expected.\n"
+"%s: Argument #%d: %d-by-%d matrix expected.\n"
+"%s: Argument #%d: Matrix with %d rows expected.\n"
+"%s: Argument #%d: Matrix with %d columns expected.\n"
+"%s: Argument #%d: Matrix with %s rows expected.\n"    // %s is more general ; it could be used for a range
+"%s: Argument #%d: Matrix with %s columns expected.\n" // idem
+"%s: Argument #%d: 2D-array expected.\n"
+
+"%s: Argument #%d: Hypermatrix expected.\n"
+"%s: Argument #%d: %dD hypermatrix expected.\n"
+"%s: Argument #%d: %dD array expected.\n"
+
+"%s: Argument #%d: %d-element list expected.\n"
+"%s: Argument #%d: List of %d to %d elements expected.\n"
+
+"%s: Argument #%d: %s expected.\n"
+"%s: Implicit size not supported.\n"
+"%s: Hypermatrix not supported.\n"
+]]></screen>
+            <para>
+                <emphasis role="bold">Strings</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Argument #%d: string length %s %d characters expected.\n" // '='|'>'|'>='|'<' ...etc
+]]></screen>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_values_checking">
+            <title>Checking values</title>
+            <para>
+                <emphasis role="bold">Wrong values:</emphasis>
+            </para>
+            <screen><![CDATA[
+"%s: Argument #%d: Must be in the interval [%s, %s].\n"
+"%s: Argument #%d: Must be in the interval [%d, %d].\n"
+"%s: Argument #%d: Must be in the interval %s.\n"
+"%s: Argument #%d: Must be < %d.\n"
+"%s: Argument #%d: Must be > %d.\n"
+"%s: Argument #%d: Must be <= %d.\n"
+"%s: Argument #%d: Must be >= %d.\n"
+"%s: Argument #%d: Inf value forbidden.\n"
+"%s: Argument #%d: Nan value forbidden.\n"
+"%s: Argument #%d: Inf and Nan values forbidden.\n"
+"%s: Argument #%d: ''%s'' expected .\n"
+"%s: Argument #%d: Must be in the set {%s}.\n"
+"%s: Argument #%d: Non-negative integers expected.\n"
+"%s: Argument #%d: Elements must be in increasing order.\n"
+"%s: Argument #%d: Elements must be in decreasing order.\n"
+"%s: Argument #%d: Elements must be in strictly increasing order.\n"
+"%s: Argument #%d: Elements must be in strictly decreasing order.\n"
+"%s: Argument #%d: An integer value expected.\n"
+
+"%s: Argument #%d: Unknown or unexpected property name ''%s''.\n"
+"%s: Argument #%d: Wrong type of graphic handle: ''%s'' expected.\n"
+"%s: Argument #%d: The %s handle is no longer valid.\n"  // Graphic, XML, lu etc handles
+"%s: Argument #%d: Wrong color specification.\n"
+]]></screen>
+        <para>
+            Note that the error message for intervals is special: any type of interval like
+            [#, #], (#, #], [#, #), (#, #) (-oo, #], [#, oo), etc can be conveniently specified
+            within the same generic message. Bounds formatting and replacement must be performed
+            with msprintf(..)
+        </para>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_interarguments_constrains">
+            <title>Inter-Arguments constrains checking:</title>
+            <screen><![CDATA[
+"%s: Arguments #%d and #%d: Incompatible sizes.\n"
+"%s: Arguments #%d and #%d: Same sizes expected.\n"
+"%s: Arguments #%d and #%d: Same numbers of columns expected.\n"
+"%s: Arguments #%d and #%d: Same numbers of rows expected.\n"
+"%s: Arguments #%d and #%d: Same numbers of elements expected.\n"
+"%s: Arguments #%d and #%d: Same types expected.\n"
+"%s: Arguments #%d and #%d: Same formal variable expected.\n"  // polynomials and rationals
+]]></screen>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_files_directories">
+            <title>Files, directories</title>
+            <screen><![CDATA[
+"%s: Cannot open file ''%s''.\n"
+"%s: The file ''%s'' does not exist.\n"
+"%s: File ''%s'': Read access denied.\n"
+"%s: File ''%s'' already exists or directory write access denied.\n"
+"%s: Error while copying the file ''%s'' to the directory ''%s''.\n"
+"%s: The file ''%s'' cannot be written.\n"
+"%s: The file ''%s'' is not well formated at line %d\n"
+"%s: Cannot close the file ''%s''.\n"
+"%s: End of file at line %d.\n"
+"%s: Binary direct access files must be opened by ''file''.\n"
+"%s: C file logical unit not allowed here.\n"
+"%s: Fortran file logical unit not allowed here.\n"
+"%s: No input file associated to logical unit %d.\n"
+]]></screen>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_dynamical_systems">
+            <title>Dynamical systems</title>
+        <screen><![CDATA[
+"%s: Argument #%d: Transfer matrix expected.\n"
+"%s: Argument #%d: In state space form expected.\n"
+"%s: Argument #%d: In continuous time expected.\n"
+"%s: Argument #%d: In discrete time expected.\n"
+"%s: Argument #%d: SISO expected.\n"
+"%s: Argument #%d: Undefined time domain.\n"
+"%s: Argument #%d: Invalid state space representation.\n"
+"%s: Argument #%d: A system in state space or transfer matrix form expected.\n"
+]]></screen>
+        </refsect2>
+        <!-- ====================================================== -->
+        <refsect2 id="error_table_miscellaneous">
+            <title>Miscellaneous</title>
+            <screen><![CDATA[
+"%s: No more memory.\n"
+"%s: No more memory: %d requested, %d available.\n"
+"%s: Non implemented feature.\n"
+"%s: Inconsistent addition.\n"
+"%s: Inconsistent multiplication.\n"
+"%s: The problem is singular.\n"
+"%s: Division by 0...\n"
+"%s: Invalid index.\n"
+"%s: ''%s'' expected instead of ''%s''.\n"
+"%s: Recursion limit reached.\n"
+"%s: Recursion problems. Sorry...\n"
+"%s: Convergence problem...\n"
+
+"%s: Incorrect syntax.\n"
+"%s: Incorrect assignment.\n"
+"%s: Subroutine ''%s'' not found.\n"
+"%s: Bad call to primitive ''%s''.\n"
+"%s: Dot cannot be used as modifier for this operator.\n"
+"%s: Problem with comparison symbol...\n"
+"%s: Missing operator, comma, or semicolon.\n"
+]]></screen>
+        </refsect2>
+    </refsection>
+    <refsection id="error_table_examples">
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+lang0 = getlanguage();
+setlanguage fr;
+
+msg = _("%s: Wrong number of input arguments: %d or %d expected.\n")
+error(msprintf(msg, "myfun", 2, 3))
+
+msg = _("%s: Argument #%d: Must be in the set {%s}.\n")
+error(msprintf(msg, "myfun", 2, "''r'' ''c''"))
+
+msg = _("%s: Non implemented feature.\n")
+error(msprintf(msg, "myfun"))
+
+setlanguage(lang0);
+
+msg = _("%s: Argument #%d: Encoded integer of type (%s) expected.\n")
+error(msprintf(msg, "myfun", 1, "uint16"))
+
+msg = _("%s: Argument #%d: The %s handle is no longer valid.\n")
+error(msprintf(msg, "myfun", 3, _("graphic")))
+ ]]></programlisting>
+    <screen><![CDATA[
+--> msg = _("%s: Wrong number of input arguments: %d or %d expected.\n")
+ msg  =
+ %s : Nombre erroné d'arguments d'entrée : %d ou %d attendus.\n
+
+--> error(msprintf(msg, "myfun", 2, 3))
+myfun : Nombre erroné d'arguments d'entrée : 2 ou 3 attendus.
+
+
+--> msg = _("%s: Argument #%d: Must be in the set {%s}.\n")
+ msg  =
+ %s : Argument #%d : doit être dans l'ensemble {%s}.\n
+
+--> error(msprintf(msg, "myfun", 2, """r"" ""c"""))
+myfun : Argument #2 : doit être dans l'ensemble {"r" "c"}.
+
+
+--> msg = _("%s: Non implemented feature.\n")
+ msg  =
+ %s : Fonction non implémentée\n
+
+--> error(msprintf(msg, "myfun"))
+myfun : Fonction non implémentée
+
+--> setlanguage(lang0);
+
+--> msg = _("%s: Argument #%d: Encoded integer of type (%s) expected.\n");
+--> error(msprintf(msg, "myfun", 1, "uint16"))
+
+myfun: Argument #1: Encoded integer of type (uint16) expected.
+
+--> msg = _("%s: Argument #%d: The %s handle is no longer valid.\n");
+--> error(msprintf(msg, "myfun", 3, _("graphic")))
+
+myfun: Argument #3: The graphic handle is no longer valid.
+]]></screen>
+    </refsection>
+    <refsection role="see also" xml:id="error_table_seealso">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="error">error</link>
+            </member>
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+            <member>
+                <link linkend="msprintf">msprintf</link>
+            </member>
+            <member>
+                <link linkend="printf_conversion">printf_conversion</link>
+            </member>
+            <member>
+                <link linkend="warning">warning</link>
+            </member>
+            <member>
+                <link linkend="lasterror">lasterror</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    Error numbers can no longer be used alone. There are now optional (default
+                    = 10000) and local (set at each error() call).
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

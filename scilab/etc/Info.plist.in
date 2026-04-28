@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+ * This file declares the Scilab application for Mac OS X
+ * See: https://scilab.gitlab.io/legacy_wiki/Compiling(20)Scilab(20)under(20)MacOSX.html
+ * Packaging (Mac OS X style)
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>bin/scilab</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Scilab @SCILAB_BINARY_VERSION@, © 2022-2026 Dassault Systèmes</string>
+	<key>CFBundleIconFile</key>
+	<string>puffin</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.scilab.modules.jvm.Scilab</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>@SCILAB_BINARY_VERSION@</string>
+	<key>CFBundleName</key>
+	<string>Scilab</string>
+</dict>
+</plist>

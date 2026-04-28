@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Fabrice Leray
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="plot">
+    <refnamediv>
+        <refname>plot</refname>
+        <refpurpose>2Dプロット</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出しの手順</title>
+        <synopsis>
+            plot     // demo
+            plot(y)
+            plot(x, y)
+            plot(x, func)
+            plot(x, list(func, params))
+            plot(x, polynomial)
+            plot(x, rational)
+            plot(.., LineSpec)
+            plot(.., LineSpec, GlobalProperty)
+            plot(x1, y1, LineSpec1, x2,y2,LineSpec2,...xN, yN, LineSpecN, GlobalProperty1,.. GlobalPropertyM)
+            plot(x1,func1,LineSpec1, x2,y2,LineSpec2,...xN,funcN,LineSpecN, GlobalProperty1, ..GlobalPropertyM)
+            plot(logflag,...)
+            plot(axes_handle,...)
+            h = plot(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        実数行列またはベクトル. 省略した場合, <literal>1:n</literal>であると
+                        仮定されます. ただし, <literal>n</literal>は<literal>y</literal>パラメータで
+                        指定された曲線の点の数です.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                     <para>
+                        実数行列またはベクトル.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>func</term>
+                <listitem>
+                    <para>
+                        handle of a function, as in <literal>plot(x, sin)</literal>.
+                        If the function to plot needs some parameters as input arguments, the
+                        function and its parameters can be specified through a list, as in
+                        <literal>plot(x, list(delip, -0.4))</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>polynomial</term>
+                <listitem>
+                     <para>
+                        Single polynomial or array of polynomials.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rational</term>
+                <listitem>
+                     <para>
+                        Single rational or array of rationals.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y1, y2, y3,..</term>
+                <listitem>
+                    <para>
+                        Can be any of the possible input types described above:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    vectors or matrices of real numbers or of integers
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    handle of a function (possibly in a list with its parameters).
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    polynomials
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    rationals
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>LineSpec</term>
+                <listitem>
+                    <para>このオプション引数は文字列で
+                        線を描画する手法を指定するショートカットとして使用されます.
+                        <literal>LineSpec</literal>は指定済みの各<literal> y</literal> または <literal>{x,y}</literal>
+                        毎に一つ指定できます.
+                        <literal>LineSpec</literal>はLineStyle,MarkerおよびColorと同時に処理されます
+                        (<link linkend="LineSpec">LineSpec</link>参照).
+                        これらの指定子はプロットされた線において線の種類,マーカの種類および色を定義します.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>GlobalProperty</term>
+                <listitem>
+                    <para>このオプションの引数は,
+                        グローバルオブジェクトのプロパティを定義する
+                        一連の命令<literal>{PropertyName,PropertyValue}</literal>
+                        を表し,    このプロットで作成された全ての曲線に適用されます.
+                        利用可能なプロパティの全て参照するには
+                        <link linkend="GlobalProperty">GlobalProperty</link>を参照してください.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>logflag</term>
+                <listitem>
+                    <para>
+                        "ln" | "nl" | "ll" : 2-character word made of "l" standing for
+                        "<emphasis role="bold">L</emphasis>ogarithmic" or/and "n" standing for
+                        "<emphasis role="bold">N</emphasis>ormal". The first character applies to
+                        the X axis, the second to the Y axis. Hence, "ln" means that the X axis
+                        is logarithmic and the Y axis is normal. The default is "nn":
+                        both axes in normal scales.
+                    </para>
+                    <para>
+                        <literal>logflag</literal> must be used after <literal>axes_handle</literal>
+                        (if any) and before the first curve's data <literal>x</literal> or
+                        <literal>y</literal> or <literal>func</literal>.
+                        It applies to all curves drawn by the <literal>plot(…)</literal> instruction.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>axes_handle</term>
+                <listitem>
+                    <para>
+                        このオプションの引数は,カレントの軸ではなく <literal>axes_handle</literal>で
+                        指定した軸の内部にプロットが表示されることを指定します
+                        (<link linkend="gca">gca</link>参照).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Polyline エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="polyline_properties">fec_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>説明</title>
+        <para>
+            <literal>plot</literal> は一連の二次元曲線をプロットします.
+            <literal>plot</literal> はMatlab構文との互換性を改善するために
+            修正されています.
+            グラフィックの互換性を改善するために, Matlabユーザは
+            (<link linkend="plot2d">plot2d</link>ではなく)
+            <literal>plot</literal>を使用してください.
+        </para>
+        <para>データエントリ仕様 :</para>
+        <para>本節では,記述を明確化するため,オプションの引数
+            <literal>LineSpec</literal>および <literal>GlobalProperty</literal>
+            については言及しません.
+            これはこれらの引数は,
+            (<literal>"Xdata"</literal>,
+            <literal>"Ydata"</literal> および <literal>"Zdata"</literal> プロパティを
+            除く,
+            <link linkend="GlobalProperty">GlobalProperty</link>参照)
+            エントリデータと干渉しないためです.
+            これら全てのオプション引数を同時に指定することが可能です.
+        </para>
+        <para>
+            <literal>y</literal> がベクトルの場合, plot(y) はベクトル <literal>y</literal>
+            をベクトル <literal>1:size(y,'*')</literal>に対してプロットします.
+        </para>
+        <para>
+            <literal>y</literal>が行列の場合, plot(y) は<literal>y</literal>の各列を
+            <literal>1:size(y,1)</literal>に対してプロットします.
+        </para>
+        <para>
+            <literal>x</literal> および <literal>y</literal> がベクトルの場合, plot(x,y) は
+            ベクトル <literal>y</literal> をベクトル <literal>x</literal>に対してプロットします.
+            ベクトル<literal>x</literal> および
+            <literal>y</literal> の要素数は同じである必要があります.
+        </para>
+        <para>
+            <literal>x</literal> がベクトルで <literal>y</literal> が行列の場合, plot(x,y)
+            は <literal>y</literal> の各列をベクトル <literal>x</literal>に対してプロットします.
+            この場合,<literal>y</literal> の列の数は
+            <literal>x</literal> のエントリの数と同じである必要があります.
+        </para>
+        <para>
+            <literal>x</literal> と <literal>y</literal> が行列の場合, plot(x,y) は
+            <literal>y</literal> の各列を<literal>x</literal>の同じ列に対してプロットします.
+            この場合,<literal>x</literal> と<literal>y</literal> の大きさは同じである必要があります.
+        </para>
+        <para>
+            最後に, <literal>x</literal> または <literal>y</literal> が行列の場合,
+            ベクトルは行列の各行または各列に対してプロットされます.
+            この選択は,行列の行また列の次元にベクトルの行または列の次元のどちらが
+            一致するかに応じて行われます.
+            (<literal>x</literal> または <literal>y</literal> のみが)正方行列の場合,
+            列が行よりも優先されます(以下の例参照).
+        </para>
+        <para>
+            <warning>
+                必要でかつ可能な場合,
+                <literal>plot</literal> は,
+                互換性がある次元を取得するため,
+                <literal>x</literal> および <literal>y</literal>を転置し,警告を出力します.
+                例えば,
+                <literal>x</literal> が<literal>y</literal>の列と同じ行数を有する場合.
+                <literal>y</literal> が正方の場合, 転置は行われません.
+            </warning>
+        </para>
+        <para>
+            <literal>y</literal> はマクロまたはプリミティブとして定義された関数と
+            することも可能です.この場合,
+            <literal>x</literal> データを(ベクトルまたは行列として)指定する必要があり,
+            対応する<literal>y(x)</literal>の計算が暗黙の内に行われます.
+        </para>
+        <para>
+            <literal>LineSpec</literal> と<literal>GlobalProperty</literal> 引数は
+            プロットをカスタマイズするために使用されます.
+            以下に利用可能な全オプションのリストを示します.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>LineSpec</term>
+                <listitem>
+                    <para>このオプションは曲線の描画方法を簡便な方法で
+                        指定する際に使用されます.
+                        このオプションは,LineStyle, Marker および Color指定子を含む文字列とする
+                        必要があります.
+                    </para>
+                    <para>これらのリファレンスは曖昧さがないように
+                        文字列内で指定することが必要です(順番は重要ではありません).
+                        例えば,ダイヤモンド型の記号を付けた赤い長い破線を指定する場合,
+                        以下のように書くことができます:
+                        <literal>'r--d'</literal> , <literal>'--dire'</literal> または
+                        <literal>'--reddiam'</literal>  または他のあいまいでない命令,
+                        もしくは全体を指定する <literal>'diamondred--'</literal>
+                        (<link linkend="LineSpec">LineSpec</link>参照)
+                    </para>
+                    <para>
+                        線の種類,色,マーカの色(および大きさ)も
+                        ポリラインエンティティプロパティにより(再)設定できることに
+                        注意してください
+                        (<link linkend="polyline_properties">polyline_properties</link>参照).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>GlobalProperty</term>
+                <listitem>
+                    <para>
+                        このオプションは, <literal>LineSpec</literal>を使用する
+                        よりも多くのオプションを用いて曲線のプロット方法を指定できます.
+                        <literal>PropertyName</literal>を定義する文字列と
+                        その値である<literal>PropertyValue</literal>
+                        (<literal>PropertyName</literal>の型に依存して文字列または整数または...)
+                        の組で指定する必要があります.
+                        <literal>GlobalProperty</literal>により複数のプロパティ,
+                        つまり, LineSpec により利用可能なあらゆるプロパティ,
+                        マーカの色(表示色および背景色), 視認性, クリッピング, 曲線の太さ,
+                        を設定可能です.
+                        (<link linkend="GlobalProperty">GlobalProperty</link>参照)
+                    </para>
+                    <para>
+                        これらのプロパティは全て
+                        ポリラインエンティティプロパティ
+                        (<link linkend="polyline_properties">polyline_properties</link>参照)
+                        により(再)設定できることに注意してください.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>注意</title>
+        <para>デフォルトでは, 連続したプロットは重ね描きされます.
+            前のプロットを消去するには,
+            <literal>clf()</literal>を使用してください. <literal>auto_clear</literal> モードを
+            デフォルトで有効にするには,次のようにデフォルトの軸を編集してください:
+        </para>
+        <para>da=gda();</para>
+        <para>da.auto_clear = 'on'</para>
+        <para>
+            表示を改善するために<literal>plot</literal>関数が親の軸の
+            <literal>box</literal>プロパティを修正することがあります.
+            これは,親の軸が<literal>plot</literal>のコールにより作成されたか,
+            コール前に空である場合に行われます.
+            軸の一つが原点を中心にしている場合, ボックスは無効となります.
+            その他の場合, ボックスが有効になります.
+        </para>
+        <para>
+            ボックスプロパティと軸の配置に関する詳細については,
+            <link linkend="axes_properties">axes_properties</link>を参照ください.
+        </para>
+        <para>
+            色を指定しない場合,曲線をプロットする際にデフォルトの色テーブルが
+            使用されます.
+            複数の線を描画する際,plotコマンドは自動的に
+            このテーブルに基づき周期的に選択します.
+            以下に使用される色を示します:
+        </para>
+        <informaltable border="1">
+            <tr>
+                <th> <literal>R</literal> </th>
+                <th> <literal>G</literal> </th>
+                <th> <literal>B</literal> </th>
+            </tr>
+            <tr> <td>0.</td>   <td>0.</td>   <td>1.</td>   </tr>
+            <tr> <td>0.</td>   <td>0.5</td>  <td>0.</td>   </tr>
+            <tr> <td>1.</td>   <td>0.</td>   <td>0.</td>   </tr>
+            <tr> <td>0.</td>   <td>0.75</td> <td>0.75</td> </tr>
+            <tr> <td>0.75</td> <td>0.</td>   <td>0.75</td> </tr>
+            <tr> <td>0.75</td> <td>0.75</td> <td>0.</td>   </tr>
+            <tr> <td>0.25</td> <td>0.25</td> <td>0.25</td> </tr>
+        </informaltable>
+        <para/>
+        <para>
+            コマンド <literal>plot</literal> を入力することによりデモを見ることができます.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>例</title>
+        <para>
+            <emphasis role="bold">Choosing the normal or logarithmic plotting mode:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+gda().grid = [1 1]*color("grey70");
+title(gda(), "fontsize", 3, "color", "lightseagreen", "fontname", "helvetica bold");
+x = linspace(1e-1,100,1000);
+xm = 35;
+dx = 17;
+G = exp(-((x-xm)/dx).^2/2)*30;
+scf(1); clf
+subplot(2,2,1), plot(x, G),       title("plot(x, y)")
+subplot(2,2,2), plot("ln", x, G), title("semilog-x : plot(""ln"", x, y)"); gca().sub_ticks(1) = 8;
+subplot(2,2,3), plot("nl", x, G), title("semilog-y : plot(""nl"", x, y)"); gca().sub_ticks(2) = 8;
+subplot(2,2,4), plot("ll", x, G), title("loglog : plot(""ll"", x, y)");    gca().sub_ticks = [8 8];
+sda();
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            gda().grid = [1 1]*color("grey70");
+            title(gda(), "", "fontsize", 3, "color", "lightseagreen", "fontname", "helvetica bold");
+            x = linspace(1e-1,100,1000);
+            xm = 35;
+            dx = 17;
+            G = exp(-((x-xm)/dx).^2/2)*30;
+            scf(1); clf
+            subplot(2,2,1), plot(x, G),       title("plot(x, y)")
+            subplot(2,2,2), plot("ln", x, G), title("semilog-x : plot(""ln"", x, y)")
+            gca().sub_ticks(1) = 8;
+            subplot(2,2,3), plot("nl", x, G), title("semilog-y : plot(""nl"", x, y)")
+            gca().sub_ticks(2) = 8;
+            subplot(2,2,4), plot("ll", x, G), title("loglog : plot(""ll"", x, y)")
+            gca().sub_ticks = [8 8];
+            gcf().axes_size = [750 520];
+            sda();
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Simple plot of a single curve:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+// Default abscissae = indices
+subplot(1,2,1)
+plot(sin(0:0.1:2*%pi))
+xlabel("x indices")
+// With explicit abscissae:
+x = [0:0.1:2*%pi]';
+subplot(1,2,2)
+plot(x, sin(x))
+xlabel("Specified abscissae")
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            // Default abscissae = indices
+            subplot(1,2,1)
+            plot(sin(0:0.1:2*%pi))
+            xlabel("x indices")
+            // With explicit abscissae:
+            x = [0:0.1:2*%pi]';
+            subplot(1,2,2)
+            plot(x, sin(x))
+            xlabel("Specified abscissae")
+            gcf().axes_size = [700 350];
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Multiple curves with shared abscissae:</emphasis>
+            Y: 1 column = 1 curve:
+        </para>
+        <programlisting role="example"><![CDATA[
+clf
+x = [0:0.1:2*%pi]';
+plot(x, [sin(x) sin(2*x) sin(3*x)])
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            x=[0:0.1:2*%pi]';
+            plot(x,[sin(x) sin(2*x) sin(3*x)])
+            gcf().axes_size = [700 350];
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">
+                Specifying a macro or a builtin instead of explicit ordinates:
+            </emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+clf
+subplot(2,2,1)         // sin() is a builtin
+plot(1:0.1:10, sin)    // <=> plot(1:0.1:10, sin(1:0.1:10))
+title("plot(x, sin)", "fontsize",3)
+// with a macro:
+deff('y = myFun(x)','y = x + rand(x)')
+subplot(2,2,2)
+plot(-3:0.1:5, myFun)
+title("plot(x, myFun)", "fontsize",3)
+// With functions with parameters:
+subplot(2,2,3)
+plot(1:0.05:7, list(delip, -0.4))  // <=> plot(1:0.05:7, delip(1:0.05:7,-0.4) )
+title("plot(x, list(delip,-0.4))", "fontsize",3)
+function Y = myPow(x,p)
+    [X,P] = ndgrid(x,p);
+    Y = X.^P;
+    m = max(abs(Y),"r");
+    for i = 1:size(Y,2)
+        Y(:,i) = Y(:,i)/m(i);
+    end
+endfunction
+x = -5:0.1:6;
+subplot(2,2,4)
+plot(x, list(myPow,1:5))
+title("plot(x, list(myPow,1:5))", "fontsize",3)
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            subplot(2,2,1)         // sin() is a builtin
+            plot(1:0.1:10, sin)    // <=> plot(1:0.1:10, sin(1:0.1:10))
+            title("plot(x,sin)", "fontsize",3)
+            // with a macro:
+            deff('y = myFun(x)','y = x + rand(x)')
+            subplot(2,2,2)
+            plot(-3:0.1:5, myFun)
+            title("plot(x, myFun)", "fontsize",3)
+            // With functions with parameters:
+            subplot(2,2,3)
+            plot(1:0.05:7, list(delip, -0.4))  // <=> plot(1:0.05:7, delip(1:0.05:7,-0.4) )
+            title("plot(x, list(delip,-0.4))", "fontsize",3)
+            function Y = myPow(x,p)
+                [X,P] = ndgrid(x,p);
+                Y = X.^P;
+                m = max(abs(Y),"r");
+                for i = 1:size(Y,2)
+                    Y(:,i) = Y(:,i)/m(i);
+                end
+            endfunction
+            x = -5:0.1:6;
+            subplot(2,2,4)
+            plot(x, list(myPow,1:5))
+            title("plot(x, list(myPow,1:5))", "fontsize",3)
+            gcf().axes_size = [730 500];
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">
+                Plotting the graph of polynomials or rationals:
+            </emphasis>
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+clf
+s = %s;
+// Polynomials
+x = -0.5:0.02:3;
+p = s*[2 ; (s-2) ; (s-1)*(s-2)]
+subplot(1,2,1)
+plot(x, p)
+legend(prettyprint(p,"latex","",%t), 2);
+// Rationals
+x = -0.5:0.02:2;
+r = (s-1)*s/(s-7)./[s+1, s-4]
+subplot(1,2,2)
+plot(x, r)
+legend(prettyprint(r,"latex","",%t), 2);
+gcf().children.grid = color("grey70")*[1 1]; // grids
+gcf().children.children([1 3]).font_size=3;  // legends
+ ]]></programlisting>
+        <screen><![CDATA[
+--> p = s*[2 ; (s-2) ; (s-1)*(s-2)]
+ p  =
+  2s
+  -2s +s²
+  2s -3s² +s³
+../..
+--> r = (s-1)*s/(s-7)./[s+1, s-4]
+ r  =
+     -s +s²      -s +s²
+   ----------  -----------
+   -7 -6s +s²  28 -11s +s²
+]]></screen>
+        <scilab:image><![CDATA[
+            s = %s;
+            // Polynomials
+            x = -0.5:0.02:3;
+            p = s*[2 ; (s-2) ; (s-1)*(s-2)]
+            subplot(1,2,1)
+            plot(x, p)
+            legend(prettyprint(p,"latex","",%t), 2);
+            // Rationals
+            x = -0.5:0.02:2;
+            r = (s-1)*s/(s-7)./[s+1, s-4]
+            subplot(1,2,2)
+            plot(x, r)
+            legend(prettyprint(r,"latex","",%t), 2);
+            gcf().children.grid = color("grey70")*[1 1]; // grids
+            gcf().children.children([1 3]).font_size=3;  // legends
+            gcf().axes_size = [650 400];
+        ]]></scilab:image>
+        </para>
+        <para/>
+        <para>
+            <emphasis role="bold">Setting curves simple styles when calling plot():</emphasis>
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+clf
+t = -%pi:%pi/20:2*%pi;
+// sin() : in Red, with O marks, without line
+// cos() : in Green, with + marks, with a solid line
+// gaussian: in Blue, without marks, with dotted line
+gauss = 1.5*exp(-(t/2-1).^2)-1;
+plot(t,sin,'ro', t,cos,'g+-', t,gauss,':b')
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            t = -%pi:%pi/20:2*%pi;
+            // sin() : in Red, with O marks, without line
+            // cos() : in Green, with + marks, with a solid line
+            // gaussian: in Blue, without marks, with dotted line
+            gauss = 1.5*exp(-(t/2-1).^2)-1;
+            plot(t,sin,'ro', t,cos,'g+-', t,gauss,':b')
+            gcf().axes_size = [800 400];
+        
+        ]]></scilab:image>
+        </para>
+        <para>
+        Vertical segments between two curves, with automatic colors, and using Global properties
+        for markers styles. Targeting a defined axes.
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+clf
+subplot(1,3,3)
+ax3 = gca();         // We will draw here later
+xsetech([0 0 0.7 1]) // Defines the first Axes area
+t = -3:%pi/20:7;
+// Tuning markers properties
+plot([t ;t],[sin(t) ;cos(t)],'marker','d','markerFaceColor','green','markerEdgeColor','yel')
+// Targeting a defined axes
+plot(ax3, t, sin)
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            clf
+            subplot(1,3,3)
+            ax3 = gca();         // We will draw here later
+            xsetech([0 0 0.7 1]) // Defines the first Axes area
+            t = -3:%pi/20:7;
+            // Tuning markers properties
+            plot([t ;t],[sin(t) ;cos(t)],'marker','d','markerFaceColor','green','markerEdgeColor','yel')
+            // Targeting a defined axes
+            plot(ax3, t, sin)
+            gcf().axes_size = [800 400];
+        
+        ]]></scilab:image>
+        </para>
+        <para/>
+        <para>
+            <emphasis role="bold">Case of a non-square Y matrix:</emphasis>
+            When it is consistent and required, X or/and Y data are
+            automatically transposed in order to become plottable.
+        </para>
+        <programlisting role="example"><![CDATA[
+clf()
+x = [5 6 7 8]
+y = [1   1   1   1   8
+     2   3   4   5   9
+     3   4   5   6  10
+     4   5   6   7  12];
+// Only one matching possibility case: how to make 4 identical plots in 4 manners...
+// x is 1x4 (vector) and y is 4x5 (non square matrix)
+subplot(221); plot(x', y , "o-");    // OK as is
+subplot(222); plot(x , y , "o-");    // x is transposed
+subplot(223); plot(x', y', "o-");    // y is transposed
+subplot(224); plot(x , y', "o-");    // x and y are transposed
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            x = [5 6 7 8]
+            y = [1   1   1   1   8
+                 2   3   4   5   9
+                 3   4   5   6  10
+                 4   5   6   7  12];
+            // Only one matching possibility case: how to make 4 identical plots in 4 manners...
+            // x is 1x4 (vector) and y is 4x5 (non square matrix)
+            subplot(221); plot(x', y , "o-");    // OK as is
+            subplot(222); plot(x , y , "o-");    // x is transposed
+            subplot(223); plot(x', y', "o-");    // y is transposed
+            subplot(224); plot(x , y', "o-");    // x and y are transposed
+        ]]></scilab:image>
+        <para>
+            <emphasis role="bold">Case of a square Y matrix, and X implicit or square:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+clf
+t = [1   1   1   1
+     2   3   4   5
+     3   4   5   6
+     4   5   6   7];
+subplot(231), plot(t,"o-") , title("plot(t)",  "fontsize",3)
+subplot(234), plot(t',"o-"), title("plot(t'')", "fontsize",3)
+subplot(232), plot(t,t,"o-") , title("plot(t, t)",  "fontsize",3)
+subplot(233), plot(t,t',"o-"), title("plot(t,t'')", "fontsize",3)
+subplot(235), plot(t', t,"o-"),  title("plot(t'', t)",   "fontsize",3)
+subplot(236), plot(t', t',"o-"), title("plot(t'', t'')", "fontsize",3)
+for i=1:6, gcf().children(i).data_bounds([1 3]) = 0.5; end
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            clf
+            t = [1   1   1   1
+                 2   3   4   5
+                 3   4   5   6
+                 4   5   6   7];
+            subplot(231), plot(t,"o-") , title("plot(t)",  "fontsize",3)
+            subplot(234), plot(t',"o-"), title("plot(t'')", "fontsize",3)
+            subplot(232), plot(t,t,"o-") , title("plot(t, t)",  "fontsize",3)
+            subplot(233), plot(t,t',"o-"), title("plot(t,t'')", "fontsize",3)
+            subplot(235), plot(t', t,"o-"),  title("plot(t'', t)",   "fontsize",3)
+            subplot(236), plot(t', t',"o-"), title("plot(t'', t'')", "fontsize",3)
+            for i=1:6, gcf().children(i).data_bounds([1 3]) = 0.5; end
+            gcf().axes_size = [800 450];
+        ]]></scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">Special cases of a matrix X and a vector Y:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+clf
+X = [1   1   1   1
+     2   3   4   5
+     3   4   5   6
+     4   5   6   7];
+y = [1 2 3 4];
+subplot(221), plot(X, y,  "o-"), title("plot(X, row)",  "fontsize",3)
+        // equivalent to plot(t, [1 1 1 1; 2 2 2 2; 3 3 3 3; 4 4 4 4])
+subplot(223), plot(X, y', "o-"), title("plot(X, col)  (row = col'')",  "fontsize",3)
+subplot(222), plot(X',y,  "o-"), title("plot(X'', row)",  "fontsize",3)
+subplot(224), plot(X',y', "o-"), title("plot(X'', col)  (row = col'')",  "fontsize",3)
+for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            clf
+            X = [1   1   1   1
+                 2   3   4   5
+                 3   4   5   6
+                 4   5   6   7];
+            y = [1 2 3 4];
+            subplot(221), plot(X, y,  "o-"), title("plot(X, row)",  "fontsize",3)
+                    // equivalent to plot(t, [1 1 1 1; 2 2 2 2; 3 3 3 3; 4 4 4 4])
+            subplot(223), plot(X, y', "o-"), title("plot(X, col)  (row = col'')",  "fontsize",3)
+            subplot(222), plot(X',y,  "o-"), title("plot(X'', row)",  "fontsize",3)
+            subplot(224), plot(X',y', "o-"), title("plot(X'', col)  (row = col'')",  "fontsize",3)
+            for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
+        ]]></scilab:image>
+        <para/>
+        <para/>
+        <para>
+            <emphasis role="bold">Post-tuning Axes and curves:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+x=[0:0.1:2*%pi]';
+plot(x-4,sin(x),x+2,cos(x))
+// (0,0)を中心とする軸
+a=gca(); // 軸エンティティのハンドル
+a.x_location = "origin";
+a.y_location = "origin";
+isoview on
+// plotにより作成されたエンティティに複数の処理を行う
+a.children // 軸の子のリスト : ここでは,2個のエンティティの複合子オブジェクト
+poly1= a.children.children(2); //線分群のハンドルをpoly1 に保存
+poly1.foreground = 4; // スタイルを変更する別の方法...
+poly1.thickness = 3;  // ...曲線の太さ.
+poly1.clip_state='off' // 制御をクリップ
+isoview off
+ ]]></programlisting>
+ <scilab:image><![CDATA[
+         x = [0:0.1:2*%pi]';
+         h = plot(x-4,sin(x),x+2,cos(x))
+         a = gca();
+         a.x_location = "origin";
+         a.y_location = "origin";
+         isoview on
+         poly1 = h(1);
+         poly1.foreground = 4;
+         poly1.thickness = 3;
+         poly1.clip_state='off'
+         isoview off
+ ]]></scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="plot2d">plot2d</link>
+            </member>
+            <member>
+                <link linkend="plot2d2">plot2d2</link>
+            </member>
+            <member>
+                <link linkend="plot2d3">plot2d3</link>
+            </member>
+            <member>
+                <link linkend="plot2d4">plot2d4</link>
+            </member>
+            <member>
+                <link linkend="param3d">param3d</link>
+            </member>
+            <member>
+                <link linkend="surf">surf</link>
+            </member>
+            <member>
+                <link linkend="scf">scf</link>
+            </member>
+            <member>
+                <link linkend="clf">clf</link>
+            </member>
+            <member>
+                <link linkend="close">close</link>
+            </member>
+            <member>
+                <link linkend="delete">delete</link>
+            </member>
+            <member>
+                <link linkend="LineSpec">LineSpec</link>
+            </member>
+            <member>
+                <link linkend="color_list">Named colors</link>
+            </member>
+            <member>
+                <link linkend="GlobalProperty">GlobalProperty</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                    The "color"|"foreground", "markForeground", and "markBackground" GlobalProperty
+                    colors can now be chosen among the full predefined colors list, or by
+                    their "#RRGGBB" hexadecimal codes, or by their indices in the colormap.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    Plotting a function func(x, params) with input parameters is now possible with
+                    plot(x, list(func, params)).
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    logflag option added.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revdescription>
+                    Polynomials and rationals can be plotted.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    Function returns the created handle(s).
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

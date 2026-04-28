@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2016 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="mget" xml:lang="ru">
+    <refnamediv>
+        <refname>mget</refname>
+        <refpurpose>
+            проверяет числа в двоичом файле и возвращает их в виде десятичных чисел
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            D = mget(nNumb)
+            D = mget(nNumb, binFormat)
+            D = mget(nNumb, binFormat, fileID)
+        </synopsis>
+    </refsynopsisdiv>
+    <refnamediv xml:id="mgeti">
+        <refname>mgeti</refname>
+        <refpurpose>
+            проверяет числа в двоичом файле и возвращает их в виде кодированных целых чисел
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            I = mgeti(nNumb)
+            I = mgeti(nNumb, binFormat)
+            I = mgeti(nNumb, binFormat, fileID)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>fileID</term>
+                <listitem>
+                    <para>
+                        идентификатор файла (целое число типа single), возвращаемое
+                        функцией <function>mopen</function> при открытии файла.
+                        По умолчанию используется последний открытый файл.
+                    <important>
+                        Файл должен быть открыт в режиме чтения двоичных данных
+                        с помощью инструкции <code>fileID = mopen(filename,'rb')</code>.
+                    </important>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nNumb</term>
+                <listitem>
+                    <para>
+                        Целое положительное число типа single: количество чисел,
+                        которые следует проверить и вернуть. Каждое число
+                        закодировано одним или несколькими байтами, в соответствии
+                        с используемым форматом <varname>binFormat</varname>.
+                        <note>
+                        Чтобы прочитать все числа, оставшиеся в файле, используйте
+                        достаточно большое значение <varname>nNumb</varname>.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>binFormat</term>
+                <listitem>
+                    <para>
+                        текстовое значение составленное из одного, двух или трёх
+                        символов-кодов: двоичный формат, используемый для проверки
+                        чисел в двоичном файле. Доступны следующие двоичные коды:
+                    <table>
+                        <tr valign="top">
+                            <td align="right">c</td>
+                            <td>: индивидуальные байты проверяются как целые числа
+                                типа <literal>int8</literal>;
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">uc</td>
+                            <td>: индивидуальные байты проверяются как целые
+                                беззнаковые положительные числа типа <literal>uint8</literal>;
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">s</td>
+                            <td>: двухбайтные блоки проверяются как целые числа типа
+                                <literal>int16</literal>;
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">us</td>
+                            <td>: двухбайтные блоки проверяются как целые беззнаковые
+                                положительные числа типа <literal>uint16</literal>;
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">i</td>
+                            <td>: четырёхбайтные блоки проверяются как целые числа
+                                типа <literal>int32</literal>
+                                (<emphasis role="bold">режим по умолчанию</emphasis>).
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">ui</td>
+                            <td>: четырёхбайтные блоки проверяются как целые
+                                беззнаковые положительные числа типа <literal>uint32</literal>;
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">l</td>
+                            <td>: восьмибайтные блоки проверяются как целые числа
+                                типа <literal>int64</literal>;
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">ul</td>
+                            <td>: восьмибайтные блоки проверяются как целые
+                                беззнаковые положительные числа типа
+                                <literal>uint64</literal>;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td>
+                                Только с <function>mget()</function> :
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">f</td>
+                            <td>: четырёхбайтные блоки проверяются как десятичные
+                                числа "одинарной точности" (так называемые "числа
+                                с плавающей запятой", "<emphasis role="bold">f</emphasis>loats")
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="right">d</td>
+                            <td>: восьмибайтные блоки проверяются как десятичные
+                                ("<emphasis role="bold">d</emphasis>ecimal") числа.
+                            </td>
+                        </tr>
+                    </table>
+                    </para>
+                    <para>
+                        По умолчанию порядок байтов в блоке может быть установлен
+                        с помощью опции функции <function>mopen</function> при
+                        открытии файла. Этот порядок затем может принудительно
+                        быть использован с помощью настроечного флага функции
+                        <function>mget</function> или <function>mgeti</function>,
+                        который добавляется к <varname>binFormat</varname>:
+                        <table>
+                            <tr valign="top">
+                                <td align="right">..l :</td>
+                                <td>прямой порядок байтов (
+                                <emphasis role="bold">l</emphasis>ittle endian
+                                (младший байт идёт в начале блока);
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right">..b :</td>
+                                <td>обратный порядок байтов (
+                                <emphasis role="bold">b</emphasis>ig endian
+                                (старший байт идёт в начале блока).
+                                </td>
+                            </tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>D</term>
+                <listitem>
+                    <para>
+                        Ряд из <varname>nNumb</varname> десятичных чисел
+                        (или имеющихся чисел, если достигнут конец файла).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>I</term>
+                <listitem>
+                    <para>
+                        Ряд из <varname>nNumb</varname> закодированных целых чисел
+                        (или имеющихся чисел, если достигнут конец файла).
+                        Функция <function>inttype</function> возвращённых целых чисел
+                        зависит от используемого формата <varname>binFormat</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Функции <function>mget</function> и <function>mgeti</function> начинают
+            чтение байтов в указанном файле с текущей позиции внутреннего файлового
+            указателя. После чтения блока из <literal>N</literal> байтов
+            (<literal>N==1,2,4,8</literal> в соответствии с выбранным форматом
+            <varname>binFormat</varname>),
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        файловый указатель увеличивается на <literal>N</literal>
+                        байтов и устанавливается в начало следующего блока;
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        блоки чтения идут в порядке, соответствующем выбранному или
+                        установленному по умолчанию режиму порядка байтов.
+                        Проверяемый блок затем сохраняется для возврата.
+                    </para>
+                </listitem>
+            </itemizedlist>
+            Эти действия повторяются <varname>nNumb</varname> раз до тех пор,
+            пока не будет достигнут конец файла: в этом случае проверка файла
+            прекращается, неполный блок остаётся (если он есть), взводится статус
+            <literal>EOF</literal> и уже проверенные числа возвращаются.
+       </para>
+        <para>
+            Когда используется функция <function>mgeti()</function>, проверяемые
+            числа преобразуются в тип целого числа <function>inttype</function>
+            в соответствии с выбранным форматом <varname>binFormat</varname>, а
+            затем возвращаются.
+        </para>
+        <para>
+            Когда используется функция <function>mget()</function>, двоичные числа
+            проверяются в соответствии с форматом <varname>binFormat</varname>, то
+            в конце преобразуюся в восьмибайтные десятичные числа и затем возвращаются.
+            <warning>
+            Если, благодаря формату <literal>"ul*"</literal> или <literal>"l*"</literal>,
+            проверялись целые числа <literal>int64</literal> или <literal>uint64</literal>,
+            то их конечное преобразование в десятичные числа усекает их мантиссу
+            до 53 старших битов.
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+binfile = TMPDIR+"/mgetest.bin";
+idF = mopen(binfile, "w+b");
+mput(int8(0:16),"uc");
+mseek(0);
+mgeti(1,"uc")  // ожидается 0
+mgeti(2,"uc")  // ожидается 1, 2
+[mgeti(1,"us"),  uint16(3 + 4*256)]
+mseek(3);      // возврат к предыдущей позиции на "3"
+[mgeti(1,"usb"), uint16(4 + 3*256)] // байты с изменёным порядком (прямой порядок)
+mseek(0);
+[mgeti(1,"ui") , uint32(0 + 256*(1 + 256*(2 + 256*3)))]
+mseek(0);
+[mgeti(1,"uib"), uint32(3 + 256*(2 + 256*(1 + 256*0)))]
+mclose(idF);
+// целые числа uint64 и int64 iс относительной точностью 1/2^64 = %eps/2^12
+// обрабатываются лучше, чем десятичные:
+    // Формирование n 64-битных чисел с битами №0-№63, установленными случайным образом:
+n = 5;
+b = grand(64,n,"uin",0,1);
+p = uint64(2).^ndgrid(0:63,1:n);
+x0 = sum(b.*p, "r");
+    // Запишем их в файл, а затем вновь прочитем их с помощью mgeti():
+for usign = ["u" ""]
+    for endian = ["l" "b"]
+        binfile = TMPDIR+"/mgetiTestInt64.dat";
+        idF = mopen(binfile, "w+b");
+        x = x0;
+        if usign==""
+            x = int64(x);
+        end
+        mput(x,usign+"l"+endian)   // "l" принудительно управляет всеми 64 битами
+        // Теперь прочитаем их в том же режиме:
+        mseek(0);
+        xr = mgeti(n, usign+"l"+endian);
+        mclose(idF);
+        // Отобразим:
+        wrParse = usign + "l" + endian;
+        printf("    Запись в виде  ""%s""       Чтение в виде ""%s""\n", wrParse, wrParse);
+        [x' xr']
+    end
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="mopen">mopen</link>
+            </member>
+            <member>
+                <link linkend="mclose">mclose</link>
+            </member>
+            <member>
+                <link linkend="mput">mput</link>
+            </member>
+            <member>
+                <link linkend="mseek">mseek</link>
+            </member>
+            <member>
+                <link linkend="mtell">mtell</link>
+            </member>
+            <member>
+                <link linkend="meof">meof</link>
+            </member>
+            <member>
+                <link linkend="inttype">inttype</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revdescription>
+                внедрена mgeti(,"ul*"|"l*") для чтения чисел типа uint64 или int64 больше 2<superscript>52</superscript>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

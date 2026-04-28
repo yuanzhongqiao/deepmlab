@@ -1,0 +1,306 @@
+# translation of sound-ru.po to Russian
+# Russian translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# Aleksey Vorona <voronaam@yandex.ru>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: sound-ru\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
+"Language-Team: Russian <localization@lists.scilab.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: Не могу прочитать входной аргумент №%d.\n"
+
+msgid "Cannot play file."
+msgstr "Не удалось воспроизвести файл."
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: Ошибка выделения памяти.\n"
+
+#, c-format
+msgid "%s: Wrong input argument #%d: '%s' or '%s' expected.\n"
+msgstr "%s: Неверный входной параметр №%d: ожидался «%s» или «%s».\n"
+
+msgid "Scilab sound module not installed.\n"
+msgstr "Модуль «Sound» не установлен.\n"
+
+# File: modules/sound/demos/mapsound.dem.sce, line: 29
+msgid "<html><h4>Example #1: Standard</h4>"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 42
+msgid "Next example"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 78
+msgid "Next exampleStop"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 91
+msgid "<html><h4>Example #3: chimes.wav sound</h4>"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 97
+msgid "End"
+msgstr ""
+
+msgid "Sound file handling"
+msgstr "Обработка звукового файла"
+
+msgid "FFT on a wav file"
+msgstr "БПФ wav-файла"
+
+msgid "Fourier analysis of 0.5 seconds of sound parameters."
+msgstr "Анализ Фурье для полусекунды звуковых параметров."
+
+msgid "A complete picture of the sound."
+msgstr "Полное изображение звука"
+
+msgid "see 'mapsound' function"
+msgstr "см. функцию 'mapsound'"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: Неверное количество входных параметров: ожидалось от %d до %d.\n"
+
+#, c-format
+msgid "%s: Cannot open file %s.\n"
+msgstr "%s: Не удалось открыть файл %s.\n"
+
+msgid "Index range must be specified as a scalar or a 2 elements vector."
+msgstr ""
+"Диапазон индексов должен быть определён в виде скаляра или 2-элементным "
+"вектором."
+
+#, c-format
+msgid "%s: File '%s': Unrecognized data format.\n"
+msgstr "%s: Файл '%s': неопознанный формат данных.\n"
+
+msgid "Sample limit vector must have 2 elements."
+msgstr "Вектор пределов выборки должен иметь 2 элемента."
+
+msgid "Sample limits out of range."
+msgstr "Границы сэмплов вне допустимых пределов."
+
+msgid "Sample limits must be given in ascending order."
+msgstr "Пределы выборки должны быть указаны в порядке возрастания."
+
+msgid "Error in file format."
+msgstr "Ошибка в формате файла."
+
+#, c-format
+msgid "%s: File '%s' is not a .au sound file.\n"
+msgstr "%s: Файл '%s' не является звуковым файлом .au.\n"
+
+msgid "Error while reading sound file."
+msgstr "Ошибка во время чтения звукового файла."
+
+msgid "Unrecognized data format."
+msgstr "Неизвестный формат данных."
+
+msgid "Truncated data file."
+msgstr "Обрезанный файл данных."
+
+#, c-format
+msgid "%s: Wrong values for input argument: Filename must be a string.\n"
+msgstr ""
+"%s: Неверное значение входного параметра: имя файла должно быть строкой.\n"
+
+msgid "Data array must have 1- or 2-dimensions only."
+msgstr "Массив данных должен быть одно- или двумерным."
+
+msgid "Data clipped during write to file."
+msgstr "Данные обрезаны во время записи в файл."
+
+msgid "Error while writing sound file."
+msgstr "Ошибка записи звукового файла."
+
+msgid "Mu-law can only be used with 8 bit data. Use method='linear' instead."
+msgstr ""
+"Mu-law может быть использован только с 8-битными данными. Используйте метод "
+"«linear» вместо него."
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: Неверное количество входных параметров: ожидалось %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments.\n"
+msgstr "%s: Неверное количество выходных параметров.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s).\n"
+msgstr "%s: Неверное количество выходных параметров.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Function expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: A colormap function expected.\n"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 126
+msgid "Time [s]"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 127
+msgid "Frequency [Hz]"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 137
+msgid "Amplitude"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr "%s: Неверное количество входных аргументов: ожидалось %d или %d.\n"
+
+#, c-format
+msgid "%s: Argument #%d: %s expected.\n"
+msgstr "%s: Аргумент №%d: ожидался %s.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Must be >= %d.\n"
+msgstr "%s: Аргумент №%d: должен быть >= %d.\n"
+
+#, c-format
+msgid "%s: Argument #%d: '%s' is a directory. File expected.\n"
+msgstr "%s: Аргумент №%d: '%s' является директорией. Ожидался файл.\n"
+
+#, c-format
+msgid "%s: Argument #%d: The file '%s' does not exist.\n"
+msgstr "%s: Аргумент №%d: файл '%s' не существует.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Decimal number expected.\n"
+msgstr "%s: Аргумент №%d: ожидалось десятичное число.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Must be > %d.\n"
+msgstr "%s: Аргумент №%d: должен быть > %d.\n"
+
+#, c-format
+msgid "%s: Failed to play the sound with command: %s.\n"
+msgstr "%s: Не удалось воспроизвести звук с помощью команды: %s.\n"
+
+#, c-format
+msgid "%s: Audio capabilities not available.\n"
+msgstr "%s: Звуковые возможности недоступны.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s: Неверный размер входного параметра №%d.\n"
+
+msgid "only 8/16/24/32 bits for the encoding."
+msgstr "только 8/16/24/32 бит для кодирования."
+
+msgid "Unknown data format."
+msgstr "Неизвестный формат данных."
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
+msgstr "%s: Неверное количество входных параметров: ожидалось не менее %d.\n"
+
+msgid "Requires 2-D values only."
+msgstr "Требуются двумерные значения."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: Неверный размер входного аргумента №%d: ожидалась матрица %d на %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real matrix expected.\n"
+msgstr "%s: Неверный тип аргумента №%d: ожидалась вещественная матрица.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be >= %d.\n"
+msgstr "%s: Неверное значение входного аргумента №%d: должно быть >= %d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be %s or %s, an integer or a "
+"vector of %d integers.\n"
+msgstr ""
+"%s: Неверное значение входного параметра №%d: должно быть %s или %s, целое "
+"число или вектор из %d целых чисел.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: Index range must be specified as a "
+"scalar or %d-element vector.\n"
+msgstr ""
+"%s: Неверное значение входного параметра: интервальный указатель должен быть "
+"задан как скаляр или вектор из %d элементов.\n"
+
+#, c-format
+msgid "%s: The file '%s' does not exist.\n"
+msgstr "%s: Файл '%s' не существует.\n"
+
+msgid ".wav file does not contain the RIFF identifier."
+msgstr ".wav файл не содержит идентификатора RIFF."
+
+msgid ".wav file does not contain the wave identifier."
+msgstr ".wav файл не содержит идентификатора wave."
+
+msgid "Error reading .wav file."
+msgstr "Ошибка чтения .wav файла."
+
+msgid "Error reading <fact-ck> chunk."
+msgstr "Ошибка чтения <fact-ck> блока."
+
+#, c-format
+msgid "%s: An error occurred: %s is not supported.\n"
+msgstr "%s: Произошла ошибка: %s не подерживается.\n"
+
+#, c-format
+msgid "%s: An error occurred: invalid file format. Error reading <%s> chunk.\n"
+msgstr ""
+"%s: Произошла ошибка: неверный формат файла. Ошибка чтения блока <%s>.\n"
+
+msgid "Invalid .wav file: found data before format information."
+msgstr "Неверный .wav файл: данные найдены до информации о формате."
+
+msgid "Incorrect chunk size information in RIFF file."
+msgstr "Некорректная информация о размере блока в RIFF файле."
+
+#, c-format
+msgid "%s: wav format #%d detected. Only wav formats #%s are supported.\n"
+msgstr "%s: wav-формат %d обнаружен. Поддерживаются только wav-форматы №%s.\n"
+
+msgid "Error reading wav file."
+msgstr "Ошибка чтения wav файла."
+
+#, c-format
+msgid "%s: An error occurred: Data compression format %s is not supported.\n"
+msgstr "%s: Произошла ошибка: формат сжатия данных %s не поддерживается.\n"
+
+msgid "Cannot read .wav file  with more than 32 bits per sample."
+msgstr ""
+
+msgid "Sample limit vector must have 2 entries."
+msgstr "Вектор границ сэмплов (Sample limit vector) должен иметь два элемента."
+
+msgid "Invalid sample limits (use ascending order)."
+msgstr "Неверные границы сэмплов (нужно указывать их по возрастанию)."

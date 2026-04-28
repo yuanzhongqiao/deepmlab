@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="datenum">
+    <refnamediv>
+        <refname>datenum</refname>
+        <refpurpose>Convert to serial date number</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>N = datenum()
+            N = datenum(DT)
+            N = datenum(Y, M, D)
+            N = datenum(Y, M, D, H, MI, S)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>DT</term>
+                <listitem>
+                    <para>
+                        m-by-3 matrix, [Y, M, D] or m-by-6 matrix, [Y, M, D, H, MI, S] or <link linkend="datetime">datetime</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Y, M, D, H, MI, S</term>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">year, month, day, hour, minute, second</emphasis>
+                    </para>
+                    <para>
+                        those arguments can be real scalars or matrices of the same size.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The datenum function converts date vectors (defined by datevec) into
+            serial date numbers. Date numbers are serial days elapsed from some
+            reference date. By default, the serial day 1 corresponds to 1-Jan-0000.
+        </para>
+        <para>
+            N = datenum() returns the serial date numbers corresponding to current date.
+        </para>
+        <para>
+            N = datenum(DT) converts one or more date vectors to serial date number N.
+            DT can be an m-by-6 or m-by-3 matrix containing m full or partial date vector
+            respectively or a datetime.
+        </para>
+        <para>
+            N = datenum(Y, M, D) returns the serial date numbers for corresponding elements
+            of the Y, M, and D (year, month, day) arrays. Y, M and D must be arrays of the same
+            size (or any can be a scalar).
+        </para>
+        <para>
+            N = datenum(Y, M, D, H, MI, S) returns the serial date numbers for
+            corresponding elements of the Y, M, D, H, MI, and S (year, month, day,
+            hour, minute, and second) array values.Y, M, D, H, MI, and S must be arrays of
+            the same size (or any can be a scalar).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// N = datenum()
+datenum()
+
+// N = datenum(DT)
+A = [ 0 1 1 0 0 0 ; 2005 2 8 21 37 30 ]
+datenum(A)
+
+// N = datenum(Y, M, D)
+
+Years = [0; 1973; 2006]
+Months = [1; 8; 2]
+Days = [1; 4; 8]
+datenum(Years,Months,Days)
+
+Years = [0 0 0 ; 0 0 0]
+Months = [1 1 1 ; 1 1 1]
+Days = [1 2 3 ; 4 5 6]
+datenum(Years,Months,Days)
+
+// N = datenum(Y, M, D, H, MI, S)
+
+Years = grand(5,10,'uin',0,2006)
+Months = grand(5,10,'uin',1,12)
+Days = grand(5,10,'uin',1,28)
+Hours = grand(5,10,'uin',0,23)
+Minutes = grand(5,10,'uin',0,59)
+Seconds = grand(5,10,'uin',0,59)
+datenum(Years,Months,Days,Hours,Minutes,Seconds)
+ ]]></programlisting>
+<para><emphasis role="bold">datenum with datetime</emphasis></para>
+<para>
+<programlisting role="example"><![CDATA[
+dt = [datetime(2024, 10, 2, 15, 35, 26); datetime(2024, 12, 25)]
+datenum(dt)
+]]></programlisting>
+</para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datevec">datevec</link>
+            </member>
+            <member>
+                <link linkend="calendar">calendar</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    Values out of <literal>1:12</literal> for <literal>M</literal> (month) and out of <literal>1:31</literal> for <literal>D</literal> (day) are now managed.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para><literal>datenum()</literal> contains milliseconds information.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>datenum</literal> allows a datetime as input argument.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

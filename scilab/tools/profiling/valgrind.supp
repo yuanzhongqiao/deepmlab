@@ -1,0 +1,91 @@
+{
+   scilab-console/tgetent
+   Memcheck:Leak
+   ...
+   fun:tgetent
+}
+{
+   scilab-console/tgetent_sp
+   Memcheck:Leak
+   ...
+   fun:tgetent_sp
+}
+{
+   scilab-console/tgetnum
+   Memcheck:Leak
+   ...
+   fun:tgetnum
+}
+{
+   scilab-console/tgetstr
+   Memcheck:Leak
+   ...
+   fun:tgetstr
+}
+{
+   scilab-console/tgetstr_sp
+   Memcheck:Leak
+   ...
+   fun:tgetstr_sp
+}
+{
+   dynamic-leak/dlerror_run
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dlerror_run
+}
+{
+   dynamic-leak/dl_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_init
+}
+{
+   dynamic-leak/dl_allocate_tls
+   Memcheck:Leak
+   match-leak-kinds: possible
+   ...
+   fun:_dl_allocate_tls
+   ...
+}
+{
+   hdf5/H5_build_extpath
+   Memcheck:Addr4
+   fun:H5_build_extpath
+   fun:H5F_open
+   ...
+}
+{
+   gotoblas/gotoblas_affinity_init
+   Memcheck:Param
+   sched_getaffinity(mask)
+   ...
+   fun:gotoblas_affinity_init
+   fun:gotoblas_init
+   ...
+}
+{
+   suppress wmemcmp_avx2_movbe error
+   Memcheck:Addr32
+   fun:__wmemcmp_avx2_movbe
+   ...
+}
+{
+   suppress dlopen leak
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   ...
+   fun:_dlerror_run
+   ...
+}
+{
+   suppress libtinfo leak
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:tgetnum_sp
+   ...
+}

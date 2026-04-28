@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="regexp" xml:lang="ja">
+    <refnamediv>
+        <refname>regexp</refname>
+        <refpurpose>
+            文字列内で、正規表現に一致する部分文字列を検索 (および抽出) します
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            [start, final, match, foundString] = regexp(input, pattern)
+            [start, final, match, foundString] = regexp(input, pattern, "once")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>input</term>
+                <listitem>
+                    <para>文字列.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pattern</term>
+                <listitem>
+                    <para> (正規表現の規則に基づく)文字列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>start</term>
+                <listitem>
+                    <para>
+                        正規表現文字列<varname>pattern</varname>に
+                        一致する<varname>input</varname>の各部分文字列の
+                        開始添字
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>final</term>
+                <listitem>
+                    <para>
+                        正規表現文字列<varname>pattern</varname>に
+                        一致する<varname>input</varname>の各部分文字列の
+                        終端添字
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>match</term>
+                <listitem>
+                    <para>
+                        <literal>pattern</literal>に一致する
+                        <varname>input</varname>の各部分文字列のテキスト.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>match</term>
+                <listitem>
+                    <para>
+                        <varname>pattern</varname>にマッチする<varname>input</varname>
+                        の部分文字列のテキスト.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>foundString</term>
+                <listitem>
+                    <para>
+                        取得された括弧で括られた<literal>サブパターン</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"once" | "o" flag</term>
+                <listitem>
+                    <para>
+                        パターンに一回マッチする場合は,<literal>'o'</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            Perl言語に似た正規表現の規則.
+            すぐに始めるには,
+            <ulink url="http://perldoc.perl.org/perlrequick.html">http://perldoc.perl.org/perlrequick.html</ulink>を参照ください.
+            より詳細なチュートリアルについては,
+            <ulink url="http://perldoc.perl.org/perlretut.html">http://perldoc.perl.org/perlretut.html</ulink>を参照ください.
+            また,リファレンスについては<ulink url="http://perldoc.perl.org/perlre.html">http://perldoc.perl.org/perlre.html</ulink>を参照ください.
+        </para>
+        <para>
+            Perlとの違いは,Perlでは文字ではない位置
+            (例えば,<literal>/^/</literal>または<literal>/(?=o)/</literal>)
+            にPerlではマッチできますが,Scilabではできません.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+regexp('xabyabbbz','/ab*/','o')
+regexp('a!','/((((((((((a))))))))))\041/')
+regexp('ABCC','/^abc$/i')
+regexp('ABC','/ab|cd/i')
+[a b c]=regexp('XABYABBBZ','/ab*/i')
+piString="3.14"
+[a,b,c,piStringSplit]=regexp(piString,"/(\d+)\.(\d+)/")
+disp(piStringSplit(1))
+disp(piStringSplit(2))
+[a,b,c,d]=regexp('xabyabbbz','/ab(.*)b(.*)/')
+size(d)
+// URLからホスト名を取得
+myURL="https://www.scilab.org/download/";
+[a,b,c,d]=regexp(myURL,'@^(?:http://)?([^/]+)@i')
+str='foobar: 2012';
+// 名前のあるサブパターンを使用
+[a,b,c,d]=regexp(str,'/(?P<name>\w+): (?P<digit>\d+)/')
+d(1)=="foobar"
+d(2)=="2012"
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strindex">strindex</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    サブパターンマッチの結果を取得するために
+                    新しい出力引数, foundString, が追加されました.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

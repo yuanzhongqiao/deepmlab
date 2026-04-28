@@ -1,0 +1,22 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - Digiteo - Pierre MARECHAL
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- INTERACTIVE TEST -->
+
+// <-- Non-regression test for bug 4879 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/4879
+//
+// <-- Short Description -->
+// Even if no text is selected, if the edition zone is focused, "Menu→Edit→Comment Region" should comment
+// the current line.
+
+editor()
+// Type some Scilab code
+// Put the cursor wherever you want
+// "Menu→Edit→Comment Region"

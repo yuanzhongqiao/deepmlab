@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="union" xml:lang="en">
+    <refnamediv>
+        <refname>union</refname>
+        <refpurpose>
+            Set of all elements, rows, or columns of two arrays, without duplicates
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [v, ka, kb] = union(a, b)
+            [v, ka, kb] = union(a, b, orient)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>a, b</term>
+                <listitem>
+                     <para>
+                        can be:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    vectors or matrices of booleans, doubles, strings, <link linkend="duration">duration</link> or 
+                                    <link linkend="datetime">datetime</link>. Sparse boolean or numerical matrices
+                                    are accepted. The types of <varname>a</varname>
+                                    and of <varname>b</varname> can be distinct but compatible for concatenation.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><link linkend="table">table</link> and <link linkend="timeseries">timeseries</link> are also accepted:  
+                                    <varname>a</varname> and <varname>b</varname> must have the same variable names. 
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orient</term>
+                <listitem>
+                     <para>
+                        orientation of the processing:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    1 or "r": the union is performed over the rows.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    2 or "c": the union is performed over the columns.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                        This option is not supported for table and timeseries.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>v</term>
+                <listitem>
+                     <para>
+                        depending on type of <varname>a</varname> and <varname>b</varname>:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    row vector, or matrix. <varname>v</varname>'s data type
+                                    is the type of <literal>[a(:) ; b(:)]</literal>'s result.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    table or timeseries
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ka</term>
+                <listitem>
+                     <para>
+                        row vector of integers: Indices in <varname>a</varname> of <varname>v</varname>
+                        elements/rows/columns coming from <varname>a</varname>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>kb</term>
+                <listitem>
+                     <para>
+                        row vector of integers: Indices in <varname>b</varname> of <varname>v</varname>
+                        remaining elements/rows/columns coming from <varname>b</varname>.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>union(a,b)</literal>, with <literal>a</literal> and <literal>b</literal> vectors or matrices, 
+            returns a sorted row vector or matrix which
+            retains the unique entries of <literal>[a(:) ; b(:)]</literal>. 
+            If <literal>a</literal> and <literal>b</literal> 
+            are table or timeseries, <literal>union(a, b)</literal> returns the sorted unique rows contained 
+            in <literal>a</literal> and <literal>b</literal>.
+        </para>
+        <para>
+            <literal>union(a,b,"r")</literal> or
+            <literal>union(a,b,1)</literal>returns the matrix formed by the union of
+            the unique rows of <literal>a</literal> and <literal>b</literal> sorted in
+            lexicographic ascending order. In this case matrices <literal>a</literal>
+            and <literal>b</literal> must have the same number of columns.
+        </para>
+        <para>
+            <literal>union(a,b,"c")</literal> or
+            <literal>union(a,b,2)</literal>returns the matrix formed by the union of
+            the unique columns of <literal>a</literal> and <literal>b</literal> sorted
+            in lexicographic ascending order. In this case matrices
+            <literal>a</literal> and <literal>b</literal> must have the same number of
+            rows.
+        </para>
+        <para>
+            The <literal>orient</literal> option is not managed for table and timeseries.
+        </para>
+        <para>
+            <literal>[v,ka,kb]=union(a,b)</literal> also returns index vectors
+            <literal>ka</literal> and <literal>kb</literal> such that
+            <literal>v</literal> is a sorted combination of the entries
+            <literal>a(ka)</literal> and <literal>b(kb)</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+A = [6  7  6 ; 5  8  3 ];
+B = [1  7  1  0  6 ];
+
+union(A, B)
+[u, ka, kb] = union(A, B)
+     ]]></programlisting>
+     <screen><![CDATA[
+--> union(A, B)
+ ans  =
+   0.   1.   3.   5.   6.   7.   8.
+
+--> [u, ka, kb] = union(A, B)
+ u  =
+   0.   1.   3.   5.   6.   7.   8.
+ ka  =
+   6.   2.   1.   3.   4.
+ kb  =
+   4.   1.
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+A = ["a" "b" "a" "c" "c" "b"
+     "b" "c" "a" "b" "c" "c" ];
+B = ["b" "a" "c" "c" "b" "a"
+     "a" "c" "b" "b" "b" "b" ];
+
+[U, ka, kb] = union(A, B, "c")
+     ]]></programlisting>
+     <screen><![CDATA[
+--> [U, ka, kb] = union(A, B, "c")
+ U  =
+  "a"  "a"  "a"  "b"  "b"  "b"  "c"  "c"
+  "a"  "b"  "c"  "a"  "b"  "c"  "b"  "c"
+
+ ka  =
+   3.   1.   2.   4.   5.
+
+ kb  =
+   2.   1.   5.
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+[F, T] = (%f, %t);
+A = sparse([T T F T F T ; F F F F T T ; T F F F F T ]); full(A)
+B = sparse([F F T T F F ; T T T T T T ; T F T T T F ]); full(B)
+
+[U, ka, kb] = union(A, B, "c");
+issparse(U)
+full(U), ka, kb
+     ]]></programlisting>
+     <screen><![CDATA[
+--> A = sparse([T T F T F T ; F F F F T T ; T F F F F T ]); full(A)
+ ans  =
+  T T F T F T
+  F F F F T T
+  T F F F F T
+
+--> B = sparse([F F T T F F ; T T T T T T ; T F T T T F ]); full(B)
+ ans  =
+  F F T T F F
+  T T T T T T
+  T F T T T F
+
+--> [U, ka, kb] = union(A, B, "c");
+--> issparse(U)
+ ans  =
+  T
+
+--> full(U), ka, kb
+ ans  =
+  F F F T T T
+  F T T F F T
+  F F T F T T
+
+ ka  =
+   3.   5.   2.   1.   6.
+ kb  =
+   1.
+]]></screen>
+        <para/>
+        <para>
+            <literal>union()</literal> for duration and datetime:
+        </para>
+        <programlisting role="example"><![CDATA[
+            A = hours([1 7 7 4 3 6 6]);
+            B = hours([7 5 3 0]);
+            [u, ka, kb] = union(A, B)
+
+            A = datetime("today") + A;
+            B = datetime("today") + B;
+            [u, ka, kb] = union(A, B)
+        ]]></programlisting>
+        <para/>
+        <para>
+        <literal>union()</literal> for table:
+        </para>
+        <programlisting role="example"><![CDATA[
+            A = table([1 7 7 4 3 6 6]', [1:7]');
+            B = table([7 5 3 0]', [2;2;5;5]);
+            [u, ka, kb] = union(A, B)
+
+            A = table([1;3;4;2], ["d";"c";"f";"h"], [%f;%t;%t; %f], "VariableNames", ["double", "string", "boolean"]);
+            B = table([2;3;4;1], [%t;%t;%t;%t], ["d";"c";"f";"h"], "VariableNames", ["double", "boolean", "string"]);
+            [u, ka, kb] = union(A, B)
+            
+        ]]></programlisting>
+        <para/>
+        <para>
+        <literal>union()</literal> for timeseries:
+        </para>
+        <programlisting role="example"><![CDATA[
+            A = timeseries(hours([1:10])', floor(rand(10,1)*10));
+            B = timeseries(hours(1:2:15)', floor(rand(8,1)*15));
+            [u, ka, kb] = union(A, B)
+            
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="brackets">brackets</link>
+            </member>
+            <member>
+                <link linkend="unique">unique</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revremark>
+                    Extension to boolean matrices.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revremark>
+                    Extension to sparse boolean, sparse real, and sparse complex matrices.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    Support for duration, datetime, table and timeseries types added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

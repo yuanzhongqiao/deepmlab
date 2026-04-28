@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="detectImportOptions" xml:lang="en">
+    <refnamediv>
+        <refname>detectImportOptions</refname>
+        <refpurpose>structure containing all useful information to import the file</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            opts = detectImportOptions(filename)
+            opts = detectImportOptions(filename, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>path or name of file to read</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>    
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"Delimiter"</emphasis>, string</term>
+                <listitem>
+                    <para> 
+                        the column separator mark.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"Decimal"</emphasis>, string</term>
+                <listitem>
+                    <para> 
+                        the decimal mark, '.' or ','.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"NumHeaderLines"</emphasis>, double</term>
+                <listitem>
+                    <para> 
+                        the number of header lines.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>opts</term>
+                <listitem>
+                    <para>
+                        output argument - structure containing the following information:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>variableNames</term>
+                            <listitem>
+                                <para>
+                                    column names in the file.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>variableTypes</term>
+                            <listitem>
+                                <para>
+                                    data type of each column (double, string, 
+                                    <link linkend="datetime"></link> or <link linkend="duration"></link>).
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>inputFormat</term>
+                            <listitem>
+                                <para>
+                                    data format. The detectImportOptions function tries to determine 
+                                    the input format for datetime and duration data. 
+                                    For others types, no format is to apply.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>delimiter</term>
+                            <listitem>
+                                <para>
+                                    the column seperator.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>decimal</term>
+                            <listitem>
+                                <para>
+                                    the decimal seperator.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>datalines</term>
+                            <listitem>
+                                <para>
+                                    contains the first and last line of file corresponding to data.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>header</term>
+                            <listitem>
+                                <para>
+                                    file header.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>emptyCol</term>
+                            <listitem>
+                                <para>
+                                    contains the number of empty columns.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <emphasis role="bold">detectImportOptions</emphasis> function determines several pieces of information from a file
+            that are useful for reading. This function is used in the <link linkend="readtable"></link> and <link linkend="readtimeseries"></link> functions.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">opts = detectImportOptions(filename)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+            
+            // Write the table in CSV file
+            writetable(t, fullfile(TMPDIR, "data.csv"))
+
+            // DetectImportOptions
+            opts = detectImportOptions(fullfile(TMPDIR, "data.csv"))
+
+            r = readtable(fullfile(TMPDIR, "data.csv"), opts)
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="readtable">readtable</link>
+            </member>
+            <member>
+                <link linkend="readtimeseries">readtimeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

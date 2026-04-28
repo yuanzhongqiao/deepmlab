@@ -1,0 +1,37 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Sylvestre Ledru
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- XCOS TEST -->
+// <-- ENGLISH IMPOSED -->
+// <-- Non-regression test for bug 13011 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/13011
+//
+// <-- Short Description -->
+// Fails under Mac OS X 10.9
+ilib_verbose(0);
+importXcosDiagram(SCI+"/modules/xcos/tests/nonreg_tests/bug_12384.zcos");
+xcos_simulate(scs_m, 4);
+--------------------------------------------\
+ Main Modelica : TMPDIR/bug_12384_im.mo
+ Flat Modelica : TMPDIR/bug_12384_imf.mo
+ Simulation C code :TMPDIR/bug_12384_im.c
+  "Modelica blocks are reduced to a block with:"           
+  "Number of differential states: 0"                       
+  "Number of algebraic states: 1"                          
+  "Number of discrete time states  : 0"                    
+  "Number of zero-crossing surfaces: 0"                    
+  "Number of modes  : 0"                                   
+  "Number of inputs : 0"                                   
+  "Number of outputs: 1"                                   
+  "Input/output dependency:[T]"                            
+  "Analytical Jacobian: enabled  (%Jacobian=%t)"           
+  "Parameter embedding mode: enabled (%Modelica_ParEmb=%t)"
+  ""                                                       
+  "Generated files path: TMPDIR/"     
+  ""                                                       
+WARNING: Diagram contains implicit blocks, compiling for implicit Solver.

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="isregular" xml:lang="en">
+    <refnamediv>
+        <refname>isregular</refname>
+        <refpurpose>check if the time vector is regular</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = isregular(x)
+            t = isregular(x, timeUnit)
+            [t, step] = isregular(x)
+            [t, step] = isregular(x, timeUnit)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para><link linkend="duration"/>, <link linkend="datetime"/> or <link linkend="timeseries"/></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeUnit</term>
+                <listitem>
+                    <para>string with possible values <emphasis role="bold">"years", "months", "days" or "time"</emphasis> (default value)</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>boolean</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>step</term>
+                <listitem>
+                    <para>time step regular (%nan if x is not regular)</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>The isregular function checks if the time vector contains values with fixed time step.</para>
+        <para><emphasis role="bold">isregular(x)</emphasis> returns %t if x is a duration or datetime vector with regular time step.</para>
+        <para><emphasis role="bold">isregular(x, timeUnit)</emphasis> returns %t if x has a regular time step according to TimeUnit.
+        Be careful, a datetime vector whose time step is a month will not be regular because the number of
+        days differs between the months. To check that this vector is regular in months, use "months" as timeUnit: 
+        isregular(x, "months").
+        </para>
+        <para>The step argument contains the time step when x is regular.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">With duration</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            d = hours(0:2:10);
+            [a, b] = isregular(d)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With datetime</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            dt = datetime(2000, 1, 1): calmonths(2): datetime(2001, 1, 1);
+            [a, b] = isregular(dt)
+            [a, b] = isregular(dt, "months")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With timeseries</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            Time = duration(0,0:10, 0)';
+            Temperature = [38 37.5 37.4 37.5 37.1 37.6 37.7 38.2 37.8 37 38.3]';
+            ts = timeseries(Time, Temperature, "VariableNames", ["Time", "Temp"]);
+            [a, b] = isregular(ts)
+            ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+*
+* Copyright (C) XXXX-2008 - INRIA
+* Copyright (C) 2018 - Samuel GOUGEON
+* Copyright (C) 2012 - 2016 - Scilab Enterprises
+* Copyright (C) 2025 - Dassault Systèmes S.E. - Cédric DELAMARRE
+*
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="host">
+    <refnamediv>
+        <refname>host</refname>
+        <refpurpose>exécute une commande Windows, Linux, ou MacOS</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="unix">
+        <refname>unix</refname>
+        <refpurpose>alias de host()</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[status, stdout, stderr] = host(commands, echo=%f)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>commands</term>
+                <listitem>
+                    <para>
+                        texte unique constitué d'instructions à soumettre à l'interpréteur de
+                        commandes du système d'exploitation pour exécution.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>echo</term>
+                <listitem>
+                    <para>
+                        Un booléen: Argument nommé optionnel utilisé pour afficher les sorties standards dans la console Scilab.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>
+                      Un entier: code de sortie retourné par l'interpréteur de commande.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stdout</term>
+                <listitem>
+                    <para>
+                        Chaîne de caractère qui contient la sortie standard de la commande exécutée.
+                        Lorsque la fonction est appelée avec deux arguments de sortie, stdout contient les deux sorties standards stdout et stderr.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stderr</term>
+                <listitem>
+                    <para>
+                        Chaîne de caractère qui contient la sortie d'erreur de la commande exécutée.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection id="host_description">
+        <title>Description</title>
+        <para>
+            <literal>host(…)</literal>
+            créée une session de l'interpréteur de commande du système d'exploitation (OS)
+            (<emphasis>sh</emphasis> avec Linux et macOS, <emphasis>cmd.exe</emphasis> avec Windows,
+            etc..) pour exécuter la commande.
+        </para>
+        <para>
+            <literal>host(…)</literal> retourne les deux sorties standards dans la même sortie lorsque la fonction a été appelée avec deux arguments de sortie.
+            Ceci permet de garder l'ordre chronologique des logs entre stdout et stderr.
+        </para>
+        <para>
+            En utilisant l'argument nommé optionnel echo=%t, les deux sortie standards seront afficher dans la console Scilab pendant l'exécution de la commande.
+        </para>
+        <important>
+            La session de l'interpréteur de commandes créée est un clône de la session OS depuis
+            laquelle Scilab a été lancé. En conséquence, son contexte est le suivant :
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        Son dossier initial de travail (CWD) est le dossier de travail de la session
+                        Scilab lors de l'appel à <literal>host(…)</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Ses variables d'environnement initiales sont identiques (noms et valeurs)
+                        à celles du terminal OS dans lequel la session Scilab fonctionne (consolebox),
+                        au moment où host() est appelée. Elles peuvent être modifiées avec
+                        <link linkend="setenv">setenv</link> avant l'appel à host().
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Toute modification dans la session host() du dossier de travail et/ou des
+                        variables d'environnement n'a aucun effet ni sur le dossier de travail de la
+                        session Scilab, ni sur les variables d'environnement du terminal OS dans
+                        lequel la session Scilab fonctionne.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Quand la fonction est appelée avec 3 sorties elle attend la fin de l'exécution de la commande.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Lorsque la fonction est appelée avec deux ou trois arguments de sortie, elle attendra la fin de l'execution de la commande pour retourner les sorties.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </important>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <refsect3>
+            <title>Utilisation des variables d'environnements définies par Scilab</title>
+            <programlisting role="example"><![CDATA[
+disp(SCI)
+if getos() == "windows" then
+    [stat, stdout] = host("echo %SCI%")
+else
+    [stat, stdout] = host("echo $SCI")
+end
+     ]]></programlisting>
+        </refsect3>
+        <refsect3>
+            <title>Jouer avec les sorties</title>
+            <programlisting role="example"><![CDATA[
+// get separated stdout and stderr
+[stat, stdout, stderr] = host("echo OK && echo KO 1>&2 && echo END")
+// get both outputs keeping chronological order
+[stat, stdout] = host("echo OK && echo KO 1>&2 && echo END")
+     ]]></programlisting>
+        </refsect3>
+        <refsect3>
+            <title>Commande détachée</title>
+            <programlisting role="example"><![CDATA[
+// Detach a command to avoid waiting for its end
+host("ping -c 3 localhost &")
+// But, this command will wait for outputs
+[stat, stdout] = host("ping -c 3 localhost &")
+     ]]></programlisting>
+        </refsect3>
+        <refsect3>
+            <title>Forcer les sorties de commande dans la console Scilab</title>
+            <programlisting role="example"><![CDATA[
+host("ping -c 3 localhost", echo=%t)
+     ]]></programlisting>
+        </refsect3>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="consolebox">consolebox</link>
+            </member>
+            <member>
+                <link linkend="getos">getos</link>
+            </member>
+            <member>
+                <link linkend="setenv">setenv</link>
+            </member>
+            <member>
+                <link linkend="powershell">powershell</link>
+            </member>
+            <member>
+                <ulink url="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx">Liste de codes de sortie des commandes MS Windows</ulink>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revdescription>
+                    Retourne la sortie standard et la sortie d'erreur.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    Un argument nommé facultatif 'echo' a été ajouté.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

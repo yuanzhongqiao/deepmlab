@@ -1,0 +1,1057 @@
+# Chinese (Traditional) translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+msgid "Input file"
+msgstr ""
+
+msgid "Input directory"
+msgstr ""
+
+msgid "Select the directory to convert"
+msgstr ""
+
+msgid "Select the file to convert"
+msgstr ""
+
+msgid "Select the directory for generated files"
+msgstr ""
+
+msgid "Please specify an existing output directory."
+msgstr ""
+
+msgid "Please specify an existing input file."
+msgstr ""
+
+msgid "Please specify an existing input directory."
+msgstr ""
+
+msgid "About_M2SCI_tools"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Insertion of a sparse matrix in a matrix of numbers is not defined.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument: Cell elements must be character arrays.\n"
+msgstr "%s: 輸入參數之型態錯誤: Cell 元素必須為字元陣列.\n"
+
+#, c-format
+msgid "%s: This feature has not been implemented.\n"
+msgstr "%s: 此特性尚未實作.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument: Cell expected.\n"
+msgstr "%s: 輸入參數型態錯誤: 應為 Cell 型態.\n"
+
+#, c-format
+msgid "%s: Wrong type for input arguments: String expected.\n"
+msgstr "%s: 輸入參數型態錯誤: 應為字串.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: %s, %s, %s, '%s', '%s' or '%s' "
+"expected.\n"
+msgstr "%s: 第 %d 輸入參數數值錯誤: 應為 %s, %s, %s, '%s', '%s' 或 '%s'\n"
+
+#, c-format
+msgid ""
+"%s: Wrong input arguments: Dimensions given as first argument do not match "
+"specified cell contents.\n"
+msgstr "%s: 輸入參數錯誤: 第一參數之維度無法搭配 cell  之容.\n"
+
+#, c-format
+msgid "%s: This feature has not been implemented: Support for hypermatrices.\n"
+msgstr "%s: 此特性尚未實作: 支援超矩陣 (hypermatrices).\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
+msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為字串矩陣.\n"
+
+#, c-format
+msgid "%s: Wrong size for '%s': Vector expected.\n"
+msgstr "%s: '%s' 之長度錯誤: 應為一向量.\n"
+
+#, c-format
+msgid "%s: This feature has not been implemented: %s.\n"
+msgstr "%s: 此特性尚未實作: %s.\n"
+
+#, c-format
+msgid "%s: Wrong value for affectation to '%s'.\n"
+msgstr "%s: '%s' 之修飾 (affectation) 數值錯誤.\n"
+
+#, c-format
+msgid "%s: '%s' only used in 3d mode."
+msgstr "%s: '%s' 只用於 3d 模式."
+
+#, c-format
+msgid "%s: This feature has not been implemented: Argument of type %d.\n"
+msgstr "%s: 此特性尚未實作: 型態 %d 之參數.\n"
+
+msgid "Close"
+msgstr "關閉"
+
+#, c-format
+msgid "%s: '%s' ignored.\n"
+msgstr "%s: 忽略 '%s'.\n"
+
+#, c-format
+msgid "%s: All windows deleted.\n"
+msgstr "%s: 刪除所有視窗.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Square matrix expected.\n"
+msgstr "%s: 第 %d 輸入參數型態錯誤: 應為一方陣.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s, %s,'%s' or '%s' expected.\n"
+msgstr "%s: 第 %d 輸入參數數值錯誤: 應為 %s, %s,'%s' 或 '%s' .\n"
+
+msgid "Jan"
+msgstr "一月"
+
+msgid "Feb"
+msgstr "二月"
+
+msgid "Mar"
+msgstr "三月"
+
+msgid "Apr"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "Jun"
+msgstr "六月"
+
+msgid "Jul"
+msgstr "七月"
+
+msgid "Aug"
+msgstr "八月"
+
+msgid "Sep"
+msgstr "九月"
+
+msgid "Oct"
+msgstr "十月"
+
+msgid "Nov"
+msgstr "十一月"
+
+msgid "Dec"
+msgstr "十二月"
+
+#, c-format
+msgid "%s: Not yet implemented.\n"
+msgstr "%s: 尚未實作.\n"
+
+#, c-format
+msgid "%s: Cannot open file '%s'.\n"
+msgstr "%s: 無法開啟檔案 '%s'.\n"
+
+#, c-format
+msgid "%s: Unknown type.\n"
+msgstr "%s: 未知型態.\n"
+
+#, c-format
+msgid "%s: Unknown type '%s': IGNORED.\n"
+msgstr "%s: 未知型態 '%s': 忽略.\n"
+
+#, c-format
+msgid "%s: %s is not implemented.\n"
+msgstr "%s: %s 尚未實作.\n"
+
+#, c-format
+msgid ""
+"%s: %s Scilab function does not work with more than one row variables.\n"
+msgstr "%s: %s Scilab 函數無法用於超過一行以上之變數.\n"
+
+#, c-format
+msgid "%s: The format '%s' is unknown.\n"
+msgstr "%s: 格式　'%s' 未知.\n"
+
+#, c-format
+msgid "%s: The format '%s' is not yet handled.\n"
+msgstr "%s: 格式 '%s' 尚未處理.\n"
+
+#, c-format
+msgid "%s: End of file reached before all matrix is read.\n"
+msgstr "%s: 在所有矩陣讀取前檔案已結束.\n"
+
+#, c-format
+msgid "%s: No equivalent for '%s' property.\n"
+msgstr "%s: 並無等價之 '%s' 屬性.\n"
+
+#, c-format
+msgid "%s: No minor grid in Scilab.\n"
+msgstr "%s: Scilab 中並無小格線 (minor grid) .\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"
+msgstr "%s: 第 %d 個輸入參數數值錯誤: '%s', 應為 '%s' 或 '%s'.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: Matlab vector of strings expected.\n"
+msgstr "%s: 第 %d 輸入參數長度錯誤: 應為一 Matlab 向量或字串.\n"
+
+#, c-format
+msgid "%s: Unhandled class '%s'.\n"
+msgstr "%s: 無法處理類別 '%s'.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A positive integer value expected.\n"
+msgstr "%s: 第 %d 輸入參數數值錯誤: 應為一正整數.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: 輸出參數數目錯誤: 應為 %d .\n"
+
+#, c-format
+msgid "%s: '%s' option ignored.\n"
+msgstr "%s: '%s' 選項忽略.\n"
+
+#, c-format
+msgid "%s: Unknown line style found in '%s' -> set to 6.\n"
+msgstr "%s: '%s'  中未知之 line 型態-> 設為 6.\n"
+
+#, c-format
+msgid "%s: Unknown color found in '%s' -> set to black.\n"
+msgstr "%s:: '%s'  中未知之顏色-> 設為黑色 ( black).\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: pencil is not diagonalizable.\n"
+msgstr "%s:  矩陣束違法主對角線化 (diagonalizable).\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr "%s: 輸入參數之數目錯誤: 應為 %d 到 %d 之數.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Column vector expected.\n"
+msgstr "%s: 第 %d 輸入參數型態錯誤 : 應為列向量.\n"
+
+#, c-format
+msgid "%s: This particular case is not implemented.\n"
+msgstr "%s: 此特例尚未實作.\n"
+
+#, c-format
+msgid "%s: '%s' not implemented.\n"
+msgstr "%s: '%s' 尚未實作.\n"
+
+#, c-format
+msgid "%s: End of string reached before data has been read.\n"
+msgstr "%s: 讀取資料前字串先結束.\n"
+
+#, c-format
+msgid "%s: Could not open neither '%s' nor '%s' nor '%s'.\n"
+msgstr "%s: 無法開啟 '%s' , '%s'  或 '%s'.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: 輸入參數的個數錯誤: 應該是 %d 到 %d 個.\n"
+
+#, c-format
+msgid "%s: The normalization m - 1 factor is zero.\n"
+msgstr "%s: 正規化 m - 1 係數值為零.\n"
+
+#, c-format
+msgid "%s: The normalization n - 1 factor is zero.\n"
+msgstr "%s: 正規化 n - 1 係數值為零.\n"
+
+msgid "Not yet implemented."
+msgstr ""
+
+#, c-format
+msgid "Extraction of %s from '%s' tlist is not yet implemented."
+msgstr ""
+
+#, c-format
+msgid "Extraction of '%s' from '%s' tlist is not yet implemented.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: The field '%s' does not exist.\n"
+msgstr ""
+
+#, c-format
+msgid "Extraction of '%s' from '%s' tlist is not yet implemented."
+msgstr ""
+
+#, c-format
+msgid "index must be a list instead of a: %s."
+msgstr ""
+
+msgid "Wrong number of inputs."
+msgstr ""
+
+#, c-format
+msgid "lhslist should be a list and not a: %s."
+msgstr ""
+
+#, c-format
+msgid "expression can not be a: %s."
+msgstr ""
+
+#, c-format
+msgid "endsymbol should be a character string and not a: %s."
+msgstr ""
+
+#, c-format
+msgid "name must be a string instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "lhsnb must be a constant instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "rhslist must be a list instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "lhslist must be a list instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "dims must be a list instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "type must be a 'type' tlist instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "contents must be a 'contents' tlist instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "sciname must be a string instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "matname must be a string instead of a: %s."
+msgstr ""
+
+#, c-format
+msgid "infer must be an 'infer' tlist instead of a: %s."
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/Operation.sci, line: 28
+#, c-format
+msgid "%s: operator as Argument #%d must be a string instead of a '%s'.\n"
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/Operation.sci, line: 32
+#, c-format
+msgid "%s: operands as Argument #%d must be a list instead of a '%s'.\n"
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/Operation.sci, line: 36
+#, c-format
+msgid "%s: out as Argument #%d must be a list instead of a '%s'.\n"
+msgstr ""
+
+#, c-format
+msgid "vtype '%s' is not yet implemented.\n"
+msgstr ""
+
+msgid "List of properties is not yet implemented.\n"
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/Type.sci, line: 31
+#, c-format
+msgid "Wrong property '%s' for vtype '%s'.\n"
+msgstr ""
+
+#, c-format
+msgid "m2sci.convert2double(): Type %s not yet implemented."
+msgstr ""
+
+#, c-format
+msgid "recursive extraction with one index of type %s is not yet implemented."
+msgstr ""
+
+#, c-format
+msgid "%s is not yet implemented."
+msgstr "%s 尚未被實行."
+
+#
+# File: modules/m2sci/macros/kernel/funcall2sci.sci, line: 85
+#, c-format
+msgid "Error while executing : [sci_equiv] = sci_%s(mtlb_expr)."
+msgstr ""
+
+msgid "not matlab path"
+msgstr ""
+
+#, c-format
+msgid "Matlab function %s not yet converted, original calling sequence used."
+msgstr ""
+
+#, c-format
+msgid "(Warning name conflict: function name changed from %s to %s)."
+msgstr ""
+
+#, c-format
+msgid ""
+"Matlab toolbox(es) function %s not converted, original calling sequence used"
+msgstr ""
+
+#, c-format
+msgid ""
+"Matlab toolbox(es) function %s not converted, original calling sequence used."
+msgstr ""
+
+#, c-format
+msgid "(Find this function in matlab/%s)."
+msgstr ""
+
+#, c-format
+msgid "Unknown function %s not converted, original calling sequence used."
+msgstr ""
+
+msgid "input argument must be an 'operation' tlist."
+msgstr ""
+
+msgid "Wrong input argument in getrhs() (Must be a 'funcall' tlist)."
+msgstr ""
+
+#, c-format
+msgid "L.%d: Unknown variable %s is a M-file."
+msgstr ""
+
+#, c-format
+msgid "L.%d: Unknown variable %s is a M-file (sci_%s exists)."
+msgstr ""
+
+#, c-format
+msgid "Variable %s supposed to be the Imaginary unit."
+msgstr ""
+
+#, c-format
+msgid "L.%d: Unknown variable %s."
+msgstr ""
+
+#, c-format
+msgid "Matlab function %s not yet converted."
+msgstr ""
+
+#, c-format
+msgid "mtlb(%s) can be replaced by %s() or %s whether %s is an M-file or not."
+msgstr ""
+
+#, c-format
+msgid "unknown instruction type %s."
+msgstr ""
+
+#, c-format
+msgid "Wrong LHS '%s' operation: Insertion expected.\n"
+msgstr ""
+
+#, c-format
+msgid "lhs cannot be a %s."
+msgstr ""
+
+#, c-format
+msgid "unknown clause type: %s."
+msgstr ""
+
+#, c-format
+msgid "Bad use of isdefinedvar() with input: %s."
+msgstr ""
+
+#, c-format
+msgid " -- File %s contains more than one function -- "
+msgstr " -- 檔案 %s 中包含一個以上的函數 -- "
+
+#, c-format
+msgid " -- Each function converted separately: %s -- "
+msgstr " -- 每一個函數分別進行轉換: %s --- "
+
+#, c-format
+msgid " -- Temporary files put in: %s -- "
+msgstr " -- 暫存檔存放在: %s -- "
+
+msgid ": The 24 first characters of the files names are equal: "
+msgstr ""
+
+msgid "// Number of arguments in function call"
+msgstr ""
+
+msgid "// Output variables initialisation (not found in input variables)"
+msgstr ""
+
+msgid "TESTING M2SCI: creating varslist file..."
+msgstr ""
+
+#, c-format
+msgid ""
+"// Generated by M2SCI\n"
+"// Conversion function for Matlab %s\n"
+"// Input: tree = Matlab funcall tree\n"
+"// Output: tree = Scilab equivalent for tree"
+msgstr ""
+
+#, c-format
+msgid ""
+"// Copyright INRIA (Generated by M2SCI)\n"
+"// Conversion function for Matlab %s()\n"
+"// Input: tree = Matlab funcall tree\n"
+"// Output: tree = Scilab equivalent for tree"
+msgstr ""
+
+msgid "//  dims(i,:) is the ith output argument dimensions vector"
+msgstr ""
+
+msgid "//  prop(i) is the ith output argument property"
+msgstr ""
+
+msgid "// Inference for varargout"
+msgstr ""
+
+msgid ""
+"loginfos: verb_mode 0 should not be used in this context, information "
+"ignored."
+msgstr ""
+
+msgid "m2sciassume is obsolete, used m2scideclare instead."
+msgstr ""
+
+msgid ""
+"not enough data, you should give at least variable_name|dimensions|datatype."
+msgstr ""
+
+msgid "too much data."
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/m2scideclare.sci, line: 93
+#, c-format
+msgid "'%s' current size %s <> %s in m2scideclare:  m2scideclare IGNORED.\n"
+msgstr ""
+
+#, c-format
+msgid "Unknown datatype '%s'.\n"
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/m2scideclare.sci, line: 106
+#, c-format
+msgid ""
+"'%s' current type '%s' <> '%s' in m2scideclare:  m2scideclare IGNORED.\n"
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/m2scideclare.sci, line: 136
+#, c-format
+msgid "%s: Unknown property '%s' for the type '%s'.\n"
+msgstr ""
+
+#
+# File: modules/m2sci/macros/kernel/m2scideclare.sci, line: 139
+#, c-format
+msgid ""
+"'%s' current property '%s' <> '%s' in m2scideclare:  m2scideclare IGNORED.\n"
+msgstr ""
+
+msgid "Wrong dimensions user data."
+msgstr ""
+
+#, c-format
+msgid "%graphicswindow set to default value Handle."
+msgstr "%g 圖形視窗 Handle 設定至預設值."
+
+msgid "wrong type of input."
+msgstr ""
+
+msgid "Conversion of M-tree..."
+msgstr ""
+
+#, c-format
+msgid "%s line %s out of %s..."
+msgstr "%s 行中的 %s 超出 %s"
+
+msgid "Conversion of M-tree: Done"
+msgstr ""
+
+#, c-format
+msgid "No Scilab equivalent for: %s"
+msgstr ""
+
+#, c-format
+msgid "operator %s not found."
+msgstr ""
+
+msgid " may be replaced by:"
+msgstr " 可能被覆蓋到:"
+
+msgid "if"
+msgstr ""
+
+msgid "Matlab to Scilab conversion tool"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "?"
+msgstr ""
+
+msgid "Mfile2sci help page"
+msgstr ""
+
+msgid "Translatepaths help page"
+msgstr ""
+
+msgid "About M2SCI tools..."
+msgstr ""
+
+msgid "Convert"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Generate pretty printed code: "
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Verbose mode: "
+msgstr ""
+
+msgid "0"
+msgstr ""
+
+msgid "1"
+msgstr ""
+
+msgid "2"
+msgstr ""
+
+msgid "3"
+msgstr ""
+
+msgid "Only double values used: "
+msgstr ""
+
+msgid "Recursive conversion: "
+msgstr ""
+
+msgid "Output directory"
+msgstr ""
+
+msgid "Directory name: "
+msgstr ""
+
+msgid "Browse"
+msgstr ""
+
+msgid "File name: "
+msgstr ""
+
+msgid "<enter a file name>"
+msgstr ""
+
+msgid "Conversion mode"
+msgstr ""
+
+msgid "Convert a single file"
+msgstr ""
+
+msgid "Convert a whole directory"
+msgstr ""
+
+msgid "OFF"
+msgstr ""
+
+msgid "NO"
+msgstr ""
+
+msgid "YES"
+msgstr ""
+
+msgid "ON"
+msgstr ""
+
+msgid "****** Beginning of mfile2sci() session ******"
+msgstr ""
+
+msgid "File to convert:"
+msgstr ""
+
+msgid "Result file path:"
+msgstr ""
+
+msgid "Recursive mode:"
+msgstr ""
+
+msgid "Only double values used in M-file:"
+msgstr ""
+
+msgid "Verbose mode:"
+msgstr ""
+
+msgid "Generate formatted code:"
+msgstr ""
+
+msgid "M-file reading..."
+msgstr ""
+
+msgid "M-file reading: Done"
+msgstr ""
+
+#, c-format
+msgid "File %s is an empty file.\n"
+msgstr ""
+
+msgid "Syntax modification..."
+msgstr ""
+
+msgid "Syntax modification: Done"
+msgstr ""
+
+#, c-format
+msgid "%s: %s does not exist or is not the macro name.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"Warning: file %s defines function %s instead of %s\n"
+"         %s.sci, %s.cat and sci_%s.sci will be generated !"
+msgstr ""
+
+msgid "Macro to tree conversion..."
+msgstr ""
+
+msgid "resumelogfile.dat"
+msgstr ""
+
+msgid "resume"
+msgstr ""
+
+#, c-format
+msgid "****** %s: Functions of mfile2sci() session ******"
+msgstr ""
+
+#, c-format
+msgid ""
+"%d Matlab Function(s) not yet converted, original calling sequence used:"
+msgstr "%d 個Matlab 函數尚未轉換, 原來的呼叫順序使用:"
+
+#, c-format
+msgid "%d Matlab Toolbox(es) Functions, original calling sequence used :"
+msgstr "%d Matlab 工具箱函數, 原來的呼叫順序使用:"
+
+#, c-format
+msgid "%d Unknown Function(s), original calling sequence used :"
+msgstr "%d 未知的函數, 原來的呼叫順序使用:"
+
+msgid "Macro to tree conversion: Done"
+msgstr ""
+
+msgid ""
+"Translation may be improved: see the //! comments and for all mtlb_<funname> "
+"function call\n"
+"  Type help mtlb_<funname> in Scilab command window to get information about "
+"improvements."
+msgstr ""
+
+msgid "Translation may be wrong (see the //!! comments)."
+msgstr ""
+
+msgid "File contains no instruction, no translation made..."
+msgstr ""
+
+msgid "****** End of mfile2sci() session ******"
+msgstr ""
+
+#, c-format
+msgid "recursive extraction from a variable %s of type %s."
+msgstr ""
+
+msgid "Extraction from strings with more than two indexes not implemented."
+msgstr ""
+
+#, c-format
+msgid "M2SCI bug: extraction from unknown variable %s in varslist."
+msgstr ""
+
+#, c-format
+msgid "recursive insertion in a variable which is not a Cell nor a Struct: %s."
+msgstr ""
+
+#, c-format
+msgid "destination variable is not a cell: %s is of type %s."
+msgstr ""
+
+#, c-format
+msgid "One operand is an empty matrix in : %s, result set to []."
+msgstr ""
+
+#, c-format
+msgid "At least one operand of %s is an empty matrix, Scilab equivalent is []."
+msgstr ""
+
+#, c-format
+msgid ""
+"If %s is imaginary and its module is > 1\n"
+"      the real part of %s is -pi/2 in Scilab instead of +pi/2 in Matlab."
+msgstr ""
+
+#, c-format
+msgid ""
+"If %s is in [0,1)\n"
+"  imag(%s) is -pi/2 in Scilab instead of +pi/2 in Matlab."
+msgstr ""
+
+#, c-format
+msgid ""
+"If %s is outside [-1,1]\n"
+"   complex part of output of %s will be the opposite of Matlab one."
+msgstr ""
+
+#, c-format
+msgid ""
+"If %s < -1, complex part of output of %s will be the opposite of Matlab one."
+msgstr ""
+
+msgid "is Real."
+msgstr ""
+
+msgid "cube_scaling only used in 3d mode."
+msgstr ""
+
+msgid "Bessel function is not implemented for 2 outputs arguments."
+msgstr ""
+
+msgid "is a scalar."
+msgstr ""
+
+#, c-format
+msgid "%s is not implemented."
+msgstr "%s 未被實行."
+
+msgid "Call to chol() with 2 outputs."
+msgstr ""
+
+msgid ""
+"All children will be deleted, no HandleVisibility property in Scilab "
+"graphics."
+msgstr ""
+
+msgid "All properties will be reset."
+msgstr ""
+
+#, c-format
+msgid "%s will be ignored at run time."
+msgstr ""
+
+msgid "All windows will be deleted."
+msgstr ""
+
+#, c-format
+msgid ""
+"Scilab %s() does not work when dim input argument is greater than number of "
+"dims of first rhs..."
+msgstr ""
+
+msgid ""
+"Verify that overloading functions have been written for inputs in display()."
+msgstr ""
+
+msgid "Drawing events are not queued in Scilab."
+msgstr ""
+
+msgid "'nobalance' option, IGNORED."
+msgstr ""
+
+msgid "eig() with 2 inputs: consider generalized eigen. Check."
+msgstr ""
+
+#, c-format
+msgid "%s, flag IGNORED."
+msgstr ""
+
+msgid "Matlab exist(), mtlb_exist() is called."
+msgstr ""
+
+msgid "mtlb_exist() is just a partial emulation of Matlab exist() function."
+msgstr ""
+
+msgid "Unknown type for input parameter: consider fclose(fid)."
+msgstr ""
+
+#, c-format
+msgid "%s with two outputs."
+msgstr ""
+
+msgid "Verify that expression evaluated by execstr() is Scilab compatible."
+msgstr ""
+
+msgid "No equivalent for findstr() in Scilab so mtlb_findstr() is called."
+msgstr ""
+
+msgid "fopen('all') has no translation."
+msgstr ""
+
+#, c-format
+msgid "%s (See fileinfo() function)."
+msgstr "%s (查閱 fileinfo() 函數)."
+
+msgid "W and A permission parameters."
+msgstr ""
+
+msgid "fopen used with three outputs."
+msgstr ""
+
+#, c-format
+msgid "No simple equivalent, so %s() is called."
+msgstr ""
+
+#, c-format
+msgid "%s() called with skip parameter."
+msgstr ""
+
+#, c-format
+msgid "Not enough information on %s to set the proper flag."
+msgstr ""
+
+#, c-format
+msgid "Global variable %s added to M2SCI variable list."
+msgstr ""
+
+msgid "No minor grid in Scilab."
+msgstr ""
+
+#, c-format
+msgid "%s option."
+msgstr ""
+
+#, c-format
+msgid "Scilab %s() does not work with Complex values: %s() call IGNORED."
+msgstr ""
+
+#, c-format
+msgid "Unhandled class: %s."
+msgstr ""
+
+msgid "isequal requires fields are in the same order for structs to be equal."
+msgstr ""
+
+msgid "Option -regexp not yet handled: will be ignored."
+msgstr ""
+
+#, c-format
+msgid "%s is an empty matrix, so result is set to []."
+msgstr ""
+
+msgid "second output argument will be ignored."
+msgstr ""
+
+msgid "-all option ignored."
+msgstr ""
+
+#, c-format
+msgid "%s when called with three outputs."
+msgstr ""
+
+#, c-format
+msgid "%s considered to be a Scilab macro."
+msgstr "%s 認為是 Scilab 巨集."
+
+msgid "string output can be different from Matlab num2str output."
+msgstr ""
+
+msgid "See msprintf for solutions."
+msgstr ""
+
+msgid ""
+"Scilab and Matlab qr() do not give same results for this case: mtlb_qr() is "
+"used."
+msgstr ""
+
+msgid "is not a character string matrix."
+msgstr ""
+
+msgid ""
+"WARNING: Matlab reshape() suppresses singleton higher dimension, it is not "
+"the case for matrix."
+msgstr ""
+
+msgid "Option -append not yet handled: will be ignored."
+msgstr ""
+
+#, c-format
+msgid ""
+"In %s %s is a String,\n"
+"So result is set to %s."
+msgstr ""
+
+#, c-format
+msgid ""
+"M2SCI found: %s > size(size(%s),2),\n"
+"So result is set to 1."
+msgstr ""
+
+msgid "Scilab sort() and gsort() do not work with multidimensional arrays"
+msgstr ""
+
+msgid "Call to sparse(): nzmax option ignored."
+msgstr ""
+
+msgid ""
+"For Scilab sparse(), input values must have the same size, not sure they "
+"have."
+msgstr ""
+
+msgid "message_id ignored in following line."
+msgstr ""
+
+#, c-format
+msgid "%s: Output value set to 'on'."
+msgstr ""
+
+msgid "unitfile.dat"
+msgstr ""

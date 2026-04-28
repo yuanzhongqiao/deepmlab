@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Fortran files">
+      <UniqueIdentifier>{c11d6eb2-aa2d-4021-b52e-07924706b0e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies">
+      <UniqueIdentifier>{d9752d50-7718-47ab-8232-956c4b63a51c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ainvg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bcomp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bnorm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cfode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="colnew.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\c\commons_f2c.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dcutet.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ddasrt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ddassl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dgbsl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dqags.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dqagse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dqelg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ewset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-bvode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-daskr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-dasrt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-dassl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-impl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-int2d.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-int3d.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-intg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fnorm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="greatr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hpdel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hpins.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="intdy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lcomp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loren.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsdisc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsoda.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsodar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsodi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsrgk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="odeint.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dqpsrt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prepj.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prepji.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prja.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dqk21.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rchek.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rchek2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rkf45.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rkqc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rksimp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="roots.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="roots2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rscar1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rscma1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rscom1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solsy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stoda.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stodi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="svcar1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="svcma1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="svcom1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="twodq.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vmnorm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vnorm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writbufode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xerrwv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xsetf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xsetun.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ddaskr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="daux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <f2c_rule Include="ainvg.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="bcomp.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="bnorm.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="cfode.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="colnew.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dcutet.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="ddasrt.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="ddassl.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dgbsl.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dqags.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dqagse.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dqelg.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="ewset.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-bvode.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-daskr.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-dasrt.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-dassl.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-impl.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-int2d.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-int3d.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-intg.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="fnorm.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="greatr.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="hpdel.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="hpins.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="intdy.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lcomp.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="loren.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lsdisc.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lsoda.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lsodar.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lsode.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lsodi.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="lsrgk.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="odeint.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dqpsrt.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="prepj.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="prepji.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="prja.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="dqk21.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rchek.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rchek2.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rkf45.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rkqc.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rksimp.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="roots.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="roots2.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rscar1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rscma1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="rscom1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="solsy.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="stoda.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="stode.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="stodi.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="svcar1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="svcma1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="svcom1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="twodq.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="vmnorm.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="vnorm.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="writbufode.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="xerrwv.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="xsetf.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="xsetun.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="ddaskr.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="daux.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="differential_equations_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+    <None Include="Output_stream_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+    <None Include="..\..\sci_gateway\differential_equations_gateway.xml" />
+    <None Include="..\..\Makefile.am" />
+    <None Include="linpack_f_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+    <None Include="slatec_f_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+    <None Include="Elementary_functions_f_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+  </ItemGroup>
+</Project>

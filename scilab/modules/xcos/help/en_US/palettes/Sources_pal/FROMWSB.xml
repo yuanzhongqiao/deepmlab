@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="FROMWSB" xml:lang="en_US">
+    <refnamediv>
+        <refname>FROMWSB</refname>
+        <refpurpose>Data from Scilab workspace to Xcos</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/FROMWSB.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_FROMWSB">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_FROMWSB">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_FROMWSB">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_FROMWSB">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_FROMWSB">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="FROMWSB">Compiled Super Block content</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_FROMWSB">See also</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_FROMWSB">
+        <title>Description</title>
+        <para>That block is used to get data defined in the Scilab workspace and
+            use them in Xcos. Data should have "time" and "values" fields.
+        </para>
+    </refsection>
+
+    <refsection id="Dialogbox_FROMWSB">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/gui/FROMWSB_gui.gif" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Variable name</emphasis>. The variable must be a structure
+                    defined in Scilab, with two fields:
+                    <literal>.time</literal> is a column vector of real numbers, of size (Nx1) ;
+                    <literal>.values</literal> is a matrix with N rows, whose type can be
+                    be , , , , , , , and .
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Interpolation method:</emphasis> Variables
+                    read by Xcos are data values read at discrete instants given by the
+                    time field. This option causes the block to interpolate at time steps
+                    for which no corresponding workspace data exists. There are four
+                    interpolation methods available.
+                </para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">0: "Zero order method"</emphasis>.
+                            This method generates a piecewise constant signal. i.e., for
+                            <literal>t<subscript>i</subscript> ≤ t &lt; t<subscript>i+1</subscript></literal>,
+                            <literal>y(t) = y<subscript>i</subscript></literal>.
+                            This method is available for all data types.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">1: "Linear method"</emphasis>. This
+                            method generates a piecewise linear signal, i.e., for
+                            <literal>t<subscript>i</subscript> ≤ t &lt; t<subscript>i+1</subscript></literal>,
+                            <literal>
+                                y(t) = y<subscript>i</subscript> +
+                                (y<subscript>i+1</subscript>-y<subscript>i</subscript>)/
+                                (t<subscript>i+1</subscript>-t<subscript>i</subscript>)
+                            </literal>
+                            For data types other than double and complex, the linear interpolation
+                            can be used, but the final output will be computed by casting
+                            interpolation result into the original data type.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">2:"NATURAL method"</emphasis>. This
+                            cubic spline is computed by using the following conditions
+                            (considering <literal>n</literal> points <literal>x_1, ..., x_n</literal>):
+                        </para>
+                        <latex>
+                            $$
+                            S^{(2)} (x_1) = 0 \\
+                            \vdots \\
+                            S^{(2)} (x_n) = 0 \\
+                            $$
+                        </latex>
+                        <para>This method is only available for Real and complex data types.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">3:"NOT_A_KNOT method"</emphasis>. The
+                            cubic spline is computed by using the following conditions
+                            (considering <literal>n</literal> points <literal>x_1, ..., x_n</literal>) :
+                        </para>
+                        <latex>
+                            $$
+                            S^{(3)} (x_2^-) = S^{(3)} (x_2^+) \\
+                            \vdots \\
+                            S^{(3)} (x_{n-1}^-) = S^{(3)} (x_{n-1}^+) \\
+                            $$
+                        </latex>
+                        <para>This method is only available for Real and Complex data types.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Enable zero crossing(0:No,
+                        1:Yes)?:
+                    </emphasis>
+                    Enables zero crossing detection. When and
+                    interpolation methods are chosen, the output signal will be
+                    discontinuous at data time instants. These possible discontinuities
+                    may cause problem for the numerical solver. In order to perform a
+                    reliable numerical integration, the zero crossing option is used. If
+                    output of the block affects data used by the numerical solver, at
+                    discontinuous points, a discrete event is generated and the numerical
+                    solver is cold restarted. The discrete event is also generated at
+                    the <literal>t_1</literal> and <literal>t_n</literal> for other interpolating methods.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Output at end(0:Zero, 1:Hold,
+                        2:Repeat):
+                    </emphasis>
+                    This option is for selecting method for
+                    generating output after the last time point for which data is
+                    available from the workspace.
+                </para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">0("Zero"):</emphasis> The output is
+                            set to zero.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">1("Hold"):</emphasis> The output is
+                            hold.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            <emphasis role="bold">2("Repeat"):</emphasis> The output is
+                            repeated from workspace.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Defaultproperties_FROMWSB">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,1] / type  1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">csuper</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+
+    <refsection id="Example_FROMWSB">
+        <title>Example</title>
+        <programlisting role="example"><![CDATA[
+            // Create the variable to load from
+            V.time = (1:1000)'; //the values must be on a column vector
+            V.values = cos(2* %pi * V.time / 20);
+            ]]></programlisting>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/sources_pal/en_US/FROMWSB_en_US.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata align="center" fileref="../../../../examples/sources_pal/en_US/FROMWSB_en_US.zcos"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+    </refsection>
+
+    <refsection id="Interfacingfunction_FROMWSB">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/Sources/FROMWSB.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection xml:id="Seealso_FROMWSB" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="TOWS_c">TOWS_c</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xmlns:m="http://www.w3.org/1998/Math/MathML" xml:id="sundials_linear_solvers" xml:lang="en">
+    <refnamediv>
+        <refname>SUNDIALS Linear Solvers</refname>
+        <refpurpose>SUNDIALS direct and iterative, preconditionned linear solvers</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+                ... = solver( ... , linearSolver = linSol, precType = side, precBand = [mu,ml])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="description">
+        <title>Linear solvers used by SUNDIALS solvers</title>
+        <para>SUNDIALS solvers may use underlying linear solvers when the selected method needs to solve a linear algebraic system during a 
+            method step. This is the case when kinsol is used with the Newton or Picard method or when ODE/DAE solvers use an 
+            implicit scheme (arkode uses such a solver with explicit schemes also when a mass matrix is present).
+            When the Jacobian is explicitely provided by the user, either dense, banded or sparse, or implicitely by means of jacBand
+            or jacPattern options, then the corresponding direct solver is used, i.e. Lapack's dense or band solver or KLU sparse solver.
+            The default behavior when a linear solver is needed is to use the dense solver and difference quotients to approximate the Jacobian.
+        </para>
+        <para>
+            When very large scale problems are considered, matrix-free, scaled, preconditioned, iterative linear solvers are sometimes the
+            only way to go. Although SUNDIALS allows to use this class of solver for ODEs, DAEs and nonlinear equations, for the time being the
+            Scilab module only allows
+            them for ODEs (cvode and arkode solvers) and built-in band preconditioning. The related options are the following:
+        </para>
+
+        <para>
+            <informaltable border="1">
+                <tbody>
+                    <tr>
+                        <td>linearSolver</td>
+                        <td>    
+                            <para>The linear solver given as a string:
+                                <itemizedlist>
+                                    <listitem>
+                                         <para>"CG" : Conjugate Gradient (system matrix must be symmetric)</para></listitem>
+                                        <listitem>
+                                             <para>"BCGS" : Stabilized Bi-Conjugate Gradient</para></listitem>
+                                            <listitem>
+                                                 <para>"FGMR" : Flexible Generalized Minimum Residual</para></listitem>
+                                                <listitem>
+                                                     <para>"GMR" : Generalized Minimum Residual</para></listitem>
+                                                    <listitem>
+                                                         <para>"TFQMR" : Transpose-Free Qusi-Minimum Residual</para></listitem>
+                                                    </itemizedlist>
+                                                </para>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>linSolMaxIters</td>
+                                            <td>    
+                                                <para>The maximum number of iterations/Krylov vectors</para>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>precType</td>
+                                            <td>The preconditioning type or side: "RIGHT" (the default), "LEFT", "BOTH" or "NONE".
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>precBand</td>
+                                            <td>
+                                                <para>A vector of two positive integers <literal>[mu,ml]</literal> giving respectively
+                                                the upper and lower half bandwidth of the preconditionner.</para>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </informaltable>
+                            </para>
+                        </refsection>
+                    
+                        <refsection role="example">
+                            <title>Example</title>
+                            <para>
+                                 An ODE system is generated from the following 2-species diurnal kinetics advection-diffusion PDE system in 2 space dimensions 
+                             </para>
+                             <para>
+                                 <latex style="display">
+                                     \begin{array}{rcl} \frac{\partial c_i}{\partial t} &amp;=&amp; K_h \frac{\partial^2 c_i}{\partial x^2} + V \frac{\partial c_i}{\partial x} 
+                                         + \frac{\partial y}{\partial y}\left( K_v(y)\frac{\partial c_i}{\partial y}\right) + R_i(c_1,c_2,t),\quad i=1,2,\\
+                                         R_1(c_1,c_2,t) &amp;=&amp; -q_1 c_1 c_3 - q_2 c_1 c_2 + 2 q_3(t) c_3 + q_4(t) c_2,\\
+                                         R_2(c_1,c_2,t) &amp;=&amp;  q_1 c_1 c_3 - q_2 c_1 c_2 - q_4(t) c_2,\\
+                                         K_v(y) &amp;=&amp; K_{v_0} \exp(y/5),
+                                     \end{array}
+                                 </latex>
+                             </para>
+                             <para>
+                                 <latex>K_h, V, K_{v_0}, q_1, q_2, c_3</latex> are constants and <latex>q_3(t)</latex> and <latex>q_4(t)</latex> vary diurnaly. 
+                                 The problem is posed on the square [0,20] x [30, 50] (in km), with homogeneous Neumann boundary conditions, 
+                                 and for time t in [0,129600] (three days and a half).
+                                 The PDE system is treated by central differences on a uniform
+                                  100 x 100 mesh, with simple polynomial initial profiles.
+                              </para>
+                              <para>
+                                 The problem is solved with cvode, with the BDF/GMRES
+                                 method (i.e. using the SUNLinSol_SPGMR linear solver) by passing option <literal>linearSolver="GMR"</literal>
+                                 and a banded preconditioner, generated by difference quotients, using the option <literal>precBand</literal>. The problem is solved with left and right
+                                 preconditioning (this is the default).
+                             </para>
+                             <para>
+                                 In the example below the right-hand side is a compiled C-gateway from the examples of SUNDIALS library. The Scilab interface to cvode allows to
+                                 manipulate the state of the discretized PDE as a (2,100,100) 3-dimensional array and the output <literal>C</literal> of the solver
+                                 is a (2,100,100,n) 4-dimensional array where n is the length of the <literal>tspan</literal> vector. A callback is used to represent the two species
+                                 with a pseudo-color plot.
+                             </para>
+                            <para>
+                                <programlisting><![CDATA[
+                                    function out=cbFn(t, C, flag, stats)
+                                        global h1 h2
+                                        out = %f;
+                                        if flag == "init"
+                                            clf
+                                            gcf().axes_size = [740 300];
+                                            gcf().figure_name = "2-species diurnal kinetics advection-diffusion 2D PDE"
+                                            gcf().color_map = parula(128);
+                                            subplot(1,2,1)
+                                            title("Species 1")
+                                            h1 = Sgrayplot(x,y,squeeze(C(1,:,:)),zminmax=[0 51146186])
+                                            colorbar;
+                                            subplot(1,2,2)
+                                            h2 = Sgrayplot(x,y,squeeze(C(2,:,:)),zminmax=[0 1.074D+12])
+                                            colorbar;
+                                            title("Species 2")
+                                        elseif flag == "step"
+                                            drawlater
+                                            h1.data(:,3)=C(1,:)';
+                                            h2.data(:,3)=C(2,:)';
+                                            drawnow
+                                            gcf().info_message=sprintf("time = %g s",t);
+                                        end
+                                    end
+                    
+                                    source = fullfile(SCI,"modules","differential_equations","tests","unit_tests","cvDiurnal_kry_bp.c")
+                                    SUN_Clink("cvDiurnal_kry_bp_rhs",source,load=%t);
+                    
+                                    PI = 3.1415926535898;
+                                    TWOHR = 7200.0      // number of seconds in two hours
+                                    HALFDAY = 4.32e4    // number of seconds in a half day
+                                    KH = 4.0e-6         // horizontal diffusivity Kh
+                                    VEL = 0.001         // advection velocity V
+                                    KV0 = 1.0e-8        // coefficient in Kv(y)
+                    
+                                    RTOL = 1e-5;
+                                    ATOL = 100*RTOL;
+                    
+                                    MX = 100; // MX and MY values are hard coded in cvDiurnal_kry_bp.c
+                                    MY = 100; // don't change these values !
+                                    XMIN = 0; XMAX = 20;
+                                    YMIN = 30; YMAX = 50;
+                                    DX = (XMAX-XMIN)/(MX-1);
+                                    DY = (YMAX-YMIN)/(MY-1);
+                                    x = XMIN+(0:MX-1)*DX;
+                                    y = YMIN+(0:MY-1)*DY;
+                                    [X,Y] = ndgrid(x,y);
+                                    q4 = 0;
+                                    om = PI/HALFDAY;
+                                    hdco = KH/DX^2;
+                                    haco = VEL/(2*DX);
+                                    vdco = KV0/DY^2;
+                                    user_data = [q4,om,DX,DY,hdco,haco,vdco];
+                    
+                                    // initial profiles
+                                    C0 = zeros(2,MX,MY);
+                                    alph = (0.1*X-1).^2;
+                                    alph = 1-alph+0.5*alph.^2;
+                                    bet = (0.1*Y-4).^2;
+                                    bet = 1-bet+0.5*bet.^2;
+                                    C0(1,:,:) = 1e6*alph.*bet;
+                                    C0(2,:,:) = 1e12*alph.*bet;
+                                    tspan = 0:TWOHR/60:3*HALFDAY;
+                    
+                                    [t,C,info] = cvode(list("cvDiurnal_kry_bp_rhs",user_data), tspan, C0, t0=0, rtol=RTOL, atol=ATOL,...
+                                        method="BDF", linearSolver="GMR", precBand=[2 2], callback=cbFn);
+                    
+                                    
+                                ]]></programlisting>
+                            </para>
+                        </refsection>
+                    
+                        <refsection role="see also">
+                            <title>See also</title>
+                            <simplelist type="inline">
+                                <member>
+                                    <link linkend="arkode">arkode</link>
+                                </member>
+                                <member>
+                                    <link linkend="cvode">cvode</link>
+                                </member>
+                                <member>
+                                    <link linkend="ida">ida</link>
+                                </member>
+                                <member>
+                                    <link linkend="ida">kinsol</link>
+                                </member>
+                            </simplelist>
+                        </refsection>
+                    </refentry>

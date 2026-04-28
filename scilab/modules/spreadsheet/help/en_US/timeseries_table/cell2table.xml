@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="cell2table" xml:lang="en">
+    <refnamediv>
+        <refname>cell2table</refname>
+        <refpurpose>convert a cell into a table</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            t = cell2table(c)
+            t = cell2table(c, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>cell matrix, the elements of c can be heterogeneous type.</para>
+                    <para>Type allowed: double, boolean, string, datetime, duration.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>    
+            <para/>            
+            <varlistentry>
+                <term><emphasis role="bold">"VariableNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        the variable name of each column of t. The variable names must be unique and their 
+                        number must be equal to size(m, 2). 
+                        Default value: ["Var1", ..., "VarN"].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"RowNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para>
+                        the row names for t. The names must be unique and their number must be equal to size(m, 1). 
+                        Default value: [].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">cell2table</emphasis> converts a cell into a table. t has the same size of c.
+            Each column of c becomes a variable in t. c{:,i} must be the same type.
+        </para>
+        <para>
+            Like <link linkend="table">table</link> function, "VariableNames" and "RowNames" can be specified.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">t = cell2table(m)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            c = {1, hours(1), "a"; 2, hours(2), "b"; 3, hours(3), "c"}
+            t = cell2table(c)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">t = cell2table(m, "VariableNames", ["Var1", ..., "VarN"])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            c = {1, hours(1), "a"; 2, hours(2), "b"; 3, hours(3), "c"}
+            t = cell2table(c, "VariableNames", ["data", "duration", "info"])
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="table2cell">table2cell</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

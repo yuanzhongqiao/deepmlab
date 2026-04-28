@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="tree_show">
+    <refnamediv>
+        <refname>tree_show</refname>
+        <refpurpose>
+            Displays a tree view of a list, tlist, mlist, cell or structure array, Xcos block
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tree_show(x)
+            tree_show(x, rootTitle)
+            tree_show(x, rootTitle, styles)
+            tree_show(x, rootTitle, styles, arrayByFields)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                    Container to display. Supported containers: list, mlist, tlist, array of cells,
+                    array of structures, identifier of an Xcos block.
+                    Other containers may be nested in <varname>x</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rootTitle</term>
+                <listitem>
+                    <para>
+                        Single string: explicit label of the tree's root, for instance the name of
+                        the <varname>x</varname> variable in the calling environment. Default = "".
+                    </para>
+                    <note>
+                        HTML.4 styling tags can be used to change the style of the root's title.
+                        Example: "<literal>&lt;html&gt;&lt;font color="red"&gt;&lt;b&gt;The title&lt;/b&gt;</literal>"
+                        will display <emphasis>The title</emphasis> in bold red.
+                    </note>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>styles</term>
+                <listitem>
+                    <para>
+                        Single string = HTML.4 styling tag, including the "$" character that will
+                        be replaced with the address (fields names, lists indices..) of each data.
+                    </para>
+                    <para>
+                        The <varname>styles</varname> option can be used to customize the style
+                        either of addresses, or of related contents, or both. Examples:
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>"&lt;b&gt;$&lt;/b&gt;"</literal> : address in bold, content in
+                                    normal black.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"$&lt;i&gt;"</literal> : address in normal black, content
+                                    in italic.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"&lt;i&gt;$"</literal> : both address and content in italic.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"&lt;font color=''grey''&gt;$&lt;/font&gt;&lt;i&gt;"</literal> :
+                                    address in grey, content in italic.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                    <para>
+                        Default =
+                        <literal>"&lt;font color=""blue""&gt;$&lt;/font&gt;"</literal>
+                        (address in blue, content in black).
+                    </para>
+                    <para>
+                        Setting <literal>""</literal> removes styling.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>arrayByFields</term>
+                <listitem>
+                    <para>
+                        Single boolean, used only for arrays of structures:
+                        <table>
+                            <tr><th>%T :</th>
+                                <td>For each field of the struct, the array of its values is displayed.
+                                </td>
+                            </tr>
+                            <tr><th>%F :</th>
+                                <td>
+                                    For each structure of the array, its fields and their values
+                                    are displayed.
+                                </td>
+                            </tr>
+                        </table>
+                    </para>
+                    <para>
+                        The chosen display mode is used as well for every nested array of structures,
+                        at any depths.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Creates a window and displays a tree view of the given container.
+        </para>
+        <warning>
+            The window has no handle.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <emphasis role="bold">list(), including a cells array</emphasis> :
+        </para>
+        <table>
+            <tr>
+                <td>
+                    <programlisting role="example"><![CDATA[
+            films = struct("Title", "A.I. Artificial Intelligence",..
+                           "Year", 2001, ..
+                           "Director", "Steven Spielberg", ..
+                           "Duration", 140);
+            L = list([%t %f %f],                ..
+                     $:-1:3,                    ..
+                     int8([1 2 3 ; 4 5 6]),     ..
+                     [-%inf, -1, 0, %i, 7.1, 3.3e20, %inf, %nan], ..
+                     sparse([0 1 2; 3 0 4]),    ..
+                     ["This" "is" "some" "text"], ..
+                     ,              ..
+                     sin,           ..
+                     logspace,      ..
+                     iolib,         ..
+                     {%pi, "abcd" ;
+                      list(,)(1),(%i-%s)^3},    ..
+                      {},           ..
+                     films);
+            tree_show(L)
+             ]]></programlisting>
+                </td>
+                <td>
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata fileref="../images/tree_show_list.png"/>
+                        </imageobject>
+                    </inlinemediaobject>
+                </td>
+            </tr>
+        </table>
+
+        <para>
+            <emphasis role="bold">
+                Using the <emphasis>rootTitle</emphasis> and <emphasis>styles</emphasis> options
+            </emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+// Data to display:
+clear films
+films(1) = struct("Title", "A.I. Artificial Intelligence",..
+                  "Year", 2001, ..
+                  "Director", "Steven Spielberg", ..
+                  "Duration", 140);
+films(2,2) = struct("Title", "I, robot", ..
+                    "Year", 2004, ..
+                    "Director", "Alex Proyas", ..
+                    "Duration", 120);
+
+// Styling both the addresses and the contents:
+mainTitle = "<html><b>Films (A)</b>";
+tree_show(films, mainTitle , "<font color=""red"">$</font><i>");
+
+// Styling only the contents:
+mainTitle = "<html><b>Films (B)</b>";
+tree_show(films([1 4]), mainTitle, "$<font color=""green"">", %t);
+     ]]></programlisting>
+        <para/>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../images/tree_show_styling.png"/>
+            </imageobject>
+        </inlinemediaobject>
+
+        <para>
+            <emphasis role="bold">Array of structures</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+clear films
+films(1) = struct("Title", "A.I. Artificial Intelligence",..
+              "Year", 2001, ..
+              "Director", "Steven Spielberg", ..
+              "Duration", 140);
+films(2) = struct("Title", "I, robot", ..
+              "Year", 2004, ..
+              "Director", "Alex Proyas", ..
+              "Duration", 120);
+films(1,2) = struct("Title", "Gravity", ..
+                "Year", 2013, ..
+                "Director", "Alfonso Cuarón", ..
+                "Duration", 100);
+films(2,2) = struct("Title", "2001: A space odyssey", ..
+                "Year", 1968, ..
+                "Director", "Stanley Kubrick", ..
+                "Duration", 141);
+
+tree_show(films(:),"Films (I)");
+tree_show(films   ,"Films (II)");
+tree_show(films(:),"Films (III)", , %t);
+tree_show(films   ,"Films (IV)" , , %t);
+     ]]></programlisting>
+        <screen><![CDATA[
+2x2 struct array with fields:
+   Title
+   Director
+   Year
+   Duration
+]]></screen>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../images/tree_show_2x2.png"/>
+            </imageobject>
+        </inlinemediaobject>
+        <para>
+            <emphasis role="bold">With a custom tlist or mlist</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+// For a mlist:
+str = ['a','b','c','d','e','f','g','h'];
+n = matrix(str, [2,2,2]);
+v = matrix(1:8, [2,2,2]);
+Mm = mlist(['V','name','value'],n,v);
+tree_show(Mm);
+
+// For a tlist:
+Mt = tlist(['V','name','value'],['a','b','c'],[1 2 3]);
+tree_show(Mt);
+     ]]></programlisting>
+        <para/>
+        <para>
+            <emphasis role="bold">For an Xcos block</emphasis> :
+        </para>
+        <programlisting role="example"><![CDATA[
+loadXcosLibs();
+
+blk = BIGSOM_f("define");
+tree_show(blk)
+     ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uiDisplayTree">uiDisplayTree</link>
+            </member>
+            <member>
+                <link linkend="uiDumpTree">uiDumpTree</link>
+            </member>
+            <member>
+                <link linkend="prettyprint">prettyprint</link>
+            </member>
+            <member>
+                <link linkend="editvar">editvar</link>
+            </member>
+            <member>
+                <link linkend="browsevar">browsevar</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    rootTitle, styles, and arrayByFields input options added.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Input containers including void elements are now supported.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

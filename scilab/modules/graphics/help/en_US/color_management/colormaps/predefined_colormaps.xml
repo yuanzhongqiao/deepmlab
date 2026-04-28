@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="predefined_colormaps">
+    <refnamediv>
+        <refname>Predefined colormaps</refname>
+        <refpurpose>Overview of predefined colormaps.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            cmap = $colormapfunction$() // Replace $colormapfunction$ by the name of a function described below
+            cmap = $colormapfunction$(n)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>integer value, the colormap size.</para>
+                    <para>It not provided for continuous/sequential/diverging colormaps, the default size is the size of the current (See <link linkend="gcf">gcf()</link>) figure colormap, or the size of the default (See <link linkend="gdf">gdf()</link>) figure colormap (if no figure is opened).</para>
+                    <para>It not provided for discrete/qualitative colormaps, the default size is the size of the base pattern (fixed colors) depending on the colormap type (see below in colormaps description).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>cmap</term>
+                <listitem>
+                    <para>
+                        matrix with 3 columns <literal>[R,G,B]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Sample</title>
+        <scilab:image localized="true">
+            cm = ["autumn" "bone" "cool" "copper" "gray" "hot" "hsv" "jet" "ocean" ..
+                  "parula" "pink" "rainbow" "spring" "summer" "turbo" "white" "winter", ..
+                  "blues", "BrBG", "BuGn", "BuPu", ..
+                  "coolwarm", ..
+                  "GnBu", "greens", "greys", ..
+                  "oranges", "OrRd", ..
+                  "PiYG", "PRGn", "PuBu", "PuBuGn", "PuOr", "PuRd", "purples", ..
+                  "RdBu", "RdGy", "RdPu", "RdYlBu", "RdYlGn", "reds", ..
+                  "spectral", ...
+                  "YlGn", "YlGnBu", "YlOrBr", "YlOrRd", ...
+                  "flag", "prism", "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3"];
+
+            ncm = size(cm,"*");
+            indices = [];
+            cmap = [];
+            for i = 0:ncm-1
+                indices = [indices ; (1:128)+i*128];
+                execstr("cols = "+cm(i+1)+"(128);");
+                cmap = [cmap ; cols];
+            end
+
+            f = gcf();
+            clf
+
+            f.color_map = cmap;
+            Matplot(indices)
+
+            xgrid([color("grey50") -1]);
+            gca().grid_position = "foreground";
+
+            title(_("Available colormaps"), "fontsize", 4);
+            xlabel(_("Colors indices in [1, 128]"), "fontsize", 3);
+            gca().y_ticks = tlist(["ticks" "locations" "labels"],ncm:-1:1,cm);
+            set(gca(), "font_size", 2, "sub_ticks",[4 0], "margins", [0.12 0.05 0.08 0.08]);
+
+            gcf().axes_size = [800 800];
+        </scilab:image>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            All these functions provide predefined continuous/sequential/diverging colormaps for Scilab graphics:
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term xml:id="autumn">autumn</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from red through orange to yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="bone">bone</term>
+                <listitem>
+                    <para>Computes a gray colormap with <literal>n</literal> colors with a light blue tone.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="cool">cool</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from cyan to magenta.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="copper">copper</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from black to a light copper tone.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="gray">gray</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> gray colors varying linearly from black to white.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="hot">hot</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> hot colors varying from red to yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="hsv">hsv</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal>colors. This colormap  varies the hue component of the
+                    hsv color model. The colors begin with red, pass through yellow, green, cyan, blue, magenta, and return to red.
+                    The map is particularly useful for displaying periodic functions.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="jet">jet</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from blue, lightblue, green, yellow, orange then red.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="ocean">ocean</term>
+                <listitem>
+                    <para>Computes a colormap with with <literal>n</literal> blue colors varying linearly from black to white.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="parula">parula</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from blue to yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="pink">pink</term>
+                <listitem>
+                    <para>Computes a colormap that provides sepia tone colorization on black and white images.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="rainbow">rainbow</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from red through orange, yellow, green,blue to violet.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="spring">spring</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from magenta to yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="summer">summer</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from green to yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="turbo">turbo</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from blue, lightblue, green, yellow, orange then red (quite similar to <link linkend="jet">jet</link> but perceptually uniform).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="white">white</term>
+                <listitem>
+                    <para>Computes a completely white colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="winter">winter</term>
+                <listitem>
+                    <para>Computes a colormap with <literal>n</literal> colors varying from blue to green.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="blues">blues</term>
+                <listitem>
+                    <para>Computes a sequential single-hue blue colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="BrBG">BrBG</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from brown to green hue through blue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="BuGn">BuGn</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from blue to green hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="BuPu">BuPu</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from blue to purple hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="coolwarm">coolwarm</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from blue to red hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="GnBu">GnBu</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from green to blue hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="greens">greens</term>
+                <listitem>
+                    <para>Computes a sequential single-hue green colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="greys">greys</term>
+                <listitem>
+                    <para>Computes a sequential single-hue grey colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="oranges">oranges</term>
+                <listitem>
+                    <para>Computes a sequential single-hue orange colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="OrRd">OrRd</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from orange to red hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="PiYG">PiYG</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from pink to green hue through yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="PRGn">PRGn</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from purple to green hue through red.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="PuBu">PuBu</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from purple to blue hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="PuBuGn">PuBuGn</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from purple to blue hue through green.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="PuOr">PuOr</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from purple to orange hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="PuRd">PuRd</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from purple to red hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="purples">purples</term>
+                <listitem>
+                    <para>Computes a sequential single-hue purple colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="RdPu">RdPu</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from red to purple hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="RdYlBu">RdYlBu</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from red to blue hue through yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="RdYlGn">RdYlGn</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from red to green hue through yellow.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="reds">reds</term>
+                <listitem>
+                    <para>Computes a sequential single-hue red colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="spectral">spectral</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue spectral colormap with <literal>n</literal> colors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="RdBu">RdBu</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from red to blue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="RdGy">RdGy</term>
+                <listitem>
+                    <para>Computes a diverging multi-hue colormap with <literal>n</literal> colors varying from red to grey hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="YlGn">YlGn</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from yellow to green hue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="YlGnBu">YlGnBu</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from yellow to green hue through blue.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="YlOrBr">YlOrBr</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from yellow to orange hue through brown.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="YlOrRd">YlOrRd</term>
+                <listitem>
+                    <para>Computes a sequential multi-hue colormap with <literal>n</literal> colors varying from yellow to orange hue through red.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            All these functions provide predefined discrete/qualitative colormaps for Scilab graphics:
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term xml:id="flag">flag</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 4 fixed colors (red, white, blue, and black).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="prism">prism</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 6 fixed colors (red, orange, yellow, green, blue and violet).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Accent">Accent</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 8 fixed colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Dark2">Dark2</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 8 fixed colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Paired">Paired</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 12 fixed colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Pastel1">Pastel1</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 9 fixed colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Pastel2">Pastel2</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 12 fixed colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Set1">Set1</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 9 fixed colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Set2">Set2</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 12 base colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term xml:id="Set3">Set3</term>
+                <listitem>
+                    <para>Computes a qualitative colormap with <literal>n</literal> colors cycling through 12 base colors (See <ulink url="https://colorbrewer2.org/">https://colorbrewer2.org/</ulink>).</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="colormaps">Colormaps</link>
+            </member>
+            <member>
+                <link linkend="colormap">colormap</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revremark>
+                    Default colormap size is now based on the size of the current or default figure colormap size.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        Colormap functions renamed to <literal>autumn</literal>, <literal>bone</literal>, <literal>cool</literal>, <literal>copper</literal>, <literal>gray</literal>, <literal>hot</literal>, <literal>hsv</literal>, <literal>jet</literal>,
+                        <literal>ocean</literal>, <literal>parula</literal>, <literal>pink</literal>, <literal>rainbow</literal>, <literal>spring</literal>, <literal>summer</literal>, <literal>white</literal>, <literal>winter</literal>.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        New colormap functions <literal>blues</literal>, <literal>BrBG</literal>, <literal>BuGn</literal>, <literal>BuPu</literal>, <literal>coolwarm</literal>, <literal>GnBu</literal>, <literal>greens</literal>, <literal>greys</literal>,
+                        <literal>oranges</literal>, <literal>OrRd</literal>, <literal>PiYG</literal>, <literal>PRGn</literal>, <literal>PuBu</literal>, <literal>PuBuGn</literal>, <literal>PuOr</literal>, <literal>PuRd</literal>,
+                        <literal>purples</literal>, <literal>RdBu</literal>, <literal>RdGy</literal>, <literal>RdPu</literal>, <literal>RdYlBu</literal>, <literal>RdYlGn</literal>, <literal>reds</literal>, <literal>spectral</literal>,
+                        <literal>YlGn</literal>, <literal>YlGnBu</literal>, <literal>YlOrBr</literal>, <literal>YlOrRd</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        New colormaps functions <literal>turbo</literal>, <literal>flag</literal>, <literal>prism</literal>, <literal>Accent</literal>, <literal>Dark2</literal>, <literal>Paired</literal>, <literal>Pastel1</literal>, <literal>Pastel2</literal>,
+                        <literal>Set1</literal>, <literal>Set2</literal>, <literal>Set3</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        Functions <literal>autumncolormap</literal>, <literal>bonecolormap</literal>, <literal>coolcolormap</literal>, <literal>coppercolormap</literal>, <literal>graycolormap</literal>, <literal>hotcolormap</literal>,
+                        <literal>hsvcolormap</literal>, <literal>jetcolormap</literal>, <literal>oceancolormap</literal>, <literal>parulacolormap</literal>, <literal>pinkcolormap</literal>, <literal>rainbowcolormap</literal>,
+                        <literal>springcolormap</literal>, <literal>summercolormap</literal>, <literal>whitecolormap</literal>, <literal>wintercolormap</literal> removed.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

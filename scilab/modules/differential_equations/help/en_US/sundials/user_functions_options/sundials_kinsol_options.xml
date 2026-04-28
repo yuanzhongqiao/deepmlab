@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_kinsol_options" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Options (kinsol)</refname>
+        <refpurpose>Changing the default behavior of solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ... = kinsol( ... , options)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="description">
+        <title>Common options</title>
+        <para>The default behavior of the solver can be tuned by specifying a sequence of named parameter values. These parameters are the following:
+        </para>
+        <para>
+            <informaltable border='1'>
+                <tbody>
+                    <tr>
+                        <td>options</td>
+                        <td>    
+                            <para>A struct with options field names and corresponding values. Specifying the options with a struct allows to use the same
+                                options set in different solver calls. Values are overriden by separately setting individual options.</para>
+                                <programlisting role="example"><![CDATA[
+                                    OPT = struct();
+                                    OPT.display = "iter";
+                                    OPT.tol = 1e-6;
+                                    OPT.stepTol = 1e-8;
+                                    function F=fun(x)    
+                                        F = [2*x(1)-x(2)-exp(-x(1))
+                                              -x(1)+2*x(2)-exp(-2*x(2))];
+                                    end
+                                    x = kinsol(fun, [0 0], options = OPT)
+                                    ]]></programlisting>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>method</td>
+                        <td>    
+                            <para>The solver method given as a string. kinsol accepts "Newton" (inexact Newton method), "lineSearch" 
+                                (inexact Newton method with linesearch globalization), "Picard" (Picard iterations),
+                                 and "fixedPoint" (fixed-point iterations).
+                            </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>maxIters</td>
+                        <td>    
+                            <para>The maximum number of nonlinear iterations (default is 200).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>tol</td>
+                        <td>    
+                            <para>stopping tolerance on the scaled maximum norm of the system function (default is <literal>%eps^(1/3)</literal>)</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>stepTol</td>
+                        <td>    
+                            <para>stopping tolerance on the minimum scaled step length (default is <literal>%eps^(2/3)</literal>).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>maxNewtonStep</td>
+                        <td>    
+                            <para>The maximum length of the Newton step (default is 1000 times the scaled norm of intial guess).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>typicalArg</td>
+                        <td>    
+                            <para>The typical value of system function argument when the latter is close to the solution. This vector is used for
+                                scaling the argument components (default is <literal>ones(n,1)</literal>, where n is the number of equations).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>typicalF</td>
+                        <td>    
+                            <para>The typical value of system function when argument is far from the solution. This vector is used for
+                                scaling the system function components (default is <literal>ones(n,1)</literal>, where n is the number of equations).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>accel</td>
+                        <td>    
+                            <para>The number of acceleration Anderson vectors in fixed-point or Picard iterations (default is 0).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>damping</td>
+                        <td>    
+                            <para>The damping factor in fixed-point or Picard iterations, must be in ]0,1] (default is 1, which means no damping).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>jacUpdateFreq</td>
+                        <td>    
+                            <para>the maximum number of iterations before updating the Jacobian (default is 10) when using Newton method. Must be
+                                a multiple of resMonFreq (see below).</para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>resMonFreq</td>
+                        <td>    
+                            <para>the maximum number of iterations before checking the residual (default is 5). </para>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>negative, nonPositive, nonNegative, positive</td>
+                    <td>    
+                    <para>
+                        A vector with the indices of the solution to constrain. When a theoretical solution exists and some of 
+                        its components have a given sign then any of the following four constraints can be imposed:
+                         y(i)&lt;0, y(i)&lt;=0, y(i)&gt;=0, y(i)&gt;0. This option is only available when using
+                         inexact Newton method or Newton method with linesearch.
+                    </para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>jacobian, jacBand, jacPattern, jacNonZeros</td>
+                    <td>    
+                        <para>These options allow to specify a user-supplied Jacobian or its approximation (not available with fixed-point method). Please 
+                            see the dedicated <link linkend="sundials_jacobian">Jacobian</link> page. Note that when using Picard iterations the Jacobian
+                            is supposed to be constant.</para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>callback</td>
+                    <td>
+                        <para>The solver can call a user function after each successfull internal step. See the  dedicated <link linkend="sundials_callback">Callback</link>
+                        page for explanations and use cases.
+                    </para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>display</td>
+                    <td>
+                        <para>A string allowing to choose the verbosity of the solver output: "iter" (the default, giving the iteration details
+                             and termination message), "final" (termination message only) and "none".
+                    </para>
+                    </td>
+                </tr>
+                </tbody>
+            </informaltable>
+        </para>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="kinsol">kinsol</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

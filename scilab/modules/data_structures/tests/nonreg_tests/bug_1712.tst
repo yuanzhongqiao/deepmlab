@@ -1,0 +1,39 @@
+//<-- CLI SHELL MODE -->
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- Non-regression test for bug 1712 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/1712
+//
+// <-- Short Description -->
+//    Logical binary operations &,| with hypermatrices fail, as shown in the
+//    following examples. (The unary operation ~ succeeds.)
+//
+//    -->hm=matrix(1:8, [2 2 2])
+//
+//    -->hm>min(hm) & hm<max(hm)
+//                            !--error 4
+//    undefined variable : %l_h_l
+//
+//    -->hm==min(hm) | hm==max(hm)
+//                              !--error 4
+//    undefined variable : %l_g_l
+//
+//    -->~(hm==min(hm))
+//     ans  =
+//
+//    (:,:,1)
+//
+//    ! F T !
+//    ! T T !
+// ...
+
+//hm = matrix(1:8, [2 2 2]);
+//if execstr('hm>min(hm) & hm<max(hm)','errcatch')   <>0 then pause,end
+//if execstr('hm==min(hm) | hm==max(hm)','errcatch') <>0 then pause,end

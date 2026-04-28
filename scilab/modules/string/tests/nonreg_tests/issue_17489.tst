@@ -1,0 +1,23 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2025 - Dassault Systèmes S.E. - Vincent COUVERT
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for issue 17489 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/17489
+//
+// <-- Short Description -->
+// Display of struct with Objects generates warning
+// -------------------------------------------------------------
+
+classdef Foo
+end
+s = struct("foo", Foo())
+
+

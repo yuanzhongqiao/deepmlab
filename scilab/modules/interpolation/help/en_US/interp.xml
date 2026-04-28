@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="interp" xml:lang="en">
+    <refnamediv>
+        <refname>interp</refname>
+        <refpurpose>cubic spline evaluation function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [yp, yp1, yp2, yp3] = interp(xp, x, y, d)
+            [yp, yp1, yp2, yp3] = interp(xp, x, y, d, out_mode)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x,y</term>
+                <listitem>
+                    <para>
+                        real vectors of same size <literal>n</literal>: Coordinates of data points on
+                        which the interpolation and the related cubic spline (called <literal>s(X)</literal>
+                        in the following) or sub-spline function is based and built.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>d</term>
+                <listitem>
+                    <para>
+                        real vector of size(x): The derivative s'(x). Most often, s'(x) will be
+                        priorly estimated through the function splin(x, y,..)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>out_mode</term>
+                <listitem>
+                    <para>
+                        (optional) string defining <literal>s(X)</literal> for <literal>X</literal>
+                        outside [x<subscript>1</subscript>, x<subscript>n</subscript>].
+                        Possible values: "by_zero" | "by_nan" | "C0" | "natural" | "linear" | "periodic"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>xp</term>
+                <listitem>
+                    <para>
+                        real vector or matrix: abscissae at which <literal>Y</literal> is unknown
+                        and must be estimated with <literal>s(xp)</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>yp</term>
+                <listitem>
+                    <para>
+                        vector or matrix of size(xp): <literal>yp(i) = s(xp(i))</literal> or
+                        <literal>yp(i,j) = s(xp(i,j))</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>yp1, yp2, yp3</term>
+                <listitem>
+                    <para>
+                        vectors (or matrices) of size(x): elementwise evaluation of the derivatives
+                        <literal>s'(xp)</literal>, <literal>s''(xp)</literal> and <literal>s'''(xp)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The cubic spline function <literal>s(X)</literal> interpolating the <literal>(x,y)</literal>
+            set of given points is a continuous and derivable piece-wise function defined over
+            [x<subscript>1</subscript>, x<subscript>n</subscript>]. It consists of a set of cubic polynomials, each one
+            p<subscript>k</subscript>(X) being defined on [x<subscript>k</subscript>, x<subscript>k+1</subscript>]
+            and connected in values and slopes to both its neighbours. Thus, we can state that for each
+            <emphasis>
+                X &#8712; [x<subscript>k</subscript>, x<subscript>k+1</subscript>],
+                s(X) = p<subscript>k</subscript>(X)
+            </emphasis>, such that
+            <emphasis>
+                s(x<subscript>i</subscript>) = y<subscript>i</subscript>,  and  
+                s'(x<subscript>i</subscript>) = d<subscript>i</subscript>
+            </emphasis>.
+            Then, interp() evaluates <literal>s(X)</literal> (and <literal>s'(X), s''(X), s'''(X)</literal>
+            if needed) at <literal>xp(i)</literal>, such that
+        </para>
+        <para>
+            <table align="center">
+            <tr align="center">
+                <td><emphasis>
+                        yp<subscript>i</subscript> = s(xp<subscript>i</subscript>)
+                           or   
+                        yp<subscript>ij</subscript> = s(xp<subscript>ij</subscript>)
+                    </emphasis>
+                </td>
+            </tr>
+            <tr align="center">
+                <td><emphasis>
+                        yp1<subscript>i</subscript> = s'(xp<subscript>i</subscript>)
+                           or   
+                        yp1<subscript>ij</subscript> = s'(xp<subscript>ij</subscript>)
+                    </emphasis>
+                </td>
+            </tr>
+            <tr align="center">
+                <td><emphasis>
+                        yp2<subscript>i</subscript> = s''(xp<subscript>i</subscript>)
+                           or   
+                        yp2<subscript>ij</subscript> = s''(xp<subscript>ij</subscript>)
+                    </emphasis>
+                </td>
+            </tr>
+            <tr align="center">
+                <td><emphasis>
+                        yp3<subscript>i</subscript> = s'''(xp<subscript>i</subscript>)
+                           or   
+                        yp3<subscript>ij</subscript> = s'''(xp<subscript>ij</subscript>)
+                    </emphasis>
+                </td>
+            </tr>
+            </table>
+        </para>
+        <para>
+            The <literal>out_mode</literal> parameter set the evaluation rule
+            for extrapolation, i.e. for <literal>xp(i)</literal> outside [x<subscript>1</subscript>, x<subscript>n</subscript>] :
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>"by_zero"</term>
+                <listitem>
+                    <para>an extrapolation by zero is done</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"by_nan"</term>
+                <listitem>
+                    <para>extrapolation by Nan (%nan)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"C0"</term>
+                <listitem>
+                    <para>the extrapolation is defined as follows :
+                        <table align="center">
+                        <tr align="center"><td><emphasis>
+                            xp<subscript>i</subscript> &lt; x<subscript>1</subscript>  ⇒ 
+                            yp<subscript>i</subscript> = y<subscript>1</subscript>
+                            </emphasis></td></tr>
+                        <tr align="center"><td><emphasis>
+                            xp<subscript>i</subscript> > x<subscript>n</subscript>  ⇒ 
+                            yp<subscript>i</subscript> = y<subscript>n</subscript>
+                            </emphasis></td></tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"natural"</term>
+                <listitem>
+                    <para>
+                        the extrapolation is defined as follows (p<subscript>i</subscript>(x) being the polynomial defining
+                        <literal>s(X)</literal> on [x<subscript>i</subscript>, x<subscript>i+1</subscript>]):
+                    </para>
+                    <table align="center">
+                    <tr align="center"><td><emphasis>
+                        xp<subscript>i</subscript> &lt; x<subscript>1</subscript>  ⇒ 
+                        yp<subscript>i</subscript> = p<subscript>1</subscript>(xp<subscript>i</subscript>)
+                        </emphasis></td></tr>
+                    <tr align="center"><td><emphasis>
+                        xp<subscript>i</subscript> > x<subscript>n</subscript>  ⇒ 
+                        yp<subscript>i</subscript> = p<subscript>n-1</subscript>(xp<subscript>i</subscript>)
+                        </emphasis></td></tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"linear"</term>
+                <listitem>
+                    <para>the extrapolation is defined as follows :</para>
+                    <table align="center">
+                    <tr align="center"><td><emphasis>
+                        xp<subscript>i</subscript> &lt; x<subscript>1</subscript>  ⇒ 
+                        yp<subscript>i</subscript> = y<subscript>1</subscript> +
+                            d<subscript>1</subscript>.(xp<subscript>i</subscript> - x<subscript>1</subscript>)
+                        </emphasis></td></tr>
+                    <tr align="center"><td><emphasis>
+                        xp<subscript>i</subscript> > x<subscript>n</subscript>  ⇒ 
+                        yp<subscript>i</subscript> = y<subscript>n</subscript> +
+                            d<subscript>n</subscript>.(xp<subscript>i</subscript> - x<subscript>n</subscript>)
+                        </emphasis></td></tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"periodic"</term>
+                <listitem>
+                    <para>
+                        <literal>s(X)</literal> is extended by periodicity:
+                    </para>
+                    <table align="center">
+                    <tr><td><emphasis>
+                        yp<subscript>i</subscript> = s( x<subscript>1</subscript> + 
+                         (xp<subscript>i</subscript> - x<subscript>1</subscript>) modulo 
+                         (x<subscript>n</subscript>-x<subscript>1</subscript>) )
+                        </emphasis></td></tr>
+                    </table>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// see the examples of splin and lsq_splin
+
+// an example showing C2 and C1 continuity of spline and subspline
+a = -8; b = 8;
+x = linspace(a,b,20)';
+y = sinc(x);
+dk = splin(x,y);  // not_a_knot
+df = splin(x,y, "fast");
+xx = linspace(a,b,800)';
+[yyk, yy1k, yy2k] = interp(xx, x, y, dk);
+[yyf, yy1f, yy2f] = interp(xx, x, y, df);
+clf()
+subplot(3,1,1)
+plot2d(xx, [yyk yyf])
+plot2d(x, y, style=-9)
+legends(["not_a_knot spline","fast sub-spline","interpolation points"],...
+        [1 2 -9], "ur",%f)
+xtitle("spline interpolation")
+subplot(3,1,2)
+plot2d(xx, [yy1k yy1f])
+legends(["not_a_knot spline","fast sub-spline"], [1 2], "ur",%f)
+xtitle("spline interpolation (derivatives)")
+subplot(3,1,3)
+plot2d(xx, [yy2k yy2f])
+legends(["not_a_knot spline","fast sub-spline"], [1 2], "lr",%f)
+xtitle("spline interpolation (second derivatives)")
+ ]]></programlisting>
+        <scilab:image>
+            a = -8; b = 8;
+            x = linspace(a,b,20)';
+            y = sinc(x);
+            dk = splin(x,y);  // not_a_knot
+            df = splin(x,y, "fast");
+            xx = linspace(a,b,800)';
+            [yyk, yy1k, yy2k] = interp(xx, x, y, dk);
+            [yyf, yy1f, yy2f] = interp(xx, x, y, df);
+            clf()
+            subplot(3,1,1)
+            plot2d(xx, [yyk yyf])
+            plot2d(x, y, style=-9)
+            legends(["not_a_knot spline","fast sub-spline","interpolation points"],...
+            [1 2 -9], "ur",%f)
+            xtitle("spline interpolation")
+            subplot(3,1,2)
+            plot2d(xx, [yy1k yy1f])
+            legends(["not_a_knot spline","fast sub-spline"], [1 2], "ur",%f)
+            xtitle("spline interpolation (derivatives)")
+            subplot(3,1,3)
+            plot2d(xx, [yy2k yy2f])
+            legends(["not_a_knot spline","fast sub-spline"], [1 2], "lr",%f)
+            xtitle("spline interpolation (second derivatives)")
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+// here is an example showing the different extrapolation possibilities
+x = linspace(0,1,11)';
+y = cosh(x-0.5);
+d = splin(x,y);
+xx = linspace(-0.5,1.5,401)';
+yy0 = interp(xx,x,y,d,"C0");
+yy1 = interp(xx,x,y,d,"linear");
+yy2 = interp(xx,x,y,d,"natural");
+yy3 = interp(xx,x,y,d,"periodic");
+clf()
+plot2d(xx,[yy0 yy1 yy2 yy3],style=2:5,frameflag=2,leg="C0@linear@natural@periodic")
+xtitle(" different way to evaluate a spline outside its domain")
+ ]]></programlisting>
+        <scilab:image>
+            x = linspace(0,1,11)';
+            y = cosh(x-0.5);
+            d = splin(x,y);
+            xx = linspace(-0.5,1.5,401)';
+            yy0 = interp(xx,x,y,d,"C0");
+            yy1 = interp(xx,x,y,d,"linear");
+            yy2 = interp(xx,x,y,d,"natural");
+            yy3 = interp(xx,x,y,d,"periodic");
+            clf()
+            plot2d(xx,[yy0 yy1 yy2 yy3],style=2:5,frameflag=2,leg="C0@linear@natural@periodic")
+            xtitle(" different way to evaluate a spline outside its domain")
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="splin">splin</link>
+            </member>
+            <member>
+                <link linkend="lsq_splin">lsq_splin</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

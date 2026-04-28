@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="atanh" xml:lang="ja">
+    <refnamediv>
+        <refname>atanh</refname>
+        <refpurpose>双曲線逆正接</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>t = atanh(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, t</term>
+                <listitem>
+                    <para>実数または複素数のベクトル/行列</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            ベクトル<varname>t</varname>の要素は,ベクトル<varname>x</varname>の対応する要素の双曲線逆正接となります.
+            実数関数の場合,定義域は,<literal>[-1,1]</literal>です.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <para>
+            With input real numbers:
+        </para>
+        <programlisting role="example"><![CDATA[
+x = [-%inf -2 -1 -0.5 0 0.5 1 2 3 %inf];
+[x ; atanh(tanh(x))]
+atanh(x')
+ ]]></programlisting>
+    <screen><![CDATA[
+--> [x ; atanh(tanh(x))]
+ ans  =
+  -Inf  -2.  -1.  -0.5   0.   0.5   1.   2.   3.   Inf
+  -Inf  -2.  -1.  -0.5   0.   0.5   1.   2.   3.   Inf
+
+--> atanh(x')
+ ans  =
+   0.        + 1.5707963i
+  -0.5493061 + 1.5707963i
+  -Inf       + 0.i       
+  -0.5493061 + 0.i       
+   0.        + 0.i       
+   0.5493061 + 0.i       
+   Inf       + 0.i       
+   0.5493061 + 1.5707963i
+   0.3465736 + 1.5707963i
+   0.        + 1.5707963i
+]]></screen>
+        <para>
+            With input complex numbers:
+        </para>
+        <programlisting role="example"><![CDATA[
+x = [-1-%i, -%i, 0, %i, %i+1];
+[x; tanh(atanh(x)) ; atanh(tanh(x))]
+atanh(x.')
+ ]]></programlisting>
+    <screen><![CDATA[
+--> [x; tanh(atanh(x)) ; atanh(tanh(x))]
+ ans  =
+
+  -1. - i     0. - i     0. + 0.i   0. + i     1. + i  
+  -1. - i     0. - i     0. + 0.i   0. + i     1. + i  
+  -1. - i     0. - i     0. + 0.i   0. + i     1. + i  
+
+--> atanh(x.')
+ ans  =
+
+  -0.4023595 - 1.017222i
+   0.        - 0.7853982i
+   0.        + 0.i      
+   0.        + 0.7853982i
+   0.4023595 + 1.017222i
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tanh">tanh</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para><literal>atanh(-1)</literal> is now always <literal>-Inf</literal>, and
+                                <literal>atanh(1)</literal> always <literal>Inf</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                For any real x&gt;1, imag(atanh(x)) is now &gt; 0.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

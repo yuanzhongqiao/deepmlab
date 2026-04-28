@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2021 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="ida" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>ida</refname>
+        <refpurpose>SUNDIALS differential-algebraic equation solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [t,y] = ida(F,tspan,y0,yp0,options)
+            [t,y,info] = ida(F,tspan,y0,yp0,options)
+            sol = ida(...)
+            solext = ida(sol,tfinal,options)
+            ida(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>F</term>
+                <listitem>    
+                    <para>a function, a string or a list, the residual of the differential-algebraic equation</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tspan</term>
+                <listitem>    
+                    <para>double vector, time interval or time points</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y0, yp0</term>
+                <listitem>    
+                    <para>double arrays: initial state and initial state derivative</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>
+                    <para>a sequence of optional named arguments, see the <link linkend="sundials_options">solvers options</link></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>vector of time points used by the solver</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>array of solution at time values in <term>t</term></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sol, solext</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type, see the <link linkend="sundials_solution">solution output</link> help page</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>info</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type with solver information, including the sensitivity of solution (if applicable),
+                    user events information (if applicable) and statistics</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tfinal</term>
+                <listitem>    
+                    <para>final time of extended solution</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>ida</literal> computes the solution of real or complex ordinary different-algebraic equation defined by
+        </para>
+        <para>
+            <latex style="display"> 0 = F(t,y,y'),\quad y(t_0)=y_0,\quad y'(t_0)=yp_0.</latex>
+        </para>
+        <para>It is an interface to the ida solver of SUNDIALS library using BDF method. The simplest call of ida is when <literal>tspan</literal> is a two component vector:
+        </para>
+        <para> 
+            It is an interface to the idas solver of SUNDIALS library using BDF method. 
+            The solver has a specific feature which allows to compute the sensitivity with respect to a vector of parameters present in the
+            initial conditions and/or the residual equation (see the <link linkend="idas">DAE Sensitivity</link> help page). The simplest call takes the form
+        </para>
+        <para><programlisting role="no-scilab-exec"><![CDATA[
+            [t,y] = ida(F,[t0 tf],y0,yp0)
+            [t,y,info] = ida(F,[t0 tf],y0,yp0)]]>
+        </programlisting>
+        </para>
+        <para>
+            where F(t,y,y') is the right hand side usually called "residual" of the DAE,  <literal>t0, tf</literal> are the initial and final time, <literal>y</literal> is the
+            array of solution <literal>[y(t(1)),y(t(2)),...]</literal> at time values in t, <literal>info.yp</literal> is the
+            array of solution derivative <literal>[y'(t(1)),y'(t(2)),...]</literal>. Concatenation is done on next dimension if 
+            <literal>y0</literal> is not a column vector. The time values in <literal>t</literal>
+            are those used by the solver to meet default relative and absolute estimated local error (which can be changed in <term>options</term>). 
+            In the simplest case the DAE residual is computed by a Scilab function with three arguments, for example for <latex>y'+y=0</latex> F is coded as
+            <para><programlisting role="no-scilab-exec"><![CDATA[
+                function res = F(t,y,yp)
+                  res = yp+y
+                end]]>
+        </programlisting></para>
+            </para>       
+            <para>See the <link linkend="sundials_user_functions">User functions</link> help page to learn how to pass extra parameters and/or use DLL entrypoints. When <literal>t</literal> has more than two components:
+        </para>
+        <para><programlisting role="no-scilab-exec"><![CDATA[
+            [t,y] = ida(F,[t0 t1 ... tf],y0,yp0)
+            [t,y,info] = ida(F,[t0 t1 ... tf],y0,yp0)]]>
+        </programlisting></para>
+        <para>the solution is computed at prescribed points with the same precision as the two components syntax. However, the result may slightly differ (within chosen tolerance) since <literal>t1-t0</literal> may give a different guess of the initial step used by the solver. Provided that the initial step is the same, further solver internal steps 
+        will be the same and solution at intermediate user points is computed by continuous extension formulas.
+    </para>
+    <para>
+        When searching for <latex>(t,y,yp)</latex> where some functions defined in <literal>options</literal> vanish (see the <link linkend="sundials_event">Events</link> help page) the syntax
+    </para>
+    <para><programlisting role="no-scilab-exec"><![CDATA[[t,y,info] = ida(F,tspan,y0,yp0,options)]]>
+        </programlisting></para>
+    <para>
+        allows to recover <latex>(t,y,yp)</latex> values in <literal>info.te, info.ye, info.ype</literal> and in <literal>info.ie</literal> the number(s) of the vanishing function.
+    </para>
+    <para>
+        When solution has to be further evaluated at arbitrary points which are not known in advance, then the syntax
+    </para>
+    <para><programlisting role="no-scilab-exec"><![CDATA[sol = ida(F,[t0 tf],y0,yp0)]]>
+        </programlisting></para>
+    <para>
+        yields an MList of <literal>_odeSolution</literal> type, which can be used later as an interpolant,  see the <link linkend="sundials_solution">solution output</link> help page.
+    </para>
+    <para>When y0 and/or yp0 do not fullfill the equation at initial time they can be used as initial guesses when using the <literal>calcIc</literal> option, 
+    see the <link linkend="ida_initial_conditions">Initial conditions </link> section.
+    </para>
+    <para>
+        When no ouput argument is given, the only way to have access to the solution at solver or user time steps is to use a user callback
+        (see the  <link linkend="sundials_user_functions">SUNDIALS user functions</link> help page). For example, when there could be memory issues (e.g. if the dimension
+        of the solution vector is very large) this allows to write the solution to disk. 
+    </para>
+</refsection>
+<refsection role="example">
+    <title>Example</title>
+    <para>
+        In the following example, we solve the equations of the SIR model. The DAE residual is computed by the  function <literal>%SUN_sir</literal> (defined in the SUNDIALS module):
+    </para>
+    <para>
+    <programlisting role="no-scilab-exec"><![CDATA[
+        function r = %SUN_sir(t,y,yp)
+            r = [yp(1)+0.2*y(1)*y(2)
+                 yp(2)-0.2*y(1)*y(2)+0.05*y(2)  
+                  y(1)+y(2)+y(3)-1];
+        end
+         ]]></programlisting>
+     </para>
+     <para>
+    <programlisting role="example"><![CDATA[
+        y0  = [1-1e-6; 1e-6; 0];
+        yp0 = [-2e-7; 1.5e-7; 5e-8];
+        [t,y] = ida(%SUN_sir, [0,200], y0, yp0);
+        clf
+        plot(t, y)
+        ]]></programlisting>
+        <scilab:image>
+            y0=[1-1e-6;1e-6;0];
+            yp0=[-2e-7;1.5e-7;5e-8];
+            [t,y] = ida(%SUN_sir,[0,200],y0,yp0);
+            clf
+            plot(t,y)
+            gcf().axes_size(2)=300  
+        </scilab:image>
+    </para>
+    </refsection>    
+    <refsection role="example" xml:id="ida_initial_conditions">
+        <title>Initial conditions</title>
+        <para>
+            When y(0) is known but y'(0) is not known it can be computed by using the <literal>calcIc</literal> option with value <literal>"y0yp0"</literal>
+            and <literal>yp0</literal> is used as an initial guess:
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                y0  = [1-1e-6; 1e-6; 0];
+                yp0 = zeros(3,1);
+                [t,y,info] = ida(%SUN_sir, [0,200], y0, yp0, calcIc="y0yp0");
+                disp(info.yp(:,1))
+                ]]></programlisting>            
+        </para>
+        <para>
+            When the DAE is semi-explicit and of index one, this option also allows to compute purely algebraic states
+            by using the <literal>yIsAlgebraic = idx</literal> option, where <literal>idx</literal> is a vector with 
+            the indexes of such states. When y'(0) is known but y(0) is not, use <literal>calcIc</literal> option with value <literal>"y0"</literal>.
+            When the DAE is of index two or more these options should not be used and coherent initial conditions must be given for all states, and
+            setting the option <literal>suppressAlg</literal> is recommended (see below).
+        </para>
+    </refsection>
+    <refsection role="example" xml:id="ida_high_index">
+        <title>DAE with high index</title>
+        <para>
+            When the DAE is of high index, the <literal>suppressAlg</literal> option can help the solver effort.
+            If <literal>suppressAlg = %T</literal> then the algebraic variables (given with the <literal>yIsAlgebraic</literal> option)
+            are excluded from the local error test. The use of this option (with %T value) is discouraged when solving DAE systems of index one
+            whereas it is often the only way to obtain a solution for systems of index two or more. See the following example below (a circular pendulum DAE of index two).
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+            function out=res(t,y,yd)
+                x=y(1:2);
+                xd=yd(1:2);
+                u=y(3:4);
+                ud=yd(3:4);
+                lambda=y(5);
+                out=[xd-u
+                     ud+x*lambda+[0;1]
+                     x'*u];
+            end
+
+            // One period
+            T = 7.4162987092054876;
+            y0=[1;0;0;0;0];
+            yd0=[0;0;0;-1;0];
+            [t,y]=ida(res,T,y0,yd0,t0=0,yIsAlgebraic=5,suppressAlg=%t)
+            ]]></programlisting>
+        </para>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+A. C. Hindmarsh, P. N. Brown, K. E. Grant, S. L. Lee, R. Serban, D. E. Shumaker, and C. S. Woodward, "SUNDIALS: Suite of Nonlinear and Differential/Algebraic Equation Solvers," ACM Transactions on Mathematical Software, 31(3), pp. 363-396, 2005. Also available as LLNL technical report UCRL-JP-200037.
+ </para>
+ <para>Alan C. Hindmarsh, Radu Serban, Cody J. Balos, David J. Gardner, Daniel R. Reynolds, and Carol S. Woodward, "User Documentation for ida", 2021, v6.1.1, available online at <ulink url="https://sundials.readthedocs.io/en/latest/ida/index.html">https://sundials.readthedocs.io/en/latest/ida</ulink>.
+ </para>
+    </refsection>
+</refentry>

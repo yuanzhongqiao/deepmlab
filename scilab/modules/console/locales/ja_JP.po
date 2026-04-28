@@ -1,0 +1,853 @@
+# Japanese translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Rui Hirokawa <Unknown>\n"
+"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-Language: Japanese\n"
+
+#, c-format
+msgid "%s: This feature has not been implemented in this mode.\n"
+msgstr "%s: この機能はこのモードでは実装されていません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A double scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: double スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A positive double expected\n"
+msgstr "%s: 入力引数 #%d の値が間違っています: 正のdoubleを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Not implemented in this mode.\n"
+msgstr "%s: このモードでは実装されていません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A scalar (>= 0) expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています : スカラー (>= 0) を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 出力引数の数が間違っています: %d から %d  個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: 出力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d expected.\n"
+msgstr "%s: 入力引数の数に誤りがあります: %d 個の引数を指定してください.\n"
+
+msgid "File"
+msgstr "ファイル"
+
+msgid "Directory"
+msgstr "ディレクトリ"
+
+msgid "Scilab Fields"
+msgstr "Scilabフィールド"
+
+#
+# File: src/java/org/scilab/modules/console/SciCompletionManager.java, line: 68
+msgid "Scilab Function"
+msgstr "Scilab関数"
+
+#
+# File: src/java/org/scilab/modules/console/SciCompletionManager.java, line: 65
+msgid "Scilab Command"
+msgstr "Scilabコマンド"
+
+#
+# File: src/java/org/scilab/modules/console/SciCompletionManager.java, line: 74
+msgid "Scilab Macro"
+msgstr "Scilabマクロ"
+
+#
+# File: src/java/org/scilab/modules/console/SciCompletionManager.java, line: 77
+msgid "Scilab Variable"
+msgstr "Scilab変数"
+
+msgid "Graphics handle field"
+msgstr "グラフィックハンドルのフィールド"
+
+#, c-format
+msgid ""
+"Command is too long (more than %d characters long): could not send it to "
+"Scilab\n"
+msgstr ""
+"コマンドが長過ぎます (文字長が %d  を超えています); Scilabに送信できません\n"
+
+msgid "[Continue display? n (no) to stop, any other key to continue]"
+msgstr "[表示を続けますか? n(no) で中止、任意のキーで続けます]"
+
+msgid "Console"
+msgstr "コンソール"
+
+msgid "Display"
+msgstr "表示"
+
+msgid "Automatically adapt the display to the console"
+msgstr "表示をコンソールに自動的に合わせる"
+
+msgid "Lines to display:"
+msgstr "表示する行;"
+
+msgid "Columns to display:"
+msgstr "表示する列;"
+
+msgid "Number of lines in console scroll buffer:"
+msgstr "コンソールスクロールバッファの行数;"
+
+msgid "General"
+msgstr "一般"
+
+msgid "Produces an error"
+msgstr "エラーを発生"
+
+msgid "Produces a warning"
+msgstr "警告を出力"
+
+msgid "Produces Inf or NaN"
+msgstr "InfまたはNaNを出力"
+
+msgid "Variable format"
+msgstr "可変フォーマット"
+
+msgid "Scientific format"
+msgstr "科学方式"
+
+msgid "English"
+msgstr "英語"
+
+msgid "French"
+msgstr "フランス語"
+
+msgid "Portugese (Brazil)"
+msgstr "ポルトガル語 (ブラジル)"
+
+msgid "Catalan"
+msgstr "カタルーニャ語"
+
+msgid "Czech"
+msgstr "チェコ語"
+
+msgid "Spanish"
+msgstr "スペイン語"
+
+msgid "Italian"
+msgstr "イタリア語"
+
+msgid "Polish"
+msgstr "ポーランド語"
+
+msgid "Russian"
+msgstr "ロシア語"
+
+msgid "Chinese (Simplified)"
+msgstr "中国語 (簡体字)"
+
+msgid "Chinese (Traditional)"
+msgstr "中国語 (繁体字)"
+
+msgid "German"
+msgstr "ドイツ語"
+
+msgid "Japanese"
+msgstr "日本語"
+
+msgid "Ukrainian"
+msgstr "ウクライナ語"
+
+msgid "Start-up directory"
+msgstr "起動用ディレクトリ"
+
+msgid "Confirmation dialogs"
+msgstr "確認用ダイアログ"
+
+msgid "Warn before exiting Scilab"
+msgstr "Scilabを終了する前に警告"
+
+msgid "Warn before deleting Command History items"
+msgstr "コマンド履歴アイテムを削除する前に警告"
+
+msgid "Warn before clearing the Console"
+msgstr "コンソールをクリアする前に警告"
+
+msgid "Desktop layout"
+msgstr "デスクトップレイアウト"
+
+msgid "Integrated"
+msgstr "合成"
+
+msgid "Simple"
+msgstr "シンプル"
+
+msgid "Shortcuts"
+msgstr "ショートカット"
+
+msgid "Cut or interrupt"
+msgstr "中断または割込"
+
+msgid "Copy or interrupt"
+msgstr "コピーまたは割り込み"
+
+msgid "Select all"
+msgstr "全てを選択"
+
+msgid "Line beginning"
+msgstr "行頭"
+
+msgid "Line end"
+msgstr "行末"
+
+msgid "Previous char"
+msgstr "前の文字"
+
+msgid "Delete next char"
+msgstr "次の文字を削除"
+
+msgid "Delete previous char"
+msgstr "前の文字を削除"
+
+msgid "Delete end of line"
+msgstr "行末を削除"
+
+msgid "Delete whole line"
+msgstr "行全体を削除"
+
+msgid "Delete last word"
+msgstr "最後の単語を削除"
+
+msgid "Previous console page"
+msgstr "前のコンソールページ"
+
+msgid "Next console page"
+msgstr "次のコンソールページ"
+
+msgid "Validate input"
+msgstr "入力を検証"
+
+msgid "Clear console"
+msgstr "コンソールを消去"
+
+msgid "Console box"
+msgstr "コンソールボックス"
+
+msgid "Completion"
+msgstr "完了"
+
+msgid "Previous history line"
+msgstr "前の履歴行"
+
+msgid "Next history line"
+msgstr "次の履歴行"
+
+msgid "Help Browser"
+msgstr "ヘルプブラウザ"
+
+msgid "Console Search Field"
+msgstr "コンソール検索フィールド"
+
+msgid "Paste"
+msgstr "貼り付け"
+
+msgid "Open a file"
+msgstr "ファイルを開く"
+
+msgid "Load environment"
+msgstr "環境を読み込み"
+
+msgid "Save environment"
+msgstr "環境を保存"
+
+msgid "Quit"
+msgstr "終了する"
+
+msgid "Execute"
+msgstr "実行する"
+
+msgid "Empty clipboard"
+msgstr "空のクリップボード"
+
+msgid "Change current directory"
+msgstr "カレントディレクトリを変更"
+
+msgid "Display current directory"
+msgstr "カレントディレクトリを表示"
+
+msgid "Page setup"
+msgstr "ページの設定"
+
+msgid "Print"
+msgstr "印刷"
+
+msgid "Preferences"
+msgstr "設定"
+
+msgid "Show/Hide toolbar"
+msgstr "ツールバーを表示/非表示"
+
+msgid "Clear history"
+msgstr "履歴をクリア"
+
+msgid "Resume"
+msgstr "再開"
+
+msgid "Abort"
+msgstr "中断"
+
+msgid "Interrupt"
+msgstr "割込み"
+
+msgid "Launch SciNotes"
+msgstr "SciNotesを起動"
+
+msgid "Launch Xcos"
+msgstr "Xcosを起動"
+
+msgid "Matlab to Scilab Translator"
+msgstr "MatlabからScilabへのトランスレータ"
+
+msgid "Module manager"
+msgstr "モジュールマネージャ"
+
+msgid "Variable Browser"
+msgstr "変数ブラウザ"
+
+msgid "Command History"
+msgstr "コマンド履歴"
+
+msgid "File Browser"
+msgstr "ファイル ブラウザ"
+
+msgid "Demonstrations"
+msgstr "デモンストレーション"
+
+msgid "Open Scilab website"
+msgstr "Scilab Webサイトを開く"
+
+msgid "Open Online Help"
+msgstr "オンラインヘルプを開く"
+
+msgid "Open Scilab wiki"
+msgstr "Scilab wikiを開く"
+
+msgid "Open ATOMS website"
+msgstr "オープン ATOMS Webサイト"
+
+msgid "Open File Exchange website"
+msgstr "ファイル交換Webサイトを開く"
+
+msgid "Open Mailing lists"
+msgstr "メーリングリストを開く"
+
+msgid "Open Forge website"
+msgstr "Forge Webサイトを開く"
+
+msgid "Open Bugzilla"
+msgstr "Bugzillaを開く"
+
+msgid "About Scilab"
+msgstr "Scilabについて"
+
+msgid "Auto complete (, [,..."
+msgstr "オートコンプリート (,[,..."
+
+msgid "Auto complete keyword"
+msgstr "キーワード自動補完"
+
+msgid "Generate Help prototype"
+msgstr "ヘルプのひな形を生成"
+
+msgid "Tabify"
+msgstr "タブ整列"
+
+msgid "Untabify"
+msgstr "タブ整列を外す"
+
+msgid "Indent"
+msgstr "インデント"
+
+msgid "Comment"
+msgstr "コメント"
+
+msgid "Uncomment"
+msgstr "コメントを外す"
+
+msgid "Remove trailing whites"
+msgstr "末尾の空白文字を削除"
+
+msgid "Select block"
+msgstr "ブロックを選択"
+
+msgid "Open current tab in a new window"
+msgstr "カレントのタブを新規ウインドウに開く"
+
+msgid "Export current tab in a new window"
+msgstr "カレントのタブを新規ウインドウにエキスポートする"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "Cut"
+msgstr "切り取る"
+
+msgid "Paste a column"
+msgstr "列を貼付け"
+
+msgid "Repeat selection on column"
+msgstr "列にセレクションを反復"
+
+msgid "Undo"
+msgstr "元に戻す"
+
+msgid "Redo"
+msgstr "再実行"
+
+msgid "Copy as HTML with line number"
+msgstr "行番号付きのHTMLとしてコピー"
+
+msgid "New"
+msgstr "新規"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Open URL"
+msgstr "URLを開く"
+
+msgid "Open source"
+msgstr "ソースを開く"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save as"
+msgstr "別名で保存"
+
+msgid "Reload"
+msgstr "再読込み"
+
+msgid "Print preview"
+msgstr "印刷プレビュー"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Exit"
+msgstr "終了"
+
+msgid "To lower case"
+msgstr "小文字に変換"
+
+msgid "To upper case"
+msgstr "大文字に変換"
+
+msgid "Capitalize"
+msgstr "先頭を大文字に"
+
+msgid "Help on keyword"
+msgstr "キーワードに関するヘルプ"
+
+msgid "Load in Scilab"
+msgstr "Scilabにロード"
+
+msgid "Execute in Scilab"
+msgstr "Scilabで実行"
+
+msgid "Evaluate selection"
+msgstr "選択部を評価"
+
+msgid "Save and execute"
+msgstr "保存して実行"
+
+msgid "Save and execute all"
+msgstr "全て保存して実行"
+
+msgid "Find"
+msgstr "検索"
+
+msgid "Find next"
+msgstr "次を検索"
+
+msgid "Find previous"
+msgstr "前を検索"
+
+msgid "Incremental search"
+msgstr "インクリメンタル検索"
+
+msgid "Set anchor"
+msgstr "アンカーを設定"
+
+msgid "Remove anchor"
+msgstr "アンカーを削除"
+
+msgid "Go to next anchor"
+msgstr "次のアンカーに移動"
+
+msgid "Go to previous anchor"
+msgstr "前のアンカーに移動"
+
+msgid "Start Code Navigator"
+msgstr "コードナビゲーターを開始"
+
+msgid "Search word in file"
+msgstr "ファイル内の単語を検索"
+
+msgid "Search files"
+msgstr "ファイルを検索"
+
+msgid "Keyword completion"
+msgstr "キーワード補完"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "About"
+msgstr "本プログラムについて"
+
+msgid "Next tab"
+msgstr "次のタブ"
+
+msgid "Previous tab"
+msgstr "前のタブ"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Next paragraph"
+msgstr "次のパラグラフ"
+
+msgid "Previous paragraph"
+msgstr "前のパラグラフ"
+
+msgid "Save all"
+msgstr "全て保存"
+
+msgid "Overwrite"
+msgstr "上書き"
+
+msgid "Close all"
+msgstr "全て閉じる"
+
+msgid "Close all but this"
+msgstr "これ以外を閉じる"
+
+msgid "Convert quote to double quote"
+msgstr "引用符を二重引用符に変換"
+
+msgid "Line numbering"
+msgstr "行番号を付ける"
+
+msgid "Set the SciNotes font"
+msgstr "SciNotesフォントを設定"
+
+msgid "Set the SciNotes colors"
+msgstr "SciNotesカラーを設定"
+
+msgid "New diagram"
+msgstr "新規ダイアグラム"
+
+msgid "Open file in Scilab current directory"
+msgstr "Scilabカレントディレクトリのファイルを開く"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Quit Xcos"
+msgstr "Xcosを終了"
+
+msgid "Invert selection"
+msgstr "選択の反転"
+
+msgid "Block Parameters"
+msgstr "ブロック パラメータ"
+
+msgid "Region to superblock"
+msgstr "選択範囲をスーパーブロックに変換"
+
+msgid "Zoom In"
+msgstr "拡大"
+
+msgid "Zoom Out"
+msgstr "縮小"
+
+msgid "Fit diagram to view"
+msgstr "表示領域にダイアグラムを合わせる"
+
+msgid "Normal 100%"
+msgstr "標準 100%"
+
+msgid "Palette browser"
+msgstr "パレット ブラウザ"
+
+msgid "Diagram browser"
+msgstr "ダイアグラム ブラウザ"
+
+msgid "Viewport"
+msgstr "ビューポート"
+
+msgid "Details"
+msgstr "詳細"
+
+msgid "Setup"
+msgstr "設定"
+
+msgid "Execution trace and Debug"
+msgstr "実行トレースとデバッグ"
+
+msgid "Set Context"
+msgstr "コンテキスト設定"
+
+msgid "Compile"
+msgstr "コンパイル"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Rotate"
+msgstr "回転"
+
+msgid "Flip"
+msgstr "フリップ"
+
+msgid "Mirror"
+msgstr "反転"
+
+msgid "Show/Hide shadow"
+msgstr "影の表示/非表示"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Center"
+msgstr "中心"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Top"
+msgstr "トップ"
+
+msgid "Middle"
+msgstr "中央揃え"
+
+msgid "Bottom"
+msgstr "一番下"
+
+msgid "Border Color"
+msgstr "境界色"
+
+msgid "Fill Color"
+msgstr "色を塗る"
+
+msgid "Horizontal"
+msgstr "水平方向"
+
+msgid "Straight"
+msgstr "直線"
+
+msgid "Vertical"
+msgstr "垂直方向"
+
+msgid "Diagram background"
+msgstr "ダイアグラムの背景"
+
+msgid "Grid"
+msgstr "グリッド"
+
+msgid "Code generation"
+msgstr "コード生成"
+
+msgid "Xcos Help"
+msgstr "Xcos ヘルプ"
+
+msgid "Block Help"
+msgstr "ブロックヘルプ"
+
+msgid "Xcos Demonstrations"
+msgstr "Xcos デモ"
+
+msgid "About Xcos"
+msgstr "Xcosについて"
+
+msgid "Save variable"
+msgstr "変数を保存"
+
+msgid "Save history"
+msgstr "履歴を保存"
+
+msgid "Save file"
+msgstr "ファイルを保存"
+
+msgid "Help and demos"
+msgstr ""
+
+msgid "Environment"
+msgstr "環境"
+
+msgid "Floating point exception (ieee): "
+msgstr "浮動小数点例外 (IEEE); "
+
+msgid "Printing format: "
+msgstr "印字フォーマット: "
+
+msgid "Width: "
+msgstr "幅: "
+
+msgid "Recursion limit: "
+msgstr "再帰制限: "
+
+msgid "Containers display depth: "
+msgstr ""
+
+msgid "Language setting"
+msgstr "言語設定"
+
+msgid "Default language: "
+msgstr "デフォルト言語: "
+
+msgid "(This requires a restart of Scilab)"
+msgstr "(Scilabの再起動が必要です)"
+
+msgid "Java Heap Memory"
+msgstr "Javaヒープメモリ"
+
+msgid "Select the memory (in MB) available in Java: "
+msgstr "Javaで利用可能なメモリ(単位: MB)を指定 "
+
+msgid "Use current working directory"
+msgstr "現在のワーキングディレクトリを使用"
+
+msgid "Use previous working directory"
+msgstr "以前のワーキングディレクトリを使用"
+
+msgid "Use default directory"
+msgstr "標準のディレクトリを使用"
+
+msgid "Default startup directory"
+msgstr "デフォルトの起動ディレクトリ"
+
+msgid "Desktop Layout"
+msgstr "デスクトップのレイアウト"
+
+msgid "Select a layout"
+msgstr "レイアウトを選択"
+
+msgid "(Modifying the layout requires to restart Scilab)"
+msgstr ""
+
+msgid "Save layout on exiting"
+msgstr "終了時に配置を保存"
+
+msgid "Reset layout"
+msgstr "レイアウトをリセット"
+
+msgid "Keys binding"
+msgstr "キーの割付"
+
+msgid "Filter on action name: "
+msgstr "アクション名のフィルタ: "
+
+msgid "Component"
+msgstr "コンポーネント"
+
+msgid "Name: "
+msgstr "名前: "
+
+msgid "Description: "
+msgstr "説明: "
+
+msgid "Binding: "
+msgstr "割付: "
+
+msgid "Action name"
+msgstr "アクション名"
+
+msgid "Key binding"
+msgstr "キー割付"
+
+msgid "Demos"
+msgstr "デモ"
+
+msgid "The demo interface is dockable"
+msgstr "demoインターフェイスはドック可能です"
+
+#
+# File: modules/console/src/console_fake_xml.c, line: 1413
+# File: modules/console/src/console_fake_xml.c, line: 1766
+msgid "Redirect Matlab terms to Scilab closest equivalent"
+msgstr ""
+
+#, c-format
+msgid ""
+"Type '%s' or '%s' to return to standard level prompt.\n"
+"\n"
+msgstr ""
+"標準レベルのプロンプトに戻るには, '%s' または '%s' を入力してください.\n"
+"\n"
+
+msgid "Field"
+msgstr "フィールド"
+
+#
+# File: src/java/org/scilab/modules/console/SciCompletionManager.java, line: 108
+msgid "No help"
+msgstr "ヘルプ無し"
+
+msgid "Out of Screen"
+msgstr "表示領域外です"
+
+msgid "Could not change the Console Font."
+msgstr "コンソールのフォントを変更できません."
+
+msgid "Could not change the Console Foreground."
+msgstr "コンソールの表示を変更できません."
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '%s' value expected.\n"
+msgstr ""

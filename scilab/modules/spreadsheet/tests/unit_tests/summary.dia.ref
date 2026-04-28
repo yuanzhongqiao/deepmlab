@@ -1,0 +1,1021 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// unit tests for summary function
+// =============================================================================
+// table with only doubles
+t = table([1 2 3; 4 5 6; 7 8 9]);
+summary(t)
+ table: [3x3 table]
+ Variables:
+     Var1: double
+     Var2: double
+     Var3: double
+ Statistics for numeric data:
+                Var1   Var2   Var3
+                ____   ____   ____
+                                  
+   NumMissing   0      0      0   
+          Min   1      2      3   
+       Median   4      5      6   
+          Max   7      8      9   
+         Mean   4      5      6   
+          Std   3      3      3   
+s = summary(t)
+ s = [struct] with fields:
+  Var1: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 4
+      Max = 7
+      Mean = 4
+      Std = 3
+  Var2: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 2
+      Median = 5
+      Max = 8
+      Mean = 5
+      Std = 3
+  Var3: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 3
+      Median = 6
+      Max = 9
+      Mean = 6
+      Std = 3
+assert_checkequal(s.Var1.Size, [3 1]);
+assert_checkequal(s.Var2.Size, [3 1]);
+assert_checkequal(s.Var3.Size, [3 1]);
+assert_checkequal(s.Var1.Type, "double");
+assert_checkequal(s.Var2.Type, "double");
+assert_checkequal(s.Var3.Type, "double");
+t.Properties.VariableNames = ["a", "b", "c"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+     b: double
+     c: double
+ Statistics for numeric data:
+                 a     b     c 
+                ___   ___   ___
+                               
+   NumMissing   0     0     0  
+          Min   1     2     3  
+       Median   4     5     6  
+          Max   7     8     9  
+         Mean   4     5     6  
+          Std   3     3     3  
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 4
+      Max = 7
+      Mean = 4
+      Std = 3
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 2
+      Median = 5
+      Max = 8
+      Mean = 5
+      Std = 3
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 3
+      Median = 6
+      Max = 9
+      Mean = 6
+      Std = 3
+assert_checkequal(fieldnames(s), ["a"; "b"; "c"]);
+assert_checkequal(s.a.Size, [3 1]);
+assert_checkequal(s.b.Size, [3 1]);
+assert_checkequal(s.c.Size, [3 1]);
+assert_checkequal(s.a.Type, "double");
+assert_checkequal(s.b.Type, "double");
+assert_checkequal(s.c.Type, "double");
+t.Properties.VariableDescriptions = ["field a", "", "field c"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+        Description: field a
+     b: double
+     c: double
+        Description: field c
+ Statistics for numeric data:
+                 a     b     c 
+                ___   ___   ___
+                               
+   NumMissing   0     0     0  
+          Min   1     2     3  
+       Median   4     5     6  
+          Max   7     8     9  
+         Mean   4     5     6  
+          Std   3     3     3  
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field a"
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 4
+      Max = 7
+      Mean = 4
+      Std = 3
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 2
+      Median = 5
+      Max = 8
+      Mean = 5
+      Std = 3
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field c"
+      Units = ""
+      NumMissing = 0
+      Min = 3
+      Median = 6
+      Max = 9
+      Mean = 6
+      Std = 3
+assert_checkequal(s.a.Description, "field a");
+assert_checkequal(s.b.Description, "");
+assert_checkequal(s.c.Description, "field c");
+t.Properties.VariableUnits = ["h", "mm", "ss"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+        Description: field a
+        Units: h
+     b: double
+        Units: mm
+     c: double
+        Description: field c
+        Units: ss
+ Statistics for numeric data:
+                 a     b     c 
+                ___   ___   ___
+                               
+   NumMissing   0     0     0  
+          Min   1     2     3  
+       Median   4     5     6  
+          Max   7     8     9  
+         Mean   4     5     6  
+          Std   3     3     3  
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field a"
+      Units = "h"
+      NumMissing = 0
+      Min = 1
+      Median = 4
+      Max = 7
+      Mean = 4
+      Std = 3
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = "mm"
+      NumMissing = 0
+      Min = 2
+      Median = 5
+      Max = 8
+      Mean = 5
+      Std = 3
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field c"
+      Units = "ss"
+      NumMissing = 0
+      Min = 3
+      Median = 6
+      Max = 9
+      Mean = 6
+      Std = 3
+assert_checkequal(s.a.Units, "h");
+assert_checkequal(s.b.Units, "mm");
+assert_checkequal(s.c.Units, "ss");
+summary(t, ["min", "max", "var"])
+ table: [3x3 table]
+ Variables:
+     a: double
+        Description: field a
+        Units: h
+     b: double
+        Units: mm
+     c: double
+        Description: field c
+        Units: ss
+ Statistics for numeric data:
+          a     b     c 
+         ___   ___   ___
+                        
+   Min   1     2     3  
+   Max   7     8     9  
+   Var                  
+s = summary(t, ["min", "max", "var"])
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field a"
+      Units = "h"
+      Min = 1
+      Max = 7
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = "mm"
+      Min = 2
+      Max = 8
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field c"
+      Units = "ss"
+      Min = 3
+      Max = 9
+summary(t, "q3")
+ table: [3x3 table]
+ Variables:
+     a: double
+        Description: field a
+        Units: h
+     b: double
+        Units: mm
+     c: double
+        Description: field c
+        Units: ss
+ Statistics for numeric data:
+          a     b     c 
+         ___   ___   ___
+                        
+    Q3   7     8     9  
+s = summary(t, "q3")
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field a"
+      Units = "h"
+      Q3 = 7
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = "mm"
+      Q3 = 8
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "field c"
+      Units = "ss"
+      Q3 = 9
+// table containing doubles, datetimes, durations
+t = table([1;2;3], datetime(2025, 12, [10; 11; 12]), hours([1;2;3]));
+summary(t)
+ table: [3x3 table]
+ Variables:
+     Var1: double
+     Var2: datetime
+     Var3: duration
+ Statistics for numeric data:
+                Var1      Var2        Var3  
+                ____   __________   ________
+                                            
+   NumMissing   0      0            0       
+          Min   1      2025-12-10   01:00:00
+       Median   2      2025-12-11   02:00:00
+          Max   3      2025-12-12   03:00:00
+         Mean   2      2025-12-11   02:00:00
+          Std   1      24:00:00     01:00:00
+s = summary(t)
+ s = [struct] with fields:
+  Var1: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  Var2: [struct] with fields:
+      Size = [3,1]
+      Type = "datetime"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  Var3: [struct] with fields:
+      Size = [3,1]
+      Type = "duration"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min: [duration]
+      Median: [duration]
+      Max: [duration]
+      Mean: [duration]
+      Std: [duration]
+assert_checkequal(s.Var1.Size, [3 1]);
+assert_checkequal(s.Var2.Size, [3 1]);
+assert_checkequal(s.Var3.Size, [3 1]);
+assert_checkequal(s.Var1.Type, "double");
+assert_checkequal(s.Var2.Type, "datetime");
+assert_checkequal(s.Var3.Type, "duration");
+t.Properties.VariableNames = ["a", "b", "c"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+     b: datetime
+     c: duration
+ Statistics for numeric data:
+                 a        b           c    
+                ___   __________   ________
+                                           
+   NumMissing   0     0            0       
+          Min   1     2025-12-10   01:00:00
+       Median   2     2025-12-11   02:00:00
+          Max   3     2025-12-12   03:00:00
+         Mean   2     2025-12-11   02:00:00
+          Std   1     24:00:00     01:00:00
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "datetime"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "duration"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min: [duration]
+      Median: [duration]
+      Max: [duration]
+      Mean: [duration]
+      Std: [duration]
+assert_checkequal(fieldnames(s), ["a"; "b"; "c"]);
+assert_checkequal(s.a.Size, [3 1]);
+assert_checkequal(s.b.Size, [3 1]);
+assert_checkequal(s.c.Size, [3 1]);
+assert_checkequal(s.a.Type, "double");
+assert_checkequal(s.b.Type, "datetime");
+assert_checkequal(s.c.Type, "duration");
+t.Properties.VariableDescriptions = ["", "date time", "hours"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+     b: datetime
+        Description: date time
+     c: duration
+        Description: hours
+ Statistics for numeric data:
+                 a        b           c    
+                ___   __________   ________
+                                           
+   NumMissing   0     0            0       
+          Min   1     2025-12-10   01:00:00
+       Median   2     2025-12-11   02:00:00
+          Max   3     2025-12-12   03:00:00
+         Mean   2     2025-12-11   02:00:00
+          Std   1     24:00:00     01:00:00
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "datetime"
+      Description = "date time"
+      Units = ""
+      NumMissing = 0
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "duration"
+      Description = "hours"
+      Units = ""
+      NumMissing = 0
+      Min: [duration]
+      Median: [duration]
+      Max: [duration]
+      Mean: [duration]
+      Std: [duration]
+assert_checkequal(s.a.Description, "");
+assert_checkequal(s.b.Description, "date time");
+assert_checkequal(s.c.Description, "hours");
+t.Properties.VariableUnits = ["", "days", "h"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+     b: datetime
+        Description: date time
+        Units: days
+     c: duration
+        Description: hours
+        Units: h
+ Statistics for numeric data:
+                 a        b           c    
+                ___   __________   ________
+                                           
+   NumMissing   0     0            0       
+          Min   1     2025-12-10   01:00:00
+       Median   2     2025-12-11   02:00:00
+          Max   3     2025-12-12   03:00:00
+         Mean   2     2025-12-11   02:00:00
+          Std   1     24:00:00     01:00:00
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "datetime"
+      Description = "date time"
+      Units = "days"
+      NumMissing = 0
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "duration"
+      Description = "hours"
+      Units = "h"
+      NumMissing = 0
+      Min: [duration]
+      Median: [duration]
+      Max: [duration]
+      Mean: [duration]
+      Std: [duration]
+assert_checkequal(s.a.Units, "");
+assert_checkequal(s.b.Units, "days");
+assert_checkequal(s.c.Units, "h");
+summary(t, ["min", "max"])
+ table: [3x3 table]
+ Variables:
+     a: double
+     b: datetime
+        Description: date time
+        Units: days
+     c: duration
+        Description: hours
+        Units: h
+ Statistics for numeric data:
+          a        b           c    
+         ___   __________   ________
+                                    
+   Min   1     2025-12-10   01:00:00
+   Max   3     2025-12-12   03:00:00
+t = table([%nan; 1; 2; 3], [datetime(2025, 12, [10; 11; 12]); NaT()], hours([1;%nan;2;3]));
+summary(t)
+ table: [4x3 table]
+ Variables:
+     Var1: double
+     Var2: datetime
+     Var3: duration
+ Statistics for numeric data:
+                Var1          Var2             Var3  
+                ____   ___________________   ________
+                                                     
+   NumMissing   1      1                     1       
+          Min   1      NaT                   01:00:00
+       Median   2      2025-12-10 12:00:00   02:00:00
+          Max   3      2025-12-12            03:00:00
+         Mean   2      1519-06-17 06:00:00   02:00:00
+          Std   1      8879556:00:00.077     01:00:00
+s = summary(t)
+ s = [struct] with fields:
+  Var1: [struct] with fields:
+      Size = [4,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 1
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  Var2: [struct] with fields:
+      Size = [4,1]
+      Type = "datetime"
+      Description = ""
+      Units = ""
+      NumMissing = 1
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  Var3: [struct] with fields:
+      Size = [4,1]
+      Type = "duration"
+      Description = ""
+      Units = ""
+      NumMissing = 1
+      Min: [duration]
+      Median: [duration]
+      Max: [duration]
+      Mean: [duration]
+      Std: [duration]
+// table containing doubles and int
+t = table([1; 2; 3], int8([1; 2; 3]), uint8([1; 2; 3]));
+summary(t)
+ table: [3x3 table]
+ Variables:
+     Var1: double
+     Var2: int8
+     Var3: uint8
+ Statistics for numeric data:
+                Var1   Var2   Var3
+                ____   ____   ____
+                                  
+   NumMissing   0      0      0   
+          Min   1      1      1   
+       Median   2      2      2   
+          Max   3      3      3   
+         Mean   2      2      2   
+          Std   1                 
+s = summary(t)
+ s = [struct] with fields:
+  Var1: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  Var2: [struct] with fields:
+      Size = [3,1]
+      Type = "int8"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = int8(1)
+      Median = int8(2)
+      Max = int8(3)
+      Mean = int8(2)
+  Var3: [struct] with fields:
+      Size = [3,1]
+      Type = "uint8"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = uint8(1)
+      Median = uint8(2)
+      Max = uint8(3)
+      Mean = uint8(2)
+assert_checkequal(s.Var1.Size, [3 1]);
+assert_checkequal(s.Var2.Size, [3 1]);
+assert_checkequal(s.Var3.Size, [3 1]);
+assert_checkequal(s.Var1.Type, "double");
+assert_checkequal(s.Var2.Type, "int8");
+assert_checkequal(s.Var3.Type, "uint8");
+t.Properties.VariableNames = ["a", "b", "c"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+     b: int8
+     c: uint8
+ Statistics for numeric data:
+                 a     b     c 
+                ___   ___   ___
+                               
+   NumMissing   0     0     0  
+          Min   1     1     1  
+       Median   2     2     2  
+          Max   3     3     3  
+         Mean   2     2     2  
+          Std   1              
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "int8"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = int8(1)
+      Median = int8(2)
+      Max = int8(3)
+      Mean = int8(2)
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "uint8"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = uint8(1)
+      Median = uint8(2)
+      Max = uint8(3)
+      Mean = uint8(2)
+assert_checkequal(fieldnames(s), ["a"; "b"; "c"]);
+assert_checkequal(s.a.Size, [3 1]);
+assert_checkequal(s.b.Size, [3 1]);
+assert_checkequal(s.c.Size, [3 1]);
+assert_checkequal(s.a.Type, "double");
+assert_checkequal(s.b.Type, "int8");
+assert_checkequal(s.c.Type, "uint8");
+t.Properties.VariableDescriptions = ["double", "integer", "unsigned integer"];
+summary(t)
+ table: [3x3 table]
+ Variables:
+     a: double
+        Description: double
+     b: int8
+        Description: integer
+     c: uint8
+        Description: unsigned integer
+ Statistics for numeric data:
+                 a     b     c 
+                ___   ___   ___
+                               
+   NumMissing   0     0     0  
+          Min   1     1     1  
+       Median   2     2     2  
+          Max   3     3     3  
+         Mean   2     2     2  
+          Std   1              
+s = summary(t)
+ s = [struct] with fields:
+  a: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "double"
+      Units = ""
+      NumMissing = 0
+      Min = 1
+      Median = 2
+      Max = 3
+      Mean = 2
+      Std = 1
+  b: [struct] with fields:
+      Size = [3,1]
+      Type = "int8"
+      Description = "integer"
+      Units = ""
+      NumMissing = 0
+      Min = int8(1)
+      Median = int8(2)
+      Max = int8(3)
+      Mean = int8(2)
+  c: [struct] with fields:
+      Size = [3,1]
+      Type = "uint8"
+      Description = "unsigned integer"
+      Units = ""
+      NumMissing = 0
+      Min = uint8(1)
+      Median = uint8(2)
+      Max = uint8(3)
+      Mean = uint8(2)
+assert_checkequal(s.a.Description, "double");
+assert_checkequal(s.b.Description, "integer");
+assert_checkequal(s.c.Description, "unsigned integer");
+summary(t, ["min", "max"])
+ table: [3x3 table]
+ Variables:
+     a: double
+        Description: double
+     b: int8
+        Description: integer
+     c: uint8
+        Description: unsigned integer
+ Statistics for numeric data:
+          a     b     c 
+         ___   ___   ___
+                        
+   Min   1     1     1  
+   Max   3     3     3  
+// table containing booleans and strings
+t = table([%t; %f; %t], [%f; %t; %f], ["a"; "b"; "a"], ["b"; "b"; "bb"]);
+summary(t)
+ table: [3x4 table]
+ Variables:
+     Var1: boolean
+     Var2: boolean
+     Var3: string
+     Var4: string
+ Statistics for booleans:
+           Var1   Var2
+           ____   ____
+                      
+    True   2      1   
+   False   1      2   
+ Statistics for strings:
+              Var3         Var4   
+            _________   __________
+                                  
+   Values   ["a";"b"]   ["b";"bb"]
+   Counts   [2;1]       [2;1]     
+s = summary(t)
+ s = [struct] with fields:
+  Var1: [struct] with fields:
+      Size = [3,1]
+      Type = "boolean"
+      Description = ""
+      Units = ""
+      True = 2
+      False = 1
+  Var2: [struct] with fields:
+      Size = [3,1]
+      Type = "boolean"
+      Description = ""
+      Units = ""
+      True = 1
+      False = 2
+  Var3: [struct] with fields:
+      Size = [3,1]
+      Type = "string"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Values = ["a";"b"]
+      Counts = [2;1]
+  Var4: [struct] with fields:
+      Size = [3,1]
+      Type = "string"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Values = ["b";"bb"]
+      Counts = [2;1]
+assert_checkequal(s.Var1.Size, [3 1]);
+assert_checkequal(s.Var2.Size, [3 1]);
+assert_checkequal(s.Var3.Size, [3 1]);
+assert_checkequal(s.Var4.Size, [3 1]);
+assert_checkequal(s.Var1.Type, "boolean");
+assert_checkequal(s.Var2.Type, "boolean");
+assert_checkequal(s.Var3.Type, "string");
+assert_checkequal(s.Var4.Type, "string");
+// timeseries
+T = datetime(2022, 12, 1:5)';
+AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+FlowRate = [50; 52; 53; 55; 60];
+ts = timeseries(T, AmbientTemperature, FlowRate)
+ ts = [5x2 timeseries]
+      Time      Var1   Var2
+   __________   ____   ____
+                           
+   2022-12-01   18     50  
+   2022-12-02   18.5   52  
+   2022-12-03   20     53  
+   2022-12-04   20.2   55  
+   2022-12-05   20.5   60  
+summary(ts)
+ timeseries: [5x2 timeseries]
+ RowTimes:
+    Time: datetime
+        StartTime: 2022-12-01
+        SampleRate: 0.0000116
+        TimeStep: 24:00:00
+        NumMissing: 0
+        Min: 2022-12-01
+        Median: 2022-12-03
+        Max: 2022-12-05
+        Mean: 2022-12-03
+        Std: 37:56:50.394
+ Variables:
+     Var1: double
+     Var2: double
+ Statistics for numeric data:
+                  Var1        Var2   
+                _________   _________
+                                     
+   NumMissing   0           0        
+          Min   18          50       
+       Median   20          53       
+          Max   20.5        60       
+         Mean   19.44       54       
+          Std   1.1148991   3.8078866
+s = summary(ts)
+ s = [struct] with fields:
+  Time: [struct] with fields:
+      Size = [5,1]
+      Type = "datetime"
+      StartTime: [datetime]
+      SampleRate = 0.0000116
+      TimeStep: [duration]
+      NumMissing = 0
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  Var1: [struct] with fields:
+      Size = [5,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 18
+      Median = 20
+      Max = 20.5
+      Mean = 19.44
+      Std = 1.1148991
+  Var2: [struct] with fields:
+      Size = [5,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 50
+      Median = 53
+      Max = 60
+      Mean = 54
+      Std = 3.8078866
+assert_checkequal(s.Time.Size, [5 1]);
+assert_checkequal(s.Var1.Size, [5 1]);
+assert_checkequal(s.Var2.Size, [5 1]);
+assert_checkequal(s.Time.Type, "datetime");
+assert_checkequal(s.Var1.Type, "double");
+assert_checkequal(s.Var2.Type, "double");
+ts.Properties.VariableNames = ["T", "AmbientTemperature", "FlowRate"];
+summary(ts)
+ timeseries: [5x2 timeseries]
+ RowTimes:
+    T: datetime
+        StartTime: 2022-12-01
+        SampleRate: 0.0000116
+        TimeStep: 24:00:00
+        NumMissing: 0
+        Min: 2022-12-01
+        Median: 2022-12-03
+        Max: 2022-12-05
+        Mean: 2022-12-03
+        Std: 37:56:50.394
+ Variables:
+     AmbientTemperature: double
+     FlowRate: double
+ Statistics for numeric data:
+                AmbientTemperature   FlowRate 
+                __________________   _________
+                                              
+   NumMissing   0                    0        
+          Min   18                   50       
+       Median   20                   53       
+          Max   20.5                 60       
+         Mean   19.44                54       
+          Std   1.1148991            3.8078866
+s = summary(ts)
+ s = [struct] with fields:
+  T: [struct] with fields:
+      Size = [5,1]
+      Type = "datetime"
+      StartTime: [datetime]
+      SampleRate = 0.0000116
+      TimeStep: [duration]
+      NumMissing = 0
+      Min: [datetime]
+      Median: [datetime]
+      Max: [datetime]
+      Mean: [datetime]
+      Std: [duration]
+  AmbientTemperature: [struct] with fields:
+      Size = [5,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 18
+      Median = 20
+      Max = 20.5
+      Mean = 19.44
+      Std = 1.1148991
+  FlowRate: [struct] with fields:
+      Size = [5,1]
+      Type = "double"
+      Description = ""
+      Units = ""
+      NumMissing = 0
+      Min = 50
+      Median = 53
+      Max = 60
+      Mean = 54
+      Std = 3.8078866
+assert_checkequal(fieldnames(s), ["T"; "AmbientTemperature"; "FlowRate"]);
+assert_checkequal(s.T.Size, [5 1]);
+assert_checkequal(s.AmbientTemperature.Size, [5 1]);
+assert_checkequal(s.FlowRate.Size, [5 1]);
+assert_checkequal(s.T.Type, "datetime");
+assert_checkequal(s.AmbientTemperature.Type, "double");
+assert_checkequal(s.FlowRate.Type, "double");

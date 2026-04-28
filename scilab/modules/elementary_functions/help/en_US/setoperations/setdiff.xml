@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - 2019 - Samuel GOUGEON
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="setdiff" xml:lang="en">
+    <refnamediv>
+        <refname>setdiff</refname>
+        <refpurpose>
+            returns elements that are in a set but not in another one.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            v = setdiff(a, b)
+            v = setdiff(a, b, orien)
+            [v, ka] = setdiff(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>
+                        a set of elements of type double, boolean, string, sparse, <link linkend="duration">duration</link>, 
+                        <link linkend="datetime">datetime</link>, <link linkend="table">table</link> and 
+                        <link linkend="timeseries">timeseries</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>b</term>
+                <listitem>
+                    <para>elements to remove from <varname>a</varname>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orien</term>
+                <listitem>
+                     <para>
+                        oriented processing:
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>"r"</literal>: rows of
+                                    <varname>a</varname> are searched among <varname>b</varname> ones.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>"c"</literal>: columns of
+                                    <varname>a</varname> are searched among <varname>b</varname> ones.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    no orien: elements of <varname>a</varname> are searched among
+                                    <varname>b</varname> ones.
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+                <para>
+                    If the option <literal>orien="r"</literal> is used, <varname>a</varname>
+                    and <varname>b</varname> must have the same number of columns.
+                    If the <literal>orien="c"</literal> is used, they must have the same
+                    number of rows.
+                </para>
+                <para>
+                    This option is not supported for table and timeseries.
+                </para>
+                <para/>
+            </varlistentry>
+            <varlistentry>
+                <term>v</term>
+                <listitem>
+                     <para>
+                        depending on type of <varname>a</varname> and <varname>b</varname>:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    sorted vector of <varname>a</varname>'s components that are not in
+                                    <varname>b</varname>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>orien="r"</literal>: matrix of rows of <varname>a</varname>
+                                    that are not in <varname>b</varname>, sorted in lexicographic order.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>orien="c"</literal>: matrix of columns of <varname>a</varname>
+                                    that are not in <varname>b</varname>, sorted in lexicographic order.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    table or timeseries containing the rows of <varname>a</varname> 
+                                    that are not in <varname>b</varname></para>
+                                                                    </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ka</term>
+                <listitem>
+                    <para>
+                        vector of linear indices of selected  <varname>a</varname>'s components,
+                        rows, or columns, such that
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>v = a(ka)</literal>, or
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>v = a(ka,:)</literal> (<literal>orien="r"</literal>), or
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>v = a(:,ka)</literal> (<literal>orien="c"</literal>)
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>setdiff(a, b,..)</literal> computes and returns the elements or rows or columns
+            of <varname>a</varname> that are <emphasis role="bold">not</emphasis> in <varname>b</varname>.
+        </para>
+        <para>
+            All duplicates (elements or rows or columns) are removed from <varname>a</varname> and
+            from <varname>b</varname> before processing.
+        </para>
+        <para>
+            Both <varname>a</varname> and <varname>b</varname> must have the same
+            data type (and integer type), but may mix dense and sparse encoding.
+            It can be vectors, matrices or hypermatrices of real or complex numbers, encoded integers, booleans, strings, duration or datetime. 
+            Sparse-encoded inputs are also accepted, as well as table and timeseries.
+        </para>
+        <para>
+            If <varname>a</varname> is an hypermatrix and the <literal>"r"</literal> option is used,
+            <varname>a</varname> is replaced with the matrix of all its rows over all its higher
+            dimensions, before processing.
+            Same thing if <varname>b</varname> is an hypermatrix.
+            If the <literal>"c"</literal> option is used, <varname>a</varname> or/and
+            <literal>"b"</literal> are replaced with the respective matrices of all their columns.
+        </para>
+        <para>
+            If <literal>a</literal> and <literal>b</literal> 
+            are table or timeseries, <literal>setdiff(a, b)</literal> returns the sorted unique rows contained 
+            in <literal>a</literal> that are not in <literal>b</literal>. <literal>a</literal> and <literal>b</literal> must 
+            have the same variable names. For tables, row names are ignored unlike timeseries where row times are taken into account.
+        </para>
+        <para>
+            The format of results is presented in the following table, according to the shape of
+            <varname>a</varname> and the <varname>orien</varname> option. In all cases, if all
+            entities of <varname>a</varname> are in <varname>b</varname>,
+            <literal>[]</literal> is returned for <varname>v</varname> as for <varname>ka</varname>:
+            <table>
+                <tr>
+                    <th align="right">orien →</th>
+                    <td colspan="2" align="center">
+                        <emphasis role="bold">none</emphasis>
+                    </td>
+                    <td colspan="2" align="center">
+                        <emphasis role="bold">"r"</emphasis>
+                    </td>
+                    <td colspan="2" align="center">
+                        <emphasis role="bold">"c"</emphasis>
+                    </td>
+                </tr>
+                <tr>
+                    <th>a ↓</th><th>v</th><th>ka</th><th>v</th><th>ka</th><th>v</th><th>ka</th>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <emphasis role="bold">row</emphasis>
+                    </td>
+                    <td>row</td><td>row</td>
+                    <td>row</td><td>scal</td>
+                    <td>row</td><td>row</td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <emphasis role="bold">column</emphasis>
+                    </td>
+                    <td>col</td><td>col</td>
+                    <td>col</td><td>col</td>
+                    <td>col</td><td>scal</td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <emphasis role="bold">matrix</emphasis>
+                    </td>
+                    <td>col</td><td>col</td>
+                    <td>mat</td><td>col</td>
+                    <td>mat</td><td>row</td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <emphasis role="bold">hypermatrix</emphasis>
+                    </td>
+                    <td>col</td><td>col</td>
+                    <td>mat</td><td>col</td>
+                    <td>mat</td><td>row</td>
+                </tr>
+                <tr align="center">
+                    <td align="right">
+                        <emphasis role="bold">scalar</emphasis>
+                    </td>
+                    <td>scal</td><td>scal</td>
+                    <td>scal</td><td>scal</td>
+                    <td>scal</td><td>scal</td>
+                </tr>
+            </table>
+        </para>
+        <para>
+            <varname>v</varname> and <varname>ka</varname> become empty
+            if <varname>a</varname> is empty (whatever is <varname>b</varname>), or if all
+            <varname>a</varname> elements are in <varname>b</varname>.
+        </para>
+        <para>
+            For booleans, <literal>setdiff(…)</literal> is useful mainly with the "r" or "c" options.
+        </para>
+        <para>
+            For table and timeseries, the <literal>orien</literal> option is ignored (a warning is displayed).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <emphasis role="bold">Example #1:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+a = grand(1, 10,"uin", 0, 9)
+b = grand(2, 4, "uin", 0, 9)
+[d, k] = setdiff(a, b);
+d, k
+ ]]></programlisting>
+        <screen><![CDATA[
+--> a = grand(1, 10,"uin", 0, 9)
+ a  =
+   2.   2.   4.   5.   4.   1.   9.   5.   8.   3.
+
+--> b = grand(2, 4, "uin", 0, 9)
+ b  =
+   5.   0.   9.   9.
+   5.   6.   0.   4.
+
+--> [d, k] = setdiff(a, b);
+--> d, k
+ d  =
+   1.   2.   3.   8.
+
+ k  =
+   6.   1.   10.   9.
+]]></screen>
+        <para>
+            <emphasis role="bold">Example #2: column-wise processing</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+a = grand(2, 7,"uin", 0, 3)
+b = grand(2, 10, "uin", 0, 3)
+[d, k] = setdiff(a, b, "c");
+d, k
+ ]]></programlisting>
+        <screen><![CDATA[
+--> a = grand(2, 7,"uin", 0, 3)
+ a  =
+   0.   1.   0.   2.   3.   0.   2.
+   2.   2.   2.   1.   0.   1.   2.
+
+--> b = grand(2, 10, "uin", 0, 3)
+ b  =
+   1.   1.   3.   1.   1.   1.   3.   0.   2.   0.
+   3.   3.   2.   2.   0.   0.   1.   0.   1.   0.
+
+--> [d, k] = setdiff(a, b, "c");
+--> d, k
+ d  =
+   0.   0.   2.   3.
+   1.   2.   2.   0.
+
+ k  =
+   6.   1.   7.   5.
+]]></screen>
+        <para>
+            <emphasis role="bold">Example #3: with some text</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+v1 = tokens("ab  ca  ba  bb  ca  cb  ba  aa  cc  bc  ac  aa")'
+v2 = tokens("cc  ac  ca  bb  ac  bc  ab")'
+[r, k] = setdiff(v1, v2);
+r, k
+]]></programlisting>
+        <screen><![CDATA[
+--> v1 = tokens("ab  ca  ba  bb  ca  cb  ba  aa  cc  bc  ac  aa")'
+ v1  =
+!ab  ca  ac  bb  ca  cb  ba  aa  cc  bc  ac  aa  !
+
+--> v2 = tokens("cc  ac  ca  bb  ac  bc  ab")'
+ v2  =
+!cc  ac  ca  bb  ac  bc  ab  !
+
+--> [r, k] = setdiff(v1, v2);
+--> r, k
+ r  =
+!aa  ba  cb  !
+
+ k  =
+   8.   3.   6.
+]]></screen>
+        <para/>
+        <para>
+            <literal>setdiff()</literal> for duration and datetime:
+        </para>
+        <programlisting role="example"><![CDATA[
+            A = hours([1 7 7 4 3 6 6]);
+            B = hours([7 5 3 0]);
+            [v, ka] = setdiff(A, B)
+
+            A = datetime("today") + A;
+            B = datetime("today") + B;
+            [v, ka] = setdiff(A, B)
+        ]]></programlisting>
+        <screen><![CDATA[ 
+--> A = hours([1 7 7 4 3 6 6]);
+--> B = hours([7 5 3 0]);
+--> [v, ka] = setdiff(A, B)
+v = [1x3 duration]
+
+01:00:00   04:00:00   06:00:00
+
+ka = [1x3 double]
+
+1.   4.   6.
+
+--> A = datetime("today") + A;
+--> B = datetime("today") + B;
+--> [v, ka] = setdiff(A, B)
+
+v = [1x3 datetime]
+
+2025-08-08 01:00:00   2025-08-08 04:00:00   2025-08-08 06:00:00
+
+ka = [1x3 double]
+
+1.   4.   6.
+        ]]></screen>
+        <para/>
+        <para>
+        <literal>setdiff()</literal> for table:
+        </para>
+        <programlisting role="example"><![CDATA[
+            A = table([1 7 7 4 3 6 6]', [1:7]')
+            B = table([7 5 3 0]', [2;2;5;5])
+            [v, kab] = setdiff(A, B)
+
+            A = table([1;3;4;2], ["d";"c";"f";"h"], [%f;%t;%t; %f], "VariableNames", ["double", "string", "boolean"])
+            B = table([2;3;4;1], [%t;%t;%t;%t], ["d";"c";"f";"h"], "VariableNames", ["double", "boolean", "string"])
+            [v, ka] = setdiff(A, B)
+            
+        ]]></programlisting>
+        <screen><![CDATA[ 
+--> A = table([1 7 7 4 3 6 6]', [1:7]')
+ A = [7x2 table]
+
+   Var1   Var2
+   ____   ____
+              
+   1      1   
+   7      2   
+   7      3   
+   4      4   
+   3      5   
+   6      6   
+   6      7   
+
+--> B = table([7 5 3 0]', [2;2;5;5])
+ B = [4x2 table]
+
+   Var1   Var2
+   ____   ____
+              
+   7      2   
+   5      2   
+   3      5   
+   0      5   
+
+--> [v, kab] = setdiff(A, B)
+
+ v = [5x2 table]
+
+   Var1   Var2
+   ____   ____
+              
+   1      1   
+   4      4   
+   6      6   
+   6      7   
+   7      3   
+
+ kab = [5x1 double]
+
+   1.
+   4.
+   6.
+   7.
+   3.
+
+--> A = table([1;3;4;2], ["d";"c";"f";"h"], [%f;%t;%t; %f], "VariableNames", ["double", "string", "boolean"])
+
+ A = [4x3 table]
+
+   double   string   boolean
+   ______   ______   _______
+                            
+   1        d        F      
+   3        c        T      
+   4        f        T      
+   2        h        F      
+
+--> B = table([2;3;4;1], [%t;%t;%t;%t], ["d";"c";"f";"h"], "VariableNames", ["double", "boolean", "string"])
+
+ B = [4x3 table]
+
+   double   boolean   string
+   ______   _______   ______
+                            
+   2        T         d     
+   3        T         c     
+   4        T         f     
+   1        T         h     
+
+--> [v, ka] = setdiff(A, B)
+
+ v = [2x3 table]
+
+   double   string   boolean
+   ______   ______   _______
+                            
+   1        d        F      
+   2        h        F      
+
+ ka = [2x1 double]
+
+   1.
+   4.
+        ]]></screen>
+        <para/>
+        <para>
+        <literal>setdiff()</literal> for timeseries:
+        </para>
+        <programlisting role="example"><![CDATA[
+            A = timeseries(hours([1:10])', [2 7 0 3 6 6 8 6 8 0]')
+            B = timeseries(hours(1:2:15)', [2 9 6 8 8 3 0 0]')
+            [v, ka] = setdiff(A, B)
+            
+        ]]></programlisting>
+        <screen><![CDATA[ 
+--> A = timeseries(hours([1:10])', [2 7 0 3 6 6 8 6 8 0]')
+ 
+ A = [10x1 timeseries]
+
+     Time     Var1
+   ________   ____
+                  
+   01:00:00   2   
+   02:00:00   7   
+   03:00:00   0   
+   04:00:00   3   
+   05:00:00   6   
+   06:00:00   6   
+   07:00:00   8   
+   08:00:00   6   
+   09:00:00   8   
+   10:00:00   0   
+--> B = timeseries(hours(1:2:15)', [2 9 6 8 8 3 0 0]')
+
+ B = [8x1 timeseries]
+
+     Time     Var1
+   ________   ____
+                  
+   01:00:00   2   
+   03:00:00   9   
+   05:00:00   6   
+   07:00:00   8   
+   09:00:00   8   
+   11:00:00   3   
+   13:00:00   0   
+   15:00:00   0   
+
+--> [v, ka] = setdiff(A, B)
+
+v = [6x1 timeseries]
+
+     Time     Var1
+   ________   ____
+                  
+   02:00:00   7   
+   03:00:00   0   
+   04:00:00   3   
+   06:00:00   6   
+   08:00:00   6   
+   10:00:00   0   
+
+ ka = [6x1 double]
+
+   2.
+   3.
+   4.
+   6.
+   8.
+   10.]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="unique">unique</link>
+            </member>
+            <member>
+                <link linkend="union">union</link>
+            </member>
+            <member>
+                <link linkend="members">members</link>
+            </member>
+            <member>
+                <link linkend="vectorfind">vectorfind</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>&lt; 5.0</revnumber>
+                <revremark>
+                    Function introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revremark>
+                    Option "r" | "c" added, including for hypermatrices.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revremark>
+                    Extension to complex numbers.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revremark>
+                    Boolean inputs and sparse inputs (boolean or numeric) are now accepted.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    Support for duration, datetime, table and timeseries types added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

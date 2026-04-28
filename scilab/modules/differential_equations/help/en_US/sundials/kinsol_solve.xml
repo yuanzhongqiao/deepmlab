@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2021 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="kinsol" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>kinsol</refname>
+        <refpurpose>SUNDIALS general-purpose nonlinear system solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [y,val,info,extra] = kinsol(f,y0,options)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>f</term>
+                <listitem>    
+                    <para>a function, a string or a list, the right hand side of the nonlinear system</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y0</term>
+                <listitem>    
+                    <para>a double array: initial guess</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>    
+                    <para>a sequence of optional named arguments, see the <link linkend="sundials_kinsol_options">solvers options</link></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y, val</term>
+                <listitem>
+                    <para>double arrays: approximate solution at the end of solver iterations and value of the system function, at y, respectively</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>info</term>
+                <listitem>
+                    <para>an integer, the solver exit code, see the related section below</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>extra</term>
+                <listitem>
+                     <para>a MList containing solver information and statistics, see the related section below</para> 
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>kinsol</literal> computes the solution of a real or complex system of nonlinear algebraic equations under the classical form
+        </para>
+        <para>
+            <latex style="display">0=F(y)</latex>
+        </para>
+        <para>
+            or under the fixed-point form
+        </para>
+        <para>
+            <latex style="display">y=G(y).</latex>
+        </para>
+        <para>
+        </para>
+        <para> 
+            It is an interface to kinsol solver of SUNDIALS library with default inexact Newton method for classical form or fixed-point iterations
+            with Anderson acceleration for fixed-point form.
+            The solver has a specific feature which allows to constrain the sign of solution components (see the <link linkend="sundials_kinsol_options">options</link> page).
+            Unlike the native implementation, the Scilab interface allows to solve the system when the function and/or solution is complex (see the  
+            <link linkend="sundials_complex">Complex solutions</link> help page). 
+        </para>
+        <para>
+            In its simplest form, the solver call takes the form
+        </para>        
+        <para><programlisting role="no-scilab-exec"><![CDATA[y = kinsol(f,y0)]]>
+        </programlisting></para>
+        <para>
+            where <literal>y0</literal> is the
+            initial guess, <literal>y</literal> is the
+            approximate solution yielded by the solver given default tolerance (which can be changed in <term>options</term>). 
+            The right hand side can be computed by a Scilab function with one argument, but if you need to pass extra parameters and/or want to 
+            use DLL entrypoints see the <link linkend="sundials_user_functions">user functions</link> help page. 
+        </para>
+</refsection>
+
+<refsection role="example">
+    <title>Example</title>
+    <para>
+        In the following example, we solve the following system of equations
+    </para>
+    <para>
+        <latex style="display">\begin{array}{rcl} 2x_1-x_2-\exp(-x_1) &amp;=&amp;0\\ -x_1+2x_2-\exp(-2x_2) &amp;=&amp;0 \end{array}</latex> 
+    </para>
+    <para>
+        with the initial guess [0,0], default inexact Newton method and display solver iterations:
+    </para>
+    <para>
+        <programlisting><![CDATA[
+        function F = fun(x)    
+            F = [2*x(1)-x(2)-exp(-x(1))
+                  -x(1)+2*x(2)-exp(-2*x(2))];
+        end
+        x=kinsol(fun, [0 0], display="iter")
+ ]]></programlisting>
+</para>
+</refsection>
+
+<refsection role="example">
+    <title>PDE example</title>
+    <para>
+        In the following example, we approximate the solution of the following nonlinear pde
+    </para>
+    <para>
+        <latex style="display">\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2} = \frac{2}{1+f^2}</latex> 
+    </para>
+    <para>
+        with finite differences, on [-1,1]x[-1,1] and a particular nonhomogeneous Dirichlet boundary condition. The band Jacobian
+        is approximated with finite differences.
+    </para>
+    <para>
+        <programlisting><![CDATA[
+            function out=fun(f,lap,bdy)
+                out = lap*f - 2./(1+f.*f)
+                out(bdy) = f(bdy)-sign(cos(%pi*(X(bdy)+Y(bdy))));
+            endfunction
+
+            // define square domain [-1,1] x [-1,1]
+            n = 50;
+            x=linspace(-1,1,n); y=x;
+            [X,Y]=meshgrid(x,x);
+
+            // build Laplacian operator
+            dx=x(2)-x(1);
+            d1x=sparse(ones(n-1,1));
+            d0x=sparse(ones(n,1));
+            lap = (diag(d1x,-1)+diag(d1x,1)-2*diag(d0x))/dx/dx;
+            // use Kronecker product to build matrix of d/dx^2 and d/dy^2
+            LAP = lap .*. speye(n,n) + speye(n,n) .*. lap;
+            // Find boundary nodes
+            BDY = find(X(:)==x(1) | X(:)==x($) | Y(:)==y(1) | Y(:)==y($))';
+
+            f = kinsol(list(fun,LAP,BDY),ones(n*n,1), jacBand=[n,n], display="iter");
+
+            clf
+            gcf().color_map=parula(128);
+            surf(x,x,matrix(f,n,n))
+ ]]></programlisting>
+ <scilab:image>
+     function out=fun(f,lap,bdy)
+         out = lap*f - 2./(1+f.*f)
+         out(bdy) = f(bdy)-sign(cos(%pi*(X(bdy)+Y(bdy))));
+     endfunction
+
+     // define square domain [-1,1] x [-1,1]
+     n = 50;
+     x=linspace(-1,1,n); y=x;
+     [X,Y]=meshgrid(x,x);
+
+     // build Laplacian operator
+     dx=x(2)-x(1);
+     d1x=sparse(ones(n-1,1));
+     d0x=sparse(ones(n,1));
+     lap = (diag(d1x,-1)+diag(d1x,1)-2*diag(d0x))/dx/dx;
+     // use Kronecker product to build matrix of d/dx^2 and d/dy^2
+     LAP = lap .*. speye(n,n) + speye(n,n) .*. lap;
+     // Find boundary nodes
+     BDY = find(X(:)==x(1) | X(:)==x($) | Y(:)==y(1) | Y(:)==y($))';
+
+     f = kinsol(list(fun,LAP,BDY),ones(n*n,1), jacBand=[n,n], display="iter");
+
+     clf
+     gcf().color_map=parula(128);
+     surf(x,y,matrix(f,n,n))
+ </scilab:image>
+</para>
+</refsection>
+
+
+<refsection role="description">
+    <title>Exit codes</title>
+<para>
+    <informaltable border="1">
+        <tbody>
+            <tr>
+              <td>0</td> <td>Successful function return</td>
+          </tr>
+          <tr>
+            <td>1</td> <td>The initial user-supplied guess already satisfies the stopping criterion</td>
+          </tr>
+          <tr>
+            <td>2</td> <td>The stopping tolerance on scaled step length was satisfied</td>
+          </tr>
+          <tr>
+            <td>-5</td> <td>The linesearch algorithm was unable to find an iterate sufficiently distinct from the current iterate</td>
+          </tr>
+          <tr>
+            <td>-6</td> <td>The maximum number of nonlinear iterations has been reached</td>
+        </tr>
+        <tr>
+          <td>-7</td> <td>Five consecutive steps have been taken that satisfy a scaled step length test</td>
+      </tr>
+      <tr>
+        <td>-99</td> <td>The solver has been stopped by user callback</td>
+    </tr>
+    </tbody>
+    </informaltable>
+  </para>
+</refsection>
+
+<refsection role="description">
+    <title>Extra output and statistics</title>
+    <para>
+        The <term>extra</term> optional output argument is a MList with fields:
+    </para>
+    <para>
+        <informaltable border='1'>
+          <tbody>
+              <tr>
+                  <td>solver</td>
+                  <td>
+                      <para>the solver name, "kinsol"</para>
+                  </td>
+              </tr>
+              <tr>
+                  <td>method</td>
+                  <td>
+                      <para>the name of the method used by the solver: "Newton" (inexact Newton method), "lineSearch" 
+                                (inexact Newton method with linesearch globalization), "Picard" (Picard iterations),
+                                 and "fixedPoint" (fixed-point iterations)</para>
+                  </td>
+              </tr>
+              <tr>
+                  <td>linearSolver</td>
+                  <td>
+                      <para>the linear solver used by the method, if applicable. This field is "none" when using
+                          fixed-point iterations. In other cases this field can be "dense", "band" or "sparse" depending
+                          on the format of the Jacobian provided by the user.</para>
+                  </td>
+              </tr>
+              <tr>
+                  <td>stats</td>
+                  <td>
+                      <para>a structure gathering the solver statistics:</para>
+                      <informaltable border='1'>
+                          <tbody>
+                              <tr>
+                                  <td>nIters</td><td>the number of iterations</td>
+                              </tr>
+                              <tr>
+                                  <td>nRhsEvals</td><td>the number of right hand side evaluations</td>
+                              </tr>
+                              <tr>
+                                  <td>nRhsEvalsFD</td><td>the number of right hand side evaluations that have been
+                                  used to approximate the Jacobian</td>
+                              </tr>
+                              <tr>
+                                  <td>nJacEvals</td><td>the number of Jacobian evaluations, when this one has 
+                                  been given by the user</td>
+                              </tr>
+                              <!--<tr>
+                                  <td>nLiniters</td><td>the number of iterations of the iterative linear solver</td>
+                              </tr>
+                              <tr>
+                                  <td>nLinCVFails</td><td>the number of times that the interative linear solver failed to converge</td>
+                              </tr>-->
+                              <tr>
+                                  <td>nBacktrack</td><td>the number of backtracking steps (lineSearch method)</td>
+                              </tr>
+                              <tr>
+                                  <td>funcNorm</td><td>The scaled Euclidian norm of the system function</td>
+                              </tr>
+                              <tr>
+                                  <td>stepLength</td><td>the length of the last step (Newton and lineSearch methods)</td>
+                              </tr>
+                              <tr>
+                                  <td>etime</td><td>elapsed time by the solver</td>
+                              </tr>
+                          </tbody>
+                      </informaltable>
+                  </td>
+              </tr>
+        </tbody>
+    </informaltable>
+    </para>
+</refsection>
+
+       <refsection role="see also">
+           <title>See also</title>
+           <simplelist type="inline">
+               <member>
+                   <link linkend="sundials_user_functions">User functions</link>
+               </member>
+               <member>
+                   <link linkend="sundials_kinsol_options">Options (kinsol)</link>
+               </member>
+           </simplelist>
+       </refsection>
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+A. C. Hindmarsh, P. N. Brown, K. E. Grant, S. L. Lee, R. Serban, D. E. Shumaker, and C. S. Woodward, "SUNDIALS: Suite of Nonlinear and Differential/Algebraic Equation Solvers," ACM Transactions on Mathematical Software, 31(3), pp. 363-396, 2005. Also available as LLNL technical report UCRL-JP-200037.
+ </para>
+ <para>
+     Alan C. Hindmarsh and Radu Serban and Cody J. Balos and David J. Gardner and Daniel R. Reynolds and Carol S. Woodward, "User Documentation for kinsol, 2021, v6.1.1, available online at <ulink url="https://sundials.readthedocs.io/en/latest/kinsol/index.html">https://sundials.readthedocs.io/en/latest/kinsol</ulink>
+     </para>
+    </refsection>
+</refentry>

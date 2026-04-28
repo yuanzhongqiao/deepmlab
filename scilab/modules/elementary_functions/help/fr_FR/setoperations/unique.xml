@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2017 - 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="unique" xml:lang="fr">
+    <refnamediv>
+        <refname>unique</refname>
+        <refpurpose>extrait (et trie) les éléments distincts d'un vecteur, matrice, hypermatrice
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            [U, km, ku, nb] = unique(M)
+            [U, km, ku, nb] = unique(M, orient)
+            [U, km, ku, nb] = unique(.., "keepOrder")
+            [U, km, ku, nb] = unique(.., "uniqueNan")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>M</term>
+                <listitem>
+                    <para>
+                        vecteur, matrice, ou hypermatrice de booléens, de nombres, ou de textes.
+                        Les matrices numériques ou booléennes creuses sont acceptées.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orient</term>
+                <listitem>
+                    <para>
+                        1 ou "r", 2 ou "c". Ne peut pas être utilisé si <varname>M</varname> est
+                        une hypermatrice.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>U</term>
+                <listitem>
+                    <itemizedlist>
+                    <listitem>
+                        <para>
+                            Sans <varname>orient</varname>: vecteur d'éléments de
+                            <varname>M</varname> triés par ordre croissant.
+                            Si <varname>M</varname> est un vecteur ligne, <varname>U</varname>
+                            aussi. Dans tous les autres cas, <varname>U</varname> est un
+                            vecteur colonne.
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                          Avec <varname>orient</varname>: Matrice de lignes ou de colonnes extraites
+                          de <varname>M</varname>, triées par ordre lexicographique croissant.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+                <para/>
+                <para>
+                    <varname>U</varname> est toujours creuse si en entrée <varname>M</varname> l'est.
+                </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>km</term>
+                <listitem>
+                    <para>
+                      Indices des éléments, lignes ou colonnes extraits, tels que
+                      <literal>U = M(km)</literal> ou <literal>U = M(km,:)</literal>
+                      ou <literal>U = M(:,km)</literal>.
+                    </para>
+                    <para>
+                        <varname>km</varname> est un vecteur ligne si <varname>M</varname>
+                        l'est aussi ou si <literal>orient="c"</literal> est utilisé.
+                        Sinon <varname>km</varname> est en colonne.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ku</term>
+                <listitem>
+                     <para>
+                        Vecteur, matrice ou hypermatrice d'indices dans U, tel que, selon
+                        l'option <varname>orient</varname><itemizedlist>
+                            <listitem>
+                                 <para>
+                                    "*": <varname>ku</varname> est de taille size(M), avec <literal>U(ku) = M</literal>
+                                                                                       </para>
+                                                                                   </listitem>
+                            <listitem>
+                                 <para>
+                                    "r": <varname>ku</varname> est de taille [size(M,1), 1], avec <literal>U(ku,:) = M</literal>
+                                                                                              </para>
+                                                                                          </listitem>
+                            <listitem>
+                                 <para>
+                                    "c": <varname>ku</varname> est de taille [1, size(M,2)], avec <literal>U(:,ku) = M</literal>
+                                                                                              </para>
+                                                                                          </listitem>
+                        </itemizedlist><warning>
+                            <varname>ku</varname> est dense, y compris lorsque <varname>M</varname> est
+                            creuse et que le mode simple "*" est utilisé.
+                        </warning></para>
+                              </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nb</term>
+                <listitem>
+                    <para>
+                      Vecteur d'entiers &gt; 0, au format de <varname>km</varname> :
+                      nombres d'exemplaires dans <varname>M</varname> de chaque entité
+                      (élément, ligne, colonne) retournée dans <varname>U</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>unique(M)</literal> renvoie un vecteur contenant les
+            valeurs distinctes contenues dans les termes de <literal>M</literal>
+            classées par ordre croissant.
+        </para>
+        <para>
+            <literal>unique(M,"r")</literal> ou
+            <literal>unique(M,1)</literal>retourne les lignes uniques de
+            <literal>M</literal> triées dans l'ordre lexicographique croissant.
+        </para>
+        <para>
+            <literal>unique(M,"c")</literal> or
+            <literal>unique(M,2)</literal>retourne les colonnes uniques
+            <literal>M</literal> triées dans l'ordre lexicographique croissant.
+        </para>
+        <para>
+            <literal>unique(M,.. "keepOrder")</literal> donne le vecteur des valeurs distinctes
+            de <varname>M</varname> selon leur ordre initial d'apparition dans <varname>M</varname>
+            (au lieu d'être par défaut triées par ordre croissant). L'indicateur
+            <literal>"keepOrder"</literal> est insensible aux minuscules/majuscules.
+        </para>
+        <para>
+            <literal>unique(M,.. "uniqueNan")</literal> considère toute valeur Nan comme égale
+            à toute autre Nan, et les dédoublonne comme pour n'importe quelle autre valeur numérique.
+            Par défaut, toute valeur Nan est distincte de toute autre Nan, y compris elle-même :
+            <literal>%nan&lt;&gt;%nan</literal> est vrai, à moins d'utiliser
+            <literal>"uniqueNan"</literal>. L'indicateur
+            <literal>"uniqueNan"</literal> est insensible aux minuscules/majuscules.
+        </para>
+        <para>
+            Pour un tableau de booléens, <literal>unique(…)</literal> sera utile principalement
+            avec les options "r" ou "c".
+        </para>
+        <para>
+            <note>
+                Les nombres complexes sont triés par modules croissants, puis par phases croissantes
+                sur [-π, π].
+            </note>
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Exemples</title>
+        <para>Dédoublonnement de nombres :</para>
+        <programlisting role="example"><![CDATA[
+M = int8([2  0  2  2  1  1  1  2  1  1  0  1  1  0  1  1
+          0  1  2  0  1  2  2  0  1  1  2  0  1  0  0  0
+          ])
+[u, km] = unique(M)
+[uc, kmc] = unique(M, "c")
+ ]]></programlisting>
+    <screen><![CDATA[
+--> M
+ M =
+  2  0  2  2  1  1  1  2  1  1  0  1  1  0  1  1
+  0  1  2  0  1  2  2  0  1  1  2  0  1  0  0  0
+
+--> [u, km] = unique(M)
+ u  =
+  0
+  1
+  2
+
+ km  =
+   2.
+   4.
+   1.
+
+--> [uc, kmc] = unique(M, "c")
+ uc  =
+  0  0  0  1  1  1  2  2
+  0  1  2  0  1  2  0  2
+
+ kmc  =
+   14.   2.   11.   12.   5.   6.   1.   3.
+]]></screen>
+        <para>Dédoublonnement de nombres complexes :</para>
+        <programlisting role="example"><![CDATA[
+i = %i;
+c = [1+i, 1-i, -i, i, -i, 1+i]
+[u, k] = unique(c)
+[uc, kc] = unique(c, "c")
+ ]]></programlisting>
+    <screen><![CDATA[
+--> c = [1+i, 1-i, -i, i, -i, 1+i]
+ c  =
+   1. + i    1. - i    0. - i    0. + i    0. - i    1. + i
+
+--> [u, k] = unique(c)
+ u  =
+   0. - i    0. + i    1. - i    1. + i
+ k  =
+   3.   4.   2.   1.
+
+--> [uc, kc] = unique(c, "c")
+ uc  =
+   0. - i    0. + i    1. - i    1. + i
+ kc  =
+   3.   4.   2.   1.
+]]></screen>
+
+    <para>Dédoublonnement de textes :</para>
+        <programlisting role="example"><![CDATA[
+t = ["BA" "BB" "AB" "BA" "AB" "BA" "AB" "AB" "BA" "AA" "AB" "BA" "BA" "BA" "AA"
+     "AA" "AB" "AA" "AA" "BB" "BB" "BB" "BA" "AB" "AB" "BB" "BB" "AB" "AB" "AA"
+    ]
+u = unique(t)'
+[u, kt, ku, nb] = unique(t(1,:))
+[u, kt] = unique(t(1,:), "keepOrder")        // ordre initial conservé
+[uc, ktc, kuc, nb] = unique(t, "c")
+[uc, ktc, kuc, nb] = unique(t, "c", "keepOrder")  // ordre initial des colonnes conservé
+[and(t(:,ktc)==uc), and(uc(:,kuc)==t) ]
+ ]]></programlisting>
+    <screen><![CDATA[
+--> t = ["BA" "BB" "AB" "BA" "AB" "BA" "AB" "AB" "BA" "AA" "AB" "BA" "BA" "BA" "AA"
+  >      "AA" "AB" "AA" "AA" "BB" "BB" "BB" "BA" "AB" "AB" "BB" "BB" "AB" "AB" "AA"
+  >     ]
+ t  =
+!BA  BB  AB  BA  AB  BA  AB  AB  BA  AA  AB  BA  BA  BA  AA  !
+!AA  AB  AA  AA  BB  BB  BB  BA  AB  AB  BB  BB  AB  AB  AA  !
+
+--> u = unique(t)'
+ u  =
+!AA  AB  BA  BB  !
+
+--> [u, kt, ku, nb] = unique(t(1,:))
+ u  =
+!AA  AB  BA  BB  !
+
+ kt  =
+   10.   3.   1.   2.
+
+ nb  =
+   2.   5.   7.   1.
+
+--> [u, kt] = unique(t(1,:), "keepOrder")  // ordre initial conservé
+ u  =
+!BA  BB  AB  AA  !
+
+ kt  =
+   1.   2.   3.   10.
+
+--> [uc, ktc, kuc, nb] = unique(t, "c")
+ uc  =
+!AA  AA  AB  AB  AB  BA  BA  BA  BB  !             colonnes triées
+!AA  AB  AA  BA  BB  AA  AB  BB  AB  !
+
+ ktc  =
+   15.   10.   3.   8.   5.   1.   9.   6.   2.
+
+ nb  =
+   1.   1.   1.   1.   3.   2.   3.   2.   1.
+
+--> [uc, ktc, kuc, nb] = unique(t, "c", "keepOrder")  // ordre initial des colonnes conservé
+ uc  =
+!BA  BB  AB  AB  BA  AB  BA  AA  AA  !
+!AA  AB  AA  BB  BB  BA  AB  AB  AA  !
+
+ ktc  =
+   1.   2.   3.   5.   6.   8.   9.   10.   15.
+
+ nb  =
+   2.   1.   1.   3.   2.   1.   3.   1.   1.
+
+--> [and(t(:,ktc)==uc), and(uc(:,kuc)==t) ]
+ ans  =
+  T  T
+]]></screen>
+        <para/>
+        <para>Avec des valeurs Nan (et Inf). Option "uniqueNan" :</para>
+        <programlisting role="example"><![CDATA[
+M = [2  2  %nan  1     2  0     1  %nan  0    %nan
+     1  0  1     %nan  0  %inf  0  1     %inf 1
+    ];
+[v, km, kv, n] = unique(M); v',n'
+[v, km, kv, n] = unique(M, "uniqueNan"); v',n'
+unique(M, "c")
+[v, kmc, kvc, n] = unique(M, "c", "uniqueNan")
+ ]]></programlisting>
+    <screen><![CDATA[
+--> M
+ M  =
+   2.   2.   Nan   1.    2.   0.    1.   Nan   0.    Nan
+   1.   0.   1.    Nan   0.   Inf   0.   1.    Inf   1.
+
+--> [v, km, kv, n] = unique(M); v',n'
+ ans  =
+   0.   1.   2.   Inf   Nan   Nan   Nan   Nan
+
+ ans  =
+   5.   6.   3.   2.   1.   1.   1.   1.
+
+--> [v, km, kv, n] = unique(M, "uniqueNan"); v',n'
+ ans  =
+   0.   1.   2.   Inf   Nan
+
+ ans  =
+   5.   6.   3.   2.   4.
+
+--> unique(M, "c")
+ ans  =
+   0.    1.   1.    2.   2.   Nan   Nan   Nan
+   Inf   0.   Nan   0.   1.   1.    1.    1.
+
+--> [v, kmc, kvc, n] = unique(M, "c", "uniqueNan")
+ v  =
+   0.    1.   1.    2.   2.   Nan
+   Inf   0.   Nan   0.   1.   1.
+
+ kmc  =
+   6.   7.   4.   2.   1.   3.
+
+ n  =
+   2.   1.   1.   2.   1.   3.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="members">members</link>
+            </member>
+            <member>
+                <link linkend="gsort">gsort</link>
+            </member>
+            <member>
+                <link linkend="vectorfind">vectorfind</link>
+            </member>
+            <member>
+                <link linkend="grep">grep</link>
+            </member>
+            <member>
+                <link linkend="union">union</link>
+            </member>
+            <member>
+                <link linkend="intersect">intersect</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    unique() peut maintenant être utilisée pour dédoublonner des nombres complexes.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                Extension aux booléens.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                Options "keepOrder" et "uniqueNan" ajoutées.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                4ème résultat <literal>nb</literal> ajouté.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revdescription>
+                    3ème résultat ku implémenté. Les matrices creuses 2D sont désormais acceptées.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

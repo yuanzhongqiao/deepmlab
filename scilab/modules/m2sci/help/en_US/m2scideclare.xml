@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2002-2004 - INRIA - Vincent COUVERT
+* Copyright (C) 2012 - 2016 - Scilab Enterprises
+* Copyright (C) 2020 - Samuel GOUGEON
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* pursuant to article 5.3.4 of the CeCILL v.2.1.
+* This file was originally licensed under the terms of the CeCILL v2.1,
+* and continues to be available under such terms.
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="m2scideclare">
+    <refnamediv>
+        <refname>m2scideclare</refname>
+        <refpurpose>Giving tips to help M2SCI...</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            %m2scideclare variable_name|sizes|data_type|property
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>variable_name</term>
+                <listitem>
+                    <para>
+                        Name of the declared variable.
+                        It can be a Struct field (e.g. <literal>x(1,2).name</literal>)
+                        or describe the contents of a Cell using syntax
+                        <literal>x(1,2).entries</literal>.
+                        <note>
+                            NOTE that for Cells and Structs,
+                            <literal>*</literal> can be used as an index (see examples below).
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sizes</term>
+                <listitem>
+                    <para>
+                        Sizes of the variable declared, separated by blanks. Any unknown size
+                        can be specified with <literal>?</literal>.
+                        <warning>
+                            NOTE that a Matlab character string as defined between single quotes
+                            is considered as a vector of characters. Therefore, for instance the
+                            size of 'string' is  <literal>|1 6|</literal>.
+                        </warning>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>data_type &amp; property</term>
+                <listitem>
+                    <para>
+                        data type and property (sub-type) of the variable. Possible values are
+                        documented in the <link linkend="Type">Type</link> page.
+                    </para>
+                    <note>
+                        Property values that are not defined as a constant in m2ci
+                        -- like 'int8' or 'Axes' -- must be specified without quotes
+                        in the m2scideclare statement.
+                    </note>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The main difficulty for M2SCI (<literal>mfile2sci</literal>) is to find what variables
+            are: dimensions, type...
+        </para>
+        <para>
+            To help this tool, just add comments beginning with <literal>%m2scideclare</literal> in
+            the M-file to convert, (<literal>%m2sciassume</literal> was used in previous Scilab
+            versions and is now obsolete).
+        </para>
+        <para>
+            All data given by <literal>m2scideclare</literal> are compared with infered data.
+            In case of conflict, inferred data are kept and a warning message is displayed.
+            If you are sure about your data, report a bug.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+          <itemizedlist>
+            <listitem>
+              <literal>%m2scideclare var1|2 3|Double|Real</literal>
+              <para>
+                var1 is declared as a 2x3 Double matrix containing real data.
+              </para>
+            </listitem>
+            <listitem>
+              <literal>%m2scideclare var2|2 3 10|Double|Complex</literal>
+              <para>
+                var2 is declared as a 2x3x10 Double hypermatrix containing complex data
+              </para>
+            </listitem>
+            <listitem>
+              <literal>%m2scideclare var3(1,2).name|1 10|String|?</literal>
+              <para>
+                var3 is declared as a Struct array containing a 1x10 character string
+                in field 'name' of struct at index (1,2)
+              </para>
+            </listitem>
+            <listitem>
+              <literal>%m2scideclare var4(1,5).entries|1 ?|Boolean|?</literal>
+              <para>
+                var4 is declared as a Cell containing a row boolean vector at index (1,5)
+              </para>
+            </listitem>
+            <listitem>
+              <literal>%m2scideclare var4(1,6).entries|? ?|Int|?</literal>
+              <para>
+                var4 is declared as a Cell containing a row boolean vector at index (1,5)
+                and integer data at index (1,6)
+              </para>
+            </listitem>
+            <listitem>
+              <literal>%m2scideclare var5(*,*).name|1 ?|String|?</literal>
+              <para>
+                var5 is declared as a Struct array containing a 1xn character string
+                in all fields 'name'
+              </para>
+            </listitem>
+            <listitem>
+              <literal>%m2scideclare var6(2,*).entries|1 3|Double|Real</literal>
+              <para>
+                var6 is declared as a Cell array containing a 1x3 double vector
+                in each element of its second row
+              </para>
+            </listitem>
+          </itemizedlist>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="Type">Type</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>m2scideclare</literal> supports all new defined vtypes and properties
+                        <literal>Polynomial</literal>,
+                        <literal>Function/Macro</literal>, <literal>Function/Builtin</literal>,
+                        <literal>String/Char</literal>,
+                        <literal>Handle/'Figure'</literal>, <literal>Handle/'Axes'</literal>,
+                        <literal>Int/'int8'</literal>,  <literal>Int/'int16'</literal>,
+                        <literal>Int/'int32'</literal>, <literal>Int/'int64'</literal>,
+                        <literal>Int/'uint8'</literal>, <literal>Int/'uint16'</literal>,
+                        <literal>Int/'uint32'</literal>, <literal>Int/'uint64'</literal>,
+                        <literal>Sparse/Boolean</literal>.
+                        <literal>Sparse</literal> type is now actually supported.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

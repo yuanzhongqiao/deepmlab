@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="estimate_bandwidth">
+    <refnamediv>
+        <refname>estimate_bandwidth</refname>
+        <refpurpose>Estimate an appropriate bandwidth for Mean Shift clustering</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            bw = estimate_bandwidth(X [, quantile, n_samples, random_state])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>
+                        is a N x D (N samples, D features) real
+                        matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>quantile</term>
+                <listitem>
+                    <para>
+                        real scalar, optional (default=0.3). Quantile to compute the 
+                        distance bandwidth. 
+                        A smaller quantile gives a smaller bandwidth, leading to more clusters.
+                        A larger quantile produces a larger bandwidth, leading to fewer clusters.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n_samples</term>
+                <listitem>
+                    <para>
+                        integer, optional (default=min(500, N)). 
+                        Number of samples to randomly select for bandwidth estimation. 
+                        If <literal>n_samples &gt; size(data,1)</literal>, all samples are used.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>random_state</term>
+                <listitem>
+                    <para>
+                        integer, optional (default=-1). Seed for random sampling reproducibility. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>bw</term>
+                <listitem>
+                    <para>
+                        real scalar. Estimated bandwidth parameter suitable for Mean Shift clustering. 
+                        Typically corresponds to a quantile of pairwise distances between points.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>estimate_bandwidth</literal> computes a bandwidth value from a dataset,
+            which can be used as the <literal>bandwidth</literal> parameter in 
+            <link linkend="meanshift">meanshift</link>.
+        </para>
+        <para>
+            Note that:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                   Smaller quantile → smaller bandwidth → more clusters.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Larger quantile → larger bandwidth → fewer clusters.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [0 0; 0 1; 1 0; 5 5; 5 6; 6 5; 9 9; 9 10; 10 9];
+                bw = estimate_bandwidth(X);
+
+                [centers, labels] = meanshift(X, bw);
+                scf(); 
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                plot(centers(:,1), centers(:,2), 'r*', "markersize", 10, "thickness", 3);
+                gca().data_bounds = [-1 -1; 11 11];
+            ]]></programlisting>
+            <scilab:image>
+                X = [0 0; 0 1; 1 0; 5 5; 5 6; 6 5; 9 9; 9 10; 10 9];
+                bw = estimate_bandwidth(X);
+
+                [centers, labels] = meanshift(X, bw);
+                scf(); 
+                scatter(X(:,1), X(:,2), [], labels, "fill");
+                plot(centers(:,1), centers(:,2), 'r*', "markersize", 10, "thickness", 3);
+                gca().data_bounds = [-1 -1; 11 11];
+            </scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="meanshift">meanshift</link>
+            </member>
+            <member>
+                <link linkend="kmeans">kmeans</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="openDevtools" xml:lang="en">
+    <refnamediv>
+        <refname>openDevtools</refname>
+        <refpurpose>Open DevTools window of uicontrol browser</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            openDevtools(h)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>Handle of type <link linkend="uicontrol">uicontrol</link> and style <link linkend="browser">browser</link>.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Browser must allow <literal>debug</literal>.</para>
+        <para>See <link linkend="uicontrol_properties">uicontrol properties</link> dedicated page about <literal>debug</literal> properties.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+<![CDATA[
+f = figure("infobar_visible", "off", "toolbar_visible", "off", ...
+    "dockable", "off", "menubar", "none", "default_axes", "off", ...
+    "axes_size", [300 300], ...
+    "layout", "border");
+
+html = [...
+    "<html>"
+    "</html>"];
+
+mputl(html, TMPDIR + "/debug.html");
+
+u = uicontrol(f, ...
+    "style", "browser", ...
+    "debug", "on", ... //allow devtools (ctrl+shit+i) in browser component
+    "string", TMPDIR + "/debug.html", ...
+    "callback", "cbBrowser");
+
+function cbBrowser(msg, cb)
+    if msg == "loaded" then
+        openDevtools(gcbo);
+    end
+endfunction
+]]>
+    </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uicontrol">uicontrol</link>
+            </member>
+            <member>
+                <link linkend="browser">browser</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>
+                    openDevtools added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

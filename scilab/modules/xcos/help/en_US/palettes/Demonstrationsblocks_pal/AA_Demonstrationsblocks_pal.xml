@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:scilab="http://www.scilab.org" xml:id="Demonstrationsblocks_pal" xml:lang="en_US">
+    <refnamediv>
+        <refname>Demonstrationsblocks_pal</refname>
+        <refpurpose>Demonstrations blocks palette</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <para>
+            <link linkend="AUTOMAT">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="AUTOMAT" fileref="../../../../images/palettes/AUTOMAT.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="BOUNCE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="BOUNCE" fileref="../../../../images/palettes/BOUNCE.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="BOUNCEXY">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="BOUNCEXY" fileref="../../../../images/palettes/BOUNCEXY.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="BPLATFORM">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="BPLATFORM" fileref="../../../../images/palettes/BPLATFORM.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="PDE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="PDE" fileref="../../../../images/palettes/PDE.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+        </para>
+    </refsection>
+    <refsection id="Description_Demonstrationsblocks_pal">
+        <title>Description</title>
+        <para>
+            The Demonstrations blocks palette contains blocks used in some Xcos demonstration diagrams.
+        </para>
+    </refsection>
+    <refsection xml:id="Blocks_Demonstrationsblocks_pal" role="see also">
+        <title>Blocks</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="AUTOMAT">AUTOMAT</link>
+            </member>
+            <member>
+                <link linkend="BOUNCE">BOUNCE</link>
+            </member>
+            <member>
+                <link linkend="BOUNCEXY">BOUNCEXY</link>
+            </member>
+            <member>
+                <link linkend="BPLATFORM">BPLATFORM</link>
+            </member>
+            <member>
+                <link linkend="PDE">PDE</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

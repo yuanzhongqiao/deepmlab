@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier : added daskr options
+ * Copyright (C) 2008 - INRIA
+ * ...
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="daeoptions" xml:lang="en">
+    <refnamediv>
+        <refname>daeoptions</refname>
+        <refpurpose>set options for dae solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>daeoptions()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Sets a variable <literal>%DAEOPTIONS</literal> that is used in function <literal>dae</literal>
+            to set solver options, only for <emphasis role="bold">dassl</emphasis>, <emphasis role="bold">dasrt ("root")</emphasis> and 
+            <emphasis role="bold">daskr ("root2")</emphasis> solvers.
+        </para>
+        <para>This daeoptions function interactively displays a window which
+            sets various options of the <link linkend="dae">dae</link> solver.
+        </para>
+        <para>
+            <caution>
+                The <literal>dae</literal> function checks if this variable
+                exists and in this case it uses it. For using default values you should
+                clear this variable. Note that <literal>daeoptions</literal> does not
+                create this variable. To create it you must execute the command line
+                displayed by <literal>daeoptions</literal>.
+            </caution>
+        </para>
+        <para>
+            The variable <literal>%DAEOPTIONS</literal> is a <link linkend="list">list</link> with the following elements:
+        </para>
+        <screen><![CDATA[
+list(tstop,imode,band,maxstep,stepin,nonneg,isest)
+]]></screen>
+        <para>The default value is:</para>
+        <screen><![CDATA[
+list([],0,[],[],[],0,0)
+]]></screen>
+        <para>The meaning of the elements is described below.</para>
+        <variablelist>
+            <varlistentry>
+                <term>solver</term>
+                <listitem>
+                    <para>
+                        if it is 0, <literal>dae</literal> will use the dassl/dasrt solver,
+                        and if it is 1, <literal>dae</literal> will use daskr.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tstop</term>
+                <listitem>
+                    <para>a real scalar or an empty matrix, gives the maximum time for
+                        which <literal>g</literal> is allowed to be evaluated. An empty
+                        matrix means "no limits" imposed for time.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>imode</term>
+                <listitem>
+                    <para>
+                        if it is 0, <literal>dae</literal> returns only the user specified time point
+                        values, and if it is 1, <literal>dae</literal> returns its intermediate computed
+                        values.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>band</term>
+                <listitem>
+                    <para>a two components vector which give the definition
+                        <literal>[ml,mu]</literal> of band matrix computed by
+                        <literal>jac</literal>;
+                    </para>
+                    <para>
+                        <literal>r(i - j + ml + mu + 1,j)</literal> =
+                        <literal>dg(i)/dy(j)+cj*dg(i)/dydot(j)</literal>. If
+                        <literal>jac</literal> returns a full matrix set
+                        <literal>band=[]</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>maxstep</term>
+                <listitem>
+                    <para>a scalar or an empty matrix, the maximum step size, empty
+                        matrix means "no limitation".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stepin</term>
+                <listitem>
+                    <para>a scalar or an empty matrix, the minimum step size, empty
+                        matrix means "not specified".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nonneg</term>
+                <listitem>
+                    <para>
+                        a scalar, must be set to 0 if <emphasis>the solution is known
+                            to be non negative
+                        </emphasis>
+                        .
+                        In the other case it must be set to 1.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>isest</term>
+                <listitem>
+                    <para>a scalar, must be set to 0 if the given initial condition is
+                        compatible: <literal>g(t0,x0,xdot0)=0</literal>. If
+                        <literal>xdot0</literal> is just an estimation, then set to
+                        1 if you are using dassl, or set to
+                        <literal>[+-1, ..., +-1]</literal>, with:
+                        <literal>1</literal> if y(i) is a differential variable and
+                        <literal>-1</literal> if y(i) is an algebraic variable
+                        (if its derivatives do not appear explicitly in the function g(t, y, ydot)).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>method</term>
+                <listitem>
+                    <para>
+                        a scalar, direct / Krylov method. Set to <literal>1</literal> and provide a routine
+                        <literal>psol</literal> in <literal>dae()</literal>
+                        if you want the solver to use Krylov iterations, else (daskr's direct method) set to
+                        <literal>0</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Kry_params</term>
+                <listitem>
+                    <para>
+                        a vector, treat as dummy argument if you have set method=0. Otherwise, set to <literal>[]</literal>
+                        or to <literal>[maxl kmp nrmax epli]</literal>, where:
+                        - <literal>maxl </literal> = maximum number of iterations in the GMRes algorithm (default min(5, neq)),
+                        - <literal>kmp  </literal> = number of vectors on which orthogonalization is done in the GMRes algorithm (default maxl),
+                        - <literal>nrmax</literal> = maximum number of restarts of the GMRes algorithm per nonlinear iteration (default 5),
+                        - <literal>epli </literal> = convergence test constant in GMRes algorithm (default 0.05).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>init</term>
+                <listitem>
+                    <para>
+                        a scalar, treat as dummy argument if you have set isest=0. Set to 1 if the solver should stop right after
+                        computation of the initial conditions, else set to 0.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>precond</term>
+                <listitem>
+                    <para>
+                        a scalar, preconditioner computation and LU-factorization routine for <literal>psol</literal>.
+                        Treat as dummy argument if method=0. Set to 1 and provide a <literal>pjac</literal>
+                        routine in <literal>dae</literal> if the external <literal>psol</literal>
+                        should use a specific routine, else set to 0.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>control</term>
+                <listitem>
+                    <para>
+                        a vector, treat as dummy argument if you have set isest=0if you wish to control errors locally on all the variables then set to [].
+                        Otherwise, set to [+-1, ..., +-1], 1 if <literal>y(i)</literal> is a differential variable and
+                        -1 if <literal>y(i)</literal> is an algebraic variable
+                        (if its derivatives do not appear explicitly in the function <literal>g(t, y, ydot)</literal>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>heuristic</term>
+                <listitem>
+                    <para>
+                        a vector, heuristic parameters. Treat as dummy argument if isest=0.
+                        Otherwise, set to [] or to <literal>[mxnit mxnj mxnh lsoff stptol epinit]</literal>, where:
+                        - <literal>mxnit</literal>  = maximum number of Newton iterations per Jacobian or preconditioner evaluation (default 5 if info(8)=0, 15 otherwise),
+                        - <literal>mxnj</literal>   = maximum number of Jacobian or preconditioner evaluations (default 6 if info(8)=0, 2 otherwise),
+                        - <literal>mxnh</literal>   = maximum number of values of the artificial stepsize parameter h to be tried if info(7) ≠ [] (default 5),
+                        - <literal>lsoff</literal>  = flag to turn off the linesearch algorithm (lsoff = 0 means linesearch is on, lsoff = 1 means it is turned off) (default 0),
+                        - <literal>stptol</literal> = minimum scaled step in linesearch algorithm (default (unit roundoff)^(2/3)),
+                        - <literal>epinit</literal> = swing factor in the Newton iteration convergence test (default 0.01).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>verbosity</term>
+                <listitem>
+                    <para>
+                        a scalar, verbosity. Set to 1 for minimal extra printing, 2 for full printing, else set to 0.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="dae">dae</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

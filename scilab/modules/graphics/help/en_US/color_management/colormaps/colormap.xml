@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Vincent COUVERT
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="colormap">
+    <refnamediv>
+        <refname>colormap</refname>
+        <refpurpose>set and/or get a figure/axes colormap.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            cmap = colormap()
+            cmap = colormap(h)
+
+            cmap = colormap(m)
+            cmap = colormap(h, m)
+
+            colormap(m)
+            colormap(h, m)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>
+                        A figure or axes handle. If not given the current figure is used (See <link linkend="gcf">gcf</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>
+                        A string (function name), a function, a Nx3 double matrix or <literal>"default"</literal> (to reset colormap to the default one). The color map to be used.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>colormap</literal> function is a helper to manage colormaps.
+        </para>
+        <para>
+            <literal>cmap = colormap()</literal> returns the current figure colormap.
+        </para>
+        <para>
+            <literal>cmap = colormap(h)</literal> returns the colormap of the figure/axes handle <literal>h</literal>.
+        </para>
+        <para>
+            <literal>[cmap =] colormap(m)</literal> sets the colormap <literal>m</literal> to the current figure. <literal>cmap</literal> is only returned when the output of the function is assigned.
+        </para>
+        <para>
+            <literal>[cmap =] colormap(h, m)</literal> sets the colormap <literal>m</literal> to the figure/axes handle <literal>h</literal>. <literal>cmap</literal> is only returned when the output of the function is assigned.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x = %pi * [-1:0.05:1]';
+z = sin(x)*cos(x)';
+
+f=scf();
+// Change colormap to parula (32 values)
+colormap(parula(32));
+
+ax1 = subplot(1, 2, 1);
+ax1.title.text = "plot3d() using figure colormap";
+e = plot3d(x, x, z, 70, 70);
+e.color_flag = 1;
+
+ax2 = subplot(1, 2, 2);
+ax2.title.text = "plot3d() using axes colormap"
+// Change colormap to jet (default size)
+colormap(ax2, jet); // Equivalent to colormap(ax2, "jet")
+e = plot3d(x, x, z, 70, 70);
+e.color_flag = 1;
+            ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="colormaps">Using colormaps</link>
+            </member>
+            <member>
+                <link linkend="jet">jet</link>
+            </member>
+            <member>
+                <link linkend="parula">parula</link>
+            </member>
+            <member>
+                <link linkend="gcf">gcf</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        Function <literal>colormap</literal> introduced.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>Axes</literal> handles are now managed as input.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

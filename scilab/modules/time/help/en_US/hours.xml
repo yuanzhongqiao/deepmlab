@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="hours" xml:lang="en">
+    <refnamediv>
+        <refname>hours</refname>
+        <refpurpose>convert reals in hours (duration) / convert hours (duration) in reals</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="minutes">
+        <refname>minutes</refname>
+        <refpurpose>convert reals in minutes (duration) / convert minutes (duration) in reals</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="seconds">
+        <refname>seconds</refname>
+        <refpurpose>convert reals in seconds (duration) / convert seconds (duration) in reals</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="milliseconds">
+        <refname>milliseconds</refname>
+        <refpurpose>convert reals in milliseconds (duration) / convert milliseconds (duration) in reals</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="days">
+        <refname>days</refname>
+        <refpurpose>convert reals in days (duration) / convert days (duration) in reals</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="years">
+        <refname>years</refname>
+        <refpurpose>convert reals in years (duration) / convert years (duration) in reals</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            res = hours(x)
+            res = hours(d)
+
+            res = minutes(x)
+            res = minutes(d)
+
+            res = seconds(x)
+            res = seconds(d)
+
+            res = milliseconds(x)
+            res = milliseconds(d)
+
+            res = days(x)
+            res = days(d)
+
+            res = years(x)
+            res = years(d)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real scalar or matrix representing a time unit</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>d</term>
+                <listitem>
+                    <para><link linkend="duration"/> object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>res</term>
+                <listitem>
+                    <para><link linkend="duration"/> object or real matrix</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para><emphasis role="bold">h = hours(d)</emphasis> creates a duration in hours of the same size as the input argument d.</para>
+        <para>If d is a duration, then hours(d) returns a matrix of reals.</para>
+        <para>It is the same for the other functions.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Duration in hours</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        h = hours(0:2:12)
+        val = hours(h)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Duration in minutes</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        mi = minutes(0:10)
+        val = minutes(mi)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Duration in seconds</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        sc = seconds(0:5:10)
+        val = seconds(sc)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Duration in milliseconds</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        milsec = milliseconds(0:100:500)
+        val = milliseconds(milsec)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Duration in days</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        d = days(1:7)
+        val = days(d)
+        ]]>
+        </programlisting>
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+        d1 = duration(12, 30, 45)
+        d2 = hours(12) + minutes(30) + seconds(45);
+        d1 == d2
+
+        duration(1, 0, 0):minutes(15):duration(2, 0, 0)
+
+        // with datetime
+        datetime(2022, 1, 1):hours(1):datetime(2022, 1, 2)
+        ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

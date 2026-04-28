@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_jacobian" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Jacobian</refname>
+        <refpurpose>Specifying a user-supplied Jacobian or its approximation</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ... = solver( ... , jacobian = jacFn)
+            ... = solver( ... , jacobian = jacFn, jacBand = [ml,mu])
+            ... = solver( ... , jacBand = [ml,mu])
+            ... = solver( ... , jacPattern = jacSp)
+            ... = solver( ... , jacobian = jacFn, jacNonZeros = nnz, jacFormat = jFmt)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>jacFn</term>
+                <listitem>    
+                    <para>A Scilab function, a list, a string, a matrix (dense or sparse).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>[ml,mu]</term>
+                <listitem>
+                    <para>A vector of two positive integers <literal>[mu,ml]</literal> giving respectively the upper and lower half bandwidth
+                    of the Jacobian.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>jacSp</term>
+                <listitem>
+                    <para>A sparse matrix with the same sparsity pattern as the true Jacobian.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nnz</term>
+                <listitem>
+                    <para>An integer, the number of non-zeros terms when the Jacobian is sparse and given as the output of a DLL entrypoint.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>jFmt</term>
+                <listitem>
+                    <para>A string "CSC" (the default) or "CSR" giving the sparse Jacobian format when given as the output of a DLL entrypoint.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>When an ODE, DAE or nonlinear equations solver method 
+            need to solve a linear system with a direct method, the Jacobian matrix of the right hand side of the system
+            is by default approximated by finite differences. When the Jacobian is unknown but has a band structure, setting the <literal>jacBand</literal> 
+            option will allow the approximation scheme to use only mu+ml+1 calls of the right hand side, which can help the solver effort if the number of
+            equations is large.
+        </para>
+        <para>
+            However, solver iterations can be accelerated and precision can be improved further by giving the true
+            Jacobian with the <literal>jacobian</literal> option. Note that using any of the above 3 options (jacobian, jacBand, jacPattern, jacNonZeros)
+            without specifying a method automatically selects the default one needing a Jacobian. For example
+            specifying a Jacobian selects the BDF method in a cvode call and the inexact Newton method in a kinsol call. 
+            In addition, note that when using arkode with an implicit/explicit method
+           <term>jacFn</term> denotes the Jacobian of the stiff right hand side only, which is set by the <literal>stiffRhs</literal> option
+           (see the <link linkend="arkode">arkode</link> help page). Below we consider nonlinear equations, ODEs and DAEs in three different
+           sections as the Jacobian is defined differently, but in all situations:
+       </para>
+       <para>
+           <itemizedlist>
+               <listitem>
+               <para>the output of a Scilab function or the constant Jacobian can be a dense or a sparse matrix, and 
+                   when the <code>JacBand</code> option is set the output must be a  mu+ml+1 x n dense matrix where n is the state dimension 
+                   (packed column-major banded format). 
+               </para>
+              </listitem>
+              <listitem>
+                  <para>when the output of a Scilab function or the constant Jacobian is sparse, or the  <literal>jacNonZeros</literal>
+                  option is set, the KLU sparse linear solver (from SuiteSparse) is selected.</para>
+              </listitem>
+              <listitem>
+                  <para>when <literal>jacBand</literal> or <literal>jacPattern</literal> options are given, the Jacobian is approximated with
+                  finite differences quotients by taking into account the particular structure (band, or general sparse, respectively).</para>
+              </listitem>
+              <listitem>
+                  <para>when the Jacobian is given as the output of a SUNDIALS DLL entrypoint the actual storage type of this matrix depends
+                  on the presence of the (mutualy exclusive) <literal>jacBand</literal> or 
+                <literal>jacNonZeros</literal> options, which will determine its type, respectively <literal>SUNMATRIX_BAND</literal>
+                 and <literal>SUNMATRIX_SPARSE</literal> or <literal>SUNMATRIX_DENSE</literal> by default if none of these options has
+                 been set. Hence, this is the user responsibility to use accessor macros which are compatible with the actual storage type.
+                 In the examples below we use dense Jacobians, where the matrix terms are stored using column-major order.
+             </para>
+              </listitem>
+          </itemizedlist>       
+        </para>
+        <para>General information about the different ways of providing a user function (and 
+                  eventual user parameters) is given in the <link linkend="sundials_user_functions">User Functions</link> help page.
+              </para>
+    </refsection>
+
+    <refsection role="description">
+        <title>User nonlinear equations Jacobian</title>
+        <para>
+            In that case we deal with the Jacobian of the Nonlinear Algebraic Equations System
+        </para>
+        <para>
+          <latex style="display">F(y)=0</latex>
+        </para>
+        <para>
+            with respect to y and <term>jacFn</term> can be:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>a Scilab function with prototype <literal>jac = jacFn(y,...)</literal>, for example:</para>
+                <para>
+                    <programlisting><![CDATA[
+                        function F=fun(x)
+                            F = [2*x(1)-x(2)-exp(-x(1))
+                                  -x(1)+2*x(2)-exp(-2*x(2))];
+                        end
+                        function J=jac(x)
+                            J = [2+exp(-x(1)), -1
+                                  -1, 2+2*exp(-2*x(2))];
+                        end
+                        x=kinsol(fun, [0;0], jacobian=jac)
+                        ]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a matrix, for example for Picard iterations (here with Anderson acceleration) we give the Jacobian
+                    of the linear part of F:
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                        function F=fun(x)
+                            F = [2*x(1)-x(2)-exp(-x(1))
+                                  -x(1)+2*x(2)-exp(-2*x(2))];
+                        end
+                        function J=jac(x)
+                            J = [2, -1
+                                -1,  2];
+                        end
+                        x = kinsol(fun, [0;0], jacobian=[2 -1; -1 2], method="Picard", accel=1, display="iter")
+                    ]]>
+                </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a string giving the name of a SUNDIALS DLL entrypoint with C prototype </para> 
+               <para><programlisting role="no-scilab-exec"><![CDATA[
+                   int sunJac(N_Vector x, N_Vector f, SUNMatrix J, 
+                              void *user_data, N_Vector tmp1, N_Vector tmp2)
+               ]]>
+        </programlisting></para>
+                <para>The current value F(y) is passed by convenience as it may be used in the
+                computation and the Jacobian has to be stored in the <literal>SUNMatrix J</literal> argument,
+                as in the following example:
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                    code=[
+                        "#include <math.h>"
+                        "#include <nvector/nvector_serial.h>"
+                        "#include <sunmatrix/sunmatrix_dense.h>"
+                        "int sunRhs(N_Vector X, N_Vector F, void *user_data)"    
+                        "{"
+                        "double *x = NV_DATA_S(X);"
+                        "double *f = NV_DATA_S(F);"
+                        "f[0] = 2*x[0]-x[1]-exp(-x[0]);"
+                        "f[1] = -x[0]+2*x[1]-exp(-2*x[0]);"
+                        "return 0;"
+                        "}"
+                        "int sunJac(N_Vector X, N_Vector F, SUNMatrix J,"
+                        "           void *user_data, N_Vector tmp1, N_Vector tmp2)"
+                        "{"
+                        "double *x = NV_DATA_S(X);"
+                        "double *jac = SM_DATA_D(J);"
+                        "jac[0] = 2+exp(-x[0]);"
+                        "jac[1] = -1; jac[2] = -1;"
+                        "jac[3] = 2+2*exp(-2*x[0]);"
+                        "return 0;"
+                        "}"];
+                    mputl(code,"code.c")
+                    SUN_Clink(["sunRhs","sunJac"], "code.c", load=%t);
+                    x = kinsol("sunRhs", [0 0], jacobian = "sunJac")
+                    ]]></programlisting>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+        
+    <refsection role="description">
+        <title>User ODE Jacobian</title>
+        <para>
+            In that case we deal with the Jacobian of the right-hand side of the ODE
+        </para>
+        <para>
+          <latex style="display">y'=f(t,y)</latex>
+        </para>
+        <para>
+            with respect to y and <term>jacFn</term> can be:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>a Scilab function with prototype <literal>jac = jacFn(t,y,...)</literal>. For example for the Van Der Pol equation:</para>
+                <para>
+                    <programlisting><![CDATA[
+                        function out = vdp1Jac(t,y)
+                            out = [0, 1
+                                  -2*y(1)*y(2)-1, 1-y(1)^2];
+                        end
+                        [t,y] = cvode(%SUN_vdp1, [0 10], [0; 2], jacobian = vdp1Jac);
+                        ]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a matrix, which allows to inform the solver that a right hand side is linear. 
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                    function dydt=f(t,y,a)
+                        dydt=a*y;
+                    end
+                    function dydt=fE(t,y,a)
+                        dydt=-y.^3
+                    end
+                    A = [0 1;-1 0];
+                    [t1,y1] = cvode(list(f,A), [0 10], [1;0], jacobian = A)
+                    [t2,y2] = arkode(fE,[0 10],[1;0], stiffRhs=list(f,A), jacobian = A)
+                    [t3,y3] = arkode(fE,[0 10],[1;0], stiffRhs=list(f,A), jacobian = sparse(A))
+                    ]]>
+                </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a string giving the name of a SUNDIALS DLL entrypoint with C prototype </para> 
+               <para><programlisting role="no-scilab-exec"><![CDATA[
+                   int sunJac(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, 
+                              void *user_data, N_Vector tmp1, N_Vector tmp2, N_Vector tmp3)
+               ]]>
+        </programlisting></para>
+                <para>The current derivative fy=f(t,y) is passed by convenience as it may be used in the
+                computation and the Jacobian has to be stored in the <literal>SUNMatrix J </literal> argument, 
+                as in the following example:
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                    code=[
+                        "#include <nvector/nvector_serial.h>"
+                        "#include <sunmatrix/sunmatrix_dense.h>"
+                        "int sunRhs(sunrealtype t, N_Vector Y, N_Vector Yd, void *user_data)"    
+                        "{"
+                        "double *y = NV_DATA_S(Y);"
+                        "double *ydot = NV_DATA_S(Yd);"
+                        "double *mu = (double *) user_data;"
+                        "ydot[0] = y[1];"
+                        "ydot[1] = mu[0]*(1-y[0]*y[0])*y[1]-y[0];"
+                        "return 0;"
+                        "}"
+                        "int sunJac(sunrealtype t, N_Vector Y, N_Vector Yd, SUNMatrix J,"
+                        "           void *user_data, N_Vector tmp1, N_Vector tmp2, N_Vector tmp3)"
+                        "{"
+                        "double *y = NV_DATA_S(Y);"
+                        "double *jac = SM_DATA_D(J);"
+                        "double *mu = (double *) user_data;"
+                        "jac[0] = 0; jac[1] = -2.0*mu[0]*y[0]*y[1]-1.0;"
+                        "jac[2] = 1.0; jac[3] = mu[0]*(1.0-y[0]*y[0]);"
+                        "return 0;"
+                        "}"];
+                    mputl(code,"code.c")
+                    SUN_Clink(["sunRhs","sunJac"], "code.c", load=%t);
+                    [t1,y1] = cvode(list("sunRhs",1), [0 10], [2;1], jacobian = list("sunJac", 1));
+                    ]]></programlisting>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection role="description">
+        <title>User DAE Jacobian</title>
+        <para>
+            In that case the user function is supposed to compute
+        </para>
+        <para>
+            <latex style="display">J=\frac{\partial F}{\partial y}(t,y,y^\prime)+c\frac{\partial F}{\partial y^\prime}(t,y,y^\prime)</latex> 
+        </para>
+        <para>
+            where the DAE is given by <latex>F(t,t,y^\prime)=0</latex> and c is an arbitrary scalar. The option value <term>jacFn</term> can be:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>a Scilab function with prototype <literal>jac = jacFn(t,y,yp,c, ...)</literal>. For example for the SIR system:</para>
+                <para>
+                    <programlisting><![CDATA[
+                        function res = sir(t,y,yp,bet,gam)
+                            res=[yp(1)+bet*y(1)*y(2)
+                                 yp(2)-bet*y(1)*y(2)+gam*y(2)  
+                                 y(1)+y(2)+y(3)-1];
+                        end
+                        function jac = sir_jac(t,y,yp,c,bet,gam)
+                            jac = [ bet*y(2)+c  bet*y(1)       0
+                                   -bet*y(2)   -bet*y(1)+gam+c 0
+                                    1           1              1];
+                        end
+                        gam=1/40;
+                        bet=0.2;
+                        y0=[0.999;0.001;0];
+                        yp0 = [-bet*y0(1)*y0(2);+bet*y0(1)*y0(2)-gam*y0(2);gam*y0(2)];                        
+                        sol = ida(list(sir,bet,gam), [0 200], y0, yp0, jacobian = list(sir_jac,bet,gam));
+                        ]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a cell containing the constant Jacobians with respect to y and yp:
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                        function out = res(t,y,yp,A,B)
+                            out = A*yp-B*y;
+                        end
+                        A = [2 1; 1 1];
+                        B = [0 1;-1 -1];
+                        y0 = [1;0];
+                        yp0 = A\(B*y0);
+                        sol = ida(list(res,A,B), [0 10], y0, yp0);
+                        solj = ida(list(res,A,B), [0 10], y0, yp0, jacobian = {-B,A});
+                    ]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a string giving the name of a DLL entrypoint with C prototype </para> 
+                <para><programlisting role="no-scilab-exec"><![CDATA[
+                        int sunJacRes(sunrealtype t, sunrealtype cj, N_Vector Y, N_Vector Yd, N_Vector R, SUNMatrix J,
+                                      void *user_data, N_Vector tmp1, N_Vector tmp2, N_Vector tmp3)
+                ]]>
+        </programlisting></para>
+                <para>The current residual <literal>R</literal> is passed by convenience as it may be used in the
+                computation. The output matrix <literal>J</literal> is the sum of the Jacobian w.r.t. y and <literal>c</literal> 
+                times the Jacobian w.r.t. y'. The Here is a full example (Robertson DAE):
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                        code=[
+                            "#include <nvector/nvector_serial.h>"
+                            "#include <sunmatrix/sunmatrix_dense.h>"
+                            "int chemRes(sunrealtype t, N_Vector Y, N_Vector Yd, N_Vector R, void *user_data)"
+                            "{"
+                            "double *y = NV_DATA_S(Y);"
+                            "double *yd = NV_DATA_S(Yd);"
+                            "double *r =  NV_DATA_S(R);"
+                            "r[0] = yd[0]+0.04*y[0]-1.0e4*y[1]*y[2];"
+                            "r[1] = yd[1]-0.04*y[0]+1.0e4*y[1]*y[2]+3.0e7*y[1]*y[1];"
+                            "r[2] = y[0]+y[1]+y[2]-1;"
+                            "return 0;"
+                            "}"
+                            "int chemJac(sunrealtype t, sunrealtype cj, N_Vector Y, N_Vector Yd, N_Vector R, SUNMatrix J,"
+                            "    void *user_data, N_Vector tmp1, N_Vector tmp2, N_Vector tmp3)"
+                            "{"
+                            "double *y = NV_DATA_S(Y);"
+                            "double *jac = SM_DATA_D(J);"
+                            "// first column"
+                            "jac[0] = 0.04+cj;"
+                            "jac[1] =  -0.04;"
+                            "jac[2] =  1.0;"
+                            "// second column"
+                            "jac[3] =  -1.0e4*y[2];"
+                            "jac[4] = +1.0e4*y[2]+2*3.0e7*y[1]+cj;"
+                            "jac[5] =  1.0;"
+                            "// third column"
+                            "jac[6] =  -1.0e4*y[1];"
+                            "jac[7] = +1.0e4*y[1];"
+                            "jac[8] =  1.0;"
+                            "return 0;"
+                            "}"];
+                        mputl(code, 'code.c');
+                        SUN_Clink(["chemRes","chemJac"], "code.c", load = %t);
+                        y0 = [1-1e-3; 0; 1e-3];
+                        yp0 = [-0.0400; 0.0400; 0];
+                        tspan = [0 4e6];
+                        [t,y] = ida("chemRes", tspan, y0, yp0, jacobian = "chemJac");
+                        y(2,:)=y(2,:)*20000;
+                        semilogx(t(2:$),y(:,2:$))
+                    ]]></programlisting>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="kinsol">kinsol</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+            <member>
+                <link linkend="sundials_kinsol_options">Options (kinsol)</link>
+            </member>
+            <member>
+                <link linkend="SUN_Clink">SUN_Clink</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+</refentry>

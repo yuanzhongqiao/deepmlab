@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Vincent COUVERT
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="example_run" xml:lang="ja">
+    <refnamediv>
+        <refname>example_run</refname>
+        <refpurpose>ヘルプページで見つかった例を実行.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            example_run()
+            example_run(moduleNames)
+            example_run(moduleNames, functionNames)
+            example_run(moduleNames, functionNames, language)
+            example_run(moduleNames, functionNames, language, testrunOptions, testrunExportToFile)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>moduleNames</term>
+                <listitem>
+                    <para>
+                        a string or a vector of strings: references of the modules to test.
+                        Each reference can be either of
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    the technical name of a Scilab internal module, that is the name
+                                    of the root directory of the module.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    the relative or absolute path of the root directory of the module.
+                                    This must be used for installed ATOMS modules or other external modules.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                        By default, all Scilab internal modules are considered, as returned by
+                        <link linkend="getmodules">getmodules()</link>.
+                    </para>
+                    <para>
+                        The root directory of each targeted module must have a
+                        <literal>./help</literal> subdirectory containing the XML source files of
+                        help pages where examples to test are provided, gathered by languages as
+                        in the source package of any standard module.
+                        Example of the template toolbox_skeleton module:
+                        <programlisting role="example"><![CDATA[
+unix_w("dir /b /s """ + WSCI + "/contrib/toolbox_skeleton/help""")
+                      ]]></programlisting>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>functionNames</term>
+                <listitem>
+                    <para>文字列または文字列ベクトル:
+                        テストする関数の名前. 指定されないアバイ,
+                        モジュールの全てのヘルプページがテストされます.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>language</term>
+                <listitem>
+                    <para>文字列: テストするヘルプページの言語. デフォルト値は "en_US"です.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>testrunOptions</term>
+                <listitem>
+                    <para>
+                        <link linkend="test_run">test_run</link>の第3引数として使用.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>testrunExportToFile</term>
+                <listitem>
+                    <para>
+                        <link linkend="test_run">test_run</link>の第4引数として使用.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            この巻数は,ヘルプページで指定した例を展開し,
+            <link linkend="test_run">test_run</link>により実行します.
+        </para>
+        <para>
+           <warning>
+               When testing examples of any external module, it is mandatory to autoload the module
+               at Scilab startup. This can be achieved either by setting the ATOMS module as
+               autoloaded, or by loading the module through the user's startup file.
+           </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+if ~isempty(ls("SCI/modules/xml/help/en_US/*.xml")) then // この例のXMLソースが存在する必要があります
+    example_run("xml")
+    example_run("elementary_functions", "insertion")
+    example_run("elementary_functions", ["insertion"; "extraction"])
+    example_run("elementary_functions", "insertion", "en_US")
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="test_run">test_run</link>
+            </member>
+            <member>
+                <link linkend="bench_run">bench_run</link>
+            </member>
+            <member>
+                <link linkend="atomsAutoloadAdd">atomsAutoloadAdd</link>
+            </member>
+            <member>
+                <link linkend="startup">startup</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>関数example_runが導入されました.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

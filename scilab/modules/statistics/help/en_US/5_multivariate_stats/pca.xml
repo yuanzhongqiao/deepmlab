@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="pca">
+    <refnamediv>
+        <refname>pca</refname>
+        <refpurpose>Computes principal component analysis for the data matrix X</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            comprinc = pca(X)
+            [comprinc, score, lambda] = pca(X)
+            [comprinc, score, lambda, tsquare] = pca(X)
+            [comprinc, score, lambda, tsquare, explained, mu] = pca(X)
+
+            comprinc = pca(X, Name, Value)
+            [comprinc, score, lambda] = pca(X, Name, Value)
+            [comprinc, score, lambda, tsquare] = pca(X, Name, Value)
+            [comprinc, score, lambda, tsquare, explained, mu] = pca(X, Name, Value)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para> is a nxp (n individuals, p variables) real
+                        matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Name, Value</term>
+                <listitem>
+                    <para><emphasis role="bold">'Centered'</emphasis>: boolean indicator for centering the columns. Default value: %t.</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="bold">'Economy'</emphasis>: boolean indicator, use to allow economy size singular value decomposition. 
+                        Default value: %t.</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="bold">'NumComponents'</emphasis>: integer value, number of components returned. Default value: size(X, 2).</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="bold">'Weights'</emphasis>: row vector of doubles of length size(X, 1) containing observation weights. Default value: ones(1, size(X, 1)).</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="bold">'VariableWeights'</emphasis>: "variance" value or row vector of doubles of length size(X, 2) containing variable weights. Default value: [].</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>comprinc</term>
+                <listitem>
+                    <para>are the  principal component coefficients, p-by-p matrix where p is equal to size(X,2).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>score</term>
+                <listitem>
+                    <para>n-by-p matrix or n-by-NumComponents matrix if 'NumComponents' is specified.</para>
+                    <para>are the principal component scores.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>lambda</term>
+                <listitem>
+                    <para>is a p-by-1 or NumComponents-by-1 (if 'NumComponents' is specified) vector.</para>
+                    <para>contains the eignevalues of the covariance X</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tsquare</term>
+                <listitem>
+                    <para>
+                        a <literal>n</literal> column vector. It contains the Hotelling's
+                        T^2 statistic for each data point.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>explained</term>
+                <listitem>
+                    <para>
+                        a column vector of length "number of components". The percentage of variance explained by 
+                        each principal component.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mu</term>
+                <listitem>
+                    <para>
+                        a row vector of length <literal>p</literal>. The estimated mean of each variable of 
+                        <literal>X</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>This function performs several computations known as
+            "principal component analysis".
+        </para>
+        <para>The idea behind this method is to represent in an
+            approximative manner a cluster of n individuals in a smaller
+            dimensional subspace.  In order to do that, it projects the
+            cluster onto a subspace.  The choice of the k-dimensional
+            projection subspace is made in such a way that the distances in
+            the projection have a minimal deformation: we are looking for a
+            k-dimensional subspace such that the squares of the distances in
+            the projection is as big as possible (in fact in a projection,
+            distances can only stretch).  In other words, inertia of the
+            projection onto the k dimensional subspace must be maximal.
+        </para>
+        <para>To obtain the pca graph, use the <link linkend="show_pca">show_pca</link>
+            function.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a=rand(100,10,'n');
+[comprinc, scores, lambda] = pca(a);
+show_pca(lambda, comprinc)
+ ]]></programlisting>
+ <programlisting role="example"><![CDATA[ 
+    x = [
+395     224     35.1     79.1     6.0     14.9
+410     232     31.9     73.4     8.7     16.4
+405     233     30.7     76.5     7.0     16.5
+405     240     30.4     75.3     8.7     16.0
+390     217     31.9     76.5     7.8     15.7
+415     243     32.1     77.4     7.1     18.5
+390     229     32.1     78.4     4.6     17.0
+405     240     31.1     76.5     8.2     15.3
+420     234     32.4     76.0     7.2     16.8
+390     223     33.8     77.0     6.2     16.8
+415     247     30.7     75.5     8.4     16.1
+400     234     31.7     77.6     5.7     18.7
+400     224     28.2     73.5     11.0    15.5
+395     229     29.4     74.5     9.3     16.1
+395     219     29.7     72.8     8.7     18.5
+395     224     28.5     73.7     8.7     17.3
+400     223     28.5     73.1     9.1     17.7
+400     224     27.8     73.2     12.2    14.6
+400     221     26.5     72.3     13.2    14.5
+410     233     25.9     72.3     11.1    16.6
+402     234     27.1     72.1     10.4    17.5
+400     223     26.8     70.3     13.5    16.2
+400     213     25.8     70.4     12.1    17.5
+];
+[comprinc, scores, lambda, tsquare, explained] = pca(wcenter(x, 1));
+scf();
+show_pca(lambda, comprinc)
+//
+// Extract the two last columns.
+x = x(:,1:2);
+[comprinc, scores, lambda, tsquare, explained] = pca(wcenter(x, 1));
+scf();
+// See how the points are perfectly on the circle.
+show_pca(lambda, comprinc)
+    ]]>
+ </programlisting>
+ <programlisting role="example"><![CDATA[
+    x = [1 2 1;2 1 3; 3 2 3]
+    [comprinc, scores, lambda, tsquare, explained, mu] = pca(x, "Economy", %t);
+    scores * comprinc' + ones(3, 1) * mu // == x
+     ]]></programlisting>
+<programlisting role="example"><![CDATA[
+    x = [1 2 1; 2 3 1; 0 2 1; 2 3 9;5 -2 7; -1 2 1];
+    [comprinc, scores, lambda, tsquare, explained, mu] = pca(x, "VariableWeights", "variance")
+    // comprinc is not orthonormal
+    newcomprinc = diag(stdev(x, 1))\comprinc
+    scf();
+    show_pca(lambda, newcomprinc)
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="show_pca">show_pca</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Bibliography</title>
+        <para>Saporta, Gilbert, Probabilites,  Analyse des
+            Donnees et Statistique, Editions Technip, Paris, 1990.
+        </para>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        Improvements of the function: 
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    "Economy", "Centered", "NumComponents", "Weights" and "VariableWeights" options are added.
+                                </para> 
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Returns now the percentage of the variance explained by each principal component and the estimated mean of each variable of X.
+                                </para> 
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Warning, there is an incompatibility with previous versions: the order of the first three output arguments have changed.
+                                </para> 
+                                <para>
+                                    The old <literal>[lambda, comprinc, scores] = pca(x)</literal> syntax has been replaced by <literal>[comprinc, scores, lambda] = pca(x)</literal>. 
+                                    In previous versions, pca only computed the principal components with standardized variables. To obtain the same results, use "VariableWeights" 
+                                    option with "variance" value: <literal>[comprinc, scores, lambda] = pca(x, "VariableWeights", "variance")</literal>. In this case,
+                                    <literal>comprinc</literal> is not orthonormal. You can compute the orthonormal coefficient thanks to <literal>diag(stdev(x))\comprinc</literal>. 
+                                    An other possibility is to use <literal>wcenter</literal> function i.e, <literal>[comprinc, scores, lambda] = pca(wcenter(x, 1))</literal>. 
+                                    A warning is displayed when pca is called with 1, 2 or 3 output arguments. To avoid the warning to be displayed, call <literal>pca</literal> with at least 
+                                    four output arguments (e.g. <literal>[comprinc, scores, lambda, _] = pca()</literal>).
+                                </para>
+                                <para>
+                                    Note that <literal>lambda</literal> is a column vector containing the eigenvalues of the covariance matrix of x. To obtain 
+                                    the ratio of the corresponding eigenvalue over the sum of eigenvalues, use the following formula: 
+                                    <literal>lambda(:, 1) / sum(lambda(:, 1))</literal>
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

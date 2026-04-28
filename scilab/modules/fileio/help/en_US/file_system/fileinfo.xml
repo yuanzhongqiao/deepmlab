@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="fileinfo" xml:lang="en">
+    <refnamediv>
+        <refname>fileinfo</refname>
+        <refpurpose>provide information about some files of any type</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+             x = fileinfo(filesPaths)
+            [x,ierr] = fileinfo(filesPaths)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>filesPaths</term>
+                <listitem>
+                    <para>
+                        vector or matrix of paths (as text). Files of any type can be targeted:
+                        regular files, directories (in their own), shortcuts, symbolic links, etc.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        matrix of decimal integers, of sizes (m,13) with m: number of provided
+                        files paths. The row #i returns information about the file
+                        <literal>filesPaths(i)</literal>.
+                    </para>
+                   <para>
+                     If only one path is queried and the file does not exist, <varname>x</varname>
+                     returns [].
+                    </para>
+                    <para>
+                        If several files are queried: when a file among them does not exist, its
+                        <varname>x</varname> row is filled with <constant>Nan</constant> values.
+                    </para>
+                    <para>
+                        <table>
+                            <tr><th>x column</th><th align="left">Description</th></tr>
+                            <tr><td align="center" valign="top">1 : </td>
+                                <td>actual file size (bytes). 0 for directories.</td>
+                            </tr>
+                            <tr><td align="center" valign="top">2 : </td>
+                                <td>file permissions (see the description)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">3 : </td>
+                                <td>id of the file's owner (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">4 : </td>
+                                <td>id of the file's group (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">5 : </td>
+                                <td>Device number</td>
+                            </tr>
+                            <tr><td align="center" valign="top">6 : </td>
+                                <td>
+                                    UNIX timestamp of last data modification.
+                                    <literal>getdate(x(:,6))(:,[1 2 6 7 8 9])</literal> returns the
+                                    corresponding date as a matrix of [year month day hour mn ss]
+                                    numerical rows.
+                                </td>
+                            </tr>
+                            <tr><td align="center" valign="top">7 : </td>
+                                <td>UNIX timestamp of last change of the file status.</td>
+                            </tr>
+                            <tr><td align="center" valign="top">8 : </td>
+                                <td>UNIX timestamp of last access to the file.</td>
+                            </tr>
+                            <tr><td align="center" valign="top">9 : </td>
+                                <td>The device type (if inode device).</td>
+                            </tr>
+                            <tr><td align="center" valign="top">10 : </td>
+                                <td>Blocksize of the I/O filesystem (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">11 : </td>
+                                <td>Number of blocks allocated to this file storage
+                                                (always 0 on Windows)
+                                </td>
+                            </tr>
+                            <tr><td align="center" valign="top">12 : </td>
+                                <td>File's inode (unique id) (always 0 on Windows)</td>
+                            </tr>
+                            <tr><td align="center" valign="top">13 : </td>
+                                <td>Number of hard links pointing to this file
+                                                (always 1 on Windows).
+                                </td>
+                            </tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ierr</term>
+                <listitem>
+                    <para>error flag: 0, if no error has occurred.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function is an interface to the C function <function>stat</function>.
+        </para>
+        <para>
+            Permissions are typically specified as octal numbers: <code>dec2oct(x(2))</code> to convert.
+        </para>
+        <para>Numeric mode is from one to four octal digits (0-7), derived by
+            adding up the bits with values 4, 2, and 1. Any omitted digits are assumed
+            to be leading zeros. The first digit selects the set user ID (4) and set
+            group ID (2) and sticky (1) attributes. The second digit selects
+            permissions for the user who owns the file: read (4), write (2), and
+            execute (1); the third selects permissions for other users in the file's
+            group, with the same values; and the fourth for other users not in the
+            file's group, with the same values.
+        </para>
+        <para>
+            So, to check permissions, it is necessary to use masks. Let us take an example:
+            In octal, x(2)=1664, so first digit corresponds to sticky attributes. The second
+            indicates that file owner has permission of writing and reading. It is the same
+            for other users in the file's group. Finally, others users has just right to read.
+            To apply a mask, it is simpler to look at this octal in binary.
+            So: <varname>x</varname>(2)= 1 110 110 100.
+            To check if the owner has write permission, we must take a look at the second triplet: 110
+            and compare it with write permission 010. So, the operation is: 110 000 000 &amp; 010 000 000.
+            If result is not null (it is the case here), owner has write permission.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+w = fileinfo(SCI+'/etc/scilab.start')
+// file permission
+dec2oct(w(2))
+// file date:  [year month day hh mn ss .ss]
+getdate(w(6))(:,[1 2 6:10])
+
+// Permissions
+S_IWRITE = 128; // mask write permission
+S_IEXEC = 64; // mask exec permission
+S_IREAD = 256; // mask read permission
+S_IFCHR = 8192; // mask directory permission
+
+// Checks write permission
+if ( bitand( w(2), S_IWRITE ) <> 0) then
+ disp('WRITE PERMISSION on this file.');
+else
+ disp('NO WRITE PERMISSION on this file.');
+end
+// Checks read permission
+if ( bitand( w(2), S_IREAD ) <> 0) then
+ disp('READ PERMISSION on this file.');
+else
+ disp('NO READ PERMISSION on this file.');
+end
+
+FILES = [SCI;SCIHOME;'not_exist_file';TMPDIR]
+[X,ERRS] = fileinfo(FILES)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="getdate">getdate</link>
+            </member>
+            <member>
+                <link linkend="file">file</link>
+            </member>
+            <member>
+                <link linkend="dispfiles">dispfiles</link>
+            </member>
+            <member>
+                <link linkend="newest">newest</link>
+            </member>
+            <member>
+                <link linkend="isfile">isfile</link>
+            </member>
+            <member>
+                <link linkend="isdir">isdir</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    Several files paths can now be processed.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2022 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="ja" xml:id="full">
+    <refnamediv>
+        <refname>full</refname>
+        <refpurpose>疎行列を通常の行列に変換する</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>X = full(sp)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>sp</term>
+                <listitem>
+                    <para>
+                        ブーリアン、実数、複素数、文字列の密または疎なベクトルまたはマトリックス.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>通常の行列</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>X=full(sp)</literal> は疎行列 <literal>sp</literal> を
+            通常の行列表現に変換します.
+            (<literal>sp</literal> が既に通常の行列の場合,<literal>X</literal> は
+            <literal>sp</literal>に等しくなります).
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+sp = sparse([1,2;5,4;3,1],[1,2,3])
+A = full(sp)
+     ]]></programlisting>
+        <screen>
+--> sp = sparse([1,2;5,4;3,1],[1,2,3])
+ sp  =
+(  5,  4) sparse matrix
+
+(  1,  2)     1.
+(  3,  1)     3.
+(  5,  4)     2.
+
+--> A = full(sp)
+ A  =
+   0.   1.   0.   0.
+   0.   0.   0.   0.
+   3.   0.   0.   0.
+   0.   0.   0.   0.
+   0.   0.   0.   2.
+</screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sparse">sparse</link>
+            </member>
+            <member>
+                <link linkend="sprand">sprand</link>
+            </member>
+            <member>
+                <link linkend="speye">speye</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    full() extended to dense booleans.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    full() returns as is any non-sparse input.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Vincent COUVERT
+ * 
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ -->
+<ivy-module version="2.0">
+    <info organisation="org.scilab" module="download-thirdparty"/>
+    <dependencies>
+        <!-- Use no conf when no useless dependencies are downloaded -->
+        <!-- Else use "default" conf when no useless dependencies are downloaded -->
+        <!-- Else use "master" conf -->
+
+        <!-- batik-all added as dependency (to replace batik-*.jar dependencies of fop) -->
+        <!-- rev imposed by fop -->
+        <dependency org="org.apache.xmlgraphics" name="fop" rev="2.9" conf="*->default"/>
+        <dependency org="org.apache.xmlgraphics" name="batik-all" rev="1.17" conf="*->master"/>
+        
+        <dependency org="com.sun.activation" name="jakarta.activation" rev="2.0.1" conf="*->default"/>
+        <dependency org="jakarta.activation" name="jakarta.activation-api" rev="2.1.3" conf="*->default"/>
+        <!-- COPY --><!--<dependency org="org.tinyjee.jgraphx" name="jgraphx" rev="2.1.0.7"/>-->
+        <dependency org="javax.xml.bind" name="jaxb-api" rev="2.3.1" conf="*->default"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.3.1" conf="*->default"/>
+        <dependency org="org.glassfish.jaxb" name="jaxb-runtime" rev="2.3.1" conf="*->master"/>
+        <dependency org="javax.activation" name="activation" rev="1.1.1" conf="*->default"/>
+        <dependency org="com.sun.istack" name="istack-commons-runtime" rev="4.2.0" conf="*->default"/>
+        <!-- COPY --><!--<dependency org="" name="flexdock" rev="1.2.5"/>-->
+        <dependency org="com.jgoodies" name="jgoodies-looks" rev="2.7.0" conf="*->master"/>
+        <dependency org="skinlf" name="skinlf" rev="1.2.3"/>
+        <dependency org="javax.annotation" name="javax.annotation-api" rev="1.3.2" conf="*->default"/>
+        <!-- COPY --><!--<dependency org="" name="jogl-all" rev="2.5.0"/>-->
+        <!-- COPY --><!--<dependency org="" name="gluegen-rt" rev="2.5.0"/>-->
+        <!-- COPY --><!--<dependency org="" name="jhall" rev="2.0"/>-->
+        <!-- COPY --><!--<dependency org="" name="jrosetta-api" rev="1.0.4"/>-->
+        <dependency org="org.apache.lucene" name="lucene-core" rev="9.10.0" conf="*->default"/>
+        <dependency org="org.apache.lucene" name="lucene-queryparser" rev="9.10.0" conf="*->master"/>
+        <dependency org="org.apache.lucene" name="lucene-analysis-common" rev="9.10.0" conf="*->master"/>
+
+        <!-- net.sourceforge.jeuclid/jeuclid-core has issues with recent Batik versions, see https://sourceforge.net/p/jeuclid/bugs/44/ -->
+        <!-- <dependency org="net.sourceforge.jeuclid" name="jeuclid-core" rev="3.1.9" conf="*->master"/> -->
+        <dependency org="de.rototor.jeuclid" name="jeuclid-core" rev="3.1.14" conf="*->default"/>
+
+        <!-- COPY --><!--<dependency org="" name="javafx.base" rev=""/>-->
+        <!-- COPY --><!--<dependency org="" name="javafx.swing" rev=""/>-->
+        <!-- COPY --><!--<dependency org="" name="javafx.graphics" rev=""/>-->
+
+        <dependency org="org.freehep" name="freehep-graphicsio-emf" rev="2.4" conf="*->default"/> <!-- Downloads freehep-graphics*.jar -->
+        <dependency org="org.freehep" name="freehep-io" rev="2.2.2" conf="*->master"/> <!-- Dependency of freehep-graphicsio.jar -->
+
+        <dependency org="avalon" name="avalon-framework" rev="4.1.4" conf="*->default"/>
+
+        <dependency org="org.scilab.forge" name="jlatexmath" rev="1.0.7" conf="*->default"/>
+        <dependency org="org.scilab.forge" name="jlatexmath-fop" rev="1.0.7" conf="*->master"/>
+
+        <dependency org="net.sf.saxon" name="Saxon-HE" rev="12.4" conf="*->default"/>
+        <dependency org="org.xmlresolver" name="xmlresolver" rev="6.0.4" conf="*->master"/> <!-- Runtime dependecy for Saxon-HE (See https://saxonica.plan.io/boards/3/topics/8478) -->
+
+        <dependency org="com.formdev" name="flatlaf" rev="3.4.1" conf="*->master"/>
+
+        <dependency org="com.google.code.gson" name="gson" rev="2.10.1" conf="*->default"/>
+
+        <!-- Not mandatory for ./configure running without failure  -->
+        <dependency org="org.eclipse.jdt" name="ecj" rev="3.37.0" conf="*->default"/>
+        <dependency org="com.puppycrawl.tools" name="checkstyle" rev="10.17.0" conf="*->master"/>
+        <dependency org="commons-beanutils" name="commons-beanutils" rev="1.9.4" conf="*->master"/>
+        <dependency org="commons-collections" name="commons-collections" rev="3.2.2" conf="*->master"/>
+        <dependency org="com.google.guava" name="guava" rev="33.2.0-jre" conf="*->master"/>
+        <dependency org="org.antlr" name="antlr4-runtime" rev="4.13.1" conf="*->master"/>
+        <dependency org="net.sourceforge.cobertura" name="cobertura" rev="2.1.1" conf="*->master"/>
+        <dependency org="asm" name="asm" rev="3.3.1" conf="*->default"/>
+    </dependencies>
+</ivy-module>

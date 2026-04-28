@@ -1,0 +1,165 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Clément DAVID
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Cédric DELAMARRE
+#
+#
+# This Dockerfile describe the configuration of a linux-builder for the CI.
+#
+
+ARG DISTRO=ubuntu:22.04
+
+#
+# Build compilers used to build Scilab
+#
+FROM $DISTRO
+LABEL description="Build needed compilers"
+
+# Install needed packages
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y curl autoconf make gcc g++ bzip2
+
+# Set environment variables
+ENV GCC_VERSION 11.4.0
+ENV PATCHELF_VERSION 0.17.2
+ENV OCAML_VERSION 4.13.1
+ENV OCAML_FINDLIB_VERSION 1.9.1
+ENV OCAML_NUM_VERSION 1.4
+
+ENV INSTALLDIR /usr/local
+
+# Create working directory
+RUN mkdir /work
+RUN mkdir --parents /usr/local
+
+# Get compilers sources and extract them
+WORKDIR /work
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/gcc-$GCC_VERSION.tar.gz | tar -xzf -
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/patchelf-$PATCHELF_VERSION.tar.gz | tar -xzf -
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/ocaml-$OCAML_VERSION.tar.gz | tar -xzf -
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/ocaml-findlib-$OCAML_FINDLIB_VERSION.tar.gz | tar -xzf -
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/ocaml-num-$OCAML_NUM_VERSION.tar.gz | tar -xzf -
+
+# Build GCC
+RUN mkdir gcc-$GCC_VERSION/gcc-build
+
+# Get GCC prerequisites
+WORKDIR /work/gcc-$GCC_VERSION
+# those files are listed in the script contrib/download_prerequisites from gcc sources
+# RUN [ -h mpfr ] || contrib/download_prerequisites
+ENV GMP_VERSION 6.1.0
+ENV MPFR_VERSION 3.1.6
+ENV MPC_VERSION 1.0.3
+ENV ISL_VERSION 0.18
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/gmp-$GMP_VERSION.tar.bz2 | tar -xjf - \
+    && ln -s gmp-$GMP_VERSION gmp
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/mpfr-$MPFR_VERSION.tar.bz2 | tar -xjf - \
+    && ln -s mpfr-$MPFR_VERSION mpfr
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/mpc-$MPC_VERSION.tar.gz | tar -xzf - \
+    && ln -s mpc-$MPC_VERSION mpc
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/isl-$ISL_VERSION.tar.bz2 | tar -xjf - \
+    && ln -s isl-$ISL_VERSION isl
+
+# Build and install GCC
+WORKDIR /work/gcc-$GCC_VERSION/gcc-build
+RUN find -name config.cache -delete
+RUN	../configure --prefix=$INSTALLDIR --enable-language=c,c++,fortran \
+	             --disable-multilib --disable-bootstrap
+
+RUN make -j$(nproc) > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN make install > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN rm -fr *
+
+# cc bin is used by cmake
+RUN cp -af $INSTALLDIR/bin/gcc $INSTALLDIR/bin/cc
+
+# Build Patchelf
+WORKDIR /work/patchelf-$PATCHELF_VERSION
+RUN ./bootstrap.sh && ./configure --prefix=$INSTALLDIR
+# build a static patchelf as it will be used to edit libstdc++.
+RUN make -j$(nproc) LDFLAGS=-static > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN make install > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN rm -fr *
+
+ENV PATH $INSTALLDIR/bin:$PATH
+
+# NEEDED FOR CLEAN DEPENDENCIES
+# rename GCC library names to SCI ones to avoid dependency on system ones
+RUN	[ -d "$INSTALLDIR/lib64" ] && LIBDIR="lib64" || LIBDIR="lib"; \
+    if [ -f "$INSTALLDIR/$LIBDIR/libquadmath.so.0.0.0" ]; then \
+        patchelf --set-soname libsciquadmath.so.0 $INSTALLDIR/$LIBDIR/libquadmath.so.0.0.0 && \
+	    cp -a $INSTALLDIR/$LIBDIR/libquadmath.so.0.0.0 $INSTALLDIR/lib/libsciquadmath.so.0 && \
+	    patchelf --set-soname libscigfortran.so.5 $INSTALLDIR/$LIBDIR/libgfortran.so.5.0.0 ; \
+    fi; \
+	patchelf --replace-needed libquadmath.so.0 libsciquadmath.so.0 $INSTALLDIR/$LIBDIR/libgfortran.so.5.0.0 && \
+	patchelf --remove-rpath $INSTALLDIR/$LIBDIR/libgfortran.so.5.0.0 && \
+	cp -a $INSTALLDIR/$LIBDIR/libgfortran.so.5.0.0 $INSTALLDIR/lib/libscigfortran.so.5 ; \
+	patchelf --set-soname libscigomp.so.1 $INSTALLDIR/$LIBDIR/libgomp.so.1.0.0 && \
+	cp -a $INSTALLDIR/$LIBDIR/libgomp.so.1.0.0 $INSTALLDIR/lib/libscigomp.so.1 ; \
+	patchelf --set-soname libscistdc++.so.6 $INSTALLDIR/$LIBDIR/libstdc++.so.6.0.29 && \
+	cp -a $INSTALLDIR/$LIBDIR/libstdc++.so.6.0.29 $INSTALLDIR/lib/libscistdc++.so.6 ; \
+    patchelf --set-soname libscigcc_s.so.1 $INSTALLDIR/$LIBDIR/libgcc_s.so.1 && \
+	cp -a $INSTALLDIR/$LIBDIR/libgcc_s.so.1 $INSTALLDIR/lib/libscigcc_s.so.1 ;
+
+# Build ocaml
+WORKDIR /work/ocaml-$OCAML_VERSION
+RUN ./configure --disable-force-safe-string -prefix $INSTALLDIR
+RUN make world bootstrap opt > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN make install > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN rm -fr *
+
+# Build ocaml-findlib
+WORKDIR /work/ocamlfind-findlib-$OCAML_FINDLIB_VERSION
+RUN ./configure
+RUN make > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN make install > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN rm -fr *
+
+# Build ocaml-num
+WORKDIR /work/num-$OCAML_NUM_VERSION
+RUN make > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN make install > log 2>&1 || (tail --lines=100 log; exit 1)
+RUN rm -fr *
+
+#
+# Build the Scilab builder image with minimal dependencies
+#
+FROM $DISTRO
+LABEL description="Scilab builder image used by CI/CD runners"
+
+# Install system dependencies without asking anything
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
+        locales xz-utils zip bzip2 \
+        curl rsync git \
+        make binutils libc-dev \
+        gettext ccache \
+        openjdk-17-jdk \
+        libgl1-mesa-dev \
+        dumb-init \
+    && apt-get clean
+
+# Generate locale
+RUN locale-gen  en_US en_US.UTF-8 \
+                fr_FR fr_FR.UTF-8 \
+                ja_JP ja_JP.UTF-8 \
+                pt_BR pt_BR.UTF-8 \
+                ru_RU ru_RU.UTF-8 \
+                zh_TW zh_TW.UTF-8 \
+    && \
+    update-locale
+
+# Copy built GCC
+COPY --from=0 /usr/local /usr/local
+ENV PATH /usr/local/bin:$PATH
+ENV LD_LIBRARY_PATH /usr/local/lib
+
+# Add a scilab build user with default home directory
+RUN useradd --create-home scilab
+
+# start docker using scilab user
+USER scilab
+
+# Scilab source code is in English with UTF-8 encoding
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8

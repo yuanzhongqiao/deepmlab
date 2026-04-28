@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="m2sci_colon">
+    <refnamediv>
+        <refname>: (Matlab operator)</refname>
+        <refpurpose>Colon</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Matlab/Scilab equivalent</title>
+        <informaltable border="1" width="100%">
+            <tr>
+                <td align="center">
+                    <emphasis role="bold">Matlab</emphasis>
+                </td>
+                <td align="center">
+                    <emphasis role="bold">Scilab</emphasis>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+:
+                 ]]></programlisting>
+                </td>
+                <td>
+                    <programlisting role="no-scilab-exec"><![CDATA[
+:
+                 ]]></programlisting>
+                </td>
+            </tr>
+        </informaltable>
+    </refsection>
+    <refsection>
+        <title>Particular cases</title>
+        <variablelist>
+            <varlistentry>
+                <term>Using colon with empty matrices:</term>
+                <listitem>
+                    <para>
+                        In Matlab if almost one operand is an empty matrix, then result is an empty matrix what gives an error message in Scilab.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Using colon with NaNs and Infs:</term>
+                <listitem>
+                    <para>
+                        In Matlab if almost one operand is an empty matrix, then result is a NaN what make Scilab returning an error.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+</refentry>

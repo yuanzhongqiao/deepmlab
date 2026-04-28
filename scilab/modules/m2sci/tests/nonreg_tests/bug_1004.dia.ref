@@ -1,0 +1,50 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2004      - INRIA - Vincent COUVERT <vincent.couvert@inria.fr>
+// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
+// <-- Non-regression test for bug 1004 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/1004
+//
+// <-- Short Description -->
+//    disp added during translation of Matlab for loop
+//
+//    Try to convert the following 3-line file ct2.m:
+//
+//    function ct2()
+//    for i=1:5
+//    end
+//
+//
+//    The sci file created is:
+//
+//    function [] = ct2()
+//
+//    for i = 1:5,
+//      disp("i  =",i);
+//    end
+//    endfunction
+// ...
+mode(-1);
+  ****** Beginning of mfile2sci() session ******
+  File to convert: TMPDIR/bug1004.m
+  Result file path: TMPDIR/
+  Recursive mode: OFF
+  Only double values used in M-file: NO
+  Verbose mode: 3
+  Generate formatted code: NO
+  M-file reading...
+  M-file reading: Done
+  Syntax modification...
+  Syntax modification: Done
+  Macro to tree conversion...
+  Conversion of M-tree...
+  Conversion of M-tree: Done
+  Macro to tree conversion: Done
+  ****** End of mfile2sci() session ******

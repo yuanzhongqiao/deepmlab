@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * This file is released under the 3-clause BSD license. See COPYING-BSD.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:scilab="http://www.scilab.org"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          xml:id="stackedplot" xml:lang="en">
+    <refnamediv>
+        <refname>stackedplot</refname>
+        <refpurpose>plot multiple timeseries on time axis</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            stackedplot // demo
+            stackedplot(ts)
+            stackedplot(ts1, ..., tsN)
+            stackedplot(..., vars)
+            stackedplot(..., LineSpec)
+            stackedplot(..., LineSpec, GlobalProperty)
+            stackedplot(..., "CombineMatchingNames", %f)
+            stackedplot(..., Name, Value)
+            f = stackedplot(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>ts, ts1, ..., tsN</term>
+                <listitem>
+                    <para>timeseries object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>vars</term>
+                <listitem>
+                    <itemizedlist>
+                        <listitem>
+                            <para>strings vector containing to variables names of timeseries</para>
+                            <para/>
+                        </listitem>
+                        <listitem>
+                            <para>column index vector corresponding to position in variables names timeseries</para>
+                            <para/>
+                        </listitem>
+                        <listitem>
+                            <para>cell of strings: each element can contain one or multiple variables names.</para>
+                            <para/>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>LineSpec</term>
+                <listitem>
+                    <para>This optional argument must be a string that will be used as a
+                        shortcut to specify a way of drawing a line. We can have one
+                        <literal>LineSpec</literal> per <literal>y</literal> or <literal>{x,y}</literal>
+                        previously entered. <literal>LineSpec</literal> options deals with
+                        LineStyle, Marker and Color specifiers (see <link linkend="LineSpec">LineSpec</link>).
+                        Those specifiers determine the line style, mark style and color of
+                        the plotted lines.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>GlobalProperty</term>
+                <listitem>
+                    <para>This optional argument represents a sequence of couple
+                        statements <literal>{PropertyName,PropertyValue}</literal> that defines
+                        global objects properties applied to all the curves created by this
+                        plot. For a complete view of the available properties (see
+                        <link linkend="GlobalProperty">GlobalProperty</link>).
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Name, Value</term>
+                <listitem>
+                    <para><emphasis role="bold">'Title'</emphasis>: string that contains the title of plot.</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="bold">'DisplayLabels'</emphasis>: matrix of strings that contains the names of Y-label for each axe. Default value: variables names of timeseries</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="bold">'LegendLabels'</emphasis>: matrix of strings that contains the names of timeseries.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>handle of the created figure.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>The stackedplot function plots the variables of timeseries on the same time basis (x-axis).
+            All timeseries must have the same time basis. If two or more timeseries have common variables, 
+            their curves will be in the same graph. By specifying CombineMatchingNames to %f, there will be 
+            one graph per variable for each timeseries.
+        </para>
+        <para>
+            stackeplot(..., vars) plots only variables of timeseries specified by vars. vars can be 
+            <itemizedlist>
+                <listitem>
+                    <para> a vector of strings containing variables names to plot.</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para> a vector of indexes ccorresponding to position of variables names in timeseries.</para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para> a cell containing variable names in matrices to plot them in same graphs. 
+                        ie: {"var1", ["var2", "var3"]} will display var1 in a graph and var2 and var3 in another one.
+                    </para>
+                    <para/>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            stackedplot(..., LineSpec, GlobalProperty) customizes the line style, marker or color of polylines. 
+            This arguments are the same as the plot function.
+        </para>
+        <para>
+            stackedplot(..., "Title", str) adds a plot title.
+        </para>
+        <para>
+            stackedplot(..., "DisplayLabels", str) specifies the labels for the y-axis.
+        </para>
+        <para>
+            stackedplot(..., "LegendLabels", str) adds a legend for each plot. str is a vector of size N timeseries 
+            input. The legend can be used to specify the name of timeseries.
+        </para>
+        <para>
+            Enter the command <literal>stackedplot</literal> to see a demo.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">stackedplot(ts)</emphasis></para>
+        <programlisting role="example"><![CDATA[
+            n = 100;
+            t = datetime(2000, 1, 1) + caldays(1:n)';
+            y = floor(10 * rand(n, 3)) + 10;
+            ts = timeseries(t, y(:, 1), y(:, 2), y(:, 3), "VariableNames", ["Time", "Var 1", "Var 2", "Var3"]);
+            stackedplot(ts);
+        ]]>
+        </programlisting>
+            <scilab:image><![CDATA[
+            n = 100;
+            t = datetime(2000, 1, 1) + caldays(1:n)';
+            y = floor(10 * rand(n, 3)) + 10;
+            ts = timeseries(t, y(:, 1), y(:, 2), y(:, 3), "VariableNames", ["Time", "Var 1", "Var 2", "Var3"]);
+            stackedplot(ts);
+        ]]>
+            </scilab:image>
+        <para/>
+        <para><emphasis role="bold">stackedplot(ts1, ts2)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            n = 100;
+            t = seconds(1:n)';
+            y1 = floor(10 * rand(n, 3)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), y1(:, 3), "VariableNames", ["Time", "Var 1", "Var 2", "Var3"]);
+
+            y2 = floor(10 * rand(n, 2)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), "VariableNames", ["Time", "Var 1", "Var 2"]);
+            stackedplot(ts1, ts2);
+        ]]>
+        </programlisting>
+        <scilab:image><![CDATA[
+            n = 100;
+            t = seconds(1:n)';
+            y1 = floor(10 * rand(n, 3)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), y1(:, 3), "VariableNames", ["Time", "Var 1", "Var 2", "Var3"]);
+
+            y2 = floor(10 * rand(n, 2)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), "VariableNames", ["Time", "Var 1", "Var 2"]);
+            stackedplot(ts1, ts2);
+        ]]>
+        </scilab:image>
+        </para>
+        <para><emphasis role="bold">stackedplot(ts1, ts2, "CombineMatchingNames", %f)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            t = datetime(2022, 1, 1):datetime(2022, 8, 31);
+            n = size(t, "*");
+            y1 = floor(10 * rand(n, 2)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), "VariableNames", ["Time", "Result_1", "Result_2"]);
+
+            y2 = floor(10 * rand(n, 2)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), "VariableNames", ["Time", "Result_1", "Result_2"]);
+            stackedplot(ts1, ts2);
+            stackedplot(ts1, ts2, "CombineMatchingNames", %f);
+        ]]>
+        </programlisting>
+        <scilab:image><![CDATA[
+        t = datetime(2022, 1, 1):datetime(2022, 8, 31);
+        n = size(t, "*");
+        y1 = floor(10 * rand(n, 2)) + 10;
+        ts1 = timeseries(t, y1(:, 1), y1(:, 2), "VariableNames", ["Time", "Result_1", "Result_2"]);
+
+        y2 = floor(10 * rand(n, 2)) + 20;
+        ts2 = timeseries(t, y2(:, 1), y2(:, 2), "VariableNames", ["Time", "Result_1", "Result_2"]);
+        stackedplot(ts1, ts2);
+        stackedplot(ts1, ts2, "CombineMatchingNames", %f);
+        ]]>
+        </scilab:image>
+        </para>
+        <para><emphasis role="bold">stackedplot(ts1, ts2, vars)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            t = datetime(2022, 1, 1):datetime(2022, 8, 31);
+            n = size(t, "*");
+            y1 = floor(10 * rand(n, 3)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), y1(:, 3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+
+            y2 = floor(10 * rand(n, 3)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), y2(:, 3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+            stackedplot(ts1, ts2, ["Result_1", "Result_3"]);
+
+            stackedplot(ts1, ts2, [1 3]);
+
+            stackedplot(ts1, ts2, {"Result_1", ["Result_2", "Result_3"]});
+        ]]>
+        </programlisting>
+        <scilab:image><![CDATA[
+            t = datetime(2022, 1, 1):datetime(2022, 8, 31);
+            n = size(t, "*");
+            y1 = floor(10 * rand(n, 3)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), y1(:, 3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+
+            y2 = floor(10 * rand(n, 3)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), y2(:, 3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+            stackedplot(ts1, ts2, ["Result_1", "Result_3"]);
+
+            stackedplot(ts1, ts2, [1 3]);
+
+            stackedplot(ts1, ts2, {"Result_1", ["Result_2", "Result_3"]});
+        ]]>
+        </scilab:image>
+        </para>
+        <para><emphasis role="bold">stackedplot(ts1, ts2, "LegendLabels", str, "DisplayLabels", str2)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            t = datetime(2022, 1, 1):datetime(2022, 8, 31);
+            n = size(t, "*");
+            y1 = floor(10 * rand(n, 3)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), y1(:,3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+
+            y2 = floor(10 * rand(n, 3)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), y2(:, 3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+            stackedplot(ts1, ts2, {"Result_1", ["Result_2", "Result_3"]}, "LegendLabels", ["t1", "t2"], "DisplayLabels", ["res1", "res2 - res3"]);
+        ]]>
+        </programlisting>
+        <scilab:image><![CDATA[
+            t = datetime(2022, 1, 1):datetime(2022, 8, 31);
+            n = size(t, "*");
+            y1 = floor(10 * rand(n, 3)) + 10;
+            ts1 = timeseries(t, y1(:, 1), y1(:, 2), y1(:,3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+
+            y2 = floor(10 * rand(n, 3)) + 20;
+            ts2 = timeseries(t, y2(:, 1), y2(:, 2), y2(:, 3), "VariableNames", ["Time", "Result_1", "Result_2", "Result_3"]);
+            stackedplot(ts1, ts2, {"Result_1", ["Result_2", "Result_3"]}, "LegendLabels", ["t1", "t2"], "DisplayLabels", ["res1", "res2 - res3"]);
+        ]]>
+        </scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

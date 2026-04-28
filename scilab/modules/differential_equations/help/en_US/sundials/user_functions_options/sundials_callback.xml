@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_callback" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Callback</refname>
+        <refpurpose>Specifying a user callback</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ... = solver( ... , callback = cbFn)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>cbFn</term>
+                <listitem>
+                    <para>A Scilab function, a list or a string</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description" xml:id="cvode_callback">
+        <title>Description</title>
+        <para>While solving nonlinear equations or integrating ODEs or DAEs, the solver can call a Scilab function or SUNDIALS DLL entrypoint after every successfull internal or 
+            user prescribed step.
+            General information about the different ways of providing a user function (and 
+           eventual user parameters) is given in the <link linkend="sundials_user_functions">User Functions</link> help page.  
+       </para> 
+    </refsection>   
+   
+    <refsection role="description">
+        <title>Callback function given as a Scilab function</title>    
+        <para>
+            In that case <term>cbFn</term> is a Scilab function with prototype
+        </para>
+        <para><programlisting role="no-scilab-exec"><![CDATA[
+            term = cbFn(y,flag,stats, ...)
+            term = cbFn(t,y,flag,stats, ...)
+            term = cbFn(t,y,yp,flag,stats, ...)
+        ]]>
+        </programlisting></para>
+        <para>
+        for nonlinear equations, ODEs or DAEs, respectively. The <literal>flag</literal> input argument can take the string values 
+        <literal>"init"</literal>, <literal>"step"</literal>, <literal>"event"</literal> (ODE and DAE only) or <literal>"done"</literal> 
+        and <literal>stats</literal> is a structure gathering the solver statistics. The function has to return
+        <literal>%f</literal> to continue iterations whereas returning <literal>%t</literal> will stop the solver. 
+        Here is a basic example displaying a progressbar when solving an ODE with solver time synchronization:
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                function out=cbFn(t,y,flag,stats,tf)
+                    global h
+                    if flag == "init"
+                        h=waitbar(0)
+                        realtimeinit(1)
+                        realtime(0)
+                    elseif flag == "step"
+                        waitbar(t/tf,msprintf("t = %g s",t),h)
+                        realtime(t)
+                    else
+                        delete(h)
+                    end
+                    out = %f
+                end
+                cvode(%SUN_vdp1,[0 10],[2;1],callback=list(cbFn,10))
+                ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="description">
+        <title>Callback function given as a  SUNDIALS DLL entrypoint</title>    
+                <para>In that case <term>cbFn</term> must have the C prototype</para> 
+            <para><programlisting role="no-scilab-exec"><![CDATA[
+                int cbFn(int flag, N_Vector Y, void *user_data)
+                int cbFn(sunrealtype t, int flag, N_Vector Y, void *user_data)
+                int cbFn(sunrealtype t, int flag N_Vector Y, N_Vector Yp, void *user_data)
+                ]]>
+        </programlisting></para>
+                       
+            <para>
+                for nonlinear equations, ODEs or DAEs, respectively. The entrypoint has to return 0 or 1, for normal continuation 
+                or solver termination, respectively. The <literal>flag</literal> input argument takes 
+                values -1,0,1 or 2 for "init", "step", "done" and "event" solver phases. Here is an example
+                where values of an ODE solution are written to a text file in the current directory:
+            </para>
+            <para>
+                <programlisting role="example"><![CDATA[
+            code=[
+                "#include <stdio.h>"
+                "#include <nvector/nvector_serial.h>"
+                "FILE *fp;"
+                "int sunRhs(sunrealtype t, N_Vector Y, N_Vector Yd, void *user_data)"    
+                "{"
+                "double *y = NV_DATA_S(Y);"
+                "double *ydot = NV_DATA_S(Yd);"
+                "ydot[0] = -y[0]*y[0];"
+                "return 0;"
+                "}" 
+                "int sunCb(sunrealtype t, int flag, N_Vector Y, void *user_data)"
+                "{"
+                "double *y = NV_DATA_S(Y);"
+                "if (flag == -1) {"
+                "  fp = fopen(""output.txt"",""w"");"
+                "} else if (flag == 2) {"
+                "  fclose(fp);"
+                "  return 0;"
+                "}"
+                "fprintf(fp,""t=%f, y=%f, flag=%d\n"",t, y[0], flag);"
+                "return 0;"
+                "}"];
+            mputl(code,"code.c");
+            SUN_Clink(["sunRhs","sunCb"],"code.c",load=%t);
+            cvode("sunRhs",[0 1],1,callback="sunCb");
+            mgetl("output.txt")
+            ]]></programlisting>                
+        </para>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arkode">arkode</link>
+            </member>
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="kinsol">kinsol</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+            <member>
+                <link linkend="sundials_kinsol_options">Options (kinsol)</link>
+            </member>
+            <member>
+                <link linkend="SUN_Clink">SUN_Clink</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+</refentry>

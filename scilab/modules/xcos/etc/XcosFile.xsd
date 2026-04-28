@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="XcosDiagram">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Array"/>
+        <xs:element minOccurs="0" ref="mxUndoManager"/>
+        <xs:element ref="mxGraphModel"/>
+        <xs:element ref="mxCell"/>
+        <xs:element minOccurs="0" ref="mxPoint"/>
+      </xs:sequence>
+      <xs:attribute name="background" use="required" type="xs:integer"/>
+      <xs:attribute name="debugLevel" type="xs:integer"/>
+      <xs:attribute name="finalIntegrationTime" type="xs:double"/>
+      <xs:attribute name="gridEnabled" type="xs:integer"/>
+      <xs:attribute name="integratorAbsoluteTolerance" type="xs:double"/>
+      <xs:attribute name="integratorRelativeTolerance" type="xs:double"/>
+      <xs:attribute name="maxIntegrationTimeInterval" type="xs:decimal"/>
+      <xs:attribute name="maxIntegrationTimeinterval" type="xs:decimal"/>
+      <xs:attribute name="maximumStepSize" type="xs:decimal"/>
+      <xs:attribute name="modified" type="xs:integer"/>
+      <xs:attribute name="opened" type="xs:integer"/>
+      <xs:attribute name="realTimeScaling" type="xs:decimal"/>
+      <xs:attribute name="savedFile"/>
+      <xs:attribute name="solver" type="xs:decimal"/>
+      <xs:attribute name="title"/>
+      <xs:attribute name="toleranceOnTime" type="xs:double"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mxUndoManager">
+    <xs:complexType>
+      <xs:attribute name="as" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Array">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+          <xs:element ref="ScilabString"/>
+          <xs:element ref="ScilabBoolean"/>
+        </xs:choice>
+        <xs:choice>
+          <xs:element ref="ScilabInteger"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="mxPoint"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="add"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="scilabClass" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ScilabBoolean">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="data"/>
+      </xs:sequence>
+      <xs:attribute name="height" use="required" type="xs:integer"/>
+      <xs:attribute name="width" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ScilabInteger">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="data"/>
+      </xs:sequence>
+      <xs:attribute name="height" use="required" type="xs:integer"/>
+      <xs:attribute name="intPrecision" type="xs:NCName"/>
+      <xs:attribute name="width" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="add">
+    <xs:complexType>
+      <xs:attribute name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mxGraphModel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="root"/>
+      </xs:sequence>
+      <xs:attribute name="as" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="BasicBlock"/>
+        <xs:element ref="CommandPort"/>
+        <xs:element ref="ControlPort"/>
+        <xs:element ref="ExplicitInputPort"/>
+        <xs:element ref="ExplicitOutputPort"/>
+        <xs:element ref="ImplicitInputPort"/>
+        <xs:element ref="ImplicitOutputPort"/>
+        <xs:element ref="mxCell"/>
+        <xs:element ref="AfficheBlock"/>
+        <xs:element ref="BigSom"/>
+        <xs:element ref="CommandControlLink"/>
+        <xs:element ref="ConstBlock"/>
+        <xs:element ref="EventInBlock"/>
+        <xs:element ref="EventOutBlock"/>
+        <xs:element ref="ExplicitInBlock"/>
+        <xs:element ref="ExplicitLink"/>
+        <xs:element ref="ExplicitOutBlock"/>
+        <xs:element ref="GainBlock"/>
+        <xs:element ref="GroundBlock"/>
+        <xs:element ref="ImplicitInBlock"/>
+        <xs:element ref="ImplicitLink"/>
+        <xs:element ref="ImplicitOutBlock"/>
+        <xs:element ref="PrintBlock"/>
+        <xs:element ref="Product"/>
+        <xs:element ref="RoundBlock"/>
+        <xs:element ref="SplitBlock"/>
+        <xs:element ref="Summation"/>
+        <xs:element ref="SuperBlock"/>
+        <xs:element ref="TextBlock"/>
+        <xs:element ref="VoltageSensorBlock"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AfficheBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="hashCode" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BigSom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+      <xs:attribute name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommandControlLink">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mxGeometry"/>
+        <xs:choice>
+          <xs:element ref="BasicBlock"/>
+          <xs:element ref="mxCell"/>
+        </xs:choice>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="CommandPort"/>
+          <xs:element ref="ControlPort"/>
+        </xs:sequence>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConstBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="angle" type="xs:integer"/>
+      <xs:attribute name="blockType" use="required" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EventInBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+        <xs:element minOccurs="0" ref="mxCell"/>
+      </xs:sequence>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:integer"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EventOutBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:element ref="ScilabDouble"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="Array"/>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExplicitInBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+        <xs:element minOccurs="0" ref="mxCell"/>
+      </xs:sequence>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:integer"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExplicitLink">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mxGeometry"/>
+        <xs:element ref="mxCell"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="ExplicitOutputPort"/>
+          <xs:element ref="ExplicitInputPort"/>
+        </xs:sequence>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExplicitOutBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+        <xs:element minOccurs="0" ref="mxCell"/>
+      </xs:sequence>
+      <xs:attribute name="angle" type="xs:integer"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:integer"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GainBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+        <xs:element minOccurs="0" ref="mxCell"/>
+      </xs:sequence>
+      <xs:attribute name="angle" type="xs:integer"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GroundBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImplicitInBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:element maxOccurs="unbounded" ref="ScilabDouble"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="Array"/>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="angle" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImplicitLink">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mxGeometry"/>
+        <xs:element ref="mxCell"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="ImplicitInputPort"/>
+          <xs:element ref="ImplicitOutputPort"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImplicitOutBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:element maxOccurs="unbounded" ref="ScilabDouble"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="Array"/>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrintBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+      <xs:attribute name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Product">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RoundBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="dependsOnU" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SplitBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="ScilabString"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+        <xs:element minOccurs="0" ref="mxCell"/>
+      </xs:sequence>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="dependsOnU" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:NCName"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Summation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ScilabString"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuperBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="SuperBlockDiagram"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+          <xs:element ref="ScilabString"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="angle" type="xs:integer"/>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuperBlockDiagram">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="mxGraphModel"/>
+        </xs:choice>
+        <xs:element ref="mxCell"/>
+        <xs:element minOccurs="0" ref="mxPoint"/>
+      </xs:sequence>
+      <xs:attribute name="as" use="required" type="xs:NCName"/>
+      <xs:attribute name="background" type="xs:integer"/>
+      <xs:attribute name="finalIntegrationTime" type="xs:decimal"/>
+      <xs:attribute name="gridEnabled" type="xs:integer"/>
+      <xs:attribute name="integratorAbsoluteTolerance" type="xs:double"/>
+      <xs:attribute name="integratorRelativeTolerance" type="xs:decimal"/>
+      <xs:attribute name="maxIntegrationTimeInterval" type="xs:decimal"/>
+      <xs:attribute name="solver" type="xs:decimal"/>
+      <xs:attribute name="title"/>
+      <xs:attribute name="toleranceOnTime" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TextBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="ScilabString"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VoltageSensorBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="dependsOnU" use="required" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required" type="xs:NCName"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mxCell">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="edge" type="xs:integer"/>
+      <xs:attribute name="id" use="required"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="source" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mxPoint">
+    <xs:complexType>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="x" type="xs:decimal"/>
+      <xs:attribute name="y" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="data">
+    <xs:complexType>
+      <xs:attribute name="bUnsigned" type="xs:boolean"/>
+      <xs:attribute name="column" use="required" type="xs:integer"/>
+      <xs:attribute name="line" use="required" type="xs:integer"/>
+      <xs:attribute name="realPart" type="xs:double"/>
+      <xs:attribute name="imaginaryPart" type="xs:double"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ScilabDouble">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="data"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="height" use="required" type="xs:integer"/>
+      <xs:attribute name="width" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ScilabString">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="data"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="height" use="required" type="xs:integer"/>
+      <xs:attribute name="width" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ControlPort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="connectedLinkId" type="xs:integer"/>
+      <xs:attribute name="dataType" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mxGeometry">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Array"/>
+        <xs:element ref="mxPoint"/>
+      </xs:choice>
+      <xs:attribute name="as" use="required" type="xs:NCName"/>
+      <xs:attribute name="height" type="xs:decimal"/>
+      <xs:attribute name="relative" type="xs:integer"/>
+      <xs:attribute name="width" type="xs:decimal"/>
+      <xs:attribute name="x" type="xs:decimal"/>
+      <xs:attribute name="y" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExplicitOutputPort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="connectedLinkId" type="xs:integer"/>
+      <xs:attribute name="dataColumns" type="xs:integer"/>
+      <xs:attribute name="dataLines" type="xs:integer"/>
+      <xs:attribute name="dataType" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExplicitInputPort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Orientation"/>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="connectedLinkId" type="xs:integer"/>
+      <xs:attribute name="dataColumns" type="xs:integer"/>
+      <xs:attribute name="dataLines" type="xs:integer"/>
+      <xs:attribute name="dataType" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImplicitInputPort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Orientation"/>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="connectedLinkId" type="xs:integer"/>
+      <xs:attribute name="dataColumns" type="xs:integer"/>
+      <xs:attribute name="dataLines" type="xs:integer"/>
+      <xs:attribute name="dataType" use="required" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:NCName"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImplicitOutputPort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Orientation"/>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="connectedLinkId" type="xs:integer"/>
+      <xs:attribute name="dataColumns" type="xs:integer"/>
+      <xs:attribute name="dataLines" type="xs:integer"/>
+      <xs:attribute name="dataType" use="required" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="value" type="xs:NCName"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BasicBlock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="Array"/>
+          <xs:element ref="ScilabDouble"/>
+          <xs:element ref="ScilabString"/>
+        </xs:choice>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="angle" type="xs:integer"/>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="blockType" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="dependsOnT" type="xs:integer"/>
+      <xs:attribute name="dependsOnU" type="xs:integer"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="interfaceFunctionName" type="xs:NCName"/>
+      <xs:attribute name="ordering" type="xs:integer"/>
+      <xs:attribute name="parent" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="simulationFunctionName" use="required"/>
+      <xs:attribute name="simulationFunctionType" use="required" type="xs:NCName"/>
+      <xs:attribute name="style" use="required"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="vertex" type="xs:integer"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommandPort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mxGeometry"/>
+      </xs:sequence>
+      <xs:attribute name="as" type="xs:NCName"/>
+      <xs:attribute name="connectable" type="xs:integer"/>
+      <xs:attribute name="connectedLinkId" type="xs:integer"/>
+      <xs:attribute name="dataType" type="xs:NCName"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="initialState" type="xs:decimal"/>
+      <xs:attribute name="ordering" use="required" type="xs:integer"/>
+      <xs:attribute name="parent" type="xs:NMTOKEN"/>
+      <xs:attribute name="style"/>
+      <xs:attribute name="visible" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Orientation">
+    <xs:complexType>
+      <xs:attribute name="as" use="required" type="xs:NCName"/>
+      <xs:attribute name="value" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

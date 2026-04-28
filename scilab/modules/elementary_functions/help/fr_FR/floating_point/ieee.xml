@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2017 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="ieee">
+    <refnamediv>
+        <refname>ieee</refname>
+        <refpurpose>fixe ou indique le mode d'exception IEEE pour les calculs</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>mod = ieee()
+            ieee(mod)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>mod  </term>
+                <listitem>
+                    <para>un entier valant 0,1 ou 2
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>ieee()</literal> renvoie le mode d'exception IEEE courant pour les calculs en virgule flottante.
+        <variablelist>
+            <varlistentry>
+                <term>0</term>
+                <listitem>
+                    <para>les exceptions produisent une erreur</para>
+                    <para>
+                       Dans ce mode, les valeurs spéciales <literal>%inf</literal> et
+                       <literal>%nan</literal> sont utilisables sans erreur. Par exemple, les
+                       opérations <literal>%inf/%inf</literal>,  <literal>%inf-%inf</literal> ou
+                       <literal>%inf/%nan</literal> seront effectuées sans produire d'erreur.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>1</term>
+                <listitem>
+                     <para>
+                        les exceptions produisent un warning.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>2</term>
+                <listitem>
+                     <para>
+                        les exceptions produisent Inf ou Nan.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        </para>
+        <para>
+            <literal>ieee(mod)</literal> fixe le mode d'exception IEEE courant pour les calculs en
+            virgule flottante.
+        </para>
+        <note>
+            Le mode initial par défaut est 2. Ce réglage peut être modifié indifféremment comme suit:
+            <itemizedlist>
+                <listitem>
+                     <para>
+                      Via l'interface des Préférences : <code>preferences</code>, section
+                      <emphasis role="italic">Général =&gt; Environment =&gt; ieee</emphasis>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                      En utilisant <code>xmlSetValues</code> comme suit (ici pour ieee(1)) :
+                      </para>
+                  </listitem>
+                <listitem>
+                     <para>
+                        Ou en indiquant <literal>ieee(mod)</literal> dans votre fichier de démarrage
+                        personnel.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </note>
+        <warning>
+            Certaines exceptions IEEE générées dans certains algorithmes provenant de
+            bibliothèques ne sont pas prises en compte par les modes <literal>ieee</literal>
+            pour l'instant.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+ieee(1); 1/0
+ieee(2); 1/0, log(0)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="percentnan">%nan</link>
+            </member>
+            <member>
+                <link linkend="percentinf">%inf</link>
+            </member>
+            <member>
+                <link linkend="isinf">isinf</link>
+            </member>
+            <member>
+                <link linkend="isnan">isnan</link>
+            </member>
+            <member>
+                <link linkend="number_properties">number_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>2 est maintenant la valeur par défaut au lancement de Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

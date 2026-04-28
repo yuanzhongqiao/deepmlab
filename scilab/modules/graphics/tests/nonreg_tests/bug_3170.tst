@@ -1,0 +1,37 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// <-- Non-regression test for bug 3170 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/3170
+//
+// <-- Short Description -->
+// Missing checks when setting data property of fac3d objects.
+ 
+// create a plot
+x = 1:100;
+[xx,yy,zz] = genfac3d(x,x,sin(x' * x));
+dataSize = size(xx);
+plotColors = 32 * rand(dataSize(1), dataSize(2));
+plot3d(xx, yy, list(zz, plotColors));
+
+// modify data
+surface = gce();
+data = surface.data;
+// decrease position sizes, but not color one
+data.x = data.x(1:100);
+data.y = data.y(1:100);
+data.z = data.z(1:100);
+
+// Should produce an error but not crash Scilab
+execstr("surface.data = data;",'errcatch','n');
+
+
+

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="timeseries" xml:lang="en">
+    <refnamediv>
+        <refname>timeseries</refname>
+        <refpurpose>create a timeseries - table with time as index</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            ts = timeseries(time, var1, ..., varN)
+            ts = timeseries(var1, ..., varN, 'RowTimes', time)
+            ts = timeseries(var1, ..., varN, 'TimeStep', timeStep)
+            ts = timeseries(var1, ..., varN, 'SampleRate', sampleRate)
+            ts = timeseries(..., OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>time</term>
+                <listitem>
+                    <para>duration or datetime column vector used as time index in the timeseries</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>var1, ..., varN</term>
+                <listitem>
+                    <para>vector with the same number of rows.</para>
+                    <para>Each var can be different type: double, boolean, string, integers, 
+                        <link linkend="datetime">datetime</link>, <link linkend="duration">duration</link>
+                         and <link linkend="calendarDuration">calendarDuration</link></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeStep</term>
+                <listitem>
+                    <para>time step, duration or calendarDuration value</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sampleRate</term>
+                <listitem>
+                    <para>number of samples per second (Hz), real scalar</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"VariableNames"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        contains the name of each ts'column. Default value: ["Time", "Var1", ..., "VarN"].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"VariableUnits"</emphasis>, vector of strings</term>
+                <listitem>
+                    <para> 
+                        contains the unit of each column. Default value: ["", ..., ""].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"VariableContinuity"</emphasis>, string</term>
+                <listitem>
+                    <para> 
+                        specifies how each variable is filled when calling the <link linkend="retime"/> and 
+                        <link linkend="synchronize"/> functions: 
+                        <emphasis role="blod">"unset", "continuous", "step", "event"</emphasis>. 
+                        Default value : ["", ..., ""].
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"StartTime"</emphasis>, <link linkend="duration">duration</link> or <link linkend="datetime">datetime</link> value</term>
+                <listitem>
+                    <para> 
+                        specifies the start time of the timeseries.
+                        Default value: first element of time vector.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ts</term>
+                <listitem>
+                    <para>output argument - timeseries object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>The timeseries function creates a table with the time as index (first table column). The index contains datetime or duration data.
+            The other columns correspond to the variables, one variable by one column. Each variable is a column vector that has its own data type. 
+            Warning: they must have the same number of lines.
+        </para>
+        <para><emphasis role="bold">ts = timeseries(time, var1, ..., varN)</emphasis> or <emphasis role="bold">ts = timeseries(var1, ..., varN, 'RowTimes', time)</emphasis> 
+            creates a timeseries from the time basis vector <emphasis role="bold">time</emphasis> and 
+            the data variables <emphasis role="bold">var1, ..., varN</emphasis> (column vector).
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'TimeStep', timeStep)</emphasis> creates a timeseries whose the time vector is generated from the 
+            time step <emphasis role="bold">timeStep</emphasis>. timeStep is either a duration or a calendarDuration value. The first value of this time vector is zero seconds 
+            and will have the same number of rows as the variable data vectors.
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'SampleRate', sampleRate)</emphasis> creates a timeseries whose the time vector is generated from the 
+            sample rate <emphasis role="bold">sampleRate</emphasis>. sampleRate is a real value, number of samples per second. The first value of this time vector is zero seconds 
+            and will have the same number of rows as the variable data vectors.
+        </para>
+        <para><emphasis role="bold">ts = timeseries(..., OptionName, Value)</emphasis> can be used to specify the variable names or unit, the start time or the continuity of variables.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">'VariableNames'</emphasis>: specify the name of variables as well as the name of the time column. It is a row vector and the number of names 
+                must be equal the number of timeseries variables + 1 (time column). For example, ["Time", "OutdoorTemp", "IndoorTemp"] is the correct vector if the timeseries has two variables.
+                This data is stored in the properties of the timeseries <emphasis role="bold">ts</emphasis> in the 'VariableNames' field. 
+                For more information, see the Properties section below.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">'VariableUnits'</emphasis>: specify the unit of variables as well as the unit of the time column. It is a row vector and the number of units 
+                must be equal the number of timeseries variables + 1 (time column). This data is stored in the properties of the timeseries <emphasis role="bold">ts</emphasis> in the 'VariableUnits' field. 
+                For more information, see the Properties section below.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">'VariableContinuity'</emphasis>: specify how to fill missing data in the timeseries variables, using different methods:</para>
+                <itemizedlist>
+                    <listitem>
+                        <para><emphasis role="bold">'unset'</emphasis>: fill missing values with the default values for each type (NaN for doubles, "" for strings, NaT for datetimes, ...)</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">'continuous'</emphasis>: fill missing values with linear interpolation.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">'step'</emphasis>: fill missing values with previous value.</para>
+                    </listitem>
+                </itemizedlist>
+                <para>These methods are used in <link linkend="retime"/> or <link linkend="synchronize"/> functions.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">'StartTime'</emphasis>: specify the start time of timeseries. This property must be used with "TimeStep" or "SampleRate".</para>
+                <para/>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Timeseries Properties</title>
+        <para><emphasis role="bold">ts</emphasis> contains several properties used to describe the index and the variables.</para>
+        <para>These properties can be accessed/modified by using <emphasis role="bold">Properties</emphasis> field of ts. </para>
+        <para>Here is the list of available fields in <emphasis role="bold">ts.Properties</emphasis>:</para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">Description</emphasis>: contains the description of the timeseries. Default value: "".</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableNames</emphasis>: contains the variable names of the timeseries. Default value: ["Time", "Var1", ..., "VarN"].</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableDescriptions</emphasis>: contains the variable descriptions of the timeseries. One description by variable (time included). Default value: "".</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableUnits</emphasis>: contains the variable units of the timeseries. Default value: "".</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">VariableContinuity</emphasis>: contains the methods to fill the missing data when the timeseries is used in retime or syncrhonize functions.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">StartTime</emphasis>: contains the start time, either specified when the timeseries is created or the first row time in timeseries.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">SampleRate</emphasis>: contains the sample rate given during the call <emphasis role="bold">ts = timeseries(var1, ..., varN, 'SampleRate', sampleRate)</emphasis>.</para>
+                <para/>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">TimeStep</emphasis>: contains the time step given during the call <emphasis role="bold">ts = timeseries(var1, ..., varN, 'TimeStep', timestep)</emphasis>.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">ts = timeseries(time, var1, ..., varN) when time is a datetime column vector</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = datetime(2022, 12, 1:5)';
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(T, AmbientTemperature, FlowRate)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = timeseries(time, var1, ..., varN) when time is a duration column vector</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = [duration(1, 0, 0):minutes(15):duration(2, 0, 0)]';
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(T, AmbientTemperature, FlowRate)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'RowTimes', time) when time is a datetime column vector</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = datetime(2022, 12, 1:5)';
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(AmbientTemperature, FlowRate, 'RowTimes', T)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'RowTimes', time) when time is a duration column vector</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = [duration(1, 0, 0):minutes(15):duration(2, 0, 0)]';
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(AmbientTemperature, FlowRate, 'RowTimes', T)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'TimeStep', timeStep) when timeStep is a duration value</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            timestep = hours(1);
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(AmbientTemperature, FlowRate, 'TimeStep', timestep)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'TimeStep', timeStep) when timeStep is a calendarDuration value</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(AmbientTemperature, FlowRate, 'TimeStep', caldays(1), 'StartTime', datetime(2022, 1, 1))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">ts = timeseries(var1, ..., varN, 'SampleRate', sampleRate)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(AmbientTemperature, FlowRate, 'SampleRate', 500)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With VariableNames and VariableUnits</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = datetime(2022, 12, 1:5)';
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(T, AmbientTemperature, FlowRate, 'VariableNames', ["Time", "AmbientTemp", "FlowRate"], "VariableUnits", ["", "°C", "kg/s"])
+            ts.Properties
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With StartTime</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            timestep = hours(1);
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(AmbientTemperature, FlowRate, 'TimeStep', timestep, 'StartTime', datetime(2022, 1, 1))
+
+            ts = timeseries(AmbientTemperature, FlowRate, 'SampleRate', 500, 'StartTime', duration(0, 0, 30))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With VariableContinuity</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = datetime(["2022-12-01 00:00:00"; "2022-12-01 06:00:00"; "2022-12-01 12:00:00"; ...
+            "2022-12-01 18:00:00"; "2022-12-02 00:00:00"]);
+            WindDir = ["NW"; "NW"; "W"; "W"; "NW"];
+            WindSpeed = [8; 10; 7; 9.5; 10.2];
+            ts1 = timeseries(T, WindDir, WindSpeed, "VariableNames", ["Time", "WindDirection", "WindSpeed"], "VariableContinuity", ["", "unset", "continuous"])
+            ts2 = retime(ts1, 'hourly')
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Access to properties + modify</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = datetime(2022, 12, 1:5)';
+            AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+            FlowRate = [50; 52; 53; 55; 60];
+            ts = timeseries(T, AmbientTemperature, FlowRate, 'VariableNames', ["Time", "AmbientTemp", "FlowRate"], "VariableUnits", ["", "°C", "kg/s"])
+            ts.Properties
+
+            ts.Properties.VariableNames = ["Time_in_day", "T_amb", "Qm"];
+            ts.Properties
+            ts
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Access to data in the timeseries</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            T = datetime(["2022-12-01 00:00:00"; "2022-12-01 06:00:00"; "2022-12-01 12:00:00"; ...
+            "2022-12-01 18:00:00"; "2022-12-02 00:00:00"]);
+            WindDir = ["NW"; "NW"; "W"; "W"; "NW"];
+            WindSpeed = [8; 10; 7; 9.5; 10.2];
+            ts1 = timeseries(T, WindDir, WindSpeed, "VariableNames", ["Time", "WindDirection", "WindSpeed"])
+            ts1([2 4], :)
+            ts1("WindDirection")
+            ts1(3, 2) = {11.5}
+            ts1(datetime(2022,12,1), :) = {"W", 12.8}
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+            <member>
+                <link linkend="retime">retime</link>
+            </member>
+            <member>
+                <link linkend="synchronize">synchronize</link>
+            </member>
+            <member>
+                <link linkend="stackedplot">stackedplot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    Support for integers types added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

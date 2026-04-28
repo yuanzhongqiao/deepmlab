@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2021 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="arkode" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>arkode</refname>
+        <refpurpose>SUNDIALS ordinary differential equation additive Runge-Kutta solver</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [t,y] = arkode(f,tspan,y0,options)
+            [t,y,info] = arkode(f,tspan,y0,options)
+            sol = arkode(...)
+            solext = arkode(sol,tfinal,options)
+            arkode(...)
+    </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>f</term>
+                <listitem>    
+                    <para>a function, a string or a list, the right hand side of the differential equation</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tspan</term>
+                <listitem>    
+                    <para>double vector, time interval or time points</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y0</term>
+                <listitem>    
+                    <para>a double array: initial state of the ode</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>
+                    <para>a sequence of optional named arguments, see the <link linkend="sundials_options">solvers options</link></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>vector of time points used by the solver</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>array of solution at time values in <term>t</term></para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sol, solext</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type, see the <link linkend="sundials_solution">solution output</link> help page</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>info</term>
+                <listitem>    
+                    <para>MList of <literal>_odeSolution</literal> type with solver information,
+                    user events information (if applicable) and statistics</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tfinal</term>
+                <listitem>    
+                    <para>final time of extended solution</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>arkode</literal> computes the solution of real or complex ordinary different equations defined by
+        </para>
+        <para>
+                <latex style="display">M(t)y' = f(t,y)=f_E(t,y)+f_I(t,y),\,y(t_0)=y_0.</latex>
+        </para>
+        <para>
+            The right hand side can be specfied as the sum of two functions <latex>f_E,f_I</latex> where
+            <latex>f_I</latex> is typically stiff and needs to be integrated by an implicit method, whereas
+            <latex>f_E</latex> is the non-stiff part of <latex>f</latex>. When both components are specified 
+            <literal>arkode</literal> uses an implicit/explicit method (see the <link linkend="arkode_imex"> dedicated section</link> below).
+            When the splitting is not necessary a classical explicit (the default) or implicit method can be used 
+            (see the <link linkend="arkode_methods">available methods</link> below). 
+        </para>
+        <para>
+            The mass matrix M(t) is by default the identity matrix. It can be changed to any non-singular matrix by giving a constant
+            matrix to the <literal>mass</literal> option or a user function if the matrix is time-dependent. See the  
+            <link linkend="arkode_mass">mass matrix</link> section below). If the mass matrix depends on solution y then the problem
+            has to be reformulated as a DAE and can be solved by <link linkend="ida">ida</link>.
+        </para>
+        <para>
+            As arkode shares with cvode most of its features (syntax, specification of user function) please refer to the Description section of 
+            <link linkend="cvode">cvode help page</link> for basic usage (events handling, solution output, callback). We will give below an example where the solution is computed
+            first with the default explicit method, then with an implicit/explicit method.             
+        </para>
+</refsection>
+<refsection role="example">
+    <title>Example</title>
+    <para>
+        In the following example, we solve the Brusselator ODE
+    </para>
+    <para>
+        <latex>
+            u'=a-(w+1)u + vu^2,\quad v'=wu-vu^2,\quad w'=-wu+(b-w)/\varepsilon
+        </latex>
+    </para> 
+    <para>
+        The right hand side is computed by the  function <literal>%SUN_bruss</literal> (already defined in the SUNDIALS module):
+    </para>
+    <para>
+        <programlisting role="no-scilab-exec"><![CDATA[
+            function dydt = %SUN_bruss(t,y,a,b,ep)
+            u=y(1); v=y(2); w=y(3);
+            dydt = [a-(w+1)*u+v*u*u; w*u-v*u*u; (b-w)/ep-w*u];
+            end
+            ]]>
+        </programlisting>
+    </para>
+    <para>
+        <programlisting role="example"><![CDATA[
+            u0 = 3.9; v0 = 1.1; w0 = 2.8; a  = 1.2; b  = 2.5; ep = 1.0e-1;
+            [t,y] = arkode(list(%SUN_bruss,a,b,ep), [0 10], [u0; v0; w0]);
+            plot(t,y)
+            ]]></programlisting>
+            <scilab:image>
+                u0 = 3.9; v0 = 1.1; w0 = 2.8; a  = 1.2; b  = 2.5; ep = 1.0e-1;
+                [t,y] = arkode(list(%SUN_bruss,a,b,ep), [0 10], [u0; v0; w0]);
+                plot(t,y)
+                legend u v w
+                gcf().axes_size(2)=300
+            </scilab:image>
+        </para>
+        <para>
+            In the example above the default explicit order 4 Runge-Kutta method is used. However, when
+            a very small value is taken for <latex>\varepsilon</latex> an implicit scheme can be used, here the default order 4
+            diagonaly implicit Runge-Kutta method:
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            u0 = 3.9; v0 = 1.1; w0 = 2.8; a  = 1.2; b  = 2.5; ep = 1.0e-5;
+            [t,y] = arkode(list(%SUN_bruss,a,b,ep), [0 10], [u0; v0; w0], method="DIRK");
+            plot(t,y)
+            ]]>
+        </programlisting>
+            <scilab:image>
+                u0 = 3.9; v0 = 1.1; w0 = 2.8; a  = 1.2; b  = 2.5; ep = 1.0e-5;
+                [t,y] = arkode(list(%SUN_bruss,a,b,ep), [0 10], [u0; v0; w0], method="DIRK");
+                plot(t,y)
+                legend u v w
+                gcf().axes_size(2)=300
+            </scilab:image>
+        </para>        
+    </refsection>
+
+    <refsection role="description" xml:id="arkode_imex">
+        <title>Using an implicit/explicit method</title>
+        <para>
+            In the above example we can split
+            the right hand side in two components like this :
+        </para>
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[
+                function dydt = %SUN_brussI(t,y,b,ep)
+                    w=y(3);
+                    dydt = [0; 0; (b-w)/ep];
+                end
+                function dydt = %SUN_brussE(t,y,a)
+                    u=y(1); v=y(2); w=y(3);
+                    dydt = [a-(w+1)*u+v*u*u; w*u-v*u*u;-w*u];
+                end
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            and solve the differential equation with the default order 4 implicit/explicit method. The solver just needs the information about the splitting, 
+            which is given by the <literal>stiffRhs</literal> option:
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            u0 = 3.9; v0 = 1.1; w0 = 2.8; a  = 1.2; b  = 2.5; ep = 1.0e-5;
+            jacI = [0 0 0;0 0 0;0 0 -1/ep];
+            [t,y] = arkode(list(%SUN_brussE,a), [0 10], [u0; v0; w0], stiffRhs = list(%SUN_brussI,b,ep), ... 
+                           jacobian = jacI);
+            plot(t,y)
+            ]]>
+        </programlisting>
+        </para>
+        <para>This small example exhibits the interest of the splitting because here the stiff component is linear and we can specify its constant Jacobian
+            to improve the performance of the inner implicit method. 
+            Note that when using an ImEx method with a user-provided Jacobian, the latter is the Jacobian of the stiff component only.
+        </para>
+    </refsection>
+
+    <refsection role="description" xml:id="arkode_mass">
+        <title>Mass matrix</title>
+        <para>When using arkode a non singular mass matrix can be specified and to this purpose the call to the solver takes the form
+             <literal>arkode(f,tspan,y0,mass=massFun)</literal> where
+             <literal>massFun</literal> can be:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>a function with prototype <literal>m=massFun(t)</literal>, for example:</para>
+                <para>
+                    <programlisting><![CDATA[
+                        function m  = massFun(t)
+                            m = [1 0;0 1+t]
+                        end
+                        [t,y] = arkode(%SUN_vdp1, [0 10], [0; 2], mass = massFun);
+                        ]]>
+                    </programlisting>
+                </para>                
+            </listitem>
+            <listitem>
+                <para>a matrix, which allows inform the solver that the mass does not depend on time:
+                </para>
+                <para>
+                    <programlisting><![CDATA[
+                        [t,y] = arkode(%SUN_vdp1, [0 10], [0; 2], mass = [1 0;0 2]);
+                    ]]>
+                </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>a string giving the name of a SUNDIALS DLL entrypoint with C prototype </para> 
+                <para><programlisting role="no-scilab-exec"><![CDATA[int sunMass(sunrealtype t, SUNMatrix M, void* user_data, N_Vector tmp1, 
+                                      N_Vector tmp2, N_Vector tmp3)]]>
+        </programlisting></para>
+                <para>
+                    <programlisting><![CDATA[
+                    code=[
+                        "#include <nvector/nvector_serial.h>"
+                        "#include <sunmatrix/sunmatrix_dense.h>"
+                        "int sunRhs(sunrealtype t, N_Vector Y, N_Vector Yd, void *user_data)"    
+                        "{"
+                        "double *y = NV_DATA_S(Y);"
+                        "double *ydot = NV_DATA_S(Yd);"
+                        "ydot[0] = y[1];"
+                        "ydot[1] = (1-y[0]*y[0])*y[1]-y[0];"
+                        "return 0;"
+                        "}"
+                        "int sunMass(sunrealtype t, SUNMatrix M, void* user_data, N_Vector tmp1,"
+                        "            N_Vector tmp2, N_Vector tmp3)"
+                        "{"
+                        "double *mass = SM_DATA_D(M);"
+                        "mass[0] = 1.0; mass[1] = 0.0;"
+                        "mass[2] = 0.0;  mass[3]= 1.0+t;"
+                        "return 0;"
+                        "}"];
+                    mputl(code,"code.c")
+                    SUN_Clink(["sunRhs","sunMass"],"code.c",load=%t);
+                    [t1,y1]=arkode("sunRhs",[0 10],[2;1],mass="sunMass");
+                    ]]></programlisting>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection role="description" xml:id="arkode_methods">
+        <title>Available arkode methods</title>
+        <para>When there is no additive splitting of the right hand side the default method is the order 4 explicit Zonneveld method (identifiers ERK, ERK_4 or ZONNEVELD_5_3_4). An implicit method can be chosen by using the <literal>method</literal> option. Note that adding a user Jacobian automatically selects the default implicit method.
+        </para>
+        <para>  
+            If splitting of the right hand side is necessary and the stiff component is given with the <literal>stiffRhs</literal> option, the default method is a combined order 4 implicit/explicit method (ARK436L2SA_DIRK_6_3_4 and ARK436L2SA_ERK_6_3_4) with identifier ARK or ARK_4.
+        </para>
+        <para>
+            If you need a custom ERK, DIRK or ARK method see the next section.
+        </para>
+        <para>
+            <informaltable border='1'>
+              <tbody>
+                  <tr>
+                      <td>Method identifier</td> <td>Kind</td> <td>Order</td> <td>Aliases</td>
+                  </tr>
+                  <tr><td/><td/><td/><td/></tr>
+                <tr>
+                    <td>FORWARD_EULER_1_1</td> <td>explicit</td> <td align="center">1</td>
+                </tr>
+                <tr>
+                    <td>HEUN_EULER_2_1_2</td> <td>explicit</td> <td align="center">2</td> <td>ERK_2</td>
+                </tr>
+                <tr>
+                    <td>RALSTON_EULER_2_1_2</td> <td>explicit</td> <td align="center">2</td> <td>ERK_2</td>
+                </tr>
+                <tr>
+                    <td>RALSTON_3_1_2</td> <td>explicit</td> <td align="center">2</td> 
+                </tr>
+                <tr>
+                    <td>EXPLICIT_MIDPOINT_EULER_2_1_2</td> <td>explicit</td> <td align="center">2</td> 
+                </tr>
+                <tr>
+                    <td>BOGACKI_SHAMPINE_4_2_3</td> <td>explicit</td> <td align="center">3</td> <td>ERK_3</td>
+                </tr>
+                <tr>
+                    <td>SHU_OSHER_3_2_3</td> <td>explicit</td> <td align="center">3</td>
+                </tr>
+                <tr>
+                    <td>ARK324L2SA_ERK_4_2_3</td> <td>explicit</td> <td align="center">3</td>
+                </tr>
+                <tr>
+                    <td>ZONNEVELD_5_3_4</td> <td>explicit</td> <td align="center">4</td> <td>ERK, ERK_4</td>
+                </tr>
+                <tr>
+                    <td>SOFRONIOU_SPALETTA_5_3_4</td> <td>explicit</td> <td align="center">4</td> <td>ERK, ERK_4</td>
+                </tr>
+                <tr>
+                    <td>ARK436L2SA_ERK_6_3_4</td> <td>explicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>SAYFY_ABURUB_6_3_4</td> <td>explicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>ARK437L2SA_ERK_7_3_4</td> <td>explicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>TSITOURAS_7_4_5</td> <td>explicit</td>  <td align="center">5</td> <td>ERK_5</td>
+                </tr>
+                <tr>
+                    <td>CASH_KARP_6_4_5</td> <td>explicit</td>  <td align="center">5</td> 
+                </tr>
+                <tr>
+                    <td>FEHLBERG_6_4_5</td> <td>explicit</td>  <td align="center">5</td>
+                </tr>
+                <tr>
+                    <td>ARK548L2SA_ERK_8_4_5</td> <td>explicit</td>  <td align="center">5</td>
+                </tr>
+                <tr>
+                    <td>ARK548L2SAb_ERK_8_4_5</td> <td>explicit</td>  <td align="center">5</td>
+                </tr>
+                <tr>
+                    <td>VERNER_8_5_6</td> <td>explicit</td>  <td align="center">6</td> <td>ERK_6</td>
+                </tr>
+                <tr>
+                    <td>VERNER_9_5_6</td> <td>explicit</td>  <td align="center">6</td>
+                </tr>
+                <tr>
+                    <td>VERNER_10_6_7</td> <td>explicit</td>  <td align="center">7</td> <td>ERK_7</td>
+                </tr>
+                <tr>
+                    <td>FEHLBERG_13_7_8</td> <td>explicit</td>  <td align="center">8</td> <td>ERK_8</td>
+                </tr>
+                <tr>
+                    <td>VERNER_13_7_8</td> <td>explicit</td>  <td align="center">8</td>
+                </tr>
+                <tr>
+                    <td>VERNER_16_8_9</td> <td>explicit</td>  <td align="center">9</td>
+                </tr>
+                <tr><td/><td/><td/><td/></tr>
+                <tr>
+                    <td>BACKWARD_EULER_1_1</td> <td>implicit</td>  <td align="center">1</td> 
+                </tr>
+                <tr>
+                    <td>IMPLICIT_MIDPOINT_1_2</td> <td>implicit</td>  <td align="center">2</td> 
+                </tr>
+                <tr>
+                    <td>IMPLICIT_TRAPEZOIDAL_2_2</td> <td>implicit</td>  <td align="center">2</td> 
+                </tr>
+                <tr>
+                    <td>ARK2_DIRK_3_1_2</td> <td>implicit</td>  <td align="center">2</td> <td>DIRK_2</td>
+                </tr>
+                <tr>
+                    <td>SDIRK_2_1_2</td> <td>implicit</td>  <td align="center">2</td> 
+                </tr>
+                <tr>
+                    <td>BILLINGTON_3_3_2</td> <td>implicit</td>  <td align="center">2</td>
+                </tr>
+                <tr>
+                    <td>TRBDF2_3_3_2</td> <td>implicit</td>  <td align="center">2</td>
+                </tr>
+                <tr>
+                    <td>KVAERNO_4_2_3</td> <td>implicit</td>  <td align="center">3</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK324L2SA_4_2_3</td> <td>implicit</td>  <td align="center">3</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK325L2SA_5_2_3</td> <td>implicit</td>  <td align="center">3</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK32I5L2SA_5_2_3</td> <td>implicit</td>  <td align="center">3</td> <td>DIRK_3</td>
+                </tr>
+                <tr>
+                    <td>ARK324L2SA_DIRK_4_2_3</td> <td>implicit</td>  <td align="center">3</td> 
+                </tr>
+                <tr>
+                    <td>CASH_5_2_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>KVAERNO_5_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>CASH_5_2_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>CASH_5_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>SDIRK_5_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>KVAERNO_5_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>ARK436L2SA_DIRK_6_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>ARK437L2SA_DIRK_7_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK436L2SA_6_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK43I6L2SA_6_3_4</td> <td>implicit</td>  <td align="center">4</td> <td>DIRK, DIRK_4</td>
+                </tr>
+                <tr>
+                    <td>QESDIRK436L2SA_6_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK437L2SA_7_3_4</td> <td>implicit</td>  <td align="center">4</td>
+                </tr>
+                <tr>
+                    <td>KVAERNO_7_4_5</td> <td>implicit</td>  <td align="center">5</td>
+                </tr>
+                <tr>
+                    <td>ARK548L2SA_DIRK_8_4_5</td> <td>implicit</td>  <td align="center">5</td>  
+                </tr>
+                <tr>
+                    <td>ARK548L2SAb_DIRK_8_4_5</td> <td>implicit</td>  <td align="center">5</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK547L2SA_7_4_5</td> <td>implicit</td>  <td align="center">5</td>
+                </tr>
+                <tr>
+                    <td>ESDIRK547L2SA2_7_4_5</td> <td>implicit</td>  <td align="center">5</td> <td>DIRK_5</td>
+                </tr>
+                <tr><td/><td/><td/><td/></tr>
+                <tr>
+                    <td>ARK324</td> <td>imex</td>  <td align="center">3</td>  <td>ARK_3</td>
+                </tr>
+                <tr>
+                    <td>ARK436</td> <td>imex</td>  <td align="center">4</td>  <td>ARK, ARK_4</td>
+                </tr>
+                <tr>
+                    <td>ARK437</td> <td>imex</td>  <td align="center">4</td>  
+                </tr>
+                <tr>
+                    <td>ARK548</td> <td>imex</td>  <td align="center">5</td>  <td>ARK_5</td>
+                </tr>
+                <tr>
+                    <td>ARK548b</td> <td>imex</td>  <td align="center">5</td>  
+                </tr>
+                
+            </tbody>
+        </informaltable>
+        </para>
+    </refsection>
+
+    <refsection role="description" xml:id="arkode_custom_tableaux">
+        <title>Using custom Butcher tableaux</title>
+        <para>
+            The ERKButcherTab and/or DIRKButcherTab options allow to specify custom Butcher tableaux, under the form of a matrix of size (s+2,s+1) or (s+1,s+1)
+            where s is the number of stages of the method :
+        </para>
+        <para>
+                <latex style="display">\left(\begin{array}{c|ccc}
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    c &amp; \mbox{} &amp; A &amp; \mbox{}\\
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    \hline q &amp;\mbox{} &amp; b &amp; \mbox{}\\
+                    \hline p &amp; \mbox{} &amp; d  &amp; \mbox{}
+                    \end{array}\right) \quad \mbox{or} \quad\left(\begin{array}{c|ccc}
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    c &amp; \mbox{} &amp; A &amp; \mbox{}\\
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    \mbox{} &amp; \mbox{} &amp; \mbox{} &amp; \mbox{}\\
+                    \hline q &amp;\mbox{} &amp; b &amp; \mbox{}
+                    \end{array}\right)</latex>
+        </para>
+        <para>
+            A is a matrix of size (s,s), c a column vector of length s, b and d are row vectors of length s, the coefficients of the main and the embedded method, 
+            of respective orders q and p. When there is no embedded method (above matrix on the right) the overall matrix has size (s+1,s+1) and
+            adaptive stepping is disabled, hence the option <literal>fixedStep</literal> must be set to the value of the chosen fixed step. Please note that 
+            with a fixed step no error control occurs hence the computed solution may be very inaccurate.
+        </para>
+        <para>
+            The claimed orders and the structure of A are checked before initialization of the solver: only explicit 
+            or diagonally implicit methods are accepted (although the order check allows fully implicit methods). Both options can be used to build a custom additive imEx method, 
+            in that case the overall method order can be less than individual ERK/DIRK methods and can be checked in the the arkode solution output.
+        </para>
+        <para>
+             The explicit Euler and implicit Euler method with fixed step (mandatory in that case) can be specified by:
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            s1 = arkode(%SUN_vdp1,[0 1],[2;1],ERKButcherTab=[0 0;1 1],fixedStep=0.01);
+            s2 = arkode(%SUN_vdp1,[0 1],[2;1],DIRKButcherTab=[1 1;1 1],fixedStep=0.01);
+            ]]>
+        </programlisting>
+        </para>
+        <para>
+             The embedded explicit Heun-Euler method can be specified like this,
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            A = [0 0; 1 0];
+            c = [0; 1];
+            b = [0.5 0.5];
+            d = [1 0];
+            q = 2;
+            p = 1;
+            s = arkode(%SUN_vdp1,[0 10],[2;1],ERKButcherTab=[c A;q b;p d]);
+            ]]>
+        </programlisting>
+        </para>
+        <para>
+             and the implicit trapezoidal rule with implicit Euler embedding has the following tableau
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                A = [1 0; -1 1];
+                c = [1; 0];
+                b = [0.5 0.5];
+                d = [1 0];
+                q = 2;
+                p = 1;
+                s = arkode(%SUN_vdp1,[0 10],[2;1],DIRKButcherTab=[c A;q b;p d]);
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            The SUNDIALS module also provides functions <literal>%SUN_Tsitouras5</literal>,
+            <literal>%SUN_DormandPrince6</literal> and <literal>%SUN_DormandPrince8</literal> yielding classical tableaux (see references below):
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                s1 = arkode(%SUN_vdp1,[0 10],[2;1],ERKButcherTab = %SUN_Tsitouras5());
+                s2 = arkode(%SUN_vdp1,[0 10],[2;1],ERKButcherTab = %SUN_DormandPrince6());
+                s3 = arkode(%SUN_vdp1,[0 10],[2;1],ERKButcherTab = %SUN_DormandPrince8());
+                ]]>
+            </programlisting>
+        </para>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cvode">cvode</link>
+            </member>
+            <member>
+                <link linkend="ida">ida</link>
+            </member>
+            <member>
+                <link linkend="sundials_user_functions">User functions</link>
+            </member>
+            <member>
+                <link linkend="sundials_options">Options (ODE and DAE solvers)</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+A. C. Hindmarsh, P. N. Brown, K. E. Grant, S. L. Lee, R. Serban, D. E. Shumaker, and C. S. Woodward, "SUNDIALS: Suite of Nonlinear and Differential/Algebraic Equation Solvers," ACM Transactions on Mathematical Software, 31(3), pp. 363-396, 2005. Also available as LLNL technical report UCRL-JP-200037.
+ </para>
+ <para>Daniel R. Reynolds and David J. Gardner and Carol S. Woodward and Cody J. Balos, "User Documentation for arkode", 2021, v5.1.1, available online at <ulink url="https://sundials.readthedocs.io/en/latest/arkode/index.html">https://sundials.readthedocs.io/en/latest/arkode</ulink>.
+ </para>
+ <para>
+     P.J. Prince and J. R. Dormand, High order embedded Runge-Kutta formulae,
+     Journal of Computational and Applied Mathematics, 7 (1981), pp. 67-75. </para>
+ <para>
+     Ch. Tsitouras, Runge–Kutta pairs of order 5(4) satisfying only the first column simplifying assumption,
+     Computers &amp; Mathematics with Applications,
+     Volume 62, Issue 2,
+     2011,
+     Pages 770-775,
+     ISSN 0898-1221,
+     https://doi.org/10.1016/j.camwa.2011.06.002.
+ </para>
+    </refsection>
+</refentry>

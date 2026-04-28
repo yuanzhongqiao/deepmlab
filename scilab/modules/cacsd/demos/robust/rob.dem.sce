@@ -1,0 +1,51 @@
+//
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA
+//
+// This file is distributed under the same license as the Scilab package.
+//
+
+mode(1);
+lines(0);
+s=poly(0,'s');
+
+//MAC-FARLANE PROBLEM for G=1/s^3;
+G=syslin("c",1/s^3);
+
+[P,r]=macglov(G);clean(P)
+
+//Optimal controller K:
+
+halt(_("Press Return to continue ... \n"));
+//K Optimal controller , ro = gamaopt^-2;
+[K,ro]=h_inf(P,r,0,1,30);
+K,gamaopt=1/sqrt(ro)
+
+// Check internal stability:
+
+halt(_("Press Return to continue ... \n"));
+
+Tzw=lft(tf2ss(P),tf2ss(K));
+
+[Acl,Bcl,Ccl,Dcl]=abcd(Tzw); spec(Acl)
+
+//Optimal gain:
+
+halt(_("Press Return to continue ... \n"));
+
+ga=h_norm(Tzw)
+
+//Compare with gamaopt
+
+ga-gamaopt
+
+//Compare with theory
+
+halt(_("Press Return to continue ... \n"));
+
+[N,M]=lcf(tf2ss(G)); //Left coprime factorization of G.
+
+nk=hankelsv([N,M]);
+
+ro-( 1-nk(1) )
+

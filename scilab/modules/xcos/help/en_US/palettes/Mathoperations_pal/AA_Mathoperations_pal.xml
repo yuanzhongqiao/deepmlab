@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:scilab="http://www.scilab.org" xml:id="Mathoperations_pal" xml:lang="en_US">
+    <refnamediv>
+        <refname>Mathoperations_pal</refname>
+        <refpurpose>Math operations palette</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+            <link linkend="ABS_VALUE">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="ABS_VALUE" fileref="../../../../images/palettes/ABS_VALUE.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="BIGSOM_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="BIGSOM_f" fileref="../../../../images/palettes/BIGSOM_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="COSBLK_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="COSBLK_f" fileref="../../../../images/palettes/COSBLK_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="EXPBLK_m">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="EXPBLK_m" fileref="../../../../images/palettes/EXPBLK_m.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="EXPRESSION">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="EXPRESSION" fileref="../../../../images/palettes/EXPRESSION.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="GAINBLK_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="GAINBLK_f" fileref="../../../../images/palettes/GAINBLK_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="INVBLK">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="INVBLK" fileref="../../../../images/palettes/INVBLK.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="LOGBLK_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="LOGBLK_f" fileref="../../../../images/palettes/LOGBLK_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="MATMAGPHI">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="MATMAGPHI" fileref="../../../../images/palettes/MATMAGPHI.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="MATZREIM">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="MATZREIM" fileref="../../../../images/palettes/MATZREIM.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="MAXMIN">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="MAXMIN" fileref="../../../../images/palettes/MAXMIN.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="MAX_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="MAX_f" fileref="../../../../images/palettes/MAX_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="MIN_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="MIN_f" fileref="../../../../images/palettes/MIN_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="POWBLK_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="POWBLK_f" fileref="../../../../images/palettes/POWBLK_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="PRODUCT">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="PRODUCT" fileref="../../../../images/palettes/PRODUCT.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="PROD_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="PROD_f" fileref="../../../../images/palettes/PROD_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SIGNUM">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SIGNUM" fileref="../../../../images/palettes/SIGNUM.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SINBLK_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SINBLK_f" fileref="../../../../images/palettes/SINBLK_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SQRT">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SQRT" fileref="../../../../images/palettes/SQRT.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SUMMATION">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SUMMATION" fileref="../../../../images/palettes/SUMMATION.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SUM_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SUM_f" fileref="../../../../images/palettes/SUM_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="TANBLK_f">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="TANBLK_f" fileref="../../../../images/palettes/TANBLK_f.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="TrigFun">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="TrigFun" fileref="../../../../images/palettes/TrigFun.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+    </refsection>
+
+    <refsection id="Description_Mathoperations_pal">
+        <title>Description</title>
+        <para>
+            The Math operations palette contains blocks that model general mathematical functions.
+        </para>
+    </refsection>
+    <refsection xml:id="Blocks_Mathoperations_pal" role="see also">
+        <title>Blocks</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ABS_VALUE">ABS_VALUE</link>
+            </member>
+            <member>
+                <link linkend="BIGSOM_f">BIGSOM_f</link>
+            </member>
+            <member>
+                <link linkend="COSBLK_f">COSBLK_f</link>
+            </member>
+            <member>
+                <link linkend="EXPBLK_m">EXPBLK_m</link>
+            </member>
+            <member>
+                <link linkend="EXPRESSION">EXPRESSION</link>
+            </member>
+            <member>
+                <link linkend="GAINBLK_f">GAINBLK_f</link>
+            </member>
+            <member>
+                <link linkend="INVBLK">INVBLK</link>
+            </member>
+            <member>
+                <link linkend="LOGBLK_f">LOGBLK_f</link>
+            </member>
+            <member>
+                <link linkend="MATMAGPHI">MATMAGPHI</link>
+            </member>
+            <member>
+                <link linkend="MATZREIM">MATZREIM</link>
+            </member>
+            <member>
+                <link linkend="MAX_f">MAX_f</link>
+            </member>
+            <member>
+                <link linkend="MAXMIN">MAXMIN</link>
+            </member>
+            <member>
+                <link linkend="MIN_f">MIN_f</link>
+            </member>
+            <member>
+                <link linkend="POWBLK_f">POWBLK_f</link>
+            </member>
+            <member>
+                <link linkend="PROD_f">PROD_f</link>
+            </member>
+            <member>
+                <link linkend="PRODUCT">PRODUCT</link>
+            </member>
+            <member>
+                <link linkend="SIGNUM">SIGNUM</link>
+            </member>
+            <member>
+                <link linkend="SINBLK_f">SINBLK_f</link>
+            </member>
+            <member>
+                <link linkend="SQRT">SQRT</link>
+            </member>
+            <member>
+                <link linkend="SUM_f">SUM_f</link>
+            </member>
+            <member>
+                <link linkend="SUMMATION">SUMMATION</link>
+            </member>
+            <member>
+                <link linkend="TANBLK_f">TANBLK_f</link>
+            </member>
+            <member>
+                <link linkend="TrigFun">TrigFun</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

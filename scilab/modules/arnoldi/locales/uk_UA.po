@@ -1,0 +1,342 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A real expected.\n"
+msgstr ""
+"%s: помилковий тип параметра №%d: мало бути використано дійсне число.\n"
+
+#, c-format
+msgid "%s: the computation is already terminated\n"
+msgstr "%s: обчислення вже перервано.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument %s: An array of size %d expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра %s: мав бути масив розмірності "
+"%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument %s: A matrix of size %dx%d expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра %s: мала бути матриця "
+"розмірності %dx%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: string expected.\n"
+msgstr ""
+"%s: помилковий тип параметра №%d: слід використовувати рядок з одного "
+"символу.\n"
+
+#, c-format
+msgid "%s: internal error, info=%d.\n"
+msgstr "%s: внутрішня помилка, info=%d.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: не вдалося прочитати вхідний параметр №%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A square matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: An empty matrix or full or sparse "
+"square matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong dimension for input argument #%d: B must have the same size as A.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: k must be a positive integer.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: k must be in the range 1 to N.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: k має належати діапазону від "
+"1 до N.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+" Sigma must be one of '%s', '%s', '%s', '%s' or '%s'.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+" Sigma must be one of '%s', '%s', '%s', '%s', '%s' or '%s'.\n"
+" "
+msgstr ""
+"%s: Помилкове значення вхідного параметра №%d: нерозпізнане значення σ.\n"
+" σ повинне мати одне з таких значень: «%s», «%s», «%s», «%s», «%s» або "
+"«%s».\n"
+" "
+
+#
+# File: modules/arnoldi/sci_gateway/c/sci_eigs.c, line: 328
+#, c-format
+msgid "%s: Invalid sigma value for complex or non symmetric problem.\n"
+msgstr ""
+
+#
+# File: modules/arnoldi/sci_gateway/c/sci_eigs.c, line: 336
+#, c-format
+msgid "%s: Invalid sigma value for real symmetric problem.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: sigma must be a real.\n"
+msgstr "%s: помилковий тип вхідного параметра №%d: σ має бути дійсним.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s must be a scalar.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: %s must be an integer positive "
+"value.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s must be a real scalar.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: %s must be an integer scalar or a "
+"boolean.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s must be %s or %s.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: B is not positive definite. Try with sigma='SM' or sigma=scalar.\n"
+msgstr ""
+"%s: B не є додатньовизначеною. Спробуйте з sigma='SM' або sigma=скаляр.\n"
+
+#, c-format
+msgid "%s: If opts.cholB is true, B should be upper triangular.\n"
+msgstr "%s: якщо opts.cholB дорівнює true, B має бути верхньою трикутною.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A real or complex matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong dimension for input argument #%d: Start vector %s must be N by 1.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: Start vector %s must be real for real "
+"problems.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: An integer expected.\n"
+msgstr "%s: помилковий тип вхідного параметра №%d: мало бути ціле число.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real symmetric problems, NCV "
+"must be k < NCV <= N.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real non symmetric problems, NCV "
+"must be k + 2 < NCV <= N.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: у дійсних несиметричних "
+"задачах NCV має задовольняти нерівність k + 2 < NCV <= N.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For complex problems, NCV must be k "
+"+ 1 < NCV <= N.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real symmetric problems, k must "
+"be an integer in the range 1 to N - 1.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: For real non symmetric or complex "
+"problems, k must be an integer in the range 1 to N - 2.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Error with input argument #%d: B is not positive definite. Try with "
+"sigma='SM' or sigma=scalar.\n"
+msgstr ""
+"%s: помилка у вхідному параметрі №%d: B не є додатньовизначеною. Спробуйте з "
+"sigma='SM' або sigma=скаляр.\n"
+
+#, c-format
+msgid "%s: Error with %s: info = %d \n"
+msgstr "%s: помилка у %s: інформація = %d \n"
+
+#, c-format
+msgid "%s: Error with %s: unknown mode returned.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: помилка під час спроби виділення пам’яті.\n"
+
+#, c-format
+#~ msgid "%s : Wrong number of input arguments : %d to %d expected.\n"
+#~ msgstr ""
+#~ "%s: помилкова кількість вхідних параметрів: слід використовувати від %d "
+#~ "до %d.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong type for input argument #%d: A positive integer expected if the "
+#~ "first input argument is a function."
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: слід використовувати додатне "
+#~ "ціле число, якщо першим вхідним параметром є функція.\n"
+#~ "."
+
+#, c-format
+#~ msgid "%s: Wrong type for input argument #%d: A structure expected"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: слід використовувати структуру."
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong type for input argument: If A is a matrix, use opts with tol, "
+#~ "maxiter, ncv, resid, cholB"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра: якщо A є матрицею, opts має "
+#~ "містити tol, maxiter, ncv, resid, cholB"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong type for input argument: If A is a function, use opts with tol, "
+#~ "maxiter, ncv, resid, cholB, issym"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра. Якщо A є функцією, слід "
+#~ "використовувати параметри з tol, maxiter, ncv, resid, cholB, issym"
+
+#, c-format
+#~ msgid "%s: Wrong type for input argument #%d: string expected.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+#~ "«string».\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong value for input argument #%d: For real non symmetric problems, "
+#~ "NCV must be k + 2 < NCV < N.\n"
+#~ msgstr ""
+#~ "%s: помилкове значення вхідного параметра №%d: у дійсних несиметричних "
+#~ "задачах NCV має задовольняти нерівність k + 2 < NCV < N.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong type for input argument #%d: Start vector %s must be complex "
+#~ "for complex problems.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: у комплексних задачах "
+#~ "початковий вектор %s має бути комплексним.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong type for input argument #%d: if opts.cholB is true, B must be "
+#~ "upper triangular.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: якщо opts.cholB має значення "
+#~ "true, B має бути верхньою трикутною.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Impossible to use the Cholesky factorization with complex sparse "
+#~ "matrices.\n"
+#~ msgstr ""
+#~ "%s: факторизацію Холецького не можна використовувати для комплексних "
+#~ "розріджених матриць.\n"
+
+#, c-format
+#~ msgid "%s: Wrong type for input argument #%d: a string expected.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+#~ "«string».\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+#~ " Sigma must be one of %s, %s, %s, %s or %s.\n"
+#~ msgstr ""
+#~ "%s: помилкове значення вхідного параметра №%d: невідоме значення σ.\n"
+#~ " σ має бути одним з таких значень: %s, %s, %s, %s або %s.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong value for input argument #%d: Unrecognized sigma value.\n"
+#~ " Sigma must be one of %s, %s, %s, %s, %s or %s.\n"
+#~ msgstr ""
+#~ "%s: помилкове значення вхідного параметра №%d: невідоме значення σ.\n"
+#~ " σ має бути одним з таких значень: %s, %s, %s, %s, %s або %s.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong type for input argument #%d: Start vector opts.resid must be "
+#~ "complex for complex problems.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: для задач у комплексних числах "
+#~ "початковий вектор opts.resid має бути комплексним.\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong value for input argument #%d: n does not match rows number of "
+#~ "matrix A.\n"
+#~ msgstr ""
+#~ "%s: помилкове значення вхідного параметра №%d: n не збігається з "
+#~ "кількістю рядків матриці A.\n"
+
+#, c-format
+#~ msgid "%s: Wrong type or value for input arguments.\n"
+#~ msgstr "%s: помилковий тип або значення вхідних параметрів.\n"

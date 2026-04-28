@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Cédric Delamarre
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="decompress" xml:lang="en">
+    <refnamediv>
+        <refname>decompress</refname>
+        <refpurpose>decompress files from an archive</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>files = decompress(archivename, &lt;opt_args&gt;)</synopsis>
+        <synopsis>files = decompress(archivename, output, &lt;opt_args&gt;)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>files</term>
+                <listitem>
+                    <para>String vector of file names that have been extracted from the archive.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>archivename</term>
+                <listitem>
+                    <para>A string specifying the archive path and name that will be extracted.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>output (optional)</term>
+                <listitem>
+                    <para>
+                        A string containing the path where to extract the archive.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>&lt;opt_args&gt;</term>
+                <listitem>
+                    <para>
+                        This represents a sequence of statements
+                        <literal>key1=value1, key2=value2, ...</literal>
+                        where <literal>key1</literal>,
+                        <literal>key2</literal>, ... can be one of the following:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>password</term>
+                            <listitem>
+                                <para>
+                                    The password string needed to decrypt the archive.
+                                    <warning>
+                                        This option is only available for ZIP files.
+                                    </warning>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <function>decompress</function> extract files from the compressed archive.
+            It extracts the archive content in the current directory when <literal>output</literal> is not given.
+        </para>
+    </refsection>
+    <refsection>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// extract a ZIP of fileio tests
+filesin  = compress("TMPDIR/fileio_tests.zip", "SCI/modules/fileio/tests/unit_tests/*.tst")
+filesout = decompress("TMPDIR/fileio_tests.zip", "TMPDIR/fileio_tests")
+[p, fname, ext] = fileparts(filesout);
+assert_checkequal(filesin, fname+ext);
+
+// create then move in the output folder
+mkdir(TMPDIR+"/out");
+cd("TMPDIR/out");
+// extract the archive in pwd
+filesout = decompress("TMPDIR/fileio_tests.zip")
+assert_checkequal(filesin, filesout);
+
+    ]]></programlisting>
+    </refsection>
+    <refsection>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="compress">compress</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

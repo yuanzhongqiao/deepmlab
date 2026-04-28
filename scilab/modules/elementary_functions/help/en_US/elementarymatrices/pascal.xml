@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="pascal">
+    <refnamediv>
+        <refname>pascal</refname>
+        <refpurpose>Pascal matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            p = pascal(n)
+            p = pascal(n, k)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        non-negative scalar integer.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>k</term>
+                <listitem>
+                    <para>
+                        a positive integer: 0, 1 or 2. Default value is 0.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>
+                        n x n matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">p = pascal(n)</emphasis> returns the Pascal matrix of size n x n. The Pascal matrix is the symmetric matrix, 
+            positive definite and has the Cholesky factorization.
+        </para>
+        <para>
+            <emphasis role="bold">p = pascal(n, 0)</emphasis> is equivalent to <literal>p = pascal(n)</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">p1 = pascal(n, 1)</emphasis> returns the lower triangular Cholesky factor of the Pascal matrix, and <literal>p1 * p1' = p</literal> 
+            where p is the result of <literal>pascal(n)</literal>. The result is its own inverse and is equal to the square root of the identity matrix, 
+            <literal>p1 ^2 = eye(n,n)</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">p2 = pascal(n, 2)</emphasis> permutes and transposes <literal>pascal(n, 1)</literal>. <literal>p2^3</literal> is equal to the cube root of the 
+            identity matrix.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                p = pascal(4)
+            ]]></programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                p = pascal(4)
+                p1 = pascal(4, 1)
+                p1 * p1' == p
+                p1 ^ 2
+            ]]></programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                p = pascal(4, 2)
+                p ^ 3
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="vander">vander</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

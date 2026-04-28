@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="xmlXPath" xml:lang="en">
+    <refnamediv>
+        <refname>xmlXPath</refname>
+        <refpurpose>Make a XPath query on a XML document</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = xmlXPath(xmlObj, queryStr)
+            result = xmlXPath(xmlObj, queryStr, namespaces)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>xmlObj</term>
+                <listitem>
+                    <para>a XML mlist typed XMLDoc or XMLElem</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>queryStr</term>
+                <listitem>
+                    <para>a Xpath query</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>namespaces</term>
+                <listitem>
+                    <para>An optional matrix nx2 of strings</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>result can be a set of XMLElements or a number or a string or a boolean</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Make a XPath query on a document or in starting on an element. If you need to use
+            namespaces, then you must define them in using the optional argument. XML namespaces are
+            defined in the first tag with the keyword "xmlns".
+        </para>
+        <para>
+            For more information about XPath, you can read the
+            <ulink url="http://www.w3.org/TR/1999/REC-xpath-19991116/">W3C recommendation</ulink>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+    xdoc = xmlRead("http://www.w3.org/TR/2009/REC-xml-names-20091208/xml-names-10-3e.xml");
+
+    // Retrieve the nodes with name equal to "note"
+    xp = xmlXPath(xdoc, "//note");
+    s = size(xp);
+    for i=1:s(2)
+        xmlDump(xp(i))
+    end
+
+    // Count the nodes with name equal to "note"
+    xp = xmlXPath(xdoc, "count(//note)")
+
+    // Retrieve the node with id="Philosophy"
+    xp = xmlXPath(xdoc, "//*[@id=""Philosophy""]");
+    s = size(xp);
+    if (s(2) <> 0) then
+        xmlDump(xp(1))
+    end
+
+    // Retrieve the nodes with an attribute num equal to the number 5
+    xp = xmlXPath(xdoc, "//*[number(@num)=5]");
+    s = size(xp);
+    if (s(2) <> 0) then
+        xmlDump(xp(1))
+    end
+
+    // Get the name and the content of all the attributes of nodes named 'emph'
+    xp = xmlXPath(xdoc, "//emph/@*");
+    xp.name
+    xp.content
+
+    xmlDelete(xdoc);
+
+    // Query using namespaces
+    t = "<root xmlns:scilab=""http://www.scilab.org"">"+..
+        "<scilab:a att=""foo"" rib=""bar"">"+..
+        "<b>Hello</b></scilab:a></root>"
+    xdoc = xmlReadStr(t);
+
+    // We search for element named a
+    xmlXPath(xdoc, "//a") // => nothing
+    xmlXPath(xdoc, "//scilab:a", ["scilab" "https://www.scilab.org"]) // => OK
+
+    // This code will fail:
+    // xmlXPath(xdoc, "//scilab:a") // => error
+
+    xmlDelete(xdoc);
+
+    // Query starting on an element
+    t = "<root att=""attribute""><a a1=""A1"" a2=""A2"" a3=""A3"">"+..
+        "<b>Hello</b><c>Scilab</c><b>World</b></a><b>Nothing</b></root>"
+    xdoc = xmlReadStr(t);
+    e = xdoc.root.children(1);
+
+    // Get the attributes of e
+    xp = xmlXPath(e, "@*");
+    xmlAsText(xp)
+
+    // Get the 'b' from e
+    xp = xmlXPath(e, "b");
+    xmlAsText(xp)
+
+    xmlDelete(xdoc);
+    ]]></programlisting>
+    <para>
+        <emphasis role="bold">Getting the XML comments:</emphasis>
+    </para>
+    <programlisting ole="example"><![CDATA[
+    xdoc = xmlRead(SCI+"/modules/ui_data/etc/newsfeed.xml");
+    c = xmlXPath(xdoc, "//comment()");   // do not forget the trailing ()
+    c.content'
+
+    xmlDelete(xdoc);
+    ]]></programlisting>
+    <screen><![CDATA[
+--> c.content'
+ ans =
+! RSS Feed URL                                                        !
+! automatic news change interval time (in ms), set to -1 to disable   !
+! periodic feed update interval time (in ms), set to -1 to disable    !
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link xlink:href="http://www.w3.org/TR/1999/REC-xpath-19991116/">W3C XPath recommendation</link>
+            </member>
+            <member>
+                <link xlink:href="https://www.w3schools.com/xml/xpath_intro.asp">XPath tutorial</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>XML module introduced.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+    xml:id="ESELECT_f" xml:lang="en_US">
+    <refnamediv>
+        <refname>ESELECT_f</refname>
+        <refpurpose>Synchronous block Event-Select</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/ESELECT_f.png" align="center" />
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+
+    <refsection id="Contents_ESELECT_f">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_ESELECT_f">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_ESELECT_f">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_ESELECT_f">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_ESELECT_f">Interfacing function</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_ESELECT_f">Example</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_ESELECT_f">
+        <title>Description</title>
+        <para>
+            Special block similar to If-Then-Else. Input and output are synchronized.
+            The incoming event is directed to one of the output event ports depending
+            on the value of the regular input.
+        </para>
+        <table>
+            <tr>
+                <th>Regular input</th>
+                <th>Output select</th>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;2</code>
+                </td>
+                <td>Output 1 active (incl. negative input values)</td>
+            </tr>
+            <tr>
+                <td>
+                    <code>2 ... &lt;3</code>
+                </td>
+                <td>Output 2 active</td>
+            </tr>
+            <tr>
+                <td>
+                    <code>3 ... &lt;4</code>
+                </td>
+                <td>Output 3 active</td>
+            </tr>
+            <tr>
+                <td>...</td>
+            </tr>
+            <tr>
+                <td>
+                    <code>(N-2) ... &lt;(N-1)</code>
+                </td>
+                <td>Output <code>N-1</code> active</td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&gt;=(N-1)</code>
+                </td>
+                <td>Output <code>N</code> active</td>
+            </tr>
+        </table>
+        <para>
+            For example, when the input value is less then 2, the control input is redirected
+            to the first command output; when the input value is between 2 and 3, the control
+            input is redirected to the second command output; et cætera...
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_ESELECT_f">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/ESELECT_f_gui.gif" align="center"
+                    style="float:right" />
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Number of output event ports</emphasis>
+                </para>
+                <para> A scalar. Number of output event ports.</para>
+                <para> Properties : Type 'vec' of size 1 </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Inherit </emphasis>
+                </para>
+                <para> If no, then it inherits the event from event input port, elseif yes, then
+                    event is activated by regular input port.</para>
+                <para> Properties : Type 'vec' of size 1 </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Zero-crossing </emphasis>
+                </para>
+                <para> Select to enable zero crossing detection.</para>
+                <para> Properties : Type 'vec' of size 1</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Defaultproperties_ESELECT_f">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> yes </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type -1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 1 </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 2 </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">eselect</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para />
+    </refsection>
+    <refsection id="Interfacingfunction_ESELECT_f">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Branching/ESELECT_f.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Example_ESELECT_f">
+        <title>Examples</title>
+
+        <refsect3 id="Example_1_ESELECT_f">
+            <title>Example 1</title>
+            <para>The first event port outputs when the input value is less than 2.</para>
+            <para>
+                <link type="scilab"
+                    linkend="scilab.xcos/xcos/examples/events_pal/ESELECT_f_Example.zcos">
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata align="center"
+                                fileref="../../../../examples/events_pal/ESELECT_f_Example.zcos" />
+                        </imageobject>
+                    </inlinemediaobject>
+                </link>
+            </para>
+        </refsect3>
+
+        <refsect3 id="Example_2_ESELECT_f">
+            <title>Example 2</title>
+            <para>Input values can be categorized using event outputs. This trigger independent
+                data-flow with synchronous execution.</para>
+            <para>
+                <link type="scilab"
+                    linkend="scilab.xcos/xcos/examples/events_pal/ESELECT_f_Example_4events.zcos">
+                    <inlinemediaobject>
+                        <imageobject>
+                            <imagedata align="center"
+                                fileref="../../../../examples/events_pal/ESELECT_f_Example_4events.zcos" />
+                        </imageobject>
+                    </inlinemediaobject>
+                </link>
+            </para>
+        </refsect3>
+    </refsection>
+</refentry>

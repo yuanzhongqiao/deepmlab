@@ -1,0 +1,488 @@
+//<-- CLI SHELL MODE -->
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+format("v",10)
+//display of numbers
+x=2.6533333
+ x = 
+   2.6533333
+x=[2.6533333 -0.0002]
+ x = [1x2 double]
+   2.6533333  -0.0002
+x'
+ ans = [2x1 double]
+   2.6533333
+  -0.0002
+x=[]
+ x = 
+    []
+//display of polynomials
+z=poly(0,"z")
+ z = [polynomial] of z
+  z
+num=[ (((((1)*z-2.6533333)*z+2.6887936)*z-1.2916784)*z+0.2911572)* ...
+z-0.0243497
+(((((1)*z-2.6533333)*z+2.6887936)*z-1.2916784)*z+0.2911572)* ...
+z-0.0243497
+(((1)*z )*z )*z+1
+0]
+ num = [4x1 polynomial] of z
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+  1 +z^3                                                               
+  0                                                                    
+den = [ ((((1)*z-1.536926)*z+0.8067352)*z-0.1682810)*z+0.0113508
+((((1)*z-1.536926)*z+0.8067352)*z-0.1682810)*z+0.0113508
+((1)*z )*z
+1]
+ den = [4x1 polynomial] of z
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4
+  z^2                                                 
+  1                                                   
+num',den'
+ ans = [1x4 polynomial] of z
+         column 1
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+         column 2
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+         column 3 to 4
+  1 +z^3  0
+ ans = [1x4 polynomial] of z
+         column 1
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4
+         column 2 to 4
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4  z^2  1
+[num;den]
+ ans = [8x1 polynomial] of z
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+  1 +z^3                                                               
+  0                                                                    
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4                 
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4                 
+  z^2                                                                  
+  1                                                                    
+[num den]
+ ans = [4x2 polynomial] of z
+         column 1
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+  -0.0243497 +0.2911572z -1.2916784z^2 +2.6887936z^3 -2.6533333z^4 +z^5
+  1 +z^3                                                               
+  0                                                                    
+         column 2
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4
+  0.0113508 -0.168281z +0.8067352z^2 -1.536926z^3 +z^4
+  z^2                                                 
+  1                                                   
+//display of polynomials
+z=poly(0,"z")
+ z = [polynomial] of z
+  z
+n=1+z;d=n*n;n1=[n d];d1=[d d*d];n1=[n1 n1];d1=[d1 d1];
+n2=[n n*n;n*n n**4];d2=[n*n n**4;n n*n];den=d2(1,:);num=n2(2,:);
+p=poly(rand(5,1),"z");q=poly(rand(6,1),"z");
+p1=[p,0.1+2.35*z-5.05*z**3];q1=[q,2.56+0.03*z-10.01*z*z+z**5];
+d3=[1+z**10 z**15];
+//display of rationals
+r=num./den
+ r = [1x2 rational] of z
+   1  1  
+   -  -  
+   1  1  
+r'
+ ans = [2x1 rational] of z
+   1  
+   -  
+   1  
+   1  
+   -  
+   1  
+rlist(d,n)
+ ans = [rational] of z
+   1 +2z +z^2  
+   ----------  
+      1 +z     
+rlist(n,d)
+ ans = [rational] of z
+      1 +z     
+   ----------  
+   1 +2z +z^2  
+rlist(d2,n2)
+ ans = [2x2 rational] of z
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+   ----------  ----------------------  
+      1 +z           1 +2z +z^2        
+      1 +z           1 +2z +z^2        
+   ----------  ----------------------  
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+rlist(n2,d2)
+ ans = [2x2 rational] of z
+      1 +z           1 +2z +z^2        
+   ----------  ----------------------  
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+   ----------  ----------------------  
+      1 +z           1 +2z +z^2        
+rlist(den,num)
+ ans = [1x2 rational] of z
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+   ----------  ----------------------  
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+rlist(num,den)
+ ans = [1x2 rational] of z
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+   ----------  ----------------------  
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  
+rlist(p1,q1)
+ ans = [1x2 rational] of z
+ 
+         column 1
+ 
+   -0.0000078 +0.0351988z -0.3720034z^2 +1.3432153z^3 -1.9632981z^4  
+    +z^5                                                             
+   ----------------------------------------------------------------  
+   0.0123314 -0.2684985z +1.5393672z^2 -4.0114366z^3 +5.4004179z^4   
+    -3.6713072z^5 +z^6                                               
+ 
+         column 2
+ 
+      0.1 +2.35z -5.05z^3      
+   --------------------------  
+   2.56 +0.03z -10.01z^2 +z^5  
+                               
+                               
+rlist(q1,p1)
+ ans = [1x2 rational] of z
+ 
+         column 1
+ 
+   0.0123314 -0.2684985z +1.5393672z^2 -4.0114366z^3 +5.4004179z^4   
+    -3.6713072z^5 +z^6                                               
+   ----------------------------------------------------------------  
+   -0.0000078 +0.0351988z -0.3720034z^2 +1.3432153z^3 -1.9632981z^4  
+    +z^5                                                             
+ 
+         column 2
+ 
+   2.56 +0.03z -10.01z^2 +z^5  
+   --------------------------  
+      0.1 +2.35z -5.05z^3      
+                               
+                               
+rlist(p,q)
+ ans = [rational] of z
+   -0.0000078 +0.0351988z -0.3720034z^2 +1.3432153z^3 -1.9632981z^4  
+    +z^5                                                             
+   ----------------------------------------------------------------  
+   0.0123314 -0.2684985z +1.5393672z^2 -4.0114366z^3 +5.4004179z^4   
+    -3.6713072z^5 +z^6                                               
+rlist(q,p)
+ ans = [rational] of z
+   0.0123314 -0.2684985z +1.5393672z^2 -4.0114366z^3 +5.4004179z^4   
+    -3.6713072z^5 +z^6                                               
+   ----------------------------------------------------------------  
+   -0.0000078 +0.0351988z -0.3720034z^2 +1.3432153z^3 -1.9632981z^4  
+    +z^5                                                             
+rlist(p,z)
+ ans = [rational] of z
+   -0.0000078 +0.0351988z -0.3720034z^2 +1.3432153z^3 -1.9632981z^4  
+    +z^5                                                             
+   ----------------------------------------------------------------  
+                                  z                                  
+rlist(z,p)
+ ans = [rational] of z
+                                  z                                  
+   ----------------------------------------------------------------  
+   -0.0000078 +0.0351988z -0.3720034z^2 +1.3432153z^3 -1.9632981z^4  
+    +z^5                                                             
+rlist(d1,n1)
+ ans = [1x4 rational] of z
+ 
+         columns 1 to 3
+ 
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  1 +2z +z^2  
+   ----------  ----------------------  ----------  
+      1 +z           1 +2z +z^2           1 +z     
+ 
+         column 4
+ 
+   1 +4z +6z^2 +4z^3 +z^4  
+   ----------------------  
+         1 +2z +z^2        
+rlist(n1,d1)
+ ans = [1x4 rational] of z
+ 
+         columns 1 to 3
+ 
+      1 +z           1 +2z +z^2           1 +z     
+   ----------  ----------------------  ----------  
+   1 +2z +z^2  1 +4z +6z^2 +4z^3 +z^4  1 +2z +z^2  
+ 
+         column 4
+ 
+         1 +2z +z^2        
+   ----------------------  
+   1 +4z +6z^2 +4z^3 +z^4  
+//display of strings
+digits="abcdefghijklmnopqrstuvwxyz"
+ digits = 
+  "abcdefghijklmnopqrstuvwxyz"
+numbers="1234567890"
+ numbers = 
+  "1234567890"
+majuscules="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ majuscules = 
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+symbols=",./;''[] \ =-!\$%^&*()_+~:""[]| @"
+ symbols = 
+  ",./;'[] \ =-!\$%^&*()_+~:"[]| @"
+[numbers;digits]
+ ans = [2x1 string]
+  "1234567890"                
+  "abcdefghijklmnopqrstuvwxyz"
+[numbers digits;digits numbers]
+ ans = [2x2 string]
+  "1234567890"                  "abcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyz"  "1234567890"                
+[numbers digits+digits+digits]
+ ans = [1x2 string]
+         column 1
+  "1234567890"
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+ans';
+[ans ans]
+ ans = [2x2 string]
+         column 1
+  "1234567890"                                                         
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "1234567890"                                                         
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+""
+ ans = 
+  ""
+oldlines = lines();
+lines(0,50);
+digits="abcdefghijklmnopqrstuvwxyz";
+d = digits+digits+digits;
+n = "1234567890";
+// scalar
+n
+ n = 
+  "1234567890"
+n+n+n+n+n
+ ans = 
+  "12345678901234567890123456789012345678901234567890"
+d
+ d = 
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+d+d+d+d
+ ans = 
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+// column vector
+[n; n; n; n; n]
+ ans = [5x1 string]
+  "1234567890"
+  "1234567890"
+  "1234567890"
+  "1234567890"
+  "1234567890"
+[d; d; d; d; d]
+ ans = [5x1 string]
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[n+n; n+n; n+n]
+ ans = [3x1 string]
+  "12345678901234567890"
+  "12345678901234567890"
+  "12345678901234567890"
+[n+n; n+n+n; n+n]
+ ans = [3x1 string]
+  "12345678901234567890"          
+  "123456789012345678901234567890"
+  "12345678901234567890"          
+[n+n; d+d; n+n]
+ ans = [3x1 string]
+  "12345678901234567890"                         
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "12345678901234567890"                         
+[d; d]
+ ans = [2x1 string]
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[d; n]
+ ans = [2x1 string]
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "1234567890"                                   
+[n; d]
+ ans = [2x1 string]
+  "1234567890"                                   
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[n; n]
+ ans = [2x1 string]
+  "1234567890"
+  "1234567890"
+// row vector
+[n n n n n]
+ ans = [1x5 string]
+         column 1 to 3
+  "1234567890"  "1234567890"  "1234567890"
+         column 4 to 5
+  "1234567890"  "1234567890"
+[d d d d d]
+ ans = [1x5 string]
+         column 1
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 3
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 4
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 5
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[n+n n+n n+n]
+ ans = [1x3 string]
+         column 1 to 2
+  "12345678901234567890"  "12345678901234567890"
+         column 3
+  "12345678901234567890"
+[n+n n+n+n n+n]
+ ans = [1x3 string]
+         column 1
+  "12345678901234567890"
+         column 2
+  "123456789012345678901234567890"
+         column 3
+  "12345678901234567890"
+[d d]
+ ans = [1x2 string]
+         column 1
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[d n]
+ ans = [1x2 string]
+         column 1
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "1234567890"
+[n d]
+ ans = [1x2 string]
+         column 1
+  "1234567890"
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[n n]
+ ans = [1x2 string]
+  "1234567890"  "1234567890"
+// matrix
+nd = [n d];
+dn = [d n];
+[nd nd]
+ ans = [1x4 string]
+         column 1
+  "1234567890"
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 3
+  "1234567890"
+         column 4
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[nd; nd]
+ ans = [2x2 string]
+         column 1
+  "1234567890"
+  "1234567890"
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[nd' nd']
+ ans = [2x2 string]
+         column 1
+  "1234567890"                                   
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "1234567890"                                   
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[nd'; nd']
+ ans = [4x1 string]
+  "1234567890"                                   
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "1234567890"                                   
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+[dn dn]
+ ans = [1x4 string]
+         column 1
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "1234567890"
+         column 3
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 4
+  "1234567890"
+[dn; dn]
+ ans = [2x2 string]
+         column 1
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+         column 2
+  "1234567890"
+  "1234567890"
+[dn' dn']
+ ans = [2x2 string]
+         column 1
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "1234567890"                                   
+         column 2
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "1234567890"                                   
+[dn'; dn']
+ ans = [4x1 string]
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "1234567890"                                   
+  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+  "1234567890"                                   
+lines(oldlines);
+// boolean
+%t
+ ans = 
+  T
+%f
+ ans = 
+  F
+b=[%t %t %t]
+ b = [1x3 boolean]
+  T T T
+~b
+ ans = [1x3 boolean]
+  F F F
+bp=b'
+ bp = [3x1 boolean]
+  T
+  T
+  T
+~bp
+ ans = [3x1 boolean]
+  F
+  F
+  F
+bb=[b; b; b]
+ bb = [3x3 boolean]
+  T T T
+  T T T
+  T T T
+~bb
+ ans = [3x3 boolean]
+  F F F
+  F F F
+  F F F

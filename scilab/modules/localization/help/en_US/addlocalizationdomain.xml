@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Antoine ELIAS
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="https://www.scilab.org"
+          xml:lang="en" xml:id="addlocalizationdomain">
+    <refnamediv>
+        <refname>addlocalizationdomain</refname>
+        <refpurpose>add a new domain in localization mechanism.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            msg = addlocalizationdomain(domain, path)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>domain</term>
+                <listitem>
+                    <para>
+                    a string: The name of the messages domain. That's the string used as first
+                    argument when calling <literal>gettext(domain, msgid)</literal> in the code
+                    of the toolbox.
+                    </para>
+                    <para>
+                      Setting <varname>domain</varname> to the toolbox name will be most often
+                      relevant. Indeed, when running  <literal>tbx_make(…,"localization")</literal>
+                      or <literal>tbx_build_localization(…)</literal>, the <varname>domain</varname>
+                      used by default to build translation files is the toolbox name (that is the
+                      base name * of the ./etc/*.start file of the toolbox).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>path</term>
+                <listitem>
+                    <para>
+                      Absolute path to the toolbox subdirectory containing the languages
+                      subdirectories and translated .po and .mo files.
+                      It can start with <literal>SCI</literal>,
+                      <literal>WSCI</literal>, <literal>TMPDIR</literal>, and
+                      <literal>SCIHOME</literal>, that are automatically expanded.
+                    </para>
+                    <para>
+                      When this directory has been created when running
+                      <literal>tbx_make(…, "localization")</literal>
+                      or <literal>tbx_build_localization(…)</literal>, this toolbox subdirectory
+                      is named <literal>locales</literal> by default.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+old = getlanguage();
+setlanguage("fr_FR");
+msgid = "%s: something not in Scilab.\n";
+
+// This message has no translation in Scilab, noticeably to french.
+// So trying to translate it "in the main Scilab domain" fails: The msgid is returned as is:
+gettext(msgid)
+_(msgid)
+
+// But it has been translated for tests, under the "tbx" domain, and translated files
+// are stored in SCI/modules/localization/tests/unit_tests/locale subdirectories
+addlocalizationdomain("tbx", "SCI/modules/localization/tests/unit_tests/locale")
+gettext("tbx", msgid)
+_("tbx", msgid)
+
+// The gettext("tbx",..) call indexing this msgid is in
+edit SCI/modules/localization/tests/unit_tests/addlocalizationdomain.tst
+
+// Its (wrong) translation to french is stored in
+edit SCI/modules/localization/tests/unit_tests/locale/fr_FR/LC_MESSAGES/tbx.po
+
+setlanguages(old);
+ ]]></programlisting>
+      <screen>
+--> msgid = "%s: something not in Scilab.\n";
+-->
+--> // This message has no translation in Scilab, noticeably to french.
+--> // So trying to translate it "in the Scilab domain" fails: The msgid is returned as is:
+--> gettext(msgid)
+ ans  =
+  "%s: something not in Scilab.\n"
+
+--> _(msgid)
+ ans  =
+  "%s: something not in Scilab.\n"
+
+--> // But it has been translated for tests, under the "tbx" domain, and translated files
+--> // are stored in SCI/modules/localization/tests/unit_tests/locale subdirectories
+--> addlocalizationdomain("tbx", "SCI/modules/localization/tests/unit_tests/locale")
+ ans  =
+  T
+--> gettext("tbx", msgid)
+ ans  =
+  "%s : it is true, that is not in Scilab.\n"
+
+--> _("tbx", msgid)
+ ans  =
+  "%s : it is true, that is not in Scilab.\n"
+</screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+            <member>
+                <link linkend="tbx_generate_pofile">tbx_generate_pofile</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>addlocalizationdomain function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

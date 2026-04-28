@@ -1,0 +1,24 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - DIGITEO - Jean-Baptiste SILVY
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// <-- Non-regression test for bug 4437 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/4437
+//
+// <-- Short Description -->
+// Exporting an empty figure crashes Scilab
+// 
+
+figure(0);
+xs2eps(0, TMPDIR + 'name');
+
+// should not crash
+
+

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="REGISTER" xml:lang="fr">
+    <refnamediv>
+        <refname>REGISTER</refname>
+        <refpurpose>Registre à décalage</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/palettes/REGISTER.png" align="center"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_REGISTER">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_REGISTER">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_REGISTER">Paramètres</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_REGISTER">Propriétés par défaut</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_REGISTER">Exemple</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_REGISTER">Fonction d'interfaçage</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Computationalfunction_REGISTER">Fonction de calcul</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_REGISTER">
+        <title>Description</title>
+        <para>
+            Ce bloc réalise un registre à décalage. A chaque activation, le contenu du registre est décalé d'un pas.
+        </para>
+    </refsection>
+    <refsection id="Dialogbox_REGISTER">
+        <title>Paramètres</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/REGISTER_gui.gif" align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Register initial condition</emphasis>
+                </para>
+                <para> Un vecteur colonne. Il contient l'état initial du registre.</para>
+                <para> Propriétés : Type 'vec' de taille -1 </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Datatype</emphasis>
+                </para>
+                <para> Ce bloc supporte tous les types de données en plus du type complexe.</para>
+                <para> Propriétés : Type 'vec' de taille -1</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Defaultproperties_REGISTER">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 1
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">delay4</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Example_REGISTER">
+        <title>Exemple</title>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/discrete_pal/en_US/DELAY_f_2_en_US.zcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata fileref="../../../../examples/discrete_pal/en_US/DELAY_f_2_en_US.zcos" align="center" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+        </para>
+        <para>
+            <scilab:image><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/discrete_pal/en_US/DELAY_f_2_en_US.zcos");
+xcos_simulate(scs_m, 4);
+]]></scilab:image>
+        </para>
+    </refsection>
+    <refsection id="Interfacingfunction_REGISTER">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/scicos_blocks/macros/Linear/REGISTER.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_REGISTER">
+        <title>Fonctions de calcul</title>
+        <itemizedlist>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/delay4_i32.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/delay4_i16.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/delay4_i8.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/delay4_ui32.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/delay4_ui16.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                     SCI/modules/scicos_blocks/src/c/delay4_ui8.c
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

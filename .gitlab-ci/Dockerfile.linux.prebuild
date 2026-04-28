@@ -1,0 +1,25 @@
+ARG DOCKER_LINUX_BUILDER=
+ARG DOCKER_TAG=
+FROM ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}
+
+# the builder image use a scilab user, switch back to root
+USER root
+
+# install cmake
+ENV CMAKE_VERSION=3.28.3
+WORKDIR /cmake-${CMAKE_VERSION}
+RUN curl -L https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cmake-${CMAKE_VERSION}.tar.gz | \
+    tar -xzf - --strip-components=1 && \
+    ./bootstrap -- -DCMAKE_USE_OPENSSL=OFF && \
+    make -j$(nproc) && \
+    make install && \
+    rm -fr /cmake-${CMAKE_VERSION}
+
+# Install JoGL dependencies
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y libgbm-dev libxrender-dev libxi-dev libxrandr-dev libxcursor-dev libdrm-dev libxxf86vm-dev libxkbcommon-x11-0
+
+RUN apt-get install -y autotools-dev automake libtool uuid-dev
+
+USER scilab
+WORKDIR /prebuild

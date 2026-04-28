@@ -1,0 +1,21 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 8912 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/8912
+//
+// <-- Short Description -->
+// fullpath did not return same result on Windows and Linux.
+//
+if fullpath(TMPDIR + "/a/b/c/d/e/f") <> pathconvert(TMPDIR + "/a/b/c/d/e/f", %f) then bugmes();quit;end
+if fullpath(TMPDIR + "/a/b/c/d/e/f/") <> pathconvert(TMPDIR + "/a/b/c/d/e/f/") then bugmes();quit;end
+p = fullpath(TMPDIR + filesep());
+if part(p, length(p)) <> filesep() then bugmes();quit;end

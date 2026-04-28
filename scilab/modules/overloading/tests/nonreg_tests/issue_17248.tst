@@ -1,0 +1,16 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2024 - Dassault Systèmes S.E. - Antoine ELIAS
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 17248 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/17248
+//
+// <-- Short Description -->
+// Problem with more than a pair of complex zeros in zpk
+
+sys = zpk([-1+%i -1-%i -2+%i -2-%i],[-1 -1 -1 -1 -1],1,"c");
+sys

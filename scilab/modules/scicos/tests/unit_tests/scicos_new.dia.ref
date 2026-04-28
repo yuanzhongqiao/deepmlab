@@ -1,0 +1,173 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Clement David
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+loadXcosLibs();
+// sub-objects not mapped to the model
+o = scicos_graphics()
+ o = (graphics mlist) with fields:
+orig = [0,0]
+sz = [20,20]
+exprs = []
+pin = []
+pout = []
+pein = []
+peout = []
+gr_i = []
+id = ""
+in_implicit = []
+out_implicit = []
+in_style = []
+out_style = []
+in_label = []
+out_label = []
+style = ""
+o = scicos_model()
+ o = (model mlist) with fields:
+  sim = ""
+  in = []
+  in2 = []
+  intyp = []
+  out = []
+  out2 = []
+  outtyp = []
+  evtin = []
+  evtout = []
+  state = []
+  dstate = []
+  odstate: (empty list)
+  rpar = []
+  ipar = []
+  opar: (empty list)
+  blocktype = "c"
+  firing = []
+  dep_ut = [%f,%f]
+  label = ""
+  nzcross = 0
+  nmode = 0
+  equations: (empty list)
+  uid = ""
+// model objects
+// allocate an Annotation
+o = TEXT_f("define");
+clear o;
+// allocate a Block
+o = scicos_block()
+ o = (Block) with fields:
+  graphics: (graphics mlist) with fields:
+      orig = [0,0]
+      sz = [20,20]
+      exprs = []
+      pin = []
+      pout = []
+      pein = []
+      peout = []
+      gr_i = []
+      id = ""
+      in_implicit = []
+      out_implicit = []
+      in_style = ""
+      out_style = ""
+      in_label = ""
+      out_label = ""
+      style = ""
+  model: (model mlist) with fields:
+      sim = ""
+      in = []
+      in2 = []
+      intyp = 1
+      out = []
+      out2 = []
+      outtyp = 1
+      evtin = []
+      evtout = []
+      state = []
+      dstate = []
+      odstate: (empty list)
+      rpar = []
+      ipar = []
+      opar: (empty list)
+      blocktype = "c"
+      firing = []
+      dep_ut = [%f,%f]
+      label = ""
+      nzcross = 0
+      nmode = 0
+      equations: (empty list)
+      uid = ""
+  gui = ""
+  doc: (empty list)
+clear o;
+// allocate a Link
+o = scicos_link()
+ o = (Link) with fields:
+  xx = []
+  yy = []
+  id = ""
+  thick = [0,0]
+  ct = [1,1]
+  from = [0,0,0]
+  to = [0,0,1]
+clear o;
+// allocate a Diagram
+scs_m = scicos_diagram()
+ scs_m = (diagram) with fields:
+  props: (params tlist) with fields:
+      wpar = [600,450,0,0,600,450]
+      title = ["Untitled";""]
+      tol: [1x7 double]
+      tf = 30
+      context = []
+      void1 = []
+      options: (scsopt tlist) with fields:
+          3D: (2-elements list)
+          Background = [8,1]
+          Link = [1,5]
+          ID: (2-elements list)
+          Cmap = [0.8,0.8,0.8]
+      void2 = []
+      void3 = []
+      doc: (empty list)
+  objs: (empty list)
+  version = "scicos4.4"
+  contrib: (empty list)
+// allocate a specific block
+blk = BIGSOM_f("define");
+// manipulate a field
+model = blk.model;
+model.in = [1 1 1 1]';
+blk.model = model;
+// add a block to a diagram
+scs_m.objs(1) = blk;
+// add another block to a diagram (have to perform a copy)
+scs_m.objs($+1) = blk;
+// add a link to connect blocks
+scs_m.objs($+1) = scicos_link();
+lnk = scs_m.objs($);
+lnk.from = [1 1 0]
+ lnk = (Link) with fields:
+  xx = []
+  yy = []
+  id = ""
+  thick = [0,0]
+  ct = [1,1]
+  from = [1,1,0]
+  to = [0,0,1]
+lnk.to = [2 1 1]
+ lnk = (Link) with fields:
+  xx = []
+  yy = []
+  id = ""
+  thick = [0,0]
+  ct = [1,1]
+  from = [1,1,0]
+  to = [2,1,1]
+scs_m.objs($+1) = lnk;
+// use scicos_new to retrieve and adapter from an uid
+blk2 = scicos_new(blk.modelID);
+clear blk
+blk2.model.rpar;
+clear blk2

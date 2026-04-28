@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org"  xml:id="param3d" xml:lang="en">
+    <refnamediv>
+        <refname>param3d</refname>
+        <refpurpose>plots a single curve in a 3D cartesian frame</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="param3d1">
+        <refname>param3d1</refname>
+        <refpurpose>plots a set of curves in a 3D cartesian frame. 1D mesh plot</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            param3d(x, y, z)
+            param3d(x, y, z, [theta, alpha, leg, flag, ebox])
+            h = param3d(...)
+            param3d   // demo
+
+            param3d1(X, Y, Z)
+            param3d1(X, Y, list(Z, styles))
+            param3d1(.., [theta, alpha, leg, flag, ebox])
+            h = param3d1(...)
+            param3d1  // demo
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, y, z</term>
+                <listitem>
+                    <para>3 vectors of the same length: cartesian coordinates of the curve's points.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>X, Y, Z</term>
+                <listitem>
+                    <para>matrices of the same size (nl,nc).
+                     Each column #i of the matrices provides the coordinates of the points for the
+                     ith curve.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>styles</term>
+                <listitem>
+                    <para>
+                        vector of nc=size(Z,"c") integers specifying the style -- line color or mark
+                        style -- of each curve. When it is specified, it must be bundled with
+                        <varname>Z</varname> into a list, using <literal>list(Z, styles)</literal>.
+                    </para>
+                    <para>
+                        By default, lines are drawn with colors indexed from 1 to nc in the current
+                        color map, without mark.
+                    </para>
+                    <para>
+                        If <literal>styles(i)&lt;0</literal>, the curve #i is plotted only with
+                        marks of style #|styles(i)|, without line.
+                    </para>
+                    <para>
+                        Otherwise (<literal>styles(i)>0</literal>), the curve #i is rendered as a
+                        solid line of color #styles(i), without marks.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>theta</term>
+                <listitem>
+                    <para>
+                        Azimuth angle of the (OP) observation point, around the (OZ+) axis,
+                        in degrees. Default = 45°.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>alpha</term>
+                <listitem>
+                    <para>
+                        Polar angle of the (OP) observation point to the north pole (Oz+), in degrees,
+                        from 0 to 180. Default = 35°.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>leg</term>
+                <listitem>
+                    <para>single string setting the labels for the 3 axes. "@" is used as a labels
+                        separator. Default = "X@Y@Z"
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>flag = [type, box]</term>
+                <listitem>
+                    <para>
+                        <literal>type</literal> and <literal>box</literal> have the
+                        same meaning as in <literal>plot3d</literal>:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>type</term>
+                            <listitem>
+                                <para>Sets the axes scaling and bounding modes. Default = 2.</para>
+                                <para>
+                                <table border="1">
+                                <tr>
+                                    <th>type</th>
+                                    <th>gca().isoview</th>
+                                    <th>data bounds</th>
+                                </tr>
+                                <tr>
+                                    <th>0</th>
+                                    <td  align="center">off</td>
+                                    <td  align="center">[0,1, 0,1, -1,1]</td>
+                                </tr>
+                                <tr>
+                                    <th>1</th>
+                                    <td  align="center">off</td>
+                                    <td  align="center">in <literal>ebox</literal></td>
+                                </tr>
+                                <tr>
+                                    <th>2</th>
+                                    <td  align="center">off</td>
+                                    <td  align="center">from data points</td>
+                                </tr>
+                                <tr>
+                                    <th>3</th>
+                                    <td  align="center">on</td>
+                                    <td  align="center">in <literal>ebox</literal></td>
+                                </tr>
+                                <tr>
+                                    <th>4</th>
+                                    <td  align="center">on</td>
+                                    <td  align="center">from data points</td>
+                                </tr>
+                                <tr>
+                                    <th>5</th>
+                                    <td  align="center">on</td>
+                                    <td  align="center">in <literal>ebox</literal></td>
+                                </tr>
+                                <tr>
+                                    <th>6</th>
+                                    <td  align="center">on</td>
+                                    <td  align="center">from data points</td>
+                                </tr>
+                                </table>
+                                </para>
+                                <note>
+                                    Isometrical modes are rendered with <literal>gca().cube_scaling="off"</literal>.
+                                </note>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>box</term>
+                            <listitem>
+                                <para>
+                                    an integer controlling the display of the axes frame (default = 4).
+                                </para>
+                                <para>
+                                    <table border="1">
+                                        <tr>
+                                            <th>Value</th>
+                                            <th>Displayed axes</th>
+                                            <th>Axes legends</th>
+                                            <th>gca().box</th>
+                                            <th>gca().axes_visible</th>
+                                        </tr>
+                                        <tr>
+                                            <th>0</th>
+                                            <td>none. No frame.</td>
+                                            <td align="center">yes</td>
+                                            <td align="center">"off"</td>
+                                            <td align="center">"off"</td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>not implemented. Like 0. Please use 0.</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>only axes lines on the back</td>
+                                            <td align="center">NO</td>
+                                            <td align="center">"hidden_axes"</td>
+                                            <td align="center">"off"</td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>full ungraduated box</td>
+                                            <td align="center">yes</td>
+                                            <td align="center">"on"</td>
+                                            <td align="center">"off"</td>
+                                        </tr>
+                                        <tr>
+                                            <th>4</th>
+                                            <td>full box + 3 graduated axes</td>
+                                            <td align="center">yes</td>
+                                            <td align="center">"on"</td>
+                                            <td align="center">"on"</td>
+                                        </tr>
+                                    </table>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ebox</term>
+                <listitem>
+                    <para>
+                        Vector <literal>[xmin,xmax, ymin,ymax, zmin,zmax]</literal> of axes bounds,
+                        used and assigned to <literal>gca().data_bounds</literal> when the
+                        <varname>flag</varname> option is used with the <varname>type</varname>=1|3|5.
+                        By default set to [0,1, 0,1, 0,1].
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Polyline entity or a Compound Entity whose children
+                      are the created Polyline objects. Use <literal>h</literal> to modify properties
+                      of a specific or all Polyline objects after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>param3d()</literal> is used to plot a single 3D curve defined by its coordinates
+            <literal>x</literal>, <literal>y</literal> and <literal>z</literal>.
+        </para>
+        <para>
+            The curve is an object of <literal>polyline</literal> type. When it is given the optional output argument
+            <literal>h</literal> returns the curves entities,
+            from which all the curves properties may be changed: color, line style, thickness,
+            mark style and colors, etc.
+        </para>
+        <para>
+            <literal>h = param3d1()</literal> is used to plot a set of 3D curves, all having the
+            same number of points. When it is given, the optional argument <literal>h</literal>
+            returns the Compound of curves entities.
+            <note>
+                The handle of curve #i is <literal>h.children($-i+1)</literal>.
+            </note>
+        </para>
+    </refsection>
+
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+t = 0:0.1:5*%pi;
+r = (max(t)-t)/10;
+
+clf
+curve = param3d(r.*sin(t), r.*cos(t), t/10, 30, 72,"X@Y@Z",[4,4])
+
+curve.mark_mode = "on";
+curve.mark_style = 10;
+curve.mark_foreground = color("magenta");
+ ]]></programlisting>
+        <scilab:image>
+        t =  0:0.1:5*%pi;
+        r = (max(t)-t)/10;
+        clf
+        curve=param3d(r.*sin(t), r.*cos(t), t/10, 30, 72,"X@Y@Z",[4,4])
+
+        curve.mark_mode = "on";
+        curve.mark_style = 10;
+        curve.mark_foreground = color("magenta");
+        // ----------------------------
+        gca().sub_ticks = [4 4 4];
+        gcf().axes_size = [620 410];
+        </scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">box parameter </emphasis> illustrated with
+            <emphasis role="bold">param3d1()</emphasis> used for a single curve :
+        </para>
+        <programlisting role="example"><![CDATA[
+t = (0:0.1:5*%pi)';
+r = (max(t)-t)/10;
+x = r.*sin(t); y = r.*cos(t); z = list(t/10, color("orange"));
+Box = [0 2 3 4];
+
+clf
+for i = 1:4
+   subplot(2,2,i)
+   param3d1(x, y, z, 31, 72,"X legend@Y legend@Z legend",[4, Box(i)])
+   title(msprintf("box = %d",Box(i)), "fontsize", 4)
+end
+gcf().children.children.thickness = 2; // for the 4 curves in a once
+gca().sub_ticks = [4 4 4];             // only for the last axes
+ ]]></programlisting>
+        <scilab:image>
+t = (0:0.1:5*%pi)';
+r = (max(t)-t)/10;
+x = r.*sin(t); y = r.*cos(t); z = list(t/10, color("orange"));
+Box = [0 2 3 4];
+clf
+for i = 1:4
+   subplot(2,2,i)
+   param3d1(x, y, z, 31, 72,"X legend@Y legend@Z legend",[4, Box(i)])
+   title(msprintf("box = %d",Box(i)), "fontsize", 4)
+end
+gcf().children.children.thickness = 2;
+// -------------------
+gcf().axes_size = [820 470];
+gca().sub_ticks = [4 4 4];
+        </scilab:image>
+        <para/>
+        <para>
+            <emphasis role="bold">param3d1() used for an actual set of curves:</emphasis>
+        </para>
+        <programlisting role="example"><![CDATA[
+[X, Y] = ndgrid(-11:0.5:9);
+R = sqrt(X.*X + Y.*Y) + %eps;
+Z = sin(R)./R;
+
+clf
+subplot(1,3,1)
+param3d1(X, Y, Z, 150, 85, flag=[2,4])
+
+subplot(1,3,2)
+e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+e.foreground = color("green");
+
+subplot(1,3,3)
+curves=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+curves(1:2:$).foreground = color("orange");
+gca().box = "back_half";
+
+gcf().children.foreground = color("grey70"); // box & ticks color for the 3 figures
+ ]]></programlisting>
+        <scilab:image>
+        [X, Y] = ndgrid(-11:0.5:9);
+        R = sqrt(X.*X + Y.*Y) + %eps;
+        Z = sin(R)./R;
+
+        clf
+        subplot(1,3,1)
+        param3d1(X, Y, Z, 150, 85, flag=[2,4])
+
+        subplot(1,3,2)
+        e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+        e.foreground = color("green");
+
+        subplot(1,3,3)
+        curves=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+        curves(1:2:$).foreground = color("orange");
+        gca().box = "back_half";
+
+        gcf().children.foreground = color("grey70"); // box and ticks color for the 3 figures
+        // ----------
+        gcf().children.sub_ticks = [4 4 4];
+        gcf().axes_size = [940 350];
+        </scilab:image>
+        <para/>
+        <programlisting role="example"><![CDATA[
+[X, Y] = ndgrid(-11:0.5:9, -7:0.5:6); // x is the long side, y the short one
+// => X has constant rows. Y has constant columns
+
+clf
+
+// Meshing lines at constant Y values
+subplot(1, 3, 1)
+R = sqrt(X.*X + Y.*Y) + %eps;
+Z = sin(R)./R;
+param3d1(X, Y, Z, 150, 85, flag=[2,4])
+
+// Meshing lines at constant X values, with transposed X and Y:
+subplot(1, 3, 2)
+R = sqrt(X'.*X' + Y'.*Y') + %eps;
+Z = sin(R)./R;
+param3d1(X', Y', Z, 150, 85, flag=[2,4])
+
+// With a curtain and filled curves to avoid messed overlaying parts
+subplot(1, 3, 3)
+[Xo, Yo] = ndgrid(-10:0.5:10);
+R = sqrt(Xo.*Xo + Yo.*Yo) + %eps;
+Zo = sin(R)./R;
+    // we add the curtain on starting and ending sides
+nc = size(Xo,"c");
+zmin = min(Zo);
+X = [Xo(1,:) ; Xo ; Xo($,:)];
+Y = [Yo(1,:) ; Yo ; Yo($,:)];
+Z = [zmin*ones(1,nc) ; Zo ; zmin*ones(1,nc)];
+    // Rendering
+e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+e.fill_mode = "on";
+
+// grey box for all axes:
+gcf().children.foreground = color("grey70");
+ ]]></programlisting>
+        <scilab:image>
+        [X, Y] = ndgrid(-11:0.5:9, -7:0.5:6); // x is the long side, y the short one
+        // => X has constant rows. Y has constant columns
+
+        clf
+
+        // Meshing lines at constant Y values
+        subplot(1, 3, 1)
+        R = sqrt(X.*X + Y.*Y) + %eps;
+        Z = sin(R)./R;
+        param3d1(X, Y, Z, 150, 85, flag=[2,4])
+
+        // Meshing lines at constant X values, with transposed X and Y:
+        subplot(1, 3, 2)
+        R = sqrt(X'.*X' + Y'.*Y') + %eps;
+        Z = sin(R)./R;
+        param3d1(X', Y', Z, 150, 85, flag=[2,4])
+
+        // With a curtain and filled curves to avoid messed overlaying parts
+        subplot(1, 3, 3)
+        [Xo, Yo] = ndgrid(-10:0.5:10);
+        R = sqrt(Xo.*Xo + Yo.*Yo) + %eps;
+        Zo = sin(R)./R;
+            // we add the curtain on starting and ending sides
+        nc = size(Xo,"c");
+        zmin = min(Zo);
+        X = [Xo(1,:) ; Xo ; Xo($,:)];
+        Y = [Yo(1,:) ; Yo ; Yo($,:)];
+        Z = [zmin*ones(1,nc) ; Zo ; zmin*ones(1,nc)];
+            // Rendering
+        e=param3d1(X, Y, Z, 150, 87, flag=[2,4])
+        e.fill_mode = "on";
+
+        // grey box for all axes:
+        gcf().children.foreground = color("grey70");
+        // ----------------------------
+        gcf().axes_size = [900 260];
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="plot3d">plot3d</link>
+            </member>
+            <member>
+                <link linkend="plot3d3">plot3d3</link>
+            </member>
+            <member>
+                <link linkend="scatter3d">scatter 3D</link>
+            </member>
+            <member>
+                <link linkend="axes_properties">axes_properties</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">polyline_properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>
+                    Function returns the created handle(s).
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

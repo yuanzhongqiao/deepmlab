@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<toolbar>
+    <!-- [SCILAB_FIGURE_ID] pattern is replaced at generation of Java menu by the ID of the figure -->
+    <!-- Rotate -->
+    <button icon="transform-rotate" tooltiptext="Rotate">
+        <callback instruction="findobj('figure_id',[SCILAB_FIGURE_ID]).info_message = _('Right click and drag to rotate.')" type="-2"/>
+    </button>
+    <separator/>
+    <!-- Zoom Area -->
+    <button icon="zoom-fit-selection" tooltiptext="Zoom Area">
+        <callback instruction="zoom_rect(findobj('figure_id',[SCILAB_FIGURE_ID]))" type="-2"/>
+    </button>
+    <!-- Original View -->
+    <button icon="zoom-original" tooltiptext="Original View">
+        <callback instruction="unzoom(findobj('figure_id',[SCILAB_FIGURE_ID]))" type="-2"/>
+    </button>
+    <!-- Fit to the data -->
+    <button icon="zoom-fit-drawing" tooltiptext="Reframe to contents">
+        <callback instruction="replot(findobj('figure_id',[SCILAB_FIGURE_ID]))" type="-2"/>
+    </button>
+    <separator/>
+    <!-- Datatips -->
+    <button icon="datatips" tooltiptext="Toggle datatip mode" toggle="true">
+        <callback instruction="datatipManagerMode(findobj('figure_id',[SCILAB_FIGURE_ID]))" type="-2"/>
+    </button>
+    <!-- Scilab Graphic Editor -->
+    <!--
+    <button icon="plot" tooltiptext="Open the graphics editor">
+        <callback instruction="openged([SCILAB_FIGURE_ID])" type="-2"/>
+    </button>
+    -->
+    <button icon="data_modify" tooltiptext="Toggle curve data modification" toggle="true">
+        <callback instruction="useeditor([SCILAB_FIGURE_ID])" type="-2"/>
+    </button>
+    <button icon="ged_move" tooltiptext="Move objects (2D view)">
+        <callback instruction="ged(6,[SCILAB_FIGURE_ID])" type="-2"/>
+    </button>
+    <separator/>
+    <!-- Help -->
+    <button icon="help-browser" tooltiptext="Help Browser">
+        <callback instruction="doc('Graphics');" type="10"/>
+    </button>
+</toolbar>

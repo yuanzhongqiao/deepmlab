@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2015, 2016, 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+        xml:lang="ru" xml:id="twinkle">
+    <refnamediv>
+        <refname>twinkle</refname>
+        <refpurpose>выделяет один или несколько графических объектов путем их мерцания</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            twinkle
+            twinkle(n)
+            twinkle(h)
+            twinkle(h,n)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>указатель на графический объект. По умолчанию рассматривается текущий
+                       графический объект, управляемый с помощью <literal>gce()</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>количество мерцаний. По умолчанию n = 5</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Описание</title>
+        <para>
+            <function>twinkle</function> заставляет графические объекты, управляемые с помощью
+            <varname>h</varname>, мерцать <varname>n</varname> раз. Если некоторые из объектов изначально
+            невидимы, то они мерцают с другими объектами и окончательно остаются невидимыми перед
+            возвратом.
+        </para>
+        <para>
+            Если <function>twinkle()</function> запущена тогда, когда нет ни одного графического окна,
+            то она ничего не делает. Если дескриптор <varname>h</varname> имеет некоторые
+            некорректные компоненты (объекты были в это время удалены), то <function>twinkle(h..)</function>
+            возвращает ошибку.
+        </para>
+    </refsection>
+    <refsection role="examples">
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+clf
+plot()
+twinkle     // мерцает последняя группа кривых, построенных в примере plot()
+twinkle(3)  // мерцает только три раза
+
+x = linspace(-2*%pi,2*%pi,100)';
+p = plot2d(x,[sin(x),cos(x)]);
+twinkle(p(2))     // мерцает график косинуса
+twinkle(p(1))  // график синуса мерцает 10 раз
+twinkle(gca())  // мерцают оси
+ ]]></programlisting>
+    <para/>
+        <programlisting role="example"><![CDATA[
+// Мерцание подгруппы многих кривых с некоторыми изначально невидимими
+clf
+plot()
+c = gca().children.children(1:10);
+c(1:5).visible = "off";
+sleep(5,'s')
+twinkle(c)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="graphics_entities">графические объекты</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                    <para>Добавлены twinkle() и twinkle(n).</para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revdescription>
+                    <para>Теперь несколько независимых объектов могут мерцать вместе.</para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

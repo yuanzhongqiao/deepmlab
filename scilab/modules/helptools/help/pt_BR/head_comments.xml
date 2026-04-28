@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ????-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="head_comments" xml:lang="pt">
+    <refnamediv>
+        <refname>head_comments</refname>
+        <refpurpose>exibe comentários do cabeçalho da função Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+           head_comments(fname)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>fname</term>
+                <listitem>
+                    <para>string, nome da função</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <code>head_comments(fname)</code> exibe os comentários do cabeçalho da função,
+            ou seja, o primeiro bloco de comentários imediatamente após a linha "function"
+            na definição da função.
+        </para>
+        <warning>
+            A maior parte das funções Scilab predefinidas não possui comentários de cabeçalho.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+head_comments logspace
+edit("logspace",1)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> head_comments logspace
+function [y] = logspace(d1,d2,n)
+ Geometrical series of numbers in [10^d1, 10^d2].
+ logspace(d1,d2) generates a row vector of 50 logarithmically
+ equally spaced values between 10^d1 and 10^d2.
+ If d2=%pi, then the points are between 10^d1 and pi.
+ logspace(d1, d2, n) generates n values.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="doc">doc</link>
+            </member>
+            <member>
+                <link linkend="help_from_sci">help_from_sci</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.0</revnumber>
+                <revdescription>
+                    Second input argument %path removed.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

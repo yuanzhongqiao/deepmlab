@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="ja" xml:id="calendar">
+    <refnamediv>
+        <refname>calendar</refname>
+        <refpurpose>カレンダー</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            calendar
+            calendar(y, m)
+            c = calendar()
+            c = calendar(y,m)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>設定</title>
+        <variablelist>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>integer in [1800 3000]: The Gregorian year.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>integer in [1, 12]: The month.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>list, with
+                        <table>
+                            <tr><th>c(1):</th><td>single string: The calendar title</td></tr>
+                            <tr><th>c(2):</th><td>single string: Days names</td></tr>
+                            <tr><th>c(3):</th><td>6x7 matrix of days indices in the month
+                                                    (0 for days out of the month)</td>
+                            </tr>
+                        </table>
+                    </para>
+                    <para>
+                        The title and days names are translated according to the current language.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <emphasis role="bold">calendar</emphasis> displays in the console the
+            calendar of the current month.
+        </para>
+        <para>
+            <emphasis role="bold">calendar(y, m)</emphasis> displays in the console the
+            calendar of the month <varname>m</varname> for the year <varname>y</varname>.
+        </para>
+        <para>c = calendar() は現在の月に関するカレンダーを含むリストを返します.
+            週は月曜日に始まり、日曜日に終わる.
+        </para>
+        <para>c = calendar(y,m), ただし, y および m は整数で, 指定した年の
+            指定した月のカレンダーを返します.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+c = calendar()
+ ]]></programlisting>
+      <screen><![CDATA[
+--> c = calendar()
+ c  =
+       c(1)
+ 12月 2019
+
+       c(2)
+ 月   火   水    木   金    土   日
+
+       c(3)
+   0.    0.    0.    0.    0.    0.    1. 
+   2.    3.    4.    5.    6.    7.    8. 
+   9.    10.   11.   12.   13.   14.   15.
+   16.   17.   18.   19.   20.   21.   22.
+   23.   24.   25.   26.   27.   28.   29.
+   30.   31.   0.    0.    0.    0.    0. 
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+calendar
+ ]]></programlisting>
+      <screen><![CDATA[
+--> calendar
+ 
+             12月 2019
+ 月   火   水    木   金    土   日
+                                1
+  2    3    4    5    6    7    8
+  9   10   11   12   13   14   15
+ 16   17   18   19   20   21   22
+ 23   24   25   26   27   28   29
+ 30   31                         
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+calendar(1973, 8)
+ ]]></programlisting>
+      <screen><![CDATA[
+--> calendar(1973, 8)
+ 
+             8月 1973
+ 月   火   水    木   金    土   日
+            1    2    3    4    5
+  6    7    8    9   10   11   12
+ 13   14   15   16   17   18   19
+ 20   21   22   23   24   25   26
+ 27   28   29   30   31          
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="weekday">weekday</link>
+            </member>
+            <member>
+                <link linkend="datevec">datevec</link>
+            </member>
+            <member>
+                <link linkend="datenum">datenum</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revdescription>
+                    Formated display in the console added.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

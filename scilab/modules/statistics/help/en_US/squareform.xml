@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2026 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="squareform">
+    <refnamediv>
+        <refname>squareform</refname>
+        <refpurpose>Conversion between a distance vector and a symmetric distance matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            y = squareform(x)
+            y = squareform(x, "tomatrix")
+            y = squareform(x, "tovector")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                a vector of length n * (n - 1) /2 or
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                a n x n symmetric matrix with zeros on the diagonal.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>"tomatrix</literal>: forces conversion from a vector to a square matrix
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"tovector"</literal>: forces conversion from a square matrix to a vector
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                a n x n symmetric distance matrix (matrix mode), or
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                a column vector containing the upper triangular elements of the distance matrix (vector mode).
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <literal>squareform</literal> converts between two equivalent representations of pairwise distances.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <literal>"default mode"</literal> (<literal>squareform(x)</literal>): the conversion direction is inferred from the shape of <literal>x</literal>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"tomatrix mode"</literal> (<literal>squareform(x, "tomatrix")</literal>): <literal>x</literal> must be a vector of length <literal>n*(n-1)/2</literal>. 
+                    <literal>n</literal> denotes the number of elements; the input vector therefore contains <literal>n*(n-1)/2</literal> distances, corresponding to all possible pairs among 
+                    these <literal>n</literal> elements. The function returns a n x n symmetric matrix with zeros on the diagonal.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>"tovector mode"</literal> (<literal>squareform(x, "tovector")</literal>): <literal>x</literal> must be a n x n square matrix. 
+                    The function returns a column vector containing the upper triangular elements of x (excluding the diagonal).
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            This function is useful in clustering, distance-based algorithms, and statistics analysis.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Default mode</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [0 0;
+                     1 0;
+                     0 2;
+                     1 2];
+
+                d = pdist(X)
+                // 1.000000 2.000000 2.236068 2.236068 2.000000 1.000000 
+
+                D = squareform(d)
+                // 0.         1.         2.         2.236068
+                // 1.         0.         2.236068   2.      
+                // 2.         2.236068   0.         1.      
+                // 2.236068   2.         1.         0. 
+
+                d2 = squareform(D)
+                // 1.000000 2.000000 2.236068 2.236068 2.000000 1.000000 
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Forced matrix conversion ("tomatrix")</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [0 0;
+                    1 0;
+                    0 1];
+
+                d = pdist(X)
+                // 1.   1.   1.4142136
+                D = squareform(d, "tomatrix")
+                //  0.   1.          1.       
+                //  1.   0.          1.4142136
+                //  1.   1.4142136   0.  
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Forced vector conversion ("tovector")</emphasis></para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                X = [0 0;
+                    1 0;
+                    0 1];
+
+                d = pdist(X)
+                // 1.   1.   1.4142136
+                D = squareform(d)
+                //  0.   1.          1.       
+                //  1.   0.          1.4142136
+                //  1.   1.4142136   0.  
+                v = squareform(D, "tovector")
+                // 1.   1.   1.4142136
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="pdist">pdist</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

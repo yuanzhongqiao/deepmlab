@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="uicontrol" xml:lang="en">
+    <refnamediv>
+        <refname>uicontrol</refname>
+        <refpurpose>create a Graphic User Interface object</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            uicontrol(PropertyName,PropertyValue,...)
+            uicontrol(parent,PropertyName,PropertyValue,...)
+            uicontrol(uich)
+            h = uicontrol(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>This routine creates an object in a figure.</para>
+        <para>If the handle of the figure is given (as the first parameter), the
+            uicontrol is created in this figure. If no handle is given, the uicontrol
+            is created in the current figure (which may be obtained with a call to
+            <literal>gcf()</literal>). If there is no current figure, then one is
+            created before the creation of the uicontrol.
+        </para>
+        <para>Then when the control is created, the properties given as parameters
+            are set with the corresponding values. It is equivalent to create the
+            uicontrol, and then set its properties with the <literal>set()</literal>
+            command. Nevertheless, it generally more efficient to set the properties
+            in the call to <literal>uicontrol()</literal>. Scilab
+            and all the graphic objects communicate through the property mechanism.
+            Thus, to create adapted uicontrol, one has to know the use of the property
+            fields.
+        </para>
+        <para>
+            <literal>uicontrol(PropertyName, PropertyValue,...)</literal>
+            creates an uicontrol and assigns the specified properties and values to
+            it. It assigns the default values to any properties you do not specify.
+            The default uicontrol style is a "Pushbutton". The default parent is the
+            current figure. See the Properties section for information about these and
+            other properties.
+        </para>
+        <para>
+            <literal>uicontrol(parent, PropertyName, PropertyValue,...) </literal>
+            creates a uicontrol in the object specified
+            by the handle, parent. If you also specify a different value for the
+            Parent property, the value of the Parent property takes precedence. parent
+            is the handle of a figure.
+        </para>
+        <para>
+            <literal>uicontrol(uich)</literal> gives focus to the uicontrol
+            specified by uich.
+        </para>
+        <para>
+            <literal>h = uicontrol(...)</literal> yields a handle to the created Uicontrol entity and allows to modify its properties after creation.
+            All available properties and their description are given in the <link linkend="uicontrol_properties">uicontrol properties</link> help page.
+        </para>
+        <para>
+            Uicontrols rendering and properties display can be customized using
+            <link linkend="console_properties">Console properties</link>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Available styles</title>
+        <para>
+            The available styles are listed below. The <literal>style</literal> of an
+            <literal>uicontrol</literal> must be set at creation using the
+            <literal>"Style"</literal> property and can not be changed once the
+            <literal>uicontrol</literal> is created.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>Checkbox: a button with two states (Used for multiple independent choices).
+                </para>
+            </listitem>
+            <listitem>
+                <para>Edit: an editable string zone.</para>
+            </listitem>
+            <listitem>
+                <para>Frame: a container for other uicontrols or axes.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Image: a component where a specified image is displayed.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Layer: a container for <literal>frame</literal> style uicontrols enabling to
+                    switch between them programmatically using the <literal>value</literal> property.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Listbox: a control representing a list of items that can be scrolled.
+                    The items can be selected with the mouse.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Popupmenu: a button which make a menu appear when clicked.</para>
+            </listitem>
+            <listitem>
+                <para>Pushbutton: (default style) a rectangular button generally used to run a callback.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Radiobutton: a button with two states. RadioButtons are intended to be mutually
+                    exclusive.
+                </para>
+                <para>
+                    Your code must implement mutually exclusive behavior if you do not use groups
+                    (See <literal>GroupName</literal> property in
+                    <link linkend="uicontrol_properties">uicontrol properties</link>).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Slider: a scale control, that is a slider used to set a value in a given
+                    interval, with the mouse.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Spinner: a component which enables the user to select/edit a value between
+                    bounds with a fixed step.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Tab: a container for <literal>frame</literal> style uicontrols enabling to
+                    switch between them by clicking on a tab with a given title and/or icon.
+                </para>
+                <para>The font related properties set on the frame will be used for the tab label.</para>
+            </listitem>
+            <listitem>
+                <para>Table: an editable table.</para>
+            </listitem>
+            <listitem>
+                <para>Text: a text control (generally static).</para>
+            </listitem>
+            <listitem>
+                <para>Browser: an embedded <link linkend="browser">browser</link>.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Create a figure:
+f = scf();
+
+// Create a listbox:
+h = uicontrol(f,'style','listbox','position', [10 10 150 160]);
+
+// Set labels
+h.string = "item 1|item 2|item 3";
+
+// Set (max-min)>1 to allow multiple selection, and select items 1 and 3
+set(h, "min",0, "max",2, "value", [1 3]);
+ ]]></programlisting>
+        <para>uicontrol function can be overloaded</para>
+        <programlisting role="example"><![CDATA[
+// create a mlist
+mymlist = mlist(['objid','A','B'],[],[]);
+
+// overload set / get for objid
+function result = %objid_uicontrol(varargin)
+  // res = uicontrol(mymlist,'A');
+  obj_tmp   = varargin(1);
+  field_tmp = varargin(2);
+  mprintf('uicontrol on an object of type %s, field = %s\n', typeof(obj_tmp), field_tmp);
+  result = %t;
+endfunction
+
+res = uicontrol(mymlist,'property');
+ ]]></programlisting>
+        <para>Pushbuttons or Text can have LaTeX or MathML label</para>
+        <programlisting role="example"><![CDATA[
+// LaTeX
+f=figure();
+h=uicontrol(f,"style","pushbutton","string","$x^2$");
+// MathML
+hh=uicontrol(f,"style","pushbutton","string","<msup><mi>x</mi><mn>2</mn></msup>");
+hh.Position = h.Position + [50, 0, 0, 0];
+// Text
+h=uicontrol(f,"Style","text","string","$\Gamma(s)=\int_0^\infty t^{s-1}\mathrm{e}^{-t}\,\mathrm{d}t$");
+// If it is too little
+h.fontsize=20
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+// Include an editable table into a figure:
+// Building a table of data:
+params = [" " "Country" "Population [Mh]" "Temp.[°C]" ];
+towns = ["Mexico" "Paris" "Tokyo" "Singapour"]';
+country = ["Mexico" "France" "Japan" "Singapour"]';
+pop  = string([22.41 11.77 33.41 4.24]');
+temp = string([26 19 22 17]');
+table = [params; [ towns country pop temp ]]
+
+f = gcf();
+clf
+as = f.axes_size;  // [width height]
+ut = uicontrol("style","table",..
+               "string",table,..
+               "position",[5 as(2)-100 300 87],.. // => @top left corner of figure
+               "tooltipstring","Data from majors towns")
+
+// Modify by hand some values in the table. Then get them back from the ui:
+matrix(ut.string,size(table))
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uicontrol_properties">uicontrol_properties</link>
+            </member>
+            <member>
+                <link linkend="figure">figure</link>
+            </member>
+            <member>
+                <link linkend="set">set</link>
+            </member>
+            <member>
+                <link linkend="get">get</link>
+            </member>
+            <member>
+                <link linkend="uimenu">uimenu</link>
+            </member>
+            <member>
+                <link linkend="math_rendering_features_in_graphic">LaTeX and MathML</link>
+            </member>
+            <member>
+                <link linkend="browser">browser</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    <para>
+                        New styles added:
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>Tab</para>
+                        </listitem>
+                        <listitem>
+                            <para>Spinner</para>
+                        </listitem>
+                        <listitem>
+                            <para>Layer</para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        Uicontrols rendering is now based on operating system look and feel (See <link linkend="console_properties">console properties</link>).
+                    </para>
+                    <para>
+                        Uicontrols handles display is now limited to properties used by Java rendering (See <link linkend="console_properties">console properties</link>).
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                    <revremark>
+                        Uicontrol "Browser" added.
+                    </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

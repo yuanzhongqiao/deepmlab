@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ * This file is distributed under the same license as the Scilab package.
+  -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="methods">
+    <refnamediv>
+        <refname>methods</refname>
+        <refpurpose>Get accessible methods of a classdef or an object</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            methods(classdef)
+            methods(object)
+            meths = methods(classdef)
+            meths = methods(object)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>classdef</term>
+                <listitem>
+                    <para>
+                        Classdef from which we want to retrieve the methods
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>object</term>
+                <listitem>
+                    <para>
+                        Object from which we want to retrieve the methods
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>meths</term>
+                <listitem>
+                    <para>
+                        a string matrix of accessible methods
+                        <note>
+                            If <literal>methods</literal> is called without output argument, the function only print list of methods.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <programlisting role="example">
+<![CDATA[
+classdef meths
+    methods (public)
+        function pub(), end
+    end
+
+    methods (protected)
+        function prot(), end
+    end
+
+    methods (private)
+        function priv(), end
+    end
+end
+
+methods(meths)
+l = methods(meths)
+m = meths();
+methods(m)
+l = methods(m)
+]]>
+            </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="classdef">classdef</link>
+            </member>
+            <member>
+                <link linkend="properties">properties</link>
+            </member>
+            <member>
+                <link linkend="enumeration">enumeration</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>methods</literal> introduction.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

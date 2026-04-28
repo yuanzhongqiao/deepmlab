@@ -1,0 +1,380 @@
+# French translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-09 13:22+0000\n"
+"Last-Translator: davidcl <Unknown>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected."
+msgstr "%s : Nombre erroné d'arguments d'entrée : entre %d et %d attendus."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : Une matrice attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Polynomial expected.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : Un polynôme attendu.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une matrice de chaîne de "
+"caractères attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Une matrice %d-by-%d "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be > %d.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée n°%d : Doit être > %d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set  {%s}.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : Doit appartenir à "
+"l'ensemble {%s}.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
+msgstr ""
+"%s : Arguments d'entrée n°%d et n°%d incompatibles : Mêmes dimensions "
+"attendues.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d: Same degrees expected.\n"
+msgstr "%s : Arguments #%d et #%d : Même degré attendu.\n"
+
+#, c-format
+msgid "%s: Assertion failed: expected = %s while computed = %s"
+msgstr "%s : Échec de l'assertion : attendu = %s, cependant calculé = %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d attendus.\n"
+
+#, c-format
+msgid "%s: Incompatible input arguments #%d and #%d: Same types expected.\n"
+msgstr ""
+"%s : Arguments d'entrée #%d et #%d incompatibles : Même types attendus.\n"
+
+#, c-format
+msgid "%s: Computed is real, but expected is complex."
+msgstr ""
+"%s : L'objet calculé est de type réel, cependant il aurait dû être complexe."
+
+#, c-format
+msgid "%s: Computed is complex, but expected is real."
+msgstr ""
+"%s : L'objet calculé est de type complexe, cependant il aurait dû être réel."
+
+#, c-format
+msgid "%s: Assertion failed: expected= %s  while computed= %s"
+msgstr "%s : Échec de l'assertion : attendu = %s, cependant calculé = %s"
+
+#, c-format
+msgid ""
+"%s: Assertion failed: expected and computed are two distinct built-in "
+"functions."
+msgstr ""
+"%s : Échec de l'assertion : l'attendu et le calculé sont deux fonctions "
+"distinctes."
+
+#, c-format
+msgid "expected(%d)= "
+msgstr "attendu(%d) = "
+
+#, c-format
+msgid "computed(%d)= "
+msgstr "calculé(%d) = "
+
+msgid "expected= "
+msgstr "attendu = "
+
+msgid "computed= "
+msgstr "calculé = "
+
+#, c-format
+msgid "%s: Assertion failed: %s  while %s (mean diff = %s)"
+msgstr "%s : Échec de l'assertion : %s, alors que %s (différence moyenne = %s)"
+
+#, c-format
+msgid "%s: Assertion failed: %s  while %s"
+msgstr "%s : Échec de l'assertion : %s, alors que %s"
+
+#, c-format
+msgid "%s: Wrong number of input argument: At least %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : Au moins %d attendus.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A string vector expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Un vecteur de chaîne de "
+"caractères attendu.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Non-negative integers expected.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : Des entiers positifs "
+"attendus.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Non-empty matrix expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Une matrice non vide "
+"attendue.\n"
+
+#, c-format
+msgid "%s: No error was produced while evaluating %s."
+msgstr "%s : Aucune erreur n'a été rencontrée pendant l'évaluation de %s."
+
+#, c-format
+msgid "%s: Error while formatting the error message: %s"
+msgstr "%s : Erreur à la génération du message d'erreur : %s"
+
+#, c-format
+msgid ""
+"%s: Assertion failed: expected error message = %s while computed error "
+"message = %s."
+msgstr ""
+"%s : Échec de l'assertion : message d'erreur attendu = %s, alors que message "
+"d'erreur obtenu = %s."
+
+#, c-format
+msgid ""
+"%s: Assertion failed: expected error number = %d while computed error number "
+"= %d."
+msgstr ""
+"%s : Échec de l'assertion : numéro d'erreur attendu = %d, mais obtenu = %d."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Boolean matrix expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une matrice de booléens "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Assertion failed: Entry %%T found in condition(%d).\n"
+msgstr "%s : assertion erronée : Valeur %%T trouvée en condition(%d).\n"
+
+#, c-format
+msgid ""
+"%s: Expected type %s or %s for input argument %s #%d, but got %s instead."
+msgstr ""
+"%s : Le type %s ou %s était attendu pour l'argument d'entrée %s #%d, et non "
+"%s."
+
+#, c-format
+msgid "%s: The file %s does not exist.\n"
+msgstr "%s : Le fichier %s n'existe pas.\n"
+
+#, c-format
+msgid "%s: Cannot open file %s.\n"
+msgstr "%s : Impossible d'ouvrir le fichier %s.\n"
+
+#, c-format
+msgid ""
+"%s: The content of computed file %s is different from the content of "
+"reference file %s."
+msgstr ""
+"%s : Le contenu du fichier calculé %s est différent du contenu du fichier "
+"référence %s."
+
+#, c-format
+msgid "%s: Cannot close file %s.\n"
+msgstr "%s : Impossible de fermer le fichier %s.\n"
+
+#, c-format
+msgid "%s: Assertion failed: Entry %%F found in condition(%d).\n"
+msgstr "%s : assertion erronée : valeur %%F trouvée en condition(%d).\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : %d à %d attendus.\n"
+
+#, c-format
+msgid ""
+"%s: The number of output arguments %d do not match the number of input "
+"arguments %d."
+msgstr ""
+"%s : Le nombre d'arguments de sortie %d ne correspond pas au nombre "
+"d'arguments d'entrée %d."
+
+#, c-format
+msgid "%s: Expected %d rows in input argument #%d, but found %d rows instead."
+msgstr ""
+"%s : L'argument d'entrée #%d doit avoir exactement %d lignes, et non %d."
+
+#, c-format
+msgid ""
+"%s: Expected %d columns in input argument #%d, but found %d columns instead."
+msgstr ""
+"%s : L'argument d'entrée n°%d doit contenir exactement %d colonnes, et non "
+"%d."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be real.\n"
+msgstr "%s: Valeur erronée de l'argument d'entrée #%d: réel attendu.\n"
+
+#, c-format
+msgid "%s: %s is not an installed module"
+msgstr "%s : %s n'est pas un module installé"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: test %s not found in the list of "
+"modules"
+msgstr ""
+"%s : Valeur erronée pour l'argument d'entrée n°%d : le test %s n'a pas été "
+"trouvé dans la liste des modules"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr "%s : Mauvais nombre d'argument(s) d'entrée : %d à %d attendu.\n"
+
+#, c-format
+msgid "%s: Cannot create file %s, created file %s instead.\n"
+msgstr ""
+"%s : Le fichier %s n'a pas pu être créée, le fichier %s a été créée à la "
+"place.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A row array of strings expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Un vecteur ligne de chaînes "
+"de caractères attendu.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A row array of strings expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Un vecteur ligne de "
+"chaînes de caractères attendu.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A row array of strings or empty "
+"matrix expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Un vecteur ligne de chaînes "
+"de caractères ou une matrice vide attendu.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A row array of strings or empty "
+"matrix expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Un vecteur ligne de "
+"chaînes de caractères ou une matrice vide attendu.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+"%s : Type erroné de l'argument d'entrée n°%d : Une chaîne de caractères "
+"attendue.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr ""
+"%s : Dimension erronée de l'argument d'entrée n°%d : Une chaîne de "
+"caractères attendue.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A Scilab module name expected.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : Un nom de module Scilab "
+"attendu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A valid language expected.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : Un langage valide "
+"attendu.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A '%s' module function name "
+"expected.\n"
+msgstr ""
+"%s : Valeur erronée de l'argument d'entrée n°%d : Un nom de fonction du "
+"module '%s' attendu.\n"
+
+#, c-format
+msgid "%s: Wrong first input argument: File with .dia suffix expected."
+msgstr "%s : Premier argument erroné : Fichier avec un suffixe .dia attendu."
+
+#, c-format
+msgid "Test failed ERROR DETECTED while executing %s"
+msgstr "Échec du test ERREUR DÉTECTÉE pendant l'exécution de %s"
+
+#, c-format
+msgid "Test Failed. See : fc /L /N  %s"
+msgstr "Échec du test. Voir : fc /L /N %s"
+
+#, c-format
+msgid "Test Failed. See : diff -wu  %s"
+msgstr "Échec du test. Voir : diff -wu %s"
+
+msgid "Test passed"
+msgstr "Succès du test"
+
+#, c-format
+msgid "%s is not an installed module"
+msgstr "%s n'est pas un module installé"
+
+#, c-format
+msgid "%s: Wrong size for input argument."
+msgstr "%s : Dimension erronée de l'argument d'entrée."
+
+#, c-format
+msgid "The test %s is not available from the %s module"
+msgstr "Le test %s n'est pas disponible dans le module %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments."
+msgstr "%s : Nombre erroné d'arguments d'entrée."
+
+#, c-format
+msgid "%s is not an installed module or toolbox"
+msgstr "%s n'est pas une boîte-à-outils ou un module installé"
+
+msgid ""
+"option JVM NOT MANDATORY is deprecated, please use CLI SHELL MODE instead"
+msgstr ""
+"l'option JVM NOT MANDATORY est dépréciée, veuillez utiliser CLI SHELL MODE à "
+"la place"
+
+#, c-format
+msgid "The ref file (%s) doesn't exist"
+msgstr "Le fichier ref (%s) n'existe pas"
+
+#, c-format
+msgid ""
+"The file '%s' is not following the XUnit XML format. Root tag expected "
+"'testsuites'.\n"
+msgstr ""
+"Le fichier '%s' ne respecte pas le format XML XUnit. La balise Root "
+"attendait 'testsuites'.\n"
+
+#, c-format
+msgid "No variable %s_ref in reference file"
+msgstr "Pas de variable %s_ref dans le fichier de référence"

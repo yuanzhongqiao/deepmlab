@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="nicholschart">
+    <refnamediv>
+        <refname>nicholschart</refname>
+        <refpurpose>Nichols chart</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            sh = nicholschart(modules)
+            sh = nicholschart(modules, args)
+            sh = nicholschart(modules, args, colors)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>modules</term>
+                <listitem>
+                     <para>
+                        vector of real numbers: modules (in dB). Default values:
+                        <literal>[-30:-10:Modmin -20 -15 -12 -9 -6 -3 -2 -1 -.5 -0.2 -0.1 0 0.1 0.2 0.5 1 2 3 6 12]</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>args</term>
+                <listitem>
+                     <para>
+                        vector of real numbers: phases (in degree). Default values:
+                        <literal>-[1 2 5 10 20 30 50 70 90 120 140 160 180]°</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>colors</term>
+                <listitem>
+                     <para>
+                        vector of 1 or 2 components specifying the colors of the isogain and isophase
+                        sets of curves. If a single color is provided, it is used for both gains and
+                        phases. colors may be specified either
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    by indices in the color map.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    named colors among the <link linkend="color_list">predefined ones</link>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    "#RRGGBB" hexadecimal case-insensitive strings starting with "#",
+                                    like "#FA7B35".
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    A 1x3 or 2x3 matrix of [r g b] intensities such that 0 &lt;= r,g,b &lt;= 1.
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sh</term>
+                <listitem>
+                     <para>
+                        Structure with 3 fields:
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>.phaseLines</literal>: vector of handles of isophase lines.
+                                    <literal>.phaseLines(i)</literal> is the line for
+                                    <literal>args(i)</literal>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>.gainLines</literal>: vector of handles of isogain lines.
+                                    <literal>.gainLines(i)</literal> is the line for
+                                    <literal>modules(i)</literal>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>.gainLabels</literal>: vector of handles of isogain labels.
+                                    <literal>.gainLabels(i)</literal> is the label for
+                                    <literal>modules(i)</literal>.
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            plot the Nichols'chart: iso-module and iso-argument contours of
+            <literal>y/(1+y)</literal> in <literal>y</literal> phase/gain plane.
+        </para>
+        <para>
+            <literal>nicholschart</literal> may be used in conjunction with
+            <link linkend="black">black</link>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+    //Nichols chart
+    clf()
+    subplot(1,2,1)
+    nicholschart();
+    subplot(1,2,2)
+    mod = [-35:5:-10 -6 -3 -1 -0.2 1 2 3 6];
+    nicholschart(mod, -[1 20 40 80 160 180],["khaki" "paleturquoise"]);
+    ]]></programlisting>
+        <para>
+            <scilab:image localized="true"><![CDATA[
+                clf()
+                subplot(1,2,1)
+                nicholschart()
+                subplot(1,2,2)
+                mod = [-35:5:-10 -6 -3 -1 -0.2 1 2 3 6];
+                nicholschart(mod, -[1 20 40 80 160 180],["khaki" "paleturquoise"]);
+                gcf().axes_size = [700 350];
+            ]]></scilab:image>
+        </para>
+        <programlisting role="example"><![CDATA[
+    //Black diagram with Nichols chart as a grid
+    s = poly(0,'s');
+    Plant = syslin('c',16000/((s+1)*(s+10)*(s+100)));
+
+    //two degree of freedom PID
+    tau = 0.2;
+    xsi = 1.2;
+    PID = syslin('c',(1/(2*xsi*tau*s))*(1+2*xsi*tau*s+tau^2*s^2));
+    clf()
+    black([Plant;Plant*PID ],0.01,100,["Plant";"Plant and PID corrector"]);
+
+    //move the caption in the lower right corner
+    gca().children(1).legend_location="in_lower_right";
+
+    // Add the Nichols frame and tune its labels color
+    h = nicholschart();
+    h.phaseFrame.foreground = color("wheat");
+    h.gainFrame.foreground = color("wheat");
+    h.gainLabels.font_foreground = color("orange");
+    ]]></programlisting>
+        <para>
+            <scilab:image localized="true"><![CDATA[
+                //Black diagram with Nichols chart as a grid
+                s = poly(0,'s');
+                Plant = syslin('c',16000/((s+1)*(s+10)*(s+100)));
+                //two degree of freedom PID
+                tau = 0.2;
+                xsi = 1.2;
+                PID = syslin('c',(1/(2*xsi*tau*s))*(1+2*xsi*tau*s+tau^2*s^2));
+                clf
+                black([Plant;Plant*PID ],0.01,100,["Plant";"Plant and PID corrector"]);
+                //move the caption in the lower right corner
+                gca().children(1).legend_location="in_lower_right";
+                h = nicholschart();
+                h.phaseFrame.foreground = color("wheat");
+                h.gainFrame.foreground = color("wheat");
+                h.gainLabels.font_foreground = color("orange");
+            ]]></scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="hallchart">hallchart</link>
+            </member>
+            <member>
+                <link linkend="sgrid">sgrid</link>
+            </member>
+            <member>
+                <link linkend="zgrid">zgrid</link>
+            </member>
+            <member>
+                <link linkend="bode">bode</link>
+            </member>
+            <member>
+                <link linkend="black">black</link>
+            </member>
+            <member>
+                <link linkend="nyquist">nyquist</link>
+            </member>
+            <member>
+                <link linkend="svplot">svplot</link>
+            </member>
+            <member>
+                <link linkend="color_list">color_list</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Syntax allowed: nicholschart(gains, phases, colors).</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    The default frames color is now grey85 instead of cyan.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Colors may now be specified by their Scilab names or their "#RRGGBB"
+                                    hexadecimal code.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Output argument <literal>sh</literal> added.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        The syntax where the input arguments are skipped like <literal>nicholschart(modules,, colors)</literal> is no more supported.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

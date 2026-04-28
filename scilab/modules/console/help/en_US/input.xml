@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) XXXX-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="input">
+    <refnamediv>
+        <refname>input</refname>
+        <refpurpose>prompts the user for keyboard input</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            x = input(message)
+            x = input(message, "string")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>message</term>
+                <listitem>
+                    <para>
+                        character string: the inline prompting message.
+                        Extended UTF-8 characters are supported.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"string"</term>
+                <listitem>
+                    <para>
+                        optional flag, to return the input as is, as a literal string in
+                        <varname>x</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><emphasis>without <literal>"string"</literal></emphasis>:
+                                    <literal>x = evstr(keyboard_input)</literal>
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    With <emphasis>"string"</emphasis>: <literal>x = keyboard_input</literal>
+                                                                    </para>
+                                                                </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">x = input(message)</emphasis>
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        prints the <varname>message</varname> on a new line;
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        sets the caret at the message's end;
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        waits for a direct literal <literal>keyboard_input</literal> of any
+                        length, + enter. <literal>keyboard_input</literal> must be a valid Scilab expression
+                        provided on the current line, without continuation mark <literal>..</literal>.
+                        <literal>keyboard_input</literal> can include extended UTF-8 characters.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        tries to evaluate <literal>x = evstr(k_input)</literal> :
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    If it succeeds, <varname>x</varname> is output.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    Otherwise: an error is displayed, and the user is prompted
+                                    again until a valid Scilab expression is entered.
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </itemizedlist>
+            If <literal>keyboard_input</literal> is empty or made of blanks, <varname>x</varname> is set to
+            <literal>[]</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">x = input(message, "string")</emphasis> always sets
+            <varname>x</varname> to the literal <literal>keyboard_input</literal>
+            considered as a string, possibly empty <literal>""</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+maxIter = input("Max number of iterations: ") // enter 300
+
+δ = 1e-6;
+tol = input("Tolerance: ")   // enter nothing or blanks
+
+tol = input("Tolerance: ")   // enter 7*δ
+
+f = input("Function: ");     // enter sin
+f == sin
+f(5)
+
+s = "ABC";
+r = input("Expression: ")    // enter s + "D"
+
+res = input("Invalid expression: ")  // enter  s/4
+     ]]></programlisting>
+        <screen><![CDATA[
+--> maxIter = input("Max number of iterations: ") // enter 300
+Max number of iterations: 300
+ maxIter  =
+   300.
+
+--> δ = 1e-6;
+--> tol = input("Tolerance: ")   // | = caret before enter
+Tolerance:     |
+ tol  =
+    []
+
+--> tol = input("Tolerance: ")   // enter 7*δ
+Tolerance: 7*δ
+ tol  =
+   0.000007
+
+--> f = input("Function: ");     // enter sin
+Function: sin
+--> f == sin
+ ans  =
+  T
+--> f(5)
+ ans  =
+  -0.9589243
+
+--> s = "ABC";
+--> r = input("Expression: ")    // enter s + "D"
+Expression: s + "D"
+ r  =
+  "ABCD"
+
+--> res = input("Invalid expression: ")  // enter  s/4
+Invalid expression: s / 4
+Undefined operation for the given operands.
+check or define function %c_r_s for overloading.
+
+Invalid expression:
+]]></screen>
+        <para>
+            The <literal>"string"</literal> option returns the input string as is,
+            with leading and trailing white spaces. Extended characters are accepted:
+        </para>
+        <programlisting role="example"><![CDATA[
+x = input("Prénom (surname): ","string")      //  enter André
+     ]]></programlisting>
+        <screen><![CDATA[
+--> x = input("Prénom (surname): ","string")  // | = caret before enter
+Prénom (surname):   André   |
+ x  =
+  "  André   "
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="x_dialog">x_dialog</link>
+            </member>
+            <member>
+                <link linkend="x_mdialog">x_mdialog</link>
+            </member>
+            <member>
+                <link linkend="x_choose">x_choose</link>
+            </member>
+            <member>
+                <link linkend="x_choices">x_choices</link>
+            </member>
+            <member>
+                <link linkend="x_matrix">x_matrix</link>
+            </member>
+            <member>
+                <link linkend="evstr">evstr</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    In case where nothing is entered with the "string" option,
+                    input returns an empty string instead of a space.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

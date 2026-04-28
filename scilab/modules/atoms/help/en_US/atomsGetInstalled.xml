@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="atomsGetInstalled" xml:lang="en">
+    <refnamediv>
+        <refname>atomsGetInstalled</refname>
+        <refpurpose>Get the list of installed external modules</refpurpose>
+    </refnamediv>
+    <!-- ===================================================================== -->
+    <!-- Syntax -->
+    <!-- ===================================================================== -->
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            installed = atomsGetInstalled(section)
+        </synopsis>
+    </refsynopsisdiv>
+    <!-- ===================================================================== -->
+    <!-- Parameters -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>section</term>
+                <listitem>
+                    <para>
+                        This argument filter the output list.
+                    </para>
+                    <para>
+                        <literal>section</literal> is a single-string and its value should be :
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>"all"</literal>: atomsGetInstalled() lists external
+                                modules installed in both "user" and "allusers" sections.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"allusers"</literal>: atomsGetInstalled() only lists
+                                external modules    installed in the "allusers" section.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"user"</literal>: atomsGetInstalled() only lists
+                                external modules    installed in the "user" section.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        The default value is "all".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>installed</term>
+                <listitem>
+                    <para>m x 5 matrix of strings</para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col.</th>
+                            <th>2nd Col.</th>
+                            <th>3rd Col.</th>
+                            <th>4th Col.</th>
+                            <th>5th Col.</th>
+                        </tr>
+                        <tr>
+                            <td>Module's name</td>
+                            <td>Version</td>
+                            <td>Installation section (allusers/user): this parameter determines whether the module has been installed
+                                for all users or only for the current user.</td>
+                            <td>Installation path</td>
+                            <td>Status: "I" stands for "Intentionally", "A" stands for "Automatically"</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Description -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsGetInstalled</literal> returns the list of installed external modules
+        </para>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Examples -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+atomsSetConfig("Verbose","True");
+
+// Load the test repository
+exec("SCI/modules/atoms/tests/unit_tests/atomsTestUtils.sce", -1);
+repository = atomsCreateTestRepository("scene10");
+
+atomsInstall("toolbox_5V6");
+atomsGetInstalled();
+
+// Cleaning
+atomsRemove("toolbox_5V6");
+atomsRepositoryDel(repository);
+        ]]></programlisting>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- See also -->
+    <!-- ===================================================================== -->
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsInstall">atomsInstall</link>
+            </member>
+            <member>
+                <link linkend="atomsIsInstalled">atomsIsInstalled</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Authors -->
+    <!-- ===================================================================== -->
+</refentry>

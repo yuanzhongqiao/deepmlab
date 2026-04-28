@@ -1,0 +1,23 @@
+; Definition of lib for documentation build used in Scilab
+
+xml_apis_ext.jar =${thirdparty.dir}/xml-apis-ext-1.3.04.jar
+
+; xml.apache.org SVG Library
+batik.jar=${thirdparty.dir}/batik-all-1.17.jar
+
+; The Saxon XSLT Processor
+saxon.jar=${thirdparty.dir}/Saxon-HE-12.4.jar
+
+; Reusable components used by Batik and FOP
+fop-core.jar=${thirdparty.dir}/fop-core-2.9.jar
+
+; LaTeX plugin
+jlatexmath-fop.jar=${thirdparty.dir}/jlatexmath-fop-1.0.7.jar
+
+; A complete MathML rendering solution
+jeuclid-core.jar=${thirdparty.dir}/jeuclid-core-3.1.14.jar
+
+xmlgraphics-commons.jar=${thirdparty.dir}/xmlgraphics-commons-2.9.jar
+
+library.helptools.dir=${modules.dir}/helptools/${build.jar.dir}/
+library.helptools.name=org.scilab.modules.helptools.jar

@@ -1,0 +1,553 @@
+# Czech translation for scilab
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2013-05-24 21:22+0000\n"
+"Last-Translator: Zbyněk Schwarz <Unknown>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong size for input arguments: Same sizes expected.\n"
+msgstr "%s: Špatná velikost vstupních argumentů: Očekávány stejné velikosti.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: not a valid reference to Cholesky "
+"factors.\n"
+msgstr ""
+"%s: Špatná velikost vstupního argumentu #%d: není platný odkaz na Choleskiho "
+"faktory.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be symmetric positive definite "
+"matrix."
+msgstr ""
+"%s: Špatná velikost vstupního argumentu #%d: Musí být symetrická kladně "
+"konečná matice,"
+
+#, c-format
+msgid "%s: No more memory.\n"
+msgstr "%s: Žádná další paměť.\n"
+
+#, c-format
+msgid "%s: An error occurred: %s\n"
+msgstr "%s: Vyskytla se chyba: %s\n"
+
+msgid "factorization"
+msgstr "faktorizace"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be a valid reference to a "
+"Cholesky factorization"
+msgstr ""
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: Chyba při přidělování paměti.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: not a valid reference to Cholesky "
+"factors"
+msgstr ""
+"%s: Špatná velikost vstupního argumentu #%d: není platný odkaz na Choleskiho "
+"faktory"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s: Špatná velikost vstupního argumentu #%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: not compatible with the Cholesky "
+"factorization.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: not compatible with the Cholesky "
+"factorization.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: not enough memory.\n"
+msgstr "%s: není dostatek paměti.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A pointer expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be a valid reference to (umf) "
+"LU factors.\n"
+msgstr ""
+"%s: Špatná velikost vstupního argumentu #%d: Musí být platný odkaz na (umf) "
+"faktory LU.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A sparse matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: An error occurred: %s: %s\n"
+msgstr "%s: Vyskytla se chyba: %s: %s\n"
+
+msgid "symbolic factorization"
+msgstr "symbolická faktorizace"
+
+msgid "The (square) matrix appears to be singular."
+msgstr "(Čtvercová) matice se zdá být jednoduchá."
+
+msgid "Warning"
+msgstr "Varování"
+
+msgid "no place to store the LU pointer in ListNumeric."
+msgstr "žádné místo pro umístění ukazatele LU v ListNumeric."
+
+#, c-format
+msgid "%s: An error occurred: %s.\n"
+msgstr "%s: Vyskytla se chyba: %s.\n"
+
+msgid "This is not a factorization of a square matrix"
+msgstr ""
+
+msgid "This is a factorization of a singular matrix"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A real or complex column vector or "
+"matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong input argument #%d: '%s' or '%s' expected.\n"
+msgstr "%s: Špatný vstupní argument očekáván #%d: '%s' nebo '%s'.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %s.\n"
+msgstr "%s: Špatná velikost vstupního argumentu #%d: %s.\n"
+
+msgid "Matrix is not compatible with the given LU factors"
+msgstr "Matice není kompatibilní se zadanými faktory LU"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A matrix expected.\n"
+msgstr ""
+
+msgid "numeric factorization"
+msgstr "číselná faktorizace"
+
+msgid "singular matrix"
+msgstr "jednoduchá matice"
+
+msgid "not enough memory"
+msgstr "nedostatek paměti"
+
+msgid "internal error"
+msgstr "vnitřní chyba"
+
+msgid "invalid matrix"
+msgstr "neplatná matice"
+
+msgid "GENMMD ordering only works on symmetric matrices.\n"
+msgstr "Seřazení GENMMD funguje pouze v symetrických maticích.\n"
+
+msgid "The lower part of the matrix must be represented.\n"
+msgstr "Nižší čas matice musí být zastoupena.\n"
+
+#, c-format
+msgid "%s: No more memory (n=%d, nnz=%d).\n"
+msgstr "%s: Žádná další paměť (n=%d, nnz=%d).\n"
+
+msgid "    CC^T Factorization: Matrix is not positive definite.\n"
+msgstr "    Faktorizace CC^T: Matice není kladně konečná.\n"
+
+#, c-format
+msgid "                        nonpositive pivot in column %d\n"
+msgstr "                        nekladná osa ve sloupci %d\n"
+
+msgid "Scilab UMFPACK module not installed.\n"
+msgstr "Scilab modul UMFPACK není nainstalován.\n"
+
+msgid ""
+"A small test for the condestsp function: condestsp gives an estimate of\n"
+" the condition number K1 in 1-norm of a real sparse matrix A:"
+msgstr ""
+
+msgid ""
+"     without explicitly computing the inverse of A. condestsp uses a "
+"factorization given by\n"
+" umf_lufact but if you have already computed this one it is recommended to "
+"give the pointer to the factorization."
+msgstr ""
+
+msgid ""
+"The test consists in forming small sparse matrices (so as to compute K1 "
+"exactly with\n"
+"norm(inv(full(A)),1)) whose values are chosen from the normal distribution."
+msgstr ""
+
+msgid ""
+"\n"
+"Press Return to continue...\n"
+msgstr ""
+
+msgid ""
+"This test compares umfpack v3 and sparse v1.3 via their Scilab interface."
+msgstr ""
+
+msgid ""
+"The test consists in loading Harwell-Boeing sparse matrices and solve linear "
+"system with a random rhs."
+msgstr ""
+
+msgid "The matrices presented here come from the NIST server Matrix server:"
+msgstr ""
+
+msgid "Warning: tests 2 and 3 take much more time than the others."
+msgstr ""
+
+msgid ""
+"Test 1: Jacobian of a nonlinear system of ordinary differential equations "
+"(ODEs) modeling a laser"
+msgstr ""
+
+msgid "  Mean time and accuracy for umfpack (t1 and ||A*x-b||):"
+msgstr ""
+
+msgid "  Time and accuracy for sparse module (t2 and ||A*x-b||):"
+msgstr ""
+
+msgid "  Time comparison (t2/t1):"
+msgstr ""
+
+msgid "Test 2: Generalized eigenvalue problem Kx = (lambda)Mx"
+msgstr ""
+
+msgid "Test 3: Matrices generated by the FIDAP Package"
+msgstr ""
+
+msgid "Test 4: Tokamak Matrices"
+msgstr ""
+
+msgid "Test 5: Acoustic scattering"
+msgstr ""
+
+msgid ""
+"To load a sparse matrix stored in the Harwell-Boeing format in Scilab, you "
+"may use the function ReadHBSparse."
+msgstr ""
+
+msgid ""
+"4 matrices will be loaded for the demo: they come from the University of "
+"Florida Sparse Matrix Collection:"
+msgstr ""
+
+msgid "    maintained by Tim Davis, author of UMFPACK"
+msgstr ""
+
+msgid ""
+"To see the pattern of non zeros elements, you may use the function "
+"PlotSparse."
+msgstr ""
+
+msgid "Here we will display the 4 matrices"
+msgstr ""
+
+msgid "Now, using umfpack to solve some linear systems:"
+msgstr ""
+
+msgid "-> to create a rhs"
+msgstr ""
+
+msgid "-> to solve A1*x1 = b1"
+msgstr ""
+
+msgid "-> norm of the residual"
+msgstr ""
+
+msgid "this is done for the 4 matrices A1, A2, A3 and A4."
+msgstr ""
+
+msgid "A1 ("
+msgstr ""
+
+#, c-format
+msgid "     norm of the residual = "
+msgstr ""
+
+#, c-format
+msgid "     computing time       = "
+msgstr ""
+
+msgid "A2 ("
+msgstr ""
+
+msgid "A3 ("
+msgstr ""
+
+msgid "A4 ("
+msgstr ""
+
+msgid "Now we will see how to use the lu factors:"
+msgstr ""
+
+msgid "  1/ lu factors of a sparse matrix A are obtained through:"
+msgstr ""
+
+#, c-format
+msgid ""
+"     lup = umf_lufact(A)\n"
+"     lup is a pointer to the lu factors (the memory is outside scilab "
+"space)\n"
+msgstr ""
+
+msgid "  2/ for solving a linear system A*x = b, use:"
+msgstr ""
+
+#, c-format
+msgid ""
+"     x = umf_lusolve(lup,b)\n"
+"     or  x = umf_lusolve(lup,b,Ax=b,A)  to add an iterative refinement step\n"
+msgstr ""
+
+msgid "  3/ to solve A'*x=b you may use:"
+msgstr ""
+
+#, c-format
+msgid ""
+"     x = umf_lusolve(lup,b,Ax''=b)\n"
+"     or  x = umf_lusolve(lup,b,Ax''=b,A)  to add an iterative refinement "
+"step\n"
+msgstr ""
+
+msgid "  4/ you may also compute the 1-norm condition number quickly with:"
+msgstr ""
+
+#, c-format
+msgid ""
+"     K1 = condestsp(A,lup)\n"
+"     K1 = condestsp(A) also works but in this case the lu factors are re-"
+"computed inside\n"
+msgstr ""
+
+msgid ""
+"  5/ if you don't need the lu factors anymore, it is recommended to free "
+"them with:"
+msgstr ""
+
+#, c-format
+msgid ""
+"     umf_ludel(lup)\n"
+"     if you have lost your pointer you may use umf_ludel() which frees all "
+"the current umf lu factors\n"
+msgstr ""
+
+#, c-format
+msgid "     norm of the residual    = "
+msgstr ""
+
+#, c-format
+msgid "     same but with refinement = "
+msgstr ""
+
+#, c-format
+msgid "     norm of the residual     = "
+msgstr ""
+
+msgid "Now we will see how to use the taucs snmf stuff on the matrix A2."
+msgstr ""
+
+msgid ""
+"This is useful and recommended when your matrix is symmetric positive "
+"definite (s.p.d.)."
+msgstr ""
+
+msgid "  1/ the Cholesky factorization of a s.p.d. matrix A is obtained with:"
+msgstr ""
+
+#, c-format
+msgid ""
+"     Cp is a pointer to the Cholesky fact. (the memory is outside scilab "
+"space)\n"
+msgstr ""
+
+msgid "  2/ for solving a linear system A*x = b then use:"
+msgstr ""
+
+#, c-format
+msgid "     x = taucs_chsolve(Cp,b)\n"
+msgstr ""
+
+msgid "  3/ for the same thing with one refinement step, use:"
+msgstr ""
+
+#, c-format
+msgid "     xr = taucs_chsolve(Cp,b,A)\n"
+msgstr ""
+
+msgid "  4/ you may also compute the 2-norm condition number with:"
+msgstr ""
+
+#, c-format
+msgid "     [K2, lm, vm, lM, vM] = cond2sp(A, Cp [, itermax, eps, verb])\n"
+msgstr ""
+
+msgid ""
+"  5/ if you don't need the Cholesky factorization anymore, it is recommended "
+"to free it with taucs_chdel(Cp)"
+msgstr ""
+
+#, c-format
+msgid ""
+"     if you have lost your pointer you may use taucs_chdel() which frees "
+"memory for all the current Cholesky factorizations.\n"
+msgstr ""
+
+msgid " with umfpack:"
+msgstr ""
+
+msgid " with the taucs snmf Cholesky solver:"
+msgstr ""
+
+msgid "UMFPACK"
+msgstr ""
+
+msgid "Sparse Matrices"
+msgstr ""
+
+msgid "Harwell-Boeing"
+msgstr ""
+
+msgid "condestsp"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input argument(s).\n"
+msgstr "%s: Špatný počet vstupních argumentů.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: sparse matrix expected.\n"
+msgstr "%s: Špatný typ vstupního argumentu #%d: očekávána řídká matice.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
+
+msgid "Choose a sparse matrix"
+msgstr "Zvolte řídkou matici"
+
+msgid "   then click on OK   "
+msgstr "   pak klikněte na OK   "
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
+msgstr "%s: Špatný počet vstupního(ch) argumentu(ů): Očekáváno alespoň %d.\n"
+
+#, c-format
+msgid "%s: The file contains a rhs but it will not be read !"
+msgstr "%s: Soubor obsahuje rhs, ale nebude přečten !"
+
+#, c-format
+msgid "%s: currently don't read unassembled (elemental) sparse matrix."
+msgstr ""
+"%s: v současnosti nelze přečíst nesestavenou (elementární) řídkou matici."
+
+#, c-format
+msgid "%s: No values for this matrix (only non zero pattern) : put some 1."
+msgstr ""
+"%s: Žádné hodnoty pro tuto matici (pouze nenulový model) : zadejte nějaké 1."
+
+msgid ""
+"\n"
+" approximate (lM,vM) with the iterative power method \n"
+msgstr ""
+"\n"
+" přibližné (IM,vM) s metodou opakovaného výkonu \n"
+
+msgid " ----------------------------------------------------- \n"
+msgstr " ----------------------------------------------------- \n"
+
+#, c-format
+msgid " iteration %3d : lM = %e  \n"
+msgstr " opakování %3d : lM = %e  \n"
+
+#, c-format
+msgid " Warning : for lM convergence at rtol = %e \n"
+msgstr " Varování : pro konvergenci IM v rtol = %e \n"
+
+#, c-format
+msgid "           don't reached after %d iterations (got only %e) \n"
+msgstr "           nedosaženo po %d opakování (získáno pouze %e) \n"
+
+msgid ""
+"\n"
+" approximate (lm,vm) with the inverse iterative power method \n"
+msgstr ""
+"\n"
+" přibližné (lm,vm) s metodou inverzního opakovaného výkonu \n"
+
+msgid " ------------------------------------------------------------\n"
+msgstr " ------------------------------------------------------------\n"
+
+#, c-format
+msgid " iteration %3d : lm = %e  \n"
+msgstr " opakování %3d : lm = %e  \n"
+
+#, c-format
+msgid " Warning : for lm convergence at rtol = %e \n"
+msgstr " Varování : pro konvergenci lm v rtol = %e \n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d až %d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
+msgstr ""
+"%s: Špatný typ vstupního argumentu #%d: Očekávána čtvercová řídká matice.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
+msgstr ""
+"%s: Špatná velikost vstupního argumentu #%d: Očekávána čtvercová řídká "
+"matice.\n"
+
+#, c-format
+msgid "%s: The matrix and the LU factors have not the same dimension !\n"
+msgstr "%s: Matice a faktory LU nemají stejné rozměry !\n"
+
+#, c-format
+msgid "%s: Invalid type and/or size and/or value for the second arg.\n"
+msgstr "%s: Neplatný typ a/nebo velikost a/nebo hodnota pro druhý argument.\n"
+
+msgid "how to use this stuff"
+msgstr "jak toto používat"
+
+msgid "display a speed comparison test"
+msgstr "zobrazit test porovnání rychlosti"
+
+msgid "small tests for condestsp"
+msgstr "malý test pro condestsp"
+
+msgid "Click to choose a demo"
+msgstr "Klikněte pro zvolení ukázky"

@@ -1,0 +1,17 @@
+//<-- CLI SHELL MODE -->
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2005-2008 - INRIA - Serge Steer
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- Non-regression test for bug 2388 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/2388
+//
+// <-- Short Description -->
+//graphic handles can be appended to real vectors
+if execstr('[123,gca()]','errcatch')==0 then pause,end
+if execstr('[123;gca()]','errcatch')==0 then pause,end

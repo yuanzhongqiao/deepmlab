@@ -1,0 +1,14 @@
+LIBRARY    core.dll
+
+
+EXPORTS
+;--------------------------
+; core
+;--------------------------
+freeArrayOfString
+MyHeapAlloc
+MyHeapFree
+getScilabVersionMajor
+getScilabVersionMinor
+getScilabVersionMaintenance
+getScilabVersionAsString

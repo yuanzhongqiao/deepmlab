@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="varfun" xml:lang="en">
+    <refnamediv>
+        <refname>varfun</refname>
+        <refpurpose>apply a function to each column of the table/timeseries</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            v = varfun(f, t)
+            v = varfun(f, t, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>function to apply with prototype: <literal>y = f(x)</literal></para>
+                    <para><literal>f</literal> must take one input argument</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table or timeseries object in input</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"GroupingVariables"</emphasis>, variable names or variable indices</term>
+                <listitem>
+                    <para> 
+                        variables values are used to create unique groups.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"InputVariables"</emphasis>, variable names or variable indices</term>
+                <listitem>
+                    <para> 
+                        the function will be apply only on this specified variables.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>v</term>
+                <listitem>
+                    <para>output argument - <link linkend="table">table</link>
+                     or <link linkend="timeseries">timeseries</link> object (same object as t).</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <emphasis role="bold">varfun</emphasis> function returns a <link linkend="table">table</link> or 
+            <link linkend="timeseries">timeseries</link> (same object as t) 
+            where each variable (columns) contains the result of the function applied to each variable of t.
+        </para>
+        <para>
+            <emphasis role="bold">v = varfun(f, t)</emphasis> applies the function f to each variable of t.
+        </para>
+        <para>
+            To apply the function only on certain table variables, <emphasis role="bold">InputVariables</emphasis> 
+            must be specified: <emphasis role="bold">v = varfun(f, t, "InputVariables", ["Var1", ...,])</emphasis>. It is 
+            also possible to use the syntax <emphasis role="bold">v = varfun(f, t(:, ["Var1", ...,]))</emphasis>.
+        </para>
+        <para>
+            <emphasis role="bold">v = varfun(f, t, "GroupingVariables", ["Var1", ...,])</emphasis> allows to specify 
+            the variables used to group the table or timeseries. The function f will be applied to each group in each variable 
+            of t. The expected result of function f must be a scalar.
+        </para>
+        <para/>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">v = varfun(f, t)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function y = f(x)
+                y = x + 1;
+            endfunction
+
+            rand("seed", 0)
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x1, x2, "VariableNames", ["x1", "x2"])
+
+            v = varfun(f, t)
+
+            // with sum 
+            v = varfun(sum, t)
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            v = varfun(f, ts)
+
+            // with sum 
+            v = varfun(sum, ts)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">v = varfun(f, t, "InputVariables", ["Var1", ...])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function y = f(x)
+                y = x + 1;
+            endfunction
+
+            rand("seed", 0)
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x1, x2, "VariableNames", ["x1", "x2"])
+            
+            v = varfun(f, t, "InputVariables", "x2")
+
+            // with sum 
+            v = varfun(sum, t, "InputVariables", "x1")
+
+            // Possible with extraction: t(:, ["var1", ..., "varN"])
+            v = varfun(f, t(:, "x2"))
+
+            v = varfun(sum, t(:, "x1"))
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            v = varfun(f, ts, "InputVariables", "x2")
+
+            // with sum 
+            v = varfun(sum, ts, "InputVariables", "x1")
+
+            // Possible with extraction: ts(:, ["var1", ..., "varN"])
+            v = varfun(f, ts(:, "x2"))
+
+            v = varfun(sum, ts(:, "x1"))
+        ]]>
+        </programlisting>
+        <programlisting role="example"><![CDATA[
+            timestamp = hours([0.352500; 0.352700; 0.352900; 0.353100; 0.353300; 0.353500; 0.353700; 0.353900]);
+            x1 = [1:8]';
+            x2 = ["Rx"; "Rx"; "Rx"; "Rx"; "Rx"; "Rx"; "Rx"; "Rx"];
+            msg = ["A   0   0   0"; "A A   0   0   0"; "A A A  0   0   0"; "A A A A   0   0   0"; "A A A A A   0   0   0"; ...
+            "A A A A A A  0   0   0"; "A A A A A A A  0   0   0"; "A A A A A A A A  0   0   0"];
+            ts = timeseries(timestamp, x1, x2, msg, "VariableNames", ["timestamp", "x1", "x2", "message"]);
+
+            f = #(x) -> (strsubst(x, " ", ""));
+            v = varfun(f, ts, "InputVariables", "message");
+            ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">v = varfun(f, t, "GroupingVariables", ["Var1", ...])</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            function y = f(x)
+                y = x' * x;
+            endfunction
+
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            t = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+            
+            v = varfun(f, t, "GroupingVariables", "x")
+
+            // with sum 
+            v = varfun(sum, t, "GroupingVariables", "x", "InputVariables", "x1")
+
+            // With timeseries
+            timestamp = hours([1 2 2 3 3])';
+            ts = timeseries(timestamp, x1, x2, "VariableNames", ["timestamp", "x1", "x2"])
+
+            v = varfun(f, ts, "GroupingVariables", "timestamp")
+
+            // with sum 
+            v = varfun(sum, ts, "GroupingVariables", "timestamp", "InputVariables", "x1")
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+            <member>
+                <link linkend="rowfun">rowfun</link>
+            </member>
+            <member>
+                <link linkend="groupcounts">groupcounts</link>
+            </member>
+            <member>
+                <link linkend="groupsummary">groupsummary</link>
+            </member>
+            <member>
+                <link linkend="pivot">pivot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

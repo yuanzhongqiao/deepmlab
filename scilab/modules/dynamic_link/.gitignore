@@ -1,0 +1,21 @@
+#
+#generated .def files (windows)
+#
+src/c/dynamic_link.def
+src/fortran/dynamic_link_f.def
+examples/*/*.dll
+examples/*/*.def
+examples/*/*.obj
+examples/*/Makelib.mak
+examples/*/loader.sce
+examples/*/*/*.dll
+examples/*/*/*.def
+examples/*/*/*.obj
+examples/*/*/Makelib.mak
+examples/*/*/loader.sce
+examples/gateway/libtutorial.c
+examples/*/*/gw_ex*.c
+#
+# generated linux files
+#
+src/scripts/Makefile.orig

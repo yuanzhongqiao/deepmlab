@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="ENDBLK" xml:lang="en_US">
+    <refnamediv>
+        <refname>ENDBLK</refname>
+        <refpurpose>END block</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/ENDBLK.png" valign="middle"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_ENDBLK">
+        <title>Contents</title>
+        <itemizedlist>
+            <listitem>
+                <xref linkend="Description_ENDBLK">Description</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Dialogbox_ENDBLK">Parameters</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Defaultproperties_ENDBLK">Default properties</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Interfacingfunction_ENDBLK">Interfacing function
+                    </xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Example_ENDBLK">Example</xref>
+            </listitem>
+            <listitem>
+                <xref linkend="Seealso_ENDBLK">See also</xref>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+
+    <refsection id="Description_ENDBLK">
+        <title>Description</title>
+        <para>That block can be used to set the final time of the simulation. When
+            that block is truly parametrized then the simulator will jump to the
+            'final integration time' defined in the Setup item of the simulate Menu
+            from the time defined by the parameter 'Final simulation time' of the
+            dialog box. That parameter can be a numerical value or a symbolic variable
+            defined in the scicos context.
+        </para>
+        <note>
+            The 'Final simulation time' item (on diagram settings) always end the simulation at the
+            specified time. This block should be configured to end the simulation before this setting.
+        </note>
+		<para/>
+    </refsection>
+    <refsection id="Dialogbox_ENDBLK">
+        <title>Parameters</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/ENDBLK_gui.gif" align="center" style="float:right"/>
+                    <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Final simulation time</emphasis>
+                </para>
+                <para>Set the final time of the simulation.</para>
+                <para>When simulator reaches that value then the current time will
+                    jump to the final integration time.
+                </para>
+                <para>Properties : Type 'vec' of size 1.</para>
+            </listitem>
+        </itemizedlist>
+		<para/>
+    </refsection>
+    <refsection id="Defaultproperties_ENDBLK">
+        <title>Default properties</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> no
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">csuper</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+		<para/>
+    </refsection>
+
+    <refsection id="Example_ENDBLK">
+        <title>Example</title>
+        <link type="scilab" linkend="scilab.xcos/xcos/examples/sinks_pal/ENDBLK_Example.zcos">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../../../../examples/sinks_pal/ENDBLK_Example.zcos" align="center"/>
+                </imageobject>
+            </inlinemediaobject>
+        </link>
+    </refsection>
+
+    <refsection id="Interfacingfunction_ENDBLK">
+        <title>Interfacing function</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/Misc/ENDBLK.sci</para>
+            </listitem>
+        </itemizedlist>
+		<para/>
+    </refsection>
+
+    <refsection xml:id="Seealso_ENDBLK" role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="END_c">END_c</link>
+            </member>
+            <member>
+                <link linkend="TRASH_f">TRASH_f</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

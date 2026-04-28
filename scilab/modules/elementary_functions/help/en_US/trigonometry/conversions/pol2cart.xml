@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Vincent COUVERT
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:id="pol2cart" xml:lang="en">
+    <refnamediv>
+        <refname>pol2cart</refname>
+        <refpurpose>Convert polar/cylindrical coordinates to cartesian</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [XX, YY] = pol2cart(theta, rho)
+            [XX, YY, ZZ] = pol2cart(theta, rho, z)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>theta</term>
+                <listitem>
+                    <para>Angular coordinate relative to the X-axis. Must have the same size as <literal>rho</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rho</term>
+                <listitem>
+                    <para>Radial coordinate (distance to pole). Must have the same size as <literal>theta</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>Elevation coordinate. Must be a scalar or have the same size as <literal>theta</literal>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>XX, YY, ZZ</term>
+                <listitem>
+                    <para>Cartesian coordinates.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            For real scalars, vectors or matrices <literal>theta</literal> and <literal>rho</literal> (polar coordinates), <literal>pol2cart(theta, rho)</literal> returns Cartesian <literal>XX</literal> and <literal>YY</literal> coordinates.
+            For real scalars, vectors or matrices <literal>theta</literal>, <literal>rho</literal> and <literal>z</literal> (cylindrical coordinates), <literal>pol2cart(theta, rho, z)</literal> returns Cartesian <literal>XX</literal>, <literal>YY</literal> and <literal>ZZ</literal> coordinates. If <literal>z</literal> is a scalar then <literal>ZZ</literal> is expanded to the same size as <literal>theta</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+theta = 0:%pi/2:%pi;
+rho = [2 4 6];
+[x, y] = pol2cart(theta, rho)
+
+z = 5:7;
+[XX, YY, ZZ] = pol2cart(theta, rho, z)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cart2pol">cart2pol</link>
+            </member>
+            <member>
+                <link linkend="polarplot">polarplot</link>
+            </member>
+            <member>
+                <link linkend="graypolarplot">graypolarplot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

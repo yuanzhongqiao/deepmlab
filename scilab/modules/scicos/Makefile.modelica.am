@@ -1,0 +1,194 @@
+# Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2008 - INRIA - Sylvestre Ledru <sylvestre.ledru@inria.fr>
+# Copyright (C) 2010 - DIGITEO - Sylvestre Ledru
+# Copyright (C) 2014 - Scilab Enterprises - Clement DAVID
+# Copyright (C) 2018 - ESI Group - Clement DAVID
+#
+# Copyright (C) 2012 - 2016 - Scilab Enterprises
+#
+# This file is hereby licensed under the terms of the GNU GPL v2.0,
+# pursuant to article 5.3.4 of the CeCILL v.2.1.
+# This file was originally licensed under the terms of the CeCILL v2.1,
+# and continues to be available under such terms.
+# For more information, see the COPYING file which you should have received
+# along with this program.
+
+# TODO:
+# * see if we can do more factorization (on the lexer for example)
+
+######### Common Modelica elements #############
+
+if XCOS
+if OCAML
+TARGET = modelicac XML2Modelica modelicat
+BASE_PATH = $(srcdir)/src/
+bin_PROGRAMS = $(TARGET)
+OCAMLLIBS=nums.cma
+OCAMLPKGS=num
+
+
+### XML2Modelica
+
+XML2Modelica_SOURCES = \
+	$(srcdir)/src/xml2modelica/xMLTree.ml \
+	$(srcdir)/src/xml2modelica/linenum.mll \
+	$(srcdir)/src/xml2modelica/stringParser.ml \
+	$(srcdir)/src/xml2modelica/stringLexer.ml \
+	$(srcdir)/src/xml2modelica/xMLParser.ml \
+	$(srcdir)/src/xml2modelica/xMLLexer.ml \
+	$(srcdir)/src/xml2modelica/modelicaCodeGenerator.ml \
+	$(srcdir)/src/xml2modelica/xML2Modelica.ml
+
+XML2Modelica_SOURCES_mly = $(XML2Modelica_SOURCES:.mly=.ml)
+MLS_XML2Modelica = $(XML2Modelica_SOURCES_mly:.mll=.ml)
+
+BASE_PATH_XML2Modelica = $(srcdir)/src/xml2modelica
+
+
+### Translator
+
+modelicat_SOURCES = \
+	$(srcdir)/src/translator/parsing/syntax.ml \
+	$(srcdir)/src/translator/parsing/parser.mly \
+	$(srcdir)/src/translator/parsing/lexer.mll \
+	$(srcdir)/src/translator/parsing/linenum.mll \
+	$(srcdir)/src/translator/compilation/types.ml \
+	$(srcdir)/src/translator/compilation/nameResolve.ml \
+	$(srcdir)/src/translator/instantiation/instantiation.ml \
+	$(srcdir)/src/translator/exceptionHandling/msgDico.ml \
+	$(srcdir)/src/translator/exceptionHandling/errorDico.ml \
+	$(srcdir)/src/translator/exceptionHandling/exceptHandler.ml \
+	$(srcdir)/src/translator/translation/libraryManager.ml \
+	$(srcdir)/src/translator/translation/codeGeneration.ml \
+	$(srcdir)/src/translator/translation/versiondate.ml \
+	$(srcdir)/src/translator/translation/translator.ml
+
+modelicat_SOURCES_mly = $(modelicat_SOURCES:.mly=.ml)
+MLS_modelicat = $(modelicat_SOURCES_mly:.mll=.ml)
+
+INCLUDE_modelicat = -I $(srcdir)/src/translator/compilation \
+-I $(srcdir)/src/translator/exceptionHandling \
+-I $(srcdir)/src/translator/parsing \
+-I $(srcdir)/src/translator/instantiation \
+-I $(srcdir)/src/translator/translation
+
+### Modelicac
+
+modelicac_SOURCES = \
+	$(srcdir)/src/modelica_compiler/parseTree.ml \
+	$(srcdir)/src/modelica_compiler/linenum.mll \
+	$(srcdir)/src/modelica_compiler/parser.mly \
+	$(srcdir)/src/modelica_compiler/lexer.mll \
+	$(srcdir)/src/modelica_compiler/precompilation.ml \
+	$(srcdir)/src/modelica_compiler/compilation.ml \
+	$(srcdir)/src/modelica_compiler/instantiation.ml \
+	$(srcdir)/src/modelica_compiler/graphNodeSet.ml \
+	$(srcdir)/src/modelica_compiler/symbolicExpression.ml \
+	$(srcdir)/src/modelica_compiler/squareSparseMatrix.ml \
+	$(srcdir)/src/modelica_compiler/bipartiteGraph.ml \
+	$(srcdir)/src/modelica_compiler/hungarianMethod.ml \
+	$(srcdir)/src/modelica_compiler/causalityGraph.ml \
+	$(srcdir)/src/modelica_compiler/optimization.ml \
+	$(srcdir)/src/modelica_compiler/xMLCodeGeneration.ml \
+	$(srcdir)/src/modelica_compiler/optimizingCompiler.ml \
+	$(srcdir)/src/modelica_compiler/scicosCodeGeneration.ml \
+	$(srcdir)/src/modelica_compiler/scicosOptimizingCompiler.ml
+
+modelicac_SOURCES_mly = $(modelicac_SOURCES:.mly=.ml)
+MLS_modelicac = $(modelicac_SOURCES_mly:.mll=.ml)
+
+BASE_PATH_MODELICAC = $(srcdir)/src/modelica_compiler
+
+########## COMMON
+SUFFIXES += .mll .mly
+
+.mll.ml:
+	$(OCAMLLEX) $<
+
+.mly.ml:
+	$(OCAMLYACC) $<
+	@rm $*.mli
+
+# Build the binaries, disabling parallel building as ocamldep ordering seems to fail on some systems
+
+modelicac: $(modelicac_SOURCES) $(MLS_modelicac)
+if OCAMLFIND
+	$(OCAMLFIND) $(OCAMLOPT) -package $(OCAMLPKGS) -linkpkg -o $@ -I $(BASE_PATH_MODELICAC) $(OCAMLOPTFLAGS) $(MLS_modelicac)
+else
+	$(OCAMLOPT) -o $@ -I $(BASE_PATH_MODELICAC) $(OCAMLOPTFLAGS) $(OCAMLLIBS:.cma=.cmxa) $(MLS_modelicac)
+endif
+
+modelicac.ocamlc: $(modelicac_SOURCES) $(MLS_modelicac)
+if OCAMLFIND
+	$(OCAMLFIND) $(OCAMLC) -package $(OCAMLPKGS) -linkpkg -o $@ -I $(BASE_PATH_MODELICAC) $(OCAMLOPTFLAGS) $(MLS_modelicac)
+else
+	$(OCAMLC) -o $@ -I $(BASE_PATH_MODELICAC) $(OCAMLOPTFLAGS) $(OCAMLLIBS) $(MLS_modelicac)
+endif
+
+XML2Modelica: $(XML2Modelica_SOURCES) $(MLS_XML2Modelica)
+if OCAMLFIND
+	$(OCAMLFIND) $(OCAMLOPT) -package $(OCAMLPKGS) -linkpkg -o $@ -I $(BASE_PATH_XML2Modelica) $(OCAMLCFLAGS) $(MLS_XML2Modelica)
+else
+	$(OCAMLOPT) -o $@ -I $(BASE_PATH_XML2Modelica) $(OCAMLCFLAGS) $(OCAMLLIBS:.cma=.cmxa) $(MLS_XML2Modelica)
+endif
+
+XML2Modelica.ocamlc: $(XML2Modelica_SOURCES) $(MLS_XML2Modelica)
+if OCAMLFIND
+	$(OCAMLFIND) $(OCAMLC) -package $(OCAMLPKGS) -linkpkg -o $@ -I $(BASE_PATH_XML2Modelica) $(OCAMLCFLAGS) $(MLS_XML2Modelica)
+else
+	$(OCAMLC) -o $@ -I $(BASE_PATH_XML2Modelica) $(OCAMLCFLAGS) $(OCAMLLIBS) $(MLS_XML2Modelica)
+endif
+
+modelicat: $(modelicat_SOURCES) $(MLS_modelicat)
+if OCAMLFIND
+	$(OCAMLFIND) $(OCAMLOPT) -package $(OCAMLPKGS) -linkpkg -o $@ $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) $(MLS_modelicat)
+else
+	$(OCAMLOPT) -o $@ $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) $(OCAMLLIBS:.cma=.cmxa) $(MLS_modelicat)
+endif
+
+modelicat.ocamlc: $(modelicat_SOURCES) $(MLS_modelicat)
+if OCAMLFIND
+	$(OCAMLFIND) $(OCAMLC) -package $(OCAMLPKGS) -linkpkg -o $@ $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) $(MLS_modelicat)
+else
+	$(OCAMLC) -o $@ $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) $(OCAMLLIBS) $(MLS_modelicat)
+endif
+
+CLEANFILES = $(BASE_PATH)/*/*.cmi \
+	$(BASE_PATH)/*/*.o \
+	$(BASE_PATH)/*/*.cmo \
+	$(BASE_PATH)/*/*.cm[aiox] \
+	$(BASE_PATH)/*/parser.mli \
+	$(BASE_PATH)/*/lexer.mli \
+	$(BASE_PATH)/*/linenum.mli \
+	$(BASE_PATH)/*/parser.ml \
+	$(BASE_PATH)/*/lexer.ml \
+	$(BASE_PATH)/*/linenum.ml \
+	$(BASE_PATH)/translator/*/*.cmi \
+	$(BASE_PATH)/translator/*/*.o \
+	$(BASE_PATH)/translator/*/*.a \
+	$(BASE_PATH)/translator/*/*.cmo \
+	$(BASE_PATH)/translator/*/*.cmxa \
+	$(BASE_PATH)/translator/*/*.cm[aiox] \
+	$(BASE_PATH)/translator/*/parser.mli \
+	$(BASE_PATH)/translator/*/lexer.mli \
+	$(BASE_PATH)/translator/*/parser.ml \
+	$(BASE_PATH)/translator/*/linenum.ml \
+	$(BASE_PATH)/translator/*/lexer.ml \
+	$(TARGET) \
+	$(BASE_PATH)/modelica_compiler/linenum.mli \
+	$(BASE_PATH)/modelica_compiler/scicosOptimizingCompiler.mli \
+	$(BASE_PATH)/translator/compilation/nameResolve.mli \
+	$(BASE_PATH)/translator/compilation/types.mli \
+	$(BASE_PATH)/translator/exceptionHandling/errorDico.mli \
+	$(BASE_PATH)/translator/exceptionHandling/exceptHandler.mli \
+	$(BASE_PATH)/translator/exceptionHandling/msgDico.mli \
+	$(BASE_PATH)/translator/instantiation/instantiation.mli \
+	$(BASE_PATH)/translator/parsing/linenum.mli \
+	$(BASE_PATH)/translator/parsing/syntax.mli \
+	$(BASE_PATH)/translator/translation/codeGeneration.mli \
+	$(BASE_PATH)/translator/translation/libraryManager.mli \
+	$(BASE_PATH)/translator/translation/translator.mli \
+	$(BASE_PATH)/translator/translation/versiondate.mli
+
+endif # OCAML
+endif # XCOS

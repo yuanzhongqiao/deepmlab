@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2017 - ESI-Group
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="toJSON">
+    <refnamediv>
+        <refname>toJSON</refname>
+        <refpurpose>
+            Convert a Scilab variable to a JSON string.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = toJSON(var)
+            result = toJSON(var, indent)
+
+            toJSON(var, filename)
+            toJSON(var, filename, indent)
+            toJSON(var, indent, filename)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>var</term>
+                <listitem>
+                    <para>
+                        The Scilab variable to convert to JSON format.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>filename</term>
+                <listitem>
+                    <para>
+                        File where to write the JSON string.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>indent</term>
+                <listitem>
+                    <para>
+                        If this argument is given, the result is indented. The value is the number of spaces.
+                        0  : No identation. (default)
+                        &gt;0 : indentation with spaces.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>&lt;opt_args&gt;</term>
+                <listitem>
+                    <para>
+                        This represents a sequence of statements
+                        <literal>key1=value1, key2=value2, ...</literal>
+                        where <literal>key1</literal>,
+                        <literal>key2</literal>, ... can be one of the following:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>convertInfAndNaN</term>
+                            <listitem>
+                                <para>
+                                    JSON specification does not allow writing NaN and Infinity values.
+                                    By default (convertInfAndNaN=%t) those values are converted into a JSON <literal>null</literal> value to follow the specification.
+                                    When this optional argument is set to <literal>%f</literal>, those values are stored in the JSON as literals: <literal>NaN</literal>, <literal>Infinity</literal>, and <literal>-Infinity</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>
+                        <literal>result</literal> is a string that contains the data converted to JSON.
+                        If a filename is given, no result is returned.
+                        A Scilab scalar variable is converted into a single number without brackets. To force the brackets around, put the scalar into a list().
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function converts a Scilab variable into a JSON string or JSON file.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// structure
+st = struct("status", "OK", "value", 12);
+toJSON(st)
+// matrix
+toJSON([1, 2, 3])
+// pretty print
+st = struct("test", ["a" "b"], "values", [1 2]);
+toJSON(st)
+toJSON(st, 4)
+// Scalar value
+toJSON(42)
+toJSON(list(42))
+// non finite values
+toJSON([[%nan, 1]; [1e+380, 1e-380]; [%inf, -%inf]])
+toJSON([[%nan, 1]; [1e+380, 1e-380]; [%inf, -%inf]], convertInfAndNaN=%f)
+ ]]></programlisting>
+ <screen><![CDATA[
+    
+--> // structure
+--> st = struct("status", "OK", "value", 12);
+--> toJSON(st)
+
+ ans = 
+
+  "{"status":"OK","value":12}"
+
+--> // matrix
+--> toJSON([1, 2, 3])
+
+ ans = 
+
+  "[1,2,3]"
+
+--> // pretty print
+--> st = struct("test", ["a" "b"], "values", [1 2]);
+--> toJSON(st)
+
+ ans = 
+
+  "{"test":["a","b"],"values":[1,2]}"
+
+--> toJSON(st, 4)
+
+ ans = 
+
+  "{
+    "test": [
+        "a",
+        "b"
+    ],
+    "values": [
+        1,
+        2
+    ]
+}"
+
+--> // Scalar value
+--> toJSON(42)
+
+ ans = 
+
+  "42"
+
+--> toJSON(list(42))
+
+ ans = 
+
+  "[42]"
+
+--> // non finite values
+--> toJSON([[%nan, 1]; [1e+380, 1e-380]; [%inf, -%inf]])
+
+ ans = 
+
+  "[[null,1],[null,0],[null,null]]"
+
+--> toJSON([[%nan, 1]; [1e+380, 1e-380]; [%inf, -%inf]], convertInfAndNaN=%f)
+
+ ans = 
+
+  "[[NaN,1],[Infinity,0],[Infinity,-Infinity]]"
+    ]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="http_post">http_post</link>
+            </member>
+            <member>
+                <link linkend="http_put">http_put</link>
+            </member>
+            <member>
+                <link linkend="http_patch">http_patch</link>
+            </member>
+            <member>
+                <link linkend="http_delete">http_delete</link>
+            </member>
+            <member>
+                <link linkend="http_upload">http_upload</link>
+            </member>
+            <member>
+                <link linkend="fromJSON">fromJSON</link>
+            </member>
+            <member>
+                <link linkend="http_get">http_get</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1</revnumber>
+                <revremark>
+                    Function introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>
+                    Handling of tabs (ascii(9)) changed.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>convertInfAndNaN</literal> option added.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

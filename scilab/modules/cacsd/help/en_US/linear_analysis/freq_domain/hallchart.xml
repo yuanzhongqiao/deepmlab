@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="hallchart">
+    <refnamediv>
+        <refname>hallchart</refname>
+        <refpurpose>Draws a Hall chart</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            sh = hallchart(modules)
+            sh = hallchart(modules, args)
+            sh = hallchart(modules, args, colors)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>modules</term>
+                <listitem>
+                     <para>
+                        vector of real numbers: modules (in dB). Default values are computed
+                        according to the data bounds, whose default are [-4,3] for the Real axis
+                        and [-3 3] for the Imaginary one.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>args</term>
+                <listitem>
+                     <para>
+                        vector of real numbers: phases (in degree). Default values:
+                        <literal>[-90 -60 -40 -30 -25 -20 -15 -12 12 15 20 25 30 40 60 90]°</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>colors</term>
+                <listitem>
+                     <para>
+                        vector of 1 or 2 components specifying the colors of the isogain and isophase
+                        sets of curves. To choose the color for only one grid, set the other one to ""
+                        or 0. If a single color is provided, it is used for both gains and phases.
+                        <varname>colors</varname> may be specified either
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    by indices in the color map.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    named colors among the <link linkend="color_list">predefined ones</link>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    "#RRGGBB" hexadecimal case-insensitive strings starting with "#",
+                                    like "#FA7B35".
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    A 1x3 or 2x3 matrix of [r g b] intensities such that 0 &lt;= r,g,b &lt;= 1.
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sh</term>
+                <listitem>
+                     <para>
+                        Structure with 4 fields:
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>.phaseLines</literal>: vector of handles of isophase lines.
+                                    <literal>.phaseLines(i)</literal> is the line for
+                                    <literal>args(i)</literal>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>.phaseLabels</literal>: vector of handles of isophase labels.
+                                    <literal>.phaseLabels(i)</literal> is the label for
+                                    <literal>args(i)</literal>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>.gainLines</literal>: vector of handles of isogain lines.
+                                    <literal>.gainLines(i)</literal> is the line for
+                                    <literal>modules(i)</literal>.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>.gainLabels</literal>: vector of handles of isogain labels.
+                                    <literal>.gainLabels(i)</literal> is the label for
+                                    <literal>modules(i)</literal>.
+                                </para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            plots the Hall's chart: iso-module and iso-argument contours of
+            <literal>y/(1+y)</literal> in the <literal>real(y)</literal>,
+            <literal>imag(y)</literal> plane
+        </para>
+        <para>
+            <literal>hallchart</literal> may be used in conjunction with
+            <link linkend="nyquist">nyquist</link>.
+        </para>
+        <note>
+            Datatips on isogain and isophase curves are customized.
+        </note>
+    </refsection>
+    <refsection role="examples">
+        <title>Examples</title>
+        <para>
+            <emphasis role="bold">Charts in an empty default or empty preset axes:</emphasis> Note that default Hall chart titles are then set:
+        </para>
+        <programlisting role="example"><![CDATA[
+clf
+// In a default axes
+subplot(1,2,1)
+hallchart();
+
+// In a preset empty axes
+subplot(1,2,2)
+plot2d([], [], 0, "011", " ", [-4 -2 1 4]) // xmin ymin ymax ymax
+hallchart();
+    ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+        clf
+        // In a default axes
+        subplot(1,2,1)
+        hallchart();
+
+        // In a preset empty axes
+        subplot(1,2,2)
+        plot2d([], [], 0, "011", " ", [-4 -2 1 4])
+        hallchart();
+        gcf().axes_size = [800 450];
+        ]]></scilab:image>
+        <para>
+            <emphasis role="bold">Customizing some elements</emphasis> of the grids and labels:
+        </para>
+        <programlisting role="example"><![CDATA[
+clf
+h = hallchart();
+
+// 5dB isogain
+i = find(h.gainLabels.text=="5dB");
+    // Customizing the label
+set(h.gainLabels(i),"box","on","font_size",2,"font_foreground",color("red"));
+    // Customizing the line
+h.gainLines(i).thickness = 3;
+
+// +/-25° isophases
+i = grep(h.phaseLabels.text,"25°")
+    // Customizing the labels
+set(h.phaseLabels(i),"font_size",3,"font_foreground",color("blue"));
+    // Customizing the lines
+set(h.phaseLines(i), "thickness",2,"line_style",1);
+     ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+            clf
+            h = hallchart();
+
+            // 5dB isogain
+            i = find(h.gainLabels.text=="5dB");
+                // Customizing the label
+            set(h.gainLabels(i),"box","on","font_size",2,"font_foreground",color("red"));
+                // Customizing the line
+            h.gainLines(i).thickness = 3;
+
+            // +/-25° isophases
+            i = grep(h.phaseLabels.text,"25°")
+                // Customizing the labels
+            set(h.phaseLabels(i),"font_size",3,"font_foreground",color("blue"));
+                // Customizing the line
+            set(h.phaseLines(i), "thickness",2,"line_style",1);
+        ]]></scilab:image>
+        <para>
+            <emphasis role="bold">Background of a Nyquist diagram</emphasis>
+            <para/>
+            Note that pre-existing titles are kept.
+        </para>
+        <para>
+        <programlisting role="example"><![CDATA[
+s = %s;
+Plant = syslin('c', 16000/((s+1)*(s+10)*(s+100)));
+//two degree of freedom PID
+[tau, xsi] = (0.2, 1.2);
+PID = syslin('c',(1/(2*xsi*tau*s))*(1+2*xsi*tau*s+tau^2*s^2));
+
+clf
+nyquist([Plant;Plant*PID], 0.5, 100, ["Plant";"Plant and PID corrector"]);
+mod = [12 6 3 2 1 0.5 0.2 0.1 -6 -3 -2 -1 -0.5 -0.2 -0.1];
+hallchart(mod,, ["goldenrod1" ""]);
+// Move the caption to avoid hiding data
+Leg = gca().children(1);
+set(Leg,"legend_location","by_coordinates","position",[0.15 0.4]);
+    ]]></programlisting>
+        <scilab:image localized="true"><![CDATA[
+        s = %s;
+        Plant = syslin('c', 16000/((s+1)*(s+10)*(s+100)));
+        //two degree of freedom PID
+        [tau, xsi] = (0.2, 1.2);
+        PID = syslin('c',(1/(2*xsi*tau*s))*(1+2*xsi*tau*s+tau^2*s^2));
+
+        clf
+        nyquist([Plant;Plant*PID], 0.5, 100, ["Plant";"Plant and PID corrector"]);
+        mod = [12 6 3 2 1 0.5 0.2 0.1 -6 -3 -2 -1 -0.5 -0.2 -0.1];
+        hallchart(mod,, ["goldenrod1" ""]);
+        // Move the caption to avoid hiding data
+        Leg = gca().children(1);
+        set(Leg,"legend_location","by_coordinates","position",[0.15 0.4]);
+        ]]></scilab:image>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="nicholschart">nicholschart</link>
+            </member>
+            <member>
+                <link linkend="nyquist">nyquist</link>
+            </member>
+            <member>
+                <link linkend="black">black</link>
+            </member>
+            <member>
+                <link linkend="color_list">color_list</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    The default values for the modules are computed according to the data bounds.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    The frames colors can be specified by their Scilab name or
+                                    their "#RRGGBB" hexadecimal code. "" or 0 can be used as partial default.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Output argument <literal>sh</literal> added.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

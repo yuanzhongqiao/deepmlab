@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="roots" xml:lang="ja">
+    <refnamediv>
+        <refname>roots</refname>
+        <refpurpose>多項式の根</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            x = roots(p)
+            x = roots(p, 'e')
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>パラメータ</title>
+        <variablelist>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>
+                        実数または複素数の係数を持つ多項式
+                        または
+                        降順の多項式係数のベクトル.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>'e', algo</term>
+                <listitem>
+                    <para>
+                        a character: the algorithm to be used (default "f", for "fast").
+                        <table>
+                            <tr><th>"f":</th>
+                                <td>
+                                    The Jenkins-Traub method is used. The polynomial must be real
+                                    and of degree &lt; 100; otherwise, an error is yielded.
+                                </td>
+                            </tr>
+                            <tr><th>"e":</th>
+                                <td>eigenvalues of the companion matrix are returned.
+                                </td>
+                            </tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>x=roots(p)</literal> は
+            多項式<literal>p</literal>の<literal>x</literal>である
+            複素ベクトルを返す.
+            100次以下の実数多項式の場合,高速な(Jenkins-Traub法に基づく)
+            RPOLYアルゴリズムが使用される.
+            その他の場合, その根はコンパニオン行列の固有値として計算される.
+            どのような場合でもこのアルゴリズムを強制的に使用したい
+            場合,<literal>x=roots(p,'e')</literal>を使用されたい.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <para>
+            In the following examples, we compute roots of polynomials.
+        </para>
+        <programlisting role="example"><![CDATA[
+// Roots given a real polynomial
+p = poly([1 2 3],"x")
+roots(p)
+// Roots, given the real coefficients
+p = [3 2 1];
+roots(p)
+// The roots of a complex polynomial
+p = poly([0,10,1+%i,1-%i],'x');
+roots(p)
+// The roots of the polynomial of a matrix
+A = rand(3,3);
+p = poly(A,'x')
+roots(p)
+spec(A)
+     ]]></programlisting>
+        <para>
+            The polynomial representation can have a significant
+            impact on the roots.
+            In the following example, suggested by Wilkinson in the 60s and presented by Moler,
+            we consider a diagonal matrix with diagonal entries equal to 1, 2, ..., 20.
+            The eigenvalues are obviously equal to 1, 2, ..., 20.
+            If we compute the associated characteristic polynomial and compute its roots,
+            we can see that the eigenvalues are significantly different from the expected
+            ones.
+            This implies that just representing the coefficients as IEEE doubles changes the
+            roots.
+        </para>
+        <programlisting role="example"><![CDATA[
+A = diag(1:20);
+p = poly(A,'x')
+roots(p)
+     ]]></programlisting>
+        <para>
+            The "f" option produces an error if the polynomial is complex or
+            if the degree is greater than 100.
+        </para>
+        <programlisting role="example"><![CDATA[
+ // The following case produces an error.
+ p = %i+%s;
+ roots(p,"f")
+ // The following case produces an error.
+ p = ones(101,1);
+ roots(p,"f")
+     ]]></programlisting>
+        <para>
+            The following script is a simple way of checking that the companion matrix gives the same result as the "e" option.
+            It explicitly uses the companion matrix to compute the roots.
+            There is a small step to reverse the coefficients of the polynomial ;
+            indeed, "roots" expects the coefficients in decreasing degree order,
+            while "poly" expects the coefficients in increasing degree order.
+        </para>
+        <programlisting role="example"><![CDATA[
+v= [1.12119799 0 3.512D+13 32 3.275D+27 0 1.117D+41 4.952D+27 1.722D+54 0 1.224D+67 0 3.262D+79 ];
+r1 = roots(v,"e"); // With "e" option
+dv = size(v,"*");
+p = poly(v(dv:-1:1),"x","coeff"); // Reversing v's coefficients
+A = companion(p);
+r2 = spec(A); // With the companion matrix
+max(abs(r1-r2))
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <para>RPOLYアルゴリズムは以下の文献に記述されている.
+            "Algorithm 493: Zeros of a Real
+            Polynomial", ACM TOMS Volume 1, Issue 2 (June 1975), pp. 178-189
+        </para>
+        <para>Jenkins, M. A. and Traub, J. F. (1970), A Three-Stage Algorithm for
+            Real Polynomials Using Quadratic Iteration, SIAM J. Numer. Anal., 7(1970), 545-566.
+        </para>
+        <para>Jenkins, M. A. and Traub, J. F. (1970), Principles for Testing Polynomial Zerofinding Programs.
+            ACM TOMS 1, 1 (March 1975), pp. 26-34
+        </para>
+    </refsection>
+    <refsection>
+        <title>参考</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="poly">poly</link>
+            </member>
+            <member>
+                <link linkend="spec">spec</link>
+            </member>
+            <member>
+                <link linkend="companion">companion</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

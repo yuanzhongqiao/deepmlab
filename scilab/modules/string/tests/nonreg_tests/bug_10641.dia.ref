@@ -1,0 +1,23 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 10641 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/10641
+//
+// <-- Short Description -->
+// string(:) gave wrong results
+//
+a = : ;
+assert_checkequal(string(a), "");
+assert_checkequal(isdigit(string(a)), []);
+assert_checkequal("h" + string(a) + "hop", "hhop");
+assert_checkequal(size(string(a)), [1 1]);
+assert_checkequal(size(string(:)), [1 1]);

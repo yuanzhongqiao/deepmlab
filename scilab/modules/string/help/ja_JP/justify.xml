@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2022 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="justify">
+    <refnamediv>
+        <refname>justify</refname>
+        <refpurpose>
+            スペースで補完された各列の文字列を、左、中央、右のいずれかに揃える
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>TJ = justify(T, position)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>T, TJ</term>
+                <listitem>
+                    <para>同じ大きさの文字列のベクトル, 行列または超行列.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>position</term>
+                <listitem>
+                    <para>オプションのパラメータで、以下の値のいずれかを指定します:
+                        <table cellspacing="0" cellpadding="0">
+                          <tr><th>'l'または'left'</th><td>: 左揃え （デフォルトモード）</td></tr>
+                          <tr><th>'c'または'center'</th><td>: 中央揃え</td></tr>
+                          <tr><th>'r'または'right'</th><td>: 右揃え</td></tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+            <para>
+                All heading and trailing spaces of <varname>T</varname> elements are removed
+                before processing.
+            </para>
+            <para>
+                In each given column of <varname>TJ</varname>, all strings have the same length.
+                Shorter strings are padded with spaces before, after, or on both sides.
+            </para>
+            <para>
+                The width may differ from a column to other ones. Please see the examples
+            </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+m = ["a" "bcdef" "ghi" ; "jklm" "" "n" ; "opq" "rs" "tuvwxy"]
+justify(m)
+justify(m, "r")
+justify(m, "c")
+    ]]></programlisting>
+    <screen><![CDATA[
+--> m = ["a" "bcdef" "ghi" ; "jklm" "" "n" ; "opq" "rs" "tuvwxy"]
+ m  =
+  "a"     "bcdef"  "ghi"
+  "jklm"  ""       "n"
+  "opq"   "rs"     "tuvwxy"
+
+--> justify(m)
+ ans  =
+  "a   "  "bcdef"  "ghi   "
+  "jklm"  "     "  "n     "
+  "opq "  "rs   "  "tuvwxy"
+
+--> justify(m, "r")
+ ans  =
+  "   a"  "bcdef"  "   ghi"
+  "jklm"  "     "  "     n"
+  " opq"  "   rs"  "tuvwxy"
+
+--> justify(m, "c")
+ ans  =
+  " a  "  "bcdef"  " ghi  "
+  "jklm"  "     "  "  n   "
+  "opq "  " rs  "  "tuvwxy"
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="stripblanks">stripblanks</link>
+            </member>
+            <member>
+                <link linkend="blanks">blanks</link>
+            </member>
+            <member>
+                <link linkend="length">length</link>
+            </member>
+            <member>
+                <link linkend="part">part</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.1</revnumber>
+                <revdescription>
+                    Hypermatrix accepted. The <literal>position</literal> becomes optional,
+                    with default = <literal>"left"</literal>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

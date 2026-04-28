@@ -1,0 +1,1931 @@
+# Japanese translation for scilab
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2020-02-20 18:16+0000\n"
+"Last-Translator: Stéphane Mottelet <Unknown>\n"
+"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-Language: Japanese\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: A real expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 実数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A square matrix expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが正しくありません: 正方行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d expected.\n"
+msgstr "%s: 入力引数 #%d の大きさが間違っています: %d を指定してください.\n"
+
+#
+# File: sci_gateway/c/sci_qld.c, line: 62
+#, c-format
+msgid "%s: Wrong size for input argument #%d: number of columns %d expected.\n"
+msgstr "%s: 入力引数 #%d で不正なサイズ: 列 %d の数を想定します。\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: メモリ割当エラー.\n"
+
+#, c-format
+msgid "%s: Too many iterations (more than %d).\n"
+msgstr "%s: 多すぎる反復(%d 以上)。\n"
+
+#
+# File: sci_gateway/c/sci_qld.c, line: 150
+#, c-format
+msgid "%s: Accuracy insufficient to satisfy convergence criterion.\n"
+msgstr "%s: 収束基準は不正確で満足しません。\n"
+
+#
+# File: sci_gateway/c/sci_qld.c, line: 152
+#, c-format
+msgid "%s: Length of working array is too short.\n"
+msgstr "%s: 作業整列の範囲は、あまりにも短いです。\n"
+
+#
+# File: sci_gateway/c/sci_qld.c, line: 154
+#, c-format
+msgid "%s: The constraints are inconsistent.\n"
+msgstr "%s: 制約は一貫性がないです。\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: %d column(s) expected for matrix %s.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: %d 列を行列 %s に指定してくださ"
+"い.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: %s must be an integer in the range 0 "
+"to %d.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: %s は 0 から %d の間の整数とする必要が"
+"あります.\n"
+
+#
+# File: sci_gateway/c/sci_qp_solve.c, line: 110
+# File: sci_gateway/c/sci_qp_solve.c, line: 134
+# File: sci_gateway/c/sci_qp_solve.c, line: 142
+#, c-format
+msgid "%s: Cannot allocate more memory.\n"
+msgstr "%s: これ以上メモリを割り当てられません。\n"
+
+#
+# File: sci_gateway/c/sci_qp_solve.c, line: 170
+#, c-format
+msgid "%s: The minimization problem has no solution.\n"
+msgstr "%s: 最小限化問題は、いかなる解決策も持っていません。\n"
+
+#
+# File: sci_gateway/c/sci_qp_solve.c, line: 174
+#, c-format
+msgid "%s: Q is not symmetric positive definite.\n"
+msgstr "%s: Qは、非対称な完全定義ではありません。\n"
+
+#, c-format
+msgid ""
+"\n"
+"%s: Warning: The minimization problem has no solution. The results may be "
+"inaccurate.\n"
+"\n"
+msgstr ""
+"\n"
+"%s: 警告: 最小化問題に解がありません. 結果が不正確となる可能性があります.\n"
+"\n"
+
+#, c-format
+msgid ""
+"\n"
+"%s: Warning: Q is not symmetric positive definite. The results may be "
+"inaccurate.\n"
+"\n"
+msgstr ""
+"\n"
+"%s: 警告: Qが対称正定ではありません. 結果が不正確となる可能性があります.\n"
+"\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: 出力引数の数が間違っています: %d から %d  個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Subroutine not found: %s\n"
+msgstr "%s: サブルーチンが見つかりません: %s\n"
+
+#, c-format
+msgid "%s: Argument #%d: Subroutine not found in list: %s\n"
+msgstr "%s: 引数 #%d: リスト内にサブルーチンが見つかりません: %s\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: The first argument in the list must "
+"be a string or a function.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: リストの最初の引数には文字列または関数"
+"を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: A matrix or a function expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 行列または関数を指定してください.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Scalar (1 element) expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A jacobian or a real expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 実数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real Scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 実数スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: At most %d expected.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています:  %d 個以下で指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A vector of size %d x %d expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: 大きさ %d x %d のベクトルを指定し"
+"てください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A vector expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: ベクトルを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A vector of size %d expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: 大きさ%dのベクトルを指定してくださ"
+"い.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A strictly positive vector "
+"expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: 厳密に正のベクトルを指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: exception caught in '%s' subroutine.\n"
+msgstr "%s: 例外がサブルーチン '%s' でキャッチされました.\n"
+
+#, c-format
+msgid "%s: %s: Number of calls to %s has reached or exceeded %s.\n"
+msgstr "%s: %s: %sのコールの数が%sに近づいたか,超えました.\n"
+
+msgid "Warning"
+msgstr "警告"
+
+#, c-format
+msgid ""
+"%s: %s: %s is too small. No further reduction in the criterion is possible.\n"
+msgstr "%s: %s: %s が小さすぎます. 基準による更なる縮小はできません.\n"
+
+#, c-format
+msgid ""
+"%s: %s: %s is too small. %s is orthogonal to the columns of the Jacobian to "
+"machine precision.\n"
+msgstr ""
+"%s: %s: %s が小さすぎます. %s は機械精度へのヤコビアンの列に直交しています.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%s: A scalar expected.\n"
+msgstr "%s: 入力引数 #%s の型が間違っています: スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%s: A real scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%s の型が間違っています: 実数スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%s: A real scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%s の大きさが間違っています: 実数スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String \"b\" expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 文字列\"b\"を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d or more expected.\n"
+msgstr "%s: 入力引数の数が間違っています: %d以上の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A matrix or polynom expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 行列または多項式を指定してください.\n"
+
+#, c-format
+msgid "%s: Bounds and initial guess are incompatible.\n"
+msgstr "%s: 境界および初期推定値に互換性がありません.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%s: Incorrect stopping parameters.\n"
+msgstr ""
+"%s: 入力引数 #%s の値が間違っています: 停止パラメータが正しくありません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Scalar string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: スカラー文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: スカラーを指定してください.\n"
+
+#, c-format
+msgid "Can not allocate %.2f MB memory.\n"
+msgstr "%.2f MBのメモリを確保することはできません.\n"
+
+#, c-format
+msgid "%s: NO hot restart available in this method.\n"
+msgstr "%s: この手法ではホットスタートを利用できません.\n"
+
+#, c-format
+msgid "Hot restart: dimension of working table (argument n:%d).\n"
+msgstr "ホットスタート: 処理対象の表の次元 (引数 n:%d).\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Incorrect stopping parameters.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: 停止パラメータが正しくありません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A String expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar of a string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: スカラー文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: \"in\" not allowed with simulator defined by a function.\n"
+msgstr "%s: 関数により定義されたシミュレータで\"in\"は使用できません.\n"
+
+#, c-format
+msgid "%s: Stop requested by simulator (ind=0).\n"
+msgstr "%s: シミュレータにより停止がリクエストされました (ind=0).\n"
+
+#, c-format
+msgid "%s: Problem with initial constants in simul.\n"
+msgstr "%s: シミュレーションにおいて初期定数を指定する問題.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: \"ar\", \"in\", \"ti\" or \"td\" not "
+"allowed.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: \"ar\", \"in\", \"ti\" または \"td\" "
+"が使用できません.\n"
+
+#, c-format
+msgid "%s: This method is NOT implemented.\n"
+msgstr "%s: この手法は実装されていません.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s): %d expected.\n"
+msgstr "%s: 出力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: スカラー文字列を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: A real vector of size %d expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: 大きさ %d の実数ベクトルを指定して"
+"ください.\n"
+
+#, c-format
+msgid "%s: Error while reading line %d.\n"
+msgstr "%s: %d行目を読み込む際にエラーが発生しました.\n"
+
+#, c-format
+msgid "%s: Unknown row type %s at line %d.\n"
+msgstr "%s: 未知の行の型 %s (%d行目).\n"
+
+#, c-format
+msgid "%s: %d logical unit already used.\n"
+msgstr "%s: 論理ユニット %d は既に使用されています.\n"
+
+#, c-format
+msgid "%s: Too many files opened!\n"
+msgstr "%s: 開いているファイルの数が多すぎます.\n"
+
+#, c-format
+msgid "%s: Unknown file format.\n"
+msgstr "%s: 未知のファイル形式.\n"
+
+#, c-format
+msgid "%s: File \"%s\" already exists or directory write access denied.\n"
+msgstr ""
+"%s: ファイル \"%s\"が既に存在しているか,ディレクトリへの書き込みアクセスが禁"
+"止されています.\n"
+
+#, c-format
+msgid "%s: File \"%s\" does not exist or read access denied.\n"
+msgstr ""
+"%s: ファイル \"%s\"が存在していないか,ディレクトリへの読み込みアクセスが禁止"
+"されています.\n"
+
+#, c-format
+msgid "%s: Can not open File \"%s\"\n"
+msgstr "%s: ファイル \"%s\"をオープンできません\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for input argument #%d: Input argument %d size expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: 大きさ %d の入力引数を指定してくだ"
+"さい.\n"
+
+msgid "semi def fails.\n"
+msgstr "半正定が失敗しました.\n"
+
+#, c-format
+msgid "%s: Input argument %d of %s function has an illegal value.\n"
+msgstr "%s:  入力引数%d (関数%s)に不正な値が含まれています.\n"
+
+#
+# File: src/c/sp.c, line: 266
+msgid "m must be at least one.\n"
+msgstr "mは、最低でも1でなくてはなりません。\n"
+
+#
+# File: src/c/sp.c, line: 271
+msgid "L must be at least one.\n"
+msgstr "Lは、最低でも1でなくてはなりません。\n"
+
+#
+# File: src/c/sp.c, line: 276
+#, c-format
+msgid "blck_szs[%d] must be at least one.\n"
+msgstr "blck_szs[%d]は、最低でも1でなくてはなりません。\n"
+
+#
+# File: src/c/sp.c, line: 281
+msgid "nu must be at least 1.0.\n"
+msgstr "muは、最低でも1.0でなくてはなりません。\n"
+
+#
+# File: src/c/sp.c, line: 302
+msgid "Matrices Fi, i=1,...,m are linearly dependent.\n"
+msgstr "行列 Fi, i=1,..., mは１次従属です。\n"
+
+#
+# File: src/c/sp.c, line: 316
+msgid "Z0 does not satisfy equality conditions for dual feasibility.\n"
+msgstr "z0は、二つの部分から成る実現性のために平等条件を満足しません。\n"
+
+#
+# File: src/c/sp.c, line: 351
+#, c-format
+msgid "Work space is too small.  Need at least %d*sizeof(double).\n"
+msgstr ""
+"作業空間はあまりにも小さいです。最低でも %d*sizeof(double) の必要がありま"
+"す。\n"
+
+#
+# File: src/c/sp.c, line: 406
+# File: src/c/sp.c, line: 591
+#, c-format
+msgid "Error in dspgv, info = %d.\n"
+msgstr "dspgvでエラー, 情報 = %d\n"
+
+#
+# File: src/c/sp.c, line: 408
+msgid "x0 is not strictly primal feasible.\n"
+msgstr "x0は、厳密でないため実行できそうもありません。\n"
+
+#
+# File: src/c/sp.c, line: 421
+msgid "Z0 is not positive definite.\n"
+msgstr "Z0は、明確な定義ではありません。\n"
+
+#
+# File: src/c/sp.c, line: 424
+msgid "F(x)*Z has a negative eigenvalue.\n"
+msgstr "F(x)*Zは、否定の固有値を持っています。\n"
+
+msgid ""
+"\n"
+"    primal obj.  dual obj.  dual. gap \n"
+msgstr ""
+"\n"
+"    primal obj.  dual obj.  dual. gap \n"
+
+#
+# File: src/c/sp.c, line: 504
+#, c-format
+msgid "Error in dgels, info = %d.\n"
+msgstr "dgelsでエラー、情報 = %d\n"
+
+#
+# File: src/c/sp.c, line: 516
+#, c-format
+msgid "Error in dtrcon, info = %d.\n"
+msgstr "dtrconでエラー、情報 = %d\n"
+
+#
+# File: src/c/sp.c, line: 520
+msgid ""
+"The matrices F_i, i=1,...,m are linearly dependent (or the initial points "
+"are very badly conditioned).\n"
+msgstr ""
+"行列  F_i, i=1,..., mは１次従属です(あるいは、最初の点は、とても悪い条件でし"
+"た)\n"
+
+#
+# File: src/c/sp.c, line: 564
+#, c-format
+msgid "Error in dspst, info = %d.\n"
+msgstr "dspst でエラー, 情報 = %d.\n"
+
+#
+# File: src/c/sp.c, line: 572
+#, c-format
+msgid "Error in dspev, info = %d.\n"
+msgstr "dspev でエラー, 情報 = %d.\n"
+
+#, c-format
+msgid "%s: Too small memory.\n"
+msgstr "%s: メモリが少なすぎます.\n"
+
+#, c-format
+msgid "%s: Wrong input parameters.\n"
+msgstr "%s: 入力パラメータが間違っています.\n"
+
+#, c-format
+msgid "%s: Norm of projected gradient lower than %lg.\n"
+msgstr "%s: 投影された傾斜のノルムが %lg より小さくなっています.\n"
+
+#, c-format
+msgid "%s: at last iteration f decreases by less than %lg.\n"
+msgstr "%s: 直近の反復で f が %lg 以下に減少しました.\n"
+
+#, c-format
+msgid "%s: Optimization stops because too small variations for x.\n"
+msgstr "%s: xの変化が小さすぎるため, 最適化が停止しました.\n"
+
+#, c-format
+msgid "%s: Optim stops: maximum number of calls to f is reached.\n"
+msgstr "%s: 最適化が停止: fのコールの最大数に達しました.\n"
+
+#, c-format
+msgid "%s: Optim stops: maximum number of iterations is reached.\n"
+msgstr "%s: 最適化が停止: 反復の最大数に達しました.\n"
+
+#, c-format
+msgid "%s: Optim stops: too small variations in gradient direction.\n"
+msgstr "%s: 最適化が停止: 傾きの方向の変化が小さすぎます.\n"
+
+#, c-format
+msgid "%s: Stop during calculation of descent direction.\n"
+msgstr "%s: 降下方向の計算中に停止しました.\n"
+
+#, c-format
+msgid "%s: Stop during calculation of estimated hessian.\n"
+msgstr "%s: ヘッセ行列の推定値の計算中に停止しました.\n"
+
+#, c-format
+msgid "%s: End of optimization.\n"
+msgstr "%s: 最適化の終了.\n"
+
+#, c-format
+msgid "%s: End of optimization (linear search fails).\n"
+msgstr "%s: 最適化の終了 (線形探索が失敗しました).\n"
+
+#, c-format
+msgid "Undefined function '%ls'.\n"
+msgstr "未定義の関数 '%ls'.\n"
+
+#, c-format
+msgid "User function '%s' have not been set.\n"
+msgstr "ユーザ関数 '%s' が未指定です.\n"
+
+#, c-format
+msgid "%s: Wrong type for output argument #%d: Real scalar expected.\n"
+msgstr ""
+"%s: 出力引数の型が間違っています #%d: 実数スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for output argument #%d: Real matrix expected.\n"
+msgstr "%s: 出力引数 #%d の型が間違っています: 実数行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong size for output argument #%d: %d element(s) expected.\n"
+msgstr ""
+"%s: 出力引数#%d の大きさが間違っています: %d 個の要素を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong size for output argument #%d: A matrix of size %d x %d expected.\n"
+msgstr ""
+"%s: 出力引数 #%d の大きさが間違っています:  大きさ %d x %d の行列を指定してく"
+"ださい.\n"
+
+#, c-format
+msgid "%s: Wrong size for output argument #%d: A vector of %d expected.\n"
+msgstr ""
+"%s: 出力引数 #%d の大きさが間違っています: %dのベクトルを指定してください.\n"
+
+msgid "An error occurred while getting OptimizationFunctions object.\n"
+msgstr "OptimizationFunctionsオブジェクトを取得中にエラーが発生しました.\n"
+
+msgid "Please wait ..."
+msgstr "お待ちください ..."
+
+msgid "Simulated Annealing"
+msgstr "焼きなまし法"
+
+msgid "Simulated Annealing and Ising problem"
+msgstr "焼きなまし法とlsing問題"
+
+msgid "Parabolic model (3 params)"
+msgstr ""
+
+msgid "Sloping gaussian model (5 params)"
+msgstr ""
+
+msgid "Tilted ellipse (5 params)"
+msgstr ""
+
+msgid "Experimental data"
+msgstr "実験データ"
+
+msgid "Fitting function"
+msgstr "調整関数"
+
+msgid "datafit() random demo : ellipse fitting (unweighted)"
+msgstr ""
+
+msgid "True elliptical law"
+msgstr ""
+
+msgid "Data = true + noise dx|y = +/-7%"
+msgstr ""
+
+msgid "Best ellipse fitting Data"
+msgstr ""
+
+msgid "datafit: Fitting on 30 random unweighted data points"
+msgstr ""
+
+#, c-format
+msgid "%s: optimization starting, please wait ...\n"
+msgstr "%s: 最適化が開始されました, お待ちください ...\n"
+
+msgid "Genetic algorithms"
+msgstr "遺伝的アルゴリズム"
+
+msgid "Genetic algorithms and Ising problem"
+msgstr "遺伝的アルゴリズムとlsing問題"
+
+msgid "MultiObjective Genetic Algorithm"
+msgstr "多目的遺伝的アルゴリズム"
+
+msgid "Niched Sharing Genetic Algorithm"
+msgstr "Niched Sharing 遺伝的アルゴリズム"
+
+msgid "Niched Sharing Genetic Algorithm II"
+msgstr "Niched Sharing 遺伝的アルゴリズム II"
+
+msgid "LQV"
+msgstr "LQV"
+
+msgid "Spaceship landing trajectory"
+msgstr "宇宙機着陸軌道"
+
+msgid "Computation of optimal parameters"
+msgstr "最適パラメータの計算"
+
+msgid "Running optimization ...\n"
+msgstr "最適化を実行中...\n"
+
+msgid "No"
+msgstr "いいえ"
+
+msgid "View Code?"
+msgstr "コードを表示しますか?"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "fminsearch - Rosenbrock"
+msgstr "fminsearch - Rosenbrock"
+
+msgid "fminsearch - tolx"
+msgstr "fminsearch - tolx"
+
+msgid "fminsearch - Output Function"
+msgstr "fminsearch - 出力関数"
+
+msgid "fminsearch - Option Display"
+msgstr "fminsearch - 表示オプション"
+
+msgid "fminsearch - Plot Func Count"
+msgstr "fminsearch - プロット関数回数"
+
+msgid "fminsearch - Plot F"
+msgstr "fminsearch - プロットF"
+
+msgid "fminsearch - Plot X"
+msgstr "fminsearch - プロットX"
+
+msgid "neldermead - Rosenbrock Variable"
+msgstr "neldermead - Rosenbrock 変数"
+
+msgid "neldermead - Output Command"
+msgstr "neldermead - 出力コマンド"
+
+msgid "neldermead - Dimensionality"
+msgstr "neldermead - 次元"
+
+msgid "nmplot - Han #1"
+msgstr "nmplot - Han #1"
+
+msgid "nmplot - Han #2"
+msgstr "nmplot - Han #2"
+
+msgid "nmplot - McKinnon #1"
+msgstr "nmplot - McKinnon #1"
+
+msgid "nmplot - McKinnon #2"
+msgstr "nmplot - McKinnon #2"
+
+msgid "nmplot - Quadratic Fixed #1"
+msgstr "nmplot - 二次固定 #1"
+
+msgid "nmplot - Quadratic Variable#1"
+msgstr "nmplot - 二次変数 #1"
+
+msgid "nmplot - Quadratic Fixed #2"
+msgstr "nmplot - 二次固定 #2"
+
+msgid "nmplot - Quadratic Variable#2"
+msgstr "nmplot - 二次可変 #2"
+
+msgid "nmplot - Rosenbrock Fixed"
+msgstr "nmplot Rosenbrock 固定"
+
+msgid "nmplot - Rosenbrock Variable"
+msgstr "nmplot Rosenbrock 可変"
+
+msgid "neldermead - Box A"
+msgstr "neldermead - ボックスA"
+
+msgid "neldermead - Box B"
+msgstr "neldermead - ボックスB"
+
+msgid "neldermead - Box Bounds"
+msgstr "neldermead - ボックス境界"
+
+msgid "neldermead - Box Post"
+msgstr "neldermead - ボックスポスト"
+
+msgid "neldermead - Polygon"
+msgstr "neldermead - ポリゴン"
+
+msgid ""
+"Illustrates Box' algorithm on a simply bounds-constrained optimization "
+"problem.\n"
+msgstr "簡単な境界拘束付きの最適化問題でBoxアルゴリズムを示す.\n"
+
+msgid "Searching (please wait) ...\n"
+msgstr "探索中 (お待ち下さい) ...\n"
+
+msgid "...Done\n"
+msgstr "...完了\n"
+
+msgid "Plot contour (please wait)...\n"
+msgstr "コンター図をプロット中 (お待ち下さい)...\n"
+
+msgid "End of demo.\n"
+msgstr "デモを終了.\n"
+
+msgid "Illustrates Box' algorithm on Rosenbrock's Post Office Problem.\n"
+msgstr "Rosenbrockの郵便局問題でBoxアルゴリズムを例証.\n"
+
+msgid "Defining Rosenbrock Post Office function...\n"
+msgstr "Rosenbrock郵便局関数を定義中...\n"
+
+msgid "Illustrates Box' algorithm on Box problem A.\n"
+msgstr "Box問題AでBoxアルゴリズムを例証.\n"
+
+msgid "A new method of constrained optimization \n"
+msgstr "拘束付き最適化の新手法 \n"
+
+msgid "and a comparison with other methods.\n"
+msgstr "他の手法との比較.\n"
+
+msgid "Problem A\n"
+msgstr "問題A\n"
+
+msgid "Searching (please wait)...\n"
+msgstr "検索中 (お待ち下さい)...\n"
+
+#, c-format
+msgid "Relative error on x = %e\n"
+msgstr "x = %e における相対誤差\n"
+
+msgid "Illustrates Box' algorithm on Box problem B.\n"
+msgstr "Box問題BでBox問題を例証.\n"
+
+msgid "Problem B\n"
+msgstr "問題B\n"
+
+#, c-format
+msgid "f expected = %f\n"
+msgstr "f期待値 = %f\n"
+
+#, c-format
+msgid "Relative error on f = %e\n"
+msgstr "f = %e における相対誤差\n"
+
+msgid "Illustrates the sensitivity to dimension of the Nelder-Mead algorithm\n"
+msgstr "Nelder-Meadアルゴリズムの次元への感度を例証\n"
+
+msgid ""
+"Han and Neumann. Effect of dimensionality on the nelder-mead simplex method. "
+"Optimization Methods and Software, 2006.\n"
+msgstr ""
+"Han and Neumann. Effect of dimensionality on the nelder-mead simplex method. "
+"Optimization Methods and Software, 2006.\n"
+
+#, c-format
+msgid "Maximum dimension:%d\n"
+msgstr "最大次元: %d\n"
+
+msgid "Column #1: number of dimensions\n"
+msgstr "列 #1: 次元の数\n"
+
+msgid "Column #2: number of function evaluations\n"
+msgstr "列#2: 関数評価の回数\n"
+
+msgid "Column #3: number of iterations\n"
+msgstr "列#3: 反復回数\n"
+
+msgid "Column #4: convergence rate (lower is better)\n"
+msgstr "列#4: 収束率 (小さい方が良い)\n"
+
+msgid "Number of parameters"
+msgstr "パラメータの数"
+
+msgid "Rate of convergence"
+msgstr "収束率"
+
+msgid "Number of function evaluations"
+msgstr "関数評価の回数"
+
+msgid "Initialization\n"
+msgstr "初期化\n"
+
+msgid "End of Optimization\n"
+msgstr "最適化の完了\n"
+
+msgid "Defining Rosenbrock function ...\n"
+msgstr "Rosenbrock問題を定義中 ...\n"
+
+msgid "Illustrates the 1st counter example given by Han et al.\n"
+msgstr "Hanらによる1番目のカウンタの例を例証.\n"
+
+msgid "Defining Han function...\n"
+msgstr "Han関数を定義中...\n"
+
+msgid "Defining initial simplex coordinates...\n"
+msgstr "初期シンプレックス座標を定義中...\n"
+
+msgid "Creating nmplot object...\n"
+msgstr "nmplotオブジェクトを作成中...\n"
+
+msgid "Configuring nmplot object...\n"
+msgstr "nmplotオブジェクトを設定中...\n"
+
+msgid "Setup output files...\n"
+msgstr "出力ファイルを設定中...\n"
+
+msgid "Plotting contour (please wait)...\n"
+msgstr "コンター図をプロット中 (お待ち下さい)...\n"
+
+msgid "Illustrates the 2nd counter example given by Han et al.\n"
+msgstr "Hanらによる2番目のカウンタの例を例証.\n"
+
+msgid "Creating nmplot object ...\n"
+msgstr "nmplotオブジェクトを作成中 ...\n"
+
+msgid "Plotting contour (please wait) ...\n"
+msgstr "コンター図をプロット中 (お待ち下さい)...\n"
+
+msgid "Defining McKinnon function...\n"
+msgstr "McKinnon関数を定義中...\n"
+
+msgid "Error: function expects a two dimensional input\n"
+msgstr "エラー: 関数は二次元の入力を指定してください\n"
+
+#, c-format
+msgid "x0 = %s\n"
+msgstr "x0 = %s\n"
+
+msgid "Creating object ...\n"
+msgstr "オブジェクトを作成中...\n"
+
+msgid "Plot contour (please wait) ...\n"
+msgstr "コンター図をプロット中 (お待ち下さい) ...\n"
+
+msgid "Function Value Average"
+msgstr "関数値の平均"
+
+msgid "Iterations"
+msgstr "反復"
+
+msgid "Minimum Function Value"
+msgstr "関数の最小値"
+
+msgid "Maximum Oriented length"
+msgstr "最大配向長"
+
+#, c-format
+msgid "x0=%s\n"
+msgstr "x0=%s\n"
+
+msgid "Creating object...\n"
+msgstr "オブジェクトを作成中...\n"
+
+msgid ""
+"Illustrates that the fixed-shape Spendley et al. algorithm performs well on "
+"a quadratic test case.\n"
+msgstr ""
+"固定外形 Sprendleyらのアルゴリズムを二次テストケースで良好に実行する例.\n"
+
+msgid "Defining quadratic function ...\n"
+msgstr "二次関数を定義中...\n"
+
+msgid ""
+"Illustrates that the fixed-shape Spendley et al. algorithm performs badly on "
+"a badly quadratic test case.\n"
+msgstr ""
+"固定外形 Spendleyアルゴリズムを悪条件の二次テストケースで悪く実行する例\n"
+
+msgid "Defining quadratic function...\n"
+msgstr "二次関数を定義中...\n"
+
+msgid ""
+"Illustrates that the variable-shape Nelder-Mead algorithm performs well on a "
+"quadratic test case.\n"
+msgstr "可変外形Nelder-Meadアルゴリズムを二次テストケースで良好に実行する例.\n"
+
+msgid ""
+"Illustrates that the Nelder-Mead algorithm performs correctly on a badly "
+"quadratic test case.\n"
+msgstr ""
+"可変外形Nelder-Meadアルゴリズムを悪条件の二次テストケースで悪く実行する例.\n"
+
+msgid ""
+"Illustrates that the fixed-shape Spendley et al. algorithm does NOT perform "
+"well on Rosenbrock test case.\n"
+msgstr ""
+"固定外形SpendleyらのあるごリウムがRosenbrockテストケースで良好に動作しない"
+"例.\n"
+
+msgid "Defining Rosenbrock function...\n"
+msgstr "Rosenbrock関数を定義中...\n"
+
+msgid "Rosenbrock"
+msgstr "Rosenbrock"
+
+msgid "Output"
+msgstr "出力"
+
+msgid "Plot"
+msgstr "プロット"
+
+msgid "Derivative"
+msgstr "微分"
+
+msgid "Optimization and Simulation"
+msgstr "最適化とシミュレーション"
+
+msgid "datafit: Nonlinear fitting"
+msgstr ""
+
+msgid "Optimisation"
+msgstr "最適化"
+
+msgid "fminsearch"
+msgstr "fminsearch"
+
+msgid "ICSE"
+msgstr "ICSE"
+
+# File: macros/compute_initial_temp.sci, line: 20
+#, c-format
+msgid "%s: cit_f is mandatory"
+msgstr "%s: cit_f は必須です"
+
+#
+# File: macros/compute_initial_temp.sci, line: 60
+#, c-format
+msgid "%s: error - wrong accept type"
+msgstr "%s:エラー - 不正な型を受け付けました"
+
+#
+# File: macros/optim_sa.sci, line: 57
+msgid "optim_sa: sa_f is mandatory"
+msgstr "optim_sa: sa_f は必須です"
+
+#, c-format
+msgid ""
+"%s: Temperature step %d / %d - T = %f, E(f(T)) = %f var(f(T)) = %f f_best = "
+"%f\n"
+msgstr ""
+"%s: 温度の増分 %d / %d - T = %f, E(f(T)) = %f var(f(T)) = %f f_best = %f\n"
+
+#, c-format
+msgid "%s: More than 20 equations are not allowed"
+msgstr "%s: 20個より多い方程式は使用できません"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s).\n"
+msgstr "%s: 入力引数の数が間違っています.\n"
+
+#, c-format
+msgid "%s: The elements of the argument #%d must be in [%d %d].\n"
+msgstr "%s: 引数 #%d の要素は [%d %d] の範囲とする必要があります.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%s: external expected.\n"
+msgstr "%s: 入力引数 #%s の型が間違っています : 外部関数を指定してください.\n"
+
+#, c-format
+msgid "%s: Jacobian cannot be a list, parameters must be set in G."
+msgstr ""
+"%s: ヤコビアンはリストとすることができません, パラメータはGで設定する必要があ"
+"ります."
+
+#, c-format
+msgid "%s: Data points must be real numbers."
+msgstr ""
+
+#, c-format
+msgid "%s: Initial guess p0 is missing."
+msgstr ""
+
+#, c-format
+msgid "%s: Weighting matrix must be square."
+msgstr "%s: 重み行列は正方行列とする必要があります."
+
+#, c-format
+msgid "%s: error with parameters bounds or initial guess\n"
+msgstr ""
+
+#, c-format
+msgid "%s: With hard coded function, user must give output size of G."
+msgstr ""
+"%s: ハードコーディングされた関数の場合, ユーザはGの出力の大きさを指定する必要"
+"があります."
+
+#, c-format
+msgid "%s: wrong direction"
+msgstr "%s: 不正な方向"
+
+#, c-format
+msgid "%s: ga_f is mandatory"
+msgstr "%s: ga_f は必須です"
+
+msgid "optim_moga: ga_f is mandatory"
+msgstr "optim_moga: ga_f は必須です"
+
+#, c-format
+msgid "%s: Initialization of the population\n"
+msgstr "%s: 総数の初期化\n"
+
+msgid "optim_nsga2: ga_f is mandatory"
+msgstr "optim_nsga2: ga_f は必須です"
+
+#, c-format
+msgid "%s: iteration %d / %d \n"
+msgstr "%s: 繰り返し %d / %d \n"
+
+#, c-format
+msgid "    min / max value found = %f / %f\n"
+msgstr "    見つかった最小/最大値 = %f / %f\n"
+
+#, c-format
+msgid "%s: iteration %d / %d\n"
+msgstr "%s: 繰り返し %d / %d\n"
+
+#, c-format
+msgid "%s: F_in is mandatory"
+msgstr "%s: F_in は必須です"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: Real matrix expected.\n"
+msgstr "%s: 入力引数 #%d の型に誤りがあります: 実数行列を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています : %s を指定してください.\n"
+
+#, c-format
+msgid "%s: Either one of Aeq, A, lb or ub must be non-empty."
+msgstr "%s: Aeq, A, lb または ub のどれかは空でない必要があります."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d."
+msgstr "%s: 入力引数 #%d の大きさが間違っています."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d. rtolf must be in [0,1]."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. rtolf は [0,1] の範囲とする必要があり"
+"ます."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d. gam must be in [0,1]."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. gam は [0,1] の範囲とする必要がありま"
+"す."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d. maxiter must be greater than 1."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. maxiterは 1 よりも大きい必要がありま"
+"す."
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d. maxiter must be a floating point "
+"integer."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. maxiterは浮動小数点数の整数とする必要"
+"があります."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d. x0 is not positive."
+msgstr "%s: 入力引数 #%d の値が間違っています. x0 が正ではありません."
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d. One entry of the upper bound ub is "
+"lower than the lower bound lb."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. 上界 ub のエントリの一つが下界 lb より"
+"も小さくなっています."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d. x0 lower than lower bound lb."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. x0 が下界 lb よりも小さくなっています."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d. x0 greater than upper bound ub."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. x0 が上界 ub よりも大きくなっています."
+
+#, c-format
+msgid "%s: The algorithm did not converge (exitflag= %d).\n"
+msgstr "%s: アルゴリズムが収束しませんでした (exitflag=%d).\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d. x0 does not satisfy the inequality "
+"constraints."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. x0 が不等式拘束条件を満たしていません."
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d. x0 does not satisfy the equality "
+"constraints."
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています. x0 が等式拘束条件を満たしていません."
+
+#, c-format
+msgid "%s: Jacobian cannot be a list, parameters must be set in fun."
+msgstr ""
+"%s: ヤコビアンはリストとすることはできません, パラメータは fun で設定する必要"
+"があります."
+
+#, c-format
+msgid "%s: With hard coded function, user must give output size of fun."
+msgstr ""
+"%s: ハードコーディングされた関数の場合, ユーザはfunの出力の大きさを指定する必"
+"要があります."
+
+#, c-format
+msgid "%s: initial guess is feasible."
+msgstr "%s: 初期推定値は実行可能です."
+
+#, c-format
+msgid "%s: Construction of canonical representation."
+msgstr "%s: 正準表現の構築"
+
+#, c-format
+msgid "%s: Basis Construction."
+msgstr "%s: 基礎構築."
+
+#, c-format
+msgid "%s: Objective constant."
+msgstr "%s: 目的定数."
+
+#, c-format
+msgid "%s: solution unbounded."
+msgstr "%s: 解が無制限です."
+
+#, c-format
+msgid ""
+"%s: Ill-posed problem. Number of unknowns (%s) > number of constraints (%s)"
+msgstr "%s: 不良設定問題. 未知数の数 (%s) > 拘束条件の数 (%s)"
+
+#, c-format
+msgid "%s: rank deficient problem"
+msgstr "%s: ランク不足の問題"
+
+#, c-format
+msgid "%s: not feasible or badly defined problem."
+msgstr "%s: 実行可能でないか, 不良な問題です."
+
+#, c-format
+msgid "%s:     FEASIBILITY PHASE."
+msgstr "%s: 実行可能解生成フェーズ."
+
+#, c-format
+msgid "%s: Mbound too small."
+msgstr "%s: Mbound が小さすぎます."
+
+#, c-format
+msgid "%s: Max. iters. exceeded."
+msgstr "%s: 最大反復回数を超えました."
+
+#, c-format
+msgid "%s: Absolute accuracy reached."
+msgstr "%s: 絶対精度に達しました."
+
+#, c-format
+msgid "%s: Relative accuracy reached."
+msgstr "%s: 相対精度に達しました."
+
+#, c-format
+msgid "%s: Target value reached."
+msgstr "%s: 目標値に到達しました."
+
+#, c-format
+msgid "%s: Target value not achievable."
+msgstr "%s: 目標値に到達できません."
+
+#, c-format
+msgid "%s: No feasible solution found."
+msgstr "%s: 実行可能解が見つかりません."
+
+#, c-format
+msgid "%s: max number of iterations exceeded."
+msgstr "%s: 最大反復回数を超えました."
+
+#, c-format
+msgid "%s: No feasible solution exists."
+msgstr "%s: 実行可能解が存在しません."
+
+#, c-format
+msgid "%s: feasible solution found."
+msgstr "%s: 実行可能解が見つかりました."
+
+#, c-format
+msgid "%s: Initial guess feasible."
+msgstr "%s: 初期推定値は実行可能."
+
+#, c-format
+msgid "%s:       OPTIMIZATION PHASE."
+msgstr "%s: 最適化フェーズ."
+
+#, c-format
+msgid "%s: M must be strictly greater than trace of F(x0)."
+msgstr "%s: M は F(x0) のトレースよりも大きい必要があります."
+
+#, c-format
+msgid "%s: max number of iterations exceeded, solution may not be optimal"
+msgstr "%s: 反復回数の最大値を超えました, 解は最適でない可能性があります"
+
+#, c-format
+msgid "%s: may be unbounded below"
+msgstr "%s: 下界を有さない可能性があります"
+
+#, c-format
+msgid "%s: optimal solution found"
+msgstr "%s: 最適解が見つかりました"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d または %d 個の引数を指定してください.\n"
+
+msgid "Welcome to LMITOOL"
+msgstr "ようこそLMITOOLへ"
+
+msgid "LMITOOL is a Scilab package for LMI optimization"
+msgstr "LMITOOLはLMI最適化用のScilabパッケージです"
+
+msgid "It can solve the following problem"
+msgstr "以下の問題を解くことができます"
+
+msgid "   minimize  f(X1,...,XM)  "
+msgstr "   minimize f(X1,...,XM)  "
+
+msgid "subject to the LME constraints: "
+msgstr "線形行列等式(LME)拘束条件: "
+
+msgid "   Gi(X1,...,XM)=0,  i=1,2,...,p,"
+msgstr "   Gi(X1,...,XM)=0, i=1,2,...,p,"
+
+msgid "and the LMI constraints:  "
+msgstr "線形行列不等式(LMI)拘束条件:  "
+
+msgid "   Hj(X1,...,XM)>=0,  j=1,2,...,q."
+msgstr "   Hj(X1,...,XM)>=0, j=1,2,...,q."
+
+msgid "where"
+msgstr "ただし,"
+
+msgid ""
+"X1,...,XM are unknown real matrices, referred to as the unknown matrices,"
+msgstr "X1,...,XM は未知の実数行列で, 未知の行列として参照されます,"
+
+msgid ""
+"f is the objective function, a linear scalar function of the entries of the "
+"X's,"
+msgstr "f は目的関数で, Xのエントリの線形スカラー関数です,"
+
+msgid "Gi's are affine matrix functions of the entries of the X's,"
+msgstr "Gi はXのエントリのアフィン行列関数です,"
+
+msgid "Hj's are affine symmetric matrix functions of the entries of the X's."
+msgstr "HjはXのエントリのアフィン対称行列関数です,"
+
+msgid ""
+"These functions are parameterized by the entries of known data matrices "
+"D1,...,DN."
+msgstr ""
+"これらの関数は 既知のデータ行列 D1,...,DN のエントリをパラメータとします."
+
+msgid "For a detailed description and examples consult: "
+msgstr "詳細な説明と例は以下を参照: "
+
+msgid ""
+"          'LMITOOL: a Package for LMI Optimization in Scilab, User's Guide' "
+msgstr ""
+"          'LMITOOL: a Package for LMI Optimization in Scilab, User's Guide' "
+
+msgid ""
+"LMITOOL uses Semidefinite Programming package SP developed by L. "
+"Vandenberghe and S. Boyd."
+msgstr ""
+"LMITOOLはL. Vandenberghe および S. Boyd により開発された半正定プログラミング"
+"パッケージ SP を使用しています."
+
+msgid "LMI problem name: "
+msgstr "LMI問題名: "
+
+msgid "Names of unknown matrices: "
+msgstr "未知の行列名: "
+
+msgid "Names of data matrices: "
+msgstr "データ行列の名前: "
+
+msgid "Problem definition"
+msgstr "問題定義"
+
+msgid "LMITOOL will generate a skeleton of the functions needed"
+msgstr "LMITOOL は必要な関数の雛形を生成します"
+
+msgid " (see User's Guide for details). For that, you need to specify:"
+msgstr " (詳細はユーザーズガイドを参照). このためには, 以下を指定します:"
+
+msgid "1- Name of your problem which will be given to the solver function,"
+msgstr "1- ソルバ関数に指定する問題の名前,"
+
+msgid "2- Names of unknown matrices or list of unknown matrices,"
+msgstr "2- 未知の行列の名前または未知の行列のリスト"
+
+msgid "3- Names of data matrices or list of data matrices."
+msgstr "3- データ行列の名前またはデータ行列のリスト"
+
+msgid "Try again"
+msgstr "再試行"
+
+msgid "File not generated by lmitool or badly modified."
+msgstr "ファイルがlmitoolにより生成されなかったか, 修正に失敗しました."
+
+msgid "Function definitions: "
+msgstr "関数定義: "
+
+msgid "Here is a skeleton of the functions you should edit."
+msgstr "編集する関数の雛形."
+
+msgid "You can edit in this window or click on 'ok'."
+msgstr "このウィンドウで編集または 'ok' をクリックします."
+
+msgid "Save and edit the skeleton later through your favorite editor."
+msgstr "雛形を保存し, 好きなエディタで後で編集します."
+
+msgid "Name of the file where to save the solver function"
+msgstr "ソルバ関数を保存するファイルの名前"
+
+msgid "and the evaluation function"
+msgstr "評価関数"
+
+msgid "(Will overwrite if a file with the same name already exists)."
+msgstr "(同名のファイルが存在する場合は上書かれます)."
+
+msgid "functions saved in "
+msgstr "関数は以下に保存されます "
+
+msgid "    To solve your problem, you need to "
+msgstr "    問題を解くには, 以下が必要です "
+
+msgid "1- edit file "
+msgstr "1- ファイルを編集 "
+
+msgid "2- load (and compile) your functions:"
+msgstr "2- 関数をロード(そしてコンパイル)"
+
+msgid " and call "
+msgstr " その後,コール "
+
+msgid " function:"
+msgstr " 関数:"
+
+msgid "3- Define "
+msgstr "3- 定義 "
+
+msgid "To check the result, use [LME,LMI,OBJ]="
+msgstr "結果を確認するには,  [LME,LMI,OBJ]= を使用します"
+
+#, c-format
+msgid "%s: Unknown step %s"
+msgstr "%s: 未知の刻み %s です"
+
+#, c-format
+msgid ""
+"%s: The value of the 'OutputFcn' option is neither a function nor a list."
+msgstr "%s: 'OutputFcn' オプション の値は、ノルム関数リストではありません。"
+
+#, c-format
+msgid ""
+"%s: The value of the 'PlotFcns' option is neither a function nor a list."
+msgstr "%s:  'PlotFcns' オプションの値が関数でもリストでもありません."
+
+#, c-format
+msgid "Syntax %s is obsolete."
+msgstr "呼び出し手順 %s は廃止されています."
+
+#, c-format
+msgid "Please use %s instead."
+msgstr "代わりに %s を使用してください."
+
+#, c-format
+msgid "This feature will be permanently removed in Scilab %s"
+msgstr "この関数は Scilab %s  以降では削除される予定です."
+
+#, c-format
+msgid "Calling sequence %s is obsolete."
+msgstr "呼び出し手順 %s は廃止予定です."
+
+#, c-format
+msgid ""
+"%s: Expected function or list for variable %s at input #%d, but got %s "
+"instead."
+msgstr ""
+"%s: 変数 %s (入力 #%d) には関数またはリストを指定しますが, %s が指定されまし"
+"た."
+
+#, c-format
+msgid ""
+"%s: Expected function for variable %s(1) at input #%d, but got %s instead."
+msgstr "%s: 変数 %s(1) (入力 #%d) には関数を指定しますが, %s が指定されました."
+
+#, c-format
+msgid ""
+"%s: Expected real variable for variable %s at input #%d, but got %s instead."
+msgstr ""
+"%1$s:  入力 #%3$d の変数 %2$s に実数変数ではなく %4$s が指定されています."
+
+#, c-format
+msgid "%s: Unexpected maximum number of iterations %s."
+msgstr "%s: 反復回数が想定値を超えました %s."
+
+#, c-format
+msgid "%s: Unexpected maximum number of function evaluations %s."
+msgstr "%s: 関数の評価回数が想定値を超えました %s."
+
+#, c-format
+msgid "%s: Unknown status %s"
+msgstr "%s: 未知の状態 %s です。"
+
+#, c-format
+msgid "%s: Wrong number of input argument: %d expected.\n"
+msgstr "%s: 入力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: The restartstep vector is expected to have %d x %d shape, but current "
+"shape is %d x %d"
+msgstr "%s: restartstep ベクトルは %d x %d としますが,  %d x %d となっています"
+
+#, c-format
+msgid ""
+"%s: Expected string variable for variable %s at input #%d, but got %s "
+"instead."
+msgstr ""
+"%1$s:  入力 #%3$d の変数 %2$s に文字列変数ではなく %4$s が指定されています."
+
+#, c-format
+msgid "%s: Expected function but for variable %s at input #%d, got %s instead."
+msgstr "%1$s:  入力 #%3$d の変数 %2$s に関数ではなく %4$s が指定されています."
+
+#, c-format
+msgid "%s: Expected boolean but for variable %s at input #%d, got %s instead."
+msgstr ""
+"%1$s:  入力 #%3$d の変数 %2$s に論理値ではなく  %4$s が指定されています."
+
+#, c-format
+msgid "Option %s is obsolete."
+msgstr "オプション %s は廃止されています."
+
+#, c-format
+msgid ""
+"%s: Expected that all entries of input argument %s at input #%d are in the "
+"range [%s,%s], but entry #%d is equal to %s."
+msgstr ""
+"%s: 入力引数 %s (#%d 番目)のすべてのエントリは, [%s,%s]の範囲とする必要があり"
+"ますが, #%d が %s となっています."
+
+#, c-format
+msgid ""
+"%s: Expected that all entries of input argument %s at input #%d are greater "
+"or equal than %s, but entry #%d is equal to %s."
+msgstr ""
+"%s: 入力引数 %s (#%d 番目)のすべてのエントリは %s 以上とする必要があります"
+"が, #%d が %s となっています."
+
+#, c-format
+msgid ""
+"%s: Expected floating point integer for input argument %s at input #%d, but "
+"entry #%d is equal to %s."
+msgstr ""
+"%s: 入力引数 %s (#%d 番目) には浮動小数点整数値を指定しますが, エントリ #%d "
+"が %s となっています."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の大きさが間違っています: %d 行 %d 列の行列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid ""
+"%s: Expected value [%s] for input argument %s at input #%d, but got %s "
+"instead."
+msgstr ""
+"%1$s:  #%4$d 番目の入力引数 %3$s には [%2$s] を指定する必要がありますが, "
+"%5$s が指定されました."
+
+#, c-format
+msgid "%s: History disabled ; turn on -storehistory option."
+msgstr ""
+"%s: ヒストリが無効となっています ; -storehistory オプションを有効にしてくださ"
+"い."
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s, %s, %d or %d expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: %s, %s, %d または %d を指定指定してく"
+"ださい.\n"
+
+#, c-format
+msgid ""
+"%s: The -withderivatives option is true but all algorithms in neldermead are "
+"derivative-free."
+msgstr ""
+"%s: -withderivatives オプションが指定されていますが,neldermeadアルゴリズムで"
+"は導関数を使用しません."
+
+#, c-format
+msgid "%s: Unknown -method %s"
+msgstr "%s: 未知の方法 %s です"
+
+#, c-format
+msgid "%s: Problem has constraints, but variable algorithm ignores them."
+msgstr ""
+"%s: 問題には拘束条件がありますが, 可変アルゴリズムはそれらを無視します."
+
+#, c-format
+msgid "%s: The number of variable is zero."
+msgstr "%s: 変数の数がゼロです."
+
+#, c-format
+msgid "%s: Problem has constraints, but fixed algorithm ignores them."
+msgstr ""
+"%s: 問題には拘束条件がありますが, 固定アルゴリズムはそれらを無視します."
+
+#, c-format
+msgid "%s: Unknown restart detection %s"
+msgstr "%s: 未知の再開の検出 %s"
+
+#, c-format
+msgid "%s: Randomized bounds initial simplex is not available without bounds."
+msgstr ""
+"%s: 初期シンプレックスのランダムな境界は境界を指定しない場合には利用できませ"
+"ん."
+
+#, c-format
+msgid "%s: Unknown value %s for -simplex0method option"
+msgstr "%s: -simplex0method オプション で、未知の値 %s"
+
+#, c-format
+msgid "%s: Initial guess [%s] is not feasible."
+msgstr "%s: 初期推定値 [%s] は実行可能解ではありません."
+
+#, c-format
+msgid "%s: Unknown value %s for -scalingsimplex0 option"
+msgstr "%s: -scalingsimplex0 オプションで未知の値 %s"
+
+#, c-format
+msgid ""
+"%s: Impossible to scale the vertex #%d/%d at [%s] into inequality constraints"
+msgstr "%s: 不等式拘束条件で頂点 #%d/%d [%s] に到達できません."
+
+#, c-format
+msgid "%s: Problem has no constraints, but Box algorithm is designed for them."
+msgstr ""
+"%s: 問題には拘束条件がありませんが, Boxアルゴリズムは拘束条件付きの問題向けに"
+"設計されています."
+
+#, c-format
+msgid ""
+"%s: The initial simplex method %s is not compatible with the restart simplex "
+"method %s"
+msgstr ""
+"%s: 初期シンプレックス法 %s はリスタートシンプレックス法 %sと互換性がありませ"
+"ん."
+
+#, c-format
+msgid "%s: Randomized bounds restart simplex is not available without bounds."
+msgstr ""
+"%s: ランダム化された境界リスタートシンプレックスは境界を指定しない場合は使用"
+"できません."
+
+#, c-format
+msgid "%s: Unknown restart simplex method %s"
+msgstr "%s: 未知の再開 シンプレックス方法 %s"
+
+#, c-format
+msgid "%s: Unknown key %s"
+msgstr "%s: 未知のキー %s です"
+
+#, c-format
+msgid ""
+"%s: Unexpected number of variables %d. Cannot draw contour plot for "
+"functions which do not have two parameters."
+msgstr ""
+"%s: 変数の数 %d が間違っています. 2個のパラメータを持たない関数については"
+"contourプロットを描画できません."
+
+#, c-format
+msgid "%s: Wrong number of arguments : %d expected while %d given"
+msgstr "%s: 引数の数が間違っています: %d 個が仕様ですが %d 個指定されました."
+
+#, c-format
+msgid "%s: Ambiguous property name %s matches several fields : %s"
+msgstr "%s: あいまいなプロパティ名 %s は、いくつかのフィールドと一致します: %s"
+
+#, c-format
+msgid ""
+"%s: Odd number of arguments : the first argument is expected to be a struct, "
+"but is a %s"
+msgstr ""
+"%s: 引数の数が間違っています: 最初の引数は構造体ですが, %s となっています."
+
+#, c-format
+msgid "%s: Unrecognized value '%s' for 'Display' option."
+msgstr "%s: 'Display'オプションで認識できない値です '%s'."
+
+#, c-format
+msgid "%s: Unrecognized parameter name '%s'."
+msgstr "%s: パラメータ名 '%s' を認識できません."
+
+#, c-format
+msgid ""
+"%s: No default options available: the function '%s' does not exist on the "
+"path."
+msgstr ""
+"%s: 初期化オプションが可能ではありません: 関数 '%s' は path に存在しません。"
+
+#, c-format
+msgid ""
+"%s: The number of variables %d does not match the number of max bounds: %d.\n"
+msgstr "%s: 変数の数 %d が最大値の数と一致しません: %d.\n"
+
+#, c-format
+msgid ""
+"%s: The number of variables %d does not match the number of min bounds: %d.\n"
+msgstr "%s: 変数の数 %d が最小値の数と一致しません: %d.\n"
+
+#, c-format
+msgid "%s: The max bound %s for variable #%d is lower than the min bound %s.\n"
+msgstr ""
+"%1$s: 変数 #%3$d の最大値 %2$s が最小値 %4$s よりも大きくなっています.\n"
+
+#, c-format
+msgid "%s: Cannot check cost function when x0 is empty"
+msgstr "%s: x0が空のコスト関数を調べることができません"
+
+#, c-format
+msgid "%s: Cannot evaluate cost function with %s: %s"
+msgstr "%s: %sを指定して評価関数を評価できません: %s"
+
+#, c-format
+msgid "%s: The matrix %s from costf(x0,%d) has %d rows, instead of %d."
+msgstr "%1$s: costf(x0,%3$d)の行列 %2$s に %5$d 行ではなく, %4$d 行あります."
+
+#, c-format
+msgid "%s: The matrix %s from costf(x0,%d) has %d columns, instead of %d."
+msgstr "%1$s: costf(x0,%3$d)の行列 %2$s に %5$d 列ではなく, %4$d 列あります."
+
+#, c-format
+msgid "%s: Initial guess is not feasible."
+msgstr "%s: 初期推定値が実行可能ではありません."
+
+#, c-format
+msgid "%s: Wrong size for x0 argument: A vector expected."
+msgstr "%s:  x0 引数の大きさが間違っています: ベクトルを指定指定してください."
+
+#, c-format
+msgid "%s: Unknown value %s for %s option"
+msgstr "%1$s: %3$s オプション の未知の値 %2$s"
+
+#, c-format
+msgid ""
+"%s: Unexpected number of input arguments : %d provided while 2 are expected."
+msgstr ""
+"%s: 入力引数の数が間違っています: 仕様は2個ですが %d 個指定されています."
+
+#, c-format
+msgid ""
+"%s: Unexpected number of output arguments : %d provided while 3 to 5 are "
+"expected."
+msgstr ""
+"%s: 出力引数の数が間違っています: 仕様は3から5個ですが %d 個指定されています."
+
+#, c-format
+msgid "%s: Empty function (use -function option)."
+msgstr "%s: 空関数(-function オプション使用)"
+
+#, c-format
+msgid ""
+"%s: Wrong type for user function output argument #%d: A real matrix expected."
+msgstr ""
+"%s: ユーザー出力引数 #%d の型が間違っています: 実数行列を指定してください."
+
+#, c-format
+msgid "%s: History disabled ; enable -storehistory option."
+msgstr ""
+"%s: ヒストリが無効となっています ; -storehistory オプションで有効にしてくださ"
+"い."
+
+#, c-format
+msgid "%s: Negative iteration index %d is not allowed."
+msgstr "%s: 負の反復添字 %d は使用できません."
+
+#, c-format
+msgid "%s: Negative iteration index are not allowed."
+msgstr "%s: 負の反復添字は使用できません."
+
+#, c-format
+msgid "%s: Logging not started."
+msgstr "%s: ロギングを開始できません。"
+
+#, c-format
+msgid "%s: Logging already started."
+msgstr "%s: ロギングは既に開始しています。"
+
+#, c-format
+msgid "%s: Log file handle non zero while starting up the logging."
+msgstr "%s: ロギングの開始中にログファイル・ハンドルはゼロではありません。"
+
+#, c-format
+msgid "%s: No output command is defined."
+msgstr "%s: 出力関数は定義されていません。"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: TSIMPLEX expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: TSIMPLEXを指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Number of rows of x is %d, which is different from number of vertices = "
+"%d."
+msgstr "%s:  xの行の数は %d で, 頂点の数 = %d と異なっています."
+
+#, c-format
+msgid ""
+"%s: Number of columns of x is %d, which is different from dimension = %d."
+msgstr "%s: xの列の数は %d で, 次元 = %d と異なっています."
+
+#, c-format
+msgid ""
+"%s: Number of rows of fv is %d, which is different from number of vertices = "
+"%d."
+msgstr "%s:  fvの行の数は %d で, 頂点の数 = %d と異なっています."
+
+#, c-format
+msgid "%s: Number of columns of fv is %d, which is different from 1."
+msgstr "%s: fv の列の数は %d であり, 1 ではありません."
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real scalar expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 実数スカラーを指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: An integer expected.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています: 整数を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: The gradient can be applied only with a simplex made of n+1 points, but "
+"the dimension is %d and the number of vertices is %d"
+msgstr ""
+"%s: 傾斜はシンプレックスが n+1 個の点からなる時にのみ適用可能ですが,次元が "
+"%d , 頂点の数が %d となっています."
+
+#, c-format
+msgid "%s: Unknown method %s"
+msgstr "%s: 未知の方法 %s です。"
+
+#, c-format
+msgid ""
+"%s: The numbers of columns of coords is %d but is expected to be at least %d"
+msgstr "%s: coords の列の数は %d ですが, %d 以上とする必要があります."
+
+#, c-format
+msgid ""
+"%s: Unexpected number of input arguments : %d provided while 2 to 5 are "
+"expected."
+msgstr ""
+"%s: 入力引数の数が間違っています: 仕様は2から5個ですが %d 個指定されています."
+
+#, c-format
+msgid ""
+"%s: Unexpected number of input arguments : %d provided while 2 to 6 are "
+"expected."
+msgstr ""
+"%s: 入力引数の数が間違っています: 仕様は2から6個ですが %d 個指定されています."
+
+#, c-format
+msgid ""
+"%s: Unexpected number of input arguments : %d provided while 6 to 7 are "
+"expected."
+msgstr ""
+"%s: 入力引数の数が間違っています: 仕様は6から7個ですが %d 個指定されています."
+
+#, c-format
+msgid ""
+"%s: Unexpected number of input arguments : %d provided while 2 to 4 are "
+"expected."
+msgstr ""
+"%s: 入力引数の数が間違っています: 仕様は2から4個ですが %d 個指定されています."
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: %s expected.\n"
+msgstr "%s: 引数 %d の型が間違っています: %s を指定してください.\n"
+
+#, c-format
+msgid "%s: The initial simplex has no vertices."
+msgstr "%s: 初期シンプレックスに頂点がありません."
+
+#, c-format
+msgid "%s: The initial simplex has no dimension."
+msgstr "%s: 初期シンプレックスに次元がありません."
+
+#, c-format
+msgid ""
+"%s: The oriented simplex can be computed only with a simplex made of n+1 "
+"points, but the dimension is %d and the number of vertices is %d"
+msgstr ""
+"%s: 指向シンプレックスはシンプレックスが n+1個の点からなる時のみ計算できます"
+"が,次元が %d で頂点の数が %d となっています."
+
+#, c-format
+msgid ""
+"%s: Unexpected number of input arguments : %d provided while 1 to 3 are "
+"expected."
+msgstr ""
+"%s: 入力引数の数が間違っています: 仕様は1から3個ですが %d 個指定されています."
+
+#, c-format
+msgid ""
+"%s: The number of vertices (i.e. the number of rows) is %d which is smaller "
+"than the number of columns %d (i.e. n+1)."
+msgstr ""
+"%s: 頂点の数(すなわち行の数)は %d となっており,列の数 %d (すなわちn+1)よりも"
+"小さくなっています."
+
+#, c-format
+msgid ""
+"%s: The number of rows in the function value array is %d, while expected %d."
+msgstr "%s: 関数値配列の行の数が %d ですが, %d とする必要があります."
+
+#, c-format
+msgid ""
+"%s: The number of columns in the function value array is %d, while expected "
+"1."
+msgstr "%s: 関数値配列の列の数が %d ですが, 1 となる必要があります."
+
+#, c-format
+msgid "%s: The number of rows in x is %d, while expected %d."
+msgstr "%s: x の行の数は %d ですが, %d とする必要があります."
+
+#, c-format
+msgid "%s: The number of columns in x is %d, while expected %d."
+msgstr "%s: x の列の数は %d ですが, %d とする必要があります."
+
+#, c-format
+msgid "%s: Unknown simplex size method %s"
+msgstr "%s: 未知のシンプレックス・サイズ方法 %s"
+
+#, c-format
+msgid "%s: The exclusion index vector has %d rows instead of 1."
+msgstr "%s: 除外添字ベクトルが 1行ではなく %d 行となっています."
+
+#, c-format
+msgid ""
+"%s: Wrong type for argument #%d: Real matrix or sparse matrix expected.\n"
+msgstr ""
+"%s: 引数 #%d の型が間違っています: 実数の行列または疎行列を指定してくださ"
+"い.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real matrix expected.\n"
+msgstr "%s: 引数 %d の型が間違っています:　実数行列を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Non-negative integers expected.\n"
+msgstr ""
+"%s: 入力引数 #%d の値が間違っています: 負でない整数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: An integer value expected.\n"
+msgstr "%s: 入力引数 #%dの値が間違っています: 整数値を指定してください.\n"

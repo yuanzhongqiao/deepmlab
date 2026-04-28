@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="figure">
+    <refnamediv>
+        <refname>figure</refname>
+        <refpurpose>図を作成する</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+            f = figure(num);
+            f = figure("PropertyName1", Propertyvalue1, ..., ..., "PropertyNameN", PropertyvalueN);
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            このルーチンは図を作成します. IDが指定された場合,
+            このIDに対応する図が作成されます.
+            それ以外の場合,
+            ウインドウは最初のフリーなID,すなわちウインドウで使用されていない
+            最小の番号で作成されます.
+        </para>
+    </refsection>
+    <refsection role="arguments">
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>num</term>
+                <listitem>
+                    <para>作成するウインドウのID.
+                        指定されない場合, 最初のフリーなIDが使用されます.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>PropertyName{1, ..., N}</term>
+                <listitem>
+                    <para>
+                        設定するプロパティ名の文字列,
+                        among <link linkend="figure_properties">all existing ones</link>.
+                    </para>
+                    <warning>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>'dockable'</literal>, <literal>'toolbar'</literal> and
+                                    <literal>'menubar'</literal> properties can be set only at figure's
+                                    creation.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>'resizefcn'</literal>: when it is set at figure's creation,
+                                    the callback is first executed while building the initial figure.
+                                    Hence it must already be defined and callable.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>PropertyValue{1, ..., N}</term>
+                <listitem>
+                    <para>
+                        対応するプロパティに指定するscilabオブジェクトの値.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>新規に作成されたウインドウのハンドル.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+// figure_id==3の図を作成します
+h=figure(3);
+// 図3にテキストuicontrolを追加します
+uicontrol(h, "style", "text", ...
+             "string", "This is a figure", ...
+             "position", [50 70 100 100], ...
+             "fontsize",15);
+
+// figure_id==1の図を作成します
+figure();
+// 図1のテキストuicontrolを追加します
+uicontrol("style", "text", ...
+          "string", "Another figure", ...
+          "position", [50 70 100 100], ...
+          "fontsize", 15);
+
+// カレントの図(すなわち,図1)を閉じる
+close();
+// 図3を閉じる
+close(h);
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scf">scf</link>
+            </member>
+            <member>
+                <link linkend="gcf">gcf</link>
+            </member>
+            <member>
+                <link linkend="createWindow">createWindow</link>
+            </member>
+            <member>
+                <link linkend="figure_properties">figure_properties</link>
+            </member>
+            <member>
+                <link linkend="close">close</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

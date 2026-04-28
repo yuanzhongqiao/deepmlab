@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="simp" xml:lang="pt">
+    <refnamediv>
+        <refname>simp</refname>
+        <refpurpose>simplificação racional</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title> Seqüência de Chamamento </title>
+        <synopsis>
+            [N1,D1] = simp(N,D)
+            H1 = simp(H)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>N,D</term>
+                <listitem>
+                    <para>polinômios reais ou matrizes de polinômios reais</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>H</term>
+                <listitem>
+                    <para>matriz de razões de polinômios (i.e matriz com entradas
+                        <literal>n/d</literal> ,<literal>n</literal> e <literal>d</literal>
+                        polinômios reais)
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>[n1,d1]=simp(n,d)</literal> calcula dois polinômios
+            <literal>n1</literal> e <literal>d1</literal> tais que <literal>n1/d1 = n/d</literal>.
+        </para>
+        <para>
+            Se <literal>N</literal> e <literal>D</literal> são matrizes de
+            polinômios, os cálculos são feitos elemento a elemento.
+        </para>
+        <para>
+            <literal>H1=simp(H)</literal> também é válido (cada entrada de
+            <literal>H</literal> é simplificada em <literal>H1</literal>).
+        </para>
+        <para>
+            <warning>
+                <itemizedlist>
+                    <listitem>
+                         <para>
+                            Nenhum limiar é dado, i.e. <literal>simp</literal> não pode forçar
+                            uma simplificação.
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                            Para sistemas lineares dinâmicos que incluem integrador(es), a
+                            simplificação modifica o ganho estático. (<literal>H(0)</literal> para
+                            sistemas contínuos <literal>H(1)</literal> para sistemas discretos)
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                            Para dados complexos, <literal>simp</literal> retorna sua(s) entrada(s).
+                        </para>
+                    </listitem>
+                    <listitem>
+                         <para>
+                            Uma simplificação racional é chamada após aproximadamente cada
+                            operação sobre razões de polinômios. É possível alternar o modo de
+                            simplificação entre "on" e "off" (ligado e desligado) utilizando a função
+                            <literal>simp_mode</literal>.
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+s = poly(0,'s');
+[n,d] = simp((s+1)*(s+2),(s+1)*(s-2))
+
+simp_mode(%F); hns = s/s
+simp_mode(%T); hns = s/s
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="simp_mode">simp_mode</link>
+            </member>
+            <member>
+                <link linkend="clean">clean</link>
+            </member>
+            <member>
+                <link linkend="roots">roots</link>
+            </member>
+            <member>
+                <link linkend="trfmod">trfmod</link>
+            </member>
+            <member>
+                <link linkend="poly">poly</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

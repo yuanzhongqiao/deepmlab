@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="removevars">
+    <refnamediv>
+        <refname>removevars</refname>
+        <refpurpose>Remove variables from table or timeseries</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tout = removevars(tin, vars)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tin</term>
+                <listitem>
+                    <para>
+                        <link linkend="table">table</link> or <link linkend="timeseries">timeseries</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>vars</term>
+                <listitem>
+                    <para>
+                        a vector of indexes (double), of strings, of booleans or a cell containing strings corresponding to variables in the table or the timeseries
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tout</term>
+                <listitem>
+                    <para>
+                        <link linkend="table">table</link> or <link linkend="timeseries">timeseries</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">tout = removevars(tin, vars)</emphasis> creates <literal>tout</literal> from <literal>tin</literal> where <literal>vars</literal> have been removed.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para><emphasis role="bold">Remove variable in table</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            t = table(["A"; "B"; "C"], [1; 2; 3], [4;5;6], "VariableNames", ["Key", "Value1", "Value2"])
+            t2 = removevars(t, "Value1")
+
+            Code = ["AF"; "NA"; "OC"; "AN"; "AS"; "EU"; "SA"];
+            NameContinent = ["Africa"; "North America"; "Oceania"; "Antarctica"; "Asia"; "Europe"; "South America"];
+            Area = [30065000; 24256000; 7687000; 13209000; 44579000; 9938000; 17819000]; // in km2
+            NumberCountry = [54; 23; 14; %nan; 47; 45; 12]; 
+            LifeExpectancy = [60; 78; 75; %nan; 72; 75; 74]; // in years
+
+            t = table(Code, NameContinent, Area, NumberCountry, LifeExpectancy, ...
+                "VariableNames", ["Code", "NameContinent", "Area", "NumberCountry", "LifeExpectancy"])
+
+            // remove "Code" and "NumberCountry" variables
+            t2 = removevars(t, [1, 4])
+            // or use removevars(t, ["Code", "NumberCountry"])
+            ]]></programlisting>
+        </para>
+        <para><emphasis role="bold">Remove variable in timeseries</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            ts = timeseries(hours(1:3)', ["A"; "B"; "C"], [1; 2; 3], [4;5;6], "VariableNames", ["Hours", "Key", "Value1", "Value2"])
+            t2 = removevars(ts, "Value1")
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

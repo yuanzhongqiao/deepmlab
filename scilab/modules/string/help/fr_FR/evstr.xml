@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2017 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="evstr" xml:lang="fr">
+    <refnamediv>
+        <refname>evstr</refname>
+        <refpurpose>évalue des expressions Scilab et concatène leurs résultats</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntaxe</title>
+        <synopsis>
+            H = evstr(M)
+            H = evstr(list(M, subExpr))
+            [H, ierr] = evstr(..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>M</term>
+                <listitem>
+                    <para>
+                        élément unique ou vecteur ou matrice de textes: expressions Scilab à évaluer,
+                        dont les résultats sont ensuite concaténés.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>subExpr</term>
+                <listitem>
+                    <para>
+                    vecteur de textes : expressions Scilab à évaluer avant <literal>M</literal>,
+                    et dont les résultats peuvent être utilisés dans les expressions données par
+                    <literal>M</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>H</term>
+                <listitem>
+                    <para>
+                        élément simple, vecteur, ou matrice des résultats concaténés.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ierr</term>
+                <listitem>
+                    <para>entier, non nul si une erreur s'est produite.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>evstr(..)</literal> évalue les expressions données en <varname>M</varname>.
+            Les résultats de celles-ci sont ensuite concaténés (au sens ensembliste) pour construire
+            <varname>H</varname>.
+        </para>
+        <para>
+            Toutes les expressions sont supposées produire des résultats de types et de tailles
+            compatibles avec leur concatenation.
+        </para>
+        <para>
+            Si l'évaluation d'un terme de <literal>M</literal> ou la concaténation des résultats
+            conduit à une erreur, la syntaxe
+            habituelle <literal>H = evstr(M)</literal> produira effectivement l'erreur.
+            La syntaxe alternative <literal>[H, ierr] = evstr(M)</literal> permet de capturer toute
+            possible erreur, pour la gérer sans interrompre l'exécution du programme Scilab.
+            Le cas échéant, <varname>H</varname> retourne <literal>[]</literal> et <varname>ierr</varname>
+            retourne <literal>999</literal> ou un autre code entier &gt; 0.
+        </para>
+        <para>
+            Si <varname>M</varname> est fournie en 1er élément d'une list(), les expressions Scilab
+            fournies dans <varname>subExpr</varname> sont évaluées avant d'évaluer celles de
+            <varname>M</varname>. Chaque expression de <varname>M</varname> peut faire référence
+            au résultat de <varname>subExpr(k)</varname> par <literal>"%(k)"</literal> et ainsi
+            utiliser ces résultats.
+        </para>
+        <warning>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                    aucune affectation telle que <literal>"a = 1"</literal> n'est acceptée comme
+                    expression évaluable, ni dans <varname>M</varname> ni dans <varname>subExpr</varname>.
+                    <function>execstr</function> doit être utilisée à la place pour exécuter de
+                    telles expressions.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                    Aucune expression dans <varname>M</varname> et <varname>subExpr</varname> ne
+                    doit utiliser une marque <literal>".."</literal> de poursuite à la ligne.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </warning>
+        <note>Alias autorisés :
+            <itemizedlist>
+                <listitem>
+                     <para><literal>"Nan"</literal> et <literal>"NaN"</literal> sont compris comme
+                            <constant>%nan</constant>.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>"Inf"</literal> et <literal>"INF"</literal> sont compris comme
+                            <constant>%inf</constant>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </note>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+a = 1;
+b = 2;
+Z = ['a','b'];
+evstr(Z)
+a = 1;
+b = 2;
+Z = list(['%(1)','%(1)-%(2)'],['a+1','b+1']);
+evstr(Z)
+evstr('NaN'), evstr('Inf')
+
+// Capture des erreurs d'évaluation
+[H, ierr] = evstr(Z)  // pas d'erreur
+Z = ['a', 'b', 'c'] ; // la variable c n'est pas définie:
+H = evstr(Z)          // exécution avec erreur et interruption
+[H, ierr] = evstr(Z)  // exécution silencieuse
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="sci2exp">sci2exp</link>
+            </member>
+            <member>
+                <link linkend="strtod">strtod</link>
+            </member>
+            <member>
+                <link linkend="brackets">concaténation</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.3.0</revnumber>
+                <revdescription>
+                <literal>"Nan"</literal> et <literal>"NaN"</literal> sont désormais compris comme <literal>%nan</literal>.
+                <literal>"Inf"</literal> et <literal>"INF"</literal> sont désormais compris comme <literal>%inf</literal>.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                  Les expressions d'entrée peuvent désormais inclure des commentaires simples
+                  <literal>// ..</literal>, quel que soit le format de <literal>M</literal>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

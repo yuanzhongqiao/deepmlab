@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="ru" xml:id="xarrows">
+    <refnamediv>
+        <refname>xarrows</refname>
+        <refpurpose>рисование набора стрелок</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>xarrows(nx, ny, [arsize, color])
+            h = xarrows(...)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>nx, ny</term>
+                <listitem>
+                    <para>
+                        вещественные векторы или матрицы одинакового размера.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>arsize</term>
+                <listitem>
+                    <para>
+                        вещественный вектор, размер головки стрелки.
+                        Значение по умолчанию можно получить
+                        установив <varname>arsize</varname>
+                        равным <literal>-1</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>color</term>
+                <listitem>
+                    <para>
+                        матрица или скаляр, цвет стрелки. Если
+                        <varname>color</varname> является
+                        положительным скаляром, то он даёт цвет
+                        для всех стрелок. Если он является
+                        отрицательным скаляром, то используется
+                        текущий цвет. Если же это вектор, то
+                        <literal>color(i)</literal> даёт цвет
+                        для <literal>i</literal>-той стрелки.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>Этот необязательный вывод содержит дескриптор сущности <literal>Segs</literal>. Для списка
+                      свойства, см. <link linkend="segs_properties">segs_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Функция <function>xarrows</function> рисует набор
+            стрелок, указанных с помощью <varname>nx</varname> и
+            <varname>ny</varname>. Если <varname>nx</varname> и
+            <varname>ny</varname> являются векторами, то
+            <literal>i</literal>-тая стрелка определяется как
+            <literal>(nx(i),ny(i))--&gt;(nx(i+1),ny(i+1))</literal>.
+            Если <varname>nx</varname> и <varname>ny</varname>
+            являются матрицами:
+        </para>
+        <programlisting role="no-scilab-exec"><![CDATA[
+nx=[xi_1 x1_2 ...; xf_1 xf_2 ...]
+ny=[yi_1 y1_2 ...; yf_1 yf_2 ...]
+ ]]></programlisting>
+        <para>
+            то <literal>k</literal>-тая стрелка определяется как
+            <literal>(xi_k,yi_k)--&gt;(xf_k,yf_k)</literal>.
+        </para>
+        <para>
+            Функция <function>xarrows</function> использует
+            текущий масштаб графика, который может быть
+            установлен через вызов функции рисования высокого
+            уровня, такой как <function>plot2d</function>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+x = 2*%pi*(0:7)/8
+x1 = [sin(x); 9*sin(x)];
+y1 = [cos(x); 9*cos(x)];
+plot2d([-10,10], [-10,10], [-1,-1], "022")
+gca().clip_state = "clipgrf";
+xarrows(x1, y1, -1, [1:7,9]) //8 - это белый цвет
+gca().clip_state = "off";
+ ]]></programlisting>
+        <scilab:image>
+            x = 2*%pi*(0:7)/8
+            x1 = [sin(x); 9*sin(x)];
+            y1 = [cos(x); 9*cos(x)];
+            plot2d([-10,10], [-10,10], [-1,-1], "022")
+            gca().clip_state = "clipgrf";
+            xarrows(x1, y1, -1, [1:7,9])
+            gca().clip_state = "off";
+        </scilab:image>
+    </refsection>
+    <refsection role="history">
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    Function returns the created handle(s).
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

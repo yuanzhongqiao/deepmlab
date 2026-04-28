@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="iqr">
+    <refnamediv>
+        <refname>iqr</refname>
+        <refpurpose>interquartile range</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            q = iqr(x)
+            q = iqr(x, orientation)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real or complex vector or matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                    <para>
+                    index of the dimension along which the iqr is computed.
+                    It can be either
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                a character <literal>"*"</literal> (default), <literal>"r"</literal>,
+                              <literal>"c"</literal> or <literal>"m"</literal>. "m" is equivalent
+                              to <literal>find(size(x)&gt;1,1)</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                a positive integer. 1 is equivalent to "r" and 2 is equivalent to "c".
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>q</term>
+                <listitem>
+                    <para>real or complex scalar or vector</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function computes  the interquartile range IQR= upper
+            quartile - lower  quartile of a  vector or a  matrix <literal> x </literal>.
+        </para>
+        <para>
+            For a vector  or  a matrix <literal>  x</literal>  , <literal>  q=iqr(x)</literal> or <literal>  q=iqr(x, "*")</literal>
+            returns in the scalar <literal> q</literal> the interquartile range of
+            all the entries of <literal> x</literal>.
+        </para>
+        <para>
+            <literal> q=iqr(x,'r') </literal>   (or, equivalently,
+            <literal>q=iqr(x,1)</literal>) is  the  rowwise interquartile range.  It  returns in
+            each entry  of the row vector  <literal> q</literal> the interquartile
+            range of each column of <literal> x</literal>.
+        </para>
+        <para>
+            <literal> q=iqr(x,'c')  </literal> (or,  equivalently,
+            <literal>q=iqr(x,2)</literal>) is the columnwise  interquartile range. It returns in
+            each     entry of  the    column  vector  <literal>   q</literal> the
+            interquartile range of each row of <literal> x</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x  = 1:10;
+
+// Interquartile range of vector 1 to 10
+// Q1 = 3 and Q3 = 8, so iqr = 5
+iqr(x)
+   ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Bibliography</title>
+        <para>
+            Wonacott, T.H.Wonacott, R.J.; Introductory Statistics, J.Wiley-Sons, 1990.
+        </para>
+    </refsection>
+</refentry>

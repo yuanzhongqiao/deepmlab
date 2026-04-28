@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="preferences" xml:lang="fr">
+    <refnamediv>
+        <refname>preferences</refname>
+        <refpurpose>Ouvre la fenêtre de configuration de Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntaxe</title>
+        <synopsis>
+            preferences()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>preferences()</literal> ouvre l'interface interactive de configuration
+            de Scilab et des modules externes chargés.
+        </para>
+        <para>
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata fileref="../images/preferences_gui_en_US.png"  valign="middle"/>
+                </imageobject>
+            </inlinemediaobject>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+preferences()
+
+// Ouvrir une section particulière :
+jdeff org.scilab.modules.preferences.XConfigManager openPreferences prefs; // once for all
+prefs general/shortcuts
+prefs scinotes/display
+ ]]></programlisting>
+      <para>
+        <emphasis role="bold">Editer votre principal fichier de configuration utilisateur</emphasis>
+        (en modifier le contenu à la main est fortement déconseillé) :
+      </para>
+        <programlisting role="example"><![CDATA[
+scinotes SCIHOME/XConfiguration.xml readonly
+ ]]></programlisting>
+    <para/>
+    <para>
+        <emphasis role="bold">Obtenir la valeur de paramètres de configuration</emphasis> :
+        Exemple : récupérer dans le fichier de configuration principal l'état des demandes de
+        confirmation réglables :
+    </para>
+        <programlisting role="example"><![CDATA[
+xmlGetValues("//general/confirmation-dialogs/body/tools/tool",["id" "state"])
+     ]]></programlisting>
+    <screen><![CDATA[
+--> xmlGetValues("//general/confirmation-dialogs/body/tools/tool",["id" "state"])
+ ans  =
+!console-exit         unchecked  !
+!delete-history-item  unchecked  !
+!console-clear        unchecked  !
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xmlGetValues">xmlGetValues</link>
+            </member>
+            <member>
+                <link linkend="xmlSetValues">xmlSetValues</link>
+            </member>
+            <member>
+                <link linkend="ieee">ieee</link>
+            </member>
+            <member>
+                <link linkend="format">format</link>
+            </member>
+            <member>
+                <link linkend="lines">lines</link>
+            </member>
+            <member>
+                <link linkend="mode">mode</link>
+            </member>
+            <member>
+                <link linkend="funcprot">funcprot</link>
+            </member>
+            <member>
+                <link linkend="setdefaultlanguage">setdefaultlanguage</link>
+            </member>
+            <member>
+                <link linkend="setlookandfeel">setlookandfeel</link>
+            </member>
+            <member>
+                <link linkend="printsetupbox">printsetupbox</link>
+            </member>
+            <member>
+                <link linkend="recursionlimit">recursionlimit</link>
+            </member>
+            <member>
+                <link linkend="odeoptions">odeoptions</link>
+            </member>
+            <member>
+                <link linkend="csvDefault">csvDefault</link>
+            </member>
+            <member>
+                <link linkend="xlfont">xlfont</link>
+            </member>
+            <member>
+                <link linkend="startup">startup</link>
+            </member>
+            <member>
+                <link linkend="atomsGetConfig">atomsGetConfig</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revdescription>
+                    Fonction ajoutée
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) INRIA -  Serge Steer Serge.Steer@inria.fr
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en_US" xml:id="datatipSetOrientation">
+    <refnamediv>
+        <refname>datatipSetOrientation</refname>
+        <refpurpose>Set the position of the text box associated with the given tip.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            datatipSetOrientation(tip_handle,orient)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tip_handle</term>
+                <listitem>
+                    <para>
+                        A handle on a datatip.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <variablelist>
+            <varlistentry>
+                <term>orient</term>
+                <listitem>
+                    <para>
+                        A character string with possible values:
+                        <literal>"automatic"</literal>, <literal>"upper
+                            left"
+                        </literal>
+                        ,<literal>"upper right"</literal>,
+                        <literal>"lower left"</literal>, <literal>"lower right"</literal>,
+                        <literal>"left"</literal>, <literal>"right"</literal>,
+                        <literal>"upper"</literal>, or <literal>"lower"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Set the position on the text box with respect to the polyline
+            point. With the <literal>"automatic"</literal> orientation the
+            program makes the choice of the position trying to prevent
+            text from overlapping polyline, it also tries to to keep the text
+            box within the plot boundaries.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+    x=linspace(-20,20,1000);
+    clf()
+    e=plot(x,sinc(x),x,sinc(x.^2));
+    d1=datatipCreate(e(1),500);
+    d2=datatipCreate(e(2),60);
+    datatipSetOrientation(d1,"lower left");
+    datatipSetOrientation(d2,"lower right");
+    ]]></programlisting>
+        <scilab:image>
+            x=linspace(-20,20,1000);
+            e=plot(x,sinc(x),x,sinc(x.^2));
+            d1=datatipCreate(e(1),500);
+            d2=datatipCreate(e(2),60);
+            datatipSetOrientation(d1,"lower left");
+            datatipSetOrientation(d2,"lower right");
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datatips">datatips</link>
+            </member>
+            <member>
+                <link linkend="datatipCreate">datatipCreate</link>
+            </member>
+            <member>
+                <link linkend="datatipRemove">datatipRemove</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.2</revnumber>
+                <revdescription>
+                    <para>
+                        New "orient" values available: "left", "right", "upper", "lower".
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

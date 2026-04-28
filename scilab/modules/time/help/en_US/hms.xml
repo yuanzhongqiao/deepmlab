@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="hms">
+    <refnamediv>
+        <refname>hms</refname>
+        <refpurpose>extracts hour, minute and second of datetime or duration</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            [h, m, s] = hms(dt)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>dt</term>
+                <listitem>
+                    <para>
+                        <link linkend="datetime">datetime</link> or <link linkend="duration">duration</link>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>
+                        real scalar, vector or matrix containing hour value(s) of <literal>dt</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>
+                        real scalar, vector or matrix containing minute value(s) of <literal>dt</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>s</term>
+                <listitem>
+                    <para>
+                        real scalar, vector or matrix containing second value(s) of <literal>dt</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">[h, m, s] = hms(dt)</emphasis> returns the hour, minute and second values of input argument dt.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                dt = datetime([2025 1 29 1 25 30; 2025 1 29 3 43 12; 2025 1 29 15 24 46]);
+                [h, m, s] = hms(dt)
+            ]]></programlisting>
+        </para>
+        <para>
+            <programlisting role="example"><![CDATA[
+                d = duration(12, 30, 45) + minutes(0:25:100);
+                [h, m, s] = hms(d)
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>hms accepts duration as input argument.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2013, 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="modulo" xml:lang="pt">
+    <refnamediv>
+        <refname>modulo</refname>
+        <refpurpose>
+            Resto módulo m com o sinal do operando esquerdo, ou de uma divisão polinomial
+        </refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="pmodulo">
+        <refname>pmodulo</refname>
+        <refpurpose>Resto positivo da divisão de n por m</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>i = modulo(n,m)</synopsis>
+        <para/>
+        <synopsis>i = pmodulo(n,m)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>n,m</term>
+                <listitem>
+                    <para>
+                        Escalar, vetor, matriz ou hipermatriz de inteiros codificados, reais ou
+                        polinômios com coeficientes reais.
+                        <varname>m</varname> e <varname>n</varname> devem ter o mesmo tipo.
+                        Se eles são do tipo inteiro, eles podem ser de comprimento de codificação
+                        distinto (por exemplo, int8 e int16).
+                        Se nenhum deles for escalar, eles devem ter os mesmos tamanhos.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>
+                        Escalar, vetor, matriz ou hipermatriz do tipo (e inttype) <varname>n</varname>.
+                        <varname>i</varname> aceita os tamanhos do maior <varname>m</varname>
+                        ou <varname>n</varname>.
+                    </para>
+                    <para>
+                        <warning>
+                            For polynomials, when all remainders in the array <varname>i</varname>
+                            are constant (degree==0), <varname>i</varname> is of type 1
+                            (numbers) instead of 2 (constant polynomials).
+                        </warning>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>modulo</literal> computa <literal>i= n (modulo m)</literal>
+            i.e. resto da divisão de <literal>m</literal>.
+        </para>
+        <para>Para polinômios, <literal>pdiv()</literal> é chamado.</para>
+        <para>
+            Para números,
+            <itemizedlist>
+                <listitem>
+                     <para>
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            <warning>
+                Se <varname>m</varname> contiver pelo menos um valor 0, <literal>modulo(x,m)</literal>
+                e <literal>pmodulo(x,m)</literal> executará uma divisão por zero.
+                Se <varname>m</varname> for do tipo real, esta exceção será processada de acordo
+                para o modo <literal>ieee()</literal>.
+                Para inteiros codificados, sempre gerará um erro.
+            </warning>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+n = [1,2,10,15];
+m = [2,2,3,5];
+modulo(n,m)
+
+modulo(-3, 9)
+modulo(10, -4)
+
+pmodulo(-3, 9)
+pmodulo(10, -6)
+pmodulo(-10, -6)
+
+// Inteiros codificados
+modulo( int8(-13), int16(-7))
+pmodulo(int8(-13), int16(-7))
+modulo( int8(-13), int16([-7 5]))
+pmodulo(int8(-13), int16([-7 5]))
+modulo( int8([-13 8]), int16(-7))
+pmodulo(int8([-13 8]), int16(-7))
+modulo( int8([-13 8]), int16([-7 5]))
+pmodulo(int8([-13 8]), int16([-7 5]))
+
+// Hypermatrices
+m = grand(2,2,2,"uin",-100,100)
+n = grand(2,2,2,"uin",-10 ,10);
+n(n==0) = 1
+modulo(m, 5)
+pmodulo(m,5)
+modulo(51, n)
+pmodulo(51,n)
+modulo(m, n)
+pmodulo(m,n)
+
+// Polinômios
+modulo( %z^2+1, %z)
+pmodulo(%z^2+1, %z)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="unwrap">unwrap</link>
+            </member>
+            <member>
+                <link linkend="ieee">ieee</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>
+                    Extensão para inteiros codificados e para hypermatrices de inteiros codificados
+                    ou de reais.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revremark>Extensão para hipermatrizes de polinômios..</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="summary">
+    <refnamediv>
+        <refname>summary</refname>
+        <refpurpose>Summary of table or timeseries variables</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            summary(t)
+            summary(t, statistics)
+            summary(t, statistics, datavars)
+            S = summary(t, statistics, datavars)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>
+                        <link linkend="table">table</link> or <link linkend="timeseries">timeseries</link> object.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>statistics</term>
+                <listitem>
+                    <para>
+                        string (optional). Specifies which statistics to compute. Possible values are:
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <literal>"default" (default value)</literal>: computes a standard set of statistics 
+                            (NumMissing, Min, Median, Max, Mean, Std)
+                        </listitem>
+                        <listitem>
+                            <literal>"none"</literal>: no statistics are computed
+                        </listitem>
+                        <listitem>
+                            <literal>"allstats"</literal>: computes all available statistics
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>datavars</term>
+                <listitem>
+                    <para>
+                        string (optional). Names of variables to include in the summary. 
+                        Default is "all", meaning all variables are summarized.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>S</term>
+                <listitem>
+                    <para>
+                        A structure containing the summary information for each variable.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            The <literal>summary</literal> function displays or returns a structure containing a summary of the variables of 
+            in a <link linkend="table">table</link> or <link linkend="timeseries">timeseries</link>.
+        </para>
+        <para>
+            For each variable, summary reports:
+            <itemizedlist>
+                <listitem>
+                    Size and data type
+                </listitem>
+                <listitem>
+                    Variable description and units (if available)
+                </listitem>
+                <listitem>
+                    Statistical information depending on the variable type
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            If no output argument is specified, the summary is displayed in the console.
+        </para>
+        <para>
+            When an output argument is requested, summary returns a structure where 
+            each field corresponds to a variable name which contains a sub-structure with 
+            metadata (Size, Type, Description and Units) and statistics (depending on variable type).
+        </para>
+        <para>
+            For timeseries, row time information (start time, sample rate, time step) is also summarized.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Supported Statistics for Numeric Data</title>
+        <para>
+            Depending on the selected options, the following statistics may be computed:
+            <itemizedlist>
+                <listitem>
+                    <literal>NumMissing</literal>: number of missing values (%nan or NaT)
+                </listitem>
+                <listitem>
+                    <literal>Min</literal>: minimum value
+                </listitem>
+                <listitem>
+                    <literal>Max</literal>: maximum value
+                </listitem>
+                <listitem>
+                    <literal>Median</literal>: median value
+                </listitem>
+                <listitem>
+                    <literal>Mean</literal>: mean value
+                </listitem>
+                <listitem>
+                    <literal>Std</literal>: standard deviation
+                </listitem>
+                <listitem>
+                    <literal>Var</literal>: variance
+                </listitem>
+                <listitem>
+                    <literal>Q1</literal>: first quartile (25th percentile)
+                </listitem>
+                <listitem>
+                    <literal>Q3</literal>: third quartile (75th percentile)
+                </listitem>
+                <listitem>
+                    <literal>Mode</literal>: mode
+                </listitem>
+                <listitem>
+                    <literal>Range</literal>: range of values
+                </listitem>
+                <listitem>
+                    <literal>Sum</literal>: sum of values
+                </listitem>
+                <listitem>
+                    <literal>NumUnique</literal>: number of unique non-missing values
+                </listitem>
+                <listitem>
+                    <literal>Sum</literal>: number of non-zero values
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            Numeric types include: double, integer types, duration and datetime.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Boolean Variables</title>
+        <para>
+            For boolean variables, the summary reports:
+            <itemizedlist>
+                <listitem>
+                    <literal>True</literal>: number of true values
+                </listitem>
+                <listitem>
+                    <literal>False</literal>: number of false values
+                </listitem>
+            </itemizedlist>
+        </para>
+    </refsection>
+    <refsection>
+        <title>String Variables</title>
+        <para>
+            For string variables, the summary reports:
+            <itemizedlist>
+                <listitem>
+                    <literal>NumMissing</literal>: number of undefined values
+                </listitem>
+                <listitem>
+                    <literal>Values</literal>: unique string values
+                </listitem>
+                <listitem>
+                    <literal>Counts</literal>: occurence count of each value
+                </listitem>
+            </itemizedlist>
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+        <programlisting role="example"><![CDATA[
+            // Create a table
+t = table([1; 2; %nan], [10; 20; 30], ...
+          "VariableNames", ["A", "B"]);
+t.Properties.VariableDescriptions = ["First variable", "Second variable"];
+t.Properties.VariableUnits = ["m", "s"];
+
+// Display default summary
+summary(t)
+
+// Summary without statistics
+summary(t, "none")
+
+// Summary with all statistics
+summary(t, "allstats")
+
+// Summary for selected variables
+summary(t, "default", "A")
+
+// Return summary as a structure
+S = summary(t)
+disp(S.A.Mean)
+            ]]></programlisting>
+            <screen><![CDATA[
+--> t = table([1; 2; %nan], [10; 20; 30], ...
+  >           "VariableNames", ["A", "B"]);
+
+--> t.Properties.VariableDescriptions = ["First variable", "Second variable"];
+
+--> t.Properties.VariableUnits = ["m", "s"];
+
+// Display default summary
+
+--> summary(t)
+
+ table: [3x2 table]
+
+ Variables:
+     A: double
+        Description: First variable
+        Units: m
+     B: double
+        Description: Second variable
+        Units: s
+
+ Statistics for numeric data:
+                    A        B 
+                _________   ___
+                               
+   NumMissing   1           0  
+          Min   1           10 
+       Median   1           20 
+          Max   2           30 
+         Mean   1.5         20 
+          Std   0.7071068   10 
+
+// Summary without statistics
+
+--> summary(t, "none")
+
+ table: [3x2 table]
+
+ Variables:
+     A: double
+        Description: First variable
+        Units: m
+     B: double
+        Description: Second variable
+        Units: s
+
+// Summary with all statistics
+
+--> summary(t, "allstats")
+
+ table: [3x2 table]
+
+ Variables:
+     A: double
+        Description: First variable
+        Units: m
+     B: double
+        Description: Second variable
+        Units: s
+
+ Statistics for numeric data:
+                    A        B 
+                _________   ___
+                               
+   NumMissing   1           0  
+          Min   1           10 
+       Median   1           20 
+          Max   2           30 
+           Q1   1           10 
+         Mean   1.5         20 
+           Q3   Nan         30 
+          Std   0.7071068   10 
+          Var   0.5         100
+         Mode   1           10 
+        Range   1           20 
+          Sum   Nan         60 
+    NumUnique   2           3  
+          Nnz   2           3  
+
+// Summary for selected variables
+
+--> summary(t, "default", "A")
+
+ table: [3x2 table]
+
+ Variables:
+     A: double
+        Description: First variable
+        Units: m
+
+ Statistics for numeric data:
+                    A    
+                _________
+                         
+   NumMissing   1        
+          Min   1        
+       Median   1        
+          Max   2        
+         Mean   1.5      
+          Std   0.7071068
+
+// Return summary as a structure
+
+--> S = summary(t)
+
+ S = [struct] with fields:
+
+  A: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "First variable"
+      Units = "m"
+      NumMissing = 1
+      Min = 1
+      Median = 1
+      Max = 2
+      Mean = 1.5
+      Std = 0.7071068
+  B: [struct] with fields:
+      Size = [3,1]
+      Type = "double"
+      Description = "Second variable"
+      Units = "s"
+      NumMissing = 0
+      Min = 10
+      Median = 20
+      Max = 30
+      Mean = 20
+      Std = 10
+
+--> disp(S.A.Mean)
+
+   1.5
+]]></screen>
+    </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.1.0</revnumber>
+                <revremark>Function added.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

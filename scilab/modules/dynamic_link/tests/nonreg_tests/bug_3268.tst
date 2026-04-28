@@ -1,0 +1,18 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- ENGLISH IMPOSED -->
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for bug 3268 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/3268
+// link try to load a non existing file
+warning('off');
+ierr = execstr('link(''NOEXISTLIBNAME'',''foo'')','errcatch');
+if ierr <> 236 then pause,end

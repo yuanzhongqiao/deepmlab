@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Vincent Couvert
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="root_properties">
+    <refnamediv>
+        <refname>root_properties</refname>
+        <refpurpose>description of the root object properties.</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The root object is a virtual object used to get the computer screen properties.
+            Use <literal>get</literal> function with <emphasis>0</emphasis> as first argument
+            to access its properties.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>Root properties</term>
+                <listitem>
+                    <variablelist>
+                        <varlistentry>
+                            <term>screensize_px: </term>
+                            <listitem>
+                                <para>The screen size in pixels.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>screensize_pt: </term>
+                            <listitem>
+                                <para>The screen size in points.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>screensize_mm: </term>
+                            <listitem>
+                                <para>The screen size in millimeters.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>screensize_cm: </term>
+                            <listitem>
+                                <para>The screen size in centimeters.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>screensize_in: </term>
+                            <listitem>
+                                <para>The screen size in inches.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>screensize_norm: </term>
+                            <listitem>
+                                <para>The normalized screen size.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>screendepth: </term>
+                            <listitem>
+                                <para>The number of bits used to encode colors.</para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+get(0, "screensize_px")
+get(0, "screendepth")
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="getsystemmetrics">getsystemmetrics</link>
+            </member>
+            <member>
+                <link linkend="system_getproperty">system_getproperty</link>
+            </member>
+            <member>
+                <link linkend="console_properties">console_properties</link>
+            </member>
+            <member>
+                <link linkend="usecanvas">usecanvas</link>
+            </member>
+            <member>
+                <link linkend="getlookandfeel">getlookandfeel</link>
+            </member>
+            <member>
+                <link linkend="preferences">preferences</link>
+            </member>
+            <member>
+                <link linkend="printsetupbox">printsetupbox</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

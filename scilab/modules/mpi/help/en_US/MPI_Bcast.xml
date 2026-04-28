@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Sylvestre Ledru
+ * Copyright (C) 2016 - Scilab Enterprises - Delamarre Cedric
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="MPI_Bcast" xml:lang="en">
+    <refnamediv>
+        <refname>MPI_Bcast</refname>
+        <refpurpose>
+            Broadcasts a message from the process with rank root to all other processes of the group
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            res = MPI_Bcast(value, rootID)
+            res = MPI_Bcast(value, rootID, comm=mpi_comm)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>value</term>
+                <listitem>
+                    <para>The value to be sent to all nodes.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rootID</term>
+                <listitem>
+                    <para>The source of the message</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>comm = mpi_comm</term>
+                <listitem>
+                    <para>If the optional argument "comm" is given,
+                        this function will use the MPI communicator created by
+                        <link linkend="MPI_Create_comm">MPI_Create_comm</link>.
+                        If not, the default MPI_COMM_WORLD is used.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>res</term>
+                <listitem>
+                    <para>
+                        The broadcasted value. If the optional argument "comm" is given, all nodes
+                        which are not in the communicator will return empty matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Sends a variable to all nodes. The value should be retrieved by the node with the
+            function <link linkend="MPI_Recv">MPI_Recv</link>.
+        </para>
+        <para>
+            On the internal technical side, two broadcasts are used transparently.
+            The first one sends the size of the data, the second the data themself.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            MPI_Init();
+            rnk = MPI_Comm_rank();
+            sizeNodes = MPI_Comm_size();
+
+            SLV = rnk;          // handy shortcuts, master is rank 0
+            Master = ~ SLV;     // slaves are all other
+            a = -1;
+            if Master
+                // Declare a
+                a = 42
+            end
+            b = MPI_Bcast(a, 0);
+            b == 42
+            MPI_Finalize();
+            ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="MPI_Recv">MPI_Recv</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

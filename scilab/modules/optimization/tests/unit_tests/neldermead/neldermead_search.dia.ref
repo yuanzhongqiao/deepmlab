@@ -1,0 +1,106 @@
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
+//
+// Copyright (C) 2012 - 2016 - Scilab Enterprises
+//
+// This file is hereby licensed under the terms of the GNU GPL v2.0,
+// pursuant to article 5.3.4 of the CeCILL v.2.1.
+// This file was originally licensed under the terms of the CeCILL v2.1,
+// and continues to be available under such terms.
+// For more information, see the COPYING file which you should have received
+// along with this program.
+// <-- CLI SHELL MODE -->
+//
+// optimtestcase --
+//   Non linear inequality constraints are positive.
+//
+// Arguments
+//   x: the point where to compute the function
+//   index : the stuff to compute
+//
+function [ f , c , index ] = optimtestcase ( x , index )
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3]
+    end
+endfunction
+warning("off"); // WARNING_EMPTY_OPS
+//
+// Test search with various error cases
+//
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",4);
+nm = neldermead_configure(nm,"-function",optimtestcase);
+nm = neldermead_configure(nm,"-x0",[0.0 0.0 0.0 0.0]');
+nm = neldermead_configure(nm,"-maxiter",200);
+nm = neldermead_configure(nm,"-maxfunevals",1000);
+nm = neldermead_configure(nm,"-tolsimplexizerelative",1.e-4);
+nm = neldermead_configure(nm,"-simplex0method","axes");
+nm = neldermead_configure(nm,"-method","box");
+nm = neldermead_configure(nm,"-nbineqconst",3);
+nm = neldermead_configure(nm,"-simplex0length",20.0);
+//
+// Test with inconsistent bounds
+//
+nm = neldermead_configure(nm,"-boundsmin",[10.0 -10.0 -10.0 -10.0]);
+nm = neldermead_configure(nm,"-boundsmax",[-10.0 10.0 10.0 10.0]);
+instr = "nm = neldermead_search(nm)";
+lclmsg = gettext("%s: The max bound %s for variable #%d is lower than the min bound %s.\n");
+assert_checkerror ( instr , lclmsg , [] , "optimbase_checkbounds","-10",1,"10" );
+//
+// Test with wrong number of min bounds
+//
+nm = neldermead_configure(nm,"-boundsmin",[10.0]);
+nm = neldermead_configure(nm,"-boundsmax",[-10.0 10.0 10.0 10.0]);
+cmd = "nm = neldermead_search(nm)";
+lclmsg = gettext("%s: The number of variables %d does not match the number of min bounds: %d.\n");
+assert_checkerror ( cmd , lclmsg , [] , "optimbase_checkbounds" , 4 , 1);
+//
+// Test with wrong number of max bounds
+//
+nm = neldermead_configure(nm,"-boundsmin",[10.0 -10.0 -10.0 -10.0]);
+nm = neldermead_configure(nm,"-boundsmax",[-10.0]);
+cmd = "nm = neldermead_search(nm)";
+lclmsg = gettext("%s: The number of variables %d does not match the number of max bounds: %d.\n");
+assert_checkerror ( cmd , lclmsg , [] , "optimbase_checkbounds" , 4 , 1);
+//
+// Test with Box algorithm and randomized bounds simplex and no bounds
+//
+nm = neldermead_configure(nm,"-boundsmin",[]);
+nm = neldermead_configure(nm,"-boundsmax",[]);
+nm = neldermead_configure(nm,"-simplex0method","randbounds");
+cmd = "nm = neldermead_search(nm)";
+assert_checkerror(cmd,"%s: Randomized bounds initial simplex is not available without bounds.",[],"neldermead_startup");
+//
+// Clean-up
+//
+nm = neldermead_destroy(nm);
+//
+// Test search with verbose to log file
+//
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",4);
+nm = neldermead_configure(nm,"-function",optimtestcase);
+nm = neldermead_configure(nm,"-x0",[0.0 0.0 0.0 0.0]');
+nm = neldermead_configure(nm,"-maxiter",10);
+nm = neldermead_configure(nm,"-verbose",1);
+nm = neldermead_configure(nm,"-logfile" , fullfile(TMPDIR,"search.txt" ));
+nm = neldermead_configure(nm,"-verbosetermination",1);
+nm = neldermead_configure(nm,"-nbineqconst",3);
+nm = neldermead_configure(nm,"-method","box");
+nm = neldermead_search(nm, "off");
+nm = neldermead_destroy(nm);
+computed = deletefile(fullfile(TMPDIR,"search.txt"));
+assert_checkequal ( computed , %t );

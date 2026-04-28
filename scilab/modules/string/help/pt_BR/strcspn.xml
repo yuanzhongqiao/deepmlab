@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="strcspn" xml:lang="pt">
+    <refnamediv>
+        <refname>strcspn</refname>
+        <refpurpose>
+            comprimentos do início dos textos até que um caractere entre aqueles proibidos
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>res = strcspn(Strings, forbiddenChars)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>Strings</term>
+                <listitem>
+                    <para>string ou matriz de strings</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>forbiddenChars</term>
+                <listitem>
+                    <para>string ou matriz de strings</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>res</term>
+                <listitem>
+                    <para>
+                        Matrix of positive real integers, of the size of <varname>Strings</varname>:
+						lengths of the selected <varname>Strings</varname> heads.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>res = strcspn(Strings, forbiddenChars)</literal> lê
+            <varname>Strings</varname> para a primeira ocorrência de qualquer caractere que esteja em
+            <varname>forbiddenChars</varname>, retornando o número de caracteres de Strings
+			lidos antes da primeira ocorrência.
+        </para>
+        <para>
+			<varname>Strings</varname> deve ter as mesmas dimensões que 
+			<varname>forbiddenChars</varname>, ou <varname>Strings</varname> deve ser um string.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+strcspn("fcba73", "1234567890")
+strcspn(["fcba73", "f7cba73"], "1234567890")
+strcspn(["fcba73", "f7cba73"], ["312", "34567890"])
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strspn">strspn</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

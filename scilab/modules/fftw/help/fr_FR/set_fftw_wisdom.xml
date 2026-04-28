@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2007 - Allan Layec - INRIA
+ * Copyright (C) 2012 - Serge Steer - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="set_fftw_wisdom">
+    <refnamediv>
+        <refname>set_fftw_wisdom</refname>
+        <refpurpose>charge un wisdom fftw</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>set_fftw_wisdom(txt)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>txt</term>
+                <listitem>
+                    <para>Matrice de chaîne de caractères contenant le wisdom fftw.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Attention</title>
+        <para>
+            Cette fonction n'est pas implémentée lorsque Scilab utilise la
+            bibliothèque MKL d'Intel (c'est en particulier le cas des
+            binaires Windows officielles).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Cette fonction charge un wisdom fftw contenue dans une chaîne de
+            caractères. L'utilisation de <literal>get_fftw_wisdom</literal>
+            et de <literal>set_fftw_wisdom</literal> permet d'optimiser
+            l'efficacité de la fft si de nombreux appels doivent être
+            effectués sur des tailles de données identiques et pour les
+            mêmes options de la fonction <link linkend="fft">fft</link>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+sample_rate=1000;
+t = 0:1/sample_rate:40;
+N=size(t,'*'); //number of samples
+s=sin(2*%pi*50*t)+sin(2*%pi*70*t+%pi/4)+grand(1,N,'nor',0,1);
+fftw_forget_wisdom();
+timer();y=fft(s);t1=timer() //first call
+timer();y=fft(s);t2=timer()  //second call uses preserved wisdom
+t1/t2
+wisdom1=get_fftw_wisdom(); //preserve current wisdom
+//realize a different fft
+A = zeros(256,256);
+A(5:24,13:17) = 1;
+X = fft(A);
+
+//Create a new signal with same size as s
+s1=sin(2*%pi*10*t)+sin(2*%pi*7*t+%pi/4)+5*grand(1,N,'nor',0,1);
+//restore preserved wisdom
+set_fftw_wisdom(wisdom1);
+timer();y=fft(s);t3=timer()
+t3/t2
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="fft">fft</link>
+            </member>
+            <member>
+                <link linkend="get_fftw_wisdom">get_fftw_wisdom</link>
+            </member>
+            <member>
+                <link linkend="fftw_forget_wisdom">fftw_forget_wisdom</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

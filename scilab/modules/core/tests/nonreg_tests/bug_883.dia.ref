@@ -1,0 +1,45 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- Non-regression test for bug 883 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/883
+//
+// <-- Short Description -->
+//    format() output oddities
+SCIFILE = TMPDIR+"/bug883.dia";
+diary(SCIFILE);
+a = %pi/100;
+b = 2*%pi/a;
+for i=2:25
+ format(i);
+ disp(b);
+end;
+   1.0    D+02
+   1.0   D+02
+   1.0  D+02
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   200.
+   199.99999999999997
+   199.999999999999972
+   199.9999999999999716
+   199.9999999999999716
+   199.999999999999971578
+   199.9999999999999715783
+   199.9999999999999715783

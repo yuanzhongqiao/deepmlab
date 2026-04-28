@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<!--  module: signal_processing  -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="delip" xml:lang="pt">
+    <refnamediv>
+        <refname>delip</refname>
+        <refpurpose>Integral elíptica</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>r = delip(x, ck)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>vetor real com elementos não-negativos</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ck</term>
+                <listitem>
+                    <para>número real entre -1 e 1 </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>número real ou complexo ou vetor de reais ou complexos com
+                        mesmo tamanho que <literal>x</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <para>A integral elíptica de primeira espécie com parâmetro
+            <literal>ck</literal> definido como segue:
+            <latex style="display" alt="integral_0^x dt / sqrt((1 - t^2)(1 - c_k^2 t^2))">
+                \int_0^x {dt \over {\sqrt{(1-t^2)(1-c_k^2\;t^2)}}
+            </latex>
+        </para>
+        <para>
+            Onde <literal>x</literal> é real e positivo e <literal>ck</literal>
+            está em <literal>[-1 1]</literal>.
+        </para>
+        <para>Se x é menor do que ou igual a 1, o resultado é real.</para>
+        <para>
+            Quando chamado com <literal>x</literal>, um vetor real
+            <literal>r</literal> é avaliado para cada entrada de
+            <literal>x</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+delip([1,2], 0.5)
+deff('y=f(t)','y=1/sqrt((1-t^2)*(1-ck^2*t^2))')
+intg(0, 1, f)    // OK, desde que a solução seja real!
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="amell">amell</link>
+            </member>
+            <member>
+                <link linkend="ellipj">ellipj</link>
+            </member>
+            <member>
+                <link linkend="percentk">%k</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

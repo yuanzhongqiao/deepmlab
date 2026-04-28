@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="fr" xml:id="debug">
+    <refnamediv>
+        <refname>debug</refname>
+        <refpurpose>Lance le mode de débogage CLI de Scilab</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            debug
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>debug</literal> met Scilab en mode débogage pour les fonctions écrites en
+            langage Scilab. Le prompt devient alors <literal>debug> </literal>.
+        </para>
+        <para>
+            Ce mode permet de définir et gérer des points d'arrêt au sein des fonctions,
+            d'exécuter des fonctions pas à pas, de lancer des exécutions avec arrêt sur erreur,
+            etc.
+        </para>
+        <warning>
+            <note>
+                Pour une version GUI, vous pouvez installer <link xlink:href="https://marketplace.visualstudio.com/items?itemName=scilab.scilab">l'extension Scilab Language Support</link> de Visual Studio Code (VS Code) afin de déboguer vos scripts Scilab en utilisant le débogeur intégré à Visual Studio Code.
+            </note>
+        </warning>
+        <refsect3>
+            <title>Commandes en mode débogage</title>
+            <para>
+                <term>h: </term>
+                Affiche l'aide du débogueur dans la console, quel que soit le mode de
+                lancement de Scilab.
+            </para>
+            <para>
+                <term>help: </term>
+                En mode Scilab standard (avec fenêtres et interfaces graphiques), ouvre
+                le navigateur d'aide. Sinon affiche l'aide du debogueur dans la console
+                (comme avec "h").
+            </para>
+            <para>
+                <term>(q)uit: </term>
+                Quitte l'environnement de débogage et revient au mode normal de Scilab.
+            </para>
+            <para>
+                <term>(w)here ou bt: </term>
+                Affiche la pile d'appel.
+            </para>
+            <para>
+                <term>(e)xec, ou (r)un: </term>
+                Exécute une commande.
+            </para>
+            <para>
+                <term>(d)isp var, ou (p)rint var: </term>
+                Affiche la variable <literal>var</literal>.
+            </para>
+            <para>
+                <term>(c)ontinue: </term>
+                Poursuit l'éxécution.
+            </para>
+            <para>
+                <term>(a)bort: </term>
+                Annule l'éxécution.
+            </para>
+            <para>
+                <term>step(n)ext ou next: </term>
+                Poursuit l'éxécution jusqu'a l'expression suivante.
+            </para>
+            <para>
+                <term>step(i)n ou in: </term>
+                Poursuit l'éxécution dans la sous fonction.
+            </para>
+            <para>
+                <term>step(o)ut ou out: </term>
+                Poursuit l'éxécution jusqu'à revenir dans la fonction appelante.
+            </para>
+            <para>
+                <term>(b)reakpoint ou break: </term>
+                <literal>breakpoint function [line [condition]]</literal> :
+                Ajoute un point d'arrêt dans une fonction, à la ligne <literal>line</literal>
+                indiquée.
+                Si une condition est spécifiée, le point d'arrêt devient actif uniquement si
+                la condition est vérifiée lors de l'éxécution.
+            </para>
+            <para>
+                <term>(del)ete [n]: </term>
+                Supprime tous les points d'arrêt. Si n est spécifié, supprime le point d'arrêt #n
+            </para>
+            <para>
+                <term>enable [n]: </term>
+                Active tous les points d'arrêt. Si n est spécifié, active le point d'arrêt #n.
+            </para>
+            <para>
+                <term>disable [n]: </term>
+                Désactive tous les points d'arrêt. Si n est spécifié, désactive le point d'arrêt #n.
+            </para>
+            <para>
+                <term>(s)how [n]: </term>
+                Affiche toutes les informations sur les points d'arrêt.
+                Si n est spécifié, affiche les informations du point d'arrêt #n.
+            </para>
+        </refsect3>
+
+        <refsect3>
+            <title>Déboguer un script</title>
+            <para>
+                Déboguer une série d'instructions résidant hors de toute fonction requiert de
+                les encapsuler dans une fonction factice. Exemple: nous souhaitons déboguer
+                les instructions suivantes :
+                <programlisting role="no-scilab-exe">
+                a = 1;
+                b = linspace(a, 3, 10);
+                c = exp(a + %i + c);
+                </programlisting>
+            </para>
+            <para>
+                Nous devons préalablement les inscrire dans une fonction quelconque :
+            </para>
+            <para>
+                <programlisting role="no-scilab-exe">
+                function script()
+                    a = 1;
+                    b = linspace(a, 3, 10);
+                    c = exp(a + %i + c);
+                endfunction
+                </programlisting>
+            </para>
+            <para>
+                puis exécuter ce bloc function/endfunction (en mode Scilab normal) afin de définir
+                script() dans la session Scilab. Toutes les commandes du débogueur peuvent alors
+                être utilisée au sein de script() : points d'arrêt, avance pas à pas, etc.
+            </para>
+        </refsect3>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+//fonction de surcharge de la fonction cosinus pour les chaînes de caractères
+function v = %c_cos(val)
+    printf("val : %s\n", val);
+    v = cos(evstr(val));
+endfunction
+
+//appelant
+function a = test_debug()
+    b = cos("%pi");
+    a = b * 3;
+endfunction
+
+debug
+break test_debug
+exec test_debug
+where
+stepin
+disp val
+continue
+quit
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+function v = compute(val)
+    v = 1;
+    for i=1:val
+        v = v * i;
+    end
+endfunction
+
+debug
+break compute 4 "i == 5"
+exec compute(10)
+disp val
+disp i
+disp v
+continue
+quit
+ ]]></programlisting>
+    </refsection>
+
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>Introduction du débogueur intégré, en interface console</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

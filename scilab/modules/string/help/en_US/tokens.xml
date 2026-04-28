@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="tokens">
+    <refnamediv>
+        <refname>tokens</refname>
+        <refpurpose>
+            Splits a string using separators and gives its chunks
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            Chunks = tokens(str)
+            Chunks = tokens(str, separators)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>str</term>
+                <listitem>
+                     <para>
+                        A single string to be split. It can include extended UTF-8 international characters.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>separators</term>
+                <listitem>
+                     <para>
+                        Vector of characters. Default value =
+                        <literal>[" ", ascii(9)]</literal>, ascii(9) being the horizontal tab.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Chunks</term>
+                <listitem>
+                     <para>
+                        Column vector: Pieces of the split string.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>tokens(…)</literal> searches the string for given separator(s),
+            and splits it into chunks. Chunks are free of separators.
+            Consecutive separators are merged.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+tokens("The given   text")
+
+tokens("SCI/demos/scicos", "/")'
+
+tokens("Επιστήμη και καινοτομία", ["α"," "])'
+
+nbsp = ascii(160); // non-breakable space
+t = "the" + nbsp + "given   text"
+tokens(t)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> tokens('The given   text')
+ ans  =
+  "The"
+  "given"
+  "text"
+
+
+--> tokens('SCI/demos/scicos', '/')'
+ ans  =
+  "SCI"  "demos"  "scicos"
+
+
+--> tokens("Επιστήμη και καινοτομία", ["α"," "])'
+ ans  =
+  "Επιστήμη"  "κ"  "ι"  "κ"  "ινοτομί"
+
+
+--> nbsp = ascii(160); // non-breakable space
+--> t = "the" + nbsp + "given   text"
+ t  =
+  "the given   text"
+
+--> tokens(t)
+ ans  =
+  "the given"
+  "text"
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="strsplit">strsplit</link>
+            </member>
+            <member>
+                <link linkend="regexp">regexp</link>
+            </member>
+            <member>
+                <link linkend="strindex">strindex</link>
+            </member>
+            <member>
+                <link linkend="tokenpos">tokenpos</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

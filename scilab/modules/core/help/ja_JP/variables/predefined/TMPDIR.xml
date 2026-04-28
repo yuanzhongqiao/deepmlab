@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2010 - Digiteo - Vincent LIARD
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="ja" xml:id="TMPDIR">
+    <refnamediv>
+        <refname>TMPDIR</refname>
+        <refpurpose>テンポラリディレクトリのパス</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <literal>TMPDIR</literal>定数は,Scilabプロセスのテンポラリディレクトリの
+            絶対パスを保持します.
+            各Scilabプロセスは,
+            Scilabの起動時に<literal>TMPDIR</literal>を基準に作成された
+            独自のテンポラリディレクトリを有します.
+        </para>
+        <para>
+            テンポラリディレクトリは,システムのテンポラリディレクトリの
+            サブディレクトリに作成され,その名前は
+            SCI_TMP_&lt;unique> となります.
+            ただし, &lt;unique> はScilabの起動時に名前がユニークとなる
+            ように生成された数です.
+            GNU/Linux, UNIX および Mac OS Xでは,
+            このディレクトリへのアクセス権は,Scilabユーザに限定されています.
+        </para>
+        <para>
+            <literal>TMPDIR</literal> 定数は,Scilab実行中に変更することはできません.
+            しかし,GNU/Linux, UNIX および Mac OS Xでは,
+            システムのテンポラリディレクトリ (通常<literal>/tmp</literal>)は,
+            システム変数<literal>TMPDIR</literal>を変更することにより,
+            選択することができます.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+TMPDIR
+ls TMPDIR
+ls(TMPDIR)
+cd(TMPDIR)
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tempname">tempname</link>
+            </member>
+            <member>
+                <link linkend="home">home</link>
+            </member>
+            <member>
+                <link linkend="SCIHOME">SCIHOME</link>
+            </member>
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

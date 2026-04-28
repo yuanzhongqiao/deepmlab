@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="cond" xml:lang="pt">
+    <refnamediv>
+        <refname>cond</refname>
+        <refpurpose>número de condicionamento de uma matriz</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>cond(X)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parâmetros</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>
+                        matriz de reais ou complexos. Para a sintaxe <literal>c=cond(X,p)</literal>,
+                        <varname>X</varname> deve ser quadrado.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>1 | 2 | %inf | "inf" | "fro": Norma usada. Valor padrão = 2.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>número decimal positivo: o número da condição.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Descrição</title>
+        <variablelist>
+            <varlistentry>
+                <term>c = cond(X)</term>
+                <listitem>
+                    <para>
+                        Número de condicionamento em norma-2. <literal>cond(X)</literal> é a
+                        razão entre o maior e o menor valor singular de <varname>X</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c = cond(X,p)</term>
+                <listitem>
+                    <para>
+                        returns the condition number in p-norm : <literal>norm(X, p) * norm(inv(X), p)</literal>.
+                        Os valores <varname>p</varname>possíveis são:
+                    </para>
+                    <para>
+                        <table border="0">
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">1 : </emphasis></td>
+                                <td>número de condição na norma 1.</td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">2 : </emphasis></td>
+                                <td>número de condição na norma 2.</td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">%inf | "inf" : </emphasis></td>
+                                <td>número de condição na norma infinita</td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">"fro" : </emphasis></td>
+                                <td>número de condição na norma Frobenius</td>
+                            </tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+// Número de condição de uma matriz não quadrada
+cond([1 0 -1 ; 0 1 -1])
+
+A = invhilb(6);
+// número de condição na norma 2
+cond(A)
+cond(A, 2)
+
+// número de condição na norma 1
+cond(A, 1)
+
+// número de condição na norma infinita
+cond(A, %inf)
+
+// número de condição na norma Frobenius
+cond(A, 'fro')
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="rcond">rcond</link>
+            </member>
+            <member>
+                <link linkend="svd">svd</link>
+            </member>
+            <member>
+                <link linkend="norm">norm</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                cond(X) aceita agora matriz não quadrada.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                Novo argumento de entrada p introduzido.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    cond([]) agora retorna 0 (como cond([],p)) em vez de 1.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

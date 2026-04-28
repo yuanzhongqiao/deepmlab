@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Djalel Abdemouche
+ * Copyright (C) INRIA - Jean-Baptiste silvy
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="text_properties">
+    <refnamediv>
+        <refname>text properties</refname>
+        <refpurpose>
+            description of the Text entity properties
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The Text entity is a leaf of the graphics entities hierarchy. This entity defines
+            the parameters for string drawing
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>parent: </term>
+                <listitem>
+                    <para>This property contains the handle of the parent. The parent of the
+                        text entity should be of the type <literal>"Axes"</literal> or
+                        <literal>"Compound"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>children: </term>
+                <listitem>
+                    <para>
+                        This property contains a vector with the <literal>children</literal> of
+                        the handle. However, text handles currently do not have any
+                        <literal>children</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>visible: </term>
+                <listitem>
+                    <para>
+                        This field contains the <literal>visible</literal> property value for
+                        the entity . It should be <literal>"on" </literal> or <literal>"off"</literal>.
+                        By default, the text is visible, the value's property is <literal>"on"</literal>.
+                        If <literal>"off"</literal> the text is not displayed on the screen.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>text: </term>
+                <listitem>
+                    <para>the matrix containing the strings of the object. The rows of the
+                        matrix are displayed horizontally, and the columns vertically.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>interpreter: </term>
+                <listitem>
+                    <para>the interpreter to be used to render the strings, given as a matrix
+                        of the same size and dimensions as the <term>text</term> property, with elements
+                        chosen among <literal>"auto"</literal> (the default), <literal>"latex"</literal>, 
+                        <literal>"mathml"</literal>, <literal>"none"</literal>. See <link linkend="math_rendering_features_in_graphic">LaTeX expressions</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>data: </term>
+                <listitem>
+                    <para>
+                        Vector <literal>[x,y,[z]]</literal> setting the position of the pivot of the
+                        text, in data units of the axes. By default, the pivot is set on the lower
+                        left corner of the framing box of the block of text.
+                    </para>
+                    <note>
+                        <literal>e = gce(); e.text_box=[0 0]; e.text_box_mode="centered"</literal>
+                        centers the framing box on the pivot, so at the <literal>.data</literal>
+                        position.
+                    </note>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_angle: </term>
+                <listitem>
+                    <para>
+                     This property sets the orientation of the block of text around its pivot,
+                     in clockwise degrees starting from the (0-right) direction (it is definitely
+                     not related to the font slanting).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>alignment: </term>
+                <listitem>
+                    <para>
+                        Specifies how the strings are aligned in their columns. The value must be
+                        <literal>"left"</literal>,
+                        <literal>"center"</literal> or
+                        <literal>"right"</literal>. It applies to all columns.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_style: </term>
+                <listitem>
+                    <para>Specifies the font used to display the character strings.
+                        This is a positive integer referencing one of the loaded fonts.
+                        Its value must be between 0, referencing the first font,
+                        and the number of loaded fonts minus one, referencing the last font.
+                        For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_foreground: </term>
+                <listitem>
+                    <para>This field contains the color used to display the characters of
+                        the text. Its value should be a color index (relative to the current
+                        colormap).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>font_size: </term>
+                <listitem>
+                    <para>It is a scalar specifying the displayed characters size.
+                        If <literal>fractional_font</literal> property is <literal>"off"</literal>
+                        only the integer part of the value is used.
+                        For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fractional_font: </term>
+                <listitem>
+                    <para>
+                        This property specify whether text is displayed using fractional font sizes.
+                        Its value must be either <literal>"on"</literal> or <literal>"off"</literal>.
+                        If <literal>"on"</literal> the floating point value of <literal>font_size</literal>
+                        is used for display and the font is anti-aliased. If <literal>"off"</literal>
+                        only the integer part is used and the font is not smoothed.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>box: </term>
+                <listitem>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>"on"</literal>: a box is drawn around the block of text,
+                                    made of a boxing frame or/and a filling background.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>"off" (default): no box is drawn.</para></listitem>
+                            </itemizedlist>
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>line_mode: </term>
+                    <listitem>
+                        <para>
+                            <itemizedlist>
+                                <listitem>
+                                     <para><literal>"on"</literal> : draws a line as box border,
+                                        provided that <literal>.box="on"</literal> as well.
+                                        The border's color is then set with <literal>.foreground</literal>.
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                     <para><literal>"off"</literal> : no line as box border is drawn.
+                                        The box's filling background is independently enabled/disabled
+                                        with the <literal>.fill_mode</literal> property.
+                                    </para>
+                                </listitem>
+                            </itemizedlist>
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>foreground: </term>
+                    <listitem>
+                        <para>
+                            Color's index of the line used to draw the edge of the box when
+                            <literal>.box="on"</literal> and <literal>.line_mode="on"</literal>.
+                            Its value refers to the current colormap. <literal>-1</literal> is black
+                            (default) and <literal>-2</literal> is white whatever is the colormap.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>fill_mode: </term>
+                    <listitem>
+                        <para>
+                            <literal>"on"</literal>: enables the box background, provided that
+                            <literal>.box="on"</literal> as well. The background's color can
+                            then be set with the <literal>.background</literal> property.
+                       </para>
+                        <para>
+                          <literal>"off"</literal> (default): disables the box background,
+                          that becomes transparent.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>background: </term>
+                    <listitem>
+                        <para>
+                            Index of the color used to fill the box around of the text,
+                            provided that <literal>.box="on"</literal> and
+                            <literal>.fill_mode="on"</literal>. The color index is relative
+                            to the current colormap. Whatever is the colormap,
+                            <literal>-1</literal> is black (default) and <literal>-2</literal>
+                            is white.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>text_box: </term>
+                    <listitem>
+                        <para>A two dimensional vector specifying the size of a rectangle in user
+                            coordinates. The rectangle is used when the text_box_mode property is set to
+                            <literal>"centered"</literal> or
+                            <literal>"filled"</literal>.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>text_box_mode: </term>
+                    <listitem>
+                        <para>
+                            <itemizedlist>
+                                <listitem>
+                                     <para><literal>"off"</literal> : the strings are displayed using the given
+                                    font, and <literal>.data</literal> specifies the position of the
+                                    lower-left corner of the frame boxing the whole block of text.
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                     <para><literal>"centered"</literal> : the text is displayed in the middle
+                                        of the  rectangle whose size is given by <literal>.text_box</literal>.
+                                    </para>
+                                </listitem>
+                                <listitem>
+                                     <para><literal>"filled"</literal> : the font size of the strings will be
+                                        expanded to fill the rectangle. Zooming updates the font size
+                                        accordingly.
+                                    </para>
+                                </listitem>
+                            </itemizedlist>
+                        </para>
+                        <para>
+                            When using the <literal>"off"</literal> or the <literal>"centered"</literal>
+                            modes, the text size remains constant upon zooming. They are the best modes
+                            to create annotations in a graph.
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>auto_dimensionning: </term>
+                    <listitem>
+                        <para>
+                            auto_dimensionning set to "off" is equivalent to text_box_mode set to "filled".
+                            If text_box_mode is "off" or "centered" then it implies that
+                           auto_dimensionning is "on".
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>clip_state: </term>
+                    <listitem>
+                        <para>
+                            This field contains the <literal>clip_state</literal> property value for
+                            the text. Its value should be :
+                        </para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    <literal>"off"</literal> this means that the text is not
+                                    clipped.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    <literal>"clipgrf"</literal> this means that the text is clipped
+                                    outside the Axes box.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    <literal>"on"</literal> this means that the text is clipped outside
+                                    the rectangle given by the property <literal>clip_box</literal>.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>clip_box: </term>
+                    <listitem>
+                        <para>
+                            This field contains the <literal>clip_box</literal> property. Its value
+                            should be an empty matrix if clip_state is "off" or the vector
+                            <literal>[x,y,w,h</literal>] (upper-left point width height).
+                        </para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>user_data: </term>
+                    <listitem>
+                        <para>This field can be use to store any scilab variable in the text
+                            data structure, and to retrieve it.
+                        </para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </refsection>
+        <refsection>
+            <title>Examples</title>
+            <programlisting role="example"><![CDATA[
+    a=get("current_axes");
+    a.data_bounds=[0,0;1,1];
+    a.axes_visible = 'on' ;
+    
+    // get the handle of the newly created object
+    t = xstring(0.5,0.5,"Scilab is not esilaB",0,0)
+    
+    t.font_foreground=6; // change font properties
+    t.font_size=5;
+    t.font_style=5;
+    
+    
+    t.text=["SCILAB","is";"not","esilaB"] ; // change the text
+    t.font_angle=90 ; // turn the strings
+    t.text_box = [0,0] ;
+    t.text_box_mode = 'centered' ; // the text is now centered on [0.5,0.5].
+    t.alignment = 'center' ;
+    t.box = 'on' ; // draw a box around the text
+    
+    // Using LaTeX and MathML:
+    mathml = "<mrow><mfrac><mrow> <mi>d</mi> <mi>y</mi> </mrow>" + ..
+                          "<mrow> <mi>d</mi> <mi>x</mi> </mrow>" + ..
+                   "</mfrac>" + ..
+                   "<mo> = </mo>" + ..
+                   "<mfrac> <mn>1</mn> <msup><mi>y</mi> <mn>2</mn> </msup> </mfrac>" + ..
+             "</mrow>";
+    t.text=["SCILAB","can write LaTeX :","$\frac{abc}{xyz}$";"or","MathML :",mathml] ;
+     ]]></programlisting>
+            <scilab:image><![CDATA[
+                a=get("current_axes");
+                a.data_bounds=[0,0;1,1];
+                a.axes_visible = 'on' ;
+                t=xstring(0,0,"Scilab is not esilaB",0,0)
+                t.font_foreground=6;
+                t.font_size=5;
+                t.font_style=5;
+            ]]></scilab:image>
+        </refsection>
+        <refsection role="see also">
+            <title>See also</title>
+            <simplelist type="inline">
+                <member>
+                    <link linkend="xstring">xstring</link>
+                </member>
+                <member>
+                    <link linkend="label_properties">label_properties</link>
+                </member>
+                <member>
+                    <link linkend="legend_properties">legend_properties</link>
+                </member>
+                <member>
+                    <link linkend="xtitle">xtitle</link>
+                </member>
+                <member>
+                    <link linkend="graphics_entities">graphics_entities</link>
+                </member>
+                <member>
+                    <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>
+                </member>
+            </simplelist>
+        </refsection>
+        <refsection role="history">
+            <title>History</title>
+            <revhistory>
+                <revision>
+                    <revnumber>5.0</revnumber>
+                    <revdescription>
+                        <para>
+                            <literal>.text_box</literal>, <literal>.text_box_mode</literal>,
+                            <literal>.alignment</literal>, and <literal>.auto_dimensionning</literal>
+                            properties added.
+                        </para>
+                    </revdescription>
+                </revision>
+                <revision>
+                    <revnumber>5.2</revnumber>
+                    <revremark>
+                        LaTeX and MathML expressions are now supported.
+                    </revremark>
+                </revision>
+            </revhistory>
+        </refsection>
+    </refentry>

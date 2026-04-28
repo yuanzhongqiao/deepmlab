@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="while">
+    <refnamediv>
+        <refname>while</refname>
+        <refpurpose>Opens a block of instructions iterated on a heading condition</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            while expr, instructions,..., end
+            while expr do instructions,..., end
+            while expr then instructions,..., end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <literal>while</literal> clause must be terminated by <literal>"end"</literal>.
+        </para>
+        <para>Notes:</para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    The only constraint is that each <literal>then</literal> or
+                    <literal>do</literal> keyword must be on the same line as
+                    <literal>while</literal> keyword.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Keywords <literal>then</literal> or <literal>do</literal> can
+                    be replaced by a carriage return or a comma. For compatibility
+                    with Matlab it is also possible, but not recommended, to put a
+                    space between the end of the expression and the beginning of
+                    the first instruction.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            According to the Code Conventions for the Scilab Programming Language it is recommended:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Start each statement on a new line.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Write no more than one simple statement per line.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Break compound statements over multiple lines.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            For example, use:
+        </para>
+        <programlisting role=""><![CDATA[
+i = 0;
+while i<5
+    disp(i);
+    i = i + 1;
+end
+]]></programlisting>
+        <para>
+            rather than
+        </para>
+        <programlisting role=""><![CDATA[
+i = 0; while i<5, disp(i), i = i + 1; end
+]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+e=1; a=1; k=1;
+while norm(a-(a+e),1) > %eps,
+    e=e/2;
+    k=k+1;
+end
+e,k
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="or_op">|, ||</link>
+            </member>
+            <member>
+                <link linkend="and_op">&amp;, &amp;&amp;</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    The <literal>[,else instructions]</literal> syntax is no longer supported.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para><literal>while</literal> is now protected:
+                                    Assignments like <literal>while=1</literal> are no longer possible.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    The number of characters used to define the body of any conditional instruction (<literal>if</literal>, <literal>while</literal>, <literal>for</literal>, or <literal>select/case</literal>) is no more limited to 16k.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

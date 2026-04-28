@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="caldays" xml:lang="en">
+    <refnamediv>
+        <refname>caldays</refname>
+        <refpurpose>create a calendarDuration in days</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="calmonths">
+        <refname>calmonths</refname>
+        <refpurpose>create a calendarDuration in months</refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="calyears">
+        <refname>calyears</refname>
+        <refpurpose>create a calendarDuration in years</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            c = caldays(x)
+            c = calmonths(x)
+            c = calyears(x)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>real scalar or matrix</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para><link linkend="calendarDuration"/> object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para><emphasis role="bold">c = caldays(x)</emphasis> creates a calendarDuration in days of the same size as the input argument x.</para>
+        <para>If x is a calendarDuration, then caldays(x) returns a matrix of reals.</para>
+        <para>It is the same for the other functions.</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+        // calendarDuration in days
+        c = caldays(1:31)
+        c = caldays([1; 5; 8; 11; 17])
+
+        // calendarDuration in months
+        c = calmonths(1:12)
+        c = calmonths([6 7; 11 12])
+
+        // calendarDuration in years
+        c = calyears(2000:4:2030)
+        c = calyears([1985 1987;2014 2018])
+
+        c1 = calendarDuration(2000, 1, 1, 12, 30, 00)
+        c2 = calyears(2000) + calmonths(1) + caldays(1) + hours(12) + minutes(30)
+        c1 == c2
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="calendarDuration">calendarDuration</link>
+            </member>
+            <member>
+                <link linkend="duration">duration</link>
+            </member>
+            <member>
+                <link linkend="datetime">datetime</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

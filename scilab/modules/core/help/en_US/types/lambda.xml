@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ * This file is distributed under the same license as the Scilab package.
+  -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="lambda">
+    <refnamediv>
+        <refname>Lambda functions</refname>
+        <refpurpose>Scilab procedures and Scilab objects</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Lambdas or anonymous functions are a type of Scilab functions.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Lambda definition</title>
+        <para>
+            Mainly used as "one liner" function to avoid to declare a <literal>function</literal>.
+            Or when it is used once.
+            Lambdas are the ability to catch variables states at declaration unlike classic functions.
+            Lambdas can be assign to a variable at the same time of declaration, so they can be passed directly as function parameter.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>Syntax:</para>
+                <programlisting role='no-scilab-exec'>
+                    <![CDATA[
+foo = #(x1, ...) -> (...)
+]]>
+                </programlisting>
+            </listitem>
+            <listitem>
+                <para>
+                    Output parameters are implicit.
+                    So by default, you can only return a single parameter.
+                </para>
+                <para><literal>ans</literal> will be used as return value.</para>
+                <para>But in case several outputs are needed, <literal>varargout</literal> can be use like in classic functions</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Calling function</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Usually function calling syntax is
+                    <literal>[y1,...,yn]=foo(x1,...,xm)</literal>. Shorter input or
+                    output argument list than definition ones may be used. In such
+                    cases, only the first variables from the left are used or set.
+                </para>
+                <para>
+                    The <literal>nargin</literal> and <literal>nargout</literal> variables can be used to obtain the actual number of input and output arguments.
+                </para>
+                <para>
+                    <literal>_</literal> can be used to ignore output argument(s).
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    It is possible to define function with indeterminate
+                    number of input or output maximum number of arguments. This
+                    can be done using the <link linkend="varargin">varargin</link>
+                    and <link linkend="varargout">varargout</link>
+                    keywords. See the given links for details.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Miscellaneous</title>
+        <para>
+            Lambdas are Scilab objects (with type numbers 13). And they can be manipulated (built, saved, loaded, passed as
+            arguments,...) as other variable types.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            <![CDATA[
+            //simple use
+            pyth = #(x, y) -> (sqrt(x ^ 2 + y ^ 2));
+
+            pyth(3, 4)
+            pyth(12, 16)
+ ]]>
+        </programlisting>
+        <para></para>
+        <programlisting role="example">
+            <![CDATA[
+            //catching of variable
+            y = 4;
+            pyth = #(x) -> (sqrt(x ^ 2 + y ^ 2));
+            clear y;
+
+            pyth(3)
+ ]]>
+        </programlisting>
+        <para></para>
+        <programlisting role="example">
+            <![CDATA[
+            //used as function parameter
+
+            t = 0:0.1:%pi;
+            y = ode(0, 0, t, #(t, y) -> (
+                y ^ 2 - y * sin(t) + cos(t)
+            ));
+
+            plot(t, y);
+ ]]>
+        </programlisting>
+        <para></para>
+        <programlisting role="example">
+            <![CDATA[
+            //lambda factory
+
+            function f = comp(threshold)
+                f = #(x) -> (x < threshold);
+            end
+
+            //return a lambda configured by the input variable
+            comp_10 = comp(10);
+            [comp_10(3), comp_10(15), comp_10(22)]
+            comp_10([3 15 22])
+
+            //return another lambda configured by the input variable
+            comp_20 = comp(20);
+            [comp_20(3), comp_20(15), comp_20(22)]
+            comp_20([3 15 22])
+ ]]>
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="functions">functions</link>
+            </member>
+            <member>
+                <link linkend="varargin">varargin</link>
+            </member>
+            <member>
+                <link linkend="varargout">varargout</link>
+            </member>
+            <member>
+                <link linkend="ans">ans</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>lambda</literal> introduction.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

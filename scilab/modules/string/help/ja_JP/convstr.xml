@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="convstr">
+
+    <refnamediv>
+
+        <refname>convstr</refname>
+
+        <refpurpose>大文字小文字変換</refpurpose>
+
+    </refnamediv>
+
+    <refsynopsisdiv>
+
+        <title>呼び出し手順</title>
+
+        <synopsis>
+            y = convstr(str)
+            y = convstr(str, flag)
+        </synopsis>
+
+    </refsynopsisdiv>
+
+    <refsection>
+
+        <title>引数</title>
+
+        <variablelist>
+
+            <varlistentry>
+
+                <term>str, y</term>
+
+                <listitem>
+
+                    <para>文字列の行列</para>
+
+                </listitem>
+
+            </varlistentry>
+
+            <varlistentry>
+
+                <term>flag</term>
+
+                <listitem>
+
+                    <para>文字オプションで指定可能な値は以下のとおり</para>
+
+                    <variablelist>
+
+                        <varlistentry>
+
+                            <term>'u'</term>
+
+                            <listitem>
+
+                                <para>大文字に変換</para>
+
+                            </listitem>
+
+                        </varlistentry>
+
+                        <varlistentry>
+
+                            <term>'l'</term>
+
+                            <listitem>
+
+                                <para>小文字に変換</para>
+
+                            </listitem>
+
+                        </varlistentry>
+
+                    </variablelist>
+
+                </listitem>
+
+            </varlistentry>
+
+        </variablelist>
+
+    </refsection>
+
+    <refsection>
+
+        <title>説明</title>
+
+        <para>
+
+            <function>convstr</function>関数は,文字列の行列
+
+            <varname>str</varname>を
+
+            小文字に変換(<varname>flag</varname> = <literal>"l"</literal>の場合;
+
+            デフォルト値)または
+
+            大文字(<varname>flag</varname> = <literal>"u"</literal>の場合)に変換します.
+
+        </para>
+
+    </refsection>
+
+    <refsection>
+
+        <title>例</title>
+
+        <programlisting role="example"><![CDATA[
+A=['this','is';'my','matrix'];
+convstr(A,'u')
+ ]]></programlisting>
+
+    </refsection>
+
+</refentry>
+

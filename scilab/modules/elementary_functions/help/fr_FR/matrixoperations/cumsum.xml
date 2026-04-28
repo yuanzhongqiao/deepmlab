@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2010 - Serge Steer - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:id="cumsum" xml:lang="fr">
+    <refnamediv>
+        <refname>cumsum</refname>
+        <refpurpose>sommes partielles cumulatives des éléments d'un tableau.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            y = cumsum(x)
+            y = cumsum(x, outtype)
+            y = cumsum(x, orientation)
+            y = cumsum(x, orientation, outtype)
+        </synopsis>
+    </refsynopsisdiv>
+
+    <refsection role="parameters">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        tableau de booléens, de nombres entiers, réels, ou complexes, de
+                        polynômes, ou de fractions rationnelles. Les hypermatrices ou les matrices
+                        booléennes ou numériques creuses sont acceptées.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                    <para>
+                        direction selon laquelle les sommes partielles cumulatives sont calculées :
+                        Cet argument peut être
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>le caractère <literal>"*"</literal>,
+                                <literal>"r"</literal>, <literal>"c"</literal> ou
+                                <literal>"m"</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                              un nombre entier 1 ≤ orientation ≤ ndims(x) : n° de la dimension
+                              selon laquelle les sommes partielles cumulatives directionnelles doivent
+                              être calculées. 1 et "r", ou 2 et "c", sont equivalents.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>outtype</term>
+                <listitem>
+                    <para>
+                        mot <literal>"native"</literal> ou <literal>"double"</literal>.
+                        <literal>"double"</literal> convertit préalablement en nombres décimaux
+                        les booléens ou les entiers fournis.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>tableau de tailles identiques à celles de <varname>x</varname>.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">y = cumsum(x)</emphasis> calcule et fournit les sommes partielles
+            cumulatives <literal>y(i)=sum(x(1:i))</literal>,
+            <emphasis role="italic">i.e.</emphasis> :
+        </para>
+        <para>
+            <latex alt="y(i) = ∑u=1→i x(u)"><![CDATA[ y(i) = \sum_{u=1}^i x(u)]]></latex>
+        </para>
+        <para>
+            <emphasis role="bold">y = cumsum(x, orientation)</emphasis> calcule et fournit dans
+            <term>y</term> les sommes partielles cumulatives des éléments de
+            <term>x</term> selon la direction spécifiée par <term>orientation</term> :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Si <term>orientation</term> est égal à 1 ou "r" alors :
+                </para>
+                <para>
+                    <latex alt="y(i,j) = ∑u=1→i x(u,j)"><![CDATA[
+                        y(\mathbf{i},j) = \sum_{u=1}^{\mathbf{i}} x(\mathbf{u},j)   ]]>
+                    </latex>, ou pour un tableau N-Dimensionnel :
+                </para>
+                <para>
+                    <latex alt="y(i,j,k,…) = ∑u=1→i x(u,j,k,…)"><![CDATA[
+                        y(\mathbf{i},j,k,\ldots) = \sum_{u=1}^{\mathbf{i}} x(\mathbf{u},j,k,\ldots)  ]]>
+                    </latex>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Si <term>orientation</term> est égal à 2 ou "c" alors :
+                </para>
+                <para>
+                    <latex alt="y(i,j) = ∑u=1→j x(i,u)"><![CDATA[
+                        y(i,\mathbf{j}) = \sum_{u=1}^{\mathbf{j}} x(i,{\mathbf{u})  ]]>
+                    </latex>, ou pour un tableau N-Dimensionnel :
+                </para>
+                <para>
+                    <latex alt="y(i,j,k,…) = ∑u=1→j x(i,u,k,…)"><![CDATA[
+                        y(i,\mathbf{j},k,\ldots) = \sum_{u=1}^{\mathbf{j}} x(i,\mathbf{u},k,\ldots) ]]>
+                    </latex>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Si <term>orientation</term> est égal à n alors :
+                </para>
+                <para>
+                    <latex alt="y(i₁,…,iₙ₋₁, iₙ,iₙ₊₁,…) = ∑u=1…iₙ  x(i₁,…,iₙ₋₁, u,iₙ₊₁,…)"><![CDATA[
+                        y(i_1,\ldots,i_{n-1},\mathbf{i_{n}},i_{n+1},\ldots) =
+                        \sum_{u=1}^{\mathbf{i_n}} x(i_1,\ldots,i_{n-1},\mathbf{u},i_{n+1},\ldots) ]]>
+                    </latex>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">y = cumsum(x,"*")</emphasis> est équivalent à
+                    <literal>y = cumsum(x)</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">y = cumsum(x, "m")</emphasis> est équivalent à
+                    <literal>y = cumsum(x, orientation)</literal>, où
+                    <term>orientation</term> est le n° de la première dimension de <term>x</term>
+                    plus grande que 1. Cette option est utilisé pour compatibilité avec Matlab.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            L'argument <term>outtype</term> gère la façon dont le produit est réalisé :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Pour les matrices de nombres décimaux ou complexes, de polynômes, ou de
+                    fractions rationnelles, les calculs sont effectués en virgule flottante.
+                    Les options <literal>"double"</literal> ou <literal>"native"</literal>
+                    sont équivalentes.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Pour les tableaux d'entiers,</para>
+                <para>
+                    Par défaut ou si <literal>outtype="native"</literal>, les calculs sont
+                    effectués en arithmétique entière (modulo 2^b, où b est le nombre de bits utilisés).
+                </para>
+                <para>
+                    Si <literal>outtype="double"</literal>, les calculs sont effectués après
+                    conversion en nombres décimaux, et les résultats sont fournis en entiers
+                    décimaux.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Pour les tableaux de booléens,</para>
+                <para>
+                    si <literal>outtype="native"</literal>, le calcul est effectué sur des booléens
+                    (* est remplacée par &amp;),
+                </para>
+                <para>
+                    si <literal>outtype="double"</literal>, le calcul est effectué sur des nombres
+                    à virgule flottante (%t est remplacé par 1 et %f par 0).
+                </para>
+                <para>
+                    La valeur par défaut est <literal>outtype="double"</literal>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <warning>
+            Lorsque <varname>x</varname> est une matrice creuse, garder à l'esprit que la densité
+            de la matrice <varname>y</varname> résultante sera presque toujours proche de 100%.
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+A = [1 , 2 ; 3 , 4];
+cumsum(A)
+cumsum(A,1)
+
+I = uint8([2 95 103;254 9 0])
+cumsum(I) //native evaluation
+cumsum(I,"double")
+cumsum(I,2,"double")
+
+s = poly(0,"s");
+P = [s, %i+s ; s^2, 1];
+cumsum(P),
+cumsum(P,2)
+
+B = [%t %t %f %f];
+cumsum(B) //evaluation in float
+cumsum(B, "native") //similar to or(B)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cumprod">cumprod</link>
+            </member>
+            <member>
+                <link linkend="sum">sum</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

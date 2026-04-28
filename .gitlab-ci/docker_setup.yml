@@ -1,0 +1,111 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022-2023 - Dassault Systèmes S.E. - Clément DAVID
+# Copyright (C) 2022-2023 - Dassault Systèmes S.E. - Cédric DELAMARRE
+#
+#
+# This YAML file describe the creation/destruction of Docker image.
+# This stage is used to set them ready to build.
+#
+
+# Create/refresh Docker build
+builder_linux:
+  stage: docker_setup
+  image: docker:20.10.16
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    - echo "Build image ${SCI_REGISTRY_IMAGE}/linux-builder:${DOCKER_TAG}"
+    - .gitlab-ci/docker_setup.sh --builder "${SCI_REGISTRY_IMAGE}/linux-builder" "${DOCKER_TAG}"
+    - docker logout "${CI_REGISTRY}"
+  rules: &BUILD_DOCKER_IMAGES
+    - if: $BUILD_DOCKER_IMAGES
+    # do not rebuild on contributor's fork
+    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+      when: never
+    # do not rebuild on scheduled
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    # do not rebuild on gitlab tag, see docker_tag_linux job
+    - if: $CI_COMMIT_TAG
+      when: never
+    # rebuild on demand
+    - changes:
+        paths: &DOCKER_CHANGES
+          - .gitlab-ci.yml
+          - .gitlab-ci/docker_setup.yml
+          - .gitlab-ci/docker_setup.sh
+          - .gitlab-ci/Dockerfile*
+          - .gitlab-ci/linux-images/Dockerfile*
+      allow_failure: true
+
+prebuild_linux:
+  stage: docker_setup
+  image: docker:20.10.16
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  needs:
+    - builder_linux
+  script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    - echo "Build image ${SCI_REGISTRY_IMAGE}/linux-prebuild:${DOCKER_TAG}"
+    - .gitlab-ci/docker_setup.sh --prebuild "${SCI_REGISTRY_IMAGE}/linux-prebuild" "${DOCKER_TAG}"
+    - docker logout "${CI_REGISTRY}"
+  rules: *BUILD_DOCKER_IMAGES
+
+tester_linux:
+  stage: docker_setup
+  image: docker:20.10.16
+  tags: [x86_64-linux-gnu, docker, scilab]
+  script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    - .gitlab-ci/docker_setup.sh --testers --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
+    - docker logout "${CI_REGISTRY}"
+  rules: *BUILD_DOCKER_IMAGES
+
+# Tag the docker image when a gitlab tag is created.
+# Keep using the image :${DOCKER_TAG} for the rest of the CI
+# since its the same as :${CI_COMMIT_TAG}
+docker_tag_linux:
+  stage: docker_setup
+  image: docker:20.10.16
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    - .gitlab-ci/docker_setup.sh --retag "${CI_COMMIT_TAG}" --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
+    - docker logout "${CI_REGISTRY}"
+  rules:
+    # do not rebuild on contributor's fork
+    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+      when: never
+    # retag on gitlab tag
+    - if: $CI_COMMIT_TAG
+
+# builder_windows:
+#   stage: docker_setup
+#   tags: [x64_windows, shell, scilab]
+#   script:
+#     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+#     - docker build --memory 4GB --file .gitlab-ci/Dockerfile.windows -t "${SCI_REGISTRY_IMAGE}/windows-builder" .
+#     - docker push ${CI_REGISTRY_IMAGE}/windows-builder
+#     - docker logout "${CI_REGISTRY}"
+
+# display the applicable env. useful for debug
+docker_display_env:
+  stage: docker_setup
+  image: docker:20.10.16
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  script:
+    - env
+
+# on problem, the user can kill all running Scilab manually
+# /!\ This will also kill other pipeline jobs, use with care.
+windows_cleanup_kill_all:
+  stage: docker_setup
+  tags: [x64_windows, shell, scilab]
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "/!\ This will also kill other pipeline jobs, use with care."
+    - taskkill.exe /f /im Scilex.exe; taskkill.exe /f /im WScilex-cli.exe; taskkill.exe /f /im WScilex.exe; echo done
+    - taskkill.exe /f /im cl.exe; echo done
+    - taskkill.exe /f /im javac.exe; echo done
+  when: manual

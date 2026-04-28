@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ *
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+        xmlns:scilab="http://www.scilab.org" xml:id="ThermoHydraulics_pal" xml:lang="en_US">
+    <refnamediv>
+        <refname>ThermoHydraulics_pal</refname>
+        <refpurpose>Thermal-Hydraulics toolbox</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Block Screenshot</title>
+            <link linkend="Bache">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="Bache" fileref="../../../../images/palettes/Bache.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="PerteDP">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="PerteDP" fileref="../../../../images/palettes/PerteDP.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="PuitsP">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="PuitsP" fileref="../../../../images/palettes/PuitsP.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="SourceP">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="SourceP" fileref="../../../../images/palettes/SourceP.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="VanneReglante">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="VanneReglante" fileref="../../../../images/palettes/VanneReglante.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+
+            <link linkend="VanneReglante">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata linkend="VanneReglante" fileref="../../../../images/palettes/Flowmeter.png"
+                     style="width:100px; padding:10px; border-style:solid; border-width:1px; border-color:#1e90ff;"/>
+                </imageobject>
+            </inlinemediaobject>
+            </link>.
+    </refsection>
+
+    <refsection id="Description_ThermoHydraulics_pal">
+        <title>Description</title>
+        <para>Thermal-Hydraulics toolbox contains some basic thermal-hydraulic
+            components such as pressure source, pipe, control valves, etc.
+        </para>
+    </refsection>
+
+    <refsection xml:id="Blocks_ThermoHydraulics_pal" role="see also">
+        <title>Blocks</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="Bache">Bache</link>
+            </member>
+            <member>
+                <link linkend="PerteDP">PerteDP</link>
+            </member>
+            <member>
+                <link linkend="PuitsP">PuitsP</link>
+            </member>
+            <member>
+                <link linkend="SourceP">SourceP</link>
+            </member>
+            <member>
+                <link linkend="VanneReglante">VanneReglante</link>
+            </member>
+            <member>
+                <link linkend="Flowmeter">Flowmeter</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

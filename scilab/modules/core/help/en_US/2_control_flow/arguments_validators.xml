@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Antoine ELIAS
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="arguments_validators">
+    <refnamediv>
+        <refname>Arguments Validators</refname>
+        <refpurpose>List of predefined validators that can be used in <link linkend="arguments">arguments</link> block.</refpurpose>
+    </refnamediv>
+    <refsection></refsection>
+    <refsection>
+        <informaltable border="1">
+            <tr>
+                <td><emphasis role="bold">Name</emphasis></td>
+                <td><emphasis role="bold">Meaning</emphasis></td>
+                <td><emphasis role="bold">Example</emphasis></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeA">mustBeA(value, datatype)</td>
+                <td><literal>value</literal> must be of <literal>datatype</literal> or <literal>subtype</literal></td>
+                <td>
+                    <code>mustBeA(x, ["double", "string"])</code>
+                    <para></para>
+                    <code>mustBeA(x, ["figure", "polyline"])</code>
+                    <para></para>
+                    <code>mustBeA(x, ["frame", "pushbutton"])</code>
+                    <para></para>
+                    <code>mustBeA(x, ["string", "empty"])</code>
+                </td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeEqualDims">
+                    mustBeEqualDims(value1, value2)
+                    <para></para>
+                    mustBeEqualDims(value1, value2, dims)
+                </td>
+                <td>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions
+                    <para></para>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions on <literal>dims</literal>
+                </td>
+                <td>
+                    <code>mustBeEqualDims(x, y)</code>
+                    <para></para>
+                    <code>mustBeEqualDims(x, y, [2, 3])</code>
+                </td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeEqualDimsOrEmpty">
+                    mustBeEqualDimsOrEmpty(value1, value2)
+                    <para></para>
+                    mustBeEqualDimsOrEmpty(value1, value2, dims)
+                </td>
+                <td>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions or empty
+                    <para></para>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions on <literal>dims</literal> or empty
+                </td>
+                <td>
+                    <code>mustBeEqualDimsOrEmpty(x, y)</code>
+                    <para></para>
+                    <code>mustBeEqualDimsOrEmpty(x, y, [2, 3])</code>
+                </td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeEqualDimsOrScalar">
+                    mustBeEqualDimsOrScalar(value1, value2)
+                    <para></para>
+                    mustBeEqualDimsOrScalar(value1, value2, dims)
+                </td>
+                <td>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions or scalar
+                    <para></para>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions on <literal>dims</literal> or scalar
+                </td>
+                <td>
+                    <code>mustBeEqualDimsOrScalar(x, y)</code>
+                    <para></para>
+                    <code>mustBeEqualDimsOrScalar(x, y, [2, 3])</code>
+                </td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeFile">mustBeFile(value)</td>
+                <td><literal>value</literal> must be a valid file path</td>
+                <td><code>mustBeFile(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeFinite">mustBeFinite(value)</td>
+                <td><literal>value</literal> must be different of <literal>%nan</literal> and <literal>%inf</literal></td>
+                <td><code>mustBeFinite(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeFolder">mustBeFolder(value)</td>
+                <td><literal>value</literal> must be a valid folder path</td>
+                <td><code>mustBeFolder(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeGreaterThan">mustBeGreaterThan(value, c)</td>
+                <td><literal>value</literal> &gt; <literal>c</literal></td>
+                <td><code>mustBeGreaterThan(x, 10)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeGreaterThanOrEqual">mustBeGreaterThanOrEqual(value, c)</td>
+                <td><literal>value</literal> &gt;= <literal>c</literal></td>
+                <td><code>mustBeGreaterThanOrEqual(x, 10)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeInRange">mustBeInRange(value, l, u [, bounds])</td>
+                <td>
+                    value must be in range of [u, l], bounds can be
+                    <para> - "inclusive" (default)</para>
+                    <para> - "exclusive</para>
+                    <para> - "exclude-lower"</para>
+                    <para> - "exclude-upper"</para>
+                </td>
+                <td>
+                    <code>mustBeInRange(x, 0, 10)</code>
+                    <para></para>
+                    <code>mustBeInRange(x, 0, 10, "exclusive")</code>
+                </td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeInteger">mustBeInteger(value)</td>
+                <td><literal>value</literal> must be an integer value</td>
+                <td><code>mustBeInteger(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeLessThan">mustBeLessThan(value, c)</td>
+                <td><literal>value</literal> &lt; <literal>c</literal></td>
+                <td><code>mustBeLessThan(x, 10)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeLessThanOrEqual">mustBeLessThanOrEqual(value, c)</td>
+                <td><literal>value</literal> &lt;= <literal>c</literal></td>
+                <td><code>mustBeLessThanOrEqual(x, 10)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeMember">mustBeMember(value, members)</td>
+                <td><literal>value</literal> must be a member of <literal>members</literal></td>
+                <td><code>mustBeMember(x, [1 3 5 7])</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNegative">mustBeNegative(value)</td>
+                <td><literal>value</literal> &lt; <literal>0</literal></td>
+                <td><code>mustBeNegative(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonNan">mustBeNonNan(value)</td>
+                <td><literal>value</literal> must be different of <literal>%nan</literal></td>
+                <td><code>mustBeNonNan(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonempty">mustBeNonempty(value)</td>
+                <td>value must be non empty</td>
+                <td><code>mustBeNonempty(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonnegative">mustBeNonnegative(value)</td>
+                <td><literal>value</literal> &gt;= <literal>0</literal></td>
+                <td><code>mustBeNonnegative(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonpositive">mustBeNonpositive(value)</td>
+                <td><literal>value</literal> &lt;= <literal>0</literal></td>
+                <td><code>mustBeNonpositive(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonsparse">mustBeNonsparse(value)</td>
+                <td><literal>value</literal> is not <literal>sparse</literal></td>
+                <td><code>mustBeNonsparse(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonzero">mustBeNonzero(value)</td>
+                <td><literal>value</literal> &lt;&gt; <literal>0</literal></td>
+                <td><code>mustBeNonzero(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNonzeroLengthText">mustBeNonzeroLengthText(value)</td>
+                <td><literal>value</literal> must be a string with nonzero length</td>
+                <td><code>mustBeNonzeroLengthText(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNumeric">mustBeNumeric(value)</td>
+                <td><literal>value</literal> must be a number datatype (double, ints, ...)</td>
+                <td><code>mustBeNumeric(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNumericOrBoolean">mustBeNumericOrBoolean(value)</td>
+                <td><literal>value</literal> must be a number datatype (double, ints, ...) or boolean</td>
+                <td><code>mustBeNumericOrBoolean(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeNumericOrLogical">mustBeNumericOrLogical(value)</td>
+                <td><literal>value</literal> must be a number datatype (double, ints, ...) or boolean</td>
+                <td><code>mustBeNumericOrLogical(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBePositive">mustBePositive(value)</td>
+                <td><literal>value</literal> &gt; <literal>0</literal></td>
+                <td><code>mustBePositive(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeReal">mustBeReal(value)</td>
+                <td><literal>value</literal> must be real</td>
+                <td><code>mustBeReal(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeSameType">mustBeSameType(value1, value2)</td>
+                <td><literal>value1</literal> and <literal>value2</literal> must be of same type</td>
+                <td><code>mustBeSameType(x, y)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeScalar">mustBeScalar(value)</td>
+                <td><literal>value</literal> must be scalar</td>
+                <td><code>mustBeScalar(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeScalarOrEmpty">mustBeScalarOrEmpty(value)</td>
+                <td><literal>value</literal> must be scalar or empty</td>
+                <td><code>mustBeScalarOrEmpty(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeValidVariableName">mustBeValidVariableName(value)</td>
+                <td><literal>value</literal> must be a valid variable name</td>
+                <td><code>mustBeValidVariableName(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeVector">mustBeVector(value)</td>
+                <td><literal>value</literal> must be a vector</td>
+                <td><code>mustBeVector(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeRow">mustBeRow(value)</td>
+                <td><literal>value</literal> must be a row vector</td>
+                <td><code>mustBeRow(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeColumn">mustBeColumn(value)</td>
+                <td><literal>value</literal> must be a column vector</td>
+                <td><code>mustBeColumn(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeSquare">mustBeSquare(value)</td>
+                <td><literal>value</literal> must be a square matrix</td>
+                <td><code>mustBeSquare(x)</code></td>
+            </tr>
+        </informaltable>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="arguments">Arguments</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

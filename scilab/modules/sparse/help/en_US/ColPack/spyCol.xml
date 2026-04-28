@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="spyCol" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <refnamediv>
+    <refname>spyCol</refname>
+    <refpurpose>Represent sparsity pattern of a matrix with column coloring</refpurpose>
+  </refnamediv>
+
+<refsynopsisdiv>
+   <title>Syntax</title>
+   <synopsis>
+     spyCol(A,col)
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+        <varlistentry>
+            <term>A</term>
+            <listitem>
+                 <para>a full or sparse matrix</para></listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>col</term>
+                <listitem>
+                     <para>a vector of integers</para></listitem>
+                </varlistentry>
+           </variablelist>
+        </refsection>
+        
+        <refsection>
+           <title>Description</title>
+           <para></para>
+           <para>
+             <programlisting><![CDATA[
+                 sp = sparse(rand(20,20) < .2);
+                 ij = spget(sp);
+                 jacobian = spCompJacobian(deff("y=f",""),sp);
+                 col = jacobian.colors;
+                 k = unique(col,"keepOrder");
+                 gcf().color_map = jet(max(k))
+                 subplot(1,2,1)
+                 spyCol(sp,col)
+                 title(msprintf("Colored (%d x %d) Jacobian\n%d colors",size(sp,1),size(sp,2),max(k)))
+                 subplot(1,4,3)
+                 compMat = sparse([ij(:,1) col(ij(:,2))],ones(ij(:,1)));
+                 spyCol(compMat(:,k),k)
+                 title("Compressed Jacobian")
+                 subplot(1,4,4)
+                 spyCol(jacobian.seed,1:size(jacobian.seed,2))
+                 title("Seed matrix")
+                 gcf().children.isoview="on"
+             ]]></programlisting>
+             <scilab:image>
+                 sp = sparse(rand(20,20) &lt; .2);
+                 ij = spget(sp);
+                 jacobian = spCompJacobian(deff("y=f",""),sp);
+                 col = jacobian.colors;
+                 k = unique(col,"keepOrder");
+                 gcf().color_map = jet(max(k))
+                 subplot(1,2,1)
+                 spyCol(sp,col)
+                 title(msprintf("Colored (%d x %d) Jacobian, %d colors",size(sp,1),size(sp,2),max(k)))
+                 subplot(1,4,3)
+                 compMat = sparse([ij(:,1) col(ij(:,2))],ones(ij(:,1)));
+                 spyCol(compMat(:,k),k)
+                 title("Compressed Jacobian")
+                 subplot(1,4,4)
+                 spyCol(jacobian.seed,1:size(jacobian.seed,2))
+                 title("Seed matrix")
+                 gcf().children.isoview="on"
+                 gcf().axes_size = [720,364];
+             </scilab:image>
+           </para>
+        </refsection>
+        
+        <refsection role="see also">
+           <title>See also</title>
+           <simplelist type="inline">
+               <member><link linkend="spCompJacobian">spCompJacobian</link></member>
+               <member><link linkend="spCompHessian">spCompHessian</link></member>
+           </simplelist>
+        </refsection>
+        
+        <refsection>
+           <title>Bibliography</title>
+           <para>A. H. Gebremedhin, D. C. Nguyen,
+                       Md. M. A. Patwary, A. Pothen}, ColPack: Software for graph coloring and related problems in scientific
+                       computing, ACM Trans. Math. Softw., N. 40(1), pp. 1-31, 2013, https://doi.org/10.1145/2513109.2513110.</para>
+        </refsection>
+        </refentry>

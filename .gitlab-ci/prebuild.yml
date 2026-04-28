@@ -1,0 +1,146 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Clément DAVID
+# Copyright (C) 2022 - Dassault Systèmes S.E. - Cédric DELAMARRE
+#
+#
+# This YAML file describe the prebuild stage of the CI. This stage is used to
+# cleanup runners and set them ready to build.
+#
+
+# define x86_64-linux-gnu env variables
+linux_set_env:
+  image: ${SCI_REGISTRY_IMAGE}/linux-builder:${DOCKER_TAG}
+  stage: prebuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo BRANCH=$BRANCH
+    - echo CI_COMMIT_BRANCH=$CI_COMMIT_BRANCH
+    - echo CI_MERGE_REQUEST_TARGET_BRANCH_NAME=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo CI_COMMIT_TAG=$CI_COMMIT_TAG
+    # get current build machine architecture
+    - ARCH=$(cc -print-multiarch)
+    # define NOW as Gitlab display ISO 8601 timestamp
+    - date +"%s" >timestamp
+    - NOW=$(cat timestamp)
+    # export useful variables
+    - |
+      echo ARCH=$ARCH                             >build.env
+      echo SCI_VERSION_TIMESTAMP=$NOW             >>build.env
+      cat build.env
+    - echo SCI_VERSION_STRING=$SCI_VERSION_STRING
+    # display configured variables
+    - gcc --version
+    - echo JAVA_HOME=$JAVA_HOME
+    - javac -version
+  artifacts:
+    reports:
+      dotenv: build.env
+
+# define x64 windows env
+windows_set_env:
+  stage: prebuild
+  tags: [x64_windows, shell, scilab]
+  needs: []
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo BRANCH=$env:BRANCH
+    - echo CI_COMMIT_BRANCH=$env:CI_COMMIT_BRANCH
+    - echo CI_MERGE_REQUEST_TARGET_BRANCH_NAME=$env:CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo CI_COMMIT_TAG=$env:CI_COMMIT_TAG
+    # define NOW as Gitlab display ISO 8601 timestamp
+    - $env:NOW=(Get-Date(Get-Date).ToUniversalTime() -uformat '%s')
+    # export useful variables
+    - |
+      Set-Content -Path build.env -Value "ARCH=x64","SCI_VERSION_TIMESTAMP=$env:NOW"
+      cat build.env
+    - echo SCI_VERSION_STRING=$env:SCI_VERSION_STRING
+    # display configured variables
+    - where.exe devenv cl javac
+    - echo VS2022INSTALLDIR=$env:VS2022INSTALLDIR
+    - echo SCILAB_JDK64=$env:SCILAB_JDK64
+    - if ($env:SCILAB_JDK64) { &"$env:SCILAB_JDK64\bin\javac" -version }
+    - echo JAVA_HOME=$env:JAVA_HOME
+    - javac -version
+  artifacts:
+    reports:
+      dotenv: build.env
+
+# rebuild linux dependencies
+linux_build_prereq:
+  image: ${SCI_REGISTRY_IMAGE}/linux-prebuild:${DOCKER_TAG}
+  stage: prebuild
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  needs:
+    - linux_set_env
+  before_script: bash .gitlab-ci/prebuild.sh versions
+  script: bash -x -e .gitlab-ci/prebuild.sh fromscratch
+  artifacts:
+    paths:
+      - prerequirements-${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz
+      - $SCI_VERSION_STRING
+    when: always
+  rules:
+    # do not rebuild on scheduled
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    # do not rebuild on tag
+    - if: $CI_COMMIT_TAG
+      when: never
+    # rebuild on demand
+    - changes: &PREBUILD_LINUX_CHANGED
+        - .gitlab-ci/prebuild.yml
+        - .gitlab-ci/prebuild.sh
+        - .gitlab-ci/Dockerfile.linux
+        - .gitlab-ci/Dockerfile.linux.prebuild
+    # rebuild on a dedicated branch without MR
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths: *PREBUILD_LINUX_CHANGED
+        compare_to: ${CI_DEFAULT_BRANCH}
+
+# update windows dependencies
+windows_build_prereq:
+  stage: prebuild
+  tags: [x64_windows, shell, scilab]
+  needs:
+    - windows_set_env
+  before_script: cmd /C "call .gitlab-ci/prebuild.bat version"
+  script: cmd /C "call .gitlab-ci/prebuild.bat fromscratch"
+  artifacts:
+    paths:
+      - prerequirements-${SCI_VERSION_STRING}-windows_x64.zip
+      - $SCI_VERSION_STRING
+    when: always
+  rules:
+    # do not rebuild on scheduled
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    # do not rebuild on tag
+    - if: $CI_COMMIT_TAG
+      when: never
+    # rebuild on demand
+    - changes: &PREBUILD_WINDOWS_CHANGED
+        - .gitlab-ci/prebuild.yml
+        - .gitlab-ci/prebuild.bat
+    # rebuild on a dedicated branch without MR
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        paths: *PREBUILD_WINDOWS_CHANGED
+        compare_to: ${CI_DEFAULT_BRANCH}
+
+# Clean up the Windows common folder, TMPDIR, uninstall Scilab, and kill any remaining Scilab processes.
+windows_cleanup:
+  stage: prebuild
+  tags: [x64_windows, shell, scilab]
+  needs:
+    - windows_set_env
+  script:
+    - echo "Starting Windows Common path cleanup..."
+    - powershell -NoProfile -ExecutionPolicy Bypass -File ".gitlab-ci\cleanup_windows.ps1"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  allow_failure: true

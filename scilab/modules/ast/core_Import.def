@@ -1,0 +1,25 @@
+LIBRARY    core.dll
+
+
+EXPORTS
+MyHeapFree
+MyHeapAlloc
+StaticRunner_launch
+StaticRunner_isInterruptibleCommand
+StoreConsoleCommand
+StorePrioritaryCommand
+StoreDebuggerCommand
+StoreCommandWithFlags
+parseCommand
+checkCommand
+parseFile
+checkFile
+pause_interpreter
+getScilabVersionMajor
+getScilabVersionMinor
+getScilabVersionMaintenance
+getScilabVersionAsString
+hasUIControlStyle
+hasHandleType
+isEmptyCommandQueuePrioritary
+isEmptyCommandQueue

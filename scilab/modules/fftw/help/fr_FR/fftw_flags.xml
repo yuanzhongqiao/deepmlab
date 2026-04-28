@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2007 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="fftw_flags">
+    <refnamediv>
+        <refname>fftw_flags</refname>
+        <refpurpose>choix de la méthode pour la sélection de l'algorithme
+            de planification pour la fft
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>[a,[S]]=fftw_flags(flag)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>flag</term>
+                <listitem>
+                    <para>une chaîne de caractères ou bien un entier. Sert à
+                        spécifier l'algorithme de planification. Voir ci-dessous.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>un entier. Code de l'algorithme de planification. Voir
+                        ci-dessous.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>S</term>
+                <listitem>
+                    <para>une chaîne de caractères. Le nom de l'algorithme de
+                        planification.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Cette fonction permet la sélection de l'algorithme utilisé pour
+            déterminer l'algorithme de planification de fftw. Le
+            planificateur est utilisé pour déterminer un moyen efficace pour
+            calculer la fft.
+        </para>
+        <para>
+            <warning>
+                Attention: la valeur par défaut "FFTW_ESTIMATE" donne le plus
+                souvent de bonnes performances. N'essayez d'autres choix que si
+                la performance est cruciale et que vous avez beaucoup d'appels
+                du même type à effectuer.
+            </warning>
+        </para>
+        <para>
+            Les entrées possibles sont :
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>{FFTW_ESTIMATE} ou 64. Selectionne une heuristique simple et
+                    peu couteuse pour choisir un plan (probablement
+                    sous-optimal). C'est la valeur par défaut.
+                </para>
+            </listitem>
+            <listitem>
+                <para>FFTW_MEASURE ou 0.  Selectionne une méthode consistant a
+                    effectuer plusieurs calcul de fft avec des planifications
+                    différentes, à mesurer leur temps d'exécution et de choisir la
+                    meilleure planification. En fonction de votre machine, cela
+                    peut prendre un certain temps (souvent quelques
+                    secondes).
+                </para>
+            </listitem>
+            <listitem>
+                <para>FFTW_PATIENT ou 32. Similaire à "FFTW_MEASURE", mais
+                    considère un plus large éventail d'algorithmes et produit
+                    souvent un plan plus efficace (en particulier pour les
+                    transformations importantes). En revanche, le coût de la
+                    détermination du plan peut être largement supérieur (en
+                    particulier pour les transformations importantes).
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>FFTW_EXHAUSTIVE ou 8. Comme "FFTW_PATIENT", mais
+                    considère une gamme encore plus large d'algorithmes, visant a
+                    trouver le plan optimal , mais avec un temps de planification
+                    sensiblement augmenté.
+                </para>
+            </listitem>
+
+        </itemizedlist>
+        <para>
+            Remarque : Lors de l'utilisation des méthodes
+            FFTW_MEASURE/FFTW_PATIENT/FFTW_EXHAUSTIVE la fonction fftw doit
+            être appélée au moins deux fois.  (le premier appel est pour
+            l'initalisation, le second et les autres pour le calcul)
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+A=rand(1, 2^9 + 2^15);
+fftw_forget_wisdom();
+fftw_flags("FFTW_ESTIMATE");
+timer(); y=fft(A); timer()//premier appel, détermine le plan
+timer(); y=fft(A); timer() //appels similaires suivants
+fftw_flags("FFTW_MEASURE");
+fftw_forget_wisdom();
+timer(); y=fft(A); timer()//premier appel, détermine le plan, prend environ 5min
+timer(); y=fft(A); timer() //appels similaires suivants
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="fft">fft</link>
+            </member>
+            <member>
+                <link linkend="set_fftw_wisdom">set_fftw_wisdom</link>
+            </member>
+            <member>
+                <link linkend="get_fftw_wisdom">get_fftw_wisdom</link>
+            </member>
+            <member>
+                <link linkend="fftw_forget_wisdom">fftw_forget_wisdom</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

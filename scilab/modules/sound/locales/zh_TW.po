@@ -1,0 +1,293 @@
+# Traditional Chinese translation for scilab
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the scilab package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: tim loo <timloo0710@gmail.com>\n"
+"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr ""
+
+msgid "Cannot play file."
+msgstr "無法使用檔案."
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: Memory 分配有誤.\n"
+
+#, c-format
+msgid "%s: Wrong input argument #%d: '%s' or '%s' expected.\n"
+msgstr "%s: 第 %d 輸入參數錯誤: 應為 '%s' 或 '%s'.\n"
+
+msgid "Scilab sound module not installed.\n"
+msgstr "未安裝　Scilab sound  模組\n"
+
+# File: modules/sound/demos/mapsound.dem.sce, line: 29
+msgid "<html><h4>Example #1: Standard</h4>"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 42
+msgid "Next example"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 78
+msgid "Next exampleStop"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 91
+msgid "<html><h4>Example #3: chimes.wav sound</h4>"
+msgstr ""
+
+#
+# File: modules/sound/demos/mapsound.dem.sce, line: 97
+msgid "End"
+msgstr ""
+
+msgid "Sound file handling"
+msgstr ""
+
+msgid "FFT on a wav file"
+msgstr ""
+
+msgid "Fourier analysis of 0.5 seconds of sound parameters."
+msgstr ""
+
+msgid "A complete picture of the sound."
+msgstr ""
+
+msgid "see 'mapsound' function"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr "%s: 輸入參數之數目錯誤: 應為 %d 到 %d 之數.\n"
+
+#, c-format
+msgid "%s: Cannot open file %s.\n"
+msgstr "%s: 無法開啟檔案 %s.\n"
+
+msgid "Index range must be specified as a scalar or a 2 elements vector."
+msgstr ""
+
+#, c-format
+msgid "%s: File '%s': Unrecognized data format.\n"
+msgstr ""
+
+msgid "Sample limit vector must have 2 elements."
+msgstr ""
+
+msgid "Sample limits out of range."
+msgstr "取樣的限制值超過範圍."
+
+msgid "Sample limits must be given in ascending order."
+msgstr ""
+
+msgid "Error in file format."
+msgstr ""
+
+#, c-format
+msgid "%s: File '%s' is not a .au sound file.\n"
+msgstr ""
+
+msgid "Error while reading sound file."
+msgstr ""
+
+msgid "Unrecognized data format."
+msgstr "無法理解的資料格式"
+
+msgid "Truncated data file."
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong values for input argument: Filename must be a string.\n"
+msgstr "%s: 輸入參數數值錯誤: 檔案名稱必須為一字串.\n"
+
+msgid "Data array must have 1- or 2-dimensions only."
+msgstr "數據陣列必須只有1- or 2-維 ."
+
+msgid "Data clipped during write to file."
+msgstr ""
+
+msgid "Error while writing sound file."
+msgstr "寫入聲音檔時有誤."
+
+msgid "Mu-law can only be used with 8 bit data. Use method='linear' instead."
+msgstr "Mu-law 只能在8 bit數據使用。請改用method='linear'."
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: 輸入參數之數目錯誤: 應為 %d 個.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments.\n"
+msgstr "%s: 輸出參數數目錯誤.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument(s).\n"
+msgstr "%s: 輸出參數之數目錯誤(s).\n"
+
+#, c-format
+msgid "%s: Argument #%d: Function expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: A colormap function expected.\n"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 126
+msgid "Time [s]"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 127
+msgid "Frequency [Hz]"
+msgstr ""
+
+#
+# File: modules/sound/macros/mapsound.sci, line: 137
+msgid "Amplitude"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: %s expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Must be >= %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: '%s' is a directory. File expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: The file '%s' does not exist.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Decimal number expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Argument #%d: Must be > %d.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Failed to play the sound with command: %s.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Audio capabilities not available.\n"
+msgstr "%s: 音訊功能尚未作用.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s: 第 %d 個輸入參數長度錯誤.\n"
+
+msgid "only 8/16/24/32 bits for the encoding."
+msgstr "只有8/16/24/32 位元 可以用作編碼."
+
+msgid "Unknown data format."
+msgstr "未知的資料格式."
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
+msgstr "%s: 輸入參數之數目錯誤(s): 最少應為 %d.\n"
+
+msgid "Requires 2-D values only."
+msgstr "只需求2-D值."
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for argument #%d: Real matrix expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be >= %d.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Must be %s or %s, an integer or a "
+"vector of %d integers.\n"
+msgstr "%s:輸入參數的值有誤#%d: 必須是%s or %s,整數或者是%d個整數的向量.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: Index range must be specified as a "
+"scalar or %d-element vector.\n"
+msgstr "%s:輸入參數的值有誤:索引值的範圍必須設定成純量或是%d-元素向量.\n"
+
+#, c-format
+msgid "%s: The file '%s' does not exist.\n"
+msgstr ""
+
+msgid ".wav file does not contain the RIFF identifier."
+msgstr ".wav檔裏沒有 RIFF 指示符號."
+
+msgid ".wav file does not contain the wave identifier."
+msgstr ".wav檔裏沒有wave  指示符號."
+
+msgid "Error reading .wav file."
+msgstr "讀取.wav 檔有誤."
+
+msgid "Error reading <fact-ck> chunk."
+msgstr "讀<fact-ck>區塊有誤."
+
+#, c-format
+msgid "%s: An error occurred: %s is not supported.\n"
+msgstr "%s: 一個錯誤發生 %s 並不支援.\n"
+
+#, c-format
+msgid "%s: An error occurred: invalid file format. Error reading <%s> chunk.\n"
+msgstr "%s: 一個錯誤發生: 無效的檔案格式. 讀取大量<%s> 發生錯誤.\n"
+
+msgid "Invalid .wav file: found data before format information."
+msgstr "無效的.wav檔:在格式資訊中發現資料"
+
+msgid "Incorrect chunk size information in RIFF file."
+msgstr "RIFF 檔案中有不正確的區塊大小資訊"
+
+#, c-format
+msgid "%s: wav format #%d detected. Only wav formats #%s are supported.\n"
+msgstr ""
+
+msgid "Error reading wav file."
+msgstr "讀取.wav 檔有誤."
+
+#, c-format
+msgid "%s: An error occurred: Data compression format %s is not supported.\n"
+msgstr "%s: 錯誤: 未支持資料壓縮格式 %s .\n"
+
+msgid "Cannot read .wav file  with more than 32 bits per sample."
+msgstr ""
+
+msgid "Sample limit vector must have 2 entries."
+msgstr "取樣的極限向量只能有2個輸入值."
+
+msgid "Invalid sample limits (use ascending order)."
+msgstr "無效的取樣限制(使用遞減順序)."

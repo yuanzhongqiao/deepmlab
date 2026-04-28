@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="xpolys">
+    <refnamediv>
+        <refname>xpolys</refname>
+        <refpurpose>draw a set of polylines or polygons</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          xpolys(xpols,ypols,[draw])
+          hdl = xpolys(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>xpols,ypols</term>
+                <listitem>
+                    <para>matrices of the same size (p,n) (points of the polylines).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>draw</term>
+                <listitem>
+                    <para>vector of size n.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Polyline</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>xpolys</literal> draws a set of polylinse using marks or dashed lines.
+            The coordinates of each polyline
+            are stored in a column of <literal>xpols</literal> and <literal>ypols</literal>.
+        </para>
+        <para>
+            The style of polyline i is given by <literal>draw(i)</literal>:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    If <literal>draw(i)</literal> is negative, the mark with id
+                    <literal>-draw(i)</literal> is used to draw polyline i (marks are drawn using
+                    the current pattern).
+                    See the <link linkend="polyline_properties">polyline properties</link>
+                    to see ids of available marks.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    If <literal>draw(i)</literal> is strictly positive, the line style (or color)
+                    with id  <literal>draw(i)</literal> is used to draw polyline i.
+                    See the <link linkend="polyline_properties">polyline properties</link>
+                    to see ids of available line styles.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+plot2d(0,0,-1,"012"," ",[0,0,1,1])
+rand("uniform")
+gca().foreground = 3;
+xpolys(rand(3,5),rand(3,5),[-1,-2,0,1,2])
+ ]]></programlisting>
+        <scilab:image>
+            plot2d(0,0,-1,"012"," ",[0,0,1,1])
+            rand("uniform")
+            gca().foreground = 3;
+            xpolys(rand(3,5),rand(3,5),[-1,-2,0,1,2])
+        </scilab:image>
+
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xfpoly">xfpoly</link>
+            </member>
+            <member>
+                <link linkend="xfpolys">xfpolys</link>
+            </member>
+            <member>
+                <link linkend="xpoly">xpoly</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>
+                    Function returns the created handle(s).
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

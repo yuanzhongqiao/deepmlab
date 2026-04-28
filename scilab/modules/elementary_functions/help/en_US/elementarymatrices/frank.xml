@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2024 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="frank">
+    <refnamediv>
+        <refname>frank</refname>
+        <refpurpose>Frank matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            f = frank(n)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection role="arguments">
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        real scalar
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>
+                        n x n matrix
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection role="description">
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">f = frank(n)</emphasis> returns the Frank matrix.
+        </para>
+        <para>
+            The Frank matrix is a matrix defined by  
+        </para>
+        <para>
+            <latex>f(n) = \begin{bmatrix} n \ \ n-1 \ \ n-2 \ \ ... \ \ 2 \ \ 1 
+                \\ n-1 \ \ n-1 \ \ n-2 \ \ ... \ \ 2 \ \ 1 
+                \\ 0 \ \ n-2 \ \ n-2 \ \ ... \ \ 2 \ \ 1 
+                \\ ... \ \ ... \ \ ... \ \ ... \ \ ... \ \ ...
+                \\ 0 \ \ 0  \ \ ... \ \ 0 \ \ 1 \ \ 1 \end{bmatrix}
+            </latex>.
+        </para>
+    </refsection>
+    <refsection role="example">
+        <title>Examples</title>
+        <para>
+            <programlisting role="example"><![CDATA[
+                f = frank(4)
+            ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="hilbm">hilbm</link>
+            </member>
+            <member>
+                <link linkend="invhilb">invhilb</link>
+            </member>
+            <member>
+                <link linkend="magic">magic</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>Introduction in Scilab.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

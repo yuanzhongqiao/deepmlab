@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="groupcounts" xml:lang="en">
+    <refnamediv>
+        <refname>groupcounts</refname>
+        <refpurpose>returns the number of elements for each group</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            g = groupcounts(t, groupvars)
+            g = groupcounts(t, groupvars, groupbins)
+
+            g = groupcounts(t, groupvars, OptionName, Value, ...)
+            g = groupcounts(t, groupvars, groupbins, OptionName, Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table or timeseries object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>groupvars</term>
+                <listitem>
+                    <para>specifies the variable used to form the groups.</para>
+                    <para>data type expected: vector of strings containing the variable names 
+                        or vector of indices corresponding to the positions of the variable names in the table/timeseries.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>groupbins</term>
+                <listitem>
+                    <para>indicates how the data is grouped, by data interval or time interval.</para>
+                    <para>data type expected: vector of doubles containing the data interval, datetime, duration, calendarDuration 
+                        or available string values: "year", "month", "day", "hour", "minute", "second", "monthname" and "dayname". Default value: "none".</para>
+                    <para>Depending on the type of the variables contained in groupvars, groupbins will be a cell of the same size
+                         as groupvars, where each element will be applied to each variable.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>g</term>
+                <listitem>
+                    <para>table object.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>    
+            <para/>            
+            <varlistentry>
+                <term><emphasis role="bold">"IncludeEmptyGroups"</emphasis>, boolean</term>
+                <listitem>
+                    <para> 
+                        returns only the combinations of groups present in the table t. 
+                        When %t, the result contains also empty group.
+                        Default value: %f.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"IncludePercentGroups"</emphasis>, boolean</term>
+                <listitem>
+                    <para>
+                        when %t, returns the percentage of data from each group whose sum is 100. 
+                        Default value: %f.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"IncludedEdge"</emphasis>, "left" or "right"</term>
+                <listitem>
+                    <para>
+                        this option must use only if groupbins is specified (i.e groupbins = [0 2 4]). 
+                        When IncludedEdge is equal to 'left', data will be contained in the groups
+                        [groupbins(1), groupbins(2)), [groupbins(2), groupbins(3)), ..., [groupbins(n-1), groupbins(n)]. 
+                        The last groupbins(n) is included. 
+                        If IncludedEdge is equal to 'right', the intervals will be: 
+                        [groupbins(1), groupbins(2)], (groupbins(2), groupbins(3)], ... (groupbins(n-1), groupbins(n)]. 
+                        In this case, the first groupbins(1) is included. The values in groupbins must be in strictly increasing order.
+                        Default value: "left".
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>        
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            From the selected columns in the input table/timeseries, groupcounts returns a table containing the data 
+            combinations found and their number of occurrences.
+        </para>
+        <para>
+            <emphasis role="bold">g = groupcounts(t, groupvars)</emphasis> creates a table where each row corresponds to a unique group of 
+            data present in t(:, groupvars). For each group, the number of occurences is specified.
+        </para>
+        <para>
+            <emphasis role="bold">g = groupcounts(t, groupvars, groupbins)</emphasis> extracts data from t(:, groupvars); these data are then grouped according 
+            to groupbins, either group by time interval (one year, one hour, ...) or group by data interval. The "IncludedEdge" option can be added to specify 
+            the included bounds (left or right) in the case where groupbins is a data interval. For example, if groupbins = [0 2 4] and "IncludedEdge" = "left", 
+            then the intervals created are [0 2), [2 4]. If "IncludeEdge" = "right", the intervals are [0 2], (2, 4].
+         </para>
+        <para>
+            <emphasis role="bold">g = groupcounts(..., "IncludeEmptyGroups", Value)</emphasis> returns all possible combinations if Value is %t. 
+            By default, IncludeEmptyGroups is setted to %f.
+        </para>
+        <para>
+            <emphasis role="bold">g = groupcounts(..., "IncludePercentGroups", Value)</emphasis> returns the percentage of data in each group if Value is %t. 
+                By default, IncludePercentGroups is setted to %f.
+            </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">Group table with groupvars</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5, 1) * 5) - 1.5;
+            x2 = -floor(rand(5, 1) * 5) + 0.5;
+            A = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+
+            G = groupcounts(A, "x")
+            G = groupcounts(A, "x", "IncludePercentGroups", %t)
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">Group table with groupvars and groupbins</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5, 1) * 5) - 1.5;
+            x2 = -floor(rand(5, 1) * 5) + 0.5;
+            A = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+
+            G = groupcounts(A, "x2", [-5 0 5])
+            G = groupcounts(A, ["x1", "x2"], [-5 0 5])
+
+            // groupbins is a cell
+            G = groupcounts(A, ["x1", "x2"], {[-5 0 5], [-4 -2 0]})
+
+            // With IncludeEmptyGroups
+            G = groupcounts(A, ["x1", "x2"], [-5 0 5], "IncludeEmptyGroups", %t)
+        ]]>
+        </programlisting>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            // with duration
+            timestamp = hours([1 3 2 2 3])';
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5, 1) * 5) - 1.5;
+            x2 = -floor(rand(5, 1) * 5) + 0.5;
+            A = timeseries(timestamp, x, x1, x2, "VariableNames", ["timestamp", "x", "x1", "x2"])
+
+            G = groupcounts(A, "timestamp", "hour")
+
+            G = groupcounts(A, "timestamp", hours(2))
+        ]]>
+        </programlisting>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            // with datetime
+            dt = datetime(2023,[5 3:2:10]', 1);
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5, 1) * 5) - 1.5;
+            x2 = -floor(rand(5, 1) * 5) + 0.5;
+            A = timeseries(dt, x, x1, x2, "VariableNames", ["dt", "x", "x1", "x2"])
+
+            G = groupcounts(A, "dt", "monthname")
+
+            // With IncludeEmptyGroups
+            G = groupcounts(A, "dt", "monthname", "IncludeEmptyGroups", %t)
+
+            // groupbins is a calendarDuration
+            groupcounts(A, "dt", calmonths(2))
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With IncludedEdge</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            x = ["a"; "b"; "b"; "c"; "a"];
+            x1 = floor(rand(5, 1) * 5) - 1.5;
+            x2 = [2.5; 3.5; 2.5; 3.5; 2.5];
+            A = table(x, x1, x2, "VariableNames", ["x", "x1", "x2"])
+
+            // IncludedEdge is equal to 'left' by default
+            // intervals created: [-1.5, -0.5), [-0.5, 0.5), [0.5, 1.5] (last right edge included)
+            // x1 = [-0.5 1.5 -1.5 -0.5 1.5]
+            // Goal: Find for each value of x1 the interval to which it belongs
+            // -0.5 in [-0.5 0.5), 1.5 in [0.5, 1.5], -1.5 in [-1.5, -0.5), -0.5 in [-0.5 0.5), 1.5 in [0.5, 1.5]
+            G = groupcounts(A, "x1", [-1.5 -0.5 0.5 1.5])
+
+            // IncludedEdge is equal to 'right'
+            // intervals created: [-1.5, -0.5], (-0.5, 0.5], (0.5, 1.5] (first left edge included)
+            // x1 = [-0.5 1.5 -1.5 -0.5 1.5]
+            // -0.5 in [-1.5, -0.5], 1.5 in (0.5, 1.5], -1.5 in [-1.5, -0.5], -0.5 in [-1.5, -0.5], 1.5 in (0.5, 1.5]
+            G = groupcounts(A, "x1", [-1.5 -0.5 0.5 1.5], "IncludedEdge", "right")
+
+            // groupvars contains ["x", "x2"]
+            // groupbins = {"none", [2.5 3 3.5]}, "none" will be applied on "x", [2.5, 3, 3.5] on "x2"
+            // If IncludedEdge is equal to "left"
+            // x = ["a" "b" "b" "c" "a"] and x2 = [2.5 3.5 2.5 3.5 2.5] => [[2.5, 3) [3, 3.5] [2.5, 3) [3, 3.5] [2.5, 3)]
+
+            G = groupcounts(A, ["x", "x2"], {"none", [2.5 3 3.5]}, "IncludedEdge", "left")
+
+            // If IncludedEdge is equal to "rght"
+            // x = ["a" "b" "b" "c" "a"] and x2 = [2.5 3.5 2.5 3.5 2.5] => [[2.5, 3] (3, 3.5] [2.5, 3] (3, 3.5] [2.5, 3]]
+            G = groupcounts(A, ["x", "x2"], {"none", [2.5 3 3.5]}, "IncludedEdge", "right")
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+            <member>
+                <link linkend="varfun">varfun</link>
+            </member>
+            <member>
+                <link linkend="rowfun">rowfun</link>
+            </member>
+            <member>
+                <link linkend="groupsummary">groupsummary</link>
+            </member>
+            <member>
+                <link linkend="pivot">pivot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

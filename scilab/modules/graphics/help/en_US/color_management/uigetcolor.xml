@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="uigetcolor">
+    <refnamediv>
+        <refname>uigetcolor</refname>
+        <refpurpose>Opens a dialog for selecting a color.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            uigetcolor()
+
+            RGB = uigetcolor()
+            RGB = uigetcolor(defaultRGB)
+            RGB = uigetcolor(defaultRed, defaultGreen, defaultBlue)
+            RGB = uigetcolor(title, ..)
+
+            [R, G, B] = uigetcolor()
+            [R, G, B] = uigetcolor(defaultRGB)
+            [R, G, B] = uigetcolor(defaultRed, defaultGreen, defaultBlue)
+            [R, G, B] = uigetcolor(title, ..)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>title</term>
+                <listitem>
+                    <para>
+                        String: Optional argument, the title to display in the dialog.
+                        Default value is "Color Chooser".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>defaultRGB</term>
+                <listitem>
+                    <para>
+                        1x3 vector [red, green, blue] of default values in [0, 255] for Red, Green
+                        and Blue intensities.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>defaultRed, defaultGreen, defaultBlue</term>
+                <listitem>
+                    <para>
+                        Integers in [0, 255]: Scalar default values for Red, Green, and Blue
+                        intensities.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>RGB</term>
+                <listitem>
+                    <para>
+                        1x3 vector [red, green, blue] of values in [0, 255] for Red, Green and Blue
+                        intensities, or [] if the user cancels.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>R, G, B</term>
+                <listitem>
+                    <para>
+                        Integers in [0, 255]: Scalar values for Red, Green and Blue intensities,
+                        or [] if the user cancels.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Creates a dialog window for selecting a color. All (default and returned) values are
+            in the interval [0 255].
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+uigetcolor()
+[R, G, B] = uigetcolor([255 128 0])
+RBG = uigetcolor(0, 128, 255)
+RBG = uigetcolor("My color chooser", 250, 150, 50)
+     ]]></programlisting>
+        <para/>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../images/uigetcolor_1.png"/>
+            </imageobject>
+            <para/>
+            <imageobject>
+                <imagedata fileref="../../images/uigetcolor_RGB.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="getcolor">getcolor</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

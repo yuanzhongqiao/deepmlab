@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="who">
+    <refnamediv>
+        <refname>who</refname>
+        <refpurpose>変数の一覧</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼出し手順</title>
+        <synopsis>who
+            who()
+            [names, mem] = who(scope)
+            [names, mem] = who(scope, sorted)
+            [names, mem] = who(sorted)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>設定</title>
+        <variablelist>
+            <varlistentry>
+                <term>scope</term>
+                <listitem>
+                    <para>
+                        <literal>"local"</literal>/<literal>"get"</literal>: list visible variables (not only in current function).
+                    </para>
+                    <para>
+                        <literal>"scope"</literal>/<literal>"current"</literal>: list variables in the current scope/function.
+                    </para>
+                    <para>
+                        <literal>"global"</literal>: list global variables.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sorted</term>
+                <listitem>
+                    <para>
+                        Boolean value to specify if output must be sort in alphabetical order.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>names</term>
+                <listitem>
+                    <para>String matrix with variable names.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mem</term>
+                <listitem>
+                    <para>Double matrix with variable used memory in bytes.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>
+            <code>who()</code> は,カレントの変数名を表示します.
+        </para>
+        <para>
+            <code>who('local')</code> または <code>who('get')</code> は,
+            現在の変数の名前と使用されているメモリをバイト単位で返します.
+        </para>
+        <para>
+            <code>who('global')</code> は,
+            グローバル変数の名前と使用されるメモリをバイト単位で返します.
+        </para>
+        <para>
+            <code>who('sorted')</code> は,
+            アルファベット順に全ての変数を表示します.
+        </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+[a, b] = (1, 2);
+[name, mem] = who("local");
+position = find(name=="a")
+mem(position) // aにより使用される大きさ
+position = find(name=="d") // []
+
+function foo(a, b)
+    disp(who("scope", "sorted"))
+endfunction
+foo(1,2);
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="whos">whos</link>
+            </member>
+            <member>
+                <link linkend="who_user">who_user</link>
+            </member>
+            <member>
+                <link linkend="macrovar">macrovar</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                    Add "scope" or "current" scope.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

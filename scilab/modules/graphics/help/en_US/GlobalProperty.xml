@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Fabrice Leray
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="GlobalProperty">
+    <refnamediv>
+        <refname>GlobalProperty</refname>
+        <refpurpose>
+            customizes the objects appearance (curves, surfaces...) in a plot or surf command
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <literal>GlobalProperty</literal> is an optional argument that can be used inside
+            a <code>plot</code> or a <code>surf()</code> command. It allows a global customization
+            of all the new plotted lines (respectively surfaces).  It has to be given as a
+            {<literal>PropertyName</literal>, <literal>PropertyValue</literal>} pair.
+            Several (Name,Value) pairs can be specified in a single call to <code>plot()</code> or
+            <code>surf()</code>.
+        </para>
+        <para>
+            <literal>PropertyName</literal> must be a case-insensitive string defining the
+            property to set. The <literal>PropertyValue</literal> can be a
+            real, integer or string (scalar or matrix) depending on the type of
+            property used. For example, to specify a red (color) longdash-dot
+            (line style) with diamond marker (marker), the sequence should be:
+            <literal>'Color'</literal>, <literal>'red'</literal>, <literal>'LineSt'</literal>,
+            <literal>'-.'</literal>, <literal>'Marker'</literal>, <literal>'diam'</literal>.
+        </para>
+        <para>
+            As you can see, a full complete spelling of each property name and
+            value is not required but those arguments, specified in any order,
+            must remain unambiguous. <literal>GlobalProperty</literal> is
+            predominant on all <literal>LineSpec</literal> previously stated.
+        </para>
+
+        <para>
+            Here is a complete list of the <literal>PropertyName</literal> you
+            can specify (using <link linkend="plot">plot</link> or <link linkend="surf">surf</link>)
+            and their available associated <literal>PropertyValue</literal>. If not specified,
+            those properties are available for both <literal>Polyline</literal>
+            and <literal>Fac3d</literal> objects (created respectively by <function>plot</function>
+            or <function>surf</function>) and, as previously said, they are applied to the new
+            created objects (lines or surfaces).
+        </para>
+        <para>
+            Sometimes, you may have two <literal>PropertyName</literal>
+            corresponding to one property: the first one is the equivalent
+            default Matlab name, the second is the default name used by Scilab
+            (i.e.: <literal>Color</literal> or <literal>Foreground</literal>
+            for a line, see below).
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>"CData" or "ColorData": </term>
+                <listitem>
+                    <para>
+                        a real matrix specifying the color at every points
+                        defined by <literal>Z</literal> matrix. This property
+                        is linked to the object's
+                        <literal>data.color</literal> property (see
+                        <link linkend="surface_properties">surface properties</link>).
+                        <note>
+                            This property is available for surfaces only.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"CDataMapping" or "ColorDataMapping": </term>
+                <listitem>
+                    <para>
+                        a string with value <literal>'scaled'</literal> or
+                        <literal>'direct'</literal>. If a <literal>data.color</literal>
+                        is set, each index color data specifies a single value
+                        for each vertex. <literal>cdata_mapping</literal>
+                        determines whether those indices are scaled
+                        to map linearly into the current colormap
+                        (<literal>'scaled'</literal> mode)
+                        or point directly into this colormap
+                        (<literal>'direct'</literal> mode).
+                        This property is useful when
+                        <literal>color_flag</literal> equals
+                        <literal>2</literal>, <literal>3</literal> or
+                        <literal>4</literal>.
+                        <note>
+                            This property exists only with <literal>Fac3d</literal> entities.
+                            Note also that <function>plot3d</function> has
+                            <literal>'direct'</literal> mode by default and
+                            <function>surf</function> has <literal>'scaled'</literal> mode by default.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"Clipping": </term>
+                <listitem>
+                    <para>
+                        a string <literal>"on"</literal> or <literal>"off"</literal> defining the
+                        clipping mode (<literal>"on"</literal> by default). It
+                        is equivalent to the <literal>clip_state</literal>
+                        property. This field contains the
+                        <literal>visible</literal> property (see <link linkend="polyline_properties">polyline properties</link>).
+                        <note>
+                            This property is not yet available for surface entities.
+                        </note>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"Color" or "Foreground" (polylines only):</term>
+                <listitem>
+                    <para>
+                        A color specified by its name (text) among the predefined named
+                        <link linkend="color_list">colors list</link>), or by its
+                        <literal>"#RRGGBB"</literal> hexadecimal code (text), or by its index in the
+                        color map (integer), or by the vector <literal>[r,g,b]</literal> of its
+                        Red-Green-Blue intensities in the [0,1] interval.
+                    </para>
+                    <para>
+                        This property is linked to the object's <literal>foreground</literal> property
+                        (see <link linkend="polyline_properties">polyline properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"EdgeColor" or "Foreground" (surfaces only): </term>
+                <listitem>
+                    <para>
+                        A color specified by its name (text) among the predefined named
+                        <link linkend="color_list">colors list</link>), or by its
+                        <literal>"#RRGGBB"</literal> hexadecimal code (text), or by its index in the
+                        color map (integer), or by the vector <literal>[r,g,b]</literal> of its
+                        Red-Green-Blue intensities in the [0,1] interval.
+                    </para>
+                    <para>
+                        This property is linked to the surface <literal>foreground</literal>
+                        property (see <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"FaceColor": </term>
+                <listitem>
+                    <para>
+                        a string with value <literal>'none'</literal>,
+                        <literal>'flat'</literal> or <literal>'interp'</literal>
+                        specifying the way the facet's color are rendered.
+                        <itemizedlist>
+                            <listitem>
+                                 <para><literal>'none'</literal>: a mesh of the surface is drawn.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>'flat'</literal> (default mode): the <literal>Fac3d</literal><literal>color.data</literal> values determine one color
+                                    per facet using the color of the first vertex of the facet.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><literal>'interp'</literal>: an interpolated shading is done on
+                                    the surface using <literal>color.data</literal> to determine a
+                                    color at each vertex of each facet.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"LineStyle": </term>
+                <listitem>
+                    <para>
+                        this property value should be a string defining a line style. This property
+                        is linked to the object's <literal>line_style</literal> property
+                        (see <link linkend="polyline_properties">polyline properties</link> or
+                        <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                    <para/>
+                    <informaltable border="1">
+                        <tr>
+                            <td>
+                                <literal>Specifier</literal>
+                            </td>
+                            <td>
+                                <literal>Line Style</literal>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <literal>-</literal>
+                            </td>
+                            <td>Solid line (default)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <literal>--</literal>
+                            </td>
+                            <td>Dashed line</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <literal>:</literal>
+                            </td>
+                            <td>Dotted line</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <literal>-.</literal>
+                            </td>
+                            <td>Dash-dotted line</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <literal>none</literal>
+                            </td>
+                            <td>No line</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"Marker" or "MarkStyle": </term>
+                <listitem>
+                    <para>
+                        a string defining the marker type. Note that if you
+                        specify a marker without a line style, both line (with
+                        default solid mode enabled) and marker are drawn.This
+                        property is linked to the object's
+                        <literal>mark_style</literal> and
+                        <literal>mark_mode</literal> properties (see
+                        <link linkend="polyline_properties">polyline
+                            properties
+                        </link>
+                        or <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                    <informaltable border="1">
+                        <tr><td><literal>Specifier</literal></td><td><literal>Marker Type</literal></td></tr>
+                        <tr><td><literal>+</literal></td>   <td>Plus sign</td>  </tr>
+                        <tr><td><literal>o</literal></td>   <td>Circle</td>     </tr>
+                        <tr><td><literal>*</literal></td>   <td>Asterisk</td>   </tr>
+                        <tr><td><literal>.</literal></td>   <td>Point</td>      </tr>
+                        <tr><td><literal>x</literal></td>   <td>Cross</td>      </tr>
+                        <tr><td><literal>'square'</literal>
+                            or <literal>'s'</literal></td>  <td>Square</td>     </tr>
+                        <tr><td><literal>'diamond'</literal>
+                            or <literal>'d'</literal></td>  <td>Diamond</td>    </tr>
+                        <tr><td><literal>^</literal></td>   <td>Upward-pointing triangle</td>   </tr>
+                        <tr><td><literal>v</literal></td>   <td>Downward-pointing triangle</td> </tr>
+                        <tr><td><literal>&gt;</literal></td><td>Right-pointing triangle</td>    </tr>
+                        <tr><td><literal>&lt;</literal></td><td>Left-pointing triangle</td>     </tr>
+                        <tr><td><literal>'pentagram'</literal>
+                             or <literal>'p'</literal></td> <td>Five-pointed star (pentagram)</td></tr>
+                        <tr><td><literal>'none'</literal></td><td>No marker (default)</td>      </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"MarkerEdgeColor" or "MarkForeground": </term>
+                <listitem>
+                    <para>
+                        A color specified by its name (text) among the predefined named
+                        <link linkend="color_list">colors list</link>), or by its
+                        <literal>"#RRGGBB"</literal> hexadecimal code (text), or by its index in the
+                        color map (integer), or by the vector <literal>[r,g,b]</literal> of its
+                        Red-Green-Blue intensities in the [0,1] interval.
+                    </para>
+                    <para>
+                        This property is linked to the object's <literal>mark_foreground</literal>
+                        property (see <link linkend="polyline_properties">polyline properties</link> or
+                        <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"MarkerFaceColor" or "MarkBackground": </term>
+                <listitem>
+                    <para>
+                        A color specified by its name (text) among the predefined named
+                        <link linkend="color_list">colors list</link>), or by its
+                        <literal>"#RRGGBB"</literal> hexadecimal code (text), or by its index in the
+                        color map (integer), or by the vector <literal>[r,g,b]</literal> of its
+                        Red-Green-Blue intensities in the [0,1] interval.
+                    </para>
+                    <para>
+                        This property is linked to the object's <literal>mark_background</literal>
+                        property (see <link linkend="polyline_properties">polyline properties</link>
+                        or <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"MarkerSize" or "MarkSize": </term>
+                <listitem>
+                    <para>
+                        a scalar defining the marker size in <literal>point</literal> unit. This
+                        property is linked to the object's <literal>mark_size</literal> property
+                        with <literal>mark_size_unit</literal> enabled to <literal>"point"</literal> (see
+                        <link linkend="polyline_properties">polyline properties</link> or
+                        <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"Visible": </term>
+                <listitem>
+                    <para>
+                        a string <literal>"on"</literal> or <literal>"off"</literal> defining the
+                        visibility mode (<literal>"on"</literal> by default).
+                        This property is linked to the object's
+                        <literal>visible</literal> property (see
+                        <link linkend="polyline_properties">polyline properties</link> or
+                        <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"X data": </term>
+                <listitem>
+                    <para>
+                        a real vector or matrix (re-)defining the given data for
+                        all the plotted lines or surfaces. Concerning
+                        dimensions, note that this new data must match all the
+                        previous specified <literal>X</literal> data: that
+                        is to say all those data matrices must be of the same
+                        dimensions. This property is linked to the object's
+                        <literal>data.x</literal> property (see
+                        <link linkend="polyline_properties">polyline properties</link> or
+                        <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"Y data": </term>
+                <listitem>
+                    <para>
+                        a real vector or matrix (re-)defining the given data for
+                        all the plotted lines or surfaces. Concerning
+                        dimensions, note that this new data must match all the
+                        previous specified <literal>Y</literal> data: that
+                        is to say all those data matrices must be of the same
+                        dimensions. This property is linked to the object's
+                        <literal>data.y</literal> property (see
+                        <link linkend="polyline_properties">polyline properties</link> or
+                        <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"Z data": </term>
+                <listitem>
+                    <para>
+                        when used with <function>plot</function>, a real vector
+                        or matrix adding a <literal>Z</literal> data for all the
+                        plotted lines; with <function>surf</function>, a real
+                        matrix (re-)defining the given data for all the
+                        surfaces. Concerning dimensions, note that this new data
+                        must match all the previous specified
+                        <literal>X</literal> and <literal>Y</literal>
+                        data. This property is linked to the object's
+                        <literal>data.z</literal> property (see <link linkend="polyline_properties">polyline properties</link>
+                        or <link linkend="surface_properties">surface properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// --------------------
+// With the plot command :
+// --------------------
+x=1:10; // Init.
+clf
+plot(x,sin(x),'colo','red','linest','-.','marker','>','markeredg','cyan','markerFace','yellow','markersize',5)
+
+// combinations' order in {PropertyName,PropertyValue} does not matter
+clf
+plot(x,sin(x),'marker','p','markerfac','cyan','markersiz',10)
+
+// combination of LineSpec and GlobalProperty shows the GlobalProperty predominance
+clf
+plot(x, x.*x, '*cya--', 'color','gr', 'linestyle','-', ..
+    'marker','sq', 'markersize',6, 'markforegroun','red','markbackgro',[0.2 0.5 0.6])
+
+//multiple plots with different LineSpecs and finally some global GlobalProperty
+clf
+t=0:%pi/20:2*%pi;
+plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo','markstyl','diam')
+
+// --------------------
+// With the plot2d command :
+// --------------------
+function draw_marks(title)
+  a=gca();
+  a.title.text=title;
+  a.mark_size=8;
+  a.data_bounds=[-1.5 1.5 -1.5 1.5];
+
+  theta=(1/15)*(2*%pi)*[0:15];
+  plot2d(cos(theta),sin(theta));
+
+  for i=0:14 do
+    theta=(i/15)*(2*%pi);
+    plot2d(cos(theta),sin(theta),style=-i);
+  end
+endfunction
+
+clf();
+subplot(2,2,1)
+draw_marks("black foreground / white background")
+
+subplot(2,2,2)
+a=gca();
+a.mark_foreground=-1;
+a.mark_background=4;
+draw_marks("black foreground / cyan background")
+
+subplot(2,2,3)
+a=gca();
+a.mark_background=0;
+draw_marks("black foreground / invisible background")
+
+subplot(2,2,4)
+a=gca();
+a.mark_foreground=0;
+a.mark_background=4;
+draw_marks("invisible foreground / cyan background")
+
+// --------------------
+// With the surf command :
+// --------------------
+
+Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
+    0.0005    0.0089    0.0259   -0.3673   -1.8670   -2.4736   -1.0866   -0.1602   -0.0067    0.0000
+    0.0004    0.0214    0.1739   -0.3147   -4.0919   -6.4101   -2.7589   -0.2779    0.0131    0.0020
+   -0.0088   -0.0871    0.0364    1.8559    1.4995   -2.2171   -0.2729    0.8368    0.2016    0.0130
+   -0.0308   -0.4313   -1.7334   -0.1148    3.0731    0.4444    2.6145    2.4410    0.4877    0.0301
+   -0.0336   -0.4990   -2.3552   -2.1722    0.8856   -0.0531    2.6416    2.4064    0.4771    0.0294
+   -0.0137   -0.1967   -0.8083    0.2289    3.3983    3.1955    2.4338    1.2129    0.2108    0.0125
+   -0.0014   -0.0017    0.3189    2.7414    7.1622    7.1361    3.1242    0.6633    0.0674    0.0030
+    0.0002    0.0104    0.1733    1.0852    2.6741    2.6725    1.1119    0.1973    0.0152    0.0005
+    0.0000    0.0012    0.0183    0.1099    0.2684    0.2683    0.1107    0.0190    0.0014    0.0000];
+
+clf();
+f=gcf();
+f.figure_size = [610,724];
+subplot(211)
+surf(Z,'facecol','interp','ydat',101:110,'edgecol','mage')
+subplot(212)
+surf(Z,'edgeco','b','marker','d','markersiz',9,'markerfac','k','xdata',-50:-41)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="LineSpec">LineSpec</link>
+            </member>
+            <member>
+                <link linkend="plot">plot</link>
+            </member>
+            <member>
+                <link linkend="surf">surf</link>
+            </member>
+            <member>
+                <link linkend="clf">clf</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">polyline properties</link>
+            </member>
+            <member>
+                <link linkend="surface_properties">surface properties</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revremark>
+                    The "Foreground", "markForeground", and "markBackground" colors can now be
+                    specified as named colors chosen in the full predefined colors list, or by
+                    their "#RRGGBB" hexadecimal codes, or by their indices in the colormap.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

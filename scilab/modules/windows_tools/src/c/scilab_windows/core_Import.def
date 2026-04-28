@@ -1,0 +1,11 @@
+LIBRARY    core.dll
+
+
+EXPORTS
+;core
+with_module
+StoreCommand
+MyHeapAlloc
+MyHeapFree
+MyHeapRealloc
+getScilabVersionAsString

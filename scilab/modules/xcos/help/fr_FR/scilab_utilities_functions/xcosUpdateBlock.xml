@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Clément DAVID
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="xcosUpdateBlock">
+    <refnamediv>
+        <refname>xcosUpdateBlock</refname>
+        <refpurpose>Met à jour un bloc.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>xcosUpdateBlock(blk)</synopsis>
+    </refsynopsisdiv>
+    <refsection id="Description_xcosUpdateBlock">
+        <title>Description</title>
+        <para>Met à jour un bloc dans un diagram ouvert</para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">blk :</emphasis> Le bloc a mettre à jour. La variable à le type <link linkend="scicos_block">scicos_block</link>.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>Cette fonction a été introduite en Scilab 5.4.0.</para>
+        <para>
+            <programlisting role="example"><![CDATA[
+function myExternalFunction(blk, scs_m)
+    execstr('[ok, blk] = ' + blk.gui + '(''set'', blk)');
+    xcosUpdateBlock(blk);
+endfunction
+xcosAddToolsMenu("update block", "myExternalFunction(blk, scs_m)");
+]]></programlisting>
+        </para>
+    </refsection>
+    <refsection id="SeeAlso_xcosUpdateBlock" role="see also">
+        <title>Voir aussi</title>
+        <simplelist>
+            <member>
+              <link linkend="xcos">xcos</link>
+            </member>
+            <member>
+              <link linkend="xcosAddToolsMenu">xcosAddToolsMenu</link>
+            </member>
+            <member>
+              <link linkend="scicos_block">scicos_block</link>
+            </member>
+            <member>
+              <link linkend="scicos_diagram">scicos_diagram</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

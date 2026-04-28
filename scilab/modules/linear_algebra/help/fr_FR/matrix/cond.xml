@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="cond">
+    <refnamediv>
+        <refname>cond</refname>
+        <refpurpose>conditionnement  </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            c = cond(X)
+            c = cond(X, p)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>X  </term>
+                <listitem>
+                    <para>
+                        matrice réelle ou complexe. Pour la syntaxe <literal>c = cond(X, p)</literal>,
+                        <varname>X</varname> doit être carrée.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>1 | 2 | %inf | "inf" | "fro": norme utilisée. p=2 par défaut.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c</term>
+                <listitem>
+                    <para>nombre décimal positif : le conditionnement</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <variablelist>
+            <varlistentry>
+                <term>c = cond(X)</term>
+                <listitem>
+                    <para>
+                        retourne le conditionnement en norme 2.<literal>cond(X)</literal> est le
+                        quotient entre la plus grande et la plus petite valeur singulière de
+                        <literal>X</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>c = cond(X, p)</term>
+                <listitem>
+                    <para>
+                        retourne le conditionnement en norme p : <literal>norm(X, p) * norm(inv(X), p)</literal>.
+                        Les valeurs possibles de <varname>p</varname> sont :
+                    </para>
+                    <para>
+                        <table border="0">
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">1 : </emphasis></td>
+                                <td>conditionnement en norme 1</td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">2 : </emphasis></td>
+                                <td>conditionnement en norme 2</td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">%inf | "inf" : </emphasis></td>
+                                <td>conditionnement en norme infinie</td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="right"><emphasis role="bold">"fro" : </emphasis></td>
+                                <td>conditionnement en norme de Frobenius</td>
+                            </tr>
+                        </table>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+// Conditionnement d'une matrice non carrée :
+cond([1 0 -1 ; 0 1 -1])
+
+A = invhilb(6);
+// conditionnement en norme 2
+cond(A)
+cond(A, 2)
+
+// conditionnement en norme 1
+cond(A, 1)
+
+// conditionnement en norme infinie
+cond(A, %inf)
+
+// conditionnement en norme de Frobenius
+cond(A, 'fro')
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="rcond">rcond</link>
+            </member>
+            <member>
+                <link linkend="svd">svd</link>
+            </member>
+            <member>
+                <link linkend="norm">norm</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                cond(X) accepte désormais X non carrée.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                Nouvel argument d'entrée p introduit.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    cond([]) produit désormais 0 (comme cond([],p)) au lieu de 1.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

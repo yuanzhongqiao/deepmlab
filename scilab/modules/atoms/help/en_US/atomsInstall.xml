@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="atomsInstall">
+    <refnamediv>
+        <refname>atomsInstall</refname>
+        <refpurpose>Install one or several external modules</refpurpose>
+    </refnamediv>
+    <!-- ===================================================================== -->
+    <!-- Syntax -->
+    <!-- ===================================================================== -->
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = atomsInstall(modules)
+            result = atomsInstall(modules, section)
+            result = atomsInstall(file)
+        </synopsis>
+    </refsynopsisdiv>
+    <!-- ===================================================================== -->
+    <!-- Parameters -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>modules</term>
+                <listitem>
+                    <para>
+                        m x 1, m x 2 matrix of strings
+                    </para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col. (Mandatory)</th>
+                            <th>2nd Col. (Optional)</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version: if this field is empty or is not present,
+                                the most recent version is used</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>file</term>
+                <listitem>
+                    <para>
+                        m x 1 matrix of strings containing the file-system path.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>section</term>
+                <listitem>
+                    <para>
+                        This argument controls where the external module is installed.
+                    </para>
+                    <para>
+                        <literal>section</literal> is a single-string and its value should be :
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>"allusers"</literal>: the external module
+                                is installed for all users of the computer and is located in
+                                SCI/contrib ("allusers zone").
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"user"</literal>: the external module is only
+                                installed for the current user and is located in SCIHOME/atoms
+                                ("user zone").
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        If SCI/contrib is write accessible, "allusers" is the default value.
+                        Otherwise, the default value is "user".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>m x 5 matrix of strings</para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col.</th>
+                            <th>2nd Col.</th>
+                            <th>3rd Col.</th>
+                            <th>4th Col.</th>
+                            <th>5th Col.</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version</td>
+                            <td>Installation section: this parameter determines whether the module has been installed
+                                for all users or only for the current user.</td>
+                            <td>Installation path</td>
+                            <td>Status: "I" stands for "Intentionally", "A" stands for "Automatically"</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Description -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsInstall</literal> installs one or several external modules.
+        </para>
+        <note>
+            <para>By default, <literal>atomsInstall</literal> tries to install modules from ATOMS remote repositories. To install a module from a local file, you have to switch ATOMS to offline mode by using <literal>atomsSetConfig("offline","True")"</literal> command.</para>
+        </note>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Examples -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Examples</title>
+        <para>
+            <emphasis role="strong">Example 1:</emphasis> Installing a module from a repository
+        </para>
+        <programlisting role="example"><![CDATA[
+// Display some additional information
+atomsSetConfig("Verbose","True");
+
+// Load the test repository
+exec("SCI/modules/atoms/tests/unit_tests/atomsTestUtils.sce", -1);
+repository = atomsCreateTestRepository("scene10");
+
+// Install a module
+atomsInstall("toolbox_1V6");
+
+// Install a specific version
+atomsInstall(["toolbox_2V6" "2.0"]);
+
+// Install several modules
+atomsInstall(["toolbox_4V6" "1.0" ; "toolbox_2V6" "1.0"]);
+
+// Install a module in the user section
+atomsInstall(["toolbox_5V6"], "user");
+
+// Install a module in the allusers section
+// (write access on SCI directory is needed):
+atomsInstall(["toolbox_6V6" "1.0";"toolbox_3V6" "1.0"], "allusers");
+
+// Get the list of installed modules:
+disp( atomsGetInstalled() );
+
+// Cleaning
+atomsRemove(["toolbox_1V6"; ..
+             "toolbox_2V6"; ..
+             "toolbox_3V6"; ..
+             "toolbox_4V6"; ..
+             "toolbox_5V6"; ..
+             "toolbox_6V6"]);
+atomsRepositoryDel(repository);
+atomsSystemUpdate();
+        ]]></programlisting>
+        <para>
+            <emphasis role="strong">Example 2:</emphasis> Installing a module from a local archive. As well as
+            installing modules from the central repository, you can also install
+            modules directly from your own machine.
+        </para>
+        <programlisting role="example"><![CDATA[
+// Display some additional information
+atomsSetConfig("Verbose","True");
+
+// Switch to offline mode
+atomsSetConfig("offLine","True");
+
+// Install a module
+atomsInstall(SCI+"/modules/atoms/tests/unit_tests/toolbox_7V6_1.0-1.bin.zip");
+
+// Get the list of installed modules:
+disp( atomsGetInstalled() );
+
+// Cleaning
+atomsRemove("toolbox_7V6");
+
+// Back to default mode
+atomsSetConfig("offLine","False");
+]]></programlisting>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- See also -->
+    <!-- ===================================================================== -->
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsIsInstalled">atomsIsInstalled</link>
+            </member>
+            <member>
+                <link linkend="atomsGetInstalled">atomsGetInstalled</link>
+            </member>
+            <member>
+                <link linkend="atomsRemove">atomsRemove</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        When a <literal>module</literal> has no binary compiled for the running Scilab
+                        M.m version but has published (former) sources, <function>atomsInstall</function>
+                        automatically tries to compile them.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Authors -->
+    <!-- ===================================================================== -->
+</refentry>

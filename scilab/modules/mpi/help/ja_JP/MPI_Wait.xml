@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Sylvestre Ledru
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="MPI_Wait" xml:lang="ja">
+    <refnamediv>
+        <refname>MPI_Wait</refname>
+        <refpurpose>MPIリクエストの完了を待つ </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼び出し手順</title>
+        <synopsis>
+			res = MPI_Wait(request)
+			res = MPI_Wait(request, comm=mpi_comm)
+		</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>request</term>
+                <listitem>
+                    <para>MPIリクエスト.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>comm=mpi_comm</term>
+                <listitem>
+                    <para>If the optional argument "comm" is given,
+                        this function will use the MPI communicator created by 
+						<link linkend="MPI_Create_comm">MPI_Create_comm</link>.
+                        If not, the default MPI_COMM_WORLD is used.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>res</term>
+                <listitem>
+                    <para>
+                        MPI_Isendにより送信され,
+                        MPI_Irecvにより宣言されたMPIリクエストに一致する変数
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+        <para>TODO.</para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+                MPI_Init();
+                rnk =    MPI_Comm_rank();
+                sizeNodes =    MPI_Comm_size();
+                SLV = rnk;
+                Master = ~ SLV;
+                assert_checkequal(MPI_Comm_size(), 2);
+                if Master
+                   for slaveId = 1:sizeNodes-1
+                     value = slaveId*2
+                     MPI_Isend(value, slaveId, 42);
+                   end
+                else
+                    rankSource = 0;
+                    tag = 0;
+                    MPI_Irecv(rankSource, tag, 42); // MPI_Irecv は値を返しません
+                    value = MPI_Wait(42) // 値はMPI_Waitにより返されます
+                    value == 2
+                end
+                MPI_Finalize();
+           ]]> </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="MPI_Irecv">MPI_Irecv</link>
+            </member>
+            <member>
+                <link linkend="MPI_Isend">MPI_Isend</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

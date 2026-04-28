@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fortran files">
+      <UniqueIdentifier>{681fc28a-0bc5-42aa-9171-959ec1b9f6f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies">
+      <UniqueIdentifier>{4c37c49a-06b8-4398-a116-76103e8161d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Makefile.am" />
+    <None Include="Elementary_functions_f_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+    <None Include="Elementary_functions_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+    <None Include="core_import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <f2c_rule Include="isort1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="ordmmd.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="spreshape.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="spt.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="sz2ptr.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="blkfc1.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="blkfct.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="inpnv.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="symfct.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="blkslv.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="isort1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ordmmd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spreshape.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sz2ptr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="blkfc1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="blkfct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inpnv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="symfct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="blkslv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

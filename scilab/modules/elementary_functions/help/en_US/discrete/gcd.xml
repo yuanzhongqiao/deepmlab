@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2017 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="gcd">
+    <refnamediv>
+        <refname>gcd</refname>
+        <refpurpose>Greatest (positive) Common Divisor</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            gpcd = gcd(P)
+            [gpcd, U] = gcd(P)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>P</term>
+                <listitem>
+                    <para>
+                        array of decimal integers, encoded integers, or of polynomials.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>gpcd</term>
+                <listitem>
+                    <para>
+                        single element of <literal>P</literal> type: the greatest
+                        common divisor of all <literal>P</literal> components.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>U</term>
+                <listitem>
+                    <para>
+                        Square matrix of the <literal>P</literal> type, with integer components or
+                        of minimal degrees. Its last column <literal>B = U(:,$)</literal> holds
+                        Bezout coefficients, such that
+                        <literal>B(1)*P(1) + B(2)*P(2) + .... + B($)*P($) == gpcd</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <code>[gpcd, U] = gcd(P)</code> computes the greatest common divisor
+            <varname>gpcd</varname> of components of <varname>P</varname>, and an unimodular matrix
+            <varname>U</varname>.
+        </para>
+        <para>
+            If <literal>P</literal> components are decimal or encoded integers, they are priorly
+            converted into <literal>int64</literal> signed integers.
+        </para>
+        <para>
+            If <varname>P</varname> has an unsigned inttype <literal>uint8</literal>,
+            <literal>uint16</literal>, <literal>uint32</literal> or <literal>uint64</literal>,
+            <varname>U</varname> gets the corresponding signed inttype.
+        </para>
+        <para>
+            When <literal>P</literal> are integers, the returned GCD is always positive.
+        </para>
+        <para>
+            When a second output is expected, an unimodular matrix <literal>U</literal> of the
+            <literal>P</literal> type is returned, such that
+            <itemizedlist>
+                <listitem>
+                    <literal>size(U) == [length(P) length(P)]</literal>
+                </listitem>
+                <listitem>
+                     <para><literal>matrix(P,1,-1)*U = [0...0 gpcd]</literal> with
+                        <literal>length(P)-1</literal> leading zeros
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>det(U)</literal> is <literal>1</literal> or
+                        <literal>-1</literal>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            Its last column provides Bezout coefficients.
+        </para>
+        <note>
+            <literal>gcd([0 0])</literal> returns <literal>0</literal>.
+        </note>
+        <warning>
+            For big <varname>P</varname> values (smaller but of the order of 2^63, depending also
+            on the number of input values), results may be corrupted by integer overflow and
+            wrapping (int8(127)+1 == -128).
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// With polynomials
+s = %s;
+p = [s  s*(s+1)^2  2*s^2+s^3];
+[GCD, U] = gcd(p)
+p*U
+
+// With encoded integers
+V = uint16([2^2*3^5 2^3*3^2 2^2*3^4*5])
+[GCD, U] = gcd(V)
+typeof(GCD)
+typeof(U)
+V*U
+
+// With decimal integers
+V = [2^2*3^5 2^3*3^2 2^2*3^4*5];
+[GCD, U] = gcd(V)
+type(GCD)
+type(U)
+V*U
+
+gcd([0 60])
+gcd([0 0])
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="bezout">bezout</link>
+            </member>
+            <member>
+                <link linkend="lcm">lcm</link>
+            </member>
+            <member>
+                <link linkend="factor">factor</link>
+            </member>
+            <member>
+                <link linkend="prod">prod</link>
+            </member>
+            <member>
+                <link linkend="hermit">hermit</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para><literal>int64</literal> and <literal>uint64</literal> input integers
+                                are now supported.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                The input <literal>P</literal> may be any array instead of a row vector.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                For input integers possibly negative, the returned GCD is now always
+                                positive.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection></refentry>

@@ -1,0 +1,85 @@
+// ===========================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Sylvestre LEDRU
+//
+//  This file is distributed under the same license as the Scilab package.
+// ===========================================================================
+
+// <-- CLI SHELL MODE -->
+
+doc = xmlReadStr("<root><a>Hello</a><b>Scilab</b><a>World</a></root>");
+
+assert_checkequal(doc.root.children(1).name,"a");
+assert_checkequal(doc.root.children(2).name,"b");
+assert_checkequal(doc.root.children(3).name,"a");
+
+// Remove all the <a>
+xp = xmlXPath(doc, "//a");
+xmlRemove(xp);
+assert_checkequal(doc.root.children(1).name,"b");
+
+msgerr = msprintf(gettext("%s: Wrong index in the XMLList.\n"), "%XMLList_e");
+assert_checkerror("doc.root.children(2).name", msgerr);
+assert_checkerror("doc.root.children(3).name", msgerr);
+
+xp = xmlXPath(doc, "//a");
+assert_checkequal(length(xp),0);
+
+doc2 = xmlReadStr("<root><b>Scilab</b></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc2)));
+
+xmlDelete(doc);
+xmlDelete(doc2);
+
+
+// Remove the first element
+doc = xmlReadStr("<root><a>Hello</a><b>Scilab</b><a>World</a></root>");
+xmlRemove(doc.root.children(1));
+doc2 = xmlReadStr("<root><b>Scilab</b><a>World</a></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc2)));
+xmlRemove(doc.root.children(1));
+doc3 = xmlReadStr("<root><a>World</a></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc3)));
+xmlRemove(doc.root.children(1));
+doc4 = xmlReadStr("<root></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc4)));
+
+//Remove all the root children
+doc5 = xmlReadStr("<root><a>Hello</a><b>Scilab</b><a>World</a></root>");
+xmlRemove(doc5.root.children);
+doc6 = xmlReadStr("<root></root>");
+assert_checktrue(and(xmlDump(doc5)==xmlDump(doc6)));
+
+xmlDelete(doc);
+xmlDelete(doc2);
+xmlDelete(doc3);
+xmlDelete(doc4);
+xmlDelete(doc5);
+xmlDelete(doc6);
+
+doc = xmlReadStr("<root><a>Hello</a><mynode><b>Scilab</b></mynode><a>World</a></root>");
+xmlRemove(doc.root.children(1));
+doc2 = xmlReadStr("<root><mynode><b>Scilab</b></mynode><a>World</a></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc2)));
+xmlRemove(doc.root.children(1).children(1));
+doc3 = xmlReadStr("<root><mynode></mynode><a>World</a></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc3)));
+
+xmlDelete(doc);
+xmlDelete(doc2);
+xmlDelete(doc3);
+
+doc = xmlReadStr("<root><a>Hello</a><mynode><b>Scilab</b></mynode><a>World</a></root>");
+xmlRemove(doc.root.children(1).children(1));
+doc2 = xmlReadStr("<root><a></a><mynode><b>Scilab</b></mynode><a>World</a></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc2)));
+
+xmlDelete(doc);
+xmlDelete(doc2);
+
+doc = xmlReadStr("<root><a>Hello</a><mynode><b>Scilab</b></mynode><a>World</a></root>");
+xmlRemove(doc.root.children(2).children(1));
+doc2 = xmlReadStr("<root><a>Hello</a><mynode></mynode><a>World</a></root>");
+assert_checktrue(and(xmlDump(doc)==xmlDump(doc2)));
+xmlDelete(doc);
+xmlDelete(doc2);

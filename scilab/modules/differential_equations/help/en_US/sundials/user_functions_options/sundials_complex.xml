@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2022 - UTC - Stéphane MOTTELET
+*
+* This file is hereby licensed under the terms of the GNU GPL v2.0,
+* For more information, see the COPYING file which you should have received
+* along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sundials_complex" xml:lang="en" xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <refnamediv>
+        <refname>Complex solutions</refname>
+        <refpurpose>Computing a complex solution and its applications</refpurpose>
+    </refnamediv>
+    <refsection role="example">
+        <title>Basic complex solution</title>
+        <para>
+        Unlike the native implementation, the SUNDIALS solvers Scilab interface allows to solve a system of equations,  ODEs or DAEs if the solution is complex, 
+        when the user functions (right hand side or residual, Jacobian) are given by Scilab functions.
+        For example, for an ODE, the solution is complex when the right hand side always yields complex values
+        or when the initial condition is complex, even if the right hand side is a real function. Here is a basic example:
+        </para>
+        <para>
+         <programlisting role="example"><![CDATA[
+             function out = crhs(t,y)
+                 out = 10*exp(2*%i*%pi*t)*y;
+             endfunction
+             [t,z] = cvode(crhs,[0 5],1);
+             plot(t,real(z),t,imag(z))
+             legend("real(z)","imag(z)");
+             ]]></programlisting>
+             <scilab:image><![CDATA[
+                 function out = crhs(t,y)
+                     out = 10*exp(2*%i*%pi*t)*y;
+                 endfunction
+                 [t,z] = cvode(crhs,[0 5],1);
+                 plot(t,real(z),t,imag(z))
+                 legend("real(z)","imag(z)");
+                 gcf().axes_size(2)=300  
+             ]]></scilab:image>
+         </para>
+    </refsection>
+    <refsection role="example">
+        <title>Sensitivity computation with complex step</title>
+        <para>Computing the sensitivity function of the solution with respect to a parameter, on the whole integration interval or just
+            at given time points is typically used when you need to solve identification problems where the model
+            involves an ODE or a DAE. Using the complex step technique allows to compute, up to machine precision, the
+            derivative of the solution with respect to a chosen parameter, which can appear in the computation of the right hand side
+            or in the initial condition, and more generally, a directional derivative. The cvode and ida solvers already includes a built in feature
+            (see the <link linkend="cvodes">ODE Sensitivity</link> and <link linkend="idas">DAE Sensitivity</link> help pages)
+            that allows to compute the sensitivity function by adding its derivative (user provided or approximated with finite difference
+            quotients) to the original ODE rhs or DAE residual. However, when such a feature is not available (for example with arkode) and when the rhs is computed by a Scilab function,
+            the sensititivity with respect to a single parameter can be computed by using a complex step. In the following example, we compute
+            the derivative of the solution of the Van Der Pol equation with respect to mu. Note that the real part of the complex
+            solution gives the solution of the equation itself:
+        </para>
+    </refsection>
+    <para>
+    <programlisting role="example"><![CDATA[
+    function dydt = vdp(t,y,mu)
+        dydt = [y(2,:)
+                mu*(1-y(1,:).*y(1,:)).*y(2,:)-y(1,:)];
+    endfunction
+    y0=[2;1];
+    h = 1e-200;
+    mu = 1;
+    [t,yc] = arkode(list(vdp,complex(mu,h)), [0,10], y0);
+    dydmu = imag(yc)/h;
+    y = real(yc);
+    subplot(1,2,1)
+    title("$y(t)$")
+    plot(t,y)
+    subplot(1,2,2)
+    plot(t,dydmu)
+    title("$\frac{\partial y}{\partial \mu}(t,y)$")
+    ]]></programlisting>
+    <scilab:image><![CDATA[
+        function dydt = vdp(t,y,mu)
+            dydt = [y(2,:)
+                    mu*(1-y(1,:).*y(1,:)).*y(2,:)-y(1,:)];
+        end
+        y0=[2;1];
+        h = 1e-200;
+        mu = 1;
+        [t,yc] = arkode(list(vdp,complex(mu,h)), [0,10], y0, rtol=1e-14);
+        dydmu = imag(yc)/h;
+        y = real(yc);
+        subplot(1,2,1)
+        title("$y(t)$")
+        plot(t,y)
+        subplot(1,2,2)
+        plot(t,dydmu)
+        title("$\frac{\partial y}{\partial \mu}$")
+        gcf().axes_size(2)=300  
+        gcf().axes_size(1)=800
+    ]]></scilab:image>
+</para>
+
+<refsection role="see also">
+    <title>See also</title>
+    <simplelist type="inline">
+        <member>
+            <link linkend="arkode">arkode</link>
+        </member>
+        <member>
+            <link linkend="cvode">cvode</link>
+        </member>
+        <member>
+            <link linkend="ida">ida</link>
+        </member>
+        <member>
+            <link linkend="kinsol">kinsol</link>
+        </member>
+        <member>
+            <link linkend="cvodes">ODE Sensitivity</link>
+        </member>
+        <member>
+            <link linkend="idas">DAE Sensitivity</link>
+        </member>
+    </simplelist>
+</refsection>
+
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+Al-Mohy, A.H., Higham, N.J. The complex step approximation to the Fréchet derivative of a matrix function. Numer Algor 53, 133 (2010). <ulink url="https://doi.org/10.1007/s11075-009-9323-y">https://doi.org/10.1007/s11075-009-9323-y</ulink>
+</para>
+    </refsection>
+</refentry>

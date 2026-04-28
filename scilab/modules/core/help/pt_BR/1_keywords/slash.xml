@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="slash" xml:lang="pt">
+    <refnamediv>
+        <refname>slash</refname>
+        <refpurpose>(/) divisão esquerda-direita e feedback
+            ("resposta")
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            X = A / B        // while A = X * B
+            X = A ./ B       // while A = X .* B
+            X = A ./. B      // while A = X .*. B
+            S = G /. K
+            // on-row comment
+            /* block of multilines comments */
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            Divisão esquerda-direita. <literal>x=A / b</literal> é a solução de
+            <literal>x*b=A</literal> .
+        </para>
+        <para>
+            <literal>b/a = (a' \ b')'</literal> .
+        </para>
+        <para>
+            <literal>a./ b</literal> é a matriz com entradas <literal>a(i,j)/
+                b(i,j)
+            </literal>
+            .Se <literal>b</literal> é escalar (matriz 1x1) esta
+            operação é o mesmo que <literal> a./b*ones(a)</literal>. (mesma convenção
+            se <literal>a</literal> é um escalar).
+        </para>
+        <para>(\) significa divisão direita-esquerda.</para>
+        <para>
+            Feedback de sistema.<literal> S=G/.K</literal> avalia
+            <literal>S=G*(eye()+K*G)^(-1)</literal> . Este operador evita o problema
+            de simplificação.
+        </para>
+        <note>
+           Observe que <literal>123./b</literal> é interpretado como <literal>(123)./b</literal>.
+           Nestes casos, o ponto é parte do operador, não do número.
+          <para/>
+           In the opposite, <literal>G/.5</literal> é interpretado como <literal>G/(.5)</literal>.
+           Em tais casos, o ponto é parte do número, não do operador, while it is not the case in
+          <literal>G/. 5</literal>
+        </note>
+        <para>
+            Comentário. <literal>//</literal> comenta uma linha, i.e. linhas que
+            começam por <literal>//</literal> são ignoradas pelo interpretador.
+        </para>
+        <para>
+            It is the same with <literal>/*</literal> which start to comment a
+            block of code and with <literal>*/</literal> which end to comment this block.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+a = [3.,-24.,30.];
+B = [
+   9.   -36.    30.
+  -36.   192.  -180.
+   30.  -180.   180.
+];
+x = a / B
+x*B-a // close to zero
+
+a = 4 / 2;        // Should be 2
+a = 2 ./ [2,4];   //  [1. 0.5]
+     ]]></programlisting>
+        <para>
+            Kronecker right division :
+        </para>
+        <programlisting role="example"><![CDATA[
+A = [1 100 ; 10 1000], B = [1 2 4],
+P = A .*. B
+P ./. B
+ ]]></programlisting>
+    <screen><![CDATA[
+--> A = [1 100 ; 10 1000], B = [1 2 4],
+ A  =
+   1.    100.
+   10.   1000.
+
+ B  =
+   1.   2.   4.
+
+--> P = A .*. B
+ P  =
+   1.    2.    4.    100.    200.    400.
+   10.   20.   40.   1000.   2000.   4000.
+
+--> P ./. B
+ ans  =
+   1.   100.
+   10.  1000.
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+// Comments are good. They help to understand code
+a = 1;  // Comment after some heading instructions
+/* Even long, that is to say on many lines,
+comments are useful */
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="inv">inv</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+            <member>
+                <link linkend="krondivide">kron ./.</link>
+            </member>
+            <member>
+                <link linkend="comments">comments</link>
+            </member>
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revremark>
+                  The threshold level which switches between Gaussian Elimination with row pivoting
+                  and linear least squares when computing B/A is decreased from sqrt(eps) to eps.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                  1./B  means now 1 ./ B, no longer 1. / B
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

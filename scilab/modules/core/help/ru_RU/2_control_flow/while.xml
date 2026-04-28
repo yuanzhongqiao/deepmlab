@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="while">
+    <refnamediv>
+        <refname>while</refname>
+        <refpurpose>ключевое слово while</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            while expr, инструкции,..., end
+            while expr do инструкции,..., end
+            while expr then инструкции,..., end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Описание</title>
+        <para>
+            Оператор <literal>while</literal> должен заканчиваться ключевым словом
+            <literal>"end"</literal>.
+        </para>
+        <para>Примечания:</para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Единственное ограничение состоит в том, что каждое ключевое слово <literal>then</literal>
+                    или <literal>do</literal> должно быть в той же самой строке, что и ключевое слово
+                    <literal>while</literal>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Ключевые слова <literal>then</literal> или <literal>do</literal> могут
+                    быть заменены на возврат каретки или запятую. Для совместимости с
+                    Matlab можно, но не рекомендуется, вставлять пробел между концом
+                    инструкции и началом новой инструкции.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Необязательная конструкция <literal>[,else инструкции]</literal> позволяет
+                    указывать инструкции <literal>инструкции</literal>, которые исполняются когда выражение
+                    <literal>expr</literal> становится ложным.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            В соответствии с договорённостями по написанию кода  в Scilab рекомендуется:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    начинать новую инструкцию на новой строке;
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    писать не более одной простой инструкции на одной строке;
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    разбивать составные инструкции на множество строк.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            Например, используйте:
+        </para>
+        <programlisting role=""><![CDATA[
+i = 0;
+while i<5
+   disp(i);
+   i = i + 1;
+end
+]]></programlisting>
+        <para>
+            а не:
+        </para>
+        <programlisting role=""><![CDATA[
+i = 0; while i<5, disp(i), i = i + 1; end
+]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+e = 1;
+a = 1;
+k = 1;
+while norm(a-(a+e),1) > %eps,
+    e = e/2;
+    k = k+1;
+end
+e,k
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="or_op">|, ||</link>
+            </member>
+            <member>
+                <link linkend="and_op">&amp;, &amp;&amp;</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <itemizedlist>
+                      <listitem>
+                           <para>
+                            Синтаксис <literal>[,else instructions]</literal> более не поддерживается.
+                          </para>
+                      </listitem>
+                      <listitem>
+                           <para><literal>while</literal> теперь защищено:
+                            Назначения вроде <literal>while=1</literal> более недопустимы.
+                          </para>
+                      </listitem>
+                  </itemizedlist>
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

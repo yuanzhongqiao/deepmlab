@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="polar">
+    <refnamediv>
+        <refname>polar</refname>
+        <refpurpose>polar decomposition of a square matrix</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[Rho, Theta] = polar(A)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                    <para>a real or complex square matrix.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Rho</term>
+                <listitem>
+                    <para>a real matrix.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Theta</term>
+                <listitem>
+                    <para>a real or complex matrix.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">[Rho, Theta] = polar(A)</emphasis> returns the polar form of
+            <varname>A</varname> i.e. <literal>A = Rho * expm(%i*Theta)</literal> with
+            <varname>Rho</varname> symmetric ≥ 0 and <varname>Theta</varname> hermitian ≥ 0.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Build an input matrix A:
+Theta_0 = toeplitz(1.5:-0.5:0)
+Rho_0 = toeplitz(1:4)
+A = Rho_0 * expm(%i*Theta_0)
+
+// Compute its polar matricial components:
+[Rho, Theta] = polar(A);
+clean(Rho)    // is real symetric
+clean(Theta)  // is hermitian
+
+// Check that the computed decomposition builds A as well
+norm(A - Rho*expm(%i*Theta), 1)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> Theta_0 = toeplitz(1.5:-0.5:0)
+ Theta_0  =
+   1.5   1.    0.5   0.
+   1.    1.5   1.    0.5
+   0.5   1.    1.5   1.
+   0.    0.5   1.    1.5
+
+--> Rho_0 = toeplitz(1:4)
+ Rho_0  =
+   1.   2.   3.   4.
+   2.   1.   2.   3.
+   3.   2.   1.   2.
+   4.   3.   2.   1.
+
+--> A = Rho_0 * expm(%i*Theta_0)
+ A  =
+  -1.2699509 - 2.1374364i  -2.6833779 - 1.9074687i  -3.0456968 - 0.7713555i  -1.5838266 + 0.7745137i
+  -0.3831402 - 0.8547475i  -2.7866925 - 1.5182796i  -2.3759306 - 0.8785558i  -0.745459  + 0.2813657i
+  -0.745459  + 0.2813657i  -2.3759306 - 0.8785558i  -2.7866925 - 1.5182796i  -0.3831402 - 0.8547475i
+  -1.5838266 + 0.7745137i  -3.0456968 - 0.7713555i  -2.6833779 - 1.9074687i  -1.2699509 - 2.1374364i
+
+
+--> // Compute its polar matricial components:
+--> [Rho, Theta] = polar(A);
+
+--> clean(Rho)    // is real symetric
+ ans  =
+   4.441742  + 0.i   2.4611614 + 0.i   1.4611614 + 0.i   1.441742  + 0.i
+   2.4611614 + 0.i   2.6572775 + 0.i   1.6572775 + 0.i   1.4611614 + 0.i
+   1.4611614 + 0.i   1.6572775 + 0.i   2.6572775 + 0.i   2.4611614 + 0.i
+   1.441742  + 0.i   1.4611614 + 0.i   2.4611614 + 0.i   4.441742  + 0.i
+
+--> clean(Theta)  // is hermitian
+ ans  =
+  -0.6115539 + 0.i          0.2232029 + 1.3108917i  -0.2767971 + 1.3108917i   1.0300387 + 0.i
+   0.2232029 - 1.3108917i  -1.1008351 + 0.i          1.5407576 + 0.i         -0.2767971 - 1.3108917i
+  -0.2767971 - 1.3108917i   1.5407576 + 0.i         -1.1008351 + 0.i          0.2232029 - 1.3108917i
+   1.0300387 + 0.i         -0.2767971 + 1.3108917i   0.2232029 + 1.3108917i  -0.6115539 + 0.i
+
+--> // Check that the computed decomposition builds A as well
+--> norm(A - Rho*expm(%i*Theta), 1)
+ ans  =
+   1.435D-14
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="expm">expm</link>
+            </member>
+            <member>
+                <link linkend="svd">svd</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

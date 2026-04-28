@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2014 - Scilab Enterprises - Calixte DENIZET
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2019 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="xmlSetValues" xml:lang="en">
+    <refnamediv>
+        <refname>xmlSetValues</refname>
+        <refpurpose>Sets some attribute=value in an XML document for a given tag/XPath</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            xmlSetValues(xpath, attributes_values)
+            xmlSetValues(xpath, attributes_values, doc)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>xpath</term>
+                <listitem>
+                    <para>a string: XPath request pointing to the chosen tag in the XML document.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>attributes_values</term>
+                <listitem>
+                    <para>a 2xN matrix of strings: the (attribute,value) pairs to set.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <variablelist>
+            <varlistentry>
+                <term>xdoc</term>
+                <listitem>
+                    <para>
+                        mlist typed XMLDoc: the XML document in which to write values.
+                        By default, it is the main Scilab preferences file
+                        (<literal>SCIHOME + '/XConfiguration.xml'</literal>).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            When no explicit XML document <varname>xdoc</varname> is indicated,
+            <literal>xmlSetValues</literal> opens the main Scilab preferences file
+            <literal>SCIHOME + '/XConfiguration.xml'</literal>, looks for the tag pointed to by
+            <varname>xpath</varname>, updates some of its attributes and related values as
+            provided by <varname>attributes_values</varname>, and closes the file.
+        </para>
+        <para>
+            <literal>xmlSetValues</literal> can also be used on-the-fly on an already open XML
+            document <varname>xdoc</varname>. In this case, the document is kept open after
+            leaving <literal>xmlSetValues</literal>. This mode is useful when several
+            tags must be updated in the same document.
+        </para>
+        <para>
+            Attributes to update must already exist for the given tag.
+            <literal>xmlSetValues</literal> is not able to create new ones.
+        </para>
+        <para>
+            All valid XPath requests are possible. For example to write the XPath request to
+            set proxy settings in the main Scilab configuration file:
+        </para>
+        <simplelist type="inline">
+            <member>
+                <para>
+                    Opens <literal>SCIHOME+'/XConfiguration.xml'</literal> and gets the
+                    nodes names to access to the expected node:
+                </para>
+                <programlisting role="xml"><![CDATA[
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<interface height="600" path="1/" version="0.17" width="800">
+    <general title="_(General)">
+    ...
+    </general>
+    <web title="_(Web)">
+        <body>
+            <web command-browser="" command-mailer="" default-browser="true" default-mailer="true"/>
+            <proxy enabled="false" host="" password="" port="" user=""/>
+            <previous-proxy enabled="false" host="" password="" port="" user=""/>
+        </body>
+    </web>
+    ...
+</interface>
+          ]]></programlisting>
+                <para>
+                    The path will be <literal>"/interface/web/body/proxy"</literal>
+                    (or to simplify <literal>"//web/body/proxy"</literal>).
+                </para>
+            </member>
+        <warning>
+            Modifying incorrectly some preferences can alter the Scilab's behaviour.
+        </warning>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Get the current values
+prev = xmlGetValues("//web/body/proxy", ["enabled", "host", "port"]);
+xmlSetValues("//web/body/proxy", ["enabled", "host", "port"; "true", "my.proxy.org", "1234"]);
+
+// Ok that's work
+xmlGetValues("//web/body/proxy", ["enabled", "host", "port"])
+
+// We restore the previous values
+xmlSetValues("//web/body/proxy", ["enabled", "host", "port" ; prev]);
+xmlGetValues("//web/body/proxy", ["enabled", "host", "port"])
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xmlGetValues">xmlGetValues</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revremark>
+                    xmlSetValues() introduced, replacing setPreferencesValue().
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<!--  module: integer  -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="inttype">
+    <refnamediv>
+        <refname>inttype</refname>
+        <refpurpose> type integers used in integer data types</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[i] = inttype(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        a matrix of integers (see <function>int8</function>,...).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>i</term>
+                <listitem>
+                    <para>an integer.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <code>inttype(x)</code> returns an integer <varname>i</varname> which is the type of the entries
+            of <varname>x</varname> as following:
+        </para>
+        <para>
+            1
+            :  one byte integer representation;
+        </para>
+        <para>
+            2
+            :  two bytes integer representation;
+        </para>
+        <para>
+            4
+            :  four bytes integer representation;
+        </para>
+        <para>
+            8
+            : eight bytes integer representation;
+        </para>
+        <para>
+            11
+            :  one byte unsigned integer representation;
+        </para>
+        <para>
+            12
+            :  two bytes unsigned integer representation;
+        </para>
+        <para>
+            14
+            :  four bytes unsigned integer representation;
+        </para>
+        <para>
+            18
+            : eight bytes unsigned integer representation.
+        </para>
+        <para>
+            If type of <varname>x</varname> is <literal>double</literal> then <varname>i</varname> is <literal>0</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x=uint16(1:10);
+inttype(x)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="double">double</link>
+            </member>
+            <member>
+                <link linkend="iconvert">iconvert</link>
+            </member>
+            <member>
+                <link linkend="int8">int8</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

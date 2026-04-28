@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="while" xml:lang="pt">
+    <refnamediv>
+        <refname>while</refname>
+        <refpurpose>palavra-chave da estrutura while (significa
+            "enquanto...")
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Seqüência de Chamamento</title>
+        <synopsis>
+            while expr ,instructions,..., end
+            while expr do instructions,..., end
+            while expr then instructions,..., end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Descrição</title>
+        <para>
+            <literal>while</literal> . Deve ser terminado por
+            <literal>"end"</literal>
+        </para>
+        <para>
+            <literal>while expressão ,instruções1,...[,else instruções],
+                end
+            </literal>
+        </para>
+        <para>
+            <literal>while expressão do instruções1,...[,else instruções],
+                end
+            </literal>
+        </para>
+        <para>
+            <literal>while expressão then instruções1,...[,else instruções],
+                end
+            </literal>
+        </para>
+        <para>Notas:</para>
+        <itemizedlist>
+            <listitem>
+                <para>A única restrição é que cada palavra-chave "then" ou "do" deve
+                    estar na mesma linha que a palavra-chave "while".
+                </para>
+            </listitem>
+            <listitem>
+                <para>As palavras-chaves "then" ou "do" podem ser substituídas por um
+                    retorno de carro ou uma vírgula. Para compatibilidade com o Matlab,
+                    também é possível, mas não recomendado, por um espaço entre o fim da
+                    expressão e o início da primeira instrução.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    A construção opcional <literal>,else instruções</literal>
+                    permite fornecer instruções que são executadas quando a expressão
+                    expressão torna-se falsa.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            According to the Code Conventions for the Scilab Programming Language it is recommended:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Start each statement on a new line.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Write no more than one simple statement per line.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Break compound statements over multiple lines.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            For example, use:
+        </para>
+        <programlisting role=""><![CDATA[
+i = 0;
+while i<5
+    disp(i);
+    i = i + 1;
+end
+]]></programlisting>
+        <para>
+            rather than
+        </para>
+        <programlisting role=""><![CDATA[
+i = 0; while i<5, disp(i), i = i + 1; end
+]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+e=1; a=1; k=1;
+while norm(a-(a+e),1) > %eps,
+    e=e/2;
+    k=k+1;
+end
+e,k
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title> Ver Também </title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="or_op">|, ||</link>
+            </member>
+            <member>
+                <link linkend="and_op">&amp;, &amp;&amp;</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Histórico</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <itemizedlist>
+                      <listitem>
+                           <para>
+                            The <literal>[,else instructions]</literal> syntax is no longer supported.
+                          </para>
+                      </listitem>
+                      <listitem>
+                           <para><literal>while</literal> is now protected:
+                            Assignments like <literal>while=1</literal> are no longer possible.
+                          </para>
+                      </listitem>
+                  </itemizedlist>
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

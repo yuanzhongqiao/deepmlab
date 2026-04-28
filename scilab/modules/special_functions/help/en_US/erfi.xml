@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="erfi" xml:lang="en">
+    <refnamediv>
+        <refname>erfi</refname>
+        <refpurpose>The imaginary error function.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>y = erfi(z)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>vector or matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>vector or matrix (of same size than x)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>erfi</literal> computes the imaginary error function of x, defined by
+            <emphasis>-i.erf(i.x)</emphasis>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+erfi(1.234)
+
+x = [-0.1, 0.1, 1, 1+2*%i,-1+2*%i,1e-6+2e-6*%i,0+2*%i];
+erfi(x)
+// equivalent to
+-%i * erf(%i*x)
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Algorithms</title>
+        <para>
+            This function is based on the <ulink url="http://ab-initio.mit.edu/Faddeeva">Faddeeva package</ulink> library.
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="erf">erf</link>
+            </member>
+            <member>
+                <link linkend="erfcx">erfcx</link>
+            </member>
+            <member>
+                <link linkend="erfc">erfc</link>
+            </member>
+            <member>
+                <link linkend="calerf">calerf</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Function erfi supports complex arguments</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

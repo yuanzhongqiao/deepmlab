@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA -
+ * Copyright (C) DIGITEO - 2009 - Allan CORNET
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="addinter" xml:lang="en">
+    <refnamediv>
+        <refname>addinter</refname>
+        <refpurpose>new functions interface dynamic link at run time.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>addinter(files, spname, fcts)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>files</term>
+                <listitem>
+                    <para>a character string or a vector of character string contain
+                        object files used to define the new Scilab interface routine
+                        (interface code, user routines or libraries, system
+                        libraries).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>spname</term>
+                <listitem>
+                    <para>a character string. Name of interface routine entry
+                        point
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fcts</term>
+                <listitem>
+                    <para>vector of character strings. The name of new Scilab function
+                        implemented in the new interface (in <literal> fin</literal> the
+                        order ).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>addinter</literal> performs dynamic link of a compiled C or
+            Fortran new Scilab interface routine and define corresponding scilab
+            functions.
+        </para>
+        <para>
+            You can use the command <literal>link('show')</literal> to get the
+            number of the shared libraries. And to reload a new version of an
+            interface a call to <literal>ulink</literal> is necessary to get rid of
+            the old version.
+        </para>
+        <para>
+            See <literal>link</literal> for more precision on use.
+        </para>
+        <para>Number of 'addinter' in a scilab session can be limited by the
+            operating system. On Windows, you cannot load more than 80 dynamic
+            libraries at the same time.
+        </para>
+        <para>Number of functions implemented in a interface is limited to
+            1000.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[ if haveacompiler() then
+
+chdir(TMPDIR);
+mkdir('example_addinter');
+chdir('example_addinter');
+
+src = ['#include <math.h>'
+'#include <api_scilab.h>'
+'#include <Scierror.h>'
+'#include <localization.h>'
+''
+'static double fun2(double x);'
+''
+'void fun1(double *x,double *y) '
+'{'
+'  *y=fun2(*x)/(*x); '
+'} '
+''
+'static double fun2(double x)'
+'{ '
+'  return( sin(x+1));'
+'}'
+''
+'int sci_fun1(char *fname, void* pvApiCtx)'
+'{'
+'  int iType1 = 0;'
+'  SciErr sciErr;'
+'  int m1 = 0, n1 = 0;'
+'  double *pdVarOne = NULL;'
+'  int *piAddressVarOne = NULL;'
+''
+'  CheckRhs(1,1);'
+'  CheckLhs(0,1);'
+''
+'  sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);'
+'  if(sciErr.iErr)'
+'  {'
+' printError(&sciErr, 0);'
+' return 0;'
+'  }'
+''
+'  sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);'
+'  if(sciErr.iErr)'
+'  {'
+' printError(&sciErr, 0);'
+' return 0;'
+'  }'
+''
+'  if (iType1 != sci_matrix)'
+'  {'
+'  Scierror(999,_(""%s: Wrong type for input argument #%d: string expected.\n""), fname, 1);'
+'  return 0;'
+'  }'
+''
+'  sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarOne, &m1, &n1, &pdVarOne);'
+'  if(sciErr.iErr)'
+'  {'
+' printError(&sciErr, 0);'
+' return 0;'
+'  }'
+''
+'  fun1(pdVarOne, pdVarOne);'
+'  LhsVar(1) = 1;'
+'  return 0;'
+'}'];
+
+mputl(src,TMPDIR + '/example_addinter/example_addinter.c');
+files=['example_addinter.c'];
+ilib_build('addinter',['fun1_in_scilab','sci_fun1'],files,[]);
+disp(mgetl('loader.sce'));
+exec loader.sce;
+fun1_in_scilab(%pi)
+
+end // if haveacompiler()
+]]></programlisting>
+        <refsect3>
+            <title>Generated loader.sce with addinter</title>
+        </refsect3>
+        <programlisting role="example"><![CDATA[// This file is released under the 3-clause BSD license. See COPYING-BSD.
+// Generated by builder.sce : Please, do not edit this file
+// ----------------------------------------------------------------------------
+//
+addinter_path = get_absolute_file_path('loader.sce');
+//
+// ulink previous function with same name
+[bOK, ilib] = c_link('addinter');
+if bOK then
+  ulink(ilib);
+end
+//
+list_functions = [ 'fun1_in_scilab'];
+//
+// here we call addinter
+addinter(addinter_path + filesep() + 'addinter' + getdynlibext(), 'addinter', list_functions);
+// remove temp. variables on stack
+clear addinter_path;
+clear bOK;
+clear ilib;
+clear list_functions;
+// ----------------------------------------------------------------------------
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="link">link</link>
+            </member>
+            <member>
+                <link linkend="newfun">newfun</link>
+            </member>
+            <member>
+                <link linkend="clearfun">clearfun</link>
+            </member>
+            <member>
+                <link linkend="api_scilab">api_scilab</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,170 @@
+/* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+
+ This file is released under the 3-clause BSD license. See COPYING-BSD.
+ */
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#main {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.left p {
+    margin: 10px 0;
+}
+
+.center {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    outline: 1px solid black;
+}
+
+#grid {
+    display: block;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+li {
+    justify-content: center;
+}
+
+.color-frame {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.color {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    margin-right: 10px;
+}
+
+.color-frame .color {
+    outline: 1px solid black;
+}
+
+.cost {
+    flex: 0 0 40px;
+    width: 40px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+span.cost {
+    flex: 0 0 46px!important;
+    vertical-align: middle;
+    outline: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F0F0;
+    font-size: 16px;
+}
+
+.grid-size {
+    display: flex;
+    margin: 0;
+    gap: 5px;
+    justify-content: center;
+}
+
+button {
+    background-color: white;
+    border: 1px solid black;
+}
+
+button:hover {
+    background-color: #F0F0F0;
+}
+
+button img {
+    width: 16px;
+    height: 16px;
+    display: flex;
+}
+
+.grid-image {
+    width: 16px;
+    height: 16px;
+    margin: auto;
+}
+
+.start {
+    content:url(./../images/start.png);
+}
+
+.finish {
+    content:url(./../images/finish.png);
+}
+
+.colors {
+
+}
+.canvas {
+    flex: 1 1 auto;
+    background: darkslateblue;
+}
+
+#compute {
+    width: 150px;
+    height: 30px;
+    align-self: center;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#compute img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+#help {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 30px;
+    border: none!important;
+}
+
+#cellrandom {
+    margin-left: 22px;
+}

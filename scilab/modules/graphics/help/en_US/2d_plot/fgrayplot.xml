@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) ENPC - Jean-Philippe Chancelier
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="fgrayplot">
+    <refnamediv>
+        <refname>fgrayplot</refname>
+        <refpurpose>2D plot of a surface defined by a function using colors</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>fgrayplot(x,y,f,[strf,rect,nax])
+            fgrayplot(x,y,f,&lt;opt_args&gt;)
+            h = fgrayplot(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x,y</term>
+                <listitem>
+                    <para>real row vectors.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>
+                        external of type <literal>y=f(x,y)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>&lt;opt_args&gt;  </term>
+                <listitem>
+                    <para>
+                        This represents a sequence of statements <literal>key1=value1, key2=value2</literal>,... where <literal>key1</literal>, <literal>key2,...</literal> can be one of the following: rect, nax, strf or axesflag and frameflag (see <literal>plot2d</literal>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>strf,rect,nax</term>
+                <listitem>
+                    <para>
+                        see <literal>plot2d</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Grayplot entity. Use <literal>h</literal> to modify its properties
+                      For a list of properties, see <link linkend="grayplot_properties">grayplot_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>fgrayplot</literal> makes a 2D plot of the surface given by <literal>z=f(x,y)</literal> on a
+            grid defined by <literal>x</literal> and <literal>y</literal>.
+            Each rectangle on the grid is filled with a gray or color level depending
+            on the average value of <literal>z</literal> on the corners of the rectangle.
+        </para>
+        <para>
+            Enter the command <literal>fgrayplot()</literal> to see a demo.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+t=-1:0.1:1;
+deff("[z]=my_surface(x,y)","z=x**2+y**2")
+fgrayplot(t,t,my_surface,rect=[-2,-2,2,2])
+ ]]></programlisting>
+        <scilab:image>
+            t=-1:0.1:1;
+            deff("[z]=my_surface(x,y)","z=x**2+y**2")
+            fgrayplot(t,t,my_surface,rect=[-2,-2,2,2])
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="grayplot">grayplot</link>
+            </member>
+            <member>
+                <link linkend="plot2d">plot2d</link>
+            </member>
+            <member>
+                <link linkend="Sgrayplot">Sgrayplot</link>
+            </member>
+            <member>
+                <link linkend="Sfgrayplot">Sfgrayplot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>
+                    Function returns the created handle(s).
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

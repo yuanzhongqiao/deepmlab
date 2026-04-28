@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="MATDET" xml:lang="fr_FR">
+    <refnamediv>
+        <refname>MATDET</refname>
+        <refpurpose>Déterminant de matrice</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Aperçu</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata align="center" fileref="../../../../images/palettes/MATDET.png"/>
+            </imageobject>
+        </inlinemediaobject>
+    </refsection>
+    <refsection id="Contents_MATDET">
+        <title>Contenu</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <xref linkend="Description_MATDET">Description</xref>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <xref linkend="Dialogbox_MATDET">Paramètres</xref>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link linkend="MATDET">Exemple</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <xref linkend="Defaultproperties_MATDET">Propriétés par défaut</xref>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <xref linkend="Interfacingfunction_MATDET">Fonction d'interfaçage</xref>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <xref linkend="Computationalfunction_MATDET">Fonction de calcul</xref>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <xref linkend="Seealso_MATDET">Voir aussi</xref>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Description_MATDET">
+        <title>Description</title>
+        <para>
+            Le bloc MATDET sort le déterminant d'une matrice d'entrée carrée. Si l'entrée est :
+        </para>
+        <para>
+            A=[A11 A12 A13;A21 A22 A23;A31 A32 A33]
+        </para>
+        <para>
+            alors la sortie du bloc est de la forme :
+        </para>
+        <para>
+            y=A11*(A22*A33-A23*A32)-A12*(A21*A33-A23*A31)+A13*(A21*A32-A22*A31).
+        </para>
+        <para>
+            La fonction équivalente de MATDET dans Scilab est <link linkend="det">det</link>.
+        </para>
+        <para/>
+    </refsection>
+    <refsection id="Dialogbox_MATDET">
+        <title>Paramètres</title>
+        <inlinemediaobject>
+            <imageobject>
+                <imagedata fileref="../../../../images/gui/MATDET_gui.gif" align="center" style="float:right"/>
+                <!-- align => Javahelp, style => Online -->
+            </imageobject>
+        </inlinemediaobject>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Datatype(1=real double 2=Complex)</emphasis>
+                </para>
+                <para>
+                    Il indique le type de la sortie. Il supporte seulement les types double (1) et complexe (2).
+                    Si on entre une autre valeur dans ce paramètre, Xcos affiche le message "Datatype is not supported".
+                </para>
+                <para>Propriétés : Type 'vec' de taille 1.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Example_MATDET">
+        <title>Exemple</title>
+        <programlisting role="example"><![CDATA[
+            U=[1 0 63;2 -2 5;9 9 4]
+            y=2215
+        ]]></programlisting>
+    </refsection>
+    <refsection id="Defaultproperties_MATDET">
+        <title>Propriétés par défaut</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">always active:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">direct-feedthrough:</emphasis> oui
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">zero-crossing:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">mode:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular inputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [-1,-1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">regular outputs:</emphasis>
+                </para>
+                <para>
+                    <emphasis role="bold">- port 1 : size [1,1] / type 1</emphasis>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation inputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">number/sizes of activation outputs:</emphasis> 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">continuous-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">object discrete-time state:</emphasis> non
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">name of computational function:</emphasis>
+                    <emphasis role="italic">mat_det</emphasis>
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para/>
+    </refsection>
+    <refsection id="Interfacingfunction_MATDET">
+        <title>Fonction d'interfaçage</title>
+        <itemizedlist>
+            <listitem>
+                <para>SCI/modules/scicos_blocks/macros/MatrixOp/MATDET.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Computationalfunction_MATDET">
+        <title>Fonction de calcul</title>
+        <itemizedlist>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/mat_det.c
+                </para>
+            </listitem>
+            <listitem>
+                 <para>
+                    SCI/modules/scicos_blocks/src/c/matz_det.c
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection id="Example_MATDET2">
+        <title>Exemple de déterminant : det([tan(x) 0 ; 0 cos(x)]) = sin(x)</title>
+        <link type="scilab" linkend="scilab.xcos/xcos/examples/matrix_pal/MATDET_Example.zcos">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata align="center" fileref="../../../../examples/matrix_pal/MATDET_Example.zcos" valign="middle"/>
+                </imageobject>
+            </inlinemediaobject>
+        </link>
+    </refsection>
+    <refsection id="Seealso_MATDET" role="see also">
+        <title>Voir aussi</title>
+        <itemizedlist>
+            <listitem>
+                <link linkend="MATINV">MATINV</link>
+            </listitem>
+            <listitem>
+                <link linkend="det">det (Fonction Scilab)</link>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>

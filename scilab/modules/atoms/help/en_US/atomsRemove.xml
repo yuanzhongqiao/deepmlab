@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"
+          xml:lang="en" xml:id="atomsRemove">
+    <refnamediv>
+        <refname>atomsRemove</refname>
+        <refpurpose>Remove one or several modules</refpurpose>
+    </refnamediv>
+    <!-- ===================================================================== -->
+    <!-- Syntax -->
+    <!-- ===================================================================== -->
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            result = atomsRemove(modules)
+            result = atomsRemove(modules, section)
+            result = atomsRemove(.., delete)
+        </synopsis>
+    </refsynopsisdiv>
+    <!-- ===================================================================== -->
+    <!-- Parameters -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>modules</term>
+                <listitem>
+                    <para>
+                        m x 1 or m x 2 matrix of strings
+                    </para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col. (Mandatory)</th>
+                            <th>2nd Col. (Optional)</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version: if this field is empty or is not present, all versions
+                                of the module are removed.</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>section</term>
+                <listitem>
+                    <para>
+                        This argument controls the list of sections where search
+                        modules to remove.
+                    </para>
+                    <para>
+                        <literal>section</literal> is a single-string and its value should be :
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>"all"</literal>: Modules to remove are searched in both
+                                "user" and "allusers" sections.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"allusers"</literal>: Modules to remove are only searched in
+                                the "allusers" section.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>"user"</literal>: Modules to remove are only searched in
+                                the "user" section.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                    <para>
+                        If SCI is write accessible, "all" is the default value.
+                        Otherwise, the default value is "user".
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>delete</term>
+                <listitem>
+                    <para>
+                        <literal>delete</literal> is a boolean. If set to %T (True), the .zip or .tar.gz file containing
+                        the sources will also be deleted. This includes the dependencies' archives files that were installed with the module, if any.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>result</term>
+                <listitem>
+                    <para>m x 5 matrix of strings</para>
+                    <informaltable border="1">
+                        <tr>
+                            <th>1st Col.</th>
+                            <th>2nd Col.</th>
+                            <th>3rd Col.</th>
+                            <th>4th Col.</th>
+                            <th>5th Col.</th>
+                        </tr>
+                        <tr>
+                            <td>Technical name</td>
+                            <td>Version</td>
+                            <td>Installation section: this parameter determines whether the module has been installed
+                                for all users or only for the current user.</td>
+                            <td>Installation path</td>
+                            <td>Status: "I" stands for "Intentionally", "A" stands for "Automatically"</td>
+                        </tr>
+                    </informaltable>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Description -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>atomsRemove</literal> remove one or more modules.
+        </para>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Examples -->
+    <!-- ===================================================================== -->
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Display some additional information
+atomsSetConfig("Verbose","True");
+
+// Load the test repository
+exec("SCI/modules/atoms/tests/unit_tests/atomsTestUtils.sce", -1);
+repository = atomsCreateTestRepository("scene11");
+
+// Install toolbox_4: both 1.0 and 1.1 versions
+
+// Remove all versions of a module
+atomsInstall(["toolbox_4V6" "1.0";"toolbox_4V6" "1.1"],"user");
+atomsRemove(["toolbox_4V6"]);
+
+// Remove a specific version
+atomsInstall(["toolbox_4V6" "1.0";"toolbox_4V6" "1.1"],"user");
+atomsRemove(["toolbox_4V6" "1.0"]);
+atomsRemove(["toolbox_4V6" "1.1"]);
+
+
+// Remove several modules
+atomsInstall(["toolbox_4V6";"toolbox_3V6"],"user");
+atomsRemove(["toolbox_4V6";"toolbox_3V6"]);
+
+
+// Remove a module from a specific section
+// /!\ This example needs write access on SCI directory
+
+atomsInstall("toolbox_4V6","user");
+atomsInstall("toolbox_4V6","allusers");
+
+disp(atomsGetInstalled());
+atomsRemove("toolbox_4V6","user");
+disp(atomsGetInstalled());
+atomsRemove("toolbox_4V6","allusers");
+disp(atomsGetInstalled());
+
+// Remove a module, including its archive file
+
+atomsInstall("toolbox_4V6");
+atomsRemove("toolbox_4V6",%T);
+
+// Remove a module from a specific section, including its archive file
+// /!\ This example needs write access on SCI directory
+
+atomsInstall("toolbox_4V6");
+atomsRemove("toolbox_4V6","allusers",%T);
+
+// Unload the test repository
+atomsRepositoryDel(repository);
+        ]]></programlisting>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- See also -->
+    <!-- ===================================================================== -->
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="atomsInstall">atomsInstall</link>
+            </member>
+            <member>
+                <link linkend="atomsIsInstalled">atomsIsInstalled</link>
+            </member>
+            <member>
+                <link linkend="atomsGetInstalled">atomsGetInstalled</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <!-- ===================================================================== -->
+    <!-- Authors -->
+    <!-- ===================================================================== -->
+</refentry>

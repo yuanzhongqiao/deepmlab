@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Cédric Delamarre
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="compress" xml:lang="en">
+    <refnamediv>
+        <refname>compress</refname>
+        <refpurpose>Compress files in an archive</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>files = compress(archivename, inputs, &lt;opt_args&gt;)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>files</term>
+                <listitem>
+                    <para>String vector of file names that have been compressed in the archive.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>archivename</term>
+                <listitem>
+                    <para>A string specifying the archive path and name that will be created.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>inputs</term>
+                <listitem>
+                    <para>
+                        String matrix of file names or folders that will be package and compress.
+                        When a folder is given, the content will be added recursively.
+                        Values can contain wildcards like <literal>*.sci</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>&lt;opt_args&gt;</term>
+                <listitem>
+                    <para>
+                        This represents a sequence of statements
+                        <literal>key1=value1, key2=value2, ...</literal>
+                        where <literal>key1</literal>,
+                        <literal>key2</literal>, ... can be one of the following:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>format</term>
+                            <listitem>
+                                <para>
+                                    A string with one of the following values: zip, tar, 7zip, tar_ustar, tar_pax_interchange, tar_pax_restricted, tar_gnutar, raw.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>compression</term>
+                            <listitem>
+                                <para>
+                                    A string with one of the following values: none, gzip, lzma, xz.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>level</term>
+                            <listitem>
+                                <para>
+                                    A constant with a value between 0 and 9.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>password</term>
+                            <listitem>
+                                <para>
+                                    The password string is used to encrypt the archive.
+                                    <warning>
+                                        This option is only available for ZIP files.
+                                    </warning>
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <function>compress</function> creates a compressed archive that contains the given files and folders.
+            It uses the archive extension to apply default format and compression when no options are given.
+        </para>
+    </refsection>
+    <refsection>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// create a ZIP with fileio tests
+filesin  = compress("TMPDIR/fileio_tests.zip", "SCI/modules/fileio/tests/unit_tests/*.tst")
+filesout = decompress("TMPDIR/fileio_tests.zip", "TMPDIR/fileio_tests")
+[p, fname, ext] = fileparts(filesout);
+assert_checkequal(filesin, fname+ext);
+
+// create a tar.xz with single file
+r100 = rand(100,100);
+save("TMPDIR/rand100.sod", "r100");
+
+// low level compression
+compress("TMPDIR/rand100.tar.xz", "TMPDIR/rand100.sod", format="tar", compression="xz", level=0);
+// high level compression
+compress("TMPDIR/rand100l9.tar.xz", "TMPDIR/rand100.sod", format="tar", compression="xz", level=9);
+
+filesize = fileinfo("TMPDIR/rand100.sod")(1);
+l0size   = fileinfo("TMPDIR/rand100.tar.xz")(1);
+l9size   = fileinfo("TMPDIR/rand100l9.tar.xz")(1);
+
+disp("size of rand100.sod: " + string(filesize))
+disp("size of rand100.tar.xz: " + string(l0size))
+disp("size of rand100l9.tar.xz: " + string(l9size))
+
+    ]]></programlisting>
+    </refsection>
+    <refsection>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="decompress">decompress</link>
+            </member>
+            <member>
+                <link linkend="fileinfo">fileinfo</link>
+            </member>
+            <member>
+                <link linkend="fileparts">fileparts</link>
+            </member>
+            <member>
+                <link linkend="save">save</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

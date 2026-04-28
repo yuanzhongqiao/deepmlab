@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="neigh_func_fsa" xml:lang="en">
+    <refnamediv>
+        <refname>neigh_func_fsa</refname>
+        <refpurpose>The Fast Simulated Annealing neighborhood
+            relationship
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>x_neigh = neigh_func_fsa(x_current,T,param)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x_current</term>
+                <listitem>
+                    <para>the point for which we want to compute a neighbor</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>T</term>
+                <listitem>
+                    <para>the current temperature</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>param</term>
+                <listitem>
+                    <para>a vector with the same size than x_current. A normalization
+                        vector which allows to distort the shape of the neighborhood. This
+                        parameter allows to take into account the differences of interval of
+                        variation between variables. By default, this parameter is set to a
+                        vector of ones.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x_neigh</term>
+                <listitem>
+                    <para>the computed neighbor</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <itemizedlist>
+            <listitem>
+                <para>This function computes the FSA neighborhood of a given point.
+                    The corresponding distribution is a Cauchy distribution which is more
+                    and more peaked as the temperature decrease.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x_current = 1;
+
+x_neigh = neigh_func_fsa(x_current,10,[])
+ ]]></programlisting>
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="optim_sa"> optim_sa </link>
+            </member>
+            <member>
+                <link linkend="temp_law_fsa"> temp_law_fsa </link>
+            </member>
+            <member>
+                <link linkend="neigh_func_default"> neigh_func_default
+                </link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

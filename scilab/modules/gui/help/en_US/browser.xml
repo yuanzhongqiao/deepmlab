@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Antoine ELIAS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="browser" xml:lang="en">
+    <refnamediv>
+        <refname>Uicontrol Browser</refname>
+        <refpurpose>Description of the uicontrol browser.</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            How to use Browser uicontrol.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Architecture</title>
+        <para>Browser uicontrol is based on <ulink url="https://github.com/chromiumembedded/java-cef">JCEF framework</ulink>.</para>
+        <para>Browser uicontrol must be placed in a frame or figure with layout border.</para>
+    </refsection>
+    <refsection>
+        <title>Communication</title>
+        <para>Scilab to Browser</para>
+        <itemizedlist>
+            <listitem>
+                <para>Use the <literal>data</literal> property of uicontrol.</para>
+                <para>Data will arrive by the callback javascript function <literal>fromScilab</literal>.</para>
+            </listitem>
+        </itemizedlist>
+        <para>Browser to Scilab</para>
+        <itemizedlist>
+            <listitem>
+                <para>Use the <literal>toScilab</literal> function provided in javascript.</para>
+                <para>Data will arrive by the callback Scilab function associated of the <literal>callback</literal> property.</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+    <refsection>
+        <title>Example of round-trip communication between Scilab and Browser</title>
+        <programlisting role="example">
+<![CDATA[
+f = figure("infobar_visible", "off", "toolbar_visible", "off", ...
+    "dockable", "off", "menubar", "none", "default_axes", "off", ...
+    "axes_size", [200 100], ...
+    "layout", "border", ...
+    "resize", "off", ...
+    "tag", "com");
+
+fr = uicontrol(f, "style", "frame", "backgroundcolor", [1 1 1], "layout", "border");
+
+//create a small html file
+html = [...
+    "<html>"
+    "<head>"
+    "    <style>"
+    "        html, body {width: 100%; height: 100%; margin: 0; padding: 0; }"
+    "        body { display: flex; justify-content: center; align-items: center; }"
+    "        .child { flex: 0 0; }"
+    "        .operand {width: 30px;}"
+    "    </style>"
+    "</head>"
+    "<body>"
+    "    <input type=""range"" id=""slider"" class=""child"" value=""0.5"" min=""0"" max=""1"" step=""0.05"" oninput=""onSliderChange()"">"
+    "    <div id=""result"" class=""child"">0%</div>"
+    "    <script>"
+    "    function onSliderChange() {"
+    "        toScilab(parseFloat(document.getElementById(""slider"").value), (data) => {"
+    "            document.getElementById(""result"").textContent = data;"
+    "        });"
+    "    }"
+    ""
+    "    function fromScilab(data) {"
+    "        document.getElementById(""result"").textContent = data;"
+    "    }"
+    "    </script>"
+    "</body>"
+    "</html>"];
+
+mputl(html, TMPDIR + "/com.html");
+
+browser = uicontrol(fr, ...
+    "style", "browser", ...
+    "debug", "on", ... //allow to open devtools in browser component: use (ctrl+shift+i) commands or openDevtools(get("browser"))
+    "string", TMPDIR + "/com.html", ...
+    "callback", "cbPercent", ...
+    "tag", "browser");
+
+function cbPercent(data, cb)
+    if data == "loaded" then //inital message from web part to indicate that loading phase is done
+        set("browser", "data", "50%"); //call "fromScilab" javascript function
+        return;
+    end
+
+    cb(sprintf("%d%%", data * 100)); //return data in callback function give in toScilab.
+endfunction
+
+]]>
+    </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="uicontrol">uicontrol</link>
+            </member>
+            <member>
+                <link linkend="uicontrol_properties">Uicontrol properties</link>
+            </member>
+            <member>
+                <link linkend="openDevtools">openDevtools</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2025.1.0</revnumber>
+                <revremark>
+                    Uicontrol browser added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,14 @@
+<!ELEMENT librarypaths ( path+ ) >
+
+<!ELEMENT META (#PCDATA)>
+
+<!ATTLIST META 
+CATEGORY 	CDATA 	"Scilab librarypath" 	 
+VERSION_SCI 	CDATA 	"5.3" 	 
+VERSION_DOC 	CDATA 	"1.1" 	 
+AUTHOR 	CDATA 	"Allan CORNET DIGITEO 2010" 	 
+ >
+
+<!ELEMENT path EMPTY >
+<!ATTLIST path value CDATA #REQUIRED >
+

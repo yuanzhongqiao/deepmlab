@@ -1,0 +1,219 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Yuri Chornoivan <yurchor@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2016-02-12 11:52+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %d.\n"
+msgstr ""
+"%s: помилковий тип параметра. Слід використовувати %s. Повернуто типове "
+"значення %d.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %d.\n"
+msgstr "%s: параметр не знайдено. Повернуто типове значення %d.\n"
+
+#, c-format
+msgid "%s: wrong min bound for parameter %s: min bound %d, value %d\n"
+msgstr ""
+"%s: помилкове обмеження мінімального значення параметра %s: мінімальне "
+"значення — %d, значення — %d\n"
+
+#, c-format
+msgid "%s: wrong max bound for parameter %s: max bound %d, value %d\n"
+msgstr ""
+"%s: помилкове обмеження максимального значення параметра %s: максимальне "
+"значення — %d, значення — %d\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %d\n"
+msgstr "%s: помилкове значення параметра %s: значення — %d\n"
+
+#, c-format
+msgid "%s: awaited parameters: "
+msgstr "%s: очікувані параметри: "
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %f.\n"
+msgstr ""
+"%s: помилковий тип параметра. Слід використовувати %s. Повернуто типове "
+"значення %f.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %f.\n"
+msgstr "%s: параметр не знайдено. Повернуто типове значення %f.\n"
+
+#, c-format
+msgid "%s: wrong min bound for parameter %s: min bound %f, value %f\n"
+msgstr ""
+"%s: помилкове обмеження мінімального значення параметра %s: мінімальне "
+"значення — %f, значення — %f\n"
+
+#, c-format
+msgid "%s: wrong max bound for parameter %s: max bound %f, value %f\n"
+msgstr ""
+"%s: помилкове обмеження максимального значення параметра %s: максимальне "
+"значення — %f, значення — %f\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %f\n"
+msgstr "%s: помилкове значення параметра %s: значення — %f\n"
+
+#, c-format
+msgid "%s: wrong parameter type. %s expected. Return default value %s.\n"
+msgstr ""
+"%s: помилковий тип параметра. Слід використовувати %s. Повернуто типове "
+"значення %s.\n"
+
+#, c-format
+msgid "%s: parameter not found. Return default value %s.\n"
+msgstr "%s: параметр не знайдено. Повернуто типове значення %s.\n"
+
+#, c-format
+msgid "%s: wrong value for parameter %s: value %s\n"
+msgstr "%s: помилкове значення параметра %s: значення — %s\n"
+
+#, c-format
+msgid "%s: wrong size for parameter %s: %d requested, got %d\n"
+msgstr "%s: помилкова розмірність параметра %s: мало бути %d, отримано %d\n"
+
+msgid "Parameters"
+msgstr "Параметри"
+
+msgid "plist handling"
+msgstr "обробка plist"
+
+msgid ""
+"This demo shows examples of plist utilizations: creation, insertion, "
+"removal, ..."
+msgstr ""
+"У цій демонстрації наведено приклади використання plist: створення, "
+"вставлення, вилучення…"
+
+#, c-format
+msgid ""
+"\n"
+"Create a plist '%s' containing two fields 'min' = [0 0 0] and 'max' = [1 1 "
+"1].\n"
+msgstr ""
+"\n"
+"Створення plist «%s», що містить два поля, «min» = [0 0 0] і «max» = [1 1 "
+"1].\n"
+
+#, c-format
+msgid ""
+"\n"
+"Check fields: \n"
+msgstr ""
+"\n"
+"Перевірка полів: \n"
+
+#, c-format
+msgid "Set 'min' = [0 0 0] and 'max' = [1 1 1]:\n"
+msgstr "Встановлення «min» = [0 0 0] і «max» = [1 1 1]:\n"
+
+#, c-format
+msgid "Check values: \n"
+msgstr "Перевірка значень: \n"
+
+#, c-format
+msgid ""
+"\n"
+"Remove the parameter 'min' from %s.\n"
+msgstr ""
+"\n"
+"Вилучення параметра «min» з %s.\n"
+
+#, c-format
+msgid ""
+"\n"
+"Before remove_param: \n"
+msgstr ""
+"\n"
+"До remove_param: \n"
+
+#, c-format
+msgid ""
+"\n"
+"After remove_param: \n"
+msgstr ""
+"\n"
+"Після remove_param: \n"
+
+#, c-format
+msgid ""
+"\n"
+"Check removal: \n"
+msgstr ""
+"\n"
+"Перевірка вилучення: \n"
+
+#, c-format
+msgid ""
+"\n"
+"Check type: \n"
+msgstr ""
+"\n"
+"Перевірка типу: \n"
+
+#, c-format
+msgid "Second output argument of %s is obsolete.\n"
+msgstr "Другий параметр виведення %s є застарілим.\n"
+
+#, c-format
+msgid "This argument will be permanently removed in Scilab %s"
+msgstr "Цей параметр буде остаточно вилучено у версії Scilab %s"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: key %s already defined.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: ключ %s вже визначено.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: %s expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати %s.\n"
+
+#, c-format
+msgid "%s: parameter %s not defined"
+msgstr "%s: параметр %s не визначено"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): An even number expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: кількість мала бути парною.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«string».\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
+
+#, c-format
+msgid "%s: parameter doesn't exist"
+msgstr "%s: параметра з такою назвою не існує"

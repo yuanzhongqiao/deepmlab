@@ -1,0 +1,35 @@
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2023 - Dassault Systèmes S.E. - Clément DAVID
+#
+#
+# This Dockerfile describe the configuration of a Linux Ubuntu image base system
+#
+
+ARG DISTRO=ubuntu:22.04
+FROM $DISTRO
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
+  xvfb \
+  libxft2 \
+  libxtst6 \
+  xz-utils \
+  curl \
+  unzip \
+  libxi6 \
+  libgtk-3-0 \
+  locales gcc g++ gfortran make gettext \
+  && rm -rf /var/lib/apt/lists/*
+
+# Generate locale
+RUN locale-gen  en_US en_US.UTF-8 \
+                fr_FR fr_FR.UTF-8 \
+                ja_JP ja_JP.UTF-8 \
+                pt_BR pt_BR.UTF-8 \
+                ru_RU ru_RU.UTF-8 \
+                zh_TW zh_TW.UTF-8
+
+ENV LANG=en_US.UTF-8
+
+RUN useradd --create-home scilab
+USER scilab

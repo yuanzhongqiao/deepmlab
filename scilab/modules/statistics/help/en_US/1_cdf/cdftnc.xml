@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2025 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="cdftnc">
+    <refnamediv>
+        <refname>cdftnc</refname>
+        <refpurpose>cumulative distribution function of the non-central Student's T distribution</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[P, Q] = cdftnc("PQ", T, Df, Pnonc)
+            T = cdftnc("T", Df, Pnonc, P, Q)
+            Df = cdftnc("Df", Pnonc, P, Q, T)
+            Pnonc = cdftnc("Pnonc", P, Q, T, Df)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>P, Q (Q = 1 - P)  </term>
+                <listitem>
+                    <para>real scalar or matrix, the lower-tail probability. Input range: (0,1].</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>T</term>
+                <listitem>
+                    <para>real scalar or matrix, quantile value(s) of the non-central t distribution.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Df</term>
+                <listitem>
+                    <para>real positive scalar or matrix, degrees of freedom of the t-distribution.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Pnonc</term>
+                <listitem>
+                    <para>real positive scalar or matrix, non-centrality parameter.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The function <literal>cdftnc</literal> computes the cumulative distribution function (CDF) of the 
+            non-central Student's t-distribution with
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        Degrees of freedom <literal>Df</literal>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Non-centrality parameters <literal>Pnonc</literal>
+                    </para> 
+                </listitem>
+                <listitem>
+                    <para>
+                        Evaluated at value(s) <literal>T</literal>
+                    </para> 
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            <literal>T = cdftnc("T", Df, Pnonc, P, Q)</literal> computes the inverse of the non-central cumulative 
+            distribution (CDF) of the non-central Student's t-distribution.
+        </para>
+        <para>
+            <literal>P</literal>, <literal>Q</literal>, <literal>T</literal>, <literal>Df</literal> and <literal>Pnonc</literal> 
+            must have the same size.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+        </para>
+        <programlisting role="example"><![CDATA[
+    T = 5;
+    Df = 2;
+    Pnonc = 1;
+    // Expected : P = 0.9301738 and Q = 1-P
+    [P, Q] = cdftnc("PQ", T, Df, Pnonc)
+
+    T = [-2 -1 1 2];
+    Df = 10*ones(T);
+    pn = 2*ones(T);
+    [P, Q] = cdftnc("PQ", T, Df, pn)
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cdft">cdft</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2026.0.0</revnumber>
+                <revremark>
+                    Function added.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

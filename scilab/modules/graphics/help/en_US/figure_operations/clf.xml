@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Serge Steer
+ * Copyright (C) INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2013, 2017 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="clf">
+    <refnamediv>
+        <refname>clf</refname>
+        <refpurpose>
+            Clears and resets a figure or a frame uicontrol
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            clf
+            clf reset
+            clf(numFig)
+            clf(numFig, "reset")
+            clf(figFrameHandle)
+            clf(figFrameHandle, "reset")
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>numFig</term>
+                <listitem>
+                    <para>
+                        Vector of indices of figures to clear or reset (<literal>.figure_id</literal>
+                        values). By default, the current figure is targeted.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>figFrameHandle</term>
+                <listitem>
+                    <para>
+                        Vector of handles of figures or frame uicontrol to clear or reset. Mixing
+                        figures and frames is possible. By default, the current figure is targeted.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"reset"</term>
+                <listitem>
+                     <para>
+                        Provide this option keyword to reset properties of chosen figures to their
+                        default values, in addition to deleting the figures contents.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <literal>clf</literal> command can be used to delete all children of a given
+            graphic window, hence clearing it. If the <literal>"reset"</literal> keyword is used,
+            in addition most of the figure properties are reset to their default values.
+            The detailled changes are now described:
+        </para>
+        <para>
+            <orderedlist>
+                <listitem>
+                     <para>
+                         The following default actions are always performed:
+                        </para>
+                    </listitem>
+                <listitem>
+                    <para>
+                        <literal>"reset"</literal>: in addition to default actions,
+                        <literal>"reset"</literal> resets most of figures properties to their
+                        default values, as specified by <function>gdf()</function>.
+                        This applies only to figures.
+                    </para>
+                    <warning>
+                        <itemizedlist>
+                            <listitem>
+                                 <para><emphasis role="italic">Some properties are never reset</emphasis>:
+                                    The figure's number <literal>.figure_id</literal> is kept as is.
+                                    <literal>.toolbar</literal>,  <literal>.menubar</literal>,
+                                    <literal>.layout</literal>,  <literal>.layout_options</literal>,
+                                    and <literal>.dockable</literal> can be set only once and so are
+                                    never resettable.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para><emphasis role="italic">For docked figures</emphasis>:
+                                    <literal>.figure_position</literal>, <literal>.figure_size</literal>,
+                                    and <literal>.axes_size</literal> are unchanged if the parent figure
+                                    is docked to the Scilab's desktop or to another Scilab interface.
+                                    Changing their value would change the position or size of the whole
+                                    block of docked interfaces, not only the targeted figure.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </warning>
+                </listitem>
+            </orderedlist>
+        </para>
+        <refsect2>
+            <title>Clearing specific parts of a figure</title>
+            <itemizedlist>
+                <listitem>
+                     <para><literal>gcf().name = ""</literal> clears the
+                        name of the window, displayed at its very top left corner.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>gcf().info_message = ""</literal>
+                        clears the message displayed in the status bar of the current figure.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para><literal>delete(gca())</literal> deletes the current axes in the current window.
+                        All other components of the window are kept: other axes (if any), menus,
+                        interactive components, figure properties, etc.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Deleting only all axes of a figure may be done with
+                        <literal>c=gcf().children; delete(c(c.type=="Axes"))</literal>. This keeps all
+                        its other components: menus, interactive components, etc.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Deleting only menus: <literal>c=gcf().children; delete(c(c.type=="uimenu"))</literal>.
+                        This assumes that <literal>get(0).ShowHiddenHandles</literal> is
+                        <literal>"on"</literal>.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </refsect2>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            f4 = scf(4);  //creates figure with id==4 and makes it the current one
+            f4.color_map = jet(64);
+            f4.figure_size = [400, 200];
+            plot2d()
+            sleep(4000)   // wait and see for 4s
+            clf(f4, "reset")
+
+            f0 = scf(0); //creates figure with id==0 and make it the current one
+            f0.color_map = hot(128); // changes color map
+            t = -%pi:0.3:%pi;
+            plot3d1(t,t,sin(t)'*cos(t));
+
+            clf        // is clf(gcf(),"clear"). Keeps the current color_map
+            plot3d1(t,t,sin(t)'*cos(t));
+
+            clf reset  // resets the color_map to the default one with 32 colors
+            plot3d1(t,t,sin(t)'*cos(t));
+
+            fr = uicontrol("Style", "frame", "Position", [20 20 200 200]);
+            a = newaxes(fr);
+            plot(1:10);
+            clf(fr);
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="figure_properties">figure properties</link>
+            </member>
+            <member>
+                <link linkend="console_properties">ShowHiddenHandles</link>
+            </member>
+            <member>
+                <link linkend="uicontrol">frames</link>
+            </member>
+            <member>
+                <link linkend="uimenu">menus</link>
+            </member>
+            <member>
+                <link linkend="gcf">gcf</link>
+            </member>
+            <member>
+                <link linkend="gdf">gdf</link>
+            </member>
+            <member>
+                <link linkend="colordef">colordef</link>
+            </member>
+            <member>
+                <link linkend="delete">delete</link>
+            </member>
+            <member>
+                <link linkend="close">close</link>
+            </member>
+            <member>
+                <link linkend="clc">clc</link>
+            </member>
+            <member>
+                <link linkend="clear">clear</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>clf</literal> now clears frames as well.
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        <literal>clf('reset')</literal> no longer resizes nor moves docked figures.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

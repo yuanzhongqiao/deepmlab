@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) - INRIA
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ru" xml:id="comparison">
+    <refnamediv>
+        <refname>сравнение</refname>
+        <refpurpose>операторы сравнения, отношения</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Синтаксис</title>
+        <synopsis>
+            a==b
+            a~=b или a&lt;&gt;b
+            a&lt;b
+            a&lt;=b
+            a&gt;b
+            a&gt;=b
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Аргументы</title>
+        <variablelist>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>
+                        любой тип переменной для сравнения величин <literal>a==b</literal>, <literal>a~=b</literal>
+                        <literal>a&lt;&gt;b</literal>, но для сравнений, связанных с порядком
+                        <literal>a&lt;b</literal>, <literal>a&lt;=b</literal>,
+                        <literal>a&gt;b</literal>, <literal>a&gt;=b</literal>, ограничен массивами вещественных чисел
+                        с плавающей запятой и массивами целочисленных значений.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>b</term>
+                <listitem>
+                    <para>
+                        любой тип переменной для сравнения величин <literal>a==b</literal>, <literal>a~=b</literal>
+                        <literal>a&lt;&gt;b</literal>, но для сравнений, связанных с порядком
+                        <literal>a&lt;b</literal>, <literal>a&lt;=b</literal>,
+                        <literal>a&gt;b</literal>, <literal>a&gt;=b</literal>, ограничен массивами вещественных чисел
+                        с плавающей запятой и массивами целочисленных значений.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Описание</title>
+        <para>Нужно различать два класса операторов:</para>
+        <variablelist>
+            <varlistentry>
+                <term>сравнение на равенство и неравенство: </term>
+                <listitem>
+                    <para>
+                        <literal>a==b</literal>, <literal>a~=b</literal> (или по-другому <literal>a&lt;&gt;b</literal>).
+                        Эти операторы применимы к любому типу операндов.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Сравнения, связанные с порядком: </term>
+                <listitem>
+                    <para>
+                        <literal>a&lt;b</literal>, <literal>a&lt;=b</literal>,
+                        <literal>a&gt;b</literal>, <literal>a&gt;=b</literal>. Эти операторы применимы
+                        только к массивам чисел с плавающей запятой и целочисленным массивам.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>Смысл операторов сравнения также зависит от типа операндов:</para>
+        <variablelist>
+            <varlistentry>
+                <term>Для массивов переменных </term>
+                <listitem>
+                    <para>
+                        таких как массивы чисел с плавающей запятой и массивы целочисленных значений,
+                        массивы логических значений, строковые массивы, массивы полиномиальных и рациональных
+                        значений, массивы дескрипторов, списки... применимы следующие правила:
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                Если <literal>a</literal> и <literal>b</literal> являются массивами одного типа и размера,
+                                то сравнение выполняется поэлементно, а результат является массивом логических значений
+                                того же размера.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Если <literal>a</literal> и <literal>b</literal> являются массивами одного
+                                типа, но <literal>a</literal> или <literal>b</literal> является скаляром, то
+                                скаляр сравнивается с каждым элементом массива. Результат является массивом
+                                логических значений того же размера, что и оператор-нескаляр.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                В иных случаях результатом является логическое значение <literal>%f</literal>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Если типы данных операндов отличаются, но "совместимы" как числа с плавающей запятой
+                                и целые числа, то перед сравнение производится преобразование типов.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Для других типов операндов </term>
+                <listitem>
+                    <para>
+                        таких как <literal>function</literal> и <literal>libraries</literal>
+                        результатом является <literal>%t</literal>, если объекты идентичны и
+                        <literal>%f</literal> в противном случае.
+                    </para>
+                    <para>
+                        Сравнение на равенство операндов несовместимых типов данных возвращает
+                        <literal>%f</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <warning>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Полиномы</emphasis>:
+                        <literal>%s==%z</literal> возвращает <literal>%F</literal> :
+                        Два полинома не могут считаться равными, если они не относятся к одной и
+                        той же переменной.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Рациональные числа</emphasis>:
+                        <literal>1/%s == 1/%z</literal> возвращает <literal>%F</literal> :
+                        Два рациональных числа не могут быть равными если они не относятся к одной
+                        и той же переменной.
+                        Кроме того, одно и тоже рациональное число может иметь различные ненормированные
+                        формы, которые не могут считаться равными.
+                        Например, <literal>2/(2*%z) == 1/%z</literal> возвращат <literal>%F</literal>,
+                        даже в режиме упрощения <literal>simp_mode(%T)</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Разрежённая числовая матрица</emphasis>: любое поэлементное
+                        сравнение с полным числовым массивом всегда возвращает разрежённый массив логических
+                        значений. См. примеры.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Графические идентификаторы</emphasis>: графический дескриптор
+                        <literal>h1</literal> и его копия <literal>h2=h1</literal> всегда будут равными, даже
+                        если графические окна меняются с помощью одного из них. См. примеры.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </warning>
+    </refsection>
+    <refsection>
+        <title>Примеры</title>
+        <programlisting role="example"><![CDATA[
+// поэлементные сравнения
+(1:5)==3
+(1:5)<=4
+(1:5)<=[1 4 2 3 0]
+1<[]
+list(1,2,3)~=list(1,3,3)
+"foo"=="bar"
+sparse([1,2;4,5;3,10],[1,2,3]) == sparse([1,2;4,5;3,10],[1,2,3])
+
+//пообъектные сравнения
+(1:10)==[4,3]
+'foo'==3
+1==[]
+list(1,2,3)==1
+
+isequal(list(1,2,3),1)
+isequal(1:10,1)
+ ]]></programlisting>
+        <para/>
+        <para>
+            Сравнения с явным преобразованием типов или кодирования:
+        </para>
+        <programlisting role="example"><![CDATA[
+int32(1) == 1
+int32(1) < 1.5
+int32(1:5) < int8(3)
+1 == complex(1,0)
+1 > complex(1,0)  // по-прежнему OK, однако...
+1 > complex(1,1)  // => ошибка: комплексные числа не упорядочены
+ ]]></programlisting>
+    <screen><![CDATA[
+--> int32(1) == 1
+ ans  =
+  T
+
+--> int32(1) < 1.5
+ ans  =
+  T
+
+--> int32(1:5) < int8(3)
+ ans  =
+  T T F F F
+
+--> 1 == complex(1,0)
+ ans  =
+  T
+
+--> 1 > complex(1,0)  // по-прежнему OK, однако...
+ ans  =
+  F
+
+--> 1 > complex(1,1)  // => ошибка: комплексные числа не упорядочены
+at line    11 of function %s_2_s ( SCI\modules\overloading\macros\%s_2_s.sci line 23 )
+Комплексные числа не поддерживаются. Пожалуйста, определите %s_2_s_custom() или проверьте свой код.
+]]></screen>
+        <para/>
+        <para>
+            Сравнения с полиномами и рациональными числами:
+        </para>
+        <programlisting role="example"><![CDATA[
+p = 0*%s
+p == 0
+r = p/(1+0*%s)
+r == 0
+r == p
+ps = (1-%s)^2, pz = (1-%z)^2
+ps == pz  // => %F : требуются одни и те же переменные
+ ]]></programlisting>
+    <screen><![CDATA[
+--> p = 0*%s
+ p  =
+   0
+
+--> p == 0
+ ans  =
+  T
+
+--> r = p/(1+0*%s)
+ r  =
+   0
+   --
+   1
+
+--> r == 0
+ ans  =
+  T
+
+--> r == p
+ ans  =
+  T
+
+--> ps = (1-%s)^2, pz = (1-%z)^2
+ ps  =
+             2
+   1  -2s +s
+ pz  =
+             2
+   1  -2z +z
+
+--> ps == pz  // => %F : требуются одни и те же переменные
+ ans  =
+  F
+]]></screen>
+        <para/>
+        <para>
+            Сравнения с разрежёнными числовыми матрицами: все поэлементные сравнения выдают разрежённый
+            результат, в противном случае <literal>%F</literal>.
+        </para>
+        <programlisting role="example"><![CDATA[
+sp = sparse([0 1 0 0 -2 0 4 0 0])
+sp < 0
+sp == 1
+sp >=       [2 3 -1 2 -4 0 3 1 0]
+sp == %i
+sp == list(3) // => %F
+ ]]></programlisting>
+    <screen><![CDATA[
+--> sp = sparse([0 1 0 0 -2 0 4 0 0])
+ sp  =
+(  1,  9) sparse matrix
+(  1,  2)     1.
+(  1,  5)    -2.
+(  1,  7)     4.
+
+--> sp < 0
+ ans  =
+(  1,  9) sparse matrix
+(  1,  5)   T
+
+--> sp == 1
+ ans  =
+(  1,  9) sparse matrix
+(  1,  2)   T
+
+--> sp >= [2 3 -1 2 -4 0 3 1 0]
+ ans  =
+(  1,  9) sparse matrix
+(  1,  3)   T
+(  1,  5)   T
+(  1,  6)   T
+(  1,  7)   T
+(  1,  9)   T
+
+--> sp == %i
+ ans  =
+(  1,  9)False sparse matrix
+
+--> sp == list(3)  // сравнение объектов => сжатая %F
+ ans  =
+  F
+]]></screen>
+        <para/>
+        <para>
+            Сравнения между графическими идентификаторами:
+        </para>
+        <programlisting role="example"><![CDATA[
+plot2d()
+e1 = gce();
+e2 = e1;    // точки e1 и e2 на оодном и томже графическом объекте
+e2.tag
+e1.tag = "3 curves";
+e1 == e2
+e2.tag
+ ]]></programlisting>
+    <screen><![CDATA[
+--> e2.tag
+ ans  =
+
+--> e1.tag = "3 curves";
+--> e1 == e2
+ ans  =
+  T
+
+--> e2.tag
+ ans  =
+ 3 curves
+]]></screen>
+        <para/>
+        <para>
+            Возможны сравнения псевдонимов функций:
+        </para>
+        <programlisting role="example"><![CDATA[
+sine = sin ;
+sine == sin
+синус = sind ;
+синус == sind
+синус(0:90:360)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> sine = sin ;
+--> sine == sin
+ ans  =
+  T
+
+--> синус = sind ;
+--> синус == sind
+ ans  =
+  T
+
+--> синус(0:90:360)
+ ans  =
+   0.   1.   0.  -1.   0.
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>Смотрите также</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="less">меньше</link>
+            </member>
+            <member>
+                <link linkend="greater">больше</link>
+            </member>
+            <member>
+                <link linkend="boolean">boolean</link>
+            </member>
+            <member>
+                <link linkend="isequal">isequal</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para><literal>~</literal> (отрицание) сейчас имеет приоритет выше, чем у
+                                операций сравнения (<literal>==  ~=  &lt;  &lt;=  &gt;=  &gt;</literal>).
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                Комплексные числа с нулевой мнимой частью теперь сравниваются как вещественные числа.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

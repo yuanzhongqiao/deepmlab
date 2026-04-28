@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="xmlReadStr" xml:lang="en">
+    <refnamediv>
+        <refname>xmlReadStr</refname>
+        <refpurpose>Read a XML tree from a string</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            xdoc = xmlReadStr(string [, validateDTD])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>string</term>
+                <listitem>
+                    <para>a string, containing XML code.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>validateDTD</term>
+                <listitem>
+                    <para>a boolean to indicate if the document must be validated.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>xdoc</term>
+                <listitem>
+                    <para>a mlist typed XMLDoc</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Read and parse a XML string. The returned document allows to access to the DOM tree which is kept in memory.</para>
+        <para>If validateDTD is set to true, the document will be validated or not during the parsing operation.</para>
+        <para>
+            It is important to notice that the tree must be freed (to avoid memory leaks) with the function <link linkend="xmlDelete">xmlDelete</link>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+    xdoc = xmlReadStr("<root><a att=""foo"" rib=""bar""><b>Hello</b></a></root>");
+    e = xdoc.root.children(1).children(1)
+    e.name
+    e.content
+    xmlDump(e)
+    xdoc.root.children(1).attributes.att
+    xdoc.root.children(1).attributes.rib
+
+    // Modify the attributes
+    xdoc.root.children(1).attributes.att = "truc"
+    xdoc.root.children(1).attributes.rib = "machin"
+    xmlDump(xdoc.root.children(1))
+
+    // We delete the doc
+    xmlDelete(xdoc);
+    ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="xmlRead">xmlRead</link>
+            </member>
+            <member>
+                <link linkend="xmlGetOpenDocs">xmlGetOpenDocs</link>
+            </member>
+            <member>
+                <link linkend="xmlDelete">xmlDelete</link>
+            </member>
+            <member>
+                <link linkend="xmlDocument">xmlDocument</link>
+            </member>
+            <member>
+                <link linkend="xmlValidate">xmlValidate</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>XML module introduced.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

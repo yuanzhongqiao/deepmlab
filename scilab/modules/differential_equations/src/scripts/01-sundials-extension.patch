@@ -1,0 +1,1992 @@
+diff -Naur sundials-7.4.0/include/sundials/sundials_extension.h patched_sundials/include/sundials/sundials_extension.h
+--- sundials-7.4.0/include/sundials/sundials_extension.h	1970-01-01 01:00:00
++++ patched_sundials/include/sundials/sundials_extension.h	2025-07-31 10:47:49
+@@ -0,0 +1,38 @@
++/*
++ * -----------------------------------------------------------------
++ * Allan CORNET - 2009
++ * For details, see sundials/shared/LICENSE.
++ * -----------------------------------------------------------------
++ */
++#ifndef __SUNDIALS_EXTENSION_H__
++#define __SUNDIALS_EXTENSION_H__
++
++#include "sundials/sundials_config.h" /* SUNDIALS_EXPORT definition */
++#include "sundials/sundials_types.h"
++
++#define BOOL int
++#define TRUE 1
++#define FALSE 0
++
++/**
++* checks if sundials extension is enabled
++* @return TRUE or FALSE
++*/
++SUNDIALS_EXPORT BOOL is_sundials_with_extension(void);
++
++/**
++* set extension mode for sundials
++* @param[in] _mode TRUE is enabled , FALSE use default mode of sundials
++* @return new mode
++*/
++SUNDIALS_EXPORT BOOL set_sundials_with_extension(BOOL _mode);
++
++/*
++* Reset IDA / BDF internal order
++*/
++SUNDIALS_EXPORT int IDAResetCurrentBDFMethodOrder(void *ida_mem);
++
++SUNDIALS_EXPORT sunrealtype FLOOR(sunrealtype x);
++
++
++#endif /* __SUNDIALS_EXTENSION_H__ */
+
+diff -Naur sundials-7.4.0/src/sundials/sundials_extension.c patched_sundials/src/sundials/sundials_extension.c
+--- sundials-7.4.0/src/sundials/sundials_extension.c	1970-01-01 01:00:00
++++ patched_sundials/src/sundials/sundials_extension.c	2025-07-31 10:53:45
+@@ -0,0 +1,50 @@
++/*
++* -----------------------------------------------------------------
++* Allan CORNET - 2009
++* For details, see sundials/shared/LICENSE.
++* -----------------------------------------------------------------
++*/
++
++#include "sundials/sundials_extension.h"
++#include "../src/idas/idas_impl.h" /* to access ida_kk */
++
++BOOL bsundialsExtended = FALSE;
++
++BOOL is_sundials_with_extension(void)
++{
++    return bsundialsExtended;
++}
++
++BOOL set_sundials_with_extension(BOOL _mode)
++{
++    bsundialsExtended = _mode;
++    return bsundialsExtended;
++}
++
++int IDAResetCurrentBDFMethodOrder(void *ida_mem)
++{
++  IDAMem IDA_mem;
++
++  if (ida_mem==NULL) {
++    return(IDA_MEM_NULL);
++  }
++
++  IDA_mem = (IDAMem) ida_mem;
++
++  IDA_mem->ida_kk = 1;
++
++  return(IDA_SUCCESS);
++}
++
++sunrealtype FLOOR(sunrealtype x)
++{
++#if defined(SUNDIALS_USE_GENERIC_MATH)
++    return(floor((double) x));
++#elif defined(SUNDIALS_DOUBLE_PRECISION)
++    return(floor(x));
++#elif defined(SUNDIALS_SINGLE_PRECISION)
++    return(floor(x));
++#elif defined(SUNDIALS_EXTENDED_PRECISION)
++    return(floor(x));
++#endif
++}
+
+diff -Naur sundials-7.4.0/include/cvodes/cvodes.h patched_sundials/include/cvodes/cvodes.h
+--- sundials-7.4.0/include/cvodes/cvodes.h	2025-06-23 18:57:55
++++ patched_sundials/include/cvodes/cvodes.h	2025-07-10 16:06:30
+@@ -33,6 +33,11 @@
+ /* lmm */
+ #define CV_ADAMS 1
+ #define CV_BDF   2
++/* SUNDIALS EXTENSION */
++#define CV_DOPRI 3
++#define CV_ExpRK 4
++#define CV_ImpRK 5
++#define CV_CRANI 6
+ 
+ /* itask */
+ #define CV_NORMAL   1
+@@ -56,6 +61,8 @@
+ #define CV_SUCCESS      0
+ #define CV_TSTOP_RETURN 1
+ #define CV_ROOT_RETURN  2
++/* SUNDIALS EXTENSION */
++#define CV_ZERO_DETACH_RETURN    3
+ 
+ #define CV_WARNING 99
+ 
+diff -Naur sundials-7.4.0/include/idas/idas.h patched_sundials/include/idas/idas.h
+--- sundials-7.4.0/include/idas/idas.h	2025-06-23 19:01:27
++++ patched_sundials/include/idas/idas.h	2025-07-10 16:06:30
+@@ -54,7 +54,9 @@
+ #define IDA_SUCCESS      0
+ #define IDA_TSTOP_RETURN 1
+ #define IDA_ROOT_RETURN  2
+-
++/* SUNDIALS EXTENSION */
++#define IDA_ZERO_DETACH_RETURN   3
++    
+ #define IDA_WARNING 99
+ 
+ #define IDA_TOO_MUCH_WORK -1
+
+diff -Naur sundials-7.4.0/src/cvodes/cvodes.c patched_sundials/src/cvodes/cvodes.c
+--- sundials-7.4.0/src/cvodes/cvodes.c	2025-06-23 18:57:55
++++ patched_sundials/src/cvodes/cvodes.c	2025-07-25 13:42:52
+@@ -196,6 +196,9 @@
+ #include "sundials/priv/sundials_errors_impl.h"
+ #include "sundials/sundials_context.h"
+ 
++/* SUNDIALS EXTENSION */
++#include "sundials/sundials_extension.h"
++
+ /*=================================================================*/
+ /* CVODE Private Constants                                         */
+ /*=================================================================*/
+@@ -245,6 +248,10 @@
+ #define RTFOUND +1
+ #define CLOSERT +3
+ 
++/* SUNDIALS EXTENSION */
++#define ZERODETACHING    +4
++#define MASKED           55
++
+ /*
+  * Control constants for sensitivity DQ
+  * ------------------------------------
+@@ -352,6 +359,8 @@
+ /* Initial stepsize calculation */
+ 
+ static int cvHin(CVodeMem cv_mem, sunrealtype tout);
++/* SUNDIALS EXTENSION */
++static int cvHinFixed(CVodeMem cv_mem, sunrealtype tout, sunrealtype *tret);
+ static sunrealtype cvUpperBoundH0(CVodeMem cv_mem, sunrealtype tdist);
+ static int cvYddNorm(CVodeMem cv_mem, sunrealtype hg, sunrealtype* yddnrm);
+ 
+@@ -359,6 +368,12 @@
+ 
+ static int cvStep(CVodeMem cv_mem);
+ 
++/* SUNDIALS EXTENSION */
++static int cvStepDoPri(CVodeMem cv_mem);
++static int cvStepExpRK(CVodeMem cv_mem);
++static int cvStepImpRK(CVodeMem cv_mem);
++static int cvStepCRANI(CVodeMem cv_mem);
++
+ /* Function called at beginning of step */
+ 
+ static void cvAdjustParams(CVodeMem cv_mem);
+@@ -471,8 +486,9 @@
+   CVodeMem cv_mem;
+ 
+   /* Test inputs */
+-
+-  if ((lmm != CV_ADAMS) && (lmm != CV_BDF))
++  /* Integration mode: ADAMS, BDF or RK-based */
++  /* SUNDIALS EXTENSION */
++  if ((lmm != CV_ADAMS) && (lmm != CV_BDF) && (lmm != CV_DOPRI) && (lmm != CV_ExpRK) && (lmm != CV_ImpRK) && (lmm != CV_CRANI))
+   {
+     cvProcessError(NULL, 0, __LINE__, __func__, __FILE__, MSGCV_BAD_LMM);
+     return (NULL);
+@@ -496,7 +512,23 @@
+   memset(cv_mem, 0, sizeof(struct CVodeMemRec));
+ 
+   maxord = (lmm == CV_ADAMS) ? ADAMS_Q_MAX : BDF_Q_MAX;
+-
++ 
++  /* SUNDIALS EXTENSION */
++  /* If Dormand-Prince is selected, then maxord = 8 to use the 7 extra vectors allocated (zn[2, 3, 4, 5, 6, 7, 8]) */
++  maxord = (lmm == CV_DOPRI) ? 8 : maxord;
++  
++  /* SUNDIALS EXTENSION */
++  /* If Runge-Kutta is selected, then maxord = 1 */
++  maxord = (lmm == CV_ExpRK) ? 1 : maxord;
++  
++  /* SUNDIALS EXTENSION */
++  /* If implicit Runge-Kutta is selected, then maxord = 4 to use the 3 extra vectors allocated (zn[2, 3, 4]) */
++  maxord = (lmm == CV_ImpRK) ? 4 : maxord;
++  
++  /* SUNDIALS EXTENSION */
++  /* If Crank-Nicolson is selected, then maxord = 3 to use the 2 extra vectors allocated (zn[2, 3]) */
++  maxord = (lmm == CV_CRANI) ? 3 : maxord;
++  
+   /* Copy input parameters into cv_mem */
+   cv_mem->cv_sunctx = sunctx;
+   cv_mem->cv_lmm    = lmm;
+@@ -3089,41 +3121,53 @@
+     }
+ 
+     /* Set initial h (from H0 or cvHin). */
+-
+-    cv_mem->cv_h = cv_mem->cv_hin;
+-    if ((cv_mem->cv_h != ZERO) && ((tout - cv_mem->cv_tn) * cv_mem->cv_h < ZERO))
++    
++    /* SUNDIALS EXTENSION: If an RK-based method is selected, then we choose to set h to hmax (= 1/hmax_inv). */
++    if ((cv_mem->cv_lmm == CV_ADAMS) || (cv_mem->cv_lmm == CV_BDF))
+     {
+-      cvProcessError(cv_mem, CV_ILL_INPUT, __LINE__, __func__, __FILE__,
+-                     MSGCV_BAD_H0);
+-      SUNDIALS_MARK_FUNCTION_END(CV_PROFILER);
+-      return (CV_ILL_INPUT);
+-    }
+-    if (cv_mem->cv_h == ZERO)
+-    {
+-      tout_hin = tout;
+-      if (cv_mem->cv_tstopset &&
+-          (tout - cv_mem->cv_tn) * (tout - cv_mem->cv_tstop) > ZERO)
+-      {
+-        tout_hin = cv_mem->cv_tstop;
+-      }
+-      hflag = cvHin(cv_mem, tout_hin);
+-      if (hflag != CV_SUCCESS)
+-      {
+-        istate = cvHandleFailure(cv_mem, hflag);
+-        SUNDIALS_MARK_FUNCTION_END(CV_PROFILER);
+-        return (istate);
+-      }
+-    }
++    
++        cv_mem->cv_h = cv_mem->cv_hin;
++        if ((cv_mem->cv_h != ZERO) && ((tout - cv_mem->cv_tn) * cv_mem->cv_h < ZERO))
++        {
++          cvProcessError(cv_mem, CV_ILL_INPUT, __LINE__, __func__, __FILE__,
++                         MSGCV_BAD_H0);
++          SUNDIALS_MARK_FUNCTION_END(CV_PROFILER);
++          return (CV_ILL_INPUT);
++        }
++        if (cv_mem->cv_h == ZERO)
++        {
++          tout_hin = tout;
++          if (cv_mem->cv_tstopset &&
++              (tout - cv_mem->cv_tn) * (tout - cv_mem->cv_tstop) > ZERO)
++          {
++            tout_hin = cv_mem->cv_tstop;
++          }
++          hflag = cvHin(cv_mem, tout_hin);
++          if (hflag != CV_SUCCESS)
++          {
++            istate = cvHandleFailure(cv_mem, hflag);
++            SUNDIALS_MARK_FUNCTION_END(CV_PROFILER);
++            return (istate);
++          }
++        }
+ 
+-    /* Enforce hmax and hmin */
++        /* Enforce hmax and hmin */
+ 
+-    rh = SUNRabs(cv_mem->cv_h) * cv_mem->cv_hmax_inv;
+-    if (rh > ONE) { cv_mem->cv_h /= rh; }
+-    if (SUNRabs(cv_mem->cv_h) < cv_mem->cv_hmin)
++        rh = SUNRabs(cv_mem->cv_h) * cv_mem->cv_hmax_inv;
++        if (rh > ONE) { cv_mem->cv_h /= rh; }
++        if (SUNRabs(cv_mem->cv_h) < cv_mem->cv_hmin)
++        {
++          cv_mem->cv_h *= cv_mem->cv_hmin / SUNRabs(cv_mem->cv_h);
++        }
++
++    /* SUNDIALS EXTENSION: fixed step */
++    }
++    else   /* Compute the fixed step size h, and set the max number of steps */
+     {
+-      cv_mem->cv_h *= cv_mem->cv_hmin / SUNRabs(cv_mem->cv_h);
++        cv_mem->cv_mxstep = cvHinFixed(cv_mem, tout, tret);
+     }
+-
++    
++    
+     /* Check for approach to tstop */
+ 
+     if (cv_mem->cv_tstopset)
+@@ -3321,6 +3365,17 @@
+           SUNDIALS_MARK_FUNCTION_END(CV_PROFILER);
+           return (CV_RTFUNC_FAIL);
+         }
++        
++        /* SUNDIALS EXTENSION */
++        if (is_sundials_with_extension())
++        {
++          if (retval == ZERODETACHING)    /* Zero detaching */
++          {
++            cv_mem->cv_irfnd = 1;
++            cv_mem->cv_tretlast = *tret = cv_mem->cv_tlo;
++            return(CV_ZERO_DETACH_RETURN);
++          }
++        }
+       }
+ 
+     } /* end of root stop check */
+@@ -3390,6 +3445,12 @@
+       return (CV_SUCCESS);
+     }
+ 
++   /* SUNDIALS EXTENSION */
++   if ((cv_mem->cv_lmm == CV_DOPRI) || (cv_mem->cv_lmm == CV_ExpRK) || (cv_mem->cv_lmm == CV_ImpRK) || (cv_mem->cv_lmm == CV_CRANI))
++   {
++       cv_mem->cv_mxstep = cvHinFixed(cv_mem, tout, tret);
++   }
++
+   } /* end stopping tests block */
+ 
+   /*
+@@ -3536,7 +3597,24 @@
+     }
+ 
+     /* Call cvStep to take a step */
+-    kflag = cvStep(cv_mem);
++    /* SUNDIALS EXTENSION */
++    switch(cv_mem->cv_lmm) {
++      case CV_DOPRI:
++        kflag = cvStepDoPri(cv_mem);
++        break;
++      case CV_ExpRK:
++        kflag = cvStepExpRK(cv_mem);
++        break;
++      case CV_ImpRK:
++        kflag = cvStepImpRK(cv_mem);
++        break;
++      case CV_CRANI:
++        kflag = cvStepCRANI(cv_mem);
++        break;
++      default:
++        kflag = cvStep(cv_mem);
++        break;
++    }
+ 
+     /* Process failed step cases, and exit loop */
+     if (kflag != CV_SUCCESS)
+@@ -5594,6 +5672,50 @@
+   return (CV_SUCCESS);
+ }
+ 
++ /* cvHinFixed
++ *
++ * This routine computes the fixed step size h.
++ * The objective is to approach hmax (= 1/hmax_inv) with h by trying to split the time interval (t-*told) into hmax-long parts.
++ * - if t-*told is smaller than hmax, then set h = t-*told (one iteration)
++ * - if it is divisible by hmax, then set h = hmax.
++ * - if it is not, then "add an integration point" by setting h < hmax, just enough to fit the interval
++ *
++ * RK-based methods using Fixed-size step, we know the maximum number of steps to take.
++ * This procedure returns that number (minus 2 because nstloc starts at 0).
++ */
++
++static int cvHinFixed(CVodeMem cv_mem, sunrealtype tout, sunrealtype *tret)
++{
++  long int n_points;
++  sunrealtype interval_size, hmax, test_div, floor_test;
++
++  hmax = 1. / cv_mem->cv_hmax_inv;
++  interval_size = tout - *tret;
++
++  if (interval_size <= hmax)    /* "Small" interval, h is the size of it */
++  {
++      n_points = 2;
++      cv_mem->cv_h = interval_size;
++  }
++  else
++  {
++      test_div = interval_size / hmax;
++      floor_test = FLOOR(test_div);
++      if (test_div - floor_test <= TINY)  /* t-*told divisible by hmax, cutting the interval into hmax-long parts */
++      {
++          n_points = floor_test + 1;
++          cv_mem->cv_h = interval_size / (n_points - 1);
++      }
++      else    /* Adding a point and h < hmax to fit the interval */
++      {
++          n_points = floor_test + 2;
++          cv_mem->cv_h = interval_size / (n_points - 1);
++      }
++  }
++
++  return(CV_SUCCESS);
++}
++
+ /*
+  * cvUpperBoundH0
+  *
+@@ -6182,7 +6304,386 @@
+   return (CV_SUCCESS);
+ }
+ 
++/* SUNDIALS EXTENSION */
+ /*
++ * cvStepDoPri
++ *
++ * This routine performs one internal cvode step using the Dormand-Prince 4(5) method, from tn to tn + h.
++ * Proceed to computing the K[i] coefficients, build the final solution, increment tn and return CV_SUCCESS.
++ *
++ * In order to temporarily store the results, we use tempv and ftemp.
++ * While ftempv is just going to be an accumulator, tempv will represent the "correction solution".
++ */
++
++static int cvStepDoPri(CVodeMem cv_mem)
++{
++    int retval;
++         
++    /* Constant coefficients */
++    sunrealtype c2, c3, c4, c5, b1, b3, b4, b5, b6, d1, d3, d4, d5, d6, d7;
++    sunrealtype a21, a31, a32, a41, a42, a43, a51, a52, a53, a54, a61, a62, a63, a64, a65, a71, a73, a74, a75, a76;
++    a21 =  1. / 5.;
++    a31 =  3. / 40.;
++    a32 =  9. / 40.;
++    a41 =  44. / 45.;
++    a42 = -56. / 15.;
++    a43 =  32. / 9.;
++    a51 =  19372. / 6561.;
++    a52 = -25360. / 2187.;
++    a53 =  64448. / 6561.;
++    a54 = -212. / 729.;
++    a61 =  9017. / 3168.;
++    a62 = -355. / 33.;
++    a63 =  46732. / 5247.;
++    a64 =  49. / 176.;
++    a65 = -5103. / 18656.;
++    a71 =  35. / 384.;
++    a73 =  500. / 1113.;
++    a74 =  125. / 192.;
++    a75 = -2187. / 6784.;
++    a76 =  11. / 84.;
++    b1  =  35. / 384.;
++    b3  =  500. / 1113.;
++    b4  =  125. / 192.;
++    b5  = -2187. / 6784.;
++    b6  =  11. / 84.;
++    c2  =  1. / 5.;
++    c3  =  3. / 10.;
++    c4  =  4. / 5.;
++    c5  =  8. / 9.;
++    d1  =  5179. / 57600.;
++    d3  =  7571. / 16695.;
++    d4  =  393. / 640.;
++    d5  = -92097. / 339200.;
++    d6  =  187. / 2100.;
++    d7  =  1. / 40.;
++
++    /* K1, K2 */
++    retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[2], cv_mem->cv_user_data);             /* cv_mem->cv_zn[2] = K1 = f(Tn, Yn)                 */
++    N_VLinearSum (a21 * cv_mem->cv_h, cv_mem->cv_zn[2], ONE, cv_mem->cv_zn[0], cv_mem->cv_y); /* y = K1*a21*h + Yn                      */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c2 * cv_mem->cv_h, cv_mem->cv_y, cv_mem->cv_zn[3], cv_mem->cv_user_data);        /* cv_mem->cv_zn[3] = K2 = f(Tn+c2*cv_mem->cv_h, Yn + a21*h*K1) */
++    N_VScale(b1, cv_mem->cv_zn[2], cv_mem->cv_y);                              /* y = b1*K1 + 0*K2                       */
++    N_VScale(d1, cv_mem->cv_zn[2], cv_mem->cv_tempv);                          /* cv_mem->cv_tempv = d1*K1 + 0*K2                   */
++
++    /* K3 */
++    N_VLinearSum (a31 * cv_mem->cv_h, cv_mem->cv_zn[2], ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K1*a31*h                             */
++    N_VLinearSum (a32 * cv_mem->cv_h, cv_mem->cv_zn[3], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K2*a32*h                                 */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c3 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[4], cv_mem->cv_user_data);        /* cv_mem->cv_zn[4] = K3 = f(Tn+c3*cv_mem->cv_h, Yn + a31*h*K1 + a32*h*K2) */
++    N_VLinearSum (ONE, cv_mem->cv_y, b3, cv_mem->cv_zn[4], cv_mem->cv_y);              /* y = b1*K1 + 0*K2 + b3*K3                          */
++    N_VLinearSum (ONE, cv_mem->cv_tempv, d3, cv_mem->cv_zn[4], cv_mem->cv_tempv);      /* cv_mem->cv_tempv = d1*K1 + 0*K2 + d3*K3                      */
++
++    /* K4 */
++    N_VLinearSum (a41 * cv_mem->cv_h, cv_mem->cv_zn[2], ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K1*a41*h                                        */
++    N_VLinearSum (a42 * cv_mem->cv_h, cv_mem->cv_zn[3], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K2*a42*h                                            */
++    N_VLinearSum (a43 * cv_mem->cv_h, cv_mem->cv_zn[4], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a43*h                                            */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c4 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[5], cv_mem->cv_user_data);        /* cv_mem->cv_zn[5] = K4 = f(Tn+c4*cv_mem->cv_h, Yn + a41*h*K1 + a42*h*K2 + a43*h*K3) */
++    N_VLinearSum (ONE, cv_mem->cv_y, b4, cv_mem->cv_zn[5], cv_mem->cv_y);              /* y = b1*K1 + 0*K2 + b3*K3 + b4*K4                             */
++    N_VLinearSum (ONE, cv_mem->cv_tempv, d4, cv_mem->cv_zn[5], cv_mem->cv_tempv);      /* cv_mem->cv_tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4                         */
++
++    /* K5 */
++    N_VLinearSum (a51 * cv_mem->cv_h, cv_mem->cv_zn[2], ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K1*a51*h                                                   */
++    N_VLinearSum (a52 * cv_mem->cv_h, cv_mem->cv_zn[3], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K2*a52*h                                                       */
++    N_VLinearSum (a53 * cv_mem->cv_h, cv_mem->cv_zn[4], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a53*h                                                       */
++    N_VLinearSum (a54 * cv_mem->cv_h, cv_mem->cv_zn[5], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K4*a54*h                                                       */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c5 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[6], cv_mem->cv_user_data);        /* cv_mem->cv_zn[6] = K5 = f(Tn+c5*cv_mem->cv_h, Yn + a51*h*K1 + a52*h*K2 + a53*h*K3 + a54*h*K4) */
++    N_VLinearSum (ONE, cv_mem->cv_y, b5, cv_mem->cv_zn[6], cv_mem->cv_y);              /* y = b1*K1 + 0*K2 + b3*K3 + b4*K4 + b5*K5                                */
++    N_VLinearSum (ONE, cv_mem->cv_tempv, d5, cv_mem->cv_zn[6], cv_mem->cv_tempv);      /* cv_mem->cv_tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4 + d5*K5                            */
++
++    /* K6 */
++    N_VLinearSum (a61 * cv_mem->cv_h, cv_mem->cv_zn[2], ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K1*a61*h                                                           */
++    N_VLinearSum (a62 * cv_mem->cv_h, cv_mem->cv_zn[3], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K2*a62*h                                                               */
++    N_VLinearSum (a63 * cv_mem->cv_h, cv_mem->cv_zn[4], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a63*h                                                               */
++    N_VLinearSum (a64 * cv_mem->cv_h, cv_mem->cv_zn[5], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a64*h                                                               */
++    N_VLinearSum (a65 * cv_mem->cv_h, cv_mem->cv_zn[6], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a65*h                                                               */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[7], cv_mem->cv_user_data);             /* cv_mem->cv_zn[7] = K6 = f(Tn+cv_mem->cv_h, Yn + a61*h*K1 + a62*h*K2 + a63*h*K3 + a64*h*K4 + a65*h*K5) */
++    N_VLinearSum (ONE, cv_mem->cv_y, b6, cv_mem->cv_zn[7], cv_mem->cv_y);              /* y = b1*K1 + 0*K2 + b3*K3 + b4*K4 + b5*K5 + b6*K6                                */
++    N_VLinearSum (ONE, cv_mem->cv_tempv, d6, cv_mem->cv_zn[7], cv_mem->cv_tempv);      /* cv_mem->cv_tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4 + d5*K5 + d6*K6                            */
++
++    /* K7 */
++    N_VLinearSum (a71 * cv_mem->cv_h, cv_mem->cv_zn[2], ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K1*a71*h                                                                    */
++    N_VLinearSum (a73 * cv_mem->cv_h, cv_mem->cv_zn[4], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a73*h                                                                        */
++    N_VLinearSum (a74 * cv_mem->cv_h, cv_mem->cv_zn[5], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a74*h                                                                        */
++    N_VLinearSum (a75 * cv_mem->cv_h, cv_mem->cv_zn[6], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a75*h                                                                        */
++    N_VLinearSum (a76 * cv_mem->cv_h, cv_mem->cv_zn[7], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp += K3*a76*h                                                                        */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[8], cv_mem->cv_user_data);             /* cv_mem->cv_zn[8] = K7 = f(Tn+cv_mem->cv_h, Yn + a71*h*K1 + 0*h*K2 + a73*h*K3 + a74*h*K4 + a75*h*K5 + a76*h*K6) */
++    N_VLinearSum (ONE, cv_mem->cv_tempv, d7, cv_mem->cv_zn[8], cv_mem->cv_tempv);      /* cv_mem->cv_tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4 + d5*K5 + d6*K6 + d7*K7                             */
++
++    /* Yn+1 */
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h, cv_mem->cv_y, cv_mem->cv_zn[0]); /* cv_mem->cv_zn[0] = Yn+1 = Yn + h*y */
++
++    /* Check for errors in the evaluations of f thanks to retval */
++    if (retval < 0)
++    {
++        cvProcessError(cv_mem, CV_RHSFUNC_FAIL, __LINE__,"Dormand-Prince", "cvStepDoPri", MSGCV_RHSFUNC_FAILED, cv_mem->cv_tn);
++        return(CV_RHSFUNC_FAIL);
++    }
++    if (retval > 0)
++    {
++        cvProcessError(cv_mem, CV_FIRST_RHSFUNC_ERR, __LINE__,"Dormand-Prince", "cvStepDoPri", MSGCV_RHSFUNC_FIRST);
++        return(CV_FIRST_RHSFUNC_ERR);
++    }
++
++    /* Increment cv_mem->cv_tn => take a step. Increment solver calls as well */
++    cv_mem->cv_tn += cv_mem->cv_h;
++    cv_mem->cv_nst++;
++
++    /* Update the Nordsieck history array */
++    retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[1], cv_mem->cv_user_data);    /* cv_mem->cv_zn[1] = y'(cv_mem->cv_tn) */
++
++    return(CV_SUCCESS);
++}
++
++/* SUNDIALS EXTENSION */
++/*
++ * cvStepExpRK
++ *
++ * This routine performs one internal cvode step using the Runge-Kutta 4(5) method, from tn to tn + h.
++ * Proceed to:
++ * - K1 = F(Tn, Yn),
++ * - K2 = F(Tn + h/2, Yn + (h/2)*K1),
++ * - K3 = F(Tn + h/2, Yn + (h/2)*K2),
++ * - K4 = F(Tn + h, Yn + h*K3),
++ * - Yn+1 = Yn + (h/6)*(K1 + 2K2 + 2K3 + K4)
++ * - increment tn
++ *
++ * In order to temporarily store the results, we use tempv and ftemp, which will represent the Ki in turn.
++ */
++
++static int cvStepExpRK(CVodeMem cv_mem)
++{
++    int retval;
++
++    retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_ftemp, cv_mem->cv_user_data);             /* cv_mem->cv_ftemp = K1                            */
++    N_VLinearSum (cv_mem->cv_h / TWO, cv_mem->cv_ftemp, ONE, cv_mem->cv_zn[0], cv_mem->cv_y); /* y = K1*h/2 + Yn                       */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + cv_mem->cv_h / TWO, cv_mem->cv_y, cv_mem->cv_tempv, cv_mem->cv_user_data);       /* cv_mem->cv_tempv = K2 = cv_mem->cv_f(Tn+h/2, Yn + (h/2)*K1) */
++    N_VLinearSum (ONE, cv_mem->cv_ftemp, TWO, cv_mem->cv_tempv, cv_mem->cv_y);     /* y = K1 + 2K2                          */
++
++    N_VLinearSum (cv_mem->cv_h / TWO, cv_mem->cv_tempv, ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K2*h/2                   */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + cv_mem->cv_h / TWO, cv_mem->cv_ftemp, cv_mem->cv_tempv, cv_mem->cv_user_data);       /* cv_mem->cv_tempv = K3 = cv_mem->cv_f(Tn+h/2, Yn + (h/2)*K2) */
++    N_VLinearSum (ONE, cv_mem->cv_y, TWO, cv_mem->cv_tempv, cv_mem->cv_y);             /* y = K1 + 2K2 + 2K3                    */
++
++    N_VLinearSum (cv_mem->cv_h, cv_mem->cv_tempv, ONE, cv_mem->cv_zn[0], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = Yn + K3*h                 */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_tempv, cv_mem->cv_user_data);       /* cv_mem->cv_tempv = K4 = cv_mem->cv_f(Tn+h/2, Yn + h*K3) */
++    N_VLinearSum (ONE, cv_mem->cv_y, ONE, cv_mem->cv_tempv, cv_mem->cv_y);       /* y = K1 + 2K2 + 2K3 + K4           */
++
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h / 6., cv_mem->cv_y, cv_mem->cv_zn[0]); /* cv_mem->cv_zn[0] = Yn+1 = Yn + y*h/6 */
++
++    /* Check for errors in the evaluations of f thanks to retval */
++    if (retval < 0)
++    {
++        cvProcessError(cv_mem, CV_RHSFUNC_FAIL, __LINE__, "Runge-Kutta", "cvStepExpRK", MSGCV_RHSFUNC_FAILED, cv_mem->cv_tn);
++        return(CV_RHSFUNC_FAIL);
++    }
++    if (retval > 0)
++    {
++        cvProcessError(cv_mem, CV_FIRST_RHSFUNC_ERR, __LINE__, "Runge-Kutta", "cvStepExpRK", MSGCV_RHSFUNC_FIRST);
++        return(CV_FIRST_RHSFUNC_ERR);
++    }
++
++    /* Increment cv_mem->cv_tn => take a step. Increment solver calls as well */
++    cv_mem->cv_tn += cv_mem->cv_h;
++    cv_mem->cv_nst++;
++
++    /* Update the Nordsieck history array */
++    retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[1], cv_mem->cv_user_data); /* cv_mem->cv_zn[1] = y'(cv_mem->cv_tn) */
++
++    return(CV_SUCCESS);
++}
++
++/* SUNDIALS EXTENSION */
++/*
++ * cvStepImpRK
++ *
++ * This routine performs one internal cvode step using the implicit Runge-Kutta method, from cv_mem->cv_tn to cv_mem->cv_tn + h.
++ * In order to temporarily store the results, we use cv_mem->cv_zn[2, 3, 4], cv_mem->cv_tempv and cv_mem->cv_ftemp, which will represent the Ki in turn.
++ */
++
++static int cvStepImpRK(CVodeMem cv_mem)
++{
++    int retval, nb_iter, maxcor;
++    sunrealtype difference;
++
++    /* Coefficients */
++    sunrealtype a11, a21, a22, a31, a32, a33, b1, b2, b3, c1, c2, c3;
++    a11 =  0.377847764031163;
++    a21 =  0.385232756462588;
++    a22 =  0.461548399939329;
++    a31 =  0.675724855841358;
++    a32 = -0.061710969841169;
++    a33 =  0.241480233100410;
++    b1  =  0.750869573741408;
++    b2  = -0.362218781852651;
++    b3  =  0.611349208111243;
++    c1  =  0.257820901066211;
++    c2  =  0.434296446908075;
++    c3  =  0.758519768667167;
++
++    difference = 0.;  /* Difference between two computed solutions */
++    nb_iter    = 1.;  /* Iterations counter                        */
++    maxcor     = 30.; /* Set maximum number of iterations          */
++
++    /* Here, we use cv_mem->cv_zn[2, 3, 4] to represent the Runge-Kutta coefficients K1, K2, K3.
++     * Set cv_mem->cv_zn[1] = h*y'(cv_mem->cv_tn) as the first guess for the K[i] */
++    N_VScale (ONE, cv_mem->cv_zn[1], cv_mem->cv_zn[2]);
++    N_VScale (ONE, cv_mem->cv_zn[1], cv_mem->cv_zn[3]);
++    N_VScale (ONE, cv_mem->cv_zn[1], cv_mem->cv_zn[4]);
++
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h * a11, cv_mem->cv_zn[2], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = a11hK1 + Yn         */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c1 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[2], cv_mem->cv_user_data);       /* K1 = cv_mem->cv_f(cv_mem->cv_tn+c1cv_mem->cv_h, Yn + a11hK1) */
++
++    N_VLinearSum(cv_mem->cv_h * a21, cv_mem->cv_zn[2], cv_mem->cv_h * a22, cv_mem->cv_zn[3], cv_mem->cv_ftemp); /* K2 = a21hK1 + a22hK2 */
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp);         /* K2 = Yn + K2         */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c2 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[3], cv_mem->cv_user_data);           /* K2 = cv_mem->cv_f(cv_mem->cv_tn+c2cv_mem->cv_h, K2)   */
++
++    N_VLinearSum(cv_mem->cv_h * a32, cv_mem->cv_zn[3], cv_mem->cv_h * a33, cv_mem->cv_zn[4], cv_mem->cv_ftemp); /* K3 = a32hK2 + a33hK3 */
++    N_VLinearSum(cv_mem->cv_h * a31, cv_mem->cv_zn[2], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp);     /* K3 = a31hK1 + K3     */
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp);         /* K3 = Yn + K3         */
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c3 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[4], cv_mem->cv_user_data);           /* K3 = cv_mem->cv_f(cv_mem->cv_tn+c3cv_mem->cv_h, K3)   */
++
++    N_VLinearSum(b2, cv_mem->cv_zn[3], b3, cv_mem->cv_zn[4], cv_mem->cv_ftemp);  /* K3 = b2K2 + b3K3    */
++    N_VLinearSum(b1, cv_mem->cv_zn[2], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* K3 = b1K1 + K3      */
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_tempv);  /* y = Yn+1 = Yn + hK3 */
++
++    while (nb_iter <= maxcor)    /* Same operations as above, but with K[i] updated and store result in y to compare with cv_mem->cv_tempv */
++    {
++
++        N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h * a11, cv_mem->cv_zn[2], cv_mem->cv_ftemp);     /* cv_mem->cv_ftemp = a11hK1 + Yn         */
++        retval = cv_mem->cv_f(cv_mem->cv_tn + c1 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[2], cv_mem->cv_user_data);           /* K1 = cv_mem->cv_f(cv_mem->cv_tn+c1cv_mem->cv_h, Yn + a11hK1) */
++        N_VLinearSum(cv_mem->cv_h * a21, cv_mem->cv_zn[2], cv_mem->cv_h * a22, cv_mem->cv_zn[3], cv_mem->cv_ftemp); /* K2 = a21hK1 + a22hK2        */
++        N_VLinearSum(ONE, cv_mem->cv_zn[0], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp);         /* K2 = Yn + K2                */
++        retval = cv_mem->cv_f(cv_mem->cv_tn + c2 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[3], cv_mem->cv_user_data);           /* K2 = cv_mem->cv_f(cv_mem->cv_tn+c2cv_mem->cv_h, cv_mem->cv_hK2)         */
++
++        N_VLinearSum(cv_mem->cv_h * a32, cv_mem->cv_zn[3], cv_mem->cv_h * a33, cv_mem->cv_zn[4], cv_mem->cv_ftemp); /* K3 = a32hK2 + a33hK3 */
++        N_VLinearSum(cv_mem->cv_h * a31, cv_mem->cv_zn[2], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp);     /* K3 = a31K1 + K3      */
++        N_VLinearSum(ONE, cv_mem->cv_zn[0], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp);         /* K3 = Yn + K3         */
++        retval = cv_mem->cv_f(cv_mem->cv_tn + c3 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[4], cv_mem->cv_user_data);           /* K3 = cv_mem->cv_f(cv_mem->cv_tn+c3cv_mem->cv_h, K3)   */
++
++        N_VLinearSum(b2, cv_mem->cv_zn[3], b3, cv_mem->cv_zn[4], cv_mem->cv_ftemp);  /* K3 = b2K2 + b3K3    */
++        N_VLinearSum(b1, cv_mem->cv_zn[2], ONE, cv_mem->cv_ftemp, cv_mem->cv_ftemp); /* K3 = b1K1 + K3      */
++        N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_y);      /* y = Yn+1 = Yn + hK3 */
++
++        /* Check for errors in the evaluations of f thanks to retval */
++        if (retval < 0)
++        {
++            cvProcessError(cv_mem, CV_RHSFUNC_FAIL, __LINE__, "Runge-Kutta", "cvStepImpRK", MSGCV_RHSFUNC_FAILED, cv_mem->cv_tn);
++            return(CV_RHSFUNC_FAIL);
++        }
++        if (retval > 0)
++        {
++            cvProcessError(cv_mem, CV_FIRST_RHSFUNC_ERR, __LINE__, "Runge-Kutta", "cvStepImpRK", MSGCV_RHSFUNC_FIRST);
++            return(CV_FIRST_RHSFUNC_ERR);
++        }
++
++        /* Convergence test */
++        N_VLinearSum(ONE, cv_mem->cv_tempv, -ONE, cv_mem->cv_y, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = cv_mem->cv_tempv-y       */
++        difference = N_VMaxNorm(cv_mem->cv_ftemp);                  /* max = Max(ABS(cv_mem->cv_ftemp)) */
++        if (difference < cv_mem->cv_reltol)    /* Converged */
++        {
++            cv_mem->cv_tn += cv_mem->cv_h;                                 /* Increment cv_mem->cv_tn                             */
++            cv_mem->cv_nst++;                                   /* Increment the solver calls               */
++            N_VScale (ONE, cv_mem->cv_y, cv_mem->cv_zn[0]);                /* Update Nordsziek array: - cv_mem->cv_zn[0] = Yn+1   */
++            retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[1], cv_mem->cv_user_data); /*                         - cv_mem->cv_zn[1] = Y'(cv_mem->cv_tn) */
++            N_VScale (cv_mem->cv_h, cv_mem->cv_zn[1], cv_mem->cv_zn[1]);              /* Scale cv_mem->cv_zn[1] by h                         */
++            return (CV_SUCCESS);
++        }
++        else    /* Not converged yet, put y in cv_mem->cv_tempv and reiterate */
++        {
++            N_VScale(ONE, cv_mem->cv_y, cv_mem->cv_tempv);
++            nb_iter++;
++        }
++    }
++    /* End of while: maxiter attained, we consider that the algorithm has diverged */
++    return (CV_CONV_FAILURE);
++}
++
++/* SUNDIALS EXTENSION */
++/*
++ * cvStepCRANI
++ *
++ * This routine performs one internal cvode step using the Crank-Nicolson method, from cv_mem->cv_tn to cv_mem->cv_tn + h.
++ * In order to temporarily store the results, we use cv_mem->cv_zn[2, 3], cv_mem->cv_tempv and cv_mem->cv_ftemp, which will represent the Ki in turn.
++ */
++
++static int cvStepCRANI(CVodeMem cv_mem)
++{
++    int retval, nb_iter, maxcor;
++    sunrealtype difference;
++
++    /* Coefficients */
++    sunrealtype a11, a12, b1, b2, c1;
++    a11 = 0.5;
++    a12 = 0.5;
++    b1  = 0.5;
++    b2  = 0.5;
++    c1  = 1;
++
++    difference = 0;  /* Difference between two computed solutions */
++    nb_iter    = 1;  /* Iterations counter                        */
++    maxcor     = 30; /* Set maximum number of iterations          */
++
++    /* Here, we use cv_mem->cv_zn[2, 3] to represent the Runge-Kutta coefficients K1, K2.
++     * Set cv_mem->cv_zn[1] = h*y'(cv_mem->cv_tn) as the first guess for the K[i]. */
++    N_VScale (ONE, cv_mem->cv_zn[1], cv_mem->cv_zn[2]);
++    N_VScale (ONE, cv_mem->cv_zn[1], cv_mem->cv_zn[3]);
++
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h * a11, cv_mem->cv_zn[2], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = a11hK1 + Yn          */
++    N_VLinearSum(ONE, cv_mem->cv_ftemp, cv_mem->cv_h * a12, cv_mem->cv_zn[3], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = a11hK1 + a12hK2 + Yn */
++
++    retval = cv_mem->cv_f(cv_mem->cv_tn + c1 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[2], cv_mem->cv_user_data); /* K1 = f(cv_mem->cv_tn+c1cv_mem->cv_h, Yn + a11hK1 + a12hK2) */
++    retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[3], cv_mem->cv_user_data);          /* K2 = f(cv_mem->cv_tn, Yn)                       */
++
++    N_VLinearSum(b1, cv_mem->cv_zn[2], b2, cv_mem->cv_zn[3], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = b1K1 + b2K2            */
++    N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_tempv); /* y = Yn+1 = Yn + h(b1K1 + b2K2) */
++
++    while (nb_iter <= maxcor)    /* Same operations as above, but with K[i] updated and store result in y to compare with cv_mem->cv_tempv */
++    {
++
++        N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h * a11, cv_mem->cv_zn[2], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = a11hK1 + Yn          */
++        N_VLinearSum(ONE, cv_mem->cv_ftemp, cv_mem->cv_h * a12, cv_mem->cv_zn[3], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = a11hK1 + a12hK2 + Yn */
++
++        retval = cv_mem->cv_f(cv_mem->cv_tn + c1 * cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_zn[2], cv_mem->cv_user_data); /* K1 = f(cv_mem->cv_tn+c1cv_mem->cv_h, Yn + a11hK1 + a12hK2) */
++        retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[3], cv_mem->cv_user_data);          /* K2 = f(cv_mem->cv_tn, Yn)                       */
++
++        N_VLinearSum(b1, cv_mem->cv_zn[2], b2, cv_mem->cv_zn[3], cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = b1K1 + b2K2            */
++        N_VLinearSum(ONE, cv_mem->cv_zn[0], cv_mem->cv_h, cv_mem->cv_ftemp, cv_mem->cv_y);     /* y = Yn+1 = Yn + h(b1K1 + b2K2) */
++
++        /* Check for errors in the evaluations of f thanks to retval */
++        if (retval < 0)
++        {
++            cvProcessError(cv_mem, CV_RHSFUNC_FAIL, __LINE__, "Runge-Kutta", "cvStepCRANI", MSGCV_RHSFUNC_FAILED, cv_mem->cv_tn);
++            return(CV_RHSFUNC_FAIL);
++        }
++        if (retval > 0)
++        {
++            cvProcessError(cv_mem, CV_FIRST_RHSFUNC_ERR, __LINE__, "Runge-Kutta", "cvStepCRANI", MSGCV_RHSFUNC_FIRST);
++            return(CV_FIRST_RHSFUNC_ERR);
++        }
++
++        /* Convergence test */
++        N_VLinearSum(ONE, cv_mem->cv_tempv, -ONE, cv_mem->cv_y, cv_mem->cv_ftemp); /* cv_mem->cv_ftemp = cv_mem->cv_tempv-y       */
++        difference = N_VMaxNorm(cv_mem->cv_ftemp);                  /* max = Max(ABS(cv_mem->cv_ftemp)) */
++        if (difference < cv_mem->cv_reltol)    /* Converged */
++        {
++            cv_mem->cv_tn += cv_mem->cv_h;                                                                  /* Increment cv_mem->cv_tn                             */
++            cv_mem->cv_nst++;                                                                               /* Increment solver calls (complete step)   */
++            N_VScale (ONE, cv_mem->cv_y, cv_mem->cv_zn[0]);                                                 /* Update Nordsziek array: - cv_mem->cv_zn[0] = Yn+1   */
++            retval = cv_mem->cv_f(cv_mem->cv_tn, cv_mem->cv_zn[0], cv_mem->cv_zn[1], cv_mem->cv_user_data); /*                         - cv_mem->cv_zn[1] = Y'(cv_mem->cv_tn) */
++            N_VScale (cv_mem->cv_h, cv_mem->cv_zn[1], cv_mem->cv_zn[1]);                                    /* Scale cv_mem->cv_zn[1] by h                         */
++            
++            return (CV_SUCCESS);
++        }
++        else    /* Not converged yet, put y in cv_mem->cv_tempv and reiterate */
++        {
++            N_VScale(ONE, cv_mem->cv_y, cv_mem->cv_tempv);
++            nb_iter++;
++        }
++    }
++    /* End of while: maxiter attained, we consider that the algorithm has diverged */
++    return (CV_CONV_FAILURE);
++}
++
++
++/*
+  * -----------------------------------------------------------------
+  * Function called at beginning of step
+  * -----------------------------------------------------------------
+@@ -8642,7 +9143,7 @@
+  *  CV_SUCCESS     = 0 otherwise.
+  */
+ 
+-static int cvRcheck1(CVodeMem cv_mem)
++static int cvRcheck1Std(CVodeMem cv_mem)
+ {
+   int i, retval;
+   sunrealtype smallh, hratio, tplus;
+@@ -8714,7 +9215,7 @@
+  *     CV_SUCCESS      = 0 otherwise.
+  */
+ 
+-static int cvRcheck2(CVodeMem cv_mem)
++static int cvRcheck2Std(CVodeMem cv_mem)
+ {
+   int i, retval;
+   sunrealtype smallh, hratio, tplus;
+@@ -8791,7 +9292,7 @@
+  *     CV_SUCCESS      = 0 otherwise.
+  */
+ 
+-static int cvRcheck3(CVodeMem cv_mem)
++static int cvRcheck3Std(CVodeMem cv_mem)
+ {
+   int i, ier, retval;
+ 
+@@ -8925,7 +9426,7 @@
+  *      CV_SUCCESS      = 0 otherwise.
+  */
+ 
+-static int cvRootfind(CVodeMem cv_mem)
++static int cvRootfindStd(CVodeMem cv_mem)
+ {
+   sunrealtype alph, tmid, gfrac, maxfrac, fracint, fracsub;
+   int i, retval, imax, side, sideprev;
+@@ -10022,4 +10523,569 @@
+   free(msg);
+ 
+   return;
++}
++
++
++/* SUNDIALS EXTENSION */
++/* ALL NEXT LINES ADDED FOR EXTENSION */
++
++/*-----------------------------------------------------------------*/
++
++/*
++* cvRcheck1
++*
++* This routine completes the initialization of rootfinding memory
++* information, and checks whether g has a zero both at and very near
++* the initial point of the IVP.
++*
++* This routine returns an int equal to:
++*  CV_RTFUNC_FAIL = -12  if the g function failed, or
++*  CV_SUCCESS     =  0 otherwise.
++*/
++
++static int cvRcheck1Ext(CVodeMem cv_mem)
++{
++    int i, retval;
++
++    for (i = 0; i < cv_mem->cv_nrtfn; i++)
++    {
++        cv_mem->cv_iroots[i] = 0;
++    }
++    cv_mem->cv_tlo = cv_mem->cv_tn;
++    cv_mem->cv_ttol = (SUNRabs(cv_mem->cv_tn) + SUNRabs(cv_mem->cv_h)) * cv_mem->cv_uround * HUNDRED;
++
++    /* Evaluate g at initial t and check for zero values. */
++    retval = cv_mem->cv_gfun(cv_mem->cv_tlo, cv_mem->cv_zn[0], cv_mem->cv_glo, cv_mem->cv_user_data);
++    cv_mem->cv_nge = 1;
++    if (retval != 0)
++    {
++        return(CV_RTFUNC_FAIL);
++    }
++
++    for (i = 0; i < cv_mem->cv_nrtfn; i++)
++    {
++        if (SUNRabs(cv_mem->cv_glo[i]) == ZERO)
++        {
++            cv_mem->cv_iroots[i] = MASKED;    /* arbitrary choice*/
++        }
++        else
++        {
++            cv_mem->cv_iroots[i] = 0;
++        }
++    }
++    return(CV_SUCCESS);
++
++    /* Some g_i is zero at t0; look at g at t0+(small increment). */
++
++}
++
++/*
++* cvRcheck2
++*
++* This routine checks for exact zeros of g at the last root found,
++* if the last return was a root.  It then checks for a close
++* pair of zeros (an error condition), and for a new root at a
++* nearby point.  The left endpoint (cv_mem->cv_tlo) of the search interval
++* is adjusted if necessary to assure that all g_i are nonzero
++* there, before returning to do a root search in the interval.
++*
++* On entry, cv_mem->cv_tlo = tretlast is the last value of tret returned by
++* CVode.  This may be the previous cv_mem->cv_tn, the previous tout value, or
++* the last root location.
++*
++* This routine returns an int equal to:
++*      CLOSERT = -2 if a close pair of zeros was found,
++*      RTFOUND =  1 if a new zero of g was found near cv_mem->cv_tlo, or
++*      CV_SUCCESS    =  0 otherwise.
++*/
++
++static int cvRcheck2Ext(CVodeMem cv_mem)
++{
++    int i, retval;
++
++    if (cv_mem->cv_irfnd == 0)
++    {
++        return(CV_SUCCESS);
++    }
++
++    (void) CVodeGetDky(cv_mem, cv_mem->cv_tlo, 0, cv_mem->cv_y);
++    retval = cv_mem->cv_gfun(cv_mem->cv_tlo, cv_mem->cv_y, cv_mem->cv_glo, cv_mem->cv_user_data);
++    cv_mem->cv_nge++;
++    if (retval != 0)
++    {
++        return(CV_RTFUNC_FAIL);
++    }
++
++    for (i = 0; i < cv_mem->cv_nrtfn; i++)
++    {
++        if (SUNRabs(cv_mem->cv_glo[i]) == ZERO)
++        {
++            cv_mem->cv_iroots[i] = MASKED;    /* arbitrary choice*/
++        }
++        else
++        {
++            cv_mem->cv_iroots[i] = 0;
++        }
++    }
++    return(CV_SUCCESS);
++
++}
++
++/*
++* cvRcheck3
++*
++* This routine interfaces to cvRootfind to look for a root of g
++* between cv_mem->cv_tlo and either cv_mem->cv_tn or tout, whichever comes first.
++* Only roots beyond cv_mem->cv_tlo in the direction of integration are sought.
++*
++* This routine returns an int equal to:
++*      RTFOUND =  1 if a root of g was found, or
++*      CV_SUCCESS    =  0 otherwise.
++*/
++
++static int cvRcheck3Ext(CVodeMem cv_mem)
++{
++    int i, retval, ier;
++    /* Set thi = cv_mem->cv_tn or tout, whichever comes first; set y = y(thi). */
++    if (cv_mem->cv_taskc == CV_ONE_STEP)
++    {
++        cv_mem->cv_thi = cv_mem->cv_tn;
++        N_VScale(ONE, cv_mem->cv_zn[0], cv_mem->cv_y);
++    }
++    if (cv_mem->cv_taskc == CV_NORMAL)
++    {
++        if ( (cv_mem->cv_toutc - cv_mem->cv_tn)*cv_mem->cv_h >= ZERO)
++        {
++            cv_mem->cv_thi = cv_mem->cv_tn;
++            N_VScale(ONE, cv_mem->cv_zn[0], cv_mem->cv_y);
++        }
++        else
++        {
++            cv_mem->cv_thi = cv_mem->cv_toutc;
++            (void) CVodeGetDky(cv_mem, cv_mem->cv_thi, 0, cv_mem->cv_y);
++        }
++    }
++
++    /* Set cv_mem->cv_ghi = g(thi) and call cvRootfind to search (cv_mem->cv_tlo,thi) for roots. */
++    retval = cv_mem->cv_gfun(cv_mem->cv_thi, cv_mem->cv_y, cv_mem->cv_ghi, cv_mem->cv_user_data);
++    cv_mem->cv_nge++;
++    if (retval != 0)
++    {
++        return(CV_RTFUNC_FAIL);
++    }
++
++    cv_mem->cv_ttol = (SUNRabs(cv_mem->cv_tn) + SUNRabs(cv_mem->cv_h)) * cv_mem->cv_uround * HUNDRED;
++    ier = cvRootfind(cv_mem);
++    cv_mem->cv_tlo = cv_mem->cv_trout;
++    for (i = 0; i < cv_mem->cv_nrtfn; i++)
++    {
++        cv_mem->cv_glo[i] = cv_mem->cv_grout[i];
++    }
++
++    /* If no root found, return CV_SUCCESS. */
++    if (ier == CV_SUCCESS)
++    {
++        return(CV_SUCCESS);
++    }
++
++    /* If a root was found, interpolate to get y(trout) and return.  */
++    (void) CVodeGetDky(cv_mem, cv_mem->cv_trout, 0, cv_mem->cv_y);
++    // return(RTFOUND);
++
++    if (ier == RTFOUND)
++    {
++        return(RTFOUND);
++    }
++    else
++    {
++        return(ZERODETACHING);
++    }
++}
++
++/*
++* cvRootFind
++*
++* This routine solves for a root of g(t) between cv_mem->cv_tlo and thi, if
++* one exists.  Only roots of odd multiplicity (i.e. with a chacv_mem->cv_nge
++* of sign in one of the g_i), or exact zeros, are found.
++* Here the sign of cv_mem->cv_tlo - thi is arbitrary, but if multiple roots
++* are found, the one closest to cv_mem->cv_tlo is returned.
++*
++* The method used is the Illinois algorithm, a modified secant method.
++* Reference: Kathie L. Hiebert and Lawrence F. Shampine, Implicitly
++* Defined Output Points for Solutions of ODEs, Sandia National
++* Laboratory Report SAND80-0180, February 1980.
++*
++* This routine uses the following parameters for communication:
++*
++* cv_mem->cv_nrtfn    = number of functions g_i, or number of components of
++*            the vector-valued function g(t).  Input only.
++*
++* gfun     = user-defined function for g(t).  Its form is
++*            (void) gfun(t, cv_mem->cv_y, gt, cv_mem->cv_user_data)
++*
++* cv_mem->cv_nge      = cumulative counter for gfun calls.
++*
++* ttol     = a convergence tolerance for trout.  Input only.
++*            When a root at trout is found, it is located only to
++*            within a tolerance of ttol.  Typically, ttol should
++*            be set to a value on the order of
++*               100 * UROUND * max (SUNRabs(cv_mem->cv_tlo), SUNRabs(thi))
++*            where UROUND is the unit roundoff of the machine.
++*
++* cv_mem->cv_tlo, thi = endpoints of the interval in which roots are sought.
++*            On input, and must be distinct, but cv_mem->cv_tlo - thi may
++*            be of either sign.  The direction of integration is
++*            assumed to be from cv_mem->cv_tlo to thi.  On return, cv_mem->cv_tlo and thi
++*            are the endpoints of the final relevant interval.
++*
++* cv_mem->cv_glo, cv_mem->cv_ghi = arrays of length cv_mem->cv_nrtfn containing the vectors g(cv_mem->cv_tlo)
++*            and g(thi) respectively.  Input and output.  On input,
++*            none of the cv_mem->cv_glo[i] should be zero.
++*
++* trout    = root location, if a root was found, or thi if not.
++*            Output only.  If a root was found other than an exact
++*            zero of g, trout is the endpoint thi of the final
++*            interval bracketing the root, with size at most ttol.
++*
++* grout    = array of length cv_mem->cv_nrtfn containing g(trout) on return.
++*
++* cv_mem->cv_iroots   = int array of length cv_mem->cv_nrtfn with root information.
++*            Output only.  If a root was found, cv_mem->cv_iroots indicates
++*            which components g_i have a root at trout.  For
++*            i = 0, ..., cv_mem->cv_nrtfn-1, cv_mem->cv_iroots[i] = 1 if g_i has a root
++*            and cv_mem->cv_iroots[i] = 0 otherwise.
++*
++* This routine returns an int equal to:
++*      RTFOUND =  1 if a root of g was found, or
++*      CV_SUCCESS    =  0 otherwise.
++*/
++
++static int cvRootfindExt(CVodeMem cv_mem)
++{
++    sunrealtype alpha, tmid, gfrac, maxfrac, fracint, fracsub;
++    int i, retval, imax, side, sideprev;
++    int istuck, iunstuck, imaxold;
++
++    sunbooleantype zroot, umroot, sgnchg;
++
++    imax = -1;
++    istuck = -1;
++    iunstuck = -1;
++    maxfrac = ZERO;
++
++    /* First check for chacv_mem->cv_nge in sign in cv_mem->cv_ghi or for a zero in cv_mem->cv_ghi. */
++    zroot = FALSE;
++
++    for (i = 0;  i < cv_mem->cv_nrtfn; i++)
++    {
++        if ((SUNRabs(cv_mem->cv_ghi[i]) == ZERO) && (cv_mem->cv_iroots[i] != MASKED))
++        {
++            istuck = i;
++        }
++        if ((SUNRabs(cv_mem->cv_ghi[i]) > ZERO) && (cv_mem->cv_iroots[i] == MASKED))
++        {
++            iunstuck = i;
++        }
++        if ((SUNRabs(cv_mem->cv_ghi[i]) > ZERO) && (cv_mem->cv_glo[i]*cv_mem->cv_ghi[i] <= ZERO))
++        {
++            gfrac = SUNRabs(cv_mem->cv_ghi[i] / (cv_mem->cv_ghi[i] - cv_mem->cv_glo[i]));
++            if (gfrac > maxfrac)   /* finding the very first root*/
++            {
++                maxfrac = gfrac;
++                imax = i;
++            }
++        }
++    }
++
++    if (imax >= 0)
++    {
++        sgnchg = TRUE;
++    }
++    else if (istuck >= 0)
++    {
++        sgnchg = TRUE;
++        imax = istuck;
++    }
++    else  if (iunstuck >= 0)
++    {
++        sgnchg = TRUE;
++        imax = iunstuck;
++    }
++    else
++    {
++        sgnchg = FALSE;
++    }
++
++    if (!sgnchg)
++    {
++        cv_mem->cv_trout = cv_mem->cv_thi;
++        for (i = 0; i < cv_mem->cv_nrtfn; i++)
++        {
++            cv_mem->cv_grout[i] = cv_mem->cv_ghi[i];
++        }
++        return(CV_SUCCESS);
++    }
++
++    /* Initialize alpha to avoid compiler warning */
++    alpha = ONE;
++
++    /* A sign chacv_mem->cv_nge was found.  Loop to locate nearest root. */
++
++    side = 0;
++    sideprev = -1;
++    for (;;)                                     /* Looping point */
++    {
++
++        /* Set weight alpha.
++        On the first two passes, set alpha = 1.  Thereafter, reset alpha
++        according to the side (low vs high) of the subinterval in which
++        the sign chacv_mem->cv_nge was found in the previous two passes.
++        If the sides were opposite, set alpha = 1.
++        If the sides were the same, then double alpha (if high side),
++        or halve alpha (if low side).
++        The next guess tmid is the secant method value if alpha = 1, but
++        is closer to cv_mem->cv_tlo if alpha < 1, and closer to thi if alpha > 1.    */
++
++        if (sideprev == side)
++        {
++            alpha = (side == 2) ? alpha * TWO : alpha * HALF;
++        }
++        else
++        {
++            alpha = ONE;
++        }
++        /* Set next root approximation tmid and get g(tmid).
++        If tmid is too close to cv_mem->cv_tlo or thi, adjust it inward,
++        by a fractional distance that is between 0.1 and 0.5.  */
++        if ((SUNRabs(cv_mem->cv_ghi[imax]) == ZERO) || (SUNRabs(cv_mem->cv_glo[imax]) == ZERO) || cv_mem->cv_ghi[imax] == alpha * cv_mem->cv_glo[imax])
++        {
++            tmid = (cv_mem->cv_tlo + alpha * cv_mem->cv_thi) / (1 + alpha);
++        }
++        else
++        {
++            tmid = cv_mem->cv_thi - (cv_mem->cv_thi - cv_mem->cv_tlo) * cv_mem->cv_ghi[imax] / (cv_mem->cv_ghi[imax] - alpha * cv_mem->cv_glo[imax]);
++        }
++
++        if (tmid + 1 == tmid)
++        {
++            printf("tmid is nan\n\r ");
++        };
++
++        if (SUNRabs(tmid - cv_mem->cv_tlo) < HALF * cv_mem->cv_ttol)
++        {
++            fracint = SUNRabs(cv_mem->cv_thi - cv_mem->cv_tlo) / cv_mem->cv_ttol;
++            fracsub = (fracint > FIVE) ? PT1 : HALF / fracint;
++            tmid = cv_mem->cv_tlo + fracsub * (cv_mem->cv_thi - cv_mem->cv_tlo);
++        }
++
++        if (SUNRabs(cv_mem->cv_thi - tmid) < HALF * cv_mem->cv_ttol)
++        {
++            fracint = SUNRabs(cv_mem->cv_thi - cv_mem->cv_tlo) / cv_mem->cv_ttol;
++            fracsub = (fracint > FIVE) ? PT1 : HALF / fracint;
++            tmid = cv_mem->cv_thi - fracsub * (cv_mem->cv_thi - cv_mem->cv_tlo);
++        }
++
++        (void) CVodeGetDky(cv_mem, tmid, 0, cv_mem->cv_y);
++        retval = cv_mem->cv_gfun(tmid, cv_mem->cv_y, cv_mem->cv_grout, cv_mem->cv_user_data);
++        cv_mem->cv_nge++;
++        if (retval != 0)
++        {
++            return(CV_RTFUNC_FAIL);
++        }
++
++        /* Check to see in which subinterval g chacv_mem->cv_nges sign, and reset imax.
++        Set side = 1 if sign chacv_mem->cv_nge is on low side, or 2 if on high side.  */
++
++        /* First check for chacv_mem->cv_nge in sign in cv_mem->cv_ghi or for a zero in cv_mem->cv_ghi. */
++        zroot = FALSE;
++        sideprev = side;
++        imaxold = imax;
++        imax = -1;
++        istuck = -1;
++        iunstuck = -1;
++        maxfrac = ZERO;
++        for (i = 0;  i < cv_mem->cv_nrtfn; i++)
++        {
++            if ((SUNRabs(cv_mem->cv_grout[i]) == ZERO) && (cv_mem->cv_iroots[i] != MASKED))
++            {
++                istuck = i;
++            }
++            if ((SUNRabs(cv_mem->cv_grout[i]) > ZERO) && (cv_mem->cv_iroots[i] == MASKED))
++            {
++                iunstuck = i;
++            }
++            if ((SUNRabs(cv_mem->cv_grout[i]) > ZERO) && (cv_mem->cv_glo[i]*cv_mem->cv_grout[i] <= ZERO))
++            {
++                gfrac = SUNRabs(cv_mem->cv_grout[i] / (cv_mem->cv_grout[i] - cv_mem->cv_glo[i]));
++                if (gfrac > maxfrac)   /* finding the very first root*/
++                {
++                    maxfrac = gfrac;
++                    imax = i;
++                }
++            }
++        }
++
++        if (imax >= 0)
++        {
++            sgnchg = TRUE;
++        }
++        else if (istuck >= 0)
++        {
++            sgnchg = TRUE;
++            imax = istuck;
++        }
++        else  if (iunstuck >= 0)
++        {
++            sgnchg = TRUE;
++            imax = iunstuck;
++        }
++        else
++        {
++            sgnchg = FALSE;
++            imax = imaxold;
++        }
++
++        if (sgnchg)
++        {
++            /* Sign chacv_mem->cv_nge found in (cv_mem->cv_tlo,tmid); replace thi with tmid. */
++            cv_mem->cv_thi = tmid;
++            for (i = 0; i < cv_mem->cv_nrtfn; i++)
++            {
++                cv_mem->cv_ghi[i] = cv_mem->cv_grout[i];
++            }
++            side = 1;
++            /* Stop at root thi if converged; otherwise loop. */
++            if (SUNRabs(cv_mem->cv_thi - cv_mem->cv_tlo) <= cv_mem->cv_ttol)
++            {
++                break;
++            }
++            continue;  /* Return to looping point. */
++        }
++
++        /* here, either (SUNRabs(thi - cv_mem->cv_tlo) <= ttol) or NO SIGN CHANGE */
++
++        /* No sign chacv_mem->cv_nge in (cv_mem->cv_tlo,tmid), and no zero at tmid.
++        Sign chacv_mem->cv_nge must be in (tmid,thi).  Replace cv_mem->cv_tlo with tmid. */
++        cv_mem->cv_tlo = tmid;
++        for (i = 0; i < cv_mem->cv_nrtfn; i++)
++        {
++            cv_mem->cv_glo[i] = cv_mem->cv_grout[i];
++        }
++        side = 2;
++        /* Stop at root thi if converged; otherwise loop back. */
++        if (SUNRabs(cv_mem->cv_thi - cv_mem->cv_tlo) <= cv_mem->cv_ttol)
++        {
++            break;
++        }
++
++    } /* End of root-search loop */
++
++    /* Reset trout and grout, set cv_mem->cv_iroots, and return RTFOUND. */
++    zroot = FALSE;
++    umroot = FALSE;
++    cv_mem->cv_trout = cv_mem->cv_thi;
++    for (i = 0; i < cv_mem->cv_nrtfn; i++)
++    {
++        cv_mem->cv_grout[i] = cv_mem->cv_ghi[i];
++        if (cv_mem->cv_iroots[i] == MASKED)
++        {
++            if (SUNRabs(cv_mem->cv_ghi[i]) != ZERO)
++            {
++                cv_mem->cv_iroots[i] = (cv_mem->cv_ghi[i] > ZERO) ? 2 : -2;
++                umroot = TRUE;
++            }
++            else
++            {
++                cv_mem->cv_iroots[i] = 0;
++            }
++        }
++        else
++        {
++            if (SUNRabs(cv_mem->cv_ghi[i]) == ZERO)
++            {
++                cv_mem->cv_iroots[i] = (cv_mem->cv_glo[i] > ZERO) ? -1 : 1;
++                zroot = TRUE;
++            }
++            else
++            {
++                if (cv_mem->cv_glo[i]*cv_mem->cv_ghi[i] < ZERO)
++                {
++                    cv_mem->cv_iroots[i] = (cv_mem->cv_ghi[i] > cv_mem->cv_glo[i]) ? 1 : -1;
++                    zroot = TRUE;
++                }
++                else
++                {
++                    cv_mem->cv_iroots[i] = 0;
++                }
++            }
++        }
++    }
++    if (zroot)
++    {
++        for (i = 0; i < cv_mem->cv_nrtfn; i++)
++        {
++            if ((cv_mem->cv_iroots[i] == 2) || (cv_mem->cv_iroots[i] == -2))
++            {
++                cv_mem->cv_iroots[i] = 0;
++            }
++        }
++        return(RTFOUND);
++    }
++    if (umroot)
++    {
++        return(ZERODETACHING);
++    }
++    return(CV_SUCCESS);
++}
++
++
++static int cvRcheck1(CVodeMem cv_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return cvRcheck1Ext(cv_mem);
++    }
++    else
++    {
++        return cvRcheck1Std(cv_mem);
++    }
++}
++
++static int cvRcheck2(CVodeMem cv_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return cvRcheck2Ext(cv_mem);
++    }
++    else
++    {
++        return cvRcheck2Std(cv_mem);
++    }
++}
++
++static int cvRcheck3(CVodeMem cv_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return cvRcheck3Ext(cv_mem);
++    }
++    else
++    {
++        return cvRcheck3Std(cv_mem);
++    }
++}
++
++static int cvRootfind(CVodeMem cv_mem)
++{
++  /* SUNDIALS EXTENSION */
++  if (is_sundials_with_extension())
++  {
++      return cvRootfindExt(cv_mem);
++  }
++
++  return cvRootfindStd(cv_mem);
+ }
+diff -Naur sundials-7.4.0/src/idas/idas.c patched_sundials/src/idas/idas.c
+--- sundials-7.4.0/src/idas/idas.c	2025-06-23 19:01:27
++++ patched_sundials/src/idas/idas.c	2025-07-25 13:50:58
+@@ -149,6 +149,8 @@
+ #include "idas_impl.h"
+ #include "sundials/priv/sundials_errors_impl.h"
+ 
++/* SUNDIALS EXTENSION */
++#include "sundials/sundials_extension.h"
+ /*
+  * =================================================================
+  * IDAS PRIVATE CONSTANTS
+@@ -213,6 +215,10 @@
+ #define RTFOUND +1
+ #define CLOSERT +3
+ 
++/* SUNDIALS EXTENSION */
++#define ZERODETACHING    +4
++#define MASKED           55
++
+ /*
+  * Control constants for sensitivity DQ
+  * ------------------------------------
+@@ -2838,6 +2844,16 @@
+           SUNDIALS_MARK_FUNCTION_END(IDA_PROFILER);
+           return (IDA_RTFUNC_FAIL);
+         }
++        /* SUNDIALS EXTENSION */
++        if (is_sundials_with_extension())
++        {
++          if (ier == ZERODETACHING)    /* Zero detaching */
++          {
++            IDA_mem->ida_irfnd = 1;
++            IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
++            return(IDA_ZERO_DETACH_RETURN);
++          }
++        }
+       }
+ 
+     } /* end of root stop check */
+@@ -3026,6 +3042,18 @@
+         break;
+       }
+ 
++      /* SUNDIALS EXTENSION */
++      if (is_sundials_with_extension())
++      {
++        if (ier == ZERODETACHING)    /* Zero detaching */
++        {
++          IDA_mem->ida_irfnd = 1;
++          istate = IDA_ZERO_DETACH_RETURN;
++          IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
++          break;
++        }
++      }
++
+       /* If we are at the end of the first step and we still have
+        * some event functions that are inactive, issue a warning
+        * as this may indicate a user error in the implementation
+@@ -7906,7 +7934,7 @@
+  *  IDA_SUCCESS     = 0 otherwise.
+  */
+ 
+-static int IDARcheck1(IDAMem IDA_mem)
++static int IDARcheck1Std(IDAMem IDA_mem)
+ {
+   int i, retval;
+   sunrealtype smallh, hratio, tplus;
+@@ -7980,7 +8008,7 @@
+  *     IDA_SUCCESS     = 0 otherwise.
+  */
+ 
+-static int IDARcheck2(IDAMem IDA_mem)
++static int IDARcheck2Std(IDAMem IDA_mem)
+ {
+   int i, retval;
+   sunrealtype smallh, hratio, tplus;
+@@ -8065,7 +8093,7 @@
+  *     IDA_SUCCESS     = 0 otherwise.
+  */
+ 
+-static int IDARcheck3(IDAMem IDA_mem)
++static int IDARcheck3Std(IDAMem IDA_mem)
+ {
+   int i, ier, retval;
+ 
+@@ -8198,7 +8226,7 @@
+  *
+  */
+ 
+-static int IDARootfind(IDAMem IDA_mem)
++static int IDARootfindStd(IDAMem IDA_mem)
+ {
+   sunrealtype alph, tmid, gfrac, maxfrac, fracint, fracsub;
+   int i, retval, imax, side, sideprev;
+@@ -8814,4 +8842,463 @@
+   free(msg);
+ 
+   return;
++}
++
++
++/* SUNDIALS EXTENSION */
++/* ALL NEXT LINES ADDED FOR EXTENSION */
++
++static int IDARcheck1Ext(IDAMem IDA_mem)
++{
++    int i, retval;
++
++    for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++    {
++        IDA_mem->ida_iroots[i] = 0;
++    }
++    IDA_mem->ida_tlo = IDA_mem->ida_tn;
++    IDA_mem->ida_ttol = (SUNRabs(IDA_mem->ida_tn) + SUNRabs(IDA_mem->ida_hh)) * IDA_mem->ida_uround * HUNDRED;
++
++    /* Evaluate g at initial t and check for zero values. */
++    retval = IDA_mem->ida_gfun (IDA_mem->ida_tlo, IDA_mem->ida_phi[0], IDA_mem->ida_phi[1], IDA_mem->ida_glo, IDA_mem->ida_user_data);
++    IDA_mem->ida_nge = 1;
++    if (retval != 0)
++    {
++        return(IDA_RTFUNC_FAIL);
++    }
++
++    for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++    {
++        if (SUNRabs(IDA_mem->ida_glo[i]) == ZERO)
++        {
++            IDA_mem->ida_iroots[i] = MASKED;    /* arbitrary choice*/
++        }
++        else
++        {
++            IDA_mem->ida_iroots[i] = 0;
++        }
++    }
++    return(IDA_SUCCESS);
++
++}
++
++static int IDARcheck2Ext(IDAMem IDA_mem)
++{
++    int i, retval;
++
++    if (IDA_mem->ida_irfnd == 0)
++    {
++        return(IDA_SUCCESS);
++    }
++
++    (void) IDAGetSolution(IDA_mem, IDA_mem->ida_tlo, IDA_mem->ida_yy, IDA_mem->ida_yp);
++    retval = IDA_mem->ida_gfun (IDA_mem->ida_tlo, IDA_mem->ida_yy, IDA_mem->ida_yp, IDA_mem->ida_glo, IDA_mem->ida_user_data);
++    IDA_mem->ida_nge++;
++    if (retval != 0)
++    {
++        return(IDA_RTFUNC_FAIL);
++    }
++
++    for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++    {
++        if (SUNRabs(IDA_mem->ida_glo[i]) == ZERO)
++        {
++            IDA_mem->ida_iroots[i] = MASKED;    /* arbitrary choice*/
++        }
++        else
++        {
++            IDA_mem->ida_iroots[i] = 0;
++        }
++    }
++    return(IDA_SUCCESS);
++}
++
++static int IDARcheck3Ext(IDAMem IDA_mem)
++{
++    int i, ier, retval;
++
++    /* Set IDA_mem->ida_thi = IDA_mem->ida_tn or tout, whichever comes first. */
++    if (IDA_mem->ida_taskc == IDA_ONE_STEP)
++    {
++        IDA_mem->ida_thi = IDA_mem->ida_tn;
++    }
++    if (IDA_mem->ida_taskc == IDA_NORMAL)
++    {
++        IDA_mem->ida_thi = ( (IDA_mem->ida_toutc - IDA_mem->ida_tn) * IDA_mem->ida_hh >= ZERO) ? IDA_mem->ida_tn : IDA_mem->ida_toutc;
++    }
++
++    /* Get y and y' at IDA_mem->ida_thi. */
++    (void) IDAGetSolution(IDA_mem, IDA_mem->ida_thi, IDA_mem->ida_yy, IDA_mem->ida_yp);
++
++
++    /* Set ghi = g(IDA_mem->ida_thi) and call IDARootfind to search (IDA_mem->ida_tlo,IDA_mem->ida_thi) for roots. */
++    retval = IDA_mem->ida_gfun (IDA_mem->ida_thi, IDA_mem->ida_yy, IDA_mem->ida_yp, IDA_mem->ida_ghi, IDA_mem->ida_user_data);
++    IDA_mem->ida_nge++;
++    if (retval != 0)
++    {
++        return(IDA_RTFUNC_FAIL);
++    }
++
++    IDA_mem->ida_ttol = (SUNRabs(IDA_mem->ida_tn) + SUNRabs(IDA_mem->ida_hh)) * IDA_mem->ida_uround * HUNDRED;
++    ier = IDARootfind(IDA_mem);
++    IDA_mem->ida_tlo = IDA_mem->ida_trout;
++    for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++    {
++        IDA_mem->ida_glo[i] = IDA_mem->ida_grout[i];
++    }
++
++    /* If no root found, return IDA_SUCCESS. */
++    if (ier == IDA_SUCCESS)
++    {
++        return(IDA_SUCCESS);
++    }
++
++    /* If a root was found, interpolate to get y(IDA_mem->ida_trout) and return.  */
++    (void) IDAGetSolution(IDA_mem, IDA_mem->ida_trout, IDA_mem->ida_yy, IDA_mem->ida_yp);
++    /*  return(RTFOUND);*/
++
++    if (ier == RTFOUND)
++    {
++        return(RTFOUND);
++    }
++    else
++    {
++        return(ZERODETACHING);
++    }
++
++}
++
++static int IDARootfindExt(IDAMem IDA_mem)
++{
++    sunrealtype alph, tmid, gfrac, maxfrac, fracint, fracsub;
++    int i, retval, imax, side, sideprev;
++    int istuck, iunstuck, imaxold;
++
++    sunbooleantype zroot, umroot, sgnchg;
++
++    imax = -1;
++    istuck = -1;
++    iunstuck = -1;
++    maxfrac = ZERO;
++
++    /* First check for chaIDA_mem->ida_nge in sign in ghi or for a zero in ghi. */
++    zroot = FALSE;
++
++    for (i = 0;  i < IDA_mem->ida_nrtfn; i++)
++    {
++        if ((SUNRabs(IDA_mem->ida_ghi[i]) == ZERO) && (IDA_mem->ida_iroots[i] != MASKED))
++        {
++            istuck = i;
++        }
++        if ((SUNRabs(IDA_mem->ida_ghi[i]) > ZERO) && (IDA_mem->ida_iroots[i] == MASKED))
++        {
++            iunstuck = i;
++        }
++        if ((SUNRabs(IDA_mem->ida_ghi[i]) > ZERO) && (IDA_mem->ida_glo[i]*IDA_mem->ida_ghi[i] <= ZERO))
++        {
++            gfrac = SUNRabs(IDA_mem->ida_ghi[i] / (IDA_mem->ida_ghi[i] - IDA_mem->ida_glo[i]));
++            if (gfrac > maxfrac)   /* finding the very first root*/
++            {
++                maxfrac = gfrac;
++                imax = i;
++            }
++        }
++    }
++
++    if (imax >= 0)
++    {
++        sgnchg = TRUE;
++    }
++    else if (istuck >= 0)
++    {
++        sgnchg = TRUE;
++        imax = istuck;
++    }
++    else  if (iunstuck >= 0)
++    {
++        sgnchg = TRUE;
++        imax = iunstuck;
++    }
++    else
++    {
++        sgnchg = FALSE;
++    }
++
++    /* If no sign chaIDA_mem->ida_nge was found, reset IDA_mem->ida_trout and IDA_mem->ida_grout.  Then return
++    IDA_SUCCESS if no zero was found, or set IDA_mem->ida_iroots and return RTFOUND.  */
++    if (!sgnchg)
++    {
++        IDA_mem->ida_trout = IDA_mem->ida_thi;
++        for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++        {
++            IDA_mem->ida_grout[i] = IDA_mem->ida_ghi[i];
++        }
++        return(IDA_SUCCESS);
++    }
++
++
++    /* Initialize alph to avoid compiler warning */
++    alph = ONE;
++
++    /* A sign chaIDA_mem->ida_nge was found.  Loop to locate nearest root. */
++
++    side = 0;
++    sideprev = -1;
++    for (;;)                                     /* Looping point */
++    {
++
++        /* Set weight alph.
++        On the first two passes, set alph = 1.  Thereafter, reset alph
++        according to the side (low vs high) of the subinterval in which
++        the sign chaIDA_mem->ida_nge was found in the previous two passes.
++        If the sides were opposite, set alph = 1.
++        If the sides were the same, then double alph (if high side),
++        or halve alph (if low side).
++        The next guess tmid is the secant method value if alph = 1, but
++        is closer to IDA_mem->ida_tlo if alph < 1, and closer to IDA_mem->ida_thi if alph > 1.    */
++
++        if (sideprev == side)
++        {
++            alph = (side == 2) ? alph * TWO : alph * HALF;
++        }
++        else
++        {
++            alph = ONE;
++        }
++        /* Set next root approximation tmid and get g(tmid).
++        If tmid is too close to IDA_mem->ida_tlo or IDA_mem->ida_thi, adjust it inward,
++        by a fractional distance that is between 0.1 and 0.5.  */
++        if ((SUNRabs(IDA_mem->ida_ghi[imax]) == ZERO) || (SUNRabs(IDA_mem->ida_glo[imax]) == ZERO) || IDA_mem->ida_ghi[imax] == alph * IDA_mem->ida_glo[imax])
++        {
++            tmid = (IDA_mem->ida_tlo + alph * IDA_mem->ida_thi) / (1 + alph);
++        }
++        else
++        {
++            tmid = IDA_mem->ida_thi - (IDA_mem->ida_thi - IDA_mem->ida_tlo) * IDA_mem->ida_ghi[imax] / (IDA_mem->ida_ghi[imax] - alph * IDA_mem->ida_glo[imax]);
++        }
++
++        if (tmid + 1 == tmid)
++        {
++            printf("tmid is nan\n\r ");
++        };
++
++        if (SUNRabs(tmid - IDA_mem->ida_tlo) < HALF * IDA_mem->ida_ttol)
++        {
++            fracint = SUNRabs(IDA_mem->ida_thi - IDA_mem->ida_tlo) / IDA_mem->ida_ttol;
++            fracsub = (fracint > FIVE) ? PT1 : HALF / fracint;
++            tmid = IDA_mem->ida_tlo + fracsub * (IDA_mem->ida_thi - IDA_mem->ida_tlo);
++        }
++
++        if (SUNRabs(IDA_mem->ida_thi - tmid) < HALF * IDA_mem->ida_ttol)
++        {
++            fracint = SUNRabs(IDA_mem->ida_thi - IDA_mem->ida_tlo) / IDA_mem->ida_ttol;
++            fracsub = (fracint > FIVE) ? PT1 : HALF / fracint;
++            tmid = IDA_mem->ida_thi - fracsub * (IDA_mem->ida_thi - IDA_mem->ida_tlo);
++        }
++
++        (void) IDAGetSolution(IDA_mem, tmid, IDA_mem->ida_yy, IDA_mem->ida_yp);
++        retval = IDA_mem->ida_gfun (tmid, IDA_mem->ida_yy, IDA_mem->ida_yp, IDA_mem->ida_grout, IDA_mem->ida_user_data);
++        IDA_mem->ida_nge++;
++        if (retval != 0)
++        {
++            return(IDA_RTFUNC_FAIL);
++        }
++
++        /* Check to see in which subinterval g chaIDA_mem->ida_nges sign, and reset imax.
++        Set side = 1 if sign chaIDA_mem->ida_nge is on low side, or 2 if on high side.  */
++
++        /* First check for chaIDA_mem->ida_nge in sign in ghi or for a zero in ghi. */
++        zroot = FALSE;
++        sideprev = side;
++        imaxold = imax;
++        imax = -1;
++        istuck = -1;
++        iunstuck = -1;
++        maxfrac = ZERO;
++        for (i = 0;  i < IDA_mem->ida_nrtfn; i++)
++        {
++            if ((SUNRabs(IDA_mem->ida_grout[i]) == ZERO) && (IDA_mem->ida_iroots[i] != MASKED))
++            {
++                istuck = i;
++            }
++            if ((SUNRabs(IDA_mem->ida_grout[i]) > ZERO) && (IDA_mem->ida_iroots[i] == MASKED))
++            {
++                iunstuck = i;
++            }
++            if ((SUNRabs(IDA_mem->ida_grout[i]) > ZERO) && (IDA_mem->ida_glo[i]*IDA_mem->ida_grout[i] <= ZERO))
++            {
++                gfrac = SUNRabs(IDA_mem->ida_grout[i] / (IDA_mem->ida_grout[i] - IDA_mem->ida_glo[i]));
++                if (gfrac > maxfrac)   /* finding the very first root*/
++                {
++                    maxfrac = gfrac;
++                    imax = i;
++                }
++            }
++        }
++
++        if (imax >= 0)
++        {
++            sgnchg = TRUE;
++        }
++        else if (istuck >= 0)
++        {
++            sgnchg = TRUE;
++            imax = istuck;
++        }
++        else  if (iunstuck >= 0)
++        {
++            sgnchg = TRUE;
++            imax = iunstuck;
++        }
++        else
++        {
++            sgnchg = FALSE;
++            imax = imaxold;
++        }
++
++        if (sgnchg)
++        {
++            /* Sign chaIDA_mem->ida_nge found in (IDA_mem->ida_tlo,tmid); replace IDA_mem->ida_thi with tmid. */
++            IDA_mem->ida_thi = tmid;
++            for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++            {
++                IDA_mem->ida_ghi[i] = IDA_mem->ida_grout[i];
++            }
++            side = 1;
++            /* Stop at root IDA_mem->ida_thi if converged; otherwise loop. */
++            if (SUNRabs(IDA_mem->ida_thi - IDA_mem->ida_tlo) <= IDA_mem->ida_ttol)
++            {
++                break;
++            }
++            continue;  /* Return to looping point. */
++        }
++
++        /* here, either (SUNRabs(IDA_mem->ida_thi - IDA_mem->ida_tlo) <= ttol) or NO SIGN CHANGE */
++
++        /* No sign chaIDA_mem->ida_nge in (IDA_mem->ida_tlo,tmid), and no zero at tmid.
++        Sign chaIDA_mem->ida_nge must be in (tmid,IDA_mem->ida_thi).  Replace IDA_mem->ida_tlo with tmid. */
++        IDA_mem->ida_tlo = tmid;
++        for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++        {
++            IDA_mem->ida_glo[i] = IDA_mem->ida_grout[i];
++        }
++        side = 2;
++        /* Stop at root IDA_mem->ida_thi if converged; otherwise loop back. */
++        if (SUNRabs(IDA_mem->ida_thi - IDA_mem->ida_tlo) <= IDA_mem->ida_ttol)
++        {
++            break;
++        }
++
++    } /* End of root-search loop */
++
++    /* Reset IDA_mem->ida_trout and IDA_mem->ida_grout, set IDA_mem->ida_iroots, and return RTFOUND. */
++    zroot = FALSE;
++    umroot = FALSE;
++    IDA_mem->ida_trout = IDA_mem->ida_thi;
++    for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++    {
++        IDA_mem->ida_grout[i] = IDA_mem->ida_ghi[i];
++        if (IDA_mem->ida_iroots[i] == MASKED)
++        {
++            if (SUNRabs(IDA_mem->ida_ghi[i]) != ZERO)
++            {
++                IDA_mem->ida_iroots[i] = (IDA_mem->ida_ghi[i] > ZERO) ? 2 : -2;
++                umroot = TRUE;
++            }
++            else
++            {
++                IDA_mem->ida_iroots[i] = 0;
++            }
++        }
++        else
++        {
++            if (SUNRabs(IDA_mem->ida_ghi[i]) == ZERO)
++            {
++                IDA_mem->ida_iroots[i] = (IDA_mem->ida_glo[i] > ZERO) ? -1 : 1;
++                zroot = TRUE;
++            }
++            else
++            {
++                if (IDA_mem->ida_glo[i]*IDA_mem->ida_ghi[i] < ZERO)
++                {
++                    IDA_mem->ida_iroots[i] = (IDA_mem->ida_ghi[i] > IDA_mem->ida_glo[i]) ? 1 : -1;
++                    zroot = TRUE;
++                }
++                else
++                {
++                    IDA_mem->ida_iroots[i] = 0;
++                }
++            }
++        }
++    }
++    if (zroot)
++    {
++        for (i = 0; i < IDA_mem->ida_nrtfn; i++)
++        {
++            if ((IDA_mem->ida_iroots[i] == 2) || (IDA_mem->ida_iroots[i] == -2))
++            {
++                IDA_mem->ida_iroots[i] = 0;
++            }
++        }
++        return(RTFOUND);
++    }
++    if (umroot)
++    {
++        return(ZERODETACHING);
++    }
++    return(IDA_SUCCESS);
++}
++
++/*-------------------*/
++
++static int IDARcheck1(IDAMem IDA_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return IDARcheck1Ext(IDA_mem);
++    }
++    else
++    {
++        return IDARcheck1Std(IDA_mem);
++    }
++}
++
++static int IDARcheck2(IDAMem IDA_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return IDARcheck2Ext(IDA_mem);
++    }
++    else
++    {
++        return IDARcheck2Std(IDA_mem);
++    }
++}
++
++static int IDARcheck3(IDAMem IDA_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return IDARcheck3Ext(IDA_mem);
++    }
++    else
++    {
++        return IDARcheck3Std(IDA_mem);
++    }
++}
++
++static int IDARootfind(IDAMem IDA_mem)
++{
++    /* SUNDIALS EXTENSION */
++    if (is_sundials_with_extension())
++    {
++        return IDARootfindExt(IDA_mem);
++    }
++    else
++    {
++        return IDARootfindStd(IDA_mem);
++    }
+ }
+diff -Naur sundials-7.4.0/src/idas/idas_ic.c patched_sundials/src/idas/idas_ic.c
+--- sundials-7.4.0/src/idas/idas_ic.c	2025-06-23 19:01:27
++++ patched_sundials/src/idas/idas_ic.c	2025-07-25 13:51:51
+@@ -22,6 +22,9 @@
+ 
+ #include "idas_impl.h"
+ 
++/* SUNDIALS EXTENSION */
++#include "sundials/sundials_extension.h"
++
+ /*
+  * =================================================================
+  * IDA Constants
+@@ -338,6 +341,14 @@
+     }
+ 
+   } /* End of nwt loop */
++
++ /* SUNDIALS EXTENSION */
++ if (is_sundials_with_extension())
++ {
++     /* in order to return computed new values even if they are not consistent*/
++     N_VScale(ONE, IDA_mem->ida_yy0, IDA_mem->ida_phi[0]);
++     N_VScale(ONE, IDA_mem->ida_yp0, IDA_mem->ida_phi[1]);
++ }
+ 
+   /* Load the optional outputs. */
+ 

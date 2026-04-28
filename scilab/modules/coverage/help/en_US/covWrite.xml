@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="covWrite">
+    <refnamediv>
+        <refname>covWrite</refname>
+        <refpurpose>Exports runtime performance results to HTML and binary files</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+          covWrite("html", dir)
+          covWrite("binary", binaryFile)
+          covWrite("html", binaryFile, dir)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>"html"</term>
+                <listitem>
+                     <para>
+                        exports the performance results as HTML files.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"binary"</term>
+                <listitem>
+                     <para>
+                        stores the performance results as binary, for later use.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dir</term>
+                <listitem>
+                     <para>
+                      Path of the output directory for HTML files.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>binaryFile</term>
+                <listitem>
+                     <para>
+                        Path and filename of the binary file.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">covWrite("html", dir)</emphasis> exports and nicely presents
+            into HTML files the performance results of functions currently activated.
+            Files are stored in the given <varname>dir</varname> directory.
+        </para>
+        <para>
+            A separate HTML file is generated for each activated function.
+            For instance, if the macro <literal>members</literal> is activated,
+            <literal>covWrite(…)</literal> will generate the file
+            <literal>members.html</literal>.
+        </para>
+        <para>
+            <emphasis role="bold">covWrite("binary", binaryFile)</emphasis> records in the
+            indicated binary file the performance results of activated functions.
+        </para>
+        <para>
+            <emphasis role="bold">covWrite("html", binaryFile, dir)</emphasis> loads former
+            results stored in the <varname>binaryFile</varname> and exports them into HTML
+            files.
+        </para>
+        <note>
+            Paths prefixed with the predefined constants <literal>SCI</literal>,
+            <literal>SCIHOME</literal>, <literal>SCI</literal>.. are  automatically expanded.
+        </note>
+    </refsection>
+    <refsection>
+      <title>Examples</title>
+        <refsect3>
+            <title>Basic example</title>
+            <programlisting role="example"><![CDATA[
+covStart(isnan)                        // activate isnan for performance measurement
+for i = 1:1e5; isnan(i); end           // run it
+covWrite("html", "TMPDIR/coverage")    // write runtime performance results to a directory
+covStop();                             // deactivate runtime measurement mode for all functions
+
+f = figure("infobar_visible", "off", "toolbar_visible", "off", ...
+    "menubar", "none", "default_axes", "off", ...
+    "axes_size", [800 600], ...
+    "layout", "border");
+
+fr = uicontrol(f, "style", "frame", "backgroundcolor", [1 1 1], "layout", "border");
+
+browser = uicontrol(fr, ...
+    "style", "browser", ...
+    "string", fullfile(TMPDIR, "coverage/isnan.html"), ...
+    "tag", "browser"); // Displays results
+        ]]></programlisting>
+        </refsect3>
+        <refsect3>
+        <title>Create two binaries, merge them, and export merged results into HTML</title>
+            <programlisting role="example"><![CDATA[
+covStart(isnan)
+for i=1:1e5; isnan(i); end
+covWrite("binary", "TMPDIR/isnan1")    // write the 1st binary
+covStop();                             // stop the measurement mode
+
+covStart(isnan)
+for i=1:1e5; isnan(string(i)); end
+covWrite("binary", "TMPDIR/isnan2")  // write other runtime results
+covStop();
+
+covMerge(["TMPDIR/isnan1" "TMPDIR/isnan2"], "TMPDIR/isnan") // merge them
+covWrite("html", "TMPDIR/isnan", "TMPDIR/coverage") // render the results as HTML
+        ]]></programlisting>
+        </refsect3>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="covStart">covStart</link>
+            </member>
+            <member>
+                <link linkend="covStop">covStop</link>
+            </member>
+            <member>
+                <link linkend="covMerge">covMerge</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    <para>
+                        Formating of <literal>covWrite("html")</literal> results improved.
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

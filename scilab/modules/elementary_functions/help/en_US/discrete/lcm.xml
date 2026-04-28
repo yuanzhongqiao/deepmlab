@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006-2008 - INRIA
+ * Copyright (C) 2018 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<!--  module: polynomials  -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="lcm">
+    <refnamediv>
+        <refname>lcm</refname>
+        <refpurpose>least common (positive) multiple of integers or of polynomials</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+           pp = lcm(p)
+          [pp, fact] = lcm(p)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>
+                        matrix of polynomials (type 2), or of decimal or encoded integers (types 1 or 8).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pp</term>
+                <listitem>
+                    <para>
+                        a polynomial or a decimal integer: Positive Least Common Multiple of
+                        <varname>p</varname> components.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fact</term>
+                <listitem>
+                    <para>
+                        matrix of polynomials, or of decimal integers (type 1), with the size of
+                        <varname>p</varname>, such that <literal>fact(i)= pp./p(i)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>pp=lcm(p)</literal> computes the LCM <varname>pp</varname> of <varname>p</varname>
+            components.
+        </para>
+        <para>
+          If <literal>p</literal> are polynomials, <literal>pp</literal> is a polynomial and
+          <varname>fact</varname> is also a matrix of polynomials.
+        </para>
+        <para>
+          If <literal>p</literal> is a set of integers,
+            <itemizedlist>
+                <listitem>
+                     <para>
+                        if they are encoded integers, they are then converted into decimal integers
+                        before processing.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        Any int64 or uint64 input |integers| &gt; 2^53 will be truncated and lcm()
+                        will return a wrong result.
+                    </para>
+                </listitem>
+                <listitem>
+                     <para>
+                        If some of them are negative, the returned value <literal>pp</literal>
+                        of their LCM is always positive.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            The least common multiple of an array <literal>p</literal> of real numbers can be
+            obtained by converting it to a polynomial before calling <literal>lcm</literal>,
+            through <literal>p = inv_coeff(p, 0)</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>With polynomials:</para>
+        <programlisting role="example"><![CDATA[
+s = %s;
+p = [s , s*(s+1) , s^2-1]
+[pp, fact] = lcm(p)
+p .* fact == pp
+ ]]></programlisting>
+    <screen><![CDATA[
+--> p = [s , s*(s+1) , s^2-1]
+ p  =
+           2       2
+   s   s +s   -1 +s
+
+--> [pp, fact] = lcm(p)
+ fact  =
+       2
+  -1 +s   -1 +s   s
+
+ pp  =
+       3
+  -s +s
+
+--> p .* fact == pp
+ ans  =
+  T T T
+]]></screen>
+    <para>With encoded integers:</para>
+    <programlisting role="example"><![CDATA[
+// Prime numbers: 2  3  5  7  11  13  17  19  23  29  31  37  41  43  47
+V = int16([2*3 3*7 ; 7*5  3*5])
+[pp, fact] = lcm(V)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> V = int16([2*3 3*7 ; 7*5  3*5])
+ V  =
+   6  21
+  35  15
+
+--> [pp, fact] = lcm(V)
+ pp  =
+   210.
+
+ fact  =
+   35.   10.
+   6.    14.
+]]></screen>
+    <para>With decimal integers:</para>
+    <programlisting role="example"><![CDATA[
+V = [2*3 3*7 ; 7*5  3*5]
+[pp, fact] = lcm(V)
+ ]]></programlisting>
+    <para>With big integers:</para>
+    <programlisting role="example"><![CDATA[
+V = [3*2^51 , 3*5]
+[pp, fact] = lcm(V)    // OK
+ ]]></programlisting>
+    <screen><![CDATA[
+--> V = [3*2^51 , 3*5]
+ V  =
+   6.755D+15   15.
+
+--> [pp, fact] = lcm(V)
+ fact  =
+   5.   2.252D+15
+
+ pp  =
+   3.378D+16
+]]></screen>
+    <para>
+        When the numerical encoding is overflown, truncature occurs and results turn wrong:
+    </para>
+    <programlisting role="example"><![CDATA[
+V = [3*2^52 , 3*5]
+[pp, fact] = lcm(V)
+ ]]></programlisting>
+    <screen><![CDATA[
+--> V = [3*2^52 , 3*5]
+ V  =
+   1.351D+16   15.
+
+--> [pp, fact] = lcm(V)
+ fact  =
+   15.   1.351D+16
+
+ pp  =
+   2.027D+17
+]]></screen>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="gcd">gcd</link>
+            </member>
+            <member>
+                <link linkend="bezout">bezout</link>
+            </member>
+            <member>
+                <link linkend="factor">factor</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.1</revnumber>
+                <revremark>
+                   For input integers possibly negative, the returned LCM is now always positive.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.2</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    int64 and uint64 input encoded integers are now supported.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para><varname>p</varname> can now be a matrix of any shape, not necessarily
+                                    a row.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    When <varname>p</varname> is a matrix of encoded or decimal integers,
+                                    computations are now performed in floating point instead of int32 format.
+                                    <varname>pp</varname> and <varname>fact</varname> are now decimal
+                                    integers (instead of int32 integers).
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

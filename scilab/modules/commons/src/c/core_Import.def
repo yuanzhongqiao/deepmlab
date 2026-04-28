@@ -1,0 +1,18 @@
+	LIBRARY    core.dll
+
+
+EXPORTS
+;
+;core
+;
+setformat
+getformat
+getformatwidth
+getScilabVersionMajor
+getScilabVersionMinor
+getScilabVersionMaintenance
+getScilabVersionTimestamp
+getScilabVersionAsString
+MyHeapAlloc
+MyHeapFree
+

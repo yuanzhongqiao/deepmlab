@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="calerf" xml:lang="ja">
+    <refnamediv>
+        <refname>calerf</refname>
+        <refpurpose>誤差関数を計算する.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>呼出し手順</title>
+        <synopsis>
+          y = calerf(x, erfType)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>実数ベクトルまたは行列</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>erfType</term>
+                <listitem>
+                    <para>整数:
+                      <table border="0">
+                        <tr valign="top">
+                          <th>0</th>
+                          <td> : は誤差関数 <literal>erf(x)</literal> を計算します</td>
+                        </tr>
+                        <tr valign="top">
+                          <th>1</th>
+                          <td> : は相補誤差関数 <literal>erfc(x)</literal> を計算します</td>
+                        </tr>
+                        <tr valign="top">
+                          <th>2</th>
+                          <td> : はスケーリング付き相補誤差関数 <literal>erfcx(x)</literal> を計算します</td>
+                        </tr>
+                      </table>
+                   </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>(xと同じ大きさの)実数ベクトルまたは行列</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+deff('y=f(t)','y=exp(-t^2)');
+calerf(1,0)
+2/sqrt(%pi)*intg(0,1,f)
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>アルゴリズム</title>
+        <para>
+            この関数は<ulink url="http://ab-initio.mit.edu/Faddeeva">Faddeevaパッケージ</ulink>ライブラリ
+            に基づきます.
+        </para>
+    </refsection>
+    <refsection>
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="erf">erf</link>
+            </member>
+            <member>
+                <link linkend="erfc">erfc</link>
+            </member>
+            <member>
+                <link linkend="erfcx">erfcx</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>calerf関数はfadddeevaパッケージを使用しています</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

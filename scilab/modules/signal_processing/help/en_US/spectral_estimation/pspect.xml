@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook"
+          xmlns:scilab="http://www.scilab.org" xml:id="pspect" xml:lang="en">
+    <refnamediv>
+        <refname>pspect</refname>
+        <refpurpose>two sided cross-spectral estimate between 2 discrete time signals using
+            the Welch's average periodogram method.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            sm = pspect(sec_step, sec_leng, wtype, x)
+            sm = pspect(sec_step, sec_leng, wtype, x, y)
+            sm = pspect(sec_step, sec_leng, wtype, nx)
+            sm = pspect(sec_step, sec_leng, wtype, nx, ny)
+            [sm, cwp] = pspect(.., wpar)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>vector, the time-domain samples of the first signal.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        vector, the time-domain samples of the second signal. If <literal>y</literal>
+                        is omitted it is supposed to be equal to <literal>x</literal>
+                        (auto-correlation). If it is present, it must have the same number of
+                        element than <literal>x</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nx</term>
+                <listitem>
+                    <para>
+                        a scalar : the number of samples in the <literal>x</literal>
+                        signal. In this case the segments of the <literal>x</literal> signal are loaded by a
+                        user defined function named <literal>getx</literal> (see
+                        below).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ny</term>
+                <listitem>
+                    <para>a scalar : the number of samples in the
+                        <literal>y</literal> signal. In this case the segments of
+                        the y signal are loaded by a user defined function named
+                        <literal>gety</literal> (see below). If present
+                        <literal>ny</literal> must be equal to
+                        <literal>nx</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sec_step</term>
+                <listitem>
+                    <para>
+                        offset of each data window. The overlap <literal>D</literal>
+                        is given by <literal>sec_leng - sec_step</literal>. If
+                        <literal>sec_step == sec_leng/2</literal> 50% overlap is made.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sec_leng</term>
+                <listitem>
+                    <para>Number of points of the window.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>wtype</term>
+                <listitem>
+                    <para>The window type</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                <literal>'re'</literal>: rectangular
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>'tr'</literal>: triangular
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>'hm'</literal>: Hamming
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>'hn'</literal>: Hann
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>'kr'</literal>: Kaiser,in this case the wpar
+                                argument must be given
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>'ch'</literal>: Chebyshev, in this case the wpar
+                                argument must be given
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>wpar</term>
+                <listitem>
+                    <para>
+                        optional parameters for Kaiser and Chebyshev windows:
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                'kr': <literal>wpar</literal> must be a strictly positive number
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                'ch': <literal>wpar</literal> must be a 2 element vector
+                                <literal> [main_lobe_width,side_lobe_height]</literal> with
+                                <literal>0&lt;main_lobe_width&lt;.5</literal>, and
+                                <literal>side_lobe_height&gt;0</literal>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sm</term>
+                <listitem>
+                    <para>
+                        Two sided power spectral estimate in the interval <literal>[0,1]</literal> of the
+                        normalized frequencies. It is a row array with  <literal>sec_len</literal>
+                        elements. The array is real in case of auto-correlation and
+                        complex in case of cross-correlation.
+                    </para>
+                    <para>The associated normalized frequencies array is
+                        <literal>linspace(0,1,sec_len)</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>cwp</term>
+                <listitem>
+                    <para>
+                        the unspecified Chebyshev window parameter in case of Chebyshev
+                        windowing, or an empty matrix.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Computes the cross-spectrum estimate of two signals
+            <varname>x</varname> and <varname>y</varname> if both are given and the
+            auto-spectral estimate of <varname>x</varname> otherwise. Spectral
+            estimate obtained using the modified periodogram method.
+        </para>
+        <para>
+            The cross spectrum of two signal <varname>x</varname> and  <varname>y</varname>
+            is defined as
+            <latex alt="S_xy(ω) = (∑{n=0…N-1} x(n) exp(-iωn)) . (∑{n=0…N-1} y'(n) exp(iωn)) / N" style="display">
+                S_{xy} (\omega) = {1 \over N}
+                \left(\sum_{n=0}^{N-1} x(n)\,e^{-i \omega n}\right)
+                \left( \sum_{n=0}^{N-1} \bar{y}(n)\,e^{i \omega n} \right)
+            </latex>
+        </para>
+        <para>The modified periodogram method of spectral estimation repeatedly
+            calculates the periodogram of windowed sub-sections of the data contained
+            in <varname>x</varname> and <varname>y</varname>. These periodograms are
+            then averaged together and normalized by an appropriate constant to obtain
+            the final spectral estimate. It is the averaging process which reduces the
+            variance in the estimate.
+        </para>
+        <para>
+            For batch processing, the <varname>x</varname> and
+            <varname>y</varname> data may be read segment by segment using the
+            <literal>getx</literal> and <literal>gety</literal> user defined
+            functions. These functions have the following syntax:
+        </para>
+        <para>
+            <literal>xk = getx(ns,offset)</literal> and
+            <literal>yk = gety(ns,offset)</literal> where <varname>ns</varname> is the
+            segment size and <varname>offset</varname> is the index of the first
+            element of the segment in the full signal.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Reference</title>
+        <para>Oppenheim, A.V., and R.W. Schafer. Discrete-Time Signal Processing,
+            Upper Saddle River, NJ: Prentice-Hall, 1999
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+rand('normal');
+rand('seed',0);
+x = rand(1:1024-33+1);
+
+// make low-pass filter with eqfir
+nf = 33; bedge = [0 .1;.125 .5]; des = [1 0]; wate = [1 1];
+h = eqfir(nf, bedge, des, wate);
+
+// filter white data to obtain colored data
+h1 = [h zeros(1:max(size(x))-1)];
+x1 = [x zeros(1:max(size(h))-1)];
+hf = fft(h1,-1);
+xf = fft(x1,-1);
+y = real(fft(hf.*xf,1));
+
+// plot magnitude of filter
+h2 = [h zeros(1:968)];
+hf2 = fft(h2,-1);
+hf2 = real(hf2.*conj(hf2));
+hsize = max(size(hf2));
+fr = (1:hsize) / hsize;
+plot(fr, log(hf2));
+
+// pspect example
+sm = pspect(100,200,'tr',y);
+smsize = max(size(sm));
+fr = (1:smsize) / smsize;
+plot(fr, log(sm), 'r');
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="cspect">cspect</link>
+            </member>
+            <member>
+                <link linkend="pspect">pspect</link>
+            </member>
+            <member>
+                <link linkend="mese">mese</link>
+            </member>
+            <member>
+                <link linkend="window">window</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

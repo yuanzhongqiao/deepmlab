@@ -1,0 +1,89 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Calixte DENIZET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- TEST WITH GRAPHIC -->
+//
+// <-- Non-regression test for bug 13082 -->
+//
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/13082
+//
+// <-- Short Description -->
+// Datatip mark style was not inherited from polyline.
+clf();
+plot(1:1000);
+e = gce();
+p = e.children;
+datatipSetStyle(p,2);
+d1 = datatipCreate(p,400);
+assert_checkequal(d1.mark_style, 7);
+datatipSetStyle(p,1)
+assert_checkequal(d1.mark_style, 11);
+d2 = datatipCreate(p,600)
+ d2 = [Datatip] with properties:
+  parent: [Polyline]
+  children = []
+  visible = "on"
+  interp_mode = "on"
+  auto_orientation = "on"
+  orientation = 1
+  label_mode = "on"
+  data = [600,600,0]
+  display_components = "xy"
+  display_function = ""
+  text = ["X:600";"Y:600"]
+  interpreter = ["auto";"auto"]
+  font_foreground = -1
+  font_style = 6
+  font_size = 1
+  box_mode = "on"
+  detached_position = []
+  line_style = 3
+  foreground = -1
+  background = -2
+  mark_mode = "on"
+  mark_style = 11
+  mark_size_unit = "point"
+  mark_size = 8
+  mark_foreground = 2
+  mark_background = -2
+  user_data = []
+  tag = ""
+assert_checkequal(d2.mark_style, 11);
+datatipSetStyle(p,2)
+assert_checkequal(d1.mark_style, 7);
+assert_checkequal(d2.mark_style, 7);
+d3 = datatipCreate(p,800)
+ d3 = [Datatip] with properties:
+  parent: [Polyline]
+  children = []
+  visible = "on"
+  interp_mode = "on"
+  auto_orientation = "on"
+  orientation = 1
+  label_mode = "on"
+  data = [800,800,0]
+  display_components = "xy"
+  display_function = ""
+  text = ["X:800";"Y:800"]
+  interpreter = ["auto";"auto"]
+  font_foreground = -1
+  font_style = 6
+  font_size = 1
+  box_mode = "on"
+  detached_position = []
+  line_style = 3
+  foreground = -1
+  background = -2
+  mark_mode = "on"
+  mark_style = 7
+  mark_size_unit = "point"
+  mark_size = 8
+  mark_foreground = 2
+  mark_background = -2
+  user_data = []
+  tag = ""
+assert_checkequal(d3.mark_style, 7);

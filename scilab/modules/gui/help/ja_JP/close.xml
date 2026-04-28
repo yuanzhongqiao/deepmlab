@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2020 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="ja" xml:id="close">
+    <refnamediv>
+        <refname>close</refname>
+        <refpurpose>
+            グラフィックフィギュア,進行バーまたは待機バー,ヘルプブラウザ,xcos,browsevar,またはeditvarを閉じます
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            close
+            close(H)
+            close doc
+            close xcos
+            close xcos!
+            close editvar
+            close browsevar
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>引数</title>
+        <variablelist>
+            <varlistentry>
+                <term>H</term>
+                <listitem>
+                    <para>Vector of graphic figures handles or ids, or of handles of progression bar
+                        or wait bar.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>説明</title>
+            <para>
+                <emphasis role="bold">close</emphasis> closes the current graphic figure (if any).
+            </para>
+            <para>
+                <emphasis role="bold">close(H)</emphasis> closes the figures, waitbar or
+                progression bars whose handles or indices are in <varname>H</varname>.
+            </para>
+            <para>
+                <emphasis role="bold">close help</emphasis> closes the help browser.
+            </para>
+            <para>
+                <emphasis role="bold">close browsevar</emphasis> closes the variable browser.
+            </para>
+            <para>
+                <emphasis role="bold">close editvar</emphasis> closes the variable editor
+                (it must not be docked).
+            </para>
+            <para>
+                <emphasis role="bold">close xcos</emphasis> closes all opened xcos windows.
+                If some diagrams have unsaved changes, the user is asked for confirmation.
+            </para>
+            <para>
+                <emphasis role="bold">close xcos!</emphasis> forces closing all opened xcos windows
+                without asking for any confirmation.
+            </para>
+    </refsection>
+    <refsection>
+        <title>例</title>
+        <programlisting role="example"><![CDATA[
+h=figure();
+// 1番の図を作成
+uicontrol( h, 'style','text', ...
+              'string','scilab is great', ...
+              'position',[50 70 100 100], ...
+              'fontsize',15);
+// 図1に冴えた文字列を指定
+figure();
+// 図2を作成
+uicontrol( 'style','text', ...
+           'string','Really great', 'position',[50 70 100 100], 'fontsize',15);
+// 図2にテキストを指定
+close();
+// カレントのグラフィックウインドウ(すなわち図2)を閉じる
+close(h);
+// 図1を閉じる
+
+// Create and close several figures in a once:
+scf(111); plot
+scf(25); plot2d
+gcf().figure_position(1) = 500;
+scf(200); param3d
+gcf().figure_position(1) = 700;
+sleep(5000);         // Watch at them!
+close([25 200 111])  // Finished!
+ ]]></programlisting>
+        <para/>
+        <programlisting role="example"><![CDATA[
+// You are reading this example in the help browser. Now, bye:
+close help
+     ]]></programlisting>
+        <para/>
+        <programlisting role="example"><![CDATA[
+xcos
+sleep(5000)
+close xcos
+     ]]></programlisting>
+        <para/>
+        <programlisting role="example"><![CDATA[
+browsevar
+sleep(5000)
+close browsevar
+     ]]></programlisting>
+        <para/>
+        <programlisting role="example"><![CDATA[
+a = rand(3,5);
+editvar a
+sleep(5000)
+close editvar
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>参照</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="delete">delete</link>
+            </member>
+            <member>
+                <link linkend="exit">exit</link>
+            </member>
+            <member>
+                <link linkend="mclose">mclose</link>
+            </member>
+            <member>
+                <link linkend="h5close">h5close</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>履歴</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.1</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                Vector of several figures ids now accepted.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para>
+                                Extension to <literal>close help</literal>, <literal>close xcos</literal>,
+                                <literal>close xcos!</literal>, <literal>close browsevar</literal>,
+                                and <literal>close editvar</literal>
+                                </para>
+                            </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

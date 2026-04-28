@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA - Fabrice Leray
+ * Copyright (C) 2016 - Samuel GOUGEON
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="Matplot_properties">
+    <refnamediv>
+        <refname>Matplot properties</refname>
+        <refpurpose>
+            Description of the Matplot entities properties
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <literal>Matplot</literal> entity is a leaf of the graphics entities hierarchy. It
+            represents 2D plots of surface using colors and images (see
+            <function>Matplot</function> and <function>Matplot1</function>).
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>parent</term>
+                <listitem>
+                    <para>
+                        Graphic handle of the Matplot's parent, that should be of the type <literal>"Axes"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>children</term>
+                <listitem>
+                    <para>
+                        vector of <varname>children</varname> of the Matplot object.
+                        By default, a <literal>Matplot</literal> entity
+                        has no <literal>child</literal>, and <varname>.children</varname>
+                        is <literal>[]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>visible</term>
+                <listitem>
+                    <para>
+                        <literal>"on"</literal> (default) or <literal>"off"</literal>.
+                        If <literal>"off"</literal>, the Matplot patch is not displayed.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>data</term>
+                <listitem>
+                    <para>
+                        <literal>(m,n)</literal> matrix or <literal>(m,n,nc)</literal> hypermatrix of decimal,
+                        (u)int8, (u)int16, or (u)int32 numbers representing a matrix of (m,n) colors on
+                        <literal>nc = 1|3|4</literal> channels to be plotted.
+                        The color encoding/decoding is set by the <varname>image_type</varname> property.
+                        The color associated to <literal>data(i,j,:)</literal> is used do draw and fill
+                        a small rectangle of fixed sizes touching its neighbors and centered at the
+                        <literal>(i,j)</literal> location.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rect</term>
+                <listitem>
+                    <para>
+                        vector <literal>[xmin, ymin, xmax, ymax]</literal> defining a rectangle
+                        in data scales of the parent axes. The full <varname>data</varname> matrix
+                        is scaled accordingly to fill the <varname>rect</varname> shape:
+                        <itemizedlist>
+                            <listitem>
+                                 <para>
+                                    Its <literal>m</literal> rows cover the <literal>[ymin, ymax]</literal> interval.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                 <para>
+                                    Its <literal>n</literal> columns cover the <literal>[xmin, xmax]</literal> interval.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                    <para>
+                        The <literal>data(i,j)</literal> pixel is drawn in the small rectangle bounded by
+                        <literal>X = xmin + [j-1, j]*(xmax-xmin)/n</literal> and
+                        <literal>Y = ymax - [i-1, i]*(ymax-ymin)/m</literal>
+                    </para>
+                    <para>
+                        If one <varname>rect</varname> bound goes beyond the corresponding
+                        <literal>.parent.data_bounds(i)</literal> axes bound, the overflowing side of the
+                        <varname>data</varname> matrix will be clipped, unless <varname>.clip_state</varname>
+                        is set to <literal>"off"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>image_type</term>
+                <listitem>
+                    <para>
+                        this field defines the image type. It could be one of the values:
+                        "index", "gray", "rgb", "rgba", "argb", "red", "green", "blue",
+                        "rgb332", "rgb444", "rgb555", "rgb4444", "rgb5551".
+                    </para>
+                    <para>
+                        Colors are determined by the data type and by <varname>image_type</varname>:
+                    </para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"index"</term>
+                            <listitem>
+                                 <para><varname>data</varname> are colors indices in the colormap.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"gray"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 provides Gray level color (R-G-B=GRAY-GRAY-GRAY).
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                            Otherwise, <varname>data</varname> is considered as RGB levels and converted into gray colors (0.299*R+0.587*G+0.114*B).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                                <para/>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgb"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as an hypermatrix of int8 or uint8 provides the RGB components ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as an hypermatrix of doubles provides normalized RGB components (values between 0 and 1) ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 with a number of rows multiple of 3 provides the RGB components ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int32 provides RGB colors ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of uint32 provides RGBA colors where the alpha channel will be set to 0xFF.
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgba"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as an hypermatrix of int8 or uint8 provides the RGBA components ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as an hypermatrix of doubles provides normalized RGBA components (values between 0 and 1) ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 with a number of rows multiple of 4 provides the RGBA components ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int32 or uint32 provides RGBA colors.
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"argb"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as an hypermatrix of int8 or uint8 provides the ARGB components ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as an hypermatrix of doubles provides normalized ARGB components (values between 0 and 1) ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 with a number of rows multiple of 4 provides the ARGB components ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int32 or uint32 provides ARGB colors.
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"red"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 provides Red level color (R-G-B=RED-00-00).
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> of another type is considered as RGB intensities. They are then converted into red levels (a mask is applied to keep the Red component).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"green"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 provides Green level color (R-G-B=00-GREEN-00).
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> of another type is considered as RGB intensities. They are then converted into green levels (a mask is applied to keep the Green component).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"blue"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 provides Blue level color (R-G-B=00-00-BLUE) ;
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para><varname>data</varname> of another type is considered as RGB intensities. They are then converted into blue levels (a mask is applied to keep the Blue component).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgb332"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int8 or uint8 provides RGB colors where R component is wrote on 3 bits, G component on 3 bits and B component on 2 bits.
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                            For other <varname>data</varname> types, RGB (8-8-8) data are converted into RGB (3-3-2).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgb444"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int16 or uint16 provides RGB colors where each components is wrote on 4 bits.
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                            For other <varname>data</varname> types, RGB (8-8-8) data are converted into RGB (4-4-4).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgb555"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int16 or uint16 provides RGB colors where each components is wrote on 5 bits.
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                            For other <varname>data</varname> types, RGB (8-8-8) data are converted into RGB (5-5-5).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgb4444"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int16 or uint16 provides RGBA colors where each components is wrote on 4 bits.
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                            For other <varname>data</varname> types, RGBA (8-8-8-8) data are converted into RGBA (4-4-4-4).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"rgb5551"</term>
+                            <listitem>
+                                <itemizedlist>
+                                    <listitem>
+                                         <para><varname>data</varname> as a matrix of int16 or uint16 provides RGBA colors where each non-alpha components is wrote on 5 bits and the alpha component on 1 bit.
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                         <para>
+                                            For other <varname>data</varname> types, RGBA (8-8-8-8) data are converted into RGBA (5-5-5-1).
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>clip_state</term>
+                <listitem>
+                    <para>
+                        Its value drives the clipping of the <literal>Matplot</literal> patch outside
+                        its parent <literal>Axes</literal> box. Possible values are:
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para><literal>"off"</literal>: The Matplot patch is not clipped.
+                                    Setting <literal>.clip_state = "off"</literal>
+                                    automatically resets <literal>.clip_box = []</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>"clipgrf"</literal>: The Matplot patch is clipped outside
+                                  its parent axes. Setting <literal>.clip_state = "clipgrf"</literal>
+                                  automatically resets <literal>.clip_box = []</literal>.
+                            </para>
+                        </listitem>
+                        <listitem>
+                             <para><literal>"on"</literal>: The Matplot patch is clipped outside the
+                                    rectangle defined by the <varname>clip_box</varname> property.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>clip_box</term>
+                <listitem>
+                    <para>
+                      empty matrix <literal>[]</literal> (default) or <literal>[x,y,w,h]</literal>
+                      (upper-left point width height) bounds (in data scales) of the rectangular
+                      area outside which the Matplot patch must be clipped.
+                      Setting <literal>.clip_box = [x y w h]</literal> automatically sets
+                      <literal>.clip_state = "on"</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>user_data</term>
+                <listitem>
+                    <para>
+                        this field can be use to store any scilab variable in the
+                        <literal>Matplot</literal> data structure, and to retrieve it.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tag</term>
+                <listitem>
+                    <para>
+                      Single text that can be used as identifier/name of the Matplot object.
+                      <literal>findobj("tag", tag_value)</literal> will then return its full graphic handle.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+nbcolors = size(gcf().color_map, 1);
+h = Matplot(1:nbcolors)
+h.data = h.data($:-1:1) // reverse order
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+            nbcolors = size(gcf().color_map, 1);
+            h = Matplot(1:nbcolors)
+            h.data = h.data($:-1:1);
+        ]]></scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="Matplot">Matplot</link>
+            </member>
+            <member>
+                <link linkend="Matplot1">Matplot1</link>
+            </member>
+            <member>
+                <link linkend="grayplot">grayplot</link>
+            </member>
+            <member>
+                <link linkend="grayplot_properties">grayplot_properties</link>
+            </member>
+            <member>
+                <link linkend="xrects">xrects</link>
+            </member>
+            <member>
+                <link linkend="graphics_entities">graphics_entities</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    <para>
+                        <itemizedlist>
+                            <listitem>
+                                <para>
+                                    Property <literal>image_type</literal> introduced.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Property <literal>rect</literal> introduced.
+                                </para>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2025.0.0</revnumber>
+                <revremark>
+                    Function returns the created handle(s).
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

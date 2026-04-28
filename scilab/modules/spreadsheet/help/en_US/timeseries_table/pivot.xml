@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:id="pivot" xml:lang="en">
+    <refnamediv>
+        <refname>pivot</refname>
+        <refpurpose>create a pivoted table providing a summary of data.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            p = pivot(t, Columns=colvarnames, Rows=rowvarnmes)
+            p = pivot(t, Columns=colvarnames)
+            p = pivot(t, Rows=rowvarnmes)
+
+            p = pivot(..., OptionName=Value, ...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>table or timeseries object</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>colvarnames</term>
+                <listitem>
+                    <para>variables to group by on the pivot table columns.</para>
+                    <para>data type expected: vector of strings containing the variable names 
+                        or vector of indices corresponding to the positions of the variable names in the table/timeseries.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>rowvarnames</term>
+                <listitem>
+                    <para>variables to group by on the pivot table rows.</para>
+                    <para>data type expected: vector of strings containing the variable names 
+                        or vector of indices corresponding to the positions of the variable names in the table/timeseries.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>p</term>
+                <listitem>
+                    <para>output argument - the pivot table</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName=Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"Method"</emphasis>=function</term>
+                <listitem>
+                    <para> 
+                        function to apply on defined DataVariable, with prototype: y = f(x), z = f(x, ..., y).
+                        Available methods: "count", "percentage", "sum", "mean", "median", "mode", "var" (variance), "std" (standard deviation), 
+                        "min", "max", "range", "nummissing", "numunique, "nnz", and user function.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"DataVariable"</emphasis>=variable names or variable indices</term>
+                <listitem>
+                    <para>
+                        variable to which the computation method wil be applied.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"ColumnsBinMethod"</emphasis>=data interval or time interval</term>
+                <listitem>
+                    <para>
+                        indicates how the colvarnames is grouped.
+                    </para>
+                    <para>data type expected: vector of doubles vector containing the data interval
+                        or available string among: "year", "month", "day", "hour", "minute", "second", "monthname" and "dayname". Default value: "none".</para>
+                    <para>Depending on the type of the variables contained in groupvars, groupbins will be a cell of the same size
+                         as groupvars, where each element will be applied to each variable.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"RowsBinMethod"</emphasis>=data interval or time interval</term>
+                <listitem>
+                    <para>
+                        indicates how the rowvarnames is grouped.
+                    </para>
+                    <para>data type expected: vector of doubles vector containing the data interval
+                        or available string among: "year", "month", "day", "hour", "minute", "second", "monthname" and "dayname". Default value: "none".</para>
+                    <para>Depending on the type of the variables contained in groupvars, groupbins will be a cell of the same size
+                         as groupvars, where each element will be applied to each variable.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"IncludeTotals"</emphasis>=boolean</term>
+                <listitem>
+                    <para>
+                        when %t, the pivot table will have an additional row containing the totals for each column and an 
+                        additional variable containing the totals for each row.
+                        Default value: %f.
+                        </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"IncludedEdge"</emphasis>="left" or "right"</term>
+                <listitem>
+                    <para>
+                        this option must use only if RowsBinMethod or/and ColumnsBinMethod are specified 
+                        (i.e RowsBinMethod = [0 2 4]). 
+                        When IncludedEdge is equal to 'left', data will be contained in the groups
+                        [bins(1), bins(2)), [bins(2), bins(3)), ..., [bins(n-1), bins(n)]. The last bins(n) is included. 
+                        If IncludedEdge is equal to 'right', the intervals will be: 
+                        [bins(1), bins(2)], (bins(2), bins(3)], ... (bins(n-1), bins(n)]. 
+                        In this case, the first bins(1) is included. The values in RowsBinMethod 
+                        or/and ColumnsBinMethod must be in strictly increasing order.
+                        Default value: "left".
+                        </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The <emphasis role="bold">pivot</emphasis> function allows to analyze the data. The pivoted table crosses the  
+            data by allowing them to be grouped, compared and combined.
+        </para>
+        <para>
+            <emphasis role="bold">p = pivot(t, Columns=colvarnames, Rows=rowvarnames)</emphasis> creates a pivoted table.
+            The <literal>p</literal> columns names are generated using the unique combination between given <literal>colvarnames</literal> data.
+            Each row corresponds to one group of data present in t(:, rowvarnames). The content of <literal>p</literal> is the unique combination of rowvarnames and colvarnames.
+        </para>
+        <para>
+            Specifying only colvarnames, the pivot table contains one row of group counts. And if only rowvarnames is specified, the pivot table contains one variable 
+            of group counts.
+        </para>
+        <para>
+            <emphasis role="bold">g = pivot(..., DataVariable=datavar)</emphasis> indicates the variable to which the method defined by Method will be applied. 
+            If Method is not specified, the applied function depends on the type of datavar ("sum" if the data are double, "count" else).
+        </para>
+        <para>
+            <emphasis role="bold">g = pivot(..., Method=method)</emphasis> indicates the method to apply the data. NaN values are omitted by 
+            default when the predefined methods are used. 
+        </para>
+        <para>
+            <emphasis role="bold">g = pivot(..., ColumnBinMethod=val) or g = pivot(..., RowBinMethod=val)</emphasis> indicates how the groups for colvarnames or/and rowvarnames are grouped.
+        </para>
+        <para>
+            <emphasis role="bold">g = pivot(..., IncludeTotals=val)</emphasis> adds one row and one column in fonction if colvarnames and rowvarnames are defined, when %t. 
+            This additional row contains the total for each column and this additional column contains the total for each row.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para><emphasis role="bold">g = pivot(t, Columns=colvarnames, Rows=rowvarnames)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            t = readtable(fullfile(SCI, "modules", "spreadsheet", "tests", "unit_tests","meteo_data_bordeaux.csv"));
+            p = pivot(t, Columns="OPINION", Rows="UV_INDEX")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">g = pivot(t, Columns=colvarnames, Rows=rowvarnames, Method=method, DataVariable=datavar)</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            t = readtable(fullfile(SCI, "modules", "spreadsheet", "tests", "unit_tests","meteo_data_bordeaux.csv"));
+            p = pivot(t, Columns="OPINION", Rows="UV_INDEX", Method="max", DataVariable="SUNHOUR")
+        ]]>
+        </programlisting>
+        </para>
+        <para><emphasis role="bold">With IncludedEdge</emphasis></para>
+        <para>
+        <programlisting role="example"><![CDATA[
+            rand("seed", 0)
+            x1 = floor(rand(5,1)*5)-1.5;
+            x2 = -floor(rand(5,1)*5)+0.5;
+            x = ["a"; "b"; "b"; "c"; "a"];
+            y = ["x"; "x"; "x"; "y"; "y"];
+
+            A = table(x, y, x1, x2, "VariableNames", ["x", "y", "v1", "v2"])
+
+            // With ColumnsBinMethod and IncludedEdge = "left" (default value so no need to specify it)
+            P = pivot(A, Rows="x", Columns="v1", ColumnsBinMethod=[-1.5 0 1.5])
+
+            // With ColumnsBinMethod and IncludedEdge = "right"
+            P = pivot(A, Rows="x", Columns="v1", ColumnsBinMethod=[-1.5 0 1.5], IncludedEdge="right")
+
+            // With RowsBinMethod and IncludedEdge = "left" (default value so no need to specify it)
+            P = pivot(A, Rows="v1", Columns="x", RowsBinMethod=[-1.5 0 1.5])
+
+            // With RowsBinMethod and IncludedEdge = "right"
+            P = pivot(A, Rows="v1", Columns="x", RowsBinMethod=[-1.5 0 1.5], IncludedEdge="right")
+        ]]>
+        </programlisting>
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="table">table</link>
+            </member>
+            <member>
+                <link linkend="timeseries">timeseries</link>
+            </member>
+            <member>
+                <link linkend="groupcounts">groupcounts</link>
+            </member>
+            <member>
+                <link linkend="varfun">varfun</link>
+            </member>
+            <member>
+                <link linkend="rowfun">rowfun</link>
+            </member>
+            <member>
+                <link linkend="groupsummary">groupsummary</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    Introduction in Scilab.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

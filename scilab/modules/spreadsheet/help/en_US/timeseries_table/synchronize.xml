@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2023 - Dassault Systèmes S.E. - Adeline CARNIS
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="synchronize" xml:lang="en">
+    <refnamediv>
+        <refname>synchronize</refname>
+        <refpurpose>synchronize several timeseries on the same time basis</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tsout = synchronize(tsin1, ..., tsinN)
+
+            tsout = synchronize(tsin1, ..., tsinN, howtosynchronize)
+            tsout = synchronize(tsin1, ..., tsinN, howtosynchronize, method)
+
+            tsout = synchronize(tsin1, ..., tsinN, newTimeStep)
+            tsout = synchronize(tsin1, ..., tsinN, newTimeStep, method)
+
+            tsout = synchronize(tsin1, ..., tsinN, newTimes)
+            tsout = synchronize(tsin1, ..., tsinN, newTimes, method)
+
+            tsout = synchronize(tsin1, ..., tsinN, "regular", "TimeStep", timeStep)
+            tsout = synchronize(tsin1, ..., tsinN, "regular", "SampleRate", sampleRate)
+            tsout = synchronize(tsin1, ..., tsinN, "regular", method, "TimeStep", timeStep)
+            tsout = synchronize(tsin1, ..., tsinN, "regular", method, "SampleRate", sampleRate)
+
+            tsout = synchronize(..., OptionName, Value, ...)
+
+            [tsout1, ..., tsoutN] = synchronize(tsin1, ..., tsinN, ....)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>tsin1, ..., tsinN</term>
+                <listitem>
+                    <para>timeseries object in input</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>howtosynchronize</term>
+                <listitem>
+                    <para>method to create the new row times of tsout:<emphasis role="bold">'union', 'intersection'</emphasis></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>newTimeStep</term>
+                <listitem>
+                    <para>time step defined by <emphasis role="bold">'yearly', 'monthly', 'daily', 'hourly', 'minutely', 'secondly'</emphasis></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>newTimes</term>
+                <listitem>
+                    <para>new time, duration or datetime column vector.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeStep</term>
+                <listitem>
+                    <para>time step, duration or calendarDuration value</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sampleRate</term>
+                <listitem>
+                    <para>number of samples per second (Hz), double value</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>method</term>
+                <listitem>
+                    <para>method used to fill the missing values or to compute informations for each new row time</para>
+                    <para>methods available to fill the missing value: <emphasis role="bold">'default', 'fillwithmissing', 'fillwihconstant', 
+                    'linear', 'spline'</emphasis></para>
+                    <para>computation methods available: <emphasis role="bold">'count', 'firstvalue', 'lastvalue', 'mode', Scilab function,
+                    user function</emphasis></para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <para>
+                Optional pairs <emphasis role="bold">OptionName, Value</emphasis> are:
+            </para>
+            <para/>
+            <varlistentry>
+                <term><emphasis role="bold">"Constant"</emphasis>, cell</term>
+                <listitem>
+                    <para> 
+                        option available only with fillwihconstant method.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><emphasis role="bold">"IncludedEdge"</emphasis>, "left" or "right"</term>
+                <listitem>
+                    <para> 
+                        This option is only available with 'count', 'firstvalue', 'lastvalue', 'mode', Scilab function,
+                        user function methods.
+                    </para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tsout1, ..., tsoutN</term>
+                <listitem>
+                    <para>output argument - new timeseries.</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>The synchronize function synchronizes the variables (columns) of all timeseries on the same time basis. tsout will contain all variables of all tsin.
+            If several timeseries have the same variable name, then a "_var" + an integer is added to the variable name.
+        </para>
+        <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN)</emphasis> returns a timeseries with the variables of each tsin1, ..., tsinN 
+        synchronized on the same time basis. This new time basis of tsout is the union of all the tsin times sorted by increasing order. Each time in tsout is unique, 
+        i.e. for a duplicate time in multiple tsins, variables column are joined under this time in tsout. The time basis of the tsins are often different, by synchronizing them, 
+        NaN, "" or NaT (default values when a data is missing) are added when there is no data corresponding to thus time in its initial time basis. </para>
+        
+        <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, howtosynchronize)</emphasis> synchronizes all the input timeseries to 
+        the same time basis built with howtosynchronize. This variable can be</para>
+        <itemizedlist>
+            <listitem>
+                 <para><emphasis role="bold">'union'</emphasis>: groups all times of timeseries to form a single one.</para></listitem>
+                <listitem>
+                     <para><emphasis role="bold">'intersection'</emphasis>: create the new time basis only with the times that are common to all timeseries.</para></listitem>
+                </itemizedlist>
+                <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, howtosynchronize, method)</emphasis> creates a new timeseries from the input 
+                timeseries by synchronizing all variables to the same time basis. howtosynchronize specifies the content of the time vector. The method variable 
+                specifies the method used to fill in variables that have no data for this time. It can be used to aggregate data by using a Scilab or an user function:</para>
+                <itemizedlist>
+                    <listitem>
+                         <para><emphasis role="bold">'default'</emphasis>: either fillwithmissing or use method defined in VariableContinuity property.</para></listitem>
+                        <listitem>
+                             <para><emphasis role="bold">'fillwithmissing'</emphasis>: for the times of tsout not matching to the times of tsin, the rows 
+                            of tsout are filled with the default values for each type (NaN for doubles, "" for strings, NaT for datetimes, ...).</para>
+                                                                                                                                            </listitem>
+                        <listitem>
+                             <para><emphasis role="bold">'fillwithconstant'</emphasis>: this method uses to 'Constant' keyword. 'Constant' is a cell of the same number of columns 
+                                than tsin without the Time column. The cell content must concord with the column of tsin1, ..., tsinN.</para>
+                                                                                                                                  </listitem>
+                        <listitem>
+                             <para><emphasis role="bold">'linear'</emphasis>: linear interpolation. tsin1, ..., tsinN must be sorted by time and contains unique values in the time column.</para></listitem>
+                            <listitem>
+                                 <para><emphasis role="bold">'spline'</emphasis>: cubique spline interpolation. tsin1, ..., tsinN must be sorted by time and contains unique values in the time column.</para></listitem>
+                                <listitem>
+                                     <para><emphasis role="bold">'count'</emphasis>: counts the number of values of tsin1, ..., tsinN contained in each new time step defined for tsout.</para></listitem>
+                                    <listitem>
+                                         <para><emphasis role="bold">'firstvalue'</emphasis>: takes the first value contained in tsin1, ..., tsinN for each time step defined for tsout.</para></listitem>
+                                        <listitem>
+                                             <para><emphasis role="bold">'lastvalue'</emphasis>: takes the last value contained in tsin1, ..., tsinN for each time step defined for tsout.</para></listitem>
+                                            <listitem>
+                                                 <para><emphasis role="bold">'mode'</emphasis>: computes the mode of the values of tsin1, ..., tsinN contained in each new time step defined for tsout.</para></listitem>
+                                                <listitem>
+                                                     <para><emphasis role="bold">Scilab or user function</emphasis>: function used to compute values of tsout (for example: mean, sum, ...).</para></listitem>
+                                                </itemizedlist>
+                                                <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, newTimeStep)</emphasis> or <emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, newTimeStep, method)</emphasis> 
+                                                synchronizes tsin1, ..., tsinN on the new time basis generated by newTimeStep: <emphasis role="bold">'yearly', 'monthly' 'daily', 'hourly', 'minutely' ou 'secondly'</emphasis>.</para>
+                                                
+                                                <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, newTimes)</emphasis> or <emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, newTimes, method)</emphasis> 
+                                                creates a new timeseries based on the newTimes, duration or datetime vector.</para>
+                                        
+                                                <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, "regular", "TimeStep", timeStep)</emphasis> or <emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, "TimeStep", timeStep, method)</emphasis>: 
+                                                time vector, contained in tsout, is created from the time step timeStep, duration or calendarDuration scalar.</para>
+                                        
+                                                <para><emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, "regular", "SampleRate", sampleRate)</emphasis> or <emphasis role="bold">tsout = synchronize(tsin1, ..., tsinN, "SampleRate", sampleRate, method)</emphasis>: 
+                                                generates a timeseries with regular time step defined by sampleRate.</para>
+                                        
+                                                <para><emphasis role="bold">tsout = synchronize(..., method, "IncludedEdge", "right"|"left")</emphasis>. When IncludedEdge is equal to 'left', 
+                                                    the computed time base (newrowTimes) will be truncated to newrowTimes(1:$-1) unless newrowTimes($) is present in the initial time basis of tsin1, .., tsinN. 
+                                                    If IncludedEdge is equal to "right", then newrowTimes will be truncated to newrowTimes(2:$) unless newrowTimes(1) is present in the initial time basis of tsin1, .., tsinN.</para>
+                                        
+                                                <para><emphasis role="bold">[tsout1, .., tsoutN] = synchronize(tsin1, .., tsinN [, ...])</emphasis> returns N output timeseries if there is N input timeseries. 
+                                                    Each ouptut timeseries will be on the same time basis.</para>
+                                            </refsection>
+                                            <refsection>
+                                                <title>Examples</title>
+                                                <para><emphasis role="bold">synchronize two timeseries</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                T = datetime(["2022-12-01 08:35:00"; "2022-12-01 08:37:00"; "2022-12-01 08:39:00"; ...
+                                                "2022-12-01 08:45:17"; "2022-12-01 08:47:00"]);
+                                                AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+                                                FlowRate = [50; 52; 53; 55; 60];
+                                                ts1 = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                                
+                                                T = datetime(["2022-12-01 08:27:00"; "2022-12-01 08:40:00"; "2022-12-01 08:43:00"]);
+                                                OutdoorTemperature = [-1; 1; 1.3];
+                                                IndoorTemperature = [19; 19; 19];
+                                                ts2 = timeseries(T, OutdoorTemperature, IndoorTemperature, "VariableNames", ["Time", "OutdoorTemp", "IndoorTemp"])
+                                        
+                                                ts = synchronize(ts1, ts2)
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                                <para><emphasis role="bold">synchronize two timeseries with linear method + newTimeStep = "minutely"</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                    T = datetime(["2022-12-01 08:35:00"; "2022-12-01 08:37:00"; "2022-12-01 08:39:00"; ...
+                                                    "2022-12-01 08:45:17"; "2022-12-01 08:47:00"]);
+                                                    AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+                                                    FlowRate = [50; 52; 53; 55; 60];
+                                                    ts1 = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                                    
+                                                    T = datetime(["2022-12-01 08:27:00"; "2022-12-01 08:40:00"; "2022-12-01 08:43:00"]);
+                                                    OutdoorTemperature = [-1; 1; 1.3];
+                                                    IndoorTemperature = [19; 19; 19];
+                                                    ts2 = timeseries(T, OutdoorTemperature, IndoorTemperature, "VariableNames", ["Time", "OutdoorTemp", "IndoorTemp"])
+                                            
+                                                    ts = synchronize(ts1, ts2, "minutely", "linear")
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                                <para><emphasis role="bold">synchronize two timeseries with newTimes vector</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                    T = datetime(["2022-12-01 08:35:00"; "2022-12-01 08:37:00"; "2022-12-01 08:39:00"; ...
+                                                    "2022-12-01 08:45:17"; "2022-12-01 08:47:00"]);
+                                                    AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
+                                                    FlowRate = [50; 52; 53; 55; 60];
+                                                    ts1 = timeseries(T, AmbientTemperature, FlowRate, "VariableNames", ["Time", "AmbientTemp", "FlowRate"])
+                                                    
+                                                    T = datetime(["2022-12-01 08:27:00"; "2022-12-01 08:40:00"; "2022-12-01 08:43:00"]);
+                                                    OutdoorTemperature = [-1; 1; 1.3];
+                                                    IndoorTemperature = [19; 19; 19];
+                                                    ts2 = timeseries(T, OutdoorTemperature, IndoorTemperature, "VariableNames", ["Time", "OutdoorTemp", "IndoorTemp"])
+                                            
+                                                    newTimes = datetime("2022-12-01 08:27:00"):minutes(2):datetime("2022-12-01 08:47:00");
+                                                    ts = synchronize(ts1, ts2, newTimes', "linear")
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                                <para><emphasis role="bold">synchronize two timeseries with intersection</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                    T = datetime(["2022-12-01 00:00:00"; "2022-12-01 06:00:00"; "2022-12-01 12:00:00"; ...
+                                                    "2022-12-01 18:00:00"; "2022-12-02 00:00:00"]);
+                                                    WindDir = ["NW"; "NW"; "W"; "W"; "NW"];
+                                                    WindSpeed = [8; 10; 7; 9.5; 10.2];
+                                                    ts1 = timeseries(T, WindDir, WindSpeed, "VariableNames", ["Time", "WindDirection", "WindSpeed"])
+                                                    
+                                                    T = datetime(["2022-12-01 00:00:00"; "2022-12-01 12:00:00"; "2022-12-02 00:00:00"]);
+                                                    OutdoorTemperature = [-1; 1; -3];
+                                                    CurrentWeather = ["Snow"; "Sun"; "Snow"];
+                                                    ts2 = timeseries(T, OutdoorTemperature, CurrentWeather, "VariableNames", ["Time", "OutdoorTemp", "Weather"])
+                                            
+                                                    ts = synchronize(ts1, ts2, "intersection")
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                                <para><emphasis role="bold">synchronize two timeseries with union</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                    T = [datetime("2022-12-01"):hours(3):datetime("2022-12-03")]';
+                                                    TemperatureParis = floor(rand(size(T, "*"), 1) * 5 - 1);
+                                                    ts1 = timeseries(T, TemperatureParis, "VariableNames", ["Time", "Paris_Temp"])
+                                        
+                                                    T = [datetime("2022-12-01"):hours(6):datetime("2022-12-03")]';
+                                                    TemperatureMadrid = floor(rand(size(T, "*"), 1) * 6 + 10);
+                                                    ts2 = timeseries(T, TemperatureMadrid, "VariableNames", ["Time", "Madrid_Temp"])
+                                            
+                                                    [tsout1, tsout2] = synchronize(ts1, ts2, "union")
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                                <para><emphasis role="bold">synchronize two timeseries on each day using mean function</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                    T = [datetime("2022-12-01"):hours(3):datetime("2022-12-03")]';
+                                                    TemperatureParis = floor(rand(size(T, "*"), 1) * 5 - 1);
+                                                    ts1 = timeseries(T, TemperatureParis, "VariableNames", ["Time", "Paris_Temp"])
+                                        
+                                                    T = [datetime("2022-12-01"):hours(6):datetime("2022-12-03")]';
+                                                    TemperatureMadrid = floor(rand(size(T, "*"), 1) * 6 + 10);
+                                                    ts2 = timeseries(T, TemperatureMadrid, "VariableNames", ["Time", "Madrid_Temp"])
+                                        
+                                                    ts = synchronize(ts1, ts2, "daily", mean)
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                                <para><emphasis role="bold">use synchronize with a list of timeseries</emphasis></para>
+                                                <para>
+                                                <programlisting role="example"><![CDATA[
+                                                    T = [datetime("2022-12-01"):hours(3):datetime("2022-12-03")]';
+                                                    TemperatureParis = floor(rand(size(T, "*"), 1) * 5 - 1);
+                                                    ts1 = timeseries(T, TemperatureParis, "VariableNames", ["Time", "Paris_Temp"])
+                                        
+                                                    T = [datetime("2022-12-01"):hours(6):datetime("2022-12-03")]';
+                                                    TemperatureMadrid = floor(rand(size(T, "*"), 1) * 6 + 10);
+                                                    ts2 = timeseries(T, TemperatureMadrid, "VariableNames", ["Time", "Madrid_Temp"])
+                                        
+                                                    list_ts = list(ts1, ts2);
+                                        
+                                                    ts = synchronize(list_ts(:), "daily", mean)
+                                                ]]>
+                                                </programlisting>
+                                                </para>
+                                            </refsection>
+                                            <refsection role="see also">
+                                                <title>See also</title>
+                                                <simplelist type="inline">
+                                                    <member>
+                                                        <link linkend="timeseries">timeseries</link>
+                                                    </member>
+                                                    <member>
+                                                        <link linkend="retime">retime</link>
+                                                    </member>
+                                                    <member>
+                                                        <link linkend="isregular">isregular</link>
+                                                    </member>
+                                                </simplelist>
+                                            </refsection>
+                                            <refsection role="history">
+                                                <title>History</title>
+                                                <revhistory>
+                                                    <revision>
+                                                        <revnumber>2024.0.0</revnumber>
+                                                        <revremark>
+                                                            Introduction in Scilab.
+                                                        </revremark>
+                                                    </revision>
+                                                </revhistory>
+                                            </refsection>
+                                        </refentry>

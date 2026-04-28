@@ -1,0 +1,107 @@
+// ============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2023 - Dassault Systèmes S.E. - Bruno JOFRET
+//
+//  This file is distributed under the same license as the Scilab package.
+// ============================================================================
+
+// <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
+classdef Foo
+    enumeration
+        A
+        B
+        C
+    end
+end
+
+classdef Colors
+    properties
+        R
+        G
+        B
+    end
+
+    methods
+        function Colors(r, g, b)
+            this.R = r;
+            this.G = g;
+            this.B = b;
+        end
+    end
+
+    enumeration
+        Blueish   (18/255,104/255,179/255)
+        Reddish   (237/255,36/255,38/255)
+        Greenish  (155/255,190/255,61/255)
+        Purplish  (123/255,45/255,116/255)
+        Yellowish (1,199/255,0)
+        LightBlue (77/255,190/255,238/255)
+    end
+end
+
+classdef CarPainter
+    methods
+        function paint(carobj, colorobj)
+        end
+    end
+end
+
+classdef Cars < CarPainter
+    properties (private)
+        Cylinders
+        Transmission
+        MPG
+        Color
+    end
+
+    methods
+        function Cars(cyl, trans, mpg, color)
+            this.Cylinders = cyl;
+            this.Transmission = trans;
+            this.MPG = mpg;
+            this.Color = color;
+        end
+
+        function paint(color)
+            if isa(color, 'Colors')
+                this.Color = color;
+            else
+                disp('Not an available color')
+            end
+        end
+    end
+
+    enumeration
+        Hybrid      (2, 'Manual',    55, Colors.Reddish)
+        Compact     (4, 'Manual',    32, Colors.Greenish)
+        MiniVan     (6, 'Automatic', 24, Colors.Blueish)
+        SUV         (8, 'Automatic', 12, Colors.Yellowish)
+    end
+end
+
+classdef BasicClass
+    properties
+        Value
+    end
+
+    methods
+        function BasicClass(val)
+            if nargin == 1
+                this.Value = val;
+            end
+        end
+
+        function r = roundOff()
+            r = round(this.Value, 2);
+        end
+
+        function r = multiplyBy(n)
+            r = this.Value * n;
+        end
+
+        function r = plus(o1,o2)
+            r = o1.Value + o2.Value;
+        end
+    end
+end

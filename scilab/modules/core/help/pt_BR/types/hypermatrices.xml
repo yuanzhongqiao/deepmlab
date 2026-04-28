@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2007-2008 - INRIA
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="hypermatrices" xml:lang="pt">
+    <refnamediv>
+        <refname>hypermatrices</refname>
+        <refpurpose>objeto do Scilab: matrizes n-dimensionais</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Descrição</title>
+        <para>O tipo hipermatriz ("hypermatrix") permite manipular arrays
+            multidimensionais.
+        </para>
+        <para>Hipermatrizes podem ser definidas por uma extensão das matrizes 2D
+            como segue: a=[1 2;3 4];a(:,:,2)=rand(2,2)
+        </para>
+        <para>
+            ou usando a função <literal>matrix</literal> diretamente.
+        </para>
+        <para>As entradas podem ser números reais ou complexos, polinômios, razões
+            de polinômios, strings ou valores booleanos.
+        </para>
+        <para>NOTAS: O número de dimensões de hipermatrizes com tamanhos mais à
+            direita iguais a 1 é automaticamente reduzido. Uma hipermatriz com apenas
+            duas dimensões é automaticamente trocada por uma matriz regular (tipo
+            1).
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemplos</title>
+        <programlisting role="example"><![CDATA[
+a(1,1,1,1:2)=[1 2]
+a=[1 2;3 4];a(:,:,2)=rand(2,2)
+a(1,1,:)
+
+size(a)
+
+a(:,:,1) //redução de dimensionalidade
+type(a(:,:,1))
+
+[a a]
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Ver Também</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="zeros">zeros</link>
+            </member>
+            <member>
+                <link linkend="ones">ones</link>
+            </member>
+            <member>
+                <link linkend="grand">grand</link>
+            </member>
+            <member>
+                <link linkend="matrix">matrix</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

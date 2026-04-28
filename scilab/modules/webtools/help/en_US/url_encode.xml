@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2020-2023 - Samuel GOUGEON
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="url_encode" xml:lang="en">
+    <refnamediv>
+        <refname>url_encode</refname>
+        <refpurpose>
+            Encode URL strings using CURL.
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            encoded = url_encode(Strings)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>Strings</term>
+                <listitem>
+                     <para>
+                        Any single string or regular array of strings that needed to be encoded before using <link linkend="http_get">http_</link> functions.
+                        </para>
+                    </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>encoded</term>
+                <listitem>
+                     <para>
+                        Array of strings. Its sizes match <varname>Strings</varname> ones.
+                        </para>
+                    </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <emphasis role="bold">url_encode(Strings)</emphasis> uses the <ulink url="https://curl.se/docs/url-syntax.html">CURL parser</ulink> to performs URL conversion for each element of <literal>Strings</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+url_encode(["€T%Â" ; "µДزあ字"])
+url_encode(["+-._~ ", "0123456789" ; "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"])
+     ]]></programlisting>
+        <screen><![CDATA[
+--> url_encode(["€T%Â" ; "µДزあ字"])
+ ans  =
+ "%E2%82%ACT%25%C3%82"                 
+ "%C2%B5%D0%94%D8%B2%E3%81%82%E5%AD%97"
+
+--> url_encode(["+-._~ " "0123456789" ; "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz"])
+ ans  =
+ "%2B-._~%20"                  "0123456789"                
+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  "abcdefghijklmnopqrstuvwxyz"
+
+]]></screen>
+
+    </refsection>
+
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="url_decode">url_decode</link>
+            </member>
+            <member>
+                <link linkend="http_get">http_get</link>
+            </member>
+            <member>
+                <link linkend="url_split">url_split</link>
+            </member>
+            <member>
+                <link linkend="ascii">ascii</link>
+            </member>
+            <member>
+                <link linkend="dec2hex">dec2hex</link>
+            </member>
+        </simplelist>
+    </refsection>
+
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+           <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    url_encode() added to the webtools module.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

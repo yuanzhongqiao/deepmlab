@@ -1,0 +1,532 @@
+# Ukrainian translation for scilab
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the scilab package.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Yuri Chornoivan <yurchor@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"PO-Revision-Date: 2021-07-11 01:00+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 1b66c075b8638845e61f40eb9036fabeaa01f591)\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d.\n"
+msgstr "%s: помилковий тип вхідного параметра №%d.\n"
+
+#, c-format
+msgid "%s: Invalid index.\n"
+msgstr "%s: некоректний індекс.\n"
+
+#, c-format
+msgid "%s: Multidimensional sparse matrices are not handled.\n"
+msgstr "%s: обробки багатовимірних розріджених матриць не передбачено.\n"
+
+#, c-format
+msgid "%s: Non implemented feature.\n"
+msgstr "%s: нереалізована можливість.\n"
+
+#, c-format
+msgid "%c: input argument #%d has duplicates\n"
+msgstr "%c: дублювання вхідного параметра №%d\n"
+
+#, c-format
+msgid "%c: input argument #%d must be sorted in lexicographic order\n"
+msgstr ""
+"%c: дані вхідного параметра №%d має бути упорядковано у лексикографічному "
+"порядку\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: 'c', 'd' or a scalar expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути вказано «c», «d» "
+"або скаляр.\n"
+
+#, c-format
+msgid "%s: Affection of a string in a matrix of numbers is not implemented.\n"
+msgstr "%s: прив’язку рядка у числовій матриці не реалізовано.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d: Incompatible sizes.\n"
+msgstr "%s: параметри %d і %d: несумісні розмірності.\n"
+
+#, c-format
+msgid "%s: Syntax x(j) only allowed for row cblock's.\n"
+msgstr ""
+"%s: синтаксичну конструкцію x(j) можна використовувати лише у рядкових "
+"cblock.\n"
+
+msgid "  (empty table)\n"
+msgstr "  (порожня таблиця)\n"
+
+#, c-format
+msgid "%s: Invalid field name.\n"
+msgstr "%s: некоректна назва поля.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: a valid field name expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: мало бути вказано коректну "
+"назву поля.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d.\n"
+msgstr "%s: помилкова розмірність вхідного параметра №%d.\n"
+
+#, c-format
+msgid "%s: Wrong number of output arguments.\n"
+msgstr "%s: помилкова кількість вихідних параметрів.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Transpose can not be defined.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: транспонування не може "
+"бути визначено.\n"
+
+#, c-format
+msgid "%s: Invalid path.\n"
+msgstr "%s: некоректний шлях.\n"
+
+#, c-format
+msgid ""
+"%s: Input argument #%d and input argument #%d have incompatible dimensions.\n"
+msgstr "%s: розмірності вхідних параметрів №%d і №%d несумісні.\n"
+
+#, c-format
+msgid "%s: Implicit size not supported.\n"
+msgstr "%s: підтримки неявного розміру не передбачено.\n"
+
+#, c-format
+msgid ""
+"%s: In concatenation the number of dimensions for each component must "
+"match.\n"
+msgstr ""
+"%s: у разі використання з’єднання розмірності всіх компонентів мають бути "
+"однаковими.\n"
+
+#, c-format
+msgid "%s: Inconsistent dimensions.\n"
+msgstr "%s: несумісні розмірності.\n"
+
+#, c-format
+msgid "%s: Inconsistent element-wise operation.\n"
+msgstr "%s: несумісна поелементна операція.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: 3D maximum expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: розмірність не повинна "
+"перевищувати 3.\n"
+
+#, c-format
+msgid "%s: Wrong size for argument: Incompatible dimensions.\n"
+msgstr "%s: помилкова розмірність параметра: несумісні розмірності.\n"
+
+#, c-format
+msgid "%s: not implemented for argin#1 hypermatrix and argin#2 matrix\n"
+msgstr ""
+"%s: не реалізовано для гіперматриці-аргумента 1 і матриці-аргумента 2\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A real matrix expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути вказано матрицю з "
+"дійсними елементами.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: integer <= ndims(argument #%d) "
+"expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути ціле число, що не "
+"перевищує ndims(параметра №%d).\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: integer values expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано цілі числа.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Scalar (1 element) expected.\n"
+msgstr "%s: параметр №%d: мало бути вказано скаляр (1 елемент).\n"
+
+#, c-format
+msgid "%s struct with no field"
+msgstr "структура %s без полів"
+
+msgid "0x0 struct with fields:"
+msgstr "структура 0x0 із такими полями:"
+
+#, c-format
+msgid "%s struct with fields:"
+msgstr "структура %s із такими полями:"
+
+msgid "(void)"
+msgstr "(void)"
+
+#, c-format
+msgid "(%d lines)"
+msgstr "(%d рядків)"
+
+msgid "rational"
+msgstr "раціональне"
+
+msgid "complex rational"
+msgstr "комплексне раціональне"
+
+#, c-format
+msgid "[%s %s] of %s"
+msgstr "[%s %s] з %s"
+
+msgid "cell"
+msgstr "комірка"
+
+msgid "empty list()"
+msgstr ""
+
+#, c-format
+msgid "[%s] %s without field."
+msgstr "[%s] %s без полів."
+
+#, c-format
+msgid "[%s] %s with fields:"
+msgstr "[%s] %s з такими полями:"
+
+msgid "[0x0 struct] with no field"
+msgstr "[структура 0x0] без полів"
+
+#, c-format
+msgid "[%s struct] with fields:"
+msgstr "[структура %s] з такими полями:"
+
+#, c-format
+msgid "%s: time domains are not compatible.\n"
+msgstr "%s: часові області несумісні.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: Same number of rows expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: кількість рядків має бути "
+"однаковою.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: Same number of columns "
+"expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: кількість стовпчиків у параметрах "
+"має збігатися.\n"
+
+#, c-format
+msgid "%s: Invalid syntax for a MIMO system.\n"
+msgstr "%s: некоректна синтаксична конструкція для системи MIMO.\n"
+
+#, c-format
+msgid "%s: The problem is singular.\n"
+msgstr "%s: задача є сингулярною.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %d or %s expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути вказано %d або %s.\n"
+
+#, c-format
+msgid "%s: Eye variable undefined in this context.\n"
+msgstr "%s: змінна Eye у цьому контексні є невизначеною.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: An integer matrix expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: мало бути вказано матрицю з цілих "
+"значень.\n"
+
+#, c-format
+msgid "%s: Division by 0...\n"
+msgstr "%s: ділення на 0...\n"
+
+#, c-format
+msgid "%s: Division by zero..."
+msgstr "%s: ділення на 0..."
+
+#, c-format
+msgid "%s: Argument #%d: Square matrix expected.\n"
+msgstr "%s: параметр №%d: мала бути квадратна матриця.\n"
+
+#, c-format
+msgid "%s: Wrong size for input arguments.\n"
+msgstr "%s: помилкова розмірність вхідних параметрів.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument(s).\n"
+msgstr "%s: помилкова розмірність вхідних параметрів.\n"
+
+#, c-format
+msgid "%s: Inconsistent addition.\n"
+msgstr "%s: несумісне додавання.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати від %d до "
+"%d параметрів.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"дійсне число.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Integer >= %d expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: мало бути використано ціле "
+"число >= %d.\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr ""
+"%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати значення "
+"з набору {%s}.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип «string» "
+"або скалярний тип.\n"
+
+#, c-format
+msgid "%s: Argument #%d: Decimal number(s) expected.\n"
+msgstr ""
+"%s: параметр %d: мало бути вказано десяткове число або десяткові числа.\n"
+
+msgid "Invalid exponent: expected real exponents."
+msgstr "Некоректний степінь: степінь має бути дійсним."
+
+msgid "Division by zero"
+msgstr "Ділення на нуль"
+
+msgid "Invalid Exponent"
+msgstr "Некоректний степінь"
+
+#, c-format
+msgid "%s: Hypermatrix not supported.\n"
+msgstr "%s: підтримки гіперматриць не передбачено.\n"
+
+#, c-format
+msgid "%s: Inconsistent multiplication.\n"
+msgstr "%s: множення несумісних значень.\n"
+
+#, c-format
+msgid "column %d"
+msgstr "стовпчик %d"
+
+#, c-format
+msgid "columns %d to %d"
+msgstr "стовпчики з %d до %d"
+
+msgid "Not implemented"
+msgstr "не реалізовано."
+
+msgid "Invalid exponent"
+msgstr "Некоректний степінь"
+
+#, c-format
+msgid "%s: Wrong number of output arguments: %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вихідних параметрів: слід використовувати %d.\n"
+
+#, c-format
+msgid ""
+"Complex comparison not supported. Please define %s_1_s_custom() or check "
+"your code."
+msgstr ""
+"Підтримки порівняння комплексних чисел не передбачено. Будь ласка, визначте "
+"%s_1_s_custom() або змініть ваш код."
+
+#, c-format
+msgid ""
+"Complex comparison not supported. Please define %s_2_s_custom() or check "
+"your code."
+msgstr ""
+"Підтримки порівняння комплексних чисел не передбачено. Будь ласка, визначте "
+"%s_2_s_custom() або змініть ваш код."
+
+#, c-format
+msgid ""
+"Complex comparison not supported. Please define %s_3_s_custom() or check "
+"your code."
+msgstr ""
+"Підтримки порівняння комплексних чисел не передбачено. Будь ласка, визначте "
+"%s_3_s_custom() або змініть ваш код."
+
+#, c-format
+msgid ""
+"Complex comparison not supported. Please define %s_4_s_custom() or check "
+"your code."
+msgstr ""
+"Підтримки порівняння комплексних чисел не передбачено. Будь ласка, визначте "
+"%s_4_s_custom() або змініть ваш код."
+
+#, c-format
+msgid ""
+"%s: Wrong type for input arguments #%d and #%d: Integer values expected.\n"
+msgstr ""
+"%s: помилковий тип вхідних параметрів №%d і №%d: мало бути використано цілі "
+"величини.\n"
+
+#, c-format
+msgid "%s: Not yet implemented.\n"
+msgstr "%s: ще не реалізовано.\n"
+
+#, c-format
+msgid "%s: Wrong argument #%d.\n"
+msgstr "%s: помилковий параметр %d.\n"
+
+#, c-format
+msgid "%s: A null assignment can have only one non-colon index.\n"
+msgstr ""
+"%s: призначення порожнього значення можливе лише для одного індексу без "
+"двокрапки.\n"
+
+#, c-format
+msgid "%s: not implemented for argin#1 matrix and argin#2 hypermatrix\n"
+msgstr ""
+"%s: не реалізовано для матриці-аргумента 1 і гіперматриці-аргумента 2\n"
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: Square matrix expected.\n"
+msgstr ""
+"%s: помилкова розмірність вхідного параметра №%d: слід використовувати "
+"квадратну матрицю.\n"
+
+#, c-format
+msgid "%s: Unable to diagonalize.\n"
+msgstr "%s: не вдалося діагоналізувати.\n"
+
+#
+msgid "Not implemented in scilab...\n"
+msgstr "Hе реалізовано в scilab...\n"
+
+#, c-format
+msgid ""
+"%s: Insertion of a sparse matrix in a matrix of numbers is not defined.\n"
+msgstr "%s: вставлення розрідженої матриці до числової матриці не визначено.\n"
+
+#, c-format
+msgid "%s: Sparse insertion case is not implemented.\n"
+msgstr "%s: випадок вставлення розрідженої матриці не реалізовано.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d: Same numbers of rows expected.\n"
+msgstr "%s: параметри %d і %d: кількість рядків мала бути однаковою.\n"
+
+#
+# File: modules/overloading/macros/%sp_l_sp.sci, line: 35
+#, c-format
+msgid "sparse  sparse: Deficient rank: rank = %d"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати скалярний "
+"тип.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: An integer expected.\n"
+msgstr "%s: помилковий тип вхідного параметра №%d: мало бути ціле число.\n"
+
+#, c-format
+msgid "%s: Arguments #%d and #%d: Same numbers of columns expected.\n"
+msgstr ""
+
+#
+# File: modules/overloading/macros/%sp_r_sp.sci, line: 36
+#, c-format
+msgid "sparse / sparse: Deficient rank: rank = %d"
+msgstr ""
+
+#, c-format
+msgid "%s: Concatenated arrays must have the same number of dimensions.\n"
+msgstr ""
+"%s: масиви, що з’єднуються повинні мати однакову кількість розмірностей.\n"
+
+#, c-format
+msgid "%s: Field names mismatch.\n"
+msgstr "%s: невідоповідність назв полів.\n"
+
+msgid "Inconsistent row/column dimensions.\n"
+msgstr "Несумісне співвідношення рядки/стовпчики.\n"
+
+msgid "Inconsistent multiplication.\n"
+msgstr "Несумісне множення.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible input arguments #%d and #%d: Same dimensions expected.\n"
+msgstr ""
+"%s: несумісні вхідні параметри №%d і №%d: розмірності мали бути однаковими.\n"
+
+#, c-format
+msgid "%s: Wrong number of output argument: %d expected.\n"
+msgstr "%s: помилкова кількість вихідного параметра: мало бути %d.\n"
+
+#, c-format
+msgid "%s: Argument #1(1): string expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Not implemented.\n"
+msgstr "%s: не реалізовано.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong assignment: for insertion in cell, use e.g. x(i,j).entries=y.\n"
+msgstr ""
+"%s: помилкове визначення: для вставлення до комірки скористайтеся, "
+"наприклад, записом x(i,j).entries=y.\n"
+
+#, c-format
+msgid ""
+"%s: Incompatible sizes for properties '%s' and '%s': Same sizes expected.\n"
+msgstr ""
+"%s: несумісні розмірності властивостей «%s» і «%s»: розмірності мають "
+"збігатися.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
+
+#, c-format
+#~ msgid "%s: Wrong type for input argument #%d: String expected.\n"
+#~ msgstr ""
+#~ "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+#~ "«string».\n"
+
+#, c-format
+#~ msgid "%s: Invalid index\n"
+#~ msgstr "%s: некоректний індекс\n"
+
+#, c-format
+#~ msgid "%s: Wrong value for input argument #%d: not a valid field name.\n"
+#~ msgstr ""
+#~ "%s: помилкове значення вхідного параметра №%d: некоректна назва поля.\n"
+
+#, c-format
+#~ msgid "%s: Incorrect assignment.\n"
+#~ msgstr "%s: некоректне надання значення.\n"

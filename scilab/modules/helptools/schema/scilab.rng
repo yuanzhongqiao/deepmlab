@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar  xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:s="http://www.ascc.net/xml/schematron" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" xmlns:ctrl="http://nwalsh.com/xmlns/schema-control/" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://docbook.org/ns/docbook">
+<!-- DocBook Scilab schema used per help file -->
+
+  <include href="docbook.rng">
+      <!-- Reduce entry point to a refentry only-->
+      <start>
+          <ref name="db.refentry"/>
+      </start>
+      
+      <!-- Disable link idref checking as we are only checking files -->
+        <define name="db.linkend.attribute">
+        <attribute name="linkend">
+          <a:documentation>Points to an internal link target by identifying the value of its xml:id attribute</a:documentation>
+          <data type="string"/>
+        </attribute>
+      </define>
+      
+      <!-- Add support for latex as mathematical expression -->
+      <define name="db.math.inlines">
+        <choice>
+            <ref name="db.inlineequation"/>
+            <ref name="sci.inlinelatex"/>
+        </choice>
+      </define>
+      
+  </include>
+
+  <define name="sci.inlinelatex">
+    <a:documentation>An inlined latex equation</a:documentation>
+    <element name="latex">
+        <text/>
+    </element>
+  </define>
+
+</grammar>

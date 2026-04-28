@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2000 - INRIA - Carlos Klimann
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="nanmeanf">
+    <refnamediv>
+        <refname>nanmeanf</refname>
+        <refpurpose>mean (ignoring Nan's) with a given frequency.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            m = nanmean(val, fre)
+            m = nanmean(val, fre, orientation)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>val</term>
+                <listitem>
+                    <para>real or complex vector or matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fre</term>
+                <listitem>
+                    <para>integer vector  or matrix with same dimensions  than
+                        val
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>orientation</term>
+                <listitem>
+                    <para>
+                        index of the dimension along which the nanmeanf is computed. It can be either
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                             <para>
+                                a character <literal>"*"</literal> (default), <literal>"r"</literal> or
+                              <literal>"c"</literal>
+                          </para>
+                      </listitem>
+                        <listitem>
+                             <para>
+                                a positive integer: 1 or 2. 1 is equivalent to "r" and 2 is equivalent to "c".
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>real or complex scalar or vector</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This function returns in scalar <literal> m</literal> the mean of the
+            values (ignoring  the NANs) of a vector  or matrix
+            <literal>val</literal>,   each counted  with   a  frequency signaled  by  the
+            corresponding values of the  integer vector or matrix  <literal>fre</literal>
+            with the same type of <literal>val</literal>.
+        </para>
+        <para>
+            For      a  vector    or  matrix    <literal>    val</literal>,
+            <literal> m=nanmeanf(val,fre)</literal>  or  <literal> m=nanmeanf(val,fre,'*')</literal>
+            returns in scalar  <literal> m</literal>  the mean of all  the entries
+            (ignoring  the NANs) of   <literal> val</literal>, each  value counted
+            with the multiplicity indicated by the corresponding value
+            of <literal> fre</literal>.
+        </para>
+        <para>
+            <literal>m=nanmeanf(val,fre,'r')</literal>       (or,     equivalently,
+            <literal>m=nanmeanf(val,fre,1)</literal> ) returns in each entry of the
+            row vector <literal>  m</literal> of  type 1xsize(val,'c') the mean of
+            each column of val (ignoring the NANs), each value counted
+            with the multiplicity indicated by the corresponding value
+            of <literal> fre</literal>.
+        </para>
+        <para>
+            <literal>m=nanmeanf(val,fre,'c')</literal>  (or,      equivalently,
+            <literal>m=nanmeanf(val,fre,2)</literal>) returns in  each entry of the
+            column  vector m of  type size(val,'c')x1 the mean of each
+            row  of val (ignoring  the NANs),  each value counted with
+            the multiplicity indicated  by the corresponding  value of
+            fre.
+        </para>
+        <para>
+            In Labostat, NAN values stand for missing values in tables.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+x=[0.2113249 %nan 0.6653811;0.7560439 0.3303271 0.6283918]
+fre=[34 12 25;12 23 5]
+m=nanmeanf(x,fre)
+m=nanmeanf(x,fre,1)
+m=nanmeanf(x,fre,2)
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>Bibliography</title>
+        <para>
+            Wonacott, T.H. &amp; Wonacott, R.J.; Introductory Statistics, fifth edition, J.Wiley &amp; Sons, 1990.
+        </para>
+    </refsection>
+</refentry>
