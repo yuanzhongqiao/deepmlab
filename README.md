@@ -50,3 +50,18 @@ Scilab includes hundreds of mathematical functions. It has a high-level programm
   <dt>Xcos - Hybrid dynamic systems modeler and simulator</dt>
   <dd>Modeling mechanical systems, hydraulic circuits, control systems...</dd>
 </dl>
+
+
+
+# License
+Scilab is available under the GPL v2.0 License. What does it means? You have the freedom to:
+
+use the software for any purpose,
+change the software to suit your needs,
+share the software with your friends and neighbors, and
+share the changes you make.
+For more details about GPL licenses (compatibility, ...), you can refer to the GPL quick guide.
+
+How to distribute an application based on Scilab without violating the GPL License?
+
+The toolbox mechanism of Scilab enables you to develop applications on top of Scilab, while applying your own license (proprietary or free).
