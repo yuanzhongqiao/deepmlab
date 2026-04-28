@@ -1,4 +1,9 @@
-DeepScience是基于知名Scilab的开源项目，由深圳德沛开源数据科技有限公司维护，遵守开源协议，加入大模型。
+# Deep Mlab   Alternative to MATLAB  AI inside
+
+LLM-Driven, Scilab Kernel, Alternative to MATLAB, Open Source, AI-Driven Mathematical Modeling Tool, Natural Language Modeling
+
+
+DeepMathLab    是基于知名Scilab的开源项目，由深圳德沛开源数据科技有限公司维护，遵守开源协议，加入大模型。
 
 ** 通过大模型做数值仿真的系统，在线体验  ：  www.deepmlab.com  **
 
